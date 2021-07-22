@@ -1,0 +1,33 @@
+[user]
+	name = Kotaro Yamada
+[include]
+	path = ~/.gitalias
+[branch]
+	autoSetupRebase = always
+[commit]
+	gpgSign = true
+	template = ~/.gitmessage
+[core]
+	editor = nvim
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	ui = auto
+[fetch]
+	prune = true
+	writeCommitGraph = true
+[gpg]
+	program = /usr/bin/krgpg
+[pull]
+	rebase = true
+[push]
+	default = current
+	followTags = true
+[rebase]
+	autoStash = true
+[rerere]
+	enabled = true
+[status]
+	showUntrackedFiles = all

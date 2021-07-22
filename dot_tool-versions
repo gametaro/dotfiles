@@ -1,0 +1,6 @@
+bat 0.18.3
+fd 8.2.1
+neovim stable
+nodejs lts
+ripgrep 13.0.0
+starship 0.58.0

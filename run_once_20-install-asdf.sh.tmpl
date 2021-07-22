@@ -1,0 +1,26 @@
+{{- if (and (eq .chezmoi.os "linux") (not .codespaces)) -}}
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+install_asdf() {
+  if [[ ! -e $HOME/.asdf ]]; then
+    git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf"
+    git -C ~/.asdf checkout "$(git -C "$HOME/.asdf" describe --abbrev=0 --tags)"
+  fi
+}
+
+main() {
+  install_asdf
+}
+
+main "$@"
+{{- end -}}
+
+{{- if (and (eq .chezmoi.os "darwin") (not .codespaces)) -}}
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+brew install asdf
+{{- end -}}

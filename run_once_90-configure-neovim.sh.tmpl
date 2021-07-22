@@ -1,0 +1,5 @@
+{{- if (and (eq .chezmoi.os "linux") (not .codespaces)) -}}
+#!/usr/bin/env bash
+~/.asdf/shims/nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+~/.asdf/shims/nvim --headless -c 'TSInstallSync maintained' -c 'quitall'
+{{- end -}}

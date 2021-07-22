@@ -1,0 +1,64 @@
+{{ if (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+{{ if (eq .chezmoi.osRelease.id "debian" "ubuntu") -}}
+packages=(
+  build-essential
+  curl
+  fish
+  git
+  jq
+  libsqlite3-dev
+  procps
+  sqlite3
+  unzip
+  wget
+)
+
+main() {
+  sudo apt-get update
+  sudo apt-get install -y "${packages[@]}"
+}
+
+{{ end -}}
+{{ if (eq .chezmoi.osRelease.id "amzn" "centos" "fedora" "rhel") -}}
+
+packages=(
+  curl
+  gcc-c++
+  git
+  jq
+  procps-ng
+  sqlite-devel
+  unzip
+  wget
+)
+
+main() {
+  sudo dnf install -y "${packages[@]}"
+  sudo dnf group install -y "Development Tools"
+  cd /etc/yum.repos.d/
+  wget https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_8/shells:fish:release:3.repo
+  sudo dnf install -y fish
+}
+
+{{ end -}}
+{{ if (eq .chezmoi.os "darwin") -}}
+
+packages=(
+  git
+  curl
+  fish
+  gcc
+)
+
+main() {
+  brew update
+  brew install "${packages[@]}"
+}
+
+{{ end -}}
+main "$@"
+{{ end -}}

@@ -1,0 +1,13 @@
+{{- if (and (eq .chezmoi.os "linux") (not .codespaces)) -}}
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+. "$HOME/.bashrc"
+
+while read -r plugin _; do
+  asdf plugin-add "$plugin"
+done <"$HOME/.tool-versions"
+
+asdf install
+{{- end -}}
