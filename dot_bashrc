@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-case $- in
-    *i*) exec fish ;;
-      *) return ;;
-esac
+# case $- in
+#     *i*) exec fish ;;
+#       *) return ;;
+# esac
 
 export VISUAL=nvim
 export EDITOR=nvim
