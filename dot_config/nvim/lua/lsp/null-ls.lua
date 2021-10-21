@@ -44,11 +44,11 @@ local sources = {
     end,
     filetypes = { 'html', 'yaml', 'markdown', 'javascript', 'typescript' },
   },
-  b.formatting.shellharden.with {
-    condition = function()
-      return vim.fn.executable 'shellharden' == 1
-    end,
-  },
+  -- b.formatting.shellharden.with {
+  --   condition = function()
+  --     return vim.fn.executable 'shellharden' == 1
+  --   end,
+  -- },
   b.formatting.shfmt.with {
     condition = function()
       return vim.fn.executable 'shfmt' == 1
