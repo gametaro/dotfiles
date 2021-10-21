@@ -5,7 +5,6 @@
 [branch]
 	autoSetupRebase = always
 [commit]
-	gpgSign = true
 	template = ~/.gitmessage
 [core]
 	editor = nvim
@@ -18,8 +17,6 @@
 [fetch]
 	prune = true
 	writeCommitGraph = true
-[gpg]
-	program = /usr/bin/krgpg
 [pull]
 	rebase = true
 [push]
