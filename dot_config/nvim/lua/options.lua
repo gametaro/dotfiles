@@ -43,6 +43,7 @@ opt.mouse = 'a'
 opt.pumblend = 10
 opt.scrolloff = 3
 opt.secure = true
+opt.sessionoptions = 'buffers,curdir,tabpages,winsize'
 opt.shiftround = true
 opt.shiftwidth = indent
 opt.shortmess:append 'a'

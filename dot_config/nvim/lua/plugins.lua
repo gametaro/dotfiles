@@ -479,35 +479,14 @@ local function plugins(use)
   }
 
   use {
-    'folke/persistence.nvim',
-    event = 'BufReadPre', -- this will only start session saving when an actual file was opened
-    module = 'persistence',
-    setup = function()
-      -- restore the session for the current directory
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>ps',
-        [[<cmd>lua require("persistence").load()<cr>]],
-        { noremap = true, silent = true }
-      )
-      -- restore the last session
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>pl',
-        [[<cmd>lua require("persistence").load({ last = true })<cr>]],
-        { noremap = true, silent = true }
-      )
-      -- stop Persistence => session won't be saved on exit
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>pd',
-        [[<cmd>lua require("persistence").stop()<cr>]],
-        { noremap = true, silent = true }
-      )
-      -- vim.cmd 'autocmd mine VimEnter * nested lua require("persistence").load()'
-    end,
+    'rmagatti/auto-session',
     config = function()
-      require('persistence').setup()
+      vim.o.sessionoptions = 'buffers,curdir,tabpages,winsize'
+      require('auto-session').setup {
+        auto_session_enabled = true,
+        auto_save_enabled = true,
+        auto_restore_enabled = true,
+      }
     end,
   }
 
