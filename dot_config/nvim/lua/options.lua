@@ -34,6 +34,7 @@ opt.diffopt = {
 opt.expandtab = true
 opt.fillchars = 'diff:/'
 opt.foldmethod = 'expr'
+opt.hidden = true
 opt.ignorecase = true
 opt.inccommand = 'split'
 opt.list = true
