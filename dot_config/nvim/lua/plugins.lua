@@ -481,7 +481,6 @@ local function plugins(use)
   use {
     'rmagatti/auto-session',
     config = function()
-      vim.o.sessionoptions = 'buffers,curdir,tabpages,winsize'
       require('auto-session').setup {
         auto_session_enabled = true,
         auto_save_enabled = true,
