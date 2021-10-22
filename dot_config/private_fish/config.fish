@@ -7,7 +7,7 @@ abbr v nvim
 abbr g git
 
 source ~/.asdf/asdf.fish
-if ! test -d $HOME/.config/fish/completions
+if ! test -f $HOME/.config/fish/completions/asdf.fish
   mkdir -p $HOME/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 end
 
