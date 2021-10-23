@@ -37,7 +37,6 @@ function M.setup()
       capabilities = capabilities,
       on_attach = on_attach,
       flags = {
-        -- NOTE: https://github.com/neovim/nvim-lspconfig/wiki/Improving-performance
         debounce_text_changes = 500,
       },
     }
