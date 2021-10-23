@@ -68,5 +68,5 @@ if vim.fn.executable 'fish' > 0 then
 end
 
 if vim.fn.executable 'rg' > 0 then
-  opt.grepprg = 'rg --vimgrep --smart-case --hidden --glob=!git/*'
+  opt.grepprg = 'rg --vimgrep --smart-case --hidden --glob=!.git'
 end
