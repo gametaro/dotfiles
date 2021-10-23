@@ -471,14 +471,6 @@ local function plugins(use)
   }
 
   use {
-    's1n7ax/nvim-comment-frame',
-    requires = { 'nvim-treesitter' },
-    config = function()
-      require('nvim-comment-frame').setup {}
-    end,
-  }
-
-  use {
     'rmagatti/auto-session',
     config = function()
       require('auto-session').setup {
