@@ -23,6 +23,7 @@ local function plugins(use)
   use {
     'numToStr/Comment.nvim',
     requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    keys = { 'g' },
     config = function()
       require('Comment').setup {
         mappings = {
@@ -56,6 +57,7 @@ local function plugins(use)
 
   use {
     'yuki-yano/zero.nvim',
+    keys = { '0' },
     config = function()
       require('zero').setup()
     end,
@@ -63,11 +65,8 @@ local function plugins(use)
 
   use {
     'monaqa/dial.nvim',
-    config = function()
-      local dial = require 'dial'
-      dial.augends['custom#boolean'] = dial.common.enum_cyclic { name = 'boolean', strlist = { 'true', 'false' } }
-      table.insert(dial.config.searchlist.normal, 'custom#boolean')
-
+    keys = { '<Plug>(dial-' },
+    setup = function()
       vim.api.nvim_set_keymap('n', '<C-a>', '<Plug>(dial-increment)', { silent = true })
       vim.api.nvim_set_keymap('n', '<C-x>', '<Plug>(dial-decrement)', { silent = true })
       vim.api.nvim_set_keymap('n', '<C-a>', '<Plug>(dial-increment)', { silent = true })
@@ -75,14 +74,20 @@ local function plugins(use)
       vim.api.nvim_set_keymap('v', '<C-a>', '<Plug>(dial-increment-additional)', { silent = true })
       vim.api.nvim_set_keymap('v', '<C-x>', '<Plug>(dial-decrement-additional)', { silent = true })
     end,
+    config = function()
+      local dial = require 'dial'
+      dial.augends['custom#boolean'] = dial.common.enum_cyclic { name = 'boolean', strlist = { 'true', 'false' } }
+      table.insert(dial.config.searchlist.normal, 'custom#boolean')
+    end,
   }
 
-  use 'thinca/vim-prettyprint'
+  use { 'thinca/vim-prettyprint', event = 'CmdlineEnter' }
 
-  use 'tyru/capture.vim'
+  use { 'tyru/capture.vim', event = 'CmdlineEnter' }
 
   use {
     'tyru/open-browser.vim',
+    keys = { '<Plug>(openbrowser-smart-search)' },
     setup = function()
       vim.api.nvim_set_keymap('n', 'gx', '<Plug>(openbrowser-smart-search)', { silent = true })
       vim.api.nvim_set_keymap('v', 'gx', '<Plug>(openbrowser-smart-search)', { silent = true })
@@ -91,6 +96,7 @@ local function plugins(use)
 
   use {
     'hrsh7th/vim-eft',
+    keys = { '<Plug>(eft-' },
     setup = function()
       vim.api.nvim_set_keymap('n', ';', '<Plug>(eft-repeat)', {})
       vim.api.nvim_set_keymap('x', ';', '<Plug>(eft-repeat)', {})
@@ -127,6 +133,7 @@ local function plugins(use)
   use {
     'kana/vim-operator-replace',
     requires = { 'kana/vim-operator-user' },
+    keys = { '<Plug>(operator-replace)' },
     setup = function()
       vim.api.nvim_set_keymap('n', 'R', '<Plug>(operator-replace)', { silent = true })
       vim.api.nvim_set_keymap('x', 'R', '<Plug>(operator-replace)', { silent = true })
@@ -149,46 +156,48 @@ local function plugins(use)
     end,
   }
 
+  use 'rafamadriz/friendly-snippets'
+
   use {
-    'rafamadriz/friendly-snippets',
-    {
-      'L3MON4D3/LuaSnip',
-      wants = 'friendly-snippets',
-      config = function()
-        require('luasnip').config.set_config {
-          updateevents = 'TextChanged,TextChangedI',
-          delete_check_events = 'TextChanged',
-          enable_autosnippets = true,
-        }
-        require('luasnip/loaders/from_vscode').load()
-      end,
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
+    requires = {
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-emoji', after = 'nvim-cmp' },
+      { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
     },
-    {
-      'hrsh7th/nvim-cmp',
-      requires = {
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lua',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-emoji',
-        'saadparwaiz1/cmp_luasnip',
-      },
-      config = function()
-        require 'config.cmp'
-      end,
-    },
-    {
-      'windwp/nvim-autopairs',
-      after = 'nvim-cmp',
-      config = function()
-        require('nvim-autopairs').setup { enable_check_bracket_line = false, fast_wrap = {} }
-        require('nvim-autopairs.completion.cmp').setup {
-          map_cr = true, --  map <CR> on insert mode
-          map_complete = true, -- it will auto insert `(` after select function or method item
-          auto_select = true, -- automatically select the first item
-        }
-      end,
-    },
+    config = function()
+      require 'config.cmp'
+    end,
+  }
+
+  use {
+    'L3MON4D3/LuaSnip',
+    wants = 'friendly-snippets',
+    config = function()
+      require('luasnip').config.set_config {
+        updateevents = 'TextChanged,TextChangedI',
+        delete_check_events = 'TextChanged',
+        enable_autosnippets = true,
+      }
+      require('luasnip/loaders/from_vscode').load()
+    end,
+  }
+
+  use {
+    'windwp/nvim-autopairs',
+    after = 'nvim-cmp',
+    config = function()
+      require('nvim-autopairs').setup { enable_check_bracket_line = false, fast_wrap = {} }
+      require('nvim-autopairs.completion.cmp').setup {
+        map_cr = true, --  map <CR> on insert mode
+        map_complete = true, -- it will auto insert `(` after select function or method item
+        auto_select = true, -- automatically select the first item
+      }
+    end,
   }
 
   use {
@@ -261,8 +270,40 @@ local function plugins(use)
 
   use {
     'akinsho/toggleterm.nvim',
+    cmd = { 'ToggleTerm' },
+    setup = function()
+      vim.g.toggleterm_terminal_mapping = [[<C-\>]]
+
+      vim.api.nvim_set_keymap(
+        'n',
+        [[<C-\>]],
+        '<Cmd>execute v:count1 . "ToggleTerm"<CR>',
+        { noremap = true, silent = true }
+      )
+      vim.api.nvim_set_keymap(
+        'i',
+        [[<C-\>]],
+        '<Cmd>execute v:count1 . "ToggleTerm"<CR>',
+        { noremap = true, silent = true }
+      )
+    end,
     config = function()
-      require 'config.toggleterm'
+      require('toggleterm').setup {
+        size = vim.fn.float2nr(vim.o.lines * 0.3),
+        open_mapping = [[<c-\>]],
+        shade_terminals = false,
+      }
+
+      function _G.set_terminal_keymaps()
+        local opts = { noremap = true }
+        vim.api.nvim_buf_set_keymap(0, 't', '<Esc>', [[<C-\><C-n>]], opts)
+        vim.api.nvim_buf_set_keymap(0, 't', '<M-h>', [[<C-\><C-n><C-W>h]], opts)
+        vim.api.nvim_buf_set_keymap(0, 't', '<M-j>', [[<C-\><C-n><C-W>j]], opts)
+        vim.api.nvim_buf_set_keymap(0, 't', '<M-k>', [[<C-\><C-n><C-W>k]], opts)
+        vim.api.nvim_buf_set_keymap(0, 't', '<M-l>', [[<C-\><C-n><C-W>l]], opts)
+      end
+
+      vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
     end,
   }
 
@@ -303,6 +344,7 @@ local function plugins(use)
     requires = {
       { 'nvim-lua/plenary.nvim' },
     },
+    cmd = { 'Neogit' },
     config = function()
       require('neogit').setup {
         disable_hint = true,
@@ -315,6 +357,7 @@ local function plugins(use)
 
   use {
     'sindrets/diffview.nvim',
+    cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     config = function()
       require('diffview').setup {
         enhanced_diff_hl = true,
@@ -341,10 +384,11 @@ local function plugins(use)
     end,
   }
 
-  use 'tversteeg/registers.nvim'
+  use { 'tversteeg/registers.nvim', cmd = { 'Registers' }, keys = { '<Plug>(registers)' } }
 
   use {
     'haya14busa/vim-edgemotion',
+    keys = { '<Plug>(edgemotion-' },
     setup = function()
       vim.api.nvim_set_keymap('n', '<C-j>', '<Plug>(edgemotion-j)', { silent = true })
       vim.api.nvim_set_keymap('x', '<C-j>', '<Plug>(edgemotion-j)', { silent = true })
@@ -397,6 +441,7 @@ local function plugins(use)
 
   use {
     'kana/vim-altercmd',
+    event = { 'CmdlineEnter' },
     config = function()
       require 'config.altercmd'
     end,
@@ -404,16 +449,18 @@ local function plugins(use)
 
   use {
     'michaelb/sniprun',
+    keys = { '<Plug>Snip' },
     run = 'bash ./install.sh',
-    config = function()
-      require('sniprun').setup {
-        selected_interpreters = { 'Lua_nvim' }, --" use those instead of the default for the current filetype
-      }
-
+    setup = function()
       vim.api.nvim_set_keymap('v', '<Leader>sr', '<Plug>SnipRun', { silent = true })
       vim.api.nvim_set_keymap('n', '<Leader>sr', '<Plug>SnipRun', { silent = true })
       vim.api.nvim_set_keymap('n', '<Leader>so', '<Plug>SnipRunOperator', { silent = true })
       vim.api.nvim_set_keymap('n', '<Leader>sc', '<Plug>SnipClose', { silent = true })
+    end,
+    config = function()
+      require('sniprun').setup {
+        selected_interpreters = { 'Lua_nvim' }, --" use those instead of the default for the current filetype
+      }
     end,
   }
 
@@ -463,10 +510,13 @@ local function plugins(use)
   use {
     'folke/todo-comments.nvim',
     requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('todo-comments').setup {}
+    cmd = { 'TodoQuickFix', 'TodoTrouble' },
+    setup = function()
       vim.api.nvim_set_keymap('n', '<Leader>tq', '<Cmd>TodoQuickFix<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<Leader>tt', '<Cmd>TodoTrouble<CR>', { noremap = true, silent = true })
+    end,
+    config = function()
+      require('todo-comments').setup {}
     end,
   }
 
@@ -530,10 +580,11 @@ local function plugins(use)
 
   use 'lewis6991/impatient.nvim'
 
-  use 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  use { 'jose-elias-alvarez/nvim-lsp-ts-utils', ft = { 'typescript', 'typescriptreact' } }
 
   use {
     'lukas-reineke/headlines.nvim',
+    ft = { 'markdown' },
     config = function()
       require('headlines').setup()
     end,
@@ -542,6 +593,7 @@ local function plugins(use)
   use {
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
+    ft = { 'json' },
     setup = function()
       -- Show package versions
       vim.api.nvim_set_keymap(
@@ -609,6 +661,7 @@ local function plugins(use)
 
   use {
     'iamcco/markdown-preview.nvim',
+    ft = { 'markdown' },
     run = function()
       vim.fn['mkdp#util#install']()
     end,
