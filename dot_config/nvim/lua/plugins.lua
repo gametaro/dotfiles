@@ -707,7 +707,11 @@ local function plugins(use)
     setup = function()
       vim.g.copilot_no_tab_map = true
 
-      vim.api.nvim_set_keymap('i', '<C-j>', [[copilot#Accept("\<CR>")]], { noremap = true, script = true, expr = true })
+      vim.api.nvim_set_keymap('i', '<C-j>', [[copilot#Accept("\<CR>")]], {
+        noremap = true,
+        script = true,
+        expr = true,
+      })
     end,
   }
 end
