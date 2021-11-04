@@ -61,6 +61,11 @@ local sources = {
     end,
     extra_args = { '--config-path', vim.fn.stdpath 'config' .. '/stylua.toml' },
   },
+  b.formatting.autopep8.with {
+    condition = function()
+      return vim.fn.executable 'autopep8' == 1
+    end,
+  },
   b.diagnostics.write_good.with {
     condition = function()
       return vim.fn.executable 'write-good' == 1
@@ -74,6 +79,16 @@ local sources = {
   b.diagnostics.shellcheck.with {
     condition = function()
       return vim.fn.executable 'shellcheck' == 1
+    end,
+  },
+  b.diagnostics.flake8.with {
+    condition = function()
+      return vim.fn.executable 'flake8' == 1
+    end,
+  },
+  b.diagnostics.pylint.with {
+    condition = function()
+      return vim.fn.executable 'pylint' == 1
     end,
   },
 }
