@@ -220,17 +220,20 @@ local function plugins(use)
   use {
     'folke/trouble.nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function()
-      require('trouble').setup {
-        auto_close = true,
-      }
-
+    cmd = { 'Trouble' },
+    setup = function()
       local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap('n', '<leader>xx', '<Cmd>TroubleToggle<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<leader>xx', '<Cmd>Trouble<CR>', opts)
       vim.api.nvim_set_keymap('n', '<leader>xw', '<Cmd>Trouble lsp_workspace_diagnostics<CR>', opts)
       vim.api.nvim_set_keymap('n', '<leader>xd', '<Cmd>Trouble lsp_document_diagnostics<CR>', opts)
       vim.api.nvim_set_keymap('n', '<leader>xl', '<Cmd>Trouble loclist<CR>', opts)
       vim.api.nvim_set_keymap('n', '<leader>xq', '<Cmd>Trouble quickfix<CR>', opts)
+      vim.api.nvim_set_keymap('n', 'gR', '<cmd>Trouble lsp_references<cr>', opts)
+    end,
+    config = function()
+      require('trouble').setup {
+        auto_close = true,
+      }
     end,
   }
 
