@@ -592,7 +592,7 @@ local function plugins(use)
   use {
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
-    ft = { 'json' },
+    keys = { '<leader>n' },
     setup = function()
       -- Show package versions
       vim.api.nvim_set_keymap(
