@@ -651,6 +651,21 @@ local function plugins(use)
 
   use {
     'rmagatti/goto-preview',
+    setup = function()
+      vim.api.nvim_set_keymap(
+        'n',
+        'gpd',
+        "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+        { noremap = true }
+      )
+      vim.api.nvim_set_keymap(
+        'n',
+        'gpi',
+        "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+        { noremap = true }
+      )
+      vim.api.nvim_set_keymap('n', 'q', "<cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })
+    end,
     config = function()
       require('goto-preview').setup {
         default_mappings = true,
