@@ -156,18 +156,19 @@ local function plugins(use)
     end,
   }
 
-  use 'rafamadriz/friendly-snippets'
-
   use {
     'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     requires = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-emoji', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+      { 'rafamadriz/friendly-snippets', after = 'nvim-cmp' },
     },
     config = function()
       require 'config.cmp'

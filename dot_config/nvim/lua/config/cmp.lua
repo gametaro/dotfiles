@@ -9,17 +9,25 @@ local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(t(key), mode or '', true)
 end
 
-local function tab()
+local function tab(fallback)
   if luasnip.jumpable() then
     luasnip.jump(1)
+  elseif cmp.visible() then
+    cmp.select_next_item()
+  elseif vim.api.nvim_get_mode().mode == 'c' then
+    fallback()
   else
     feedkey '<Plug>(Tabout)'
   end
 end
 
-local function s_tab()
+local function s_tab(fallback)
   if luasnip.jumpable(-1) then
     luasnip.jump(-1)
+  elseif cmp.visible() then
+    cmp.select_prev_item()
+  elseif vim.api.nvim_get_mode().mode == 'c' then
+    fallback()
   else
     feedkey '<Plug>(TaboutBack)'
   end
@@ -37,16 +45,16 @@ cmp.setup {
   mapping = {
     ['<Tab>'] = cmp.mapping(tab, { 'i', 's' }),
     ['<S-Tab>'] = cmp.mapping(s_tab, { 'i', 's' }),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' }),
+    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-e>'] = cmp.mapping {
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
     },
+    ['<CR>'] = cmp.mapping.confirm { select = true },
   },
   documentation = {
     border = 'rounded',
@@ -55,7 +63,7 @@ cmp.setup {
     deprecated = true,
     format = require('lspkind').cmp_format { with_text = false },
   },
-  sources = {
+  sources = cmp.config.sources {
     { name = 'buffer' },
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
@@ -64,3 +72,21 @@ cmp.setup {
     { name = 'emoji' },
   },
 }
+
+local config = {
+  sources = cmp.config.sources({
+    { name = 'buffer' },
+  }, {
+    { name = 'nvim_lsp_document_symbol' },
+  }),
+}
+
+cmp.setup.cmdline('/', config)
+cmp.setup.cmdline('?', config)
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' },
+  }, {
+    { name = 'cmdline' },
+  }),
+})
