@@ -556,7 +556,7 @@ local function plugins(use)
       local notify = require 'notify'
       local icons = require('theme').icons
       notify.setup {
-        timeout = 3000,
+        timeout = 2000,
         icons = {
           ERROR = string.gsub(icons.error, '%s+', ''),
           WARN = string.gsub(icons.warn, '%s+', ''),
