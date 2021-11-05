@@ -1,12 +1,12 @@
 local M = {}
 
-local opts = { noremap = true, silent = true }
-
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 function M.setup(bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
+
+  local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
