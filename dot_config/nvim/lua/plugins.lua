@@ -409,7 +409,6 @@ local function plugins(use)
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
-      { 'nvim-lua/popup.nvim' },
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-frecency.nvim', requires = { 'tami5/sqlite.lua' } },
       {
