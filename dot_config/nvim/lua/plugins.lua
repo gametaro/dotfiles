@@ -666,9 +666,7 @@ local function plugins(use)
       vim.api.nvim_set_keymap('n', 'q', "<cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })
     end,
     config = function()
-      require('goto-preview').setup {
-        default_mappings = true,
-      }
+      require('goto-preview').setup {}
     end,
   }
 
