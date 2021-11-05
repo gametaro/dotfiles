@@ -398,18 +398,6 @@ local function plugins(use)
   use { 'kana/vim-textobj-user', 'kana/vim-textobj-entire', 'kana/vim-textobj-line' }
 
   use {
-    'winston0410/smart-cursor.nvim',
-    setup = function()
-      vim.api.nvim_set_keymap(
-        'n',
-        'o',
-        'o<cmd>lua require("smart-cursor").indent_cursor()<CR>',
-        { noremap = true, silent = true }
-      )
-    end,
-  }
-
-  use {
     'ahmedkhalf/project.nvim',
     config = function()
       require('project_nvim').setup {}
