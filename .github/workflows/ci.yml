@@ -139,11 +139,3 @@ jobs:
         with:
           commit_message: "chore: format with shfmt"
           branch: ${{ github.head_ref }}
-
-  # typos:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - name: Check spelling of file.txt
-  #       uses: crate-ci/typos@master
