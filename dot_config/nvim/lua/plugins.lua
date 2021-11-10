@@ -698,6 +698,8 @@ local function plugins(use)
       })
     end,
   }
+
+  use 'b0o/schemastore.nvim'
 end
 
 function M.setup()

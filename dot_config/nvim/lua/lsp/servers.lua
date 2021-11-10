@@ -73,7 +73,7 @@ function M.setup()
     if server.name == 'jsonls' then
       config.settings = {
         json = {
-          schemas = require('lsp.schema').schemas,
+          schemas = require('schemastore').json.schemas(),
         },
       }
     end
