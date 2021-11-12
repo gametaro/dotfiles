@@ -12,7 +12,6 @@ vim.g.nvim_tree_icons = {
     deleted = 'D',
   },
 }
-vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache' }
 vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_show_icons = {
   git = 1,
@@ -47,6 +46,10 @@ require('nvim-tree').setup {
   update_focused_file = {
     enable = true,
     update_cwd = true,
+  },
+  filters = {
+    dotfiles = false,
+    custom = { '.git', 'node_modules', '.cache' },
   },
 }
 
