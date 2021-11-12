@@ -165,7 +165,12 @@ local function plugins(use)
     'neovim/nvim-lspconfig',
     requires = {
       { 'williamboman/nvim-lsp-installer' },
-      { 'ray-x/lsp_signature.nvim' },
+      {
+        'ray-x/lsp_signature.nvim',
+        config = function()
+          require('lsp_signature').setup()
+        end,
+      },
       { 'folke/lua-dev.nvim' },
       { 'jose-elias-alvarez/null-ls.nvim' },
       { 'onsails/lspkind-nvim' },

@@ -1,4 +1,3 @@
-local lsp_signature = require 'lsp_signature'
 local is_nightly = require('utils').is_nightly
 local icons = require('theme').icons
 
@@ -36,7 +35,6 @@ end
 
 function M.setup()
   setup_signs()
-  lsp_signature.on_attach {}
 end
 
 return M
