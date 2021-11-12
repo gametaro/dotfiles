@@ -192,7 +192,6 @@ local function plugins(use)
       { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
-      { 'rafamadriz/friendly-snippets', after = 'nvim-cmp' },
     },
     config = function()
       require 'config.cmp'
@@ -201,7 +200,7 @@ local function plugins(use)
 
   use {
     'L3MON4D3/LuaSnip',
-    wants = 'friendly-snippets',
+    requires = 'rafamadriz/friendly-snippets',
     config = function()
       require('luasnip').config.set_config {
         updateevents = 'TextChanged,TextChangedI',
