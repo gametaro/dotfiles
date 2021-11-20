@@ -13,6 +13,7 @@ local config = {
     enable = true,
     threshold = 1,
   },
+  compile_path = vim.fn.stdpath 'config' .. '/lua/packer_compiled.lua',
 }
 
 local function plugins(use)
