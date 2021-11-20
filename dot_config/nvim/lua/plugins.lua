@@ -719,6 +719,28 @@ local function plugins(use)
   }
 
   use 'b0o/schemastore.nvim'
+
+  use {
+    'filipdutescu/renamer.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    setup = function()
+      vim.api.nvim_set_keymap(
+        'n',
+        '<leader>rn',
+        '<cmd>lua require("renamer").rename()<cr>',
+        { noremap = true, silent = true }
+      )
+      vim.api.nvim_set_keymap(
+        'v',
+        '<leader>rn',
+        '<cmd>lua require("renamer").rename()<cr>',
+        { noremap = true, silent = true }
+      )
+    end,
+    config = function()
+      require('renamer').setup {}
+    end,
+  }
 end
 
 function M.setup()
