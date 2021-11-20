@@ -496,6 +496,7 @@ local function plugins(use)
 
   use {
     'mfussenegger/nvim-dap',
+    opt = true,
     config = function()
       require 'config.dap'
     end,
@@ -503,6 +504,7 @@ local function plugins(use)
 
   use {
     'rcarriga/nvim-dap-ui',
+    opt = true,
     config = function()
       require('dapui').setup()
     end,
