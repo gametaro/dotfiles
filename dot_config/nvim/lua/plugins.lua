@@ -449,14 +449,6 @@ local function plugins(use)
   }
 
   use {
-    'kana/vim-altercmd',
-    event = { 'CmdlineEnter' },
-    config = function()
-      require 'config.altercmd'
-    end,
-  }
-
-  use {
     'michaelb/sniprun',
     keys = { '<Plug>Snip' },
     run = 'bash ./install.sh',
