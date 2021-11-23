@@ -91,6 +91,11 @@ local sources = {
       return vim.fn.executable 'pylint' == 1
     end,
   },
+  b.diagnostics.codespell.with {
+    condition = function()
+      return vim.fn.executable 'codespell' == 1
+    end,
+  },
 }
 
 function M.setup(on_attach)
