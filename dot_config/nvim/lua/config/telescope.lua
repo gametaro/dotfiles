@@ -12,6 +12,11 @@ local defaults = require('telescope.themes').get_ivy {
 
 telescope.setup {
   defaults = defaults,
+  extensions = {
+    ['ui-select'] = {
+      require('telescope.themes').get_cursor {},
+    },
+  },
   pickers = {
     buffers = {
       show_all_buffers = true,
@@ -32,9 +37,6 @@ telescope.setup {
     },
     git_branches = {
       theme = 'dropdown',
-    },
-    lsp_code_actions = {
-      theme = 'cursor',
     },
   },
 }
