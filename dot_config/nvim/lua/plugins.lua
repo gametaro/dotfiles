@@ -423,15 +423,6 @@ local function plugins(use)
   use { 'kana/vim-textobj-user', 'kana/vim-textobj-entire', 'kana/vim-textobj-line' }
 
   use {
-    'ahmedkhalf/project.nvim',
-    config = function()
-      require('project_nvim').setup {}
-      require('telescope').load_extension 'projects'
-      vim.api.nvim_set_keymap('n', '<leader>fp', '<Cmd>Telescope projects<CR>', { noremap = true, silent = true })
-    end,
-  }
-
-  use {
     'nvim-telescope/telescope.nvim',
     requires = {
       { 'nvim-lua/plenary.nvim' },
@@ -441,6 +432,14 @@ local function plugins(use)
         requires = { 'tami5/sqlite.lua' },
         run = function()
           os.execute 'mkdir -p ~/.local/share/nvim/databases'
+        end,
+      },
+      {
+        'ahmedkhalf/project.nvim',
+        config = function()
+          require('project_nvim').setup {}
+          require('telescope').load_extension 'projects'
+          vim.api.nvim_set_keymap('n', '<leader>fp', '<Cmd>Telescope projects<CR>', { noremap = true, silent = true })
         end,
       },
       {
