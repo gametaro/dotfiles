@@ -1,4 +1,4 @@
-{{- if (and (eq .chezmoi.os "linux") (not .codespaces)) -}}
+{{- if (eq .chezmoi.os "linux") -}}
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
@@ -17,7 +17,7 @@ main() {
 main "$@"
 {{- end -}}
 
-{{- if (and (eq .chezmoi.os "darwin") (not .codespaces)) -}}
+{{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
 
 set -Eeuo pipefail

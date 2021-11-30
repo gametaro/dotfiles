@@ -1,5 +1,8 @@
-{{- if (and (eq .chezmoi.os "linux") (not .codespaces)) -}}
+{{- if (eq .chezmoi.os "linux") -}}
 #!/usr/bin/env bash
+
+set -Eeuo pipefail
+
 if [ ! "$(command -v nvim)" ]; then
   shims_dir="$HOME/.asdf/shims"
   nvim="$shims_dir/nvim"

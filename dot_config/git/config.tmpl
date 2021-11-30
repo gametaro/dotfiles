@@ -1,11 +1,12 @@
 [user]
-	name = Kotaro Yamada
+	name = {{ .name }}
+	email = {{ .email }}
 [include]
-	path = ~/.gitalias
+	path = ~/.config/git/alias
 [branch]
 	autoSetupRebase = always
 [commit]
-	template = ~/.gitmessage
+	template = ~/.config/git/message
 [core]
 	editor = nvim
 [color]
@@ -28,3 +29,4 @@
 	enabled = true
 [status]
 	showUntrackedFiles = all
+{{/* vim: set filetype=gitconfig: */}}

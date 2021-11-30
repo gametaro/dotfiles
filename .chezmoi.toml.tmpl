@@ -1,6 +1,14 @@
-{{- $codespaces:= env "CODESPACES" | not | not -}}
-sourceDir = {{ .chezmoi.sourceDir | quote }}
+{{- $headless := false -}}
+
+{{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "root" "vscode") -}}
+{{-   $headless = true -}}
+{{- end -}}
 
 [data]
     name = "Kotaro Yamada"
-    codespaces = {{ $codespaces }}
+    headless = {{ $headless }}
+{{- if $headless }}
+    email = "gametaro@outlook.com"
+{{- else }}
+    email = {{ promptString "email" | quote }}
+{{- end }}
