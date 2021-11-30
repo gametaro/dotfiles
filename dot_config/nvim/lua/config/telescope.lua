@@ -1,7 +1,8 @@
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
+local themes = require 'telescope.themes'
 
-local defaults = require('telescope.themes').get_ivy {
+local defaults = themes.get_ivy {
   winblend = 10,
   path_display = { 'smart' },
   history = {
@@ -14,7 +15,7 @@ telescope.setup {
   defaults = defaults,
   extensions = {
     ['ui-select'] = {
-      require('telescope.themes').get_cursor {},
+      themes.get_cursor {},
     },
   },
   pickers = {
