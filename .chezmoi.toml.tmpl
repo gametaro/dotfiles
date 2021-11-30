@@ -1,6 +1,6 @@
 {{- $headless := false -}}
 
-{{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "root" "vscode") -}}
+{{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (env "GITHUB_ACTIONS") (eq .chezmoi.username "root" "vscode") -}}
 {{-   $headless = true -}}
 {{- end -}}
 
