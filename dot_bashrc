@@ -71,7 +71,9 @@ if [[ -d $HOME/.asdf ]]; then
   . "$HOME/.asdf/completions/asdf.bash"
 fi
 
-eval "$(direnv hook bash)"
+if [[ $(command -v direnv) ]]; then
+  eval "$(direnv hook bash)"
+fi
 
 if [[ $(command -v starship) ]]; then
   eval "$(starship init bash)"
