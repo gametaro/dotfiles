@@ -1,0 +1,35 @@
+name: benchmark
+on: [push, pull_request]
+
+permissions:
+  # deployments permission to deploy GitHub pages website
+  deployments: write
+  # contents permission to update benchmark contents in gh-pages branch
+  contents: write
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install requisites on ubuntu
+      run: sudo apt-get update && sudo apt-get install -y curl sudo
+
+    - name: Chezmoi Init
+      run: sh install.sh
+    
+    - name: Run benchmark
+      run: sh scripts/benchmark.sh > result.json
+    
+    - name: Upload benchmark
+      uses: benchmark-action/github-action-benchmark@v1
+      with:
+        tool: customSmallerIsBetter
+        output-file-path: result.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
+        comment-on-alert: true
+        fail-on-alert: true
+        alert-threshold: '150%'
+        alert-comment-cc-users: '@gametaro'
