@@ -5,7 +5,7 @@ function _G.dump(...)
 end
 
 function M.is_nightly()
-  return vim.fn.has 'nvim-0.6' > 0
+  return vim.fn.has 'nvim-0.7' > 0
 end
 
 function M.toggle_qf()

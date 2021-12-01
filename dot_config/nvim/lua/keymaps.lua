@@ -1,9 +1,5 @@
-local is_nightly = require('utils').is_nightly
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
-
-map('i', '<C-u>', '<C-g>u<C-u>', opts)
-map('i', '<C-w>', '<C-g>u<C-w>', opts)
 
 map('x', '=', '=gv', opts)
 
@@ -32,13 +28,6 @@ map('i', '<M-l>', '<Esc><C-w>l', opts)
 
 map('n', '<Leader>q', '<Cmd>lua require"utils".toggle_qf()<CR>', opts)
 
-if not is_nightly() then
-  map('n', 'Y', 'y$', opts)
-end
-
--- NOTE: https://github.com/mhinz/vim-galore#saner-ctrl-l
-map('n', '<C-l>', ':nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>', opts)
-
 -- NOTE: https://github.com/mhinz/vim-galore#quickly-add-empty-lines
 map('n', '[<Space>', "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>'[", opts)
 map('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>', opts)
@@ -48,8 +37,4 @@ map('n', '<Leader>cu', '<Cmd>tcd ..<Bar>pwd<CR>', opts)
 
 map('n', '<Leader>hi', '<Cmd> lua require"utils".highlight_under_cursor()<CR>', opts)
 
-if is_nightly() then
-  map('n', '<Leader>lq', '<Cmd> lua vim.diagnostic.setqflist()<CR>', opts)
-else
-  map('n', '<Leader>lq', '<Cmd> lua vim.lsp.util.set_qflist()<CR>', opts)
-end
+map('n', '<Leader>lq', '<Cmd> lua vim.diagnostic.setqflist()<CR>', opts)
