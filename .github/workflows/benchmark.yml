@@ -1,4 +1,4 @@
-name: benchmark
+name: Benchmark
 on: [push, pull_request]
 
 permissions:
@@ -20,7 +20,7 @@ jobs:
       run: sh install.sh
     
     - name: Run benchmark
-      run: sh scripts/benchmark.sh > result.json
+      run: ./scripts/benchmark.sh > result.json
     
     - name: Upload benchmark
       uses: benchmark-action/github-action-benchmark@v1
