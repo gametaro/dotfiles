@@ -1,5 +1,5 @@
 name: Benchmark
-on: [push, pull_request]
+on: push
 
 permissions:
   # deployments permission to deploy GitHub pages website
