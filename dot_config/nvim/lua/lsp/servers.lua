@@ -79,7 +79,6 @@ function M.setup()
     end
 
     server:setup(config)
-    vim.cmd 'do User LspAttachBuffers'
   end)
 end
 
