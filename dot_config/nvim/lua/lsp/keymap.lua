@@ -20,22 +20,17 @@ function M.setup(bufnr)
   buf_set_keymap('n', '<Leader>D', '<Cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<Leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap(
-    'n',
-    '<Leader>e',
-    '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',
-    opts
-  )
+  buf_set_keymap('n', '<Leader>e', '<Cmd>lua vim.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>', opts)
   buf_set_keymap(
     'n',
     '[d',
-    '<Cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = "rounded", source = "always"}})<CR>',
+    '<Cmd>lua vim.diagnostic.goto_prev({float = {border = "rounded", source = "always"}})<CR>',
     opts
   )
   buf_set_keymap(
     'n',
     ']d',
-    '<Cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = {border = "rounded", source = "always"}})<CR>',
+    '<Cmd>lua vim.diagnostic.goto_next({float = {border = "rounded", source = "always"}})<CR>',
     opts
   )
   -- buf_set_keymap('n', '<Leader>q', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
