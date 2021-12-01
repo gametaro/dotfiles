@@ -216,7 +216,13 @@ local function plugins(use)
     'windwp/nvim-autopairs',
     after = 'nvim-cmp',
     config = function()
-      require('nvim-autopairs').setup { enable_check_bracket_line = false, fast_wrap = {} }
+      require('nvim-autopairs').setup {
+        enable_check_bracket_line = false,
+        fast_wrap = {},
+      }
+
+      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+      require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done { map_char = { tex = '' } })
     end,
   }
 
