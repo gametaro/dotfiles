@@ -9,24 +9,67 @@ permissions:
 
 jobs:
   benchmark:
+    env:
+      OUTPUT_FILE: output.txt
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install requisites on ubuntu
-      run: sudo apt-get update && sudo apt-get install -y curl sudo time
+    - name: Install hyperfine
+      run: |
+        curl -s https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
+        | jq -r '.assets[] | select(.name? | match("hyperfine-musl_.*_amd64.deb")) | .browser_download_url' \
+        | wget -qi - -O hyperfine.deb
+        sudo dpkg -i hyperfine.deb
 
     - name: Chezmoi Init
       run: sh install.sh
-    
+
     - name: Run benchmark
-      run: ./scripts/benchmark.sh > result.json
-    
+      run: |
+        TEMP_FILE=$(mktemp)
+
+        hyperfine "$HOME/.asdf/shims/nvim -c quitall" \
+        --export-json "$TEMP_FILE" \
+        --warmup 3 \
+        --min-runs 10 \
+        --show-output
+
+        MEAN=$(jq .results[].mean < "$TEMP_FILE")
+        MEDIAN=$(jq .results[].median < "$TEMP_FILE")
+        MIN=$(jq .results[].min < "$TEMP_FILE")
+        MAX=$(jq .results[].max < "$TEMP_FILE")
+
+        cat <<EOF >"$OUTPUT_FILE"
+        [
+            {
+                "name": "Neovim Startup time - Mean",
+                "unit": "Second",
+                "value": $MEAN
+            },
+            {
+                "name": "Neovim Startup time - Median",
+                "unit": "Second",
+                "value": $MEDIAN
+            },
+            {
+                "name": "Neovim Startup time - Min",
+                "unit": "Second",
+                "value": $MIN
+            },
+            {
+                "name": "Neovim Startup time - Max",
+                "unit": "Second",
+                "value": $MAX
+            }
+        ]
+        EOF
+
     - name: Upload benchmark
       uses: benchmark-action/github-action-benchmark@v1
       with:
         tool: customSmallerIsBetter
-        output-file-path: result.json
+        output-file-path: "$OUTPUT_FILE"
         github-token: ${{ secrets.GITHUB_TOKEN }}
         auto-push: true
         comment-on-alert: true
