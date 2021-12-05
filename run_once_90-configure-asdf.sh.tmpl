@@ -10,4 +10,8 @@ while read -r plugin _; do
 done <"$HOME/.tool-versions"
 
 asdf install
+
+while read -r plugin version; do
+  asdf global "$plugin" "$version"
+done <"$HOME/.tool-versions"
 {{- end -}}
