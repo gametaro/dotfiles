@@ -23,7 +23,6 @@ local function plugins(use)
 
   use {
     'numToStr/Comment.nvim',
-    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
     keys = { 'g' },
     config = function()
       require('Comment').setup {
@@ -138,11 +137,12 @@ local function plugins(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     requires = {
-      { 'nvim-treesitter/nvim-treesitter-refactor' },
-      { 'nvim-treesitter/nvim-treesitter-textobjects' },
-      { 'p00f/nvim-ts-rainbow' },
-      { 'windwp/nvim-ts-autotag' },
-      { 'RRethy/nvim-treesitter-textsubjects' },
+      { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
+      { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
+      { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
+      { 'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter' },
+      { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' },
     },
     run = ':TSUpdate',
     config = function()
@@ -234,7 +234,16 @@ local function plugins(use)
   }
 
   use {
+    'SmiteshP/nvim-gps',
+    after = 'nvim-treesitter',
+    config = function()
+      require('nvim-gps').setup {}
+    end,
+  }
+
+  use {
     'windwp/windline.nvim',
+    after = 'nvim-gps',
     config = function()
       require 'config.windline'
     end,
@@ -426,7 +435,11 @@ local function plugins(use)
     end,
   }
 
-  use { 'kana/vim-textobj-user', 'kana/vim-textobj-entire', 'kana/vim-textobj-line' }
+  use {
+    'kana/vim-textobj-user',
+    { 'kana/vim-textobj-entire', after = 'vim-textobj-user' },
+    { 'kana/vim-textobj-line', after = 'vim-textobj-user' },
+  }
 
   use {
     'nvim-telescope/telescope.nvim',
@@ -553,14 +566,6 @@ local function plugins(use)
       vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
       vim.api.nvim_set_keymap('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', { noremap = true })
       vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { noremap = true })
-    end,
-  }
-
-  use {
-    'SmiteshP/nvim-gps',
-    requires = 'nvim-treesitter/nvim-treesitter',
-    config = function()
-      require('nvim-gps').setup {}
     end,
   }
 
