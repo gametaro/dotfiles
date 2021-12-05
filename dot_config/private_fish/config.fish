@@ -11,10 +11,6 @@ if ! test -f $HOME/.config/fish/completions/asdf.fish
   mkdir -p $HOME/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 end
 
-if command -s direnv > /dev/null
-  direnv hook fish | source
-end
-
 if command -s starship > /dev/null
   starship init fish | source
 end

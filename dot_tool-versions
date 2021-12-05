@@ -1,5 +1,4 @@
 bat latest
-direnv latest
 fd latest
 neovim stable
 nodejs latest
