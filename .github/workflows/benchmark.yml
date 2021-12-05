@@ -9,9 +9,9 @@ permissions:
 
 jobs:
   benchmark:
+    runs-on: ubuntu-latest
     env:
       OUTPUT_FILE: output.txt
-    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
 
@@ -69,7 +69,7 @@ jobs:
       uses: benchmark-action/github-action-benchmark@v1
       with:
         tool: customSmallerIsBetter
-        output-file-path: "$OUTPUT_FILE"
+        output-file-path: ${{ env.OUTPUT_FILE }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
         auto-push: true
         comment-on-alert: true
