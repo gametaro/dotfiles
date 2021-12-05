@@ -396,6 +396,9 @@ local function plugins(use)
   use {
     'sindrets/diffview.nvim',
     requires = 'nvim-lua/plenary.nvim',
+    cond = function()
+      return #vim.api.nvim_list_uis() > 0
+    end,
     config = function()
       require('diffview').setup {
         enhanced_diff_hl = true,
