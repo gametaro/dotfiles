@@ -30,7 +30,7 @@ function M.setup()
   null_ls.setup(on_attach)
 
   local lsp_installer = require 'nvim-lsp-installer'
-  ensure_servers_installed()
+  -- ensure_servers_installed()
 
   lsp_installer.on_server_ready(function(server)
     local config = {
