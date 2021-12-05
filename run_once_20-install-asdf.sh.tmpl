@@ -5,8 +5,7 @@ set -Eeuo pipefail
 
 install_asdf() {
   if [[ ! -e $HOME/.asdf ]]; then
-    git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf"
-    git -C ~/.asdf checkout "$(git -C "$HOME/.asdf" describe --abbrev=0 --tags)"
+    git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.8.1
   fi
 }
 
