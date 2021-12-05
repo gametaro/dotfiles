@@ -144,7 +144,11 @@ local function plugins(use)
       { 'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter' },
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' },
     },
-    run = ':TSUpdate',
+    run = function()
+      if #vim.api.nvim_list_uis() > 0 then
+        vim.cmd [[ TSUpdate ]]
+      end
+    end,
     config = function()
       require 'config.treesitter'
     end,
