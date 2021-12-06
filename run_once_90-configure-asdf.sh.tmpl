@@ -1,17 +1,11 @@
 {{- if (eq .chezmoi.os "linux") -}}
 #!/usr/bin/env bash
 
-set -Eeuo pipefail
-
-. "$HOME/.bashrc"
+. "$HOME/.asdf/asdf.sh"
 
 while read -r plugin _; do
   asdf plugin-add "$plugin"
 done <"$HOME/.tool-versions"
 
 asdf install
-
-while read -r plugin version; do
-  asdf global "$plugin" "$version"
-done <"$HOME/.tool-versions"
 {{- end -}}
