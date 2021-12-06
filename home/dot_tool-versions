@@ -1,6 +1,6 @@
-bat latest
-fd latest
+bat 0.18.3
+fd 8.3.0
 neovim stable
-nodejs latest
-ripgrep latest
-starship latest
+nodejs 17.2.0
+ripgrep 13.0.0
+starship 1.0.0
