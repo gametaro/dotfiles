@@ -3,6 +3,8 @@
 
 set -Eeuo pipefail
 
+. "$HOME/.asdf/asdf.sh"
+
 if [ ! "$(command -v nvim)" ]; then
   nvim="$HOME/.asdf/shims/nvim"
 else
