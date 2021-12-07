@@ -137,7 +137,6 @@ local function plugins(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     requires = {
-      { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
       { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
       { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
