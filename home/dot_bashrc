@@ -76,6 +76,10 @@ if [[ -d $HOME/.asdf ]]; then
   ASDF_CONFIG_FILE="$HOME/.config/asdf/config"
 fi
 
+if [[ $(command -v rg) ]]; then
+  export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
+fi
+
 if [[ $(command -v starship) ]]; then
   eval "$(starship init bash)"
 fi

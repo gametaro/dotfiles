@@ -18,6 +18,10 @@ if test -d $HOME/.asdf
   set ASDF_CONFIG_FILE $HOME/.config/asdf/config
 end
 
+if command -s rg > /dev/null
+  set RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/config
+end
+
 if command -s starship > /dev/null
   starship init fish | source
 end
