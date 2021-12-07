@@ -10,9 +10,12 @@ if test -d $HOME/.local/bin
   set PATH $HOME/.local/bin $PATH
 end
 
-source ~/.asdf/asdf.fish
-if ! test -f $HOME/.config/fish/completions/asdf.fish
-  mkdir -p $HOME/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+if test -d $HOME/.asdf
+  source $HOME/.asdf/asdf.fish
+  if ! test -L $HOME/.config/fish/completions/asdf.fish
+    mkdir -p $HOME/.config/fish/completions; and ln -s $HOME/.asdf/completions/asdf.fish $HOME/.config/fish/completions
+  end
+  set ASDF_CONFIG_FILE $HOME/.config/asdf/config
 end
 
 if command -s starship > /dev/null

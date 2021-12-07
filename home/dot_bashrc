@@ -73,6 +73,7 @@ fi
 if [[ -d $HOME/.asdf ]]; then
   . "$HOME/.asdf/asdf.sh"
   . "$HOME/.asdf/completions/asdf.bash"
+  ASDF_CONFIG_FILE="$HOME/.config/asdf/config"
 fi
 
 if [[ $(command -v starship) ]]; then
