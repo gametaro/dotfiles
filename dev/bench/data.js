@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1638801069995,
+  "lastUpdate": 1638882497397,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -175,6 +175,50 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim Startup time - Max",
             "value": 2.1869967593,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "gametaro@outlook.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "gametaro@outlook.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "8aeadc3b0193e9818366f50a829041a2afc67ad6",
+          "message": "ci: install lsp servers",
+          "timestamp": "2021-12-07T22:06:26+09:00",
+          "tree_id": "049b6d2e9ad5c8e6a33f493a7b93b295cdd6bf22",
+          "url": "https://github.com/gametaro/dotfiles/commit/8aeadc3b0193e9818366f50a829041a2afc67ad6"
+        },
+        "date": 1638882496505,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim Startup time - Mean",
+            "value": 0.7591770710200001,
+            "unit": "Second"
+          },
+          {
+            "name": "Neovim Startup time - Median",
+            "value": 0.83836864202,
+            "unit": "Second"
+          },
+          {
+            "name": "Neovim Startup time - Min",
+            "value": 0.36272082302,
+            "unit": "Second"
+          },
+          {
+            "name": "Neovim Startup time - Max",
+            "value": 0.90402039602,
             "unit": "Second"
           }
         ]
