@@ -781,7 +781,9 @@ local function plugins(use)
     'iamcco/markdown-preview.nvim',
     ft = { 'markdown' },
     run = function()
-      vim.fn['mkdp#util#install']()
+      if #vim.api.nvim_list_uis() > 0 then
+        vim.fn['mkdp#util#install']()
+      end
     end,
   }
 
