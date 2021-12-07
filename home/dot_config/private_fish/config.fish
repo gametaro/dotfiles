@@ -20,6 +20,11 @@ end
 
 if command -s rg > /dev/null
   set RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/config
+  abbr grep rg
+end
+
+if command -s bat > /dev/null
+  abbr cat bat
 end
 
 if command -s starship > /dev/null

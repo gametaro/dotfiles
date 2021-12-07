@@ -33,3 +33,13 @@ alias g='git'
 
 # Neovim
 alias v='nvim'
+
+# ripgrep
+if [[ $(command -v rg) ]]; then
+  alias grep='rg'
+fi
+
+# bat
+if [[ $(command -v bat) ]]; then
+  alias cat='bat'
+fi
