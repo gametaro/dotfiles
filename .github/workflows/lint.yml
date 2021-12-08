@@ -1,0 +1,26 @@
+name: Lint
+on: [push, pull_request]
+
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run actionlint
+        shell: bash
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run ShellCheck
+        env:
+          SHELLCHECK_OPTS: -e SC1091
+        uses: ludeeus/action-shellcheck@master
+        with:
+          check_together: "yes"
+

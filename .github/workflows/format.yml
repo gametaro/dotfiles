@@ -1,0 +1,47 @@
+name: Format
+on: [push, pull_request]
+
+jobs:
+  stylua:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run stylua
+        uses: JohnnyMorganz/stylua-action@1.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --config-path=home/dot_config/nvim/stylua.toml home/dot_config/nvim/
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: format with stylua"
+          branch: ${{ github.head_ref }}
+
+  shfmt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      - name: Install shfmt
+        run: GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@v3.3.0
+
+      - name: List files to shfmt
+        run: shfmt -f .
+
+      - name: Run shfmt
+        run: shfmt -w -i 2 -bn -ci -kp .
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: format with shfmt"
+          branch: ${{ github.head_ref }}
+
