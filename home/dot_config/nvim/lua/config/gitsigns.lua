@@ -70,6 +70,9 @@ gitsigns.setup {
     ['o ih'] = '<Cmd>lua require"gitsigns.actions".select_hunk()<CR>',
     ['x ih'] = '<Cmd>lua require"gitsigns.actions".select_hunk()<CR>',
   },
+  preview_config = {
+    border = 'rounded',
+  },
   current_line_blame = false,
   word_diff = true,
 }
