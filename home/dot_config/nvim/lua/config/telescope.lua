@@ -9,6 +9,17 @@ local defaults = themes.get_ivy {
     path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
     limit = 100,
   },
+  vimgrep_arguments = {
+    'rg',
+    '--color=never',
+    '--no-heading',
+    '--with-filename',
+    '--line-number',
+    '--column',
+    '--smart-case',
+    '--hidden',
+    '--glob=!.git',
+  },
 }
 
 telescope.setup {
