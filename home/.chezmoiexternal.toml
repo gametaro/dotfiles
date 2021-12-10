@@ -2,6 +2,10 @@
   type = "file"
   url = "https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt"
   refreshPeriod = "168h"
+[".config/fish/completions/hub.fish"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/github/hub/master/etc/hub.fish_completion"
+  refreshPeriod = "168h"
 {{- if (not .headless) }}
 {{-   $fontDir := "" }}
 {{-   if eq .chezmoi.os "darwin" }}
