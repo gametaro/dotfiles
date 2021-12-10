@@ -1,32 +1,33 @@
 set fish_greeting
 set -gx EDITOR nvim
-set -Ux EDITOR nvim
-set -Ux VISUAL nvim
+set -gx VISUAL nvim
 
-abbr v nvim
-abbr g git
+fish_add_path ~/.local/bin
 
-if test -d $HOME/.local/bin
-  set PATH $HOME/.local/bin $PATH
+if test -d ~/.asdf
+    source ~/.asdf/asdf.fish
+    if not test -L ~/.config/fish/completions/asdf.fish
+        mkdir -p ~/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+    end
+    set -q ASDF_CONFIG_FILE; or set -gx ASDF_CONFIG_FILE ~/.config/asdf/config
 end
 
-if test -d $HOME/.asdf
-  source $HOME/.asdf/asdf.fish
-  if ! test -L $HOME/.config/fish/completions/asdf.fish
-    mkdir -p $HOME/.config/fish/completions; and ln -s $HOME/.asdf/completions/asdf.fish $HOME/.config/fish/completions
-  end
-  set ASDF_CONFIG_FILE $HOME/.config/asdf/config
+if command -q rg
+    set -q RIPGREP_CONFIG_PATH; or set -gx RIPGREP_CONFIG_PATH ~/.config/ripgrep/config
 end
 
-if command -s rg > /dev/null
-  set RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/config
-  abbr grep rg
+if status --is-interactive
+    abbr -a -g mv mv -i
+    abbr -a -g cp cp -i
+    abbr -a -g rm rm -i
+    abbr -a -g g git
+    abbr -a -g v nvim
+    abbr -a -g vim nvim
+    abbr -a -g grep rg
+    abbr -a -g cat bat
+    abbr -a -g ccd chezmoi cd
+    abbr -a -g cap chezmoi apply
+    abbr -a -g ced chezmoi edit $argv
 end
 
-if command -s bat > /dev/null
-  abbr cat bat
-end
-
-if command -s starship > /dev/null
-  starship init fish | source
-end
+command -q starship; and starship init fish | source
