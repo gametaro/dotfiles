@@ -196,6 +196,16 @@ local function plugins(use)
       { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+      {
+        'tzachar/cmp-fuzzy-path',
+        after = 'cmp-path',
+        requires = { 'hrsh7th/cmp-path', 'tzachar/fuzzy.nvim' },
+      },
+      {
+        'tzachar/cmp-fuzzy-buffer',
+        after = 'nvim-cmp',
+        requires = { 'tzachar/fuzzy.nvim' },
+      },
     },
     config = function()
       require 'config.cmp'
