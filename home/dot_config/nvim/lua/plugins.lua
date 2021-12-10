@@ -421,8 +421,6 @@ local function plugins(use)
           ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
           { noremap = true, silent = true }
         )
-        -- echo cwd
-        vim.api.nvim_echo({ { vim.fn.expand '%:p', 'Normal' } }, false, {})
       end
 
       vim.api.nvim_set_keymap('n', '-', [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]], { noremap = true })
