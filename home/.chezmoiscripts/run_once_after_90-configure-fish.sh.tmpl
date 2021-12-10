@@ -1,0 +1,9 @@
+{{ if (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env fish
+
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+
+fisher install jorgebucaran/replay.fish PatrickF1/fzf.fish jethrokuan/z
+
+chezmoi completion fish --output ~/.config/fish/completions/chezmoi.fish
+{{ end -}}
