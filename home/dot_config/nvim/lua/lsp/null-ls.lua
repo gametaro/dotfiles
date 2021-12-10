@@ -66,11 +66,6 @@ local sources = {
       return vim.fn.executable 'autopep8' == 1
     end,
   },
-  b.diagnostics.write_good.with {
-    condition = function()
-      return vim.fn.executable 'write-good' == 1
-    end,
-  },
   b.diagnostics.markdownlint.with {
     condition = function()
       return vim.fn.executable 'markdownlint' == 1
