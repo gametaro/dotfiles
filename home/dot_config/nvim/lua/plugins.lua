@@ -398,6 +398,13 @@ local function plugins(use)
           ['~'] = function()
             vim.cmd('edit ' .. vim.fn.expand '$HOME')
           end,
+          ['+'] = function()
+            local dir = require('lspconfig.util').find_git_ancestor(vim.fn.getcwd())
+            if dir == nil or dir == '' then
+              return
+            end
+            vim.cmd('e ' .. dir)
+          end,
         },
         float = {
           winblend = 0,
