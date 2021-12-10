@@ -21,22 +21,6 @@ local actionlint = {
   },
 }
 
-local typos = {
-  method = null_ls.methods.DIAGNOSTICS,
-  filetypes = {},
-  generator = null_ls.generator {
-    command = 'typos',
-    args = { '--color', 'never', '--format', 'Brief', '-' },
-    to_stdin = true,
-    from_stderr = true,
-    format = 'line',
-    check_exit_code = function(code)
-      return code <= 1
-    end,
-    on_output = helpers.diagnostics.from_pattern([[:(%d+):(%d+): (.*)]], { 'row', 'col', 'message' }),
-  },
-}
-
 local sources = {
   b.formatting.prettierd.with {
     condition = function()
@@ -101,9 +85,6 @@ local sources = {
 function M.setup(on_attach)
   if vim.fn.executable 'actionlint' == 1 then
     null_ls.register(actionlint)
-  end
-  if vim.fn.executable 'typos' == 1 then
-    null_ls.register(typos)
   end
   null_ls.config {
     sources = sources,
