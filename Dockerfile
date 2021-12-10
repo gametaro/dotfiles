@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   curl \
   sudo \
   ca-certificates \
+  software-properties-common \
   && rm -rf /var/lib/apt/lists/*
 COPY . .
 RUN chmod +x install.sh

@@ -19,7 +19,9 @@ jobs:
 
       - name: Install requisites on ubuntu
         if: ${{ runner.os == 'Linux' }}
-        run: sudo apt-get update && sudo apt-get install -y curl sudo
+        run: |
+          sudo add-apt-repository ppa:fish-shell/release-3
+          sudo apt-get update
 
       - name: Chezmoi Init
         run: sh install.sh
