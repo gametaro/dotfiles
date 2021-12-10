@@ -38,3 +38,8 @@ map('n', '<Leader>cu', '<Cmd>tcd ..<Bar>pwd<CR>', opts)
 map('n', '<Leader>hi', '<Cmd> lua require"utils".highlight_under_cursor()<CR>', opts)
 
 map('n', '<Leader>lq', '<Cmd> lua vim.diagnostic.setqflist()<CR>', opts)
+
+map('n', '<BS>', '<C-^>', opts)
+
+map('n', '<LocalLeader>tn', '<Cmd>tabnew<CR>', opts)
+map('n', '<LocalLeader>tc', '<Cmd>tabclose<CR>', opts)
