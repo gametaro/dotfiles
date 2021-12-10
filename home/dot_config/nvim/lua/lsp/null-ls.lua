@@ -66,6 +66,11 @@ local sources = {
       return vim.fn.executable 'autopep8' == 1
     end,
   },
+  b.formatting.fish_indent.with {
+    condition = function()
+      return vim.fn.executable 'fish_indent' == 1
+    end,
+  },
   b.diagnostics.markdownlint.with {
     condition = function()
       return vim.fn.executable 'markdownlint' == 1
