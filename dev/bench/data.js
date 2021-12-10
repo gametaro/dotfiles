@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1639139873165,
+  "lastUpdate": 1639143252053,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -527,6 +527,50 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim Startup time - Max",
             "value": 0.80319165846,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "a34afe6e74c5a6c9218384e1c677bf0b14b31dce",
+          "message": "feat(chezmoi): add `hub` completion script for fish",
+          "timestamp": "2021-12-10T22:32:30+09:00",
+          "tree_id": "4a6df5ed2616714b811fd1302524ab14b1a04987",
+          "url": "https://github.com/gametaro/dotfiles/commit/a34afe6e74c5a6c9218384e1c677bf0b14b31dce"
+        },
+        "date": 1639143251206,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim Startup time - Mean",
+            "value": 0.76158677996,
+            "unit": "Second"
+          },
+          {
+            "name": "Neovim Startup time - Median",
+            "value": 0.75341078396,
+            "unit": "Second"
+          },
+          {
+            "name": "Neovim Startup time - Min",
+            "value": 0.69516997946,
+            "unit": "Second"
+          },
+          {
+            "name": "Neovim Startup time - Max",
+            "value": 0.84303419546,
             "unit": "Second"
           }
         ]
