@@ -632,7 +632,7 @@ local function plugins(use)
 
   use 'lewis6991/impatient.nvim'
 
-  use { 'jose-elias-alvarez/nvim-lsp-ts-utils', ft = { 'typescript', 'typescriptreact' } }
+  use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
 
   use {
     'lukas-reineke/headlines.nvim',
