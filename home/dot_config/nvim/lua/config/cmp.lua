@@ -43,6 +43,7 @@ cmp.setup {
       compare.exact,
       compare.score,
       compare.recently_used,
+      require('cmp-under-comparator').under,
       compare.kind,
       compare.sort_text,
       compare.length,
