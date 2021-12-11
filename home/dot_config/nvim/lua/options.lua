@@ -20,7 +20,6 @@ end
 
 opt.autowriteall = true
 opt.clipboard = 'unnamedplus'
-opt.cmdheight = 2
 opt.completeopt = { 'menu', 'menuone', 'noselect', 'noinsert' }
 opt.cursorline = true
 opt.diffopt = {
