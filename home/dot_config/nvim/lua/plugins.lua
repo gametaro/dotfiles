@@ -1,3 +1,5 @@
+local not_headless = require('utils').not_headless
+
 local M = {}
 
 local function bootstrap()
@@ -144,7 +146,7 @@ local function plugins(use)
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' },
     },
     run = function()
-      if #vim.api.nvim_list_uis() > 0 then
+      if not_headless() then
         vim.cmd [[ TSUpdate ]]
       end
     end,
@@ -419,9 +421,7 @@ local function plugins(use)
   use {
     'sindrets/diffview.nvim',
     requires = 'nvim-lua/plenary.nvim',
-    cond = function()
-      return #vim.api.nvim_list_uis() > 0
-    end,
+    cond = not_headless,
     config = function()
       require('diffview').setup {
         enhanced_diff_hl = true,
@@ -597,9 +597,7 @@ local function plugins(use)
 
   use {
     'rcarriga/nvim-notify',
-    cond = function()
-      return #vim.api.nvim_list_uis() > 0
-    end,
+    cond = not_headless,
     config = function()
       local notify = require 'notify'
       local icons = require('theme').icons
@@ -722,7 +720,7 @@ local function plugins(use)
     'iamcco/markdown-preview.nvim',
     ft = { 'markdown' },
     run = function()
-      if #vim.api.nvim_list_uis() > 0 then
+      if not_headless() then
         vim.fn['mkdp#util#install']()
       end
     end,

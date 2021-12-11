@@ -34,4 +34,8 @@ function M.highlight_under_cursor()
   vim.cmd(string.format('verbose highlight %s', synIDattr))
 end
 
+function M.not_headless()
+  return #vim.api.nvim_list_uis() > 0
+end
+
 return M
