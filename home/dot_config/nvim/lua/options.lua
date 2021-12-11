@@ -1,8 +1,6 @@
 local g, opt = vim.g, vim.opt
 local indent = 2
 
-g.did_load_filetypes = 1
-
 g.mapleader = ' '
 g.maplocalleader = ','
 
