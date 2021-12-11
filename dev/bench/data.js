@@ -26,23 +26,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.7035313928400001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.6992980884400001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.66696835594,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.7311980999400001,
             "unit": "Second"
           }
         ]
@@ -70,23 +55,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 1.2645769824,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 1.2629320833,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 1.2185623758,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 1.3146883338,
             "unit": "Second"
           }
         ]
@@ -114,23 +84,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 1.899007418,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 1.8840064067,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 1.7723799692,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 2.0467233322,
             "unit": "Second"
           }
         ]
@@ -158,23 +113,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 2.0938079798,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 2.1161305468,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 1.7979762883000001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 2.1869967593,
             "unit": "Second"
           }
         ]
@@ -202,23 +142,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.7591770710200001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.83836864202,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.36272082302,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.90402039602,
             "unit": "Second"
           }
         ]
@@ -246,23 +171,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.6931990512200001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.69187920242,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.66252030492,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.72529689492,
             "unit": "Second"
           }
         ]
@@ -290,23 +200,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.8181123339,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.8091499482000001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.7787486622,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.9223128102000001,
             "unit": "Second"
           }
         ]
@@ -334,23 +229,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.67104601488,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.71711022938,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.31599424088,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.73127088088,
             "unit": "Second"
           }
         ]
@@ -378,23 +258,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.7066036510400001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.7070746866400002,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.6868485886400001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.72321328764,
             "unit": "Second"
           }
         ]
@@ -422,23 +287,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.7289996956800001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.7229961300800001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.69901387008,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.7832719240800001,
             "unit": "Second"
           }
         ]
@@ -466,23 +316,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.71513025218,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.7150334350800001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.67542736258,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.7552441225800001,
             "unit": "Second"
           }
         ]
@@ -510,23 +345,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.7374475124600001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.72106130596,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.69505149146,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.80319165846,
             "unit": "Second"
           }
         ]
@@ -554,23 +374,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.76158677996,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.75341078396,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.69516997946,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.84303419546,
             "unit": "Second"
           }
         ]
@@ -598,23 +403,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.7453097896800001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.74272358458,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.7228432970800001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.7709764690800001,
             "unit": "Second"
           }
         ]
@@ -642,23 +432,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.5644788340818182,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.6270342299,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.2507741699,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.6630890959,
             "unit": "Second"
           }
         ]
@@ -686,23 +461,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.8459987011000001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.8396203004,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.8291374179000001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.8956488029,
             "unit": "Second"
           }
         ]
@@ -730,23 +490,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.5721954023600001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.6024466550600001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.31140130756,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.60758473256,
             "unit": "Second"
           }
         ]
@@ -774,23 +519,8 @@ window.BENCHMARK_DATA = {
         "tool": "customSmallerIsBetter",
         "benches": [
           {
-            "name": "Neovim Startup time - Mean",
+            "name": "Neovim startup time - Mean",
             "value": 0.6391385432600001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Median",
-            "value": 0.6351986705600001,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Min",
-            "value": 0.61490738956,
-            "unit": "Second"
-          },
-          {
-            "name": "Neovim Startup time - Max",
-            "value": 0.69583843856,
             "unit": "Second"
           }
         ]
