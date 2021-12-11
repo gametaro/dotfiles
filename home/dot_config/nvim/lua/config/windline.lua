@@ -42,7 +42,6 @@ basic.square_mode = {
     return { { '▊', state.mode[2] } }
   end,
 }
-
 basic.lsp_diagnos = {
   name = 'diagnostic',
   hl_colors = {
@@ -76,8 +75,8 @@ basic.file = {
         -- { b_components.cache_file_size(), 'default' },
         -- { ' ', '' },
         { b_components.cache_file_name('[No Name]', 'unique'), 'magenta' },
-        -- { b_components.line_col, 'white' },
-        -- { b_components.progress, '' },
+        -- { b_components.line_col_lua, 'white' },
+        -- { b_components.progress_lua, '' },
         -- { ' ', '' },
         { b_components.file_modified ' ', 'magenta' },
       }
@@ -128,11 +127,11 @@ basic.git = {
   end,
 }
 basic.lsp_name = {
-  width = breakpoint_width,
   name = 'lsp_name',
   hl_colors = {
     magenta = { 'magenta', 'black' },
   },
+  width = breakpoint_width,
   text = function(bufnr)
     if lsp_comps.check_lsp(bufnr) then
       return {
@@ -200,7 +199,8 @@ local default = {
   filetypes = { 'default' },
   active = {
     basic.square_mode,
-    basic.vi_mode,
+    { ' ', '' },
+    -- basic.vi_mode,
     basic.file,
     basic.lsp_diagnos,
     basic.gps,
