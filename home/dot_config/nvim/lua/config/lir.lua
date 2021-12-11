@@ -83,7 +83,7 @@ local function create()
 end
 
 require('lir').setup {
-  hide_cursor = false,
+  hide_cursor = true,
   show_hidden_files = false,
   devicons_enable = true,
   mappings = {
@@ -106,7 +106,7 @@ require('lir').setup {
     ['.'] = actions.toggle_show_hidden,
     ['d'] = actions.delete,
 
-    ['J'] = function()
+    ['<Tab>'] = function()
       mark_actions.toggle_mark()
       vim.cmd 'normal! j'
     end,
@@ -114,7 +114,7 @@ require('lir').setup {
     ['x'] = clipboard_actions.cut,
     ['p'] = clipboard_actions.paste,
     ['~'] = function()
-      vim.cmd('edit ' .. vim.fn.expand '$HOME')
+      vim.cmd('e ' .. vim.fn.expand '$HOME')
     end,
     ['+'] = function()
       local dir = require('lspconfig.util').find_git_ancestor(vim.fn.getcwd())
@@ -124,13 +124,13 @@ require('lir').setup {
       vim.cmd('e ' .. dir)
     end,
   },
-  float = {
-    winblend = 0,
-    curdir_window = {
-      enable = true,
-      highlight_dirname = true,
-    },
-  },
+  -- float = {
+  --   winblend = 0,
+  --   curdir_window = {
+  --     enable = true,
+  --     highlight_dirname = true,
+  --   },
+  -- },
 }
 
 require('lir.git_status').setup {
