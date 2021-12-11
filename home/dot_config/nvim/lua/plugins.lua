@@ -487,12 +487,6 @@ local function plugins(use)
           vim.api.nvim_set_keymap('n', '<leader>fp', '<Cmd>Telescope projects<CR>', { noremap = true, silent = true })
         end,
       },
-      {
-        'nvim-telescope/telescope-ui-select.nvim',
-        config = function()
-          require('telescope').load_extension 'ui-select'
-        end,
-      },
     },
     config = function()
       require 'config.telescope'

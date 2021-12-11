@@ -27,11 +27,6 @@ local defaults = themes.get_ivy {
 
 telescope.setup {
   defaults = defaults,
-  extensions = {
-    ['ui-select'] = {
-      themes.get_cursor {},
-    },
-  },
   pickers = {
     buffers = {
       show_all_buffers = true,
