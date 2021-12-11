@@ -783,6 +783,7 @@ local function plugins(use)
       require('renamer').setup {}
     end,
   }
+  use 'stevearc/dressing.nvim'
 end
 
 function M.setup()
