@@ -36,31 +36,16 @@ jobs:
         --show-output
 
         MEAN=$(jq .results[].mean < "$TEMP_FILE")
-        MEDIAN=$(jq .results[].median < "$TEMP_FILE")
-        MIN=$(jq .results[].min < "$TEMP_FILE")
-        MAX=$(jq .results[].max < "$TEMP_FILE")
+        # MEDIAN=$(jq .results[].median < "$TEMP_FILE")
+        # MIN=$(jq .results[].min < "$TEMP_FILE")
+        # MAX=$(jq .results[].max < "$TEMP_FILE")
 
         cat <<EOF >"$OUTPUT_FILE"
         [
             {
-                "name": "Neovim Startup time - Mean",
+                "name": "Neovim startup time - Mean",
                 "unit": "Second",
                 "value": $MEAN
-            },
-            {
-                "name": "Neovim Startup time - Median",
-                "unit": "Second",
-                "value": $MEDIAN
-            },
-            {
-                "name": "Neovim Startup time - Min",
-                "unit": "Second",
-                "value": $MIN
-            },
-            {
-                "name": "Neovim Startup time - Max",
-                "unit": "Second",
-                "value": $MAX
             }
         ]
         EOF
