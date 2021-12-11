@@ -29,7 +29,6 @@ telescope.setup {
   defaults = defaults,
   pickers = {
     buffers = {
-      show_all_buffers = true,
       ignore_current_buffer = true,
       sort_lastused = true,
       sort_mru = true,
@@ -64,7 +63,6 @@ map('n', '<leader>fo', '<Cmd>lua require("telescope.builtin").oldfiles()<CR>', o
 map('n', '<leader>fq', '<Cmd>lua require("telescope.builtin").quickfix()<CR>', opts)
 map('n', '<leader>fr', '<Cmd>lua require("telescope.builtin").resume()<CR>', opts)
 map('n', '<leader>fs', '<Cmd>lua require("telescope.builtin").grep_string()<CR>', opts)
-map('n', '<leader>lc', '<Cmd>lua require("telescope.builtin").lsp_code_actions()<CR>', opts)
 map('n', '<leader>ld', '<Cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
 map('n', '<leader>lw', '<Cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', opts)
 map('n', '<leader>gb', '<Cmd>lua require("telescope.builtin").git_branches()<CR>', opts)
