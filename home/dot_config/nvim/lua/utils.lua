@@ -1,6 +1,6 @@
 local M = {}
 
-function _G.dump(...)
+function _G.P(...)
   print(vim.inspect(...))
 end
 
