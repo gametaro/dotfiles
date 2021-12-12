@@ -3,6 +3,13 @@ local actions = require 'telescope.actions'
 local themes = require 'telescope.themes'
 
 local defaults = themes.get_ivy {
+  mappings = {
+    i = {
+      ['<C-w>'] = function()
+        vim.cmd [[normal! bcw]]
+      end,
+    },
+  },
   winblend = 10,
   path_display = { 'smart' },
   history = {
