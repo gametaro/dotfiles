@@ -94,6 +94,7 @@ require('lir').setup {
     ['<C-v>'] = actions.vsplit,
     ['<C-t>'] = actions.tabedit,
 
+    ['-'] = actions.up,
     ['h'] = actions.up,
     ['q'] = actions.quit,
 
