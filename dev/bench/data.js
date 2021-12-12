@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1639227628411,
+  "lastUpdate": 1639289688620,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -579,6 +579,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.7133460110000001,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "d058d68b2bfb5ff691277b87aaa4397f36320460",
+          "message": "feat(telescope): add mapping to delete words in insert mode",
+          "timestamp": "2021-12-12T15:12:24+09:00",
+          "tree_id": "80922cc7a751a7c3f15845b9c616a270b4e10d43",
+          "url": "https://github.com/gametaro/dotfiles/commit/d058d68b2bfb5ff691277b87aaa4397f36320460"
+        },
+        "date": 1639289687793,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.79981537144,
             "unit": "Second"
           }
         ]
