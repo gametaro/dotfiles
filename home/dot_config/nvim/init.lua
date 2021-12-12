@@ -1,12 +1,8 @@
-if pcall(require, 'impatient') then
-  require 'impatient'
-end
+pcall(require, 'impatient')
 require 'options'
 require 'utils'
 require 'keymaps'
 require 'autocmd'
 require('plugins').setup()
 require('theme').setup 'nightfox'
-if pcall(require, 'packer_compiled') then
-  require 'packer_compiled'
-end
+pcall(require, 'packer_compiled')
