@@ -540,7 +540,6 @@ local function plugins(use)
 
   use {
     'kevinhwang91/nvim-hclipboard',
-    opt = true,
     config = function()
       require('hclipboard').start()
     end,
