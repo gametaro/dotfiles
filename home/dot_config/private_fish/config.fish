@@ -1,6 +1,9 @@
 set fish_greeting
-set -gx EDITOR nvim
-set -gx VISUAL nvim
+
+if command -q nvim
+    set -gx EDITOR (which nvim)
+    set -gx VISUAL (which nvim)
+end
 
 fish_add_path ~/.local/bin
 
