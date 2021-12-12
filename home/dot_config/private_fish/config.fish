@@ -30,4 +30,7 @@ if status --is-interactive
     abbr -a -g ced chezmoi edit $argv
 end
 
-command -q starship; and starship init fish | source
+if command -q starship
+    set -q STARSHIP_CONFIG; or set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
+    command -q starship; and starship init fish | source
+end

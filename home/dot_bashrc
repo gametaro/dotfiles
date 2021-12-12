@@ -81,5 +81,6 @@ if [[ $(command -v rg) ]]; then
 fi
 
 if [[ $(command -v starship) ]]; then
+  export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
   eval "$(starship init bash)"
 fi

@@ -1,0 +1,10 @@
+# Inserts a blank line between shell prompts
+add_newline = false
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+# Disables the line_break module, making the prompt a single line
+[line_break]
+disabled = false
