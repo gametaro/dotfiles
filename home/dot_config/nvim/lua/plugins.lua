@@ -404,10 +404,11 @@ local function plugins(use)
 
   use {
     'TimUntersberger/neogit',
-    requires = {
-      { 'nvim-lua/plenary.nvim' },
-    },
+    requires = 'nvim-lua/plenary.nvim',
     cmd = { 'Neogit' },
+    setup = function()
+      vim.api.nvim_set_keymap('n', '<LocalLeader>g', '<Cmd>Neogit<CR>', { noremap = true, silent = true })
+    end,
     config = function()
       require('neogit').setup {
         disable_hint = true,
