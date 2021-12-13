@@ -36,9 +36,6 @@ jobs:
         --show-output
 
         MEAN=$(jq .results[].mean < "$TEMP_FILE")
-        # MEDIAN=$(jq .results[].median < "$TEMP_FILE")
-        # MIN=$(jq .results[].min < "$TEMP_FILE")
-        # MAX=$(jq .results[].max < "$TEMP_FILE")
 
         cat <<EOF >"$OUTPUT_FILE"
         [
