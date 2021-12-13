@@ -744,18 +744,6 @@ local function plugins(use)
   }
 
   use {
-    'chentau/marks.nvim',
-    config = function()
-      require('marks').setup {
-        mappings = {
-          delete_line = 'dml',
-          delete_buf = 'dmb',
-        },
-      }
-    end,
-  }
-
-  use {
     'github/copilot.vim',
     setup = function()
       vim.g.copilot_no_tab_map = true
