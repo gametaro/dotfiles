@@ -36,11 +36,21 @@ local function s_tab(fallback)
   end
 end
 
+-- NOTE: can't require 'cmp_fuzzy_buffer.compare' if cmp is lazy loaded
+-- So, need to define comparator myself
+local function compare_fuzzy_buffer(entry1, entry2)
+  if entry1.source.name == 'fuzzy_buffer' and entry2.source.name == 'fuzzy_buffer' then
+    return (entry1.completion_item.data.score > entry2.completion_item.data.score)
+  else
+    return nil
+  end
+end
+
 cmp.setup {
   sorting = {
     priority_weight = 2,
     comparators = {
-      require 'cmp_fuzzy_buffer.compare',
+      compare_fuzzy_buffer,
       compare.offset,
       compare.exact,
       compare.score,
