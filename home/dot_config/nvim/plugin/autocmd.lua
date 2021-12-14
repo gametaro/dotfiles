@@ -30,7 +30,7 @@ autocmd mine InsertEnter,WinLeave * set nocursorline
 ]]
 
 -- PackerCompile on save
--- cmd 'autocmd mine BufWritePost */lua/*.lua source <afile> | PackerCompile'
+-- vim.cmd 'autocmd mine BufWritePost */lua/*.lua source <afile> | PackerCompile'
 
 -- always jump to the last cursor position
 vim.cmd [[

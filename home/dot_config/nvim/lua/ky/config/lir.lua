@@ -57,7 +57,7 @@ local function create()
     name = name:gsub('/$', '')
     path:mkdir {
       parents = true,
-      mode = tonumber('700', 8),
+      mode = tonumber('755', 8),
       exists_ok = false,
     }
   else
