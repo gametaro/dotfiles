@@ -171,18 +171,17 @@ local function plugins(use)
     'neovim/nvim-lspconfig',
     requires = {
       { 'williamboman/nvim-lsp-installer' },
-      {
-        'ray-x/lsp_signature.nvim',
-        config = function()
-          require('lsp_signature').setup()
-        end,
-      },
       { 'folke/lua-dev.nvim' },
-      { 'jose-elias-alvarez/null-ls.nvim' },
-      { 'onsails/lspkind-nvim' },
     },
     config = function()
-      require 'lsp'
+      require('lsp').setup()
+    end,
+  }
+
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      require('lsp.null-ls').setup()
     end,
   }
 
@@ -209,6 +208,7 @@ local function plugins(use)
         after = 'nvim-cmp',
         requires = { 'tzachar/fuzzy.nvim' },
       },
+      { 'onsails/lspkind-nvim' },
     },
     config = function()
       require 'config.cmp'

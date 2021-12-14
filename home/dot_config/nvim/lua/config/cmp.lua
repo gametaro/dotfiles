@@ -1,6 +1,7 @@
 local cmp = require 'cmp'
 local compare = require 'cmp.config.compare'
 local luasnip = require 'luasnip'
+local lspkind = require 'lspkind'
 
 MAX_ITEM_COUNT = 5
 
@@ -89,7 +90,7 @@ cmp.setup {
   },
   formatting = {
     deprecated = true,
-    format = require('lspkind').cmp_format { with_text = false },
+    format = lspkind.cmp_format { with_text = false },
   },
   sources = cmp.config.sources {
     -- { name = 'buffer' },
