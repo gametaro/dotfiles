@@ -16,10 +16,9 @@ require('nvim-treesitter.configs').setup {
       keymaps = {
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
-        ['as'] = '@statement.outer',
-        ['a,'] = '@parameter.outer',
-        ['i,'] = '@parameter.inner',
-        ['a/'] = '@comment.outer',
+        ['aP'] = '@parameter.outer',
+        ['iP'] = '@parameter.inner',
+        ['ac'] = '@comment.outer',
       },
     },
     swap = {
