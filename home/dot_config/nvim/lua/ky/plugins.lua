@@ -726,13 +726,6 @@ local function plugins(use)
   use 'nathom/filetype.nvim'
 
   use {
-    'https://gitlab.com/yorickpeterse/nvim-pqf.git',
-    config = function()
-      require('pqf').setup()
-    end,
-  }
-
-  use {
     'github/copilot.vim',
     setup = function()
       vim.g.copilot_no_tab_map = true
