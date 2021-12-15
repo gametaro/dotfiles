@@ -249,16 +249,7 @@ local function plugins(use)
   }
 
   use {
-    'SmiteshP/nvim-gps',
-    after = 'nvim-treesitter',
-    config = function()
-      require('nvim-gps').setup {}
-    end,
-  }
-
-  use {
     'windwp/windline.nvim',
-    after = 'nvim-gps',
     config = function()
       require 'ky.config.windline'
     end,

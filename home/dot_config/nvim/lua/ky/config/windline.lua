@@ -6,7 +6,6 @@ local state = _G.WindLine.state
 local lsp_comps = require 'windline.components.lsp'
 local git_comps = require 'windline.components.git'
 
-local gps = require 'nvim-gps'
 local icons = require('ky.theme').icons
 
 local hl_list = {
@@ -143,22 +142,6 @@ basic.lsp_name = {
     }
   end,
 }
-basic.gps = {
-  name = 'gps',
-  hl_colors = {
-    magenta = { 'magenta', 'black' },
-  },
-  width = breakpoint_width,
-  text = function()
-    if gps.is_available() then
-      return {
-        { ' ', '' },
-        { gps.get_location(), 'magenta' },
-      }
-    end
-    return ''
-  end,
-}
 
 local quickfix = {
   filetypes = { 'qf', 'Trouble' },
@@ -203,7 +186,6 @@ local default = {
     -- basic.vi_mode,
     basic.file,
     basic.lsp_diagnos,
-    basic.gps,
     basic.divider,
     basic.file_right,
     basic.lsp_name,
