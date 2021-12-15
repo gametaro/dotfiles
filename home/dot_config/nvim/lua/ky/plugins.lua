@@ -308,6 +308,7 @@ local function plugins(use)
 
       vim.g.bufferline = {
         animation = false,
+        exclude_ft = { 'NeogitStatus', 'NeogitCommitMessage' },
       }
     end,
   }
