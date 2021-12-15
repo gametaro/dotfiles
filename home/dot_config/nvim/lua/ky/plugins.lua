@@ -243,8 +243,6 @@ local function plugins(use)
 
   use {
     'folke/tokyonight.nvim',
-    'projekt0n/github-nvim-theme',
-    'marko-cerovac/material.nvim',
     'EdenEast/nightfox.nvim',
   }
 
