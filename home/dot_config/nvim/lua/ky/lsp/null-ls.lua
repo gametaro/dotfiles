@@ -1,6 +1,6 @@
 local null_ls = require 'null-ls'
 local b = null_ls.builtins
-local on_attach = require('lsp').on_attach
+local on_attach = require('ky.lsp').on_attach
 
 local M = {}
 

@@ -7,7 +7,7 @@ local lsp_comps = require 'windline.components.lsp'
 local git_comps = require 'windline.components.git'
 
 local gps = require 'nvim-gps'
-local icons = require('theme').icons
+local icons = require('ky.theme').icons
 
 local hl_list = {
   Black = { 'white', 'black' },

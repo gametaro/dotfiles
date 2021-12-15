@@ -38,7 +38,7 @@ autocmd mine BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exec
 ]]
 
 vim.cmd 'autocmd mine FocusLost * nested silent! wall'
-vim.cmd 'autocmd mine BufLeave * lua if require"utils".can_save() then vim.cmd "silent! update" end'
+vim.cmd 'autocmd mine BufLeave * lua if require"ky.utils".can_save() then vim.cmd "silent! update" end'
 
 vim.cmd 'autocmd mine BufWritePost * if &diff | diffupdate | endif'
 

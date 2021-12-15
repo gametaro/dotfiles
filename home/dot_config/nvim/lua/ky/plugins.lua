@@ -1,4 +1,4 @@
-local not_headless = require('utils').not_headless
+local not_headless = require('ky.utils').not_headless
 
 local M = {}
 
@@ -150,7 +150,7 @@ local function plugins(use)
       end
     end,
     config = function()
-      require 'config.treesitter'
+      require 'ky.config.treesitter'
     end,
   }
 
@@ -173,14 +173,14 @@ local function plugins(use)
       { 'folke/lua-dev.nvim' },
     },
     config = function()
-      require('lsp').setup()
+      require('ky.lsp').setup()
     end,
   }
 
   use {
     'jose-elias-alvarez/null-ls.nvim',
     config = function()
-      require('lsp.null-ls').setup()
+      require('ky.lsp.null-ls').setup()
     end,
   }
 
@@ -210,7 +210,7 @@ local function plugins(use)
       { 'onsails/lspkind-nvim' },
     },
     config = function()
-      require 'config.cmp'
+      require 'ky.config.cmp'
     end,
   }
 
@@ -260,7 +260,7 @@ local function plugins(use)
     'windwp/windline.nvim',
     after = 'nvim-gps',
     config = function()
-      require 'config.windline'
+      require 'ky.config.windline'
     end,
   }
 
@@ -364,7 +364,7 @@ local function plugins(use)
     'kyazdani42/nvim-tree.lua',
     opt = true,
     config = function()
-      require 'config.tree'
+      require 'ky.config.tree'
     end,
   }
 
@@ -372,7 +372,7 @@ local function plugins(use)
     'tamago324/lir.nvim',
     requires = 'tamago324/lir-git-status.nvim',
     config = function()
-      require 'config.lir'
+      require 'ky.config.lir'
     end,
   }
 
@@ -444,7 +444,7 @@ local function plugins(use)
     'lewis6991/gitsigns.nvim',
     requires = 'nvim-lua/plenary.nvim',
     config = function()
-      require 'config.gitsigns'
+      require 'ky.config.gitsigns'
     end,
   }
 
@@ -503,7 +503,7 @@ local function plugins(use)
       },
     },
     config = function()
-      require 'config.telescope'
+      require 'ky.config.telescope'
     end,
   }
 
@@ -534,7 +534,7 @@ local function plugins(use)
   use {
     'kana/vim-submode',
     config = function()
-      require 'config.submode'
+      require 'ky.config.submode'
     end,
   }
 
@@ -556,7 +556,7 @@ local function plugins(use)
     'mfussenegger/nvim-dap',
     opt = true,
     config = function()
-      require 'config.dap'
+      require 'ky.config.dap'
     end,
   }
 
@@ -607,7 +607,7 @@ local function plugins(use)
     cond = not_headless,
     config = function()
       local notify = require 'notify'
-      local icons = require('theme').icons
+      local icons = require('ky.theme').icons
       notify.setup {
         timeout = 2000,
         icons = {
