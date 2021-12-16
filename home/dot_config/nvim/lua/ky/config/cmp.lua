@@ -18,10 +18,8 @@ local function tab(fallback)
     luasnip.jump(1)
   elseif cmp.visible() then
     cmp.select_next_item()
-  elseif vim.api.nvim_get_mode().mode == 'c' then
-    fallback()
   else
-    feedkey '<Plug>(Tabout)'
+    fallback()
   end
 end
 
@@ -30,10 +28,8 @@ local function s_tab(fallback)
     luasnip.jump(-1)
   elseif cmp.visible() then
     cmp.select_prev_item()
-  elseif vim.api.nvim_get_mode().mode == 'c' then
-    fallback()
   else
-    feedkey '<Plug>(TaboutBack)'
+    fallback()
   end
 end
 
