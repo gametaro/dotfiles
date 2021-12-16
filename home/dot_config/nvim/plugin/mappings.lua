@@ -7,8 +7,6 @@ map('n', 'x', '"_x', opts)
 
 map('t', '<Esc>', [[<C-\><C-n>]], opts)
 
--- map('n', '<Leader>t', '<Cmd>tabclose<CR>', opts)
-
 map('c', '<C-a>', '<Home>', { noremap = true })
 map('c', '<C-b>', '<Left>', { noremap = true })
 map('c', '<C-d>', '<Del>', { noremap = true })
