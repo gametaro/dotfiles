@@ -67,6 +67,7 @@ local function plugins(use)
 
   use {
     'lukas-reineke/indent-blankline.nvim',
+    opt = true,
     config = function()
       require('indent_blankline').setup {
         buftype_exclude = { 'nofile', 'terminal', 'help' },
@@ -412,6 +413,7 @@ local function plugins(use)
     'sindrets/diffview.nvim',
     requires = 'nvim-lua/plenary.nvim',
     cond = not_headless,
+    cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     config = function()
       require('diffview').setup {
         enhanced_diff_hl = true,
@@ -459,6 +461,7 @@ local function plugins(use)
 
   use {
     'nvim-telescope/telescope.nvim',
+    keys = { { 'n', '<Leader>f' }, { 'n', '<Leader>g' } },
     requires = {
       { 'nvim-lua/plenary.nvim' },
       {
@@ -537,6 +540,7 @@ local function plugins(use)
 
   use {
     'norcalli/nvim-colorizer.lua',
+    opt = true,
     config = function()
       require('colorizer').setup()
     end,
@@ -727,6 +731,7 @@ local function plugins(use)
 
   use {
     'github/copilot.vim',
+    opt = true,
     setup = function()
       vim.g.copilot_no_tab_map = true
 
