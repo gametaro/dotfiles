@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1639576336163,
+  "lastUpdate": 1639651504354,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -782,6 +782,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.6258603883000001,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "1173bbb501989ca8157a44ec69dda1cca6c4d89a",
+          "message": "perf(plugins): add conditional lazy loading of some plugins",
+          "timestamp": "2021-12-16T19:43:23+09:00",
+          "tree_id": "2c82a6d27df29f302e4824373b399da742782745",
+          "url": "https://github.com/gametaro/dotfiles/commit/1173bbb501989ca8157a44ec69dda1cca6c4d89a"
+        },
+        "date": 1639651503282,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.55575937668,
             "unit": "Second"
           }
         ]
