@@ -23,11 +23,11 @@ vim.cmd 'autocmd mine BufWritePost ~/.local/share/chezmoi/* silent !chezmoi appl
 -- tweak some colors
 vim.cmd 'autocmd mine ColorScheme * highlight DiffDelete guifg=#725272 gui = bold'
 
--- show cursor line only in active window
-vim.cmd [[
-autocmd mine InsertLeave,WinEnter * set cursorline
-autocmd mine InsertEnter,WinLeave * set nocursorline
-]]
+-- -- show cursor line only in active window
+-- vim.cmd [[
+-- autocmd mine InsertLeave,WinEnter * set cursorline
+-- autocmd mine InsertEnter,WinLeave * set nocursorline
+-- ]]
 
 -- PackerCompile on save
 -- vim.cmd 'autocmd mine BufWritePost */lua/*.lua source <afile> | PackerCompile'
