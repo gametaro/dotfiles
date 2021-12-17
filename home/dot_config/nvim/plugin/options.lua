@@ -26,7 +26,6 @@ opt.inccommand = 'split'
 opt.list = true
 opt.modeline = false
 opt.mouse = 'a'
-opt.pumblend = 10
 opt.scrolloff = 3
 opt.secure = true
 opt.sessionoptions = 'buffers,curdir,tabpages,winsize'
