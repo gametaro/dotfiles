@@ -459,6 +459,8 @@ local function plugins(use)
     'kana/vim-textobj-user',
     { 'kana/vim-textobj-entire', after = 'vim-textobj-user' },
     { 'kana/vim-textobj-line', after = 'vim-textobj-user' },
+    { 'kana/vim-textobj-indent', after = 'vim-textobj-user' },
+    { 'Julian/vim-textobj-variable-segment', after = 'vim-textobj-user' },
   }
 
   use {
