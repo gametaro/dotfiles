@@ -246,10 +246,8 @@ local function plugins(use)
     end,
   }
 
-  use {
-    'folke/tokyonight.nvim',
-    'EdenEast/nightfox.nvim',
-  }
+  use { 'folke/tokyonight.nvim', opt = true }
+  use 'EdenEast/nightfox.nvim'
 
   use {
     'windwp/windline.nvim',
