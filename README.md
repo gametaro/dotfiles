@@ -5,7 +5,7 @@
 
 My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 
-## Install
+## Installation
 
 ```sh
 git clone https://github.com/gametaro/dotfiles.git
