@@ -214,22 +214,21 @@ local function plugins(use)
         requires = { 'tzachar/fuzzy.nvim' },
       },
       { 'onsails/lspkind-nvim' },
+      {
+        'L3MON4D3/LuaSnip',
+        requires = 'rafamadriz/friendly-snippets',
+        config = function()
+          require('luasnip').config.set_config {
+            updateevents = 'TextChanged,TextChangedI',
+            delete_check_events = 'TextChanged',
+            enable_autosnippets = true,
+          }
+          require('luasnip/loaders/from_vscode').load()
+        end,
+      },
     },
     config = function()
       require 'ky.config.cmp'
-    end,
-  }
-
-  use {
-    'L3MON4D3/LuaSnip',
-    requires = 'rafamadriz/friendly-snippets',
-    config = function()
-      require('luasnip').config.set_config {
-        updateevents = 'TextChanged,TextChangedI',
-        delete_check_events = 'TextChanged',
-        enable_autosnippets = true,
-      }
-      require('luasnip/loaders/from_vscode').load()
     end,
   }
 
