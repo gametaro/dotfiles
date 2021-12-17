@@ -313,6 +313,7 @@ local function plugins(use)
         clickable = false,
         closable = false,
         exclude_ft = { 'NeogitStatus', 'NeogitCommitMessage' },
+        maximum_padding = 1,
       }
     end,
   }
