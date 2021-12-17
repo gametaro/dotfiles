@@ -1,6 +1,6 @@
 local windline = require 'windline'
 local helper = require 'windline.helpers'
-local b_components = require 'windline.components.basic'
+local b = require 'windline.components.basic'
 local state = _G.WindLine.state
 
 local lsp_comps = require 'windline.components.lsp'
@@ -17,7 +17,7 @@ local hl_list = {
 local basic = {}
 
 local breakpoint_width = 90
-basic.divider = { b_components.divider, '' }
+basic.divider = { b.divider, '' }
 basic.bg = { ' ', 'StatusLine' }
 
 local colors_mode = {
@@ -71,21 +71,21 @@ basic.file = {
   text = function(_, _, width)
     if width > breakpoint_width then
       return {
-        -- { b_components.cache_file_size(), 'default' },
+        -- { b.cache_file_size(), 'default' },
         -- { ' ', '' },
-        { b_components.cache_file_name('[No Name]', 'unique'), 'magenta' },
-        -- { b_components.line_col_lua, 'white' },
-        -- { b_components.progress_lua, '' },
+        { b.cache_file_name('[No Name]', 'unique'), 'magenta' },
+        -- { b.line_col_lua, 'white' },
+        -- { b.progress_lua, '' },
         -- { ' ', '' },
-        { b_components.file_modified ' ', 'magenta' },
+        { b.file_modified ' ', 'magenta' },
       }
     else
       return {
-        -- { b_components.cache_file_size(), 'default' },
+        -- { b.cache_file_size(), 'default' },
         -- { ' ', '' },
-        { b_components.cache_file_name('[No Name]', 'unique'), 'magenta' },
+        { b.cache_file_name('[No Name]', 'unique'), 'magenta' },
         -- { ' ', '' },
-        { b_components.file_modified ' ', 'magenta' },
+        { b.file_modified ' ', 'magenta' },
       }
     end
   end,
@@ -99,8 +99,8 @@ basic.file_right = {
   text = function(_, _, width)
     if width < breakpoint_width then
       return {
-        { b_components.line_col_lua, 'white' },
-        { b_components.progress_lua, '' },
+        { b.line_col_lua, 'white' },
+        { b.progress_lua, '' },
       }
     end
   end,
@@ -138,7 +138,7 @@ basic.lsp_name = {
       }
     end
     return {
-      { b_components.cache_file_type { icon = true }, 'magenta' },
+      { b.cache_file_type { icon = true }, 'magenta' },
     }
   end,
 }
@@ -171,8 +171,8 @@ local explorer = {
   active = {
     { '  ', { 'black', 'red' } },
     { helper.separators.slant_right, { 'red', 'NormalBg' } },
-    { b_components.divider, '' },
-    { b_components.file_name '', { 'white', 'black_light' } },
+    { b.divider, '' },
+    { b.file_name '', { 'white', 'black_light' } },
   },
   always_active = true,
   show_last_status = true,
@@ -195,12 +195,12 @@ local default = {
     basic.square_mode,
   },
   inactive = {
-    { b_components.full_file_name, hl_list.Inactive },
+    { b.full_file_name, hl_list.Inactive },
     basic.file_name_inactive,
     basic.divider,
     basic.divider,
-    { b_components.line_col, hl_list.Inactive },
-    { b_components.progress, hl_list.Inactive },
+    { b.line_col, hl_list.Inactive },
+    { b.progress, hl_list.Inactive },
   },
 }
 
