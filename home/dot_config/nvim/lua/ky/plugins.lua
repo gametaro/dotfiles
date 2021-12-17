@@ -15,6 +15,11 @@ local config = {
     enable = true,
     threshold = 1,
   },
+  display = {
+    open_fn = function()
+      return require('packer.util').float { border = 'single' }
+    end,
+  },
 }
 
 local function plugins(use)
