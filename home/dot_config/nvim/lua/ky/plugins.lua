@@ -177,6 +177,7 @@ local function plugins(use)
     requires = {
       { 'williamboman/nvim-lsp-installer' },
       { 'folke/lua-dev.nvim' },
+      { 'b0o/schemastore.nvim'}
     },
     config = function()
       require('ky.lsp').setup()
@@ -749,8 +750,6 @@ local function plugins(use)
       })
     end,
   }
-
-  use 'b0o/schemastore.nvim'
 
   use 'stevearc/dressing.nvim'
 
