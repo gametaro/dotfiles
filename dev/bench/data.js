@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1639753604947,
+  "lastUpdate": 1639756841276,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -869,6 +869,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.5260003878200001,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "6486080e2601af5ecc3dd2ac80e4d291a34e9ba0",
+          "message": "feat(plugins): add persistence.nvim and use it instead of auto-session",
+          "timestamp": "2021-12-18T00:54:47+09:00",
+          "tree_id": "061f9c3ed59a3719ecc55e4a99486728eb766120",
+          "url": "https://github.com/gametaro/dotfiles/commit/6486080e2601af5ecc3dd2ac80e4d291a34e9ba0"
+        },
+        "date": 1639756840398,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.6205076950999999,
             "unit": "Second"
           }
         ]
