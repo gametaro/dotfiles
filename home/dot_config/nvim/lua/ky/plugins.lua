@@ -583,6 +583,7 @@ local function plugins(use)
 
   use {
     'rmagatti/auto-session',
+    opt = true,
     config = function()
       require('auto-session').setup {
         auto_session_enabled = true,
@@ -752,6 +753,40 @@ local function plugins(use)
   use 'b0o/schemastore.nvim'
 
   use 'stevearc/dressing.nvim'
+
+  use {
+    'folke/persistence.nvim',
+    event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+    module = 'persistence',
+    setup = function()
+      vim.cmd [[autocmd VimEnter * nested lua require'persistence'.load()]]
+
+      -- restore the session for the current directory
+      vim.api.nvim_set_keymap(
+        'n',
+        '<leader>ps',
+        [[<cmd>lua require("persistence").load()<cr>]],
+        { noremap = true, silent = true }
+      )
+      -- restore the last session
+      vim.api.nvim_set_keymap(
+        'n',
+        '<leader>pl',
+        [[<cmd>lua require("persistence").load({ last = true })<cr>]],
+        { noremap = true, silent = true }
+      )
+      -- stop Persistence => session won't be saved on exit
+      vim.api.nvim_set_keymap(
+        'n',
+        '<leader>pd',
+        [[<cmd>lua require("persistence").stop()<cr>]],
+        { noremap = true, silent = true }
+      )
+    end,
+    config = function()
+      require('persistence').setup()
+    end,
+  }
 end
 
 function M.setup()
