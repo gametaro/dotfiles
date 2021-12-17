@@ -177,7 +177,7 @@ local function plugins(use)
     requires = {
       { 'williamboman/nvim-lsp-installer' },
       { 'folke/lua-dev.nvim' },
-      { 'b0o/schemastore.nvim'}
+      { 'b0o/schemastore.nvim' },
     },
     config = function()
       require('ky.lsp').setup()
