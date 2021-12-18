@@ -165,8 +165,8 @@ local function plugins(use)
     requires = { 'kana/vim-operator-user' },
     keys = { '<Plug>(operator-replace)' },
     setup = function()
-      vim.api.nvim_set_keymap('n', 'R', '<Plug>(operator-replace)', { silent = true })
-      vim.api.nvim_set_keymap('x', 'R', '<Plug>(operator-replace)', { silent = true })
+      vim.api.nvim_set_keymap('n', '_', '<Plug>(operator-replace)', { silent = true })
+      vim.api.nvim_set_keymap('x', '_', '<Plug>(operator-replace)', { silent = true })
     end,
   }
 
