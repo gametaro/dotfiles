@@ -178,6 +178,7 @@ local function plugins(use)
       { 'williamboman/nvim-lsp-installer' },
       { 'folke/lua-dev.nvim' },
       { 'b0o/schemastore.nvim' },
+      { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
     },
     config = function()
       require('ky.lsp').setup()
@@ -633,8 +634,6 @@ local function plugins(use)
   }
 
   use 'lewis6991/impatient.nvim'
-
-  use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
 
   use {
     'lukas-reineke/headlines.nvim',
