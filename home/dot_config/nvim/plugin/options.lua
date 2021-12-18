@@ -22,25 +22,32 @@ opt.expandtab = true
 opt.fillchars = 'diff:/'
 opt.foldmethod = 'expr'
 opt.ignorecase = true
+opt.imsearch = 0
 opt.inccommand = 'split'
 opt.list = true
+opt.listchars = { eol = '↵', extends = '↷', precedes = '↶', tab = [[]→\]], trail = '·' }
 opt.modeline = false
-opt.mouse = 'a'
-opt.scrolloff = 3
+-- opt.mouse = 'a'
+opt.scrolloff = 10
 opt.secure = true
 opt.sessionoptions = 'buffers,curdir,tabpages,winsize'
 opt.shiftround = true
 opt.shiftwidth = indent
-opt.shortmess:append 'a'
-opt.shortmess:append 'c'
+opt.shortmess:append {
+  S = true,
+  a = true,
+  c = true,
+  s = true,
+}
 opt.showbreak = '↳ '
-opt.listchars = { tab = [[]→\]], eol = '↵', trail = '·', extends = '↷', precedes = '↶' }
+opt.showcmd = false
 opt.showmode = false
 opt.signcolumn = 'yes'
 opt.smartcase = true
 opt.smartindent = true
 opt.splitbelow = true
--- opt.splitright = true
+opt.splitright = true
+opt.swapfile = false
 opt.tabstop = indent
 opt.termguicolors = true
 opt.undofile = true
