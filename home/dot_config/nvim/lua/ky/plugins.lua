@@ -343,6 +343,7 @@ local function plugins(use)
         size = vim.fn.float2nr(vim.o.lines * 0.3),
         open_mapping = [[<c-\>]],
         shade_terminals = false,
+        start_in_insert = false,
       }
 
       function _G.set_terminal_keymaps()
