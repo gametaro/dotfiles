@@ -61,7 +61,7 @@ local function plugins(use)
     end,
   }
 
-  use 'kevinhwang91/nvim-bqf'
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 
   use {
     'gabrielpoca/replacer.nvim',
