@@ -1,7 +1,5 @@
 local not_headless = require('ky.utils').not_headless
 
-local M = {}
-
 local function bootstrap()
   local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/opt/packer.nvim'
   if not vim.loop.fs_stat(install_path) then
@@ -789,12 +787,8 @@ local function plugins(use)
   }
 end
 
-function M.setup()
-  bootstrap()
-  require('packer').startup {
-    plugins,
-    config = config,
-  }
-end
-
-return M
+bootstrap()
+require('packer').startup {
+  plugins,
+  config = config,
+}

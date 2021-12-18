@@ -29,5 +29,7 @@ g.netrw_nogx = 1
 g.qf_disable_statusline = 1
 
 pcall(require, 'impatient')
-require('ky.plugins').setup()
+vim.defer_fn(function()
+  require('ky.plugins')
+end, 0)
 require('ky.theme').setup 'nightfox'
