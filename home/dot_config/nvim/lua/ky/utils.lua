@@ -28,12 +28,6 @@ function M.can_save()
   return vim.bo.buftype == '' and vim.bo.filetype ~= '' and vim.bo.modifiable
 end
 
-function M.highlight_under_cursor()
-  local synID = vim.fn.synID(vim.fn.line '.', vim.fn.col '.', 1)
-  local synIDattr = vim.fn.synIDattr(synID, 'name')
-  vim.cmd(string.format('verbose highlight %s', synIDattr))
-end
-
 function M.not_headless()
   return #vim.api.nvim_list_uis() > 0
 end

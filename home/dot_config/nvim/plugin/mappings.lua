@@ -33,7 +33,6 @@ map('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>', opts)
 map('n', '<Leader>cd', '<Cmd>tcd %:p:h<Bar>pwd<CR>', opts)
 map('n', '<Leader>cu', '<Cmd>tcd ..<Bar>pwd<CR>', opts)
 
-map('n', '<Leader>hi', '<Cmd> lua require"ky.utils".highlight_under_cursor()<CR>', opts)
 
 map('n', '<Leader>lq', '<Cmd> lua vim.diagnostic.setqflist()<CR>', opts)
 
