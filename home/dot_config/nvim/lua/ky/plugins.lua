@@ -433,7 +433,10 @@ local function plugins(use)
     requires = 'nvim-lua/plenary.nvim',
     cmd = { 'Neogit' },
     setup = function()
-      vim.api.nvim_set_keymap('n', '<LocalLeader>g', '<Cmd>Neogit<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>gs', '<Cmd>Neogit kind=split<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>gv', '<Cmd>Neogit kind=vsplit<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>gc', '<Cmd>Neogit commit<CR>', { noremap = true, silent = true })
     end,
     config = function()
       require('neogit').setup {
