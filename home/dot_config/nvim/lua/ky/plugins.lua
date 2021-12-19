@@ -830,6 +830,31 @@ local function plugins(use)
       require('persistence').setup()
     end,
   }
+
+  use {
+    'mtth/scratch.vim',
+    keys = { '<Plug>(scratch-' },
+    setup = function()
+      vim.g.scratch_autohide = 1
+      vim.g.scratch_no_mappings = 1
+      vim.g.scratch_persistence_file = vim.fn.stdpath 'cache' .. '/scratch.log'
+
+      vim.api.nvim_set_keymap('n', '<LocalLeader>ss', '<Plug>(scratch-insert-reuse)', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>sc', '<Plug>(scratch-insert-clear)', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap(
+        'x',
+        '<LocalLeader>ss',
+        '<Plug>(scratch-selection-reuse)',
+        { noremap = true, silent = true }
+      )
+      vim.api.nvim_set_keymap(
+        'x',
+        '<LocalLeader>sc',
+        '<Plug>(scratch-selection-clear)',
+        { noremap = true, silent = true }
+      )
+    end,
+  }
 end
 
 bootstrap()
