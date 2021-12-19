@@ -453,6 +453,10 @@ local function plugins(use)
     requires = 'nvim-lua/plenary.nvim',
     cond = not_headless,
     cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
+    setup = function()
+      vim.api.nvim_set_keymap('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory<CR>', { noremap = true, silent = true })
+    end,
     config = function()
       require('diffview').setup {
         enhanced_diff_hl = true,
