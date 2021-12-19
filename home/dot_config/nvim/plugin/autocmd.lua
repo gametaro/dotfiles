@@ -33,9 +33,7 @@ vim.cmd 'autocmd mine ColorScheme * highlight DiffDelete guifg=#725272 gui = bol
 -- vim.cmd 'autocmd mine BufWritePost */lua/*.lua source <afile> | PackerCompile'
 
 -- always jump to the last cursor position
-vim.cmd [[
-autocmd mine BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
-]]
+vim.cmd [[autocmd mine BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]]
 
 vim.cmd 'autocmd mine FocusLost * nested silent! wall'
 vim.cmd 'autocmd mine BufLeave * lua if require"ky.utils".can_save() then vim.cmd "silent! update" end'
