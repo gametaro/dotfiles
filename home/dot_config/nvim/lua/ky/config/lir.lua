@@ -134,10 +134,6 @@ require('lir').setup {
   -- },
 }
 
-require('lir.git_status').setup {
-  show_ignored = false,
-}
-
 -- use visual mode
 function _G.LirSettings()
   vim.api.nvim_buf_set_keymap(
@@ -149,6 +145,7 @@ function _G.LirSettings()
   )
 end
 
+vim.api.nvim_set_keymap('n', '-', [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]], { noremap = true })
 vim.api.nvim_set_keymap('n', '-', [[<Cmd>execute 'e ' .. expand('%:p:h')<CR>]], { noremap = true })
 
 vim.cmd [[augroup lir-settings]]

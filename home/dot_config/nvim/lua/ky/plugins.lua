@@ -63,6 +63,7 @@ local function plugins(use)
 
   use {
     'gabrielpoca/replacer.nvim',
+    ft = 'qf',
     setup = function()
       vim.api.nvim_set_keymap('n', '<Leader>R', '<Cmd>lua require("replacer").run()<cr>', { silent = true })
     end,
@@ -105,9 +106,9 @@ local function plugins(use)
     end,
   }
 
-  use { 'thinca/vim-prettyprint', event = 'CmdlineEnter' }
+  use { 'thinca/vim-prettyprint', cmd = { 'PP', 'PrettyPrint' } }
 
-  use { 'tyru/capture.vim', event = 'CmdlineEnter' }
+  use { 'tyru/capture.vim', cmd = 'Capture' }
 
   use {
     'tyru/open-browser.vim',
@@ -142,6 +143,7 @@ local function plugins(use)
 
   use {
     'nvim-treesitter/nvim-treesitter',
+    event = 'BufRead',
     requires = {
       { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
       { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
@@ -252,6 +254,7 @@ local function plugins(use)
 
   use {
     'windwp/windline.nvim',
+    event = 'VimEnter',
     config = function()
       require 'ky.config.windline'
     end,
@@ -259,6 +262,7 @@ local function plugins(use)
 
   use {
     'folke/which-key.nvim',
+    event = 'BufRead',
     config = function()
       require('which-key').setup {}
     end,
@@ -267,6 +271,7 @@ local function plugins(use)
   use {
     'folke/trouble.nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
+    keys = { '<leader>x' },
     cmd = { 'Trouble' },
     setup = function()
       local opts = { noremap = true, silent = true }
@@ -286,6 +291,7 @@ local function plugins(use)
 
   use {
     'romgrk/barbar.nvim',
+    after = 'nvim-web-devicons',
     setup = function()
       local opts = { noremap = true, silent = true }
       vim.api.nvim_set_keymap('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
@@ -368,17 +374,37 @@ local function plugins(use)
 
   use {
     'tamago324/lir.nvim',
-    requires = 'tamago324/lir-git-status.nvim',
+    keys = { { 'n', '-' } },
+    event = 'CmdlineEnter',
+    requires = {
+      {
+        'tamago324/lir-git-status.nvim',
+        after = 'lir.nvim',
+        config = function()
+          require('lir.git_status').setup {
+            show_ignored = false,
+          }
+        end,
+      },
+    },
     config = function()
       require 'ky.config.lir'
     end,
   }
 
   use {
+    'haya14busa/vim-asterisk',
+    keys = '<Plug>(asterisk-',
+    event = 'CmdlineEnter',
+    setup = function()
+      vim.g['asterisk#keeppos'] = 1
+    end,
+  }
+
+  use {
     'kevinhwang91/nvim-hlslens',
-    requires = { 'haya14busa/vim-asterisk' },
-    config = function()
-      require('hlslens').setup { calm_down = true }
+    after = 'vim-asterisk',
+    setup = function()
       local opts = { noremap = true, silent = true }
       vim.api.nvim_set_keymap(
         'n',
@@ -396,6 +422,9 @@ local function plugins(use)
       vim.api.nvim_set_keymap('', '#', [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]], {})
       vim.api.nvim_set_keymap('', 'g*', [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]], {})
       vim.api.nvim_set_keymap('', 'g#', [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]], {})
+    end,
+    config = function()
+      require('hlslens').setup { calm_down = true }
     end,
   }
 
@@ -442,6 +471,7 @@ local function plugins(use)
   use {
     'lewis6991/gitsigns.nvim',
     requires = 'nvim-lua/plenary.nvim',
+    event = 'BufRead',
     config = function()
       require 'ky.config.gitsigns'
     end,
@@ -462,10 +492,13 @@ local function plugins(use)
 
   use {
     'kana/vim-textobj-user',
-    { 'kana/vim-textobj-entire', after = 'vim-textobj-user' },
-    { 'kana/vim-textobj-line', after = 'vim-textobj-user' },
-    { 'kana/vim-textobj-indent', after = 'vim-textobj-user' },
-    { 'Julian/vim-textobj-variable-segment', after = 'vim-textobj-user' },
+    event = 'BufRead',
+    requires = {
+      { 'kana/vim-textobj-entire', after = 'vim-textobj-user' },
+      { 'kana/vim-textobj-line', after = 'vim-textobj-user' },
+      { 'kana/vim-textobj-indent', after = 'vim-textobj-user' },
+      { 'Julian/vim-textobj-variable-segment', after = 'vim-textobj-user' },
+    },
   }
 
   use {
@@ -528,6 +561,7 @@ local function plugins(use)
 
   use {
     'dstein64/nvim-scrollview',
+    event = 'BufRead',
     setup = function()
       vim.g.scrollview_current_only = 1
     end,
@@ -535,6 +569,7 @@ local function plugins(use)
 
   use {
     'kana/vim-submode',
+    event = 'BufRead',
     config = function()
       require 'ky.config.submode'
     end,
@@ -542,6 +577,7 @@ local function plugins(use)
 
   use {
     'kevinhwang91/nvim-hclipboard',
+    event = 'BufRead',
     config = function()
       require('hclipboard').start()
     end,
@@ -598,6 +634,7 @@ local function plugins(use)
 
   use {
     'David-Kunz/treesitter-unit',
+    after = 'nvim-treesitter',
     setup = function()
       vim.api.nvim_set_keymap('x', 'iu', ':lua require"treesitter-unit".select()<CR>', { noremap = true })
       vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
