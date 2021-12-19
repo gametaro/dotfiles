@@ -47,6 +47,7 @@ map('n', '<BS>', '<C-^>', opts)
 
 map('n', '<LocalLeader>tn', '<Cmd>tabnew<CR>', opts)
 map('n', '<LocalLeader>tc', '<Cmd>tabclose<CR>', opts)
+map('n', '<LocalLeader>te', '<Cmd>tabedit %<CR>', opts)
 
 -- WARN: experimental
 map('i', ',', ',<Space>', opts)
