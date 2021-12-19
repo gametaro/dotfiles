@@ -19,15 +19,17 @@ opt.diffopt = {
   'vertical',
 }
 opt.expandtab = true
-opt.fillchars = 'diff:/'
+opt.fillchars = { diff = '/' }
 opt.foldmethod = 'expr'
 opt.ignorecase = true
 opt.imsearch = 0
-opt.inccommand = 'split'
+opt.isfname:remove { '=' }
+opt.lazyredraw = true
 opt.list = true
 opt.listchars = { eol = '↵', extends = '↷', precedes = '↶', tab = [[]→\]], trail = '·' }
 opt.modeline = false
 -- opt.mouse = 'a'
+opt.shada = "!,'0,f0,<50,s10,h"
 opt.scrolloff = 10
 opt.secure = true
 opt.sessionoptions = 'buffers,curdir,tabpages,winsize'
@@ -50,10 +52,13 @@ opt.splitright = true
 opt.swapfile = false
 opt.tabstop = indent
 opt.termguicolors = true
+opt.timeoutlen = 500
+opt.ttimeoutlen = 10
 opt.undofile = true
 opt.updatetime = 250
 opt.virtualedit = 'all'
 opt.wildignorecase = true
+opt.wildoptions = 'pum'
 
 if vim.fn.executable 'fish' > 0 then
   opt.shell = '/usr/bin/fish'
