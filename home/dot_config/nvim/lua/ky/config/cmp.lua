@@ -5,15 +5,15 @@ local lspkind = require 'lspkind'
 
 MAX_ITEM_COUNT = 5
 
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+-- local t = function(str)
+--   return vim.api.nvim_replace_termcodes(str, true, true, true)
+-- end
 
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(t(key), mode or '', true)
-end
+-- local feedkey = function(key, mode)
+--   vim.api.nvim_feedkeys(t(key), mode or '', true)
+-- end
 
-local function tab(fallback)
+local tab = function(fallback)
   if luasnip.jumpable() then
     luasnip.jump(1)
   elseif cmp.visible() then
@@ -23,7 +23,7 @@ local function tab(fallback)
   end
 end
 
-local function s_tab(fallback)
+local s_tab = function(fallback)
   if luasnip.jumpable(-1) then
     luasnip.jump(-1)
   elseif cmp.visible() then
@@ -33,26 +33,29 @@ local function s_tab(fallback)
   end
 end
 
--- NOTE: can't require 'cmp_fuzzy_buffer.compare' if cmp is lazy loaded
--- So, need to define comparator myself
-local function compare_fuzzy_buffer(entry1, entry2)
-  if entry1.source.name == 'fuzzy_buffer' and entry2.source.name == 'fuzzy_buffer' then
-    return (entry1.completion_item.data.score > entry2.completion_item.data.score)
-  else
-    return nil
-  end
+local compare_fuzzy_buffer = function(entry1, entry2)
+  return (entry1.source.name == 'fuzzy_buffer' and entry2.source.name == 'fuzzy_buffer')
+      and (entry1.completion_item.data.score > entry2.completion_item.data.score)
+    or nil
+end
+
+local compare_under_comparator = function(entry1, entry2)
+  local _, entry1_under = entry1.completion_item.label:find '^_+'
+  local _, entry2_under = entry2.completion_item.label:find '^_+'
+
+  return (entry1_under or 0) < (entry2_under or 0)
 end
 
 cmp.setup {
   sorting = {
     priority_weight = 2,
     comparators = {
-      compare_fuzzy_buffer,
       compare.offset,
       compare.exact,
       compare.score,
       compare.recently_used,
-      require('cmp-under-comparator').under,
+      compare_fuzzy_buffer,
+      compare_under_comparator,
       compare.kind,
       compare.sort_text,
       compare.length,
@@ -86,15 +89,19 @@ cmp.setup {
   },
   formatting = {
     deprecated = true,
-    format = lspkind.cmp_format { with_text = false },
+    format = lspkind.cmp_format { with_text = true },
   },
-  sources = cmp.config.sources {
+
+  sources = cmp.config.sources({
     -- { name = 'buffer' },
     { name = 'luasnip', max_item_count = MAX_ITEM_COUNT },
     { name = 'nvim_lsp', max_item_count = MAX_ITEM_COUNT },
     { name = 'nvim_lua', max_item_count = MAX_ITEM_COUNT },
     -- { name = 'path' },=
+    { name = 'fuzzy_path', max_item_count = MAX_ITEM_COUNT },
     { name = 'emoji', max_item_count = MAX_ITEM_COUNT },
+    { name = 'cmp_git', max_item_count = MAX_ITEM_COUNT },
+  }, {
     {
       name = 'fuzzy_buffer',
       max_item_count = MAX_ITEM_COUNT,
@@ -111,8 +118,7 @@ cmp.setup {
         end,
       },
     },
-    { name = 'fuzzy_path', max_item_count = MAX_ITEM_COUNT },
-  },
+  }),
 }
 
 local config = {
