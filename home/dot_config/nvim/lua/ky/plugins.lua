@@ -484,8 +484,6 @@ local function plugins(use)
     end,
   }
 
-  use { 'tversteeg/registers.nvim', cmd = { 'Registers' }, keys = { '<Plug>(registers)' } }
-
   use {
     'haya14busa/vim-edgemotion',
     keys = { '<Plug>(edgemotion-' },
