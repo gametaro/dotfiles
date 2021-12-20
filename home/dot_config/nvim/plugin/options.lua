@@ -56,7 +56,7 @@ opt.timeoutlen = 500
 opt.ttimeoutlen = 10
 opt.undofile = true
 opt.updatetime = 250
-opt.virtualedit = 'all'
+opt.virtualedit = 'block'
 opt.wildignorecase = true
 opt.wildoptions = 'pum'
 
