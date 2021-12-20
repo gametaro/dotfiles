@@ -200,7 +200,7 @@ local function plugins(use)
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-path', after = 'nvim-cmp', commit = 'e1a6916' },
       { 'hrsh7th/cmp-emoji', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
