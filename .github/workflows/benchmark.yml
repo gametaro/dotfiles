@@ -23,7 +23,7 @@ jobs:
         sudo dpkg -i hyperfine.deb
 
     - name: Chezmoi Init
-      run: sh install.sh
+      run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply gametaro
 
     - name: Run benchmark
       run: |

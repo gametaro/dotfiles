@@ -24,7 +24,7 @@ jobs:
           sudo apt-get update
 
       - name: Chezmoi Init
-        run: sh install.sh
+        run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply gametaro
 
       - name: Chezmoi data
         run: '"$HOME/.local/bin/chezmoi" data'
@@ -39,7 +39,7 @@ jobs:
         run: dnf clean all && dnf install -y curl sudo
 
       - name: Chezmoi Init
-        run: sh install.sh
+        run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply gametaro
 
       - name: Chezmoi data
         run: '"$HOME/.local/bin/chezmoi" data'
