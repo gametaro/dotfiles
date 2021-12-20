@@ -1,14 +1,25 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-map('n', 'ZZ', '<Nop>', opts)
+-- Nop
+map('n', '<C-z>', '<Nop>', opts)
 map('n', 'ZQ', '<Nop>', opts)
+map('n', 'ZZ', '<Nop>', opts)
 
 map('x', '=', '=gv', opts)
 
 map('n', 'x', '"_x', opts)
+map('n', '<Leader>c', '"_c', opts)
+map('n', '<Leader>d', '"_d', opts)
 
-map('n', 'Q', 'q', opts)
+-- swap : ;
+map('', ';', ':', { noremap = true })
+map('', ':', ';', { noremap = true })
+
+map('n', '<Leader>w', '<Cmd>update<CR>', opts)
+map('n', '<Leader>W', '<Cmd>update!<CR>', opts)
+map('n', '<Leader>q', '<Cmd>quit<CR>', opts)
+map('n', '<Leader>Q', '<Cmd>quit!<CR>', opts)
 
 map('c', '<C-a>', '<Home>', { noremap = true })
 map('c', '<C-b>', '<Left>', { noremap = true })
@@ -32,7 +43,8 @@ map('i', '<M-j>', '<Esc><C-w>j', opts)
 map('i', '<M-k>', '<Esc><C-w>k', opts)
 map('i', '<M-l>', '<Esc><C-w>l', opts)
 
-map('n', '<Leader>q', '<Cmd>lua require"ky.utils".toggle_qf()<CR>', opts)
+-- map('n', '<Leader>q', '<Cmd>lua require"ky.utils".toggle_qf()<CR>', opts)
+
 
 -- NOTE: https://github.com/mhinz/vim-galore#quickly-add-empty-lines
 map('n', '[<Space>', "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>'[", opts)
@@ -41,13 +53,12 @@ map('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>', opts)
 map('n', '<Leader>cd', '<Cmd>tcd %:p:h<Bar>pwd<CR>', opts)
 map('n', '<Leader>ud', '<Cmd>tcd ..<Bar>pwd<CR>', opts)
 
-map('n', '<Leader>lq', '<Cmd> lua vim.diagnostic.setqflist()<CR>', opts)
-
 map('n', '<BS>', '<C-^>', opts)
 
-map('n', '<LocalLeader>tn', '<Cmd>tabnew<CR>', opts)
-map('n', '<LocalLeader>tc', '<Cmd>tabclose<CR>', opts)
-map('n', '<LocalLeader>te', '<Cmd>tabedit %<CR>', opts)
+-- tab
+map('n', '<Leader>tn', '<Cmd>tabnew<CR>', opts)
+map('n', '<Leader>tc', '<Cmd>tabclose<CR>', opts)
+map('n', '<Leader>te', '<Cmd>tabedit %<CR>', opts)
 
 -- WARN: experimental
 map('i', ',', ',<Space>', opts)

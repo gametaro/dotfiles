@@ -65,7 +65,7 @@ local function plugins(use)
     'gabrielpoca/replacer.nvim',
     ft = 'qf',
     setup = function()
-      vim.api.nvim_set_keymap('n', '<Leader>R', '<Cmd>lua require("replacer").run()<cr>', { silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>R', '<Cmd>lua require("replacer").run()<cr>', { silent = true })
     end,
   }
 
@@ -123,9 +123,9 @@ local function plugins(use)
     'hrsh7th/vim-eft',
     keys = { '<Plug>(eft-' },
     setup = function()
-      vim.api.nvim_set_keymap('n', ';', '<Plug>(eft-repeat)', {})
-      vim.api.nvim_set_keymap('x', ';', '<Plug>(eft-repeat)', {})
-      vim.api.nvim_set_keymap('o', ';', '<Plug>(eft-repeat)', {})
+      -- vim.api.nvim_set_keymap('n', ';', '<Plug>(eft-repeat)', {})
+      -- vim.api.nvim_set_keymap('x', ';', '<Plug>(eft-repeat)', {})
+      -- vim.api.nvim_set_keymap('o', ';', '<Plug>(eft-repeat)', {})
       vim.api.nvim_set_keymap('n', 'f', '<Plug>(eft-f)', {})
       vim.api.nvim_set_keymap('x', 'f', '<Plug>(eft-f)', {})
       vim.api.nvim_set_keymap('o', 'f', '<Plug>(eft-f)', {})
@@ -271,15 +271,15 @@ local function plugins(use)
   use {
     'folke/trouble.nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
-    keys = { '<leader>x' },
+    keys = { '<LocalLeader>x' },
     cmd = { 'Trouble' },
     setup = function()
       local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap('n', '<leader>xx', '<Cmd>Trouble<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<leader>xw', '<Cmd>Trouble lsp_workspace_diagnostics<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<leader>xd', '<Cmd>Trouble lsp_document_diagnostics<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<leader>xl', '<Cmd>Trouble loclist<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<leader>xq', '<Cmd>Trouble quickfix<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<LocalLeader>xx', '<Cmd>Trouble<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<LocalLeader>xw', '<Cmd>Trouble lsp_workspace_diagnostics<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<LocalLeader>xd', '<Cmd>Trouble lsp_document_diagnostics<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<LocalLeader>xl', '<Cmd>Trouble loclist<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<LocalLeader>xq', '<Cmd>Trouble quickfix<CR>', opts)
       vim.api.nvim_set_keymap('n', 'gR', '<cmd>Trouble lsp_references<cr>', opts)
     end,
     config = function()
@@ -508,7 +508,7 @@ local function plugins(use)
 
   use {
     'nvim-telescope/telescope.nvim',
-    keys = { { 'n', '<Leader>f' }, { 'n', '<Leader>g' } },
+    keys = { { 'n', '<LocalLeader>f' }, { 'n', '<LocalLeader>g' } },
     requires = {
       { 'nvim-lua/plenary.nvim' },
       {
@@ -538,7 +538,12 @@ local function plugins(use)
         config = function()
           require('project_nvim').setup {}
           require('telescope').load_extension 'projects'
-          vim.api.nvim_set_keymap('n', '<leader>fp', '<Cmd>Telescope projects<CR>', { noremap = true, silent = true })
+          vim.api.nvim_set_keymap(
+            'n',
+            '<LocalLeader>fp',
+            '<Cmd>Telescope projects<CR>',
+            { noremap = true, silent = true }
+          )
         end,
       },
     },
@@ -552,10 +557,10 @@ local function plugins(use)
     keys = { '<Plug>Snip' },
     run = 'bash ./install.sh',
     setup = function()
-      vim.api.nvim_set_keymap('v', '<Leader>sr', '<Plug>SnipRun', { silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>sr', '<Plug>SnipRun', { silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>so', '<Plug>SnipRunOperator', { silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>sc', '<Plug>SnipClose', { silent = true })
+      vim.api.nvim_set_keymap('v', '<LocalLeader>sr', '<Plug>SnipRun', { silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>sr', '<Plug>SnipRun', { silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>so', '<Plug>SnipRunOperator', { silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>sc', '<Plug>SnipClose', { silent = true })
     end,
     config = function()
       require('sniprun').setup {
@@ -617,8 +622,8 @@ local function plugins(use)
     requires = 'nvim-lua/plenary.nvim',
     cmd = { 'TodoQuickFix', 'TodoTrouble' },
     setup = function()
-      vim.api.nvim_set_keymap('n', '<Leader>tq', '<Cmd>TodoQuickFix<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>tt', '<Cmd>TodoTrouble<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>tq', '<Cmd>TodoQuickFix<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<LocalLeader>tt', '<Cmd>TodoTrouble<CR>', { noremap = true, silent = true })
     end,
     config = function()
       require('todo-comments').setup {}
@@ -688,54 +693,54 @@ local function plugins(use)
   use {
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
-    keys = { '<leader>n' },
+    keys = { '<LocalLeader>n' },
     setup = function()
       -- Show package versions
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>ns',
+        '<LocalLeader>ns',
         ":lua require('package-info').show()<CR>",
         { silent = true, noremap = true }
       )
       -- Hide package versions
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>nh',
+        '<LocalLeader>nh',
         ":lua require('package-info').hide()<CR>",
         { silent = true, noremap = true }
       )
       -- Update package on line
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>nu',
+        '<LocalLeader>nu',
         ":lua require('package-info').update()<CR>",
         { silent = true, noremap = true }
       )
       -- Delete package on line
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>nd',
+        '<LocalLeader>nd',
         ":lua require('package-info').delete()<CR>",
         { silent = true, noremap = true }
       )
       -- Install a new package
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>ni',
+        '<LocalLeader>ni',
         ":lua require('package-info').install()<CR>",
         { silent = true, noremap = true }
       )
       -- Reinstall dependencies
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>nr',
+        '<LocalLeader>nr',
         ":lua require('package-info').reinstall()<CR>",
         { silent = true, noremap = true }
       )
       -- Install a different package version
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>nc',
+        '<LocalLeader>nc',
         ":lua require('package-info').change_version()<CR>",
         { silent = true, noremap = true }
       )
@@ -760,7 +765,7 @@ local function plugins(use)
         "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
         { noremap = true }
       )
-      vim.api.nvim_set_keymap('n', 'q', "<cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })
+      vim.api.nvim_set_keymap('n', 'gpq', "<cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })
     end,
     config = function()
       require('goto-preview').setup {}
@@ -805,21 +810,21 @@ local function plugins(use)
       -- restore the session for the current directory
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>ps',
+        '<LocalLeader>qs',
         [[<cmd>lua require("persistence").load()<cr>]],
         { noremap = true, silent = true }
       )
       -- restore the last session
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>pl',
+        '<LocalLeader>ql',
         [[<cmd>lua require("persistence").load({ last = true })<cr>]],
         { noremap = true, silent = true }
       )
       -- stop Persistence => session won't be saved on exit
       vim.api.nvim_set_keymap(
         'n',
-        '<leader>pd',
+        '<LocalLeader>qd',
         [[<cmd>lua require("persistence").stop()<cr>]],
         { noremap = true, silent = true }
       )
@@ -833,29 +838,26 @@ local function plugins(use)
     'mtth/scratch.vim',
     keys = { '<Plug>(scratch-' },
     setup = function()
-      vim.g.scratch_autohide = 1
+      vim.g.scratch_autohide = 0
       vim.g.scratch_no_mappings = 1
       vim.g.scratch_persistence_file = vim.fn.stdpath 'cache' .. '/scratch.log'
 
-      vim.api.nvim_set_keymap('n', '<LocalLeader>ss', '<Plug>(scratch-insert-reuse)', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>sc', '<Plug>(scratch-insert-clear)', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'x',
-        '<LocalLeader>ss',
-        '<Plug>(scratch-selection-reuse)',
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'x',
-        '<LocalLeader>sc',
-        '<Plug>(scratch-selection-clear)',
-        { noremap = true, silent = true }
-      )
+      vim.api.nvim_set_keymap('n', '<LocalLeader>ss', '<Plug>(scratch-insert-reuse)', {})
+      vim.api.nvim_set_keymap('n', '<LocalLeader>sc', '<Plug>(scratch-insert-clear)', {})
+      vim.api.nvim_set_keymap('x', '<LocalLeader>ss', '<Plug>(scratch-selection-reuse)', {})
+      vim.api.nvim_set_keymap('x', '<LocalLeader>sc', '<Plug>(scratch-selection-clear)', {})
     end,
   }
 end
 
 bootstrap()
+
+vim.api.nvim_set_keymap('n', '<LocalLeader>pc', '<Cmd>PackerCompile<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<LocalLeader>pC', '<Cmd>PackerClean<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<LocalLeader>ps', '<Cmd>PackerSync<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<LocalLeader>pS', '<Cmd>PackerStatus<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<LocalLeader>pu', '<Cmd>PackerUpdate<CR>', { noremap = true, silent = true })
+
 require('packer').startup {
   plugins,
   config = config,
