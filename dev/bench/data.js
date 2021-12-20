@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1640010697408,
+  "lastUpdate": 1640016030595,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -1072,6 +1072,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.2153671528369231,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "6361184061687721417187dee76caf39fe02e40d",
+          "message": "chore: update Dockerfile",
+          "timestamp": "2021-12-21T00:57:25+09:00",
+          "tree_id": "6a4a16ba7218b67b6834498bb9ab7fe48bafffc3",
+          "url": "https://github.com/gametaro/dotfiles/commit/6361184061687721417187dee76caf39fe02e40d"
+        },
+        "date": 1640016006322,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.18804280690000003,
             "unit": "Second"
           }
         ]
