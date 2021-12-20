@@ -97,7 +97,7 @@ cmp.setup {
     { name = 'luasnip', max_item_count = MAX_ITEM_COUNT },
     { name = 'nvim_lsp', max_item_count = MAX_ITEM_COUNT },
     { name = 'nvim_lua', max_item_count = MAX_ITEM_COUNT },
-    -- { name = 'path' },=
+    -- { name = 'path' },
     { name = 'fuzzy_path', max_item_count = MAX_ITEM_COUNT },
     { name = 'emoji', max_item_count = MAX_ITEM_COUNT },
     { name = 'cmp_git', max_item_count = MAX_ITEM_COUNT },
