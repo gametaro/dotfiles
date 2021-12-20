@@ -20,9 +20,6 @@ vim.cmd 'autocmd mine TextYankPost * lua vim.highlight.on_yank {higroup = "Searc
 -- configure VIM to run chezmoi apply whenever a dotfile is saved
 vim.cmd 'autocmd mine BufWritePost ~/.local/share/chezmoi/* silent !chezmoi apply --source-path %'
 
--- tweak some colors
-vim.cmd 'autocmd mine ColorScheme * highlight DiffDelete guifg=#725272 gui = bold'
-
 -- -- show cursor line only in active window
 -- vim.cmd [[
 -- autocmd mine InsertLeave,WinEnter * set cursorline
