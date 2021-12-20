@@ -8,9 +8,7 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 ## Installation
 
 ```sh
-git clone https://github.com/gametaro/dotfiles.git
-cd dotfiles/
-sh install.sh
+sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply gametaro
 ```
 
 or with chezmoi:
@@ -22,9 +20,9 @@ chezmoi init gametaro
 or with docker:
 
 ```sh
-git clone https://github.com/gametaro/dotfiles.git
+git clone --bare https://github.com/gametaro/dotfiles.git
 cd dotfiles/
-docker run ---rm -it $(docker build -q .)
+docker run --rm -it $(docker build -q .)
 ```
 
 ## Benchmark
