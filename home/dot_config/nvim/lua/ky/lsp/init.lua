@@ -59,15 +59,16 @@ function M.on_attach(client, bufnr)
     client.config.flags.allow_incremental_sync = true
   end
 
-  if client.resolved_capabilities.document_highlight then
-    vim.cmd [[
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved,CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-      ]]
-  end
+  -- sometimes feel annoyed...
+  -- if client.resolved_capabilities.document_highlight then
+  --   vim.cmd [[
+  --     augroup lsp_document_highlight
+  --       autocmd! * <buffer>
+  --       autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+  --       autocmd CursorMoved,CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
+  --     augroup END
+  --     ]]
+  -- end
   if client.resolved_capabilities.document_formatting then
     buf_set_keymap('n', '<A-f>', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     -- vim.cmd 'autocmd mine BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
