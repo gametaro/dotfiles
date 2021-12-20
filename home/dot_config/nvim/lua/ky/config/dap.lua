@@ -27,10 +27,30 @@ dap.adapters.nlua = function(callback, config)
   callback { type = 'server', host = config.host, port = config.port }
 end
 
-vim.api.nvim_set_keymap('n', '<LocalLeader>dc', '<Cmd>lua require"dap".continue()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<LocalLeader>do', '<Cmd>lua require"dap".step_over()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<LocalLeader>di', '<Cmd>lua require"dap".step_into()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<LocalLeader>de', '<Cmd>lua require"dap".step_out()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  'n',
+  '<LocalLeader>dc',
+  '<Cmd>lua require"dap".continue()<CR>',
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<LocalLeader>do',
+  '<Cmd>lua require"dap".step_over()<CR>',
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<LocalLeader>di',
+  '<Cmd>lua require"dap".step_into()<CR>',
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<LocalLeader>de',
+  '<Cmd>lua require"dap".step_out()<CR>',
+  { noremap = true, silent = true }
+)
 vim.api.nvim_set_keymap(
   'n',
   '<LocalLeader>db',
@@ -49,5 +69,15 @@ vim.api.nvim_set_keymap(
   '<Cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>',
   { noremap = true, silent = true }
 )
-vim.api.nvim_set_keymap('n', '<LocalLeader>dr', '<Cmd>lua require"dap".repl.open()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<LocalLeader>dl', '<Cmd>lua require"dap".run_last()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  'n',
+  '<LocalLeader>dr',
+  '<Cmd>lua require"dap".repl.open()<CR>',
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<LocalLeader>dl',
+  '<Cmd>lua require"dap".run_last()<CR>',
+  { noremap = true, silent = true }
+)

@@ -45,7 +45,6 @@ map('i', '<M-l>', '<Esc><C-w>l', opts)
 
 -- map('n', '<Leader>q', '<Cmd>lua require"ky.utils".toggle_qf()<CR>', opts)
 
-
 -- NOTE: https://github.com/mhinz/vim-galore#quickly-add-empty-lines
 map('n', '[<Space>', "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>'[", opts)
 map('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>', opts)
