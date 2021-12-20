@@ -19,6 +19,12 @@ if command -q rg
     set -q RIPGREP_CONFIG_PATH; or set -gx RIPGREP_CONFIG_PATH ~/.config/ripgrep/config
 end
 
+if command -q chezmoi
+    if not test -e ~/.config/fish/completions/chezmoi.fish
+        chezmoi completion fish --output ~/.config/fish/completions/chezmoi.fish
+    end
+end
+
 if status --is-interactive
     abbr -a -g mv mv -i
     abbr -a -g cp cp -i
@@ -28,12 +34,21 @@ if status --is-interactive
     abbr -a -g vim nvim
     abbr -a -g grep rg
     abbr -a -g cat bat
-    abbr -a -g ccd chezmoi cd
-    abbr -a -g cap chezmoi apply
-    abbr -a -g ced chezmoi edit $argv
+    abbr -a -g ch chezmoi
+    abbr -a -g chc chezmoi cd
+    abbr -a -g cha chezmoi apply
+    abbr -a -g che chezmoi edit $argv
+    abbr -a -g do docker
+    abbr -a -g dor docker run
+    abbr -a -g dob docker build
+    abbr -a -g dop docker ps
+    abbr -a -g dol docker logs
+    abbr -a -g dol docker images
 end
 
 if command -q starship
     set -q STARSHIP_CONFIG; or set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
-    command -q starship; and starship init fish | source
+    starship init fish | source
 end
+
+set -x GPG_TTY (tty)
