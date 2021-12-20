@@ -20,7 +20,7 @@ chezmoi init gametaro
 or with docker:
 
 ```sh
-git clone --bare https://github.com/gametaro/dotfiles.git
+git clone --depth 1 https://github.com/gametaro/dotfiles.git
 cd dotfiles/
 docker run --rm -it $(docker build -q .)
 ```
