@@ -26,11 +26,19 @@ opt.imsearch = 0
 opt.isfname:remove { '=' }
 opt.lazyredraw = true
 opt.list = true
-opt.listchars = { eol = '↵', extends = '↷', precedes = '↶', tab = [[]→\]], trail = '·' }
+opt.listchars = {
+  eol = '↵',
+  extends = '↷',
+  precedes = '↶',
+  tab = [[]→\]],
+  trail = '·',
+}
 opt.modeline = false
 -- opt.mouse = 'a'
+opt.pumheight = 15
 opt.shada = "!,'0,f0,<50,s10,h"
 opt.scrolloff = 10
+opt.sidescrolloff = 10
 opt.secure = true
 opt.sessionoptions = 'buffers,curdir,tabpages,winsize'
 opt.shiftround = true
@@ -59,6 +67,7 @@ opt.updatetime = 250
 opt.virtualedit = 'block'
 opt.wildignorecase = true
 opt.wildoptions = 'pum'
+opt.wrap = false
 
 if vim.fn.executable 'fish' > 0 then
   opt.shell = '/usr/bin/fish'
