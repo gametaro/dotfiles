@@ -3,6 +3,6 @@ fd 8.3.0
 fzf 0.28.0
 hub v2.14.2
 neovim stable
-nodejs 17.2.0
+nodejs 17.3.0
 ripgrep 13.0.0
 starship 1.0.0
