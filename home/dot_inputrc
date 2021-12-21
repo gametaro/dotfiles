@@ -1,0 +1,9 @@
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Readline-Init-File-Syntax
+
+set colored-completion-prefix on
+set colored-stats on
+set completion-ignore-case on
+set completion-map-case on
+set completion-query-items 50
+set mark-modified-lines on
+set visible-stats on
