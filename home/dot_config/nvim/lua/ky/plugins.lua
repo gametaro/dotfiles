@@ -171,7 +171,16 @@ local function plugins(use)
     end,
   }
 
-  use 'kana/vim-niceblock'
+  use {
+    'kana/vim-niceblock',
+    keys = { { 'x', '<Plug>(niceblock-' } },
+    setup = function()
+      vim.g.niceblock_no_default_key_mappings = 1
+
+      vim.api.nvim_set_keymap('x', 'A', '<Plug>(niceblock-A)', {})
+      vim.api.nvim_set_keymap('x', 'I', '<Plug>(niceblock-I)', {})
+    end,
+  }
 
   use {
     'neovim/nvim-lspconfig',
