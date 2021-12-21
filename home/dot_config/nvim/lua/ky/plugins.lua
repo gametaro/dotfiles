@@ -759,27 +759,27 @@ local function plugins(use)
     end,
   }
 
-  use {
-    'rmagatti/goto-preview',
-    setup = function()
-      vim.api.nvim_set_keymap(
-        'n',
-        'gpd',
-        "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
-        { noremap = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        'gpi',
-        "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
-        { noremap = true }
-      )
-      vim.api.nvim_set_keymap('n', 'gpq', "<cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })
-    end,
-    config = function()
-      require('goto-preview').setup {}
-    end,
-  }
+  -- use {
+  --   'rmagatti/goto-preview',
+  --   setup = function()
+  --     vim.api.nvim_set_keymap(
+  --       'n',
+  --       'gpd',
+  --       "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+  --       { noremap = true }
+  --     )
+  --     vim.api.nvim_set_keymap(
+  --       'n',
+  --       'gpi',
+  --       "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+  --       { noremap = true }
+  --     )
+  --     vim.api.nvim_set_keymap('n', 'gpq', "<cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })
+  --   end,
+  --   config = function()
+  --     require('goto-preview').setup {}
+  --   end,
+  -- }
 
   use {
     'iamcco/markdown-preview.nvim',
