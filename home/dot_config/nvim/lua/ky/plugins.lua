@@ -10,7 +10,7 @@ end
 
 local config = {
   profile = {
-    enable = true,
+    enable = false,
     threshold = 1,
   },
   display = {
