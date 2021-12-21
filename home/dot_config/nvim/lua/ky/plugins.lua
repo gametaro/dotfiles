@@ -18,6 +18,7 @@ local config = {
       return require('packer.util').float { border = 'single' }
     end,
   },
+  compile_path = vim.fn.stdpath 'config' .. '/lua/packer_compiled.lua',
 }
 
 local function plugins(use)
