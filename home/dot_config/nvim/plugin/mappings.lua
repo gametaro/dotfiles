@@ -12,9 +12,9 @@ map('n', 'x', '"_x', opts)
 map('n', '<Leader>c', '"_c', opts)
 map('n', '<Leader>d', '"_d', opts)
 
--- swap : ;
-map('', ';', ':', { noremap = true })
-map('', ':', ';', { noremap = true })
+-- swap ; for :
+map('n', ';', ':', { noremap = true })
+map('n', ':', ';', { noremap = true })
 
 map('n', '<Leader>w', '<Cmd>update<CR>', opts)
 map('n', '<Leader>W', '<Cmd>update!<CR>', opts)
