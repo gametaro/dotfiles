@@ -3,8 +3,6 @@ local compare = require 'cmp.config.compare'
 local luasnip = require 'luasnip'
 local lspkind = require 'lspkind'
 
-MAX_ITEM_COUNT = 5
-
 -- local t = function(str)
 --   return vim.api.nvim_replace_termcodes(str, true, true, true)
 -- end
@@ -94,17 +92,16 @@ cmp.setup {
 
   sources = cmp.config.sources({
     -- { name = 'buffer' },
-    { name = 'luasnip', max_item_count = MAX_ITEM_COUNT },
-    { name = 'nvim_lsp', max_item_count = MAX_ITEM_COUNT },
-    { name = 'nvim_lua', max_item_count = MAX_ITEM_COUNT },
+    { name = 'luasnip' },
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
     -- { name = 'path' },
-    { name = 'fuzzy_path', max_item_count = MAX_ITEM_COUNT },
-    { name = 'emoji', max_item_count = MAX_ITEM_COUNT },
-    { name = 'cmp_git', max_item_count = MAX_ITEM_COUNT },
+    { name = 'fuzzy_path' },
+    { name = 'emoji' },
+    { name = 'cmp_git' },
   }, {
     {
       name = 'fuzzy_buffer',
-      max_item_count = MAX_ITEM_COUNT,
       options = {
         get_bufnrs = function()
           local bufs = {}
@@ -125,7 +122,6 @@ local config = {
   sources = cmp.config.sources({
     {
       name = 'fuzzy_buffer',
-      max_item_count = MAX_ITEM_COUNT,
       options = {
         get_bufnrs = function()
           return { vim.api.nvim_get_current_buf() }
@@ -141,8 +137,8 @@ cmp.setup.cmdline('/', config)
 cmp.setup.cmdline('?', config)
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'fuzzy_path', max_item_count = MAX_ITEM_COUNT },
+    { name = 'fuzzy_path' },
   }, {
-    { name = 'cmdline', max_item_count = MAX_ITEM_COUNT },
+    { name = 'cmdline' },
   }),
 })
