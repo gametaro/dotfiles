@@ -665,6 +665,7 @@ local function plugins(use)
   use {
     'rcarriga/nvim-notify',
     cond = not_headless,
+    event = 'BufRead',
     config = function()
       local notify = require 'notify'
       local icons = require('ky.theme').icons
