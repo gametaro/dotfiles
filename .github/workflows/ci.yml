@@ -27,7 +27,7 @@ jobs:
         run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply gametaro
 
       - name: Chezmoi data
-        run: '"$HOME/.local/bin/chezmoi" data'
+        run: chezmoi data
 
   centos:
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
         run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply gametaro
 
       - name: Chezmoi data
-        run: '"$HOME/.local/bin/chezmoi" data'
+        run: chezmoi data
 
   fedora:
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
         run: dnf clean all && dnf install -y curl sudo
 
       - name: Chezmoi Init
-        run: sh install.sh
+        run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply gametaro
 
       - name: Chezmoi data
-        run: '"$HOME/.local/bin/chezmoi" data'
+        run: chezmoi data
