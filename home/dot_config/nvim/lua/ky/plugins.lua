@@ -450,9 +450,10 @@ local function plugins(use)
     end,
     config = function()
       require('neogit').setup {
-        disable_hint = true,
-        disable_commit_confirmation = true,
         disable_builtin_notifications = true,
+        disable_commit_confirmation = true,
+        disable_hint = true,
+        disable_insert_on_commit = false,
         integrations = { diffview = true },
       }
     end,
