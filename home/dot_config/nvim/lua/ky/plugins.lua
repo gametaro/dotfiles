@@ -233,7 +233,9 @@ local function plugins(use)
         config = function()
           local ls = require 'luasnip'
           ls.config.set_config {
-            updateevents = 'TextChanged,TextChangedI',
+            history = true,
+            updateevents = 'InsertLeave',
+            region_check_events = 'CursorHold',
             delete_check_events = 'TextChanged',
             enable_autosnippets = true,
           }
