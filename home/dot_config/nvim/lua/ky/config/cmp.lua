@@ -3,40 +3,41 @@ local compare = require 'cmp.config.compare'
 local luasnip = require 'luasnip'
 local lspkind = require 'lspkind'
 
--- local t = function(str)
---   return vim.api.nvim_replace_termcodes(str, true, true, true)
--- end
-
--- local feedkey = function(key, mode)
---   vim.api.nvim_feedkeys(t(key), mode or '', true)
--- end
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
+end
 
 local tab = function(fallback)
-  if luasnip.jumpable() then
-    luasnip.jump(1)
-  elseif cmp.visible() then
+  if cmp.visible() then
     cmp.select_next_item()
+  elseif luasnip.expand_or_jumpable() then
+    luasnip.expand_or_jump()
+  elseif has_words_before() then
+    cmp.complete()
   else
     fallback()
   end
 end
 
 local s_tab = function(fallback)
-  if luasnip.jumpable(-1) then
-    luasnip.jump(-1)
-  elseif cmp.visible() then
+  if cmp.visible() then
     cmp.select_prev_item()
+  elseif luasnip.jumpable(-1) then
+    luasnip.jump(-1)
   else
     fallback()
   end
 end
 
+-- @see https://github.com/tzachar/cmp-fuzzy-buffer#sorting-and-filtering
 local compare_fuzzy_buffer = function(entry1, entry2)
   return (entry1.source.name == 'fuzzy_buffer' and entry2.source.name == 'fuzzy_buffer')
       and (entry1.completion_item.data.score > entry2.completion_item.data.score)
     or nil
 end
 
+-- @see https://github.com/lukas-reineke/cmp-under-comparator
 local compare_under_comparator = function(entry1, entry2)
   local _, entry1_under = entry1.completion_item.label:find '^_+'
   local _, entry2_under = entry2.completion_item.label:find '^_+'
@@ -48,11 +49,11 @@ cmp.setup {
   sorting = {
     priority_weight = 2,
     comparators = {
+      compare_fuzzy_buffer,
       compare.offset,
       compare.exact,
       compare.score,
       compare.recently_used,
-      compare_fuzzy_buffer,
       compare_under_comparator,
       compare.kind,
       compare.sort_text,
