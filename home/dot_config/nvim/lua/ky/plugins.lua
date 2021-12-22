@@ -231,12 +231,14 @@ local function plugins(use)
         'L3MON4D3/LuaSnip',
         requires = 'rafamadriz/friendly-snippets',
         config = function()
-          require('luasnip').config.set_config {
+          local ls = require 'luasnip'
+          ls.config.set_config {
             updateevents = 'TextChanged,TextChangedI',
             delete_check_events = 'TextChanged',
             enable_autosnippets = true,
           }
           require('luasnip/loaders/from_vscode').load()
+          ls.filetype_extend('NeogitCommitMessage', { 'gitcommit' })
         end,
       },
     },
