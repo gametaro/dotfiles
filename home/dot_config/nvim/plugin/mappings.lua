@@ -22,7 +22,6 @@ map('c', '<C-z>', '<Nop>', {})
 map('i', '<C-_>', '<Nop>', {})
 map('i', '<C-b>', '<Nop>', {})
 map('i', '<C-z>', '<Nop>', {})
-map('i', '<C-z>', '<Nop>', {})
 
 map('x', '=', '=gv', opts)
 
