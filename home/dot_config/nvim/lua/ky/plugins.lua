@@ -368,12 +368,22 @@ local function plugins(use)
       }
 
       function _G.set_terminal_keymaps()
-        local opts = { noremap = true }
-        vim.api.nvim_buf_set_keymap(0, 't', '<Esc>', [[<C-\><C-n>]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', '<M-h>', [[<C-\><C-n><C-W>h]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', '<M-j>', [[<C-\><C-n><C-W>j]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', '<M-k>', [[<C-\><C-n><C-W>k]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', '<M-l>', [[<C-\><C-n><C-W>l]], opts)
+        -- local opts = { noremap = true }
+        -- vim.api.nvim_buf_set_keymap(0, 't', '<Esc>', [[<C-\><C-n>]], opts)
+        -- vim.api.nvim_buf_set_keymap(0, 't', '<M-h>', [[<C-\><C-n><C-W>h]], opts)
+        -- vim.api.nvim_buf_set_keymap(0, 't', '<M-j>', [[<C-\><C-n><C-W>j]], opts)
+        -- vim.api.nvim_buf_set_keymap(0, 't', '<M-k>', [[<C-\><C-n><C-W>k]], opts)
+        -- vim.api.nvim_buf_set_keymap(0, 't', '<M-l>', [[<C-\><C-n><C-W>l]], opts)
+
+        local function t(s)
+          return vim.api.nvim_replace_termcodes(s, true, true, true)
+        end
+
+        function _G.escape_terminal()
+          return require('ky.utils').find_proc_in_tree(vim.b.terminal_job_pid, { 'nvim', 'fzf' }, 0) and t '<Esc>'
+            or t [[<C-\><C-n>]]
+        end
+        vim.api.nvim_set_keymap('t', '<Esc>', 'v:lua.escape_terminal()', { noremap = true, silent = true, expr = true })
       end
 
       vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
