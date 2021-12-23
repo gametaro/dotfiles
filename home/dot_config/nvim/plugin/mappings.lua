@@ -101,6 +101,10 @@ map('o', '(', 't(', opts)
 map('x', ')', 't)', opts)
 map('x', '(', 't(', opts)
 
+-- @see https://github.com/mhinz/vim-galore#quickly-move-current-line
+map('n', '[e', "<Cmd>execute 'move -1-' . v:count1<CR>", { noremap = true })
+map('n', ']e', "<Cmd>execute 'move +' . v:count1<CR>", { noremap = true })
+
 -- @see https://github.com/mhinz/vim-galore#quickly-add-empty-lines
 map('n', '[<Space>', "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>'[", opts)
 map('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>', opts)
