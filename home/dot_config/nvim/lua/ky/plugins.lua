@@ -32,7 +32,9 @@ local function plugins(use)
     config = function()
       require('Comment').setup {
         mappings = {
-          extended = true,
+          basic = true,
+          extra = true,
+          extended = false,
         },
         pre_hook = function(ctx)
           -- Only calculate commentstring for tsx filetypes
