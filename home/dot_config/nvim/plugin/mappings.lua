@@ -110,7 +110,7 @@ map('n', '[<Space>', "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>'[", opts)
 map('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>', opts)
 
 map('n', '<Leader>e', [[<Cmd>execute 'edit .'<CR>]], { noremap = true })
-map('n', '-', [[<Cmd>execute 'edit ' .. expand('%:p:h')<CR>]], { noremap = true })
+map('n', '-', [[<Cmd>execute 'edit' expand('%:p:h')<CR>]], { noremap = true })
 
 map('n', '<Leader>cd', '<Cmd>tcd %:p:h <Bar> pwd<CR>', opts)
 map('n', '<Leader>ud', '<Cmd>tcd .. <Bar> pwd<CR>', opts)
