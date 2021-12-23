@@ -46,7 +46,7 @@ local sources = {
     condition = condition 'pylint',
   },
   d.codespell.with {
-    disabled_filetypes = { "NeogitCommitMessage" },
+    disabled_filetypes = { 'NeogitCommitMessage' },
     condition = condition 'codespell',
   },
 }
