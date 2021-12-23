@@ -4,8 +4,8 @@ local opts = { noremap = true, silent = true }
 -- Nop
 map('n', '+', '<Nop>', {})
 map('n', '<C-h>', '<Nop>', {})
-map('n', '<C-j>', '<Nop>', {})
-map('n', '<C-k>', '<Nop>', {})
+-- map('n', '<C-j>', '<Nop>', {})
+-- map('n', '<C-k>', '<Nop>', {})
 map('n', '<C-n>', '<Nop>', {})
 map('n', '<C-p>', '<Nop>', {})
 map('n', '<C-z>', '<Nop>', {})
