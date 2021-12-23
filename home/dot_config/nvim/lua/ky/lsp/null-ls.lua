@@ -1,5 +1,6 @@
 local null_ls = require 'null-ls'
-local b = null_ls.builtins
+local f = null_ls.builtins.formatting
+local d = null_ls.builtins.diagnostics
 local on_attach = require('ky.lsp').on_attach
 
 local M = {}
@@ -45,6 +46,7 @@ local sources = {
     condition = condition 'pylint',
   },
   b.diagnostics.codespell.with {
+    disabled_filetypes = { "NeogitCommitMessage" },
     condition = condition 'codespell',
   },
 }
