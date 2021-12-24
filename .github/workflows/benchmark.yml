@@ -31,8 +31,8 @@ jobs:
 
         hyperfine "$HOME/.asdf/shims/nvim -c quitall" \
         --export-json "$TEMP_FILE" \
-        --warmup 3 \
-        --min-runs 10 \
+        --warmup 5 \
+        --min-runs 15 \
         --show-output
 
         MEAN=$(jq .results[].mean < "$TEMP_FILE")
