@@ -31,6 +31,7 @@ if status --is-interactive
     abbr -a -g rm rm -i
     abbr -a -g g git
     abbr -a -g v nvim
+    abbr -a -g vi nvim
     abbr -a -g vim nvim
     abbr -a -g grep rg
     abbr -a -g cat bat
