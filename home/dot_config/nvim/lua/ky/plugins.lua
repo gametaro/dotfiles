@@ -885,6 +885,7 @@ vim.api.nvim_set_keymap('n', '<LocalLeader>pC', '<Cmd>PackerClean<CR>', { norema
 vim.api.nvim_set_keymap('n', '<LocalLeader>ps', '<Cmd>PackerSync<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<LocalLeader>pS', '<Cmd>PackerStatus<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<LocalLeader>pu', '<Cmd>PackerUpdate<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<LocalLeader>pi', '<Cmd>PackerInstall<CR>', { noremap = true, silent = true })
 
 require('packer').startup {
   plugins,
