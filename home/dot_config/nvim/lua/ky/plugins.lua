@@ -153,7 +153,7 @@ local function plugins(use)
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
       { 'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter' },
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' },
-      { 'nvim-treesitter/playground',  after = 'nvim-treesitter' },
+      { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
     },
     run = function()
       if not_headless() then
