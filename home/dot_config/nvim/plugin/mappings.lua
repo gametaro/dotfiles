@@ -119,6 +119,7 @@ map('n', '<BS>', '<C-^>', opts)
 
 -- tab
 map('n', '<Leader>te', '<Cmd>tabedit %<CR>', opts)
+map('n', '<Leader>tc', '<Cmd>tabclose<CR>', opts)
 map('n', '<Leader>tC', '<Cmd>tabclose!<CR>', opts)
 map('n', '<Leader>tn', '<Cmd>tabnew<CR>', opts)
 map('n', '<Leader>to', '<Cmd>tabonly<CR>', opts)
