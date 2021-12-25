@@ -11,7 +11,7 @@ autocmd mine QuickFixCmdPost l* nested lwindow
 ]]
 
 -- close with "q"
-local close_filetypes = { 'help', 'capture', 'lspinfo', 'qf', 'null-ls-info' }
+local close_filetypes = { 'help', 'capture', 'lspinfo', 'qf', 'null-ls-info', 'scratch', 'checkhealth' }
 vim.cmd(string.format('autocmd mine FileType %s nnoremap <buffer> q <C-w>c', table.concat(close_filetypes, ',')))
 
 -- highlight on yank
