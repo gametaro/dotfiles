@@ -4,12 +4,22 @@ local actions = require 'telescope.actions'
 local defaults = {
   mappings = {
     i = {
+      ['<C-j>'] = actions.cycle_history_next,
+      ['<C-k>'] = actions.cycle_history_prev,
+      ['<Esc>'] = actions.close,
       ['<C-w>'] = function()
-        vim.cmd [[normal! bcw]]
+        vim.api.nvim_input '<C-S-w>'
+      end,
+      ['<C-c>'] = function()
+        local t = vim.api.nvim_replace_termcodes('<Esc>', true, true, true)
+        vim.api.nvim_feedkeys(t, 'n', true)
       end,
     },
+    n = {
+      ['q'] = actions.close,
+    },
   },
-  path_display = { 'smart' },
+  path_display = { 'smart', 'absolute', 'truncate' },
   history = {
     path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
     limit = 100,
@@ -44,6 +54,9 @@ local defaults = {
     '--hidden',
   },
   file_ignore_patterns = { '^.git/', '^.node_modules/' },
+  set_env = {
+    ['COLORTERM'] = 'truecolor',
+  },
 }
 
 telescope.setup {
@@ -95,9 +108,4 @@ map('n', '<LocalLeader>gC', '<Cmd>lua require("telescope.builtin").git_bcommits(
 -- map('n', '<LocalLeader>gf', '<Cmd>lua require("telescope.builtin").git_files()<CR>', opts)
 -- map('n', '<LocalLeader>gs', '<Cmd>lua require("telescope.builtin").git_status()<CR>', opts)
 map('n', '<LocalLeader>gS', '<Cmd>lua require("telescope.builtin").git_stash()<CR>', opts)
-map(
-  'n',
-  '<LocalLeader><LocalLeader>',
-  "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>",
-  { noremap = true, silent = true }
-)
+map('n', '<LocalLeader><LocalLeader>', "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>", opts)
