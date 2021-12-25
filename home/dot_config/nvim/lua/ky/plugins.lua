@@ -126,7 +126,7 @@ local function plugins(use)
     keys = { '<Plug>(openbrowser-smart-search)' },
     setup = function()
       vim.api.nvim_set_keymap('n', 'gx', '<Plug>(openbrowser-smart-search)', { silent = true })
-      vim.api.nvim_set_keymap('v', 'gx', '<Plug>(openbrowser-smart-search)', { silent = true })
+      vim.api.nvim_set_keymap('x', 'gx', '<Plug>(openbrowser-smart-search)', { silent = true })
     end,
   }
 
