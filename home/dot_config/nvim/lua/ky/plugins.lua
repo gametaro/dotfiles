@@ -662,13 +662,27 @@ local function plugins(use)
   use {
     'folke/todo-comments.nvim',
     requires = 'nvim-lua/plenary.nvim',
-    cmd = { 'TodoQuickFix', 'TodoTrouble' },
+    cmd = { 'TodoQuickFix', 'TodoTrouble', 'TodoTelescope' },
     setup = function()
+      vim.api.nvim_set_keymap('n', '<LocalLeader>tf', '<Cmd>TodoTelescope<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<LocalLeader>tq', '<Cmd>TodoQuickFix<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<LocalLeader>tt', '<Cmd>TodoTrouble<CR>', { noremap = true, silent = true })
     end,
     config = function()
-      require('todo-comments').setup {}
+      require('todo-comments').setup {
+        search = {
+          command = 'rg',
+          args = {
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--hidden',
+            '--glob=!.git',
+          },
+        },
+      }
     end,
   }
 
