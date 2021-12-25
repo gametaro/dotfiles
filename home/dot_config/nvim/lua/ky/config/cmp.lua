@@ -84,7 +84,7 @@ cmp.setup {
     ['<CR>'] = cmp.mapping.confirm { select = true },
   },
   documentation = {
-    border = 'single',
+    border = 'none',
   },
   formatting = {
     deprecated = true,

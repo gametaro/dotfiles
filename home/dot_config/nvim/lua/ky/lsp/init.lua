@@ -8,7 +8,7 @@ local lsp = vim.lsp
 local M = {}
 
 local float = {
-  border = 'single',
+  border = 'none',
 }
 
 vim.diagnostic.config {

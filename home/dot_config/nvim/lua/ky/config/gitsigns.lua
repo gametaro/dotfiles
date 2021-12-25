@@ -37,6 +37,6 @@ gitsigns.setup {
   },
   current_line_blame = false,
   preview_config = {
-    border = 'single',
+    border = 'none',
   },
 }
