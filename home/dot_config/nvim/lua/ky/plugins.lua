@@ -23,8 +23,11 @@ local config = {
 
 local function plugins(use)
   use { 'wbthomason/packer.nvim', opt = true }
-
+  use 'lewis6991/impatient.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'nathom/filetype.nvim'
   use 'machakann/vim-sandwich'
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 
   use {
     'numToStr/Comment.nvim',
@@ -64,8 +67,6 @@ local function plugins(use)
       }
     end,
   }
-
-  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 
   use {
     'gabrielpoca/replacer.nvim',
@@ -722,8 +723,6 @@ local function plugins(use)
     end,
   }
 
-  use 'lewis6991/impatient.nvim'
-
   use {
     'lukas-reineke/headlines.nvim',
     ft = { 'markdown' },
@@ -825,8 +824,6 @@ local function plugins(use)
       end
     end,
   }
-
-  use 'nathom/filetype.nvim'
 
   use {
     'github/copilot.vim',
