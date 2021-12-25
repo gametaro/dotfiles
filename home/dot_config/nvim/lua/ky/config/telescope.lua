@@ -1,8 +1,7 @@
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
-local themes = require 'telescope.themes'
 
-local defaults = themes.get_ivy {
+local defaults = {
   mappings = {
     i = {
       ['<C-w>'] = function()
@@ -10,14 +9,29 @@ local defaults = themes.get_ivy {
       end,
     },
   },
-  winblend = 10,
   path_display = { 'smart' },
   history = {
     path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
     limit = 100,
   },
+  prompt_prefix = '   ',
+  selection_caret = '  ',
+  entry_prefix = '  ',
+  selection_strategy = 'reset',
+  sorting_strategy = 'ascending',
+  layout_strategy = 'horizontal',
   layout_config = {
-    preview_cutoff = 20,
+    horizontal = {
+      prompt_position = 'top',
+      preview_width = 0.55,
+      results_width = 0.8,
+    },
+    vertical = {
+      mirror = false,
+    },
+    width = 0.80,
+    height = 0.80,
+    preview_cutoff = 120,
   },
   vimgrep_arguments = {
     'rg',

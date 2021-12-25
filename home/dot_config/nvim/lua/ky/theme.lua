@@ -22,7 +22,21 @@ function M.setup(theme)
       vim.g.tokyonight_sidebars = sidebars
       vim.cmd(string.format('colorscheme %s', theme))
     elseif theme == 'nightfox' then
-      require('nightfox').load()
+      local nightfox = require 'nightfox'
+      nightfox.setup {
+        fox = 'duskfox',
+        hlgroups = {
+          TSVariable = { fg = '${fg_alt}' },
+          TelescopeNormal = { bg = '${bg_float}' },
+          TelescopePromptBorder = { fg = '#35334f', bg = '#35334f' },
+          TelescopeResultsBorder = { fg = '${bg_float}', bg = '${bg_float}' },
+          TelescopePreviewBorder = { fg = '${bg_float}', bg = '${bg_float}' },
+          TelescopePromptNormal = { bg = '#35334f' },
+          TelescopeResultsTitle = { fg = '${bg_float}', bg = '${bg_float}' },
+          TelescopePreviewTitle = { fg = '${bg_float}', bg = '${bg_float}' },
+        },
+      }
+      nightfox.load()
     end
   end
 end
