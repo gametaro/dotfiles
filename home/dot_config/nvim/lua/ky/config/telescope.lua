@@ -73,16 +73,14 @@ map('n', '<LocalLeader>fo', '<Cmd>lua require("telescope.builtin").oldfiles()<CR
 map('n', '<LocalLeader>fq', '<Cmd>lua require("telescope.builtin").quickfix()<CR>', opts)
 map('n', '<LocalLeader>fr', '<Cmd>lua require("telescope.builtin").resume()<CR>', opts)
 map('n', '<LocalLeader>fs', '<Cmd>lua require("telescope.builtin").grep_string()<CR>', opts)
--- FIXME: deprecated
--- map('n', '<LocalLeader>ld', '<Cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>', opts)
--- map('n', '<LocalLeader>lw', '<Cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', opts)
+map('n', '<LocalLeader>fl', '<Cmd>lua require("telescope.builtin").diagnostics()<CR>', opts)
 -- FIXME: conflicting with neogit and diffview
--- map('n', '<LocalLeader>gb', '<Cmd>lua require("telescope.builtin").git_branches()<CR>', opts)
+map('n', '<LocalLeader>gb', '<Cmd>lua require("telescope.builtin").git_branches()<CR>', opts)
 -- map('n', '<LocalLeader>gc', '<Cmd>lua require("telescope.builtin").git_commits()<CR>', opts)
--- map('n', '<LocalLeader>gC', '<Cmd>lua require("telescope.builtin").git_bcommits()<CR>', opts)
+map('n', '<LocalLeader>gC', '<Cmd>lua require("telescope.builtin").git_bcommits()<CR>', opts)
 -- map('n', '<LocalLeader>gf', '<Cmd>lua require("telescope.builtin").git_files()<CR>', opts)
 -- map('n', '<LocalLeader>gs', '<Cmd>lua require("telescope.builtin").git_status()<CR>', opts)
--- map('n', '<LocalLeader>gS', '<Cmd>lua require("telescope.builtin").git_stash()<CR>', opts)
+map('n', '<LocalLeader>gS', '<Cmd>lua require("telescope.builtin").git_stash()<CR>', opts)
 map(
   'n',
   '<LocalLeader><LocalLeader>',
