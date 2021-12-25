@@ -28,8 +28,8 @@ local defaults = themes.get_ivy {
     '--column',
     '--smart-case',
     '--hidden',
-    '--glob=!.git',
   },
+  file_ignore_patterns = { '^.git/', '^.node_modules/' },
 }
 
 telescope.setup {
@@ -53,6 +53,9 @@ telescope.setup {
     },
     git_branches = {
       theme = 'dropdown',
+    },
+    find_files = {
+      hidden = true,
     },
   },
 }
