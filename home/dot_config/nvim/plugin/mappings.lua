@@ -20,7 +20,7 @@ map('c', '<C-o>', '<Nop>', {})
 map('c', '<C-x>', '<Nop>', {})
 map('c', '<C-z>', '<Nop>', {})
 map('i', '<C-_>', '<Nop>', {})
-map('i', '<C-b>', '<Nop>', {})
+map('i', '<C-l>', '<Nop>', {})
 map('i', '<C-z>', '<Nop>', {})
 
 map('x', '=', '=gv', opts)
@@ -47,13 +47,25 @@ map('n', '<Leader>W', '<Cmd>update!<CR>', opts)
 map('n', '<Leader>q', '<Cmd>quit<CR>', opts)
 map('n', '<Leader>Q', '<Cmd>quit!<CR>', opts)
 
-map('c', '<C-a>', '<Home>', { noremap = true })
+-- move in inert mode
+map('i', '<C-p>', '<Up>', opts)
+map('i', '<C-n>', '<Down>', opts)
+map('i', '<C-f>', '<Right>', opts)
+map('i', '<C-b>', '<Left>', opts)
+map('i', '<C-a>', '<Esc>^i', opts)
+map('i', '<C-e>', '<End>', opts)
+
+map('i', '<M-w>', '<Cmd>normal diw<CR>', opts)
+map('i', '<M-b>', '<Cmd>normal dib<CR>', opts)
+
+-- move in command line mode
+map('c', '<C-p>', '<Up>', { noremap = true })
+map('c', '<C-n>', '<Down>', { noremap = true })
+map('c', '<C-f>', '<Right>', { noremap = true })
 map('c', '<C-b>', '<Left>', { noremap = true })
 map('c', '<C-d>', '<Del>', { noremap = true })
+map('c', '<C-a>', '<Home>', { noremap = true })
 map('c', '<C-e>', '<End>', { noremap = true })
-map('c', '<C-f>', '<Right>', { noremap = true })
-map('c', '<C-n>', '<Down>', { noremap = true })
-map('c', '<C-p>', '<Up>', { noremap = true })
 
 -- map('n', '/', '/\v', { noremap = true })
 -- map('n', '?', '?\v', { noremap = true })
@@ -78,8 +90,8 @@ map('t', '<M-k>', [[<C-\><C-n><C-W>k]], opts)
 map('t', '<M-l>', [[<C-\><C-n><C-W>l]], opts)
 map('t', '<Esc>', [[<C-\><C-n>]], opts)
 
-map('n', '<M-,>', '<Cmd>bprevious<CR>', opts)
-map('n', '<M-.>', '<Cmd>bnext<CR>', opts)
+map('n', '<Tab>', '<Cmd>bnext<CR>', opts)
+map('n', '<S-Tab>', '<Cmd>bprevious<CR>', opts)
 map('n', '<M-c>', '<Cmd>bdelete<CR>', opts)
 map('n', '<M-C>', '<Cmd>bdelete!<CR>', opts)
 
@@ -90,8 +102,6 @@ map('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]], { 
 map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages<Bar>set more<CR>]], {
   noremap = true,
 })
--- split line at current cursor position
-map('n', '<Leader>j', 'i<CR><Esc>k$', opts)
 
 map('n', '<M-q>', '<Cmd>lua require"ky.utils".toggle_quickfix()<CR>', opts)
 
@@ -140,8 +150,10 @@ map('i', ',', ',<Space>', opts)
 map('x', '<M-j>', ":m '>+1<CR>gv=gv", opts)
 map('x', '<M-k>', ":m '<-2<CR>gv=gv", opts)
 
--- keep curosor position
+-- keep curosor position after joining
 map('n', 'J', 'mzJ`z', opts)
+-- split line at current cursor position
+map('n', '<Leader>j', 'i<CR><Esc>k$', opts)
 
 -- Multiple Cursors
 -- TODO: convert to lua
