@@ -40,7 +40,12 @@ opt.shada = "!,'0,f0,<50,s10,h"
 opt.scrolloff = 5
 opt.sidescrolloff = 5
 opt.secure = true
-opt.sessionoptions = 'buffers,curdir,tabpages,winsize'
+opt.sessionoptions = {
+  'buffers',
+  'curdir',
+  'tabpages',
+  'winsize',
+}
 opt.shiftround = true
 opt.shiftwidth = indent
 opt.shortmess:append {
