@@ -28,7 +28,10 @@ local function plugins(use)
 
   use {
     'numToStr/Comment.nvim',
-    keys = { 'g' },
+    keys = {
+      { 'n', 'gc' },
+      { 'x', 'gc' },
+    },
     config = function()
       require('Comment').setup {
         mappings = {
@@ -85,7 +88,11 @@ local function plugins(use)
 
   use {
     'yuki-yano/zero.nvim',
-    keys = { '0' },
+    keys = {
+      { 'n', '0' },
+      { 'x', '0' },
+      { 'o', '0' },
+    },
     config = function()
       require('zero').setup()
     end,
@@ -177,7 +184,9 @@ local function plugins(use)
 
   use {
     'kana/vim-niceblock',
-    keys = { { 'x', '<Plug>(niceblock-' } },
+    keys = {
+      { 'x', '<Plug>(niceblock-' },
+    },
     setup = function()
       vim.g.niceblock_no_default_key_mappings = 1
 
@@ -288,7 +297,9 @@ local function plugins(use)
   use {
     'folke/trouble.nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
-    keys = { '<LocalLeader>x' },
+    keys = {
+      { 'n', '<LocalLeader>x' },
+    },
     cmd = { 'Trouble' },
     setup = function()
       local opts = { noremap = true, silent = true }
@@ -401,8 +412,7 @@ local function plugins(use)
 
   use {
     'tamago324/lir.nvim',
-    keys = { { 'n', '-' } },
-    event = 'CmdlineEnter',
+    event = { 'BufRead' },
     requires = {
       {
         'tamago324/lir-git-status.nvim',
@@ -536,7 +546,10 @@ local function plugins(use)
 
   use {
     'nvim-telescope/telescope.nvim',
-    keys = { { 'n', '<LocalLeader>f' }, { 'n', '<LocalLeader>g' } },
+    keys = {
+      { 'n', '<LocalLeader>f' },
+      { 'n', '<LocalLeader>g' },
+    },
     requires = {
       { 'nvim-lua/plenary.nvim' },
       {
@@ -722,7 +735,9 @@ local function plugins(use)
   use {
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
-    keys = { '<LocalLeader>n' },
+    keys = {
+      { 'n', '<LocalLeader>n' },
+    },
     setup = function()
       -- Show package versions
       vim.api.nvim_set_keymap(
