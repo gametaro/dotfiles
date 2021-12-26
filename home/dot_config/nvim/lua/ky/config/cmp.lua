@@ -88,7 +88,20 @@ cmp.setup {
   },
   formatting = {
     deprecated = true,
-    format = lspkind.cmp_format { with_text = true },
+    format = lspkind.cmp_format {
+      with_text = true,
+      menu = {
+        fuzzy_path = '[Path]',
+        fuzzy_buffer = '[Buffer]',
+        nvim_lsp = '[LSP]',
+        luasnip = '[LuaSnip]',
+        nvim_lua = '[Lua]',
+        emoji = '[Emoji]',
+        cmp_git = '[Git]',
+        cmdline = '[Cmdline]',
+        nvim_lsp_document_symbol = '[Symbol]',
+      },
+    },
   },
 
   sources = cmp.config.sources({
