@@ -232,7 +232,7 @@ local function plugins(use)
       {
         'tzachar/cmp-fuzzy-path',
         after = 'cmp-path',
-        requires = { 'hrsh7th/cmp-path', 'tzachar/fuzzy.nvim' },
+        requires = { 'tzachar/fuzzy.nvim' },
       },
       {
         'tzachar/cmp-fuzzy-buffer',
