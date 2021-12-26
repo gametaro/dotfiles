@@ -389,7 +389,7 @@ local function plugins(use)
     end,
     config = function()
       require('toggleterm').setup {
-        size = vim.fn.float2nr(vim.o.lines * 0.3),
+        size = vim.fn.float2nr(vim.o.lines * 0.4),
         open_mapping = [[<c-\>]],
         shade_terminals = false,
         start_in_insert = false,
