@@ -2,6 +2,7 @@ local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 -- Nop
+map('', '<Space>', '<Nop>', {})
 map('n', '+', '<Nop>', {})
 map('n', '<C-h>', '<Nop>', {})
 -- map('n', '<C-j>', '<Nop>', {})
@@ -14,7 +15,6 @@ map('n', '<Tab>', '<Nop>', {})
 map('n', 'ZQ', '<Nop>', {})
 map('n', 'ZZ', '<Nop>', {})
 map('n', '~', '<Nop>', {})
-map('c', '<C-_>', '<Nop>', {})
 map('c', '<C-j>', '<Nop>', {})
 map('c', '<C-o>', '<Nop>', {})
 map('c', '<C-x>', '<Nop>', {})
@@ -42,6 +42,7 @@ map('n', 'B', 'b', { noremap = true })
 map('n', 'e', 'E', { noremap = true })
 map('n', 'E', 'e', { noremap = true })
 
+-- save and quit
 map('n', '<Leader>w', '<Cmd>update<CR>', opts)
 map('n', '<Leader>W', '<Cmd>update!<CR>', opts)
 map('n', '<Leader>q', '<Cmd>quit<CR>', opts)
@@ -55,10 +56,17 @@ map('i', '<C-b>', '<Left>', opts)
 map('i', '<C-a>', '<Esc>^i', opts)
 map('i', '<C-e>', '<End>', opts)
 
+-- edit in inert mode
 map('i', '<M-w>', '<Cmd>normal diw<CR>', opts)
+map('i', '<M-S-w>', '<Cmd>normal daw<CR>', opts)
 map('i', '<M-b>', '<Cmd>normal dib<CR>', opts)
+map('i', '<M-S-B>', '<Cmd>normal dab<CR>', opts)
+map('i', '<M-o>', '<C-o>o', opts)
+map('i', '<M-O>', '<C-o>O', opts)
+-- WARN: experimental
+map('i', ',', ',<Space>', opts)
 
--- move in command line mode
+-- move in cmdline mode
 map('c', '<C-p>', '<Up>', { noremap = true })
 map('c', '<C-n>', '<Down>', { noremap = true })
 map('c', '<C-f>', '<Right>', { noremap = true })
@@ -90,6 +98,8 @@ map('t', '<M-k>', [[<C-\><C-n><C-W>k]], opts)
 map('t', '<M-l>', [[<C-\><C-n><C-W>l]], opts)
 map('t', '<Esc>', [[<C-\><C-n>]], opts)
 
+-- buffer
+map('n', '<BS>', '<C-^>', opts)
 map('n', '<Tab>', '<Cmd>bnext<CR>', opts)
 map('n', '<S-Tab>', '<Cmd>bprevious<CR>', opts)
 map('n', '<M-c>', '<Cmd>bdelete<CR>', opts)
@@ -105,11 +115,22 @@ map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages
 
 map('n', '<M-q>', '<Cmd>lua require"ky.utils".toggle_quickfix()<CR>', opts)
 
+-- operator shortcuts
 -- WARN: experimental
-map('o', ')', 't)', opts)
+-- map('o', ')', 't)', opts)
+-- map('x', ')', 't)', opts)
 map('o', '(', 't(', opts)
-map('x', ')', 't)', opts)
 map('x', '(', 't(', opts)
+map('o', ',', 't,', opts)
+map('x', ',', 't,', opts)
+map('o', "'", "i'", opts)
+map('x', '"', 'i"', opts)
+map('o', '}', 'i}', opts)
+map('x', '}', 'i}', opts)
+map('o', ')', 'i)', opts)
+map('x', ')', 'i)', opts)
+map('o', ']', 'i]', opts)
+map('x', ']', 'i]', opts)
 
 -- @see https://github.com/mhinz/vim-galore#quickly-move-current-line
 map('n', '[e', "<Cmd>execute 'move -1-' . v:count1<CR>", { noremap = true })
@@ -125,8 +146,6 @@ map('n', '-', [[<Cmd>execute 'edit' expand('%:p:h')<CR>]], { noremap = true })
 map('n', '<Leader>cd', '<Cmd>tcd %:p:h <Bar> pwd<CR>', opts)
 map('n', '<Leader>ud', '<Cmd>tcd .. <Bar> pwd<CR>', opts)
 
-map('n', '<BS>', '<C-^>', opts)
-
 -- tab
 map('n', '<Leader>te', '<Cmd>tabedit %<CR>', opts)
 map('n', '<Leader>tc', '<Cmd>tabclose<CR>', opts)
@@ -137,12 +156,6 @@ map('n', '<Leader>ts', '<Cmd>tab split<CR>', opts)
 map('n', '<Leader>ti', '<Cmd>tabs<CR>', opts)
 map('n', '<Leader>tl', [[<Cmd>execute 'tabmove +' . v:count1<CR>]], opts)
 map('n', '<Leader>th', [[<Cmd>execute 'tabmove -' . v:count1<CR>]], opts)
-
-map('i', '<M-o>', '<C-o>o', { noremap = true })
-map('i', '<M-O>', '<C-o>O', { noremap = true })
-
--- WARN: experimental
-map('i', ',', ',<Space>', opts)
 
 -- move line(s)
 -- map('i', '<M-j>', '<Esc>:m .+1<CR>==gi', opts)
