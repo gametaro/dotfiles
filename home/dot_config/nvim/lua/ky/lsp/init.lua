@@ -90,7 +90,15 @@ function M.setup()
     local opts = {
       ['sumneko_lua'] = function()
         return require('lua-dev').setup {
-          lspconfig = default_opts,
+          lspconfig = vim.tbl_deep_extend('force', default_opts, {
+            settings = {
+              Lua = {
+                workspace = {
+                  library = vim.api.nvim_get_runtime_file('', true),
+                },
+              },
+            },
+          }),
         }
       end,
       ['jsonls'] = function()
