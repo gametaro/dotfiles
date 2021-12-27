@@ -10,6 +10,10 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     keymaps = { ['.'] = 'textsubjects-smart' },
   },
+  matchup = {
+    enable = true, -- mandatory, false will disable the whole extension
+    -- [options]
+  },
   playground = {
     enable = true,
     disable = {},

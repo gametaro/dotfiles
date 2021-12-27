@@ -918,6 +918,8 @@ local function plugins(use)
       vim.api.nvim_set_keymap('x', '<LocalLeader>sc', '<Plug>(scratch-selection-clear)', {})
     end,
   }
+
+  use { 'andymass/vim-matchup', event = 'BufRead' }
 end
 
 bootstrap()
