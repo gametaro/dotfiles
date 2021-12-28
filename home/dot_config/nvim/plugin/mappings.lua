@@ -83,7 +83,7 @@ map('c', '/', [[getcmdtype() == '/' ? '\/' : '/']], { noremap = true, expr = tru
 map('c', '?', [[getcmdtype() == '?' ? '\?' : '?']], { noremap = true, expr = true })
 
 -- use `ALT+{h,j,k,l}` to navigate windows from any mode
--- @see :h terminal
+-- see :h terminal
 map('n', '<M-h>', '<C-w>h', opts)
 map('n', '<M-j>', '<C-w>j', opts)
 map('n', '<M-k>', '<C-w>k', opts)
@@ -105,7 +105,11 @@ map('n', '<S-Tab>', '<Cmd>bprevious<CR>', opts)
 map('n', '<M-c>', '<Cmd>bdelete<CR>', opts)
 map('n', '<M-C>', '<Cmd>bdelete!<CR>', opts)
 
--- @see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
+-- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
+map('n', 'i', [[len(getline('.')) ? 'i' : '"_cc']], { noremap = true, expr = true })
+map('n', 'A', [[len(getline('.')) ? 'A' : '"_cc']], { noremap = true, expr = true })
+
+-- see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
 map('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>", { noremap = true })
 map('c', '<M-f>', "<C-r>=fnamemodify(@%, ':t')<CR>", { noremap = true })
 map('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]], { noremap = true })
@@ -115,7 +119,7 @@ map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages
 
 map('n', '<M-q>', '<Cmd>lua require"ky.utils".toggle_quickfix()<CR>', opts)
 
--- operator shortcuts
+-- textobj shortcuts
 -- WARN: experimental
 -- map('o', ')', 't)', opts)
 -- map('x', ')', 't)', opts)
@@ -132,16 +136,24 @@ map('x', ')', 'i)', opts)
 map('o', ']', 'i]', opts)
 map('x', ']', 'i]', opts)
 
--- @see https://github.com/mhinz/vim-galore#quickly-move-current-line
+-- see https://github.com/mhinz/vim-galore#quickly-move-current-line
 map('n', '[e', "<Cmd>execute 'move -1-' . v:count1<CR>", { noremap = true })
 map('n', ']e', "<Cmd>execute 'move +' . v:count1<CR>", { noremap = true })
 
--- @see https://github.com/mhinz/vim-galore#quickly-add-empty-lines
+-- see https://github.com/mhinz/vim-galore#quickly-add-empty-lines
 map('n', '[<Space>', "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>'[", opts)
 map('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>', opts)
 
-map('n', '<Leader>e', [[<Cmd>execute 'edit .'<CR>]], { noremap = true })
-map('n', '-', [[<Cmd>execute 'edit' expand('%:p:h')<CR>]], { noremap = true })
+map('n', '<Leader>.', [[<Cmd>execute 'edit .'<CR>]], { noremap = true })
+map('n', '-', [[<Cmd>execute 'edit ' .. expand('%:p:h')<CR>]], { noremap = true })
+map('n', '~', [[<Cmd>execute 'edit ' .. expand('$HOME')<CR>]], { noremap = true })
+-- TODO: consider the case nil is returned
+map(
+  'n',
+  '+',
+  [[<Cmd>lua vim.cmd('edit ' .. require('lspconfig.util').find_git_ancestor(vim.fn.getcwd()))<CR>]],
+  { noremap = true }
+)
 
 map('n', '<Leader>cd', '<Cmd>tcd %:p:h <Bar> pwd<CR>', opts)
 map('n', '<Leader>ud', '<Cmd>tcd .. <Bar> pwd<CR>', opts)
