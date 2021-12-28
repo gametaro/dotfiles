@@ -920,7 +920,14 @@ local function plugins(use)
     end,
   }
 
-  use { 'andymass/vim-matchup', event = 'BufRead' }
+  use {
+    'andymass/vim-matchup',
+    event = 'BufRead',
+    setup = function()
+      vim.g.matchup_matchparen_deferred = 1
+      vim.g.matchup_matchparen_deferred_hide_delay = 300
+    end,
+  }
 end
 
 bootstrap()
