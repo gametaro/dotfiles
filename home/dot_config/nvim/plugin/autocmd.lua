@@ -11,8 +11,10 @@ autocmd mine QuickFixCmdPost l* nested lwindow
 ]]
 
 -- close with "q"
-local close_filetypes = { 'help', 'capture', 'lspinfo', 'qf', 'null-ls-info', 'scratch', 'checkhealth' }
-vim.cmd(string.format('autocmd mine FileType %s nnoremap <buffer> q <C-w>c', table.concat(close_filetypes, ',')))
+local close_filetypes = { 'help', 'capture', 'lspinfo', 'qf', 'null-ls-info', 'scratch' }
+vim.cmd(
+  string.format('autocmd mine FileType %s nnoremap <buffer> <nowait> q <C-w>c', table.concat(close_filetypes, ','))
+)
 
 -- highlight on yank
 vim.cmd 'autocmd mine TextYankPost * lua vim.highlight.on_yank {higroup = "Search", timeout = 250}'
@@ -35,7 +37,9 @@ vim.cmd [[autocmd mine BufReadPost * if line("'\"") > 0 && line("'\"") <= line("
 vim.cmd 'autocmd mine FocusLost * nested silent! wall'
 vim.cmd 'autocmd mine BufLeave * lua if require"ky.utils".can_save() then vim.cmd "silent! update" end'
 
+vim.cmd 'autocmd mine FocusGained,WinEnter * silent! checktime'
 vim.cmd 'autocmd mine BufWritePost * if &diff | diffupdate | endif'
+vim.cmd 'autocmd mine VimResized * wincmd ='
 
 vim.cmd 'autocmd mine FileType qf set nobuflisted'
 
