@@ -20,6 +20,12 @@ opt.diffopt = {
 }
 opt.expandtab = true
 opt.fillchars = { diff = '/' }
+-- see :h fo-table
+opt.formatoptions:remove {
+  'c',
+  'o',
+  'r',
+}
 opt.foldmethod = 'expr'
 opt.ignorecase = true
 opt.imsearch = 0
