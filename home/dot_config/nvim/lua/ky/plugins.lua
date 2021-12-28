@@ -573,6 +573,9 @@ local function plugins(use)
         'nvim-telescope/telescope-frecency.nvim',
         after = 'telescope.nvim',
         requires = { 'tami5/sqlite.lua' },
+        config = function()
+          require('telescope').load_extension 'frecency'
+        end,
       },
       {
         'nvim-telescope/telescope-fzf-native.nvim',
