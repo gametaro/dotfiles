@@ -77,8 +77,8 @@ map('c', '<C-e>', '<End>', { noremap = true })
 
 -- map('n', '/', '/\v', { noremap = true })
 -- map('n', '?', '?\v', { noremap = true })
-map('c', '%%', [[getcmdtype() == ':' ? expand('%:h').'/' : '%%']], { noremap = true, expr = true })
-map('c', '::', [[getcmdtype() == ':' ? expand('%:p:h').'/' : '::']], { noremap = true, expr = true })
+-- map('c', '%%', [[getcmdtype() == ':' ? expand('%:h').'/' : '%%']], { noremap = true, expr = true })
+-- map('c', '::', [[getcmdtype() == ':' ? expand('%:p:h').'/' : '::']], { noremap = true, expr = true })
 map('c', '/', [[getcmdtype() == '/' ? '\/' : '/']], { noremap = true, expr = true })
 map('c', '?', [[getcmdtype() == '?' ? '\?' : '?']], { noremap = true, expr = true })
 
