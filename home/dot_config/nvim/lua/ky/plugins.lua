@@ -463,13 +463,13 @@ local function plugins(use)
       vim.api.nvim_set_keymap(
         'n',
         'n',
-        [[<Cmd>lua vim.cmd('norm! ' .. vim.v.count1 .. 'nzz') require('hlslens').start()<CR>]],
+        [[<Cmd>lua vim.cmd('normal! ' .. vim.v.count1 .. 'nzzzv') require('hlslens').start()<CR>]],
         opts
       )
       vim.api.nvim_set_keymap(
         'n',
         'N',
-        [[<Cmd>lua vim.cmd('norm! ' .. vim.v.count1 .. 'Nzz') require('hlslens').start()<CR>]],
+        [[<Cmd>lua vim.cmd('normal! ' .. vim.v.count1 .. 'Nzzzv') require('hlslens').start()<CR>]],
         opts
       )
       vim.api.nvim_set_keymap('', '*', [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]], {})
