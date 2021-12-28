@@ -115,14 +115,14 @@ require('lir').setup {
     ['x'] = clipboard_actions.cut,
     ['p'] = clipboard_actions.paste,
     ['~'] = function()
-      vim.cmd('e ' .. vim.fn.expand '$HOME')
+      vim.cmd('edit ' .. vim.fn.expand '$HOME')
     end,
     ['+'] = function()
       local dir = require('lspconfig.util').find_git_ancestor(vim.fn.getcwd())
       if dir == nil or dir == '' then
         return
       end
-      vim.cmd('e ' .. dir)
+      vim.cmd('edit ' .. dir)
     end,
   },
   -- float = {
