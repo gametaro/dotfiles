@@ -91,6 +91,8 @@ cmp.setup {
     format = lspkind.cmp_format {
       with_text = true,
       menu = {
+        path = '[Path]',
+        buffer = '[Buffer]',
         fuzzy_path = '[Path]',
         fuzzy_buffer = '[Buffer]',
         nvim_lsp = '[LSP]',
@@ -105,17 +107,18 @@ cmp.setup {
   },
 
   sources = cmp.config.sources({
-    -- { name = 'buffer' },
+    { name = 'buffer' },
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
-    -- { name = 'path' },
-    { name = 'fuzzy_path' },
     { name = 'emoji' },
+    { name = 'path' },
+    -- { name = 'fuzzy_path' },
     { name = 'cmp_git' },
   }, {
     {
-      name = 'fuzzy_buffer',
+      -- name = 'fuzzy_buffer',
+      name = 'buffer',
       options = {
         get_bufnrs = function()
           local bufs = {}
@@ -135,7 +138,8 @@ cmp.setup {
 local config = {
   sources = cmp.config.sources({
     {
-      name = 'fuzzy_buffer',
+      -- name = 'fuzzy_buffer',
+      name = 'buffer',
       options = {
         get_bufnrs = function()
           return { vim.api.nvim_get_current_buf() }
@@ -151,7 +155,8 @@ cmp.setup.cmdline('/', config)
 cmp.setup.cmdline('?', config)
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'fuzzy_path' },
+    -- { name = 'fuzzy_path' },
+    { name = 'path' },
   }, {
     { name = 'cmdline' },
   }),
