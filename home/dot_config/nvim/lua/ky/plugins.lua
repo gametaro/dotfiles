@@ -111,6 +111,16 @@ local function plugins(use)
     end,
   }
 
+  use {
+    'machakann/vim-swap',
+    setup = function()
+      vim.api.nvim_set_keymap('o', 'i,', '<Plug>(swap-textobject-i)', {})
+      vim.api.nvim_set_keymap('x', 'i,', '<Plug>(swap-textobject-i)', {})
+      vim.api.nvim_set_keymap('o', 'a,', '<Plug>(swap-textobject-a)', {})
+      vim.api.nvim_set_keymap('x', 'a,', '<Plug>(swap-textobject-a)', {})
+    end,
+  }
+
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 
   use {
