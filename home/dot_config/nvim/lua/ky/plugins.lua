@@ -760,14 +760,6 @@ local function plugins(use)
   }
 
   use {
-    'lukas-reineke/headlines.nvim',
-    ft = { 'markdown' },
-    config = function()
-      require('headlines').setup()
-    end,
-  }
-
-  use {
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
     keys = {
