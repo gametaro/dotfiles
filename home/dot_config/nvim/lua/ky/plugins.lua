@@ -284,22 +284,7 @@ local function plugins(use)
     'windwp/nvim-autopairs',
     after = 'nvim-cmp',
     config = function()
-      local npairs = require 'nvim-autopairs'
-      npairs.setup {
-        check_ts = true,
-        ts_config = {
-          lua = { 'string' },
-          javascript = { 'template_string' },
-        },
-        enable_check_bracket_line = false,
-        fast_wrap = {},
-        map_bs = true,
-        map_c_h = true,
-        map_c_w = true,
-      }
-
-      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-      require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done { map_char = { tex = '' } })
+      require 'ky.config.autopairs'
     end,
   }
 
