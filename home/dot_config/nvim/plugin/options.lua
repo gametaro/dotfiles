@@ -35,8 +35,8 @@ opt.lazyredraw = true
 opt.list = true
 opt.listchars = {
   eol = '↵',
-  extends = '↷',
-  precedes = '↶',
+  extends = '»',
+  precedes = '«',
   tab = [[]→\]],
   trail = '·',
 }
