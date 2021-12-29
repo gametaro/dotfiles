@@ -98,7 +98,7 @@ cmp.setup {
         nvim_lsp = '[LSP]',
         luasnip = '[LuaSnip]',
         nvim_lua = '[Lua]',
-        emoji = '[Emoji]',
+        -- emoji = '[Emoji]',
         cmp_git = '[Git]',
         cmdline = '[Cmdline]',
         nvim_lsp_document_symbol = '[Symbol]',
@@ -111,9 +111,9 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
-    { name = 'emoji' },
     { name = 'path' },
     -- { name = 'fuzzy_path' },
+    -- { name = 'emoji' },
     { name = 'cmp_git' },
   }, {
     {
