@@ -145,7 +145,6 @@ map('x', "a'", "2i'", opts)
 map('o', 'a`', '2i`', opts)
 map('x', 'a`', '2i`', opts)
 
-
 -- see https://github.com/mhinz/vim-galore#quickly-move-current-line
 map('n', '[e', "<Cmd>execute 'move -1-' . v:count1<CR>", { noremap = true })
 map('n', ']e', "<Cmd>execute 'move +' . v:count1<CR>", { noremap = true })
