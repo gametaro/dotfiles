@@ -26,6 +26,7 @@ local function plugins(use)
   use 'lewis6991/impatient.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'nathom/filetype.nvim'
+  use 'kyazdani42/nvim-web-devicons'
 
   use {
     'machakann/vim-sandwich',
