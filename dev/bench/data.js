@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1640862319866,
+  "lastUpdate": 1640866557985,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -1681,6 +1681,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.16537978190823532,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "6cd0ecd574cd9877b0875c6b52890d04369706a6",
+          "message": "fix(chezmoi): install fish shell on debian",
+          "timestamp": "2021-12-30T21:13:18+09:00",
+          "tree_id": "1060a567c5ef7fe237012b3763448e48df98dc71",
+          "url": "https://github.com/gametaro/dotfiles/commit/6cd0ecd574cd9877b0875c6b52890d04369706a6"
+        },
+        "date": 1640866556867,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.16801344651333336,
             "unit": "Second"
           }
         ]
