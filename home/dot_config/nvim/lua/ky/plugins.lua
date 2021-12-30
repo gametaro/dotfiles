@@ -133,6 +133,7 @@ local function plugins(use)
     config = function()
       local dial = require 'dial'
       dial.augends['custom#boolean'] = dial.common.enum_cyclic { name = 'boolean', strlist = { 'true', 'false' } }
+      table.insert(dial.config.searchlist.normal, 'markup#markdown#header')
       table.insert(dial.config.searchlist.normal, 'custom#boolean')
     end,
   }
