@@ -86,24 +86,24 @@ local function plugins(use)
     end,
   }
 
-  use {
-    'gabrielpoca/replacer.nvim',
-    ft = 'qf',
-    setup = function()
-      vim.api.nvim_set_keymap('n', '<LocalLeader>R', '<Cmd>lua require("replacer").run()<cr>', { silent = true })
-    end,
-  }
+  -- use {
+  --   'gabrielpoca/replacer.nvim',
+  --   ft = 'qf',
+  --   setup = function()
+  --     vim.api.nvim_set_keymap('n', '<LocalLeader>R', '<Cmd>lua require("replacer").run()<cr>', { silent = true })
+  --   end,
+  -- }
 
-  use {
-    'lukas-reineke/indent-blankline.nvim',
-    opt = true,
-    config = function()
-      require('indent_blankline').setup {
-        buftype_exclude = { 'nofile', 'terminal', 'help' },
-        filetype_exclude = { 'packer', 'Trouble' },
-      }
-    end,
-  }
+  -- use {
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   opt = true,
+  --   config = function()
+  --     require('indent_blankline').setup {
+  --       buftype_exclude = { 'nofile', 'terminal', 'help' },
+  --       filetype_exclude = { 'packer', 'Trouble' },
+  --     }
+  --   end,
+  -- }
 
   use {
     'yuki-yano/zero.nvim',
@@ -247,17 +247,17 @@ local function plugins(use)
       { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
       { 'petertriho/cmp-git', after = 'nvim-cmp' },
-      {
-        'tzachar/cmp-fuzzy-path',
-        after = 'cmp-path',
-        requires = { 'tzachar/fuzzy.nvim' },
-      },
-      {
-        'tzachar/cmp-fuzzy-buffer',
-        after = 'nvim-cmp',
-        requires = { 'tzachar/fuzzy.nvim' },
-      },
-      { 'onsails/lspkind-nvim' },
+      -- {
+      --   'tzachar/cmp-fuzzy-path',
+      --   after = 'cmp-path',
+      --   requires = { 'tzachar/fuzzy.nvim' },
+      -- },
+      -- {
+      --   'tzachar/cmp-fuzzy-buffer',
+      --   after = 'nvim-cmp',
+      --   requires = { 'tzachar/fuzzy.nvim' },
+      -- },
+      -- { 'onsails/lspkind-nvim' },
       {
         'L3MON4D3/LuaSnip',
         requires = 'rafamadriz/friendly-snippets',
@@ -633,13 +633,13 @@ local function plugins(use)
     end,
   }
 
-  use {
-    'dstein64/nvim-scrollview',
-    event = 'BufRead',
-    setup = function()
-      vim.g.scrollview_current_only = 1
-    end,
-  }
+  -- use {
+  --   'dstein64/nvim-scrollview',
+  --   event = 'BufRead',
+  --   setup = function()
+  --     vim.g.scrollview_current_only = 1
+  --   end,
+  -- }
 
   use {
     'kana/vim-submode',
@@ -665,21 +665,19 @@ local function plugins(use)
     end,
   }
 
-  use {
-    'mfussenegger/nvim-dap',
-    opt = true,
-    config = function()
-      require 'ky.config.dap'
-    end,
-  }
+  -- use {
+  --   'mfussenegger/nvim-dap',
+  --   config = function()
+  --     require 'ky.config.dap'
+  --   end,
+  -- }
 
-  use {
-    'rcarriga/nvim-dap-ui',
-    opt = true,
-    config = function()
-      require('dapui').setup()
-    end,
-  }
+  -- use {
+  --   'rcarriga/nvim-dap-ui',
+  --   config = function()
+  --     require('dapui').setup()
+  --   end,
+  -- }
 
   use {
     'folke/todo-comments.nvim',
@@ -708,17 +706,16 @@ local function plugins(use)
     end,
   }
 
-  use {
-    'rmagatti/auto-session',
-    opt = true,
-    config = function()
-      require('auto-session').setup {
-        auto_session_enabled = true,
-        auto_save_enabled = true,
-        auto_restore_enabled = true,
-      }
-    end,
-  }
+  -- use {
+  --   'rmagatti/auto-session',
+  --   config = function()
+  --     require('auto-session').setup {
+  --       auto_session_enabled = true,
+  --       auto_save_enabled = true,
+  --       auto_restore_enabled = true,
+  --     }
+  --   end,
+  -- }
 
   use {
     'David-Kunz/treesitter-unit',
@@ -852,6 +849,18 @@ local function plugins(use)
       end
     end,
   }
+
+  -- use {
+  --   'github/copilot.vim',
+  --   setup = function()
+  --     vim.g.copilot_no_tab_map = true
+  --     vim.api.nvim_set_keymap('i', '<C-m>', [[copilot#Accept("\<CR>")]], {
+  --       noremap = true,
+  --       script = true,
+  --       expr = true,
+  --     })
+  --   end,
+  -- }
 
   use {
     'github/copilot.vim',
