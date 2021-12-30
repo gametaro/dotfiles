@@ -44,3 +44,4 @@ vim.cmd 'autocmd mine VimResized * wincmd ='
 vim.cmd 'autocmd mine FileType qf set nobuflisted'
 
 -- vim.cmd 'autocmd mine CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics { focusable = false }'
+vim.cmd 'autocmd mine TermOpen term://* startinsert'
