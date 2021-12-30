@@ -753,15 +753,6 @@ local function plugins(use)
   }
 
   use {
-    'abecodes/tabout.nvim',
-    wants = { 'nvim-treesitter' },
-    after = { 'nvim-cmp' },
-    config = function()
-      require('tabout').setup {}
-    end,
-  }
-
-  use {
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
     keys = {
@@ -868,20 +859,9 @@ local function plugins(use)
   -- }
 
   use {
-    'github/copilot.vim',
-    opt = true,
-    setup = function()
-      vim.g.copilot_no_tab_map = true
-
-      vim.api.nvim_set_keymap('i', '<C-m>', [[copilot#Accept("\<CR>")]], {
-        noremap = true,
-        script = true,
-        expr = true,
-      })
-    end,
+    'stevearc/dressing.nvim',
+    event = { 'BufRead' },
   }
-
-  use 'stevearc/dressing.nvim'
 
   use {
     'folke/persistence.nvim',
