@@ -1,7 +1,6 @@
 local cmp = require 'cmp'
 local compare = require 'cmp.config.compare'
 local luasnip = require 'luasnip'
-local lspkind = require 'lspkind'
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -44,6 +43,34 @@ local compare_under_comparator = function(entry1, entry2)
 
   return (entry1_under or 0) < (entry2_under or 0)
 end
+
+local kind_icons = {
+  Text = '',
+  Method = '',
+  Function = '',
+  Constructor = '',
+  Field = '',
+  Variable = '',
+  Class = 'ﴯ',
+  Interface = '',
+  Module = '',
+  Property = 'ﰠ',
+  Unit = '',
+  Value = '',
+  Enum = '',
+  Keyword = '',
+  Snippet = '',
+  Color = '',
+  File = '',
+  Reference = '',
+  Folder = '',
+  EnumMember = '',
+  Constant = '',
+  Struct = '',
+  Event = '',
+  Operator = '',
+  TypeParameter = '',
+}
 
 cmp.setup {
   sorting = {
@@ -88,9 +115,10 @@ cmp.setup {
   },
   formatting = {
     deprecated = true,
-    format = lspkind.cmp_format {
-      with_text = true,
-      menu = {
+    format = function(entry, vim_item)
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+
+      vim_item.menu = ({
         path = '[Path]',
         buffer = '[Buffer]',
         fuzzy_path = '[Path]',
@@ -102,10 +130,10 @@ cmp.setup {
         cmp_git = '[Git]',
         cmdline = '[Cmdline]',
         nvim_lsp_document_symbol = '[Symbol]',
-      },
-    },
+      })[entry.source.name]
+      return vim_item
+    end,
   },
-
   sources = cmp.config.sources({
     { name = 'buffer' },
     { name = 'luasnip' },
