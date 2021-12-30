@@ -30,6 +30,7 @@ local function plugins(use)
 
   use {
     'machakann/vim-sandwich',
+    event = { 'BufRead' },
     config = function()
       require 'ky.config.sandwich'
     end,
@@ -37,6 +38,7 @@ local function plugins(use)
 
   use {
     'machakann/vim-swap',
+    event = { 'BufRead' },
     setup = function()
       vim.api.nvim_set_keymap('o', 'i,', '<Plug>(swap-textobject-i)', {})
       vim.api.nvim_set_keymap('x', 'i,', '<Plug>(swap-textobject-i)', {})
@@ -216,6 +218,7 @@ local function plugins(use)
 
   use {
     'neovim/nvim-lspconfig',
+    event = { 'BufRead' },
     requires = {
       { 'williamboman/nvim-lsp-installer' },
       { 'folke/lua-dev.nvim' },
@@ -229,6 +232,7 @@ local function plugins(use)
 
   use {
     'jose-elias-alvarez/null-ls.nvim',
+    event = { 'BufRead' },
     config = function()
       require('ky.lsp.null-ls').setup()
     end,
