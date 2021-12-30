@@ -18,7 +18,16 @@ packages=(
 )
 
 main() {
+  {{ if (eq .chezmoi.osRelease.id "ubuntu") -}}
   sudo add-apt-repository ppa:fish-shell/release-3
+  {{ end -}}
+  {{ if (eq .chezmoi.osRelease.id "debian") -}}
+  echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' \
+    | sudo tee /etc/apt/sources.list.d/shells:fish:release:3.list
+  curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key \
+    | gpg --dearmor \
+    | sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
+  {{ end -}}
   sudo apt-get update
   sudo apt-get install -y "${packages[@]}"
 }
