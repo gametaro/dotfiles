@@ -17,6 +17,7 @@ local config = {
     open_fn = function()
       return require('packer.util').float { border = 'none' }
     end,
+    prompt_border = 'none',
   },
   compile_path = vim.fn.stdpath 'config' .. '/lua/packer_compiled.lua',
 }
