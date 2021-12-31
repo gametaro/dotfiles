@@ -21,7 +21,7 @@ gitsigns.setup {
 
     ['n <LocalLeader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk()<CR>',
     ['x <LocalLeader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <LocalLeader>hu'] = '<Cmd>lua require"gitsigns".undo_stage_hank()<CR>',
+    ['n <LocalLeader>hu'] = '<Cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
     ['n <LocalLeader>hr'] = '<Cmd>lua require"gitsigns".reset_hunk()<CR>',
     ['x <LocalLeader>hr'] = '<Cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['n <LocalLeader>hR'] = '<Cmd>lua require"gitsigns".reset_buffer()<CR>',
