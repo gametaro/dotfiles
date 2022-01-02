@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1641044995981,
+  "lastUpdate": 1641131550493,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -1797,6 +1797,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.16215623493555556,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "6ee3a8bb981eecfee2b2ccc23af561cc0222debb",
+          "message": "chore(chezmoi): add xsel on ubuntu",
+          "timestamp": "2022-01-02T22:51:02+09:00",
+          "tree_id": "dd3e0991ce6a1358c47132a212ecb835e435b531",
+          "url": "https://github.com/gametaro/dotfiles/commit/6ee3a8bb981eecfee2b2ccc23af561cc0222debb"
+        },
+        "date": 1641131549527,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.16230081985777783,
             "unit": "Second"
           }
         ]
