@@ -43,6 +43,7 @@ opt.listchars = {
 opt.modeline = false
 -- opt.mouse = 'a'
 opt.pumheight = 15
+opt.relativenumber = true
 opt.shada = "!,'0,f0,<50,s10,h"
 opt.scrolloff = 5
 opt.sidescrolloff = 5
