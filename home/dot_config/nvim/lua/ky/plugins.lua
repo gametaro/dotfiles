@@ -276,7 +276,7 @@ local function plugins(use)
             delete_check_events = 'TextChanged',
             enable_autosnippets = true,
           }
-          require('luasnip/loaders/from_vscode').load()
+          require('luasnip.loaders.from_vscode').load()
           ls.filetype_extend('NeogitCommitMessage', { 'gitcommit' })
         end,
       },
