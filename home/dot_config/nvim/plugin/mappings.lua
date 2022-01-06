@@ -31,19 +31,12 @@ map('n', 'x', '"_x', opts)
 map('n', '<Leader>c', '"_c', opts)
 map('n', '<Leader>d', '"_d', opts)
 
+map('n', '<Leader>h', '<Cmd>help<Space>', opts)
+
 -- swap ; for :
 map('', ';', ':', { noremap = true })
 map('', ':', ';', { noremap = true })
 map('', 'q;', 'q:', { noremap = true })
-
--- swap w, b, e for W, B, E (normal mode only)
--- WARN: experimental
-map('n', 'w', 'W', { noremap = true })
-map('n', 'W', 'w', { noremap = true })
-map('n', 'b', 'B', { noremap = true })
-map('n', 'B', 'b', { noremap = true })
-map('n', 'e', 'E', { noremap = true })
-map('n', 'E', 'e', { noremap = true })
 
 -- save and quit
 map('n', '<Leader>w', '<Cmd>update<CR>', opts)
@@ -61,6 +54,7 @@ map('n', '<C-u>', '<C-u>zz', opts)
 map('n', '<C-f>', '<C-f>zz', opts)
 map('n', '<C-b>', '<C-b>zz', opts)
 map('n', 'G', 'Gzz', opts)
+
 -- move in inert mode
 map('i', '<C-p>', '<Up>', opts)
 map('i', '<C-n>', '<Down>', opts)
@@ -77,7 +71,7 @@ map('i', '<M-S-B>', '<Cmd>normal dab<CR>', opts)
 map('i', '<M-o>', '<C-o>o', opts)
 map('i', '<M-O>', '<C-o>O', opts)
 -- WARN: experimental
-map('i', ',', ',<Space>', opts)
+-- map('i', ',', ',<Space>', opts)
 
 -- move in cmdline mode
 map('c', '<C-p>', '<Up>', { noremap = true })
@@ -90,8 +84,8 @@ map('c', '<C-e>', '<End>', { noremap = true })
 
 -- map('n', '/', '/\v', { noremap = true })
 -- map('n', '?', '?\v', { noremap = true })
--- map('c', '%%', [[getcmdtype() == ':' ? expand('%:h').'/' : '%%']], { noremap = true, expr = true })
--- map('c', '::', [[getcmdtype() == ':' ? expand('%:p:h').'/' : '::']], { noremap = true, expr = true })
+map('c', '%%', [[getcmdtype() == ':' ? expand('%:h').'/' : '%%']], { noremap = true, expr = true })
+map('c', '::', [[getcmdtype() == ':' ? expand('%:p:h').'/' : '::']], { noremap = true, expr = true })
 map('c', '/', [[getcmdtype() == '/' ? '\/' : '/']], { noremap = true, expr = true })
 map('c', '?', [[getcmdtype() == '?' ? '\?' : '?']], { noremap = true, expr = true })
 
@@ -113,8 +107,8 @@ map('t', '<Esc>', [[<C-\><C-n>]], opts)
 
 -- buffer
 map('n', '<BS>', '<C-^>', opts)
-map('n', '<Tab>', '<Cmd>bnext<CR>', opts)
-map('n', '<S-Tab>', '<Cmd>bprevious<CR>', opts)
+map('n', '<M-.>', '<Cmd>bnext<CR>', opts)
+map('n', '<M-,>', '<Cmd>bprevious<CR>', opts)
 map('n', '<M-c>', '<Cmd>bdelete<CR>', opts)
 map('n', '<M-C>', '<Cmd>bdelete!<CR>', opts)
 
