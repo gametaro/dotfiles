@@ -31,7 +31,7 @@ map('n', 'x', '"_x', opts)
 map('n', '<Leader>c', '"_c', opts)
 map('n', '<Leader>d', '"_d', opts)
 
-map('n', '<Leader>h', '<Cmd>help<Space>', opts)
+map('n', '<Leader>h', ':<C-u>help<Space>', opts)
 
 -- swap ; for :
 map('', ';', ':', { noremap = true })
