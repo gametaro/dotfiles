@@ -478,10 +478,10 @@ local function plugins(use)
         [[<Cmd>lua vim.cmd('normal! ' .. vim.v.count1 .. 'Nzzzv') require('hlslens').start()<CR>]],
         opts
       )
-      vim.api.nvim_set_keymap('', '*', [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]], {})
-      vim.api.nvim_set_keymap('', '#', [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]], {})
-      vim.api.nvim_set_keymap('', 'g*', [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]], {})
-      vim.api.nvim_set_keymap('', 'g#', [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]], {})
+      vim.api.nvim_set_keymap('', '*', '<Plug>(asterisk-z*)<Cmd>lua require("hlslens").start()<CR>', {})
+      vim.api.nvim_set_keymap('', '#', '<Plug>(asterisk-z#)<Cmd>lua require("hlslens").start()<CR>', {})
+      vim.api.nvim_set_keymap('', 'g*', '<Plug>(asterisk-gz*)<Cmd>lua require("hlslens").start()<CR>', {})
+      vim.api.nvim_set_keymap('', 'g#', '<Plug>(asterisk-gz#)<Cmd>lua require("hlslens").start()<CR>', {})
     end,
     config = function()
       require('hlslens').setup { calm_down = true }
