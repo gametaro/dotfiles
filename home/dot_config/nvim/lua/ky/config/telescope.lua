@@ -1,19 +1,12 @@
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
+local themes = require 'telescope.themes'
 
-local defaults = {
+local defaults = themes.get_ivy {
   mappings = {
     i = {
       ['<C-j>'] = actions.cycle_history_next,
       ['<C-k>'] = actions.cycle_history_prev,
-      ['<Esc>'] = actions.close,
-      ['<C-w>'] = function()
-        vim.api.nvim_input '<C-S-w>'
-      end,
-      ['<C-c>'] = function()
-        local t = vim.api.nvim_replace_termcodes('<Esc>', true, true, true)
-        vim.api.nvim_feedkeys(t, 'n', true)
-      end,
     },
     n = {
       ['q'] = actions.close,
@@ -21,28 +14,17 @@ local defaults = {
   },
   path_display = { 'smart', 'absolute', 'truncate' },
   history = {
-    path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
+    path = vim.fn.stdpath 'data' .. '/databases/telescope_history.sqlite3',
     limit = 100,
   },
   prompt_prefix = '   ',
-  selection_caret = '  ',
-  entry_prefix = '  ',
-  selection_strategy = 'reset',
-  sorting_strategy = 'ascending',
-  layout_strategy = 'horizontal',
-  layout_config = {
-    horizontal = {
-      prompt_position = 'top',
-      preview_width = 0.55,
-      results_width = 0.8,
-    },
-    vertical = {
-      mirror = false,
-    },
-    width = 0.80,
-    height = 0.80,
-    preview_cutoff = 120,
+  preview_title = '',
+  prompt_title = '',
+  results_title = '',
+  borderchars = {
+    preview = { '', '', '', '', '', '', '', '' },
   },
+  width = 0.8,
   vimgrep_arguments = {
     'rg',
     '--color=never',
@@ -85,9 +67,6 @@ telescope.setup {
     },
     colorscheme = {
       enable_preview = true,
-    },
-    git_branches = {
-      theme = 'dropdown',
     },
     find_files = {
       hidden = true,
