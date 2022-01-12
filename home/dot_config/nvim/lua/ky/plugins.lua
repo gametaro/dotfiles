@@ -456,8 +456,6 @@ local function plugins(use)
 
   use {
     'haya14busa/vim-asterisk',
-    keys = '<Plug>(asterisk-',
-    event = 'CmdlineEnter',
     setup = function()
       vim.g['asterisk#keeppos'] = 1
     end,
