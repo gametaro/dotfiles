@@ -7,6 +7,11 @@ local luasnip = require 'luasnip'
 --   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
 -- end
 
+vim.cmd [[
+imap <silent><expr> <C-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : ''
+smap <silent><expr> <C-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : ''
+]]
+
 local tab = function(fallback)
   -- if cmp.visible() then
   --   cmp.select_next_item()
