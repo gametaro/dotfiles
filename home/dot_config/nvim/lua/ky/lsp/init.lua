@@ -23,7 +23,7 @@ lsp.handlers['textDocument/signatureHelp'] = lsp.with(lsp.handlers.signature_hel
 local signs = { Error = icons.error, Warn = icons.warn, Hint = icons.hint, Info = icons.info }
 for type, icon in pairs(signs) do
   local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
