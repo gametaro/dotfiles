@@ -72,5 +72,11 @@ main() {
 }
 
 {{ end -}}
+{{ if (eq .chezmoi.os "windows") -}}
+
+  winget install git wezterm
+
+{{ end -}}
+
 main "$@"
 {{ end -}}

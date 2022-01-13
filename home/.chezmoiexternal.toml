@@ -25,4 +25,12 @@
     type = "file"
     url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Retina/complete/Fira%20Code%20Retina%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf"
     refreshPeriod = "168h"
+[".config/wezterm/colors/nightfox.toml"]
+    type = "file"
+    url = "https://github.com/edeneast/nightfox.nvim/raw/main/extra/nightfox/nightfox_wezterm.toml"
+    refreshPeriod = "168h"
+[".config/wezterm/colors/duskfox.toml"]
+    type = "file"
+    url = "https://github.com/edeneast/nightfox.nvim/raw/main/extra/duskfox/nightfox_wezterm.toml"
+    refreshPeriod = "168h"
 {{- end }}
