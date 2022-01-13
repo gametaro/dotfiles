@@ -142,7 +142,6 @@ cmp.setup {
   sources = cmp.config.sources({
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
     { name = 'path' },
     -- { name = 'fuzzy_path' },
     -- { name = 'emoji' },
