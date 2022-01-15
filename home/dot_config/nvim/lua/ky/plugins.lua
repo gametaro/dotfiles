@@ -564,13 +564,13 @@ local function plugins(use)
     keys = { '<Plug>Snip' },
     run = 'bash ./install.sh',
     config = function()
-      vim.keymap.set('n', '<LocalLeader>rr', function ()
-        require('sniprun').run('n')
+      vim.keymap.set('n', '<LocalLeader>rr', function()
+        require('sniprun').run 'n'
       end)
-      vim.keymap.set('x', '<LocalLeader>rr', function ()
-        require('sniprun').run('v')
+      vim.keymap.set('x', '<LocalLeader>rr', function()
+        require('sniprun').run 'v'
       end)
-      vim.keymap.set('x', '<LocalLeader>rc', function ()
+      vim.keymap.set('x', '<LocalLeader>rc', function()
         require('sniprun.display').close_all()
       end)
       require('sniprun').setup {
