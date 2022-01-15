@@ -30,35 +30,63 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
 function M.on_attach(client, bufnr)
-  local function buf_set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
-  end
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
 
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local opts = { noremap = true, silent = true }
+  local opts = { buffer = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  -- buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('i', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>la', '<Cmd>lua vim.lsp.buf.add_workLeader_folder()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>lr', '<Cmd>lua vim.lsp.buf.remove_workLeader_folder()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>ll', '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>D', '<Cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>lr', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>lc', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>e', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  buf_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>lq', '<Cmd> lua vim.diagnostic.setqflist()<CR>', opts)
+  vim.keymap.set('n', 'gD', function()
+    vim.lsp.buf.declaration()
+  end, opts)
+  vim.keymap.set('n', 'gd', function()
+    vim.lsp.buf.definition()
+  end, opts)
+  vim.keymap.set('n', 'K', function()
+    vim.lsp.buf.hover()
+  end, opts)
+  vim.keymap.set('n', 'gi', function()
+    vim.lsp.buf.implementation()
+  end, opts)
+  vim.keymap.set('i', '<C-k>', function()
+    vim.lsp.buf.signature_help()
+  end, opts)
+  vim.keymap.set('n', '<LocalLeader>la', function()
+    vim.lsp.buf.add_workLeader_folder()
+  end, opts)
+  vim.keymap.set('n', '<LocalLeader>lr', function()
+    vim.lsp.buf.remove_workLeader_folder()
+  end, opts)
+  vim.keymap.set('n', '<LocalLeader>ll', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, opts)
+  vim.keymap.set('n', '<LocalLeader>D', function()
+    vim.lsp.buf.type_definition()
+  end, opts)
+  vim.keymap.set('n', '<LocalLeader>lr', function()
+    vim.lsp.buf.rename()
+  end, opts)
+  vim.keymap.set('n', '<LocalLeader>lc', function()
+    vim.lsp.buf.code_action()
+  end, opts)
+  vim.keymap.set('n', 'gr', function()
+    vim.lsp.buf.references()
+  end, opts)
+  vim.keymap.set('n', '<LocalLeader>e', function()
+    vim.diagnostic.open_float()
+  end, opts)
+  vim.keymap.set('n', '[d', function()
+    vim.diagnostic.goto_prev()
+  end, opts)
+  vim.keymap.set('n', ']d', function()
+    vim.diagnostic.goto_next()
+  end, opts)
+  vim.keymap.set('n', '<LocalLeader>lq', function()
+    vim.diagnostic.setqflist()
+  end, opts)
 
   if client.config.flags then
     client.config.flags.allow_incremental_sync = true
@@ -75,10 +103,14 @@ function M.on_attach(client, bufnr)
   --     ]]
   -- end
   if client.resolved_capabilities.document_formatting then
-    buf_set_keymap('n', '<A-f>', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    vim.keymap.set('n', '<A-f>', function()
+      vim.lsp.buf.formatting()
+    end, opts)
     -- vim.cmd 'autocmd mine BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
   elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap('n', '<A-f>f', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+    vim.keymap.set('n', '<A-f>f', function()
+      vim.lsp.buf.range_formatting()
+    end, opts)
   end
 end
 
@@ -94,17 +126,37 @@ function M.setup()
 
     local opts = {
       ['sumneko_lua'] = function()
-        return require('lua-dev').setup {
-          lspconfig = vim.tbl_deep_extend('force', default_opts, {
-            settings = {
-              Lua = {
-                workspace = {
-                  library = vim.api.nvim_get_runtime_file('', true),
-                },
+        local runtime_path = vim.split(package.path, ';')
+        table.insert(runtime_path, 'lua/?.lua')
+        table.insert(runtime_path, 'lua/?/init.lua')
+
+        return vim.tbl_deep_extend('force', default_opts, {
+          settings = {
+            Lua = {
+              runtime = {
+                version = 'LuaJIT',
+                path = runtime_path,
+              },
+              diagnostics = {
+                globals = { 'vim' },
+              },
+              workspace = {
+                library = vim.api.nvim_get_runtime_file('', true),
               },
             },
-          }),
-        }
+          },
+        })
+        -- return require('lua-dev').setup {
+        --   lspconfig = vim.tbl_deep_extend('force', default_opts, {
+        --     settings = {
+        --       Lua = {
+        --         workspace = {
+        --           library = vim.api.nvim_get_runtime_file('', true),
+        --         },
+        --       },
+        --     },
+        --   }),
+        -- }
       end,
       ['jsonls'] = function()
         return vim.tbl_deep_extend('force', default_opts, {

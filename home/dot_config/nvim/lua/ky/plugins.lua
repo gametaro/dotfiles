@@ -40,10 +40,8 @@ local function plugins(use)
     'machakann/vim-swap',
     event = { 'BufRead' },
     setup = function()
-      vim.api.nvim_set_keymap('o', 'i,', '<Plug>(swap-textobject-i)', {})
-      vim.api.nvim_set_keymap('x', 'i,', '<Plug>(swap-textobject-i)', {})
-      vim.api.nvim_set_keymap('o', 'a,', '<Plug>(swap-textobject-a)', {})
-      vim.api.nvim_set_keymap('x', 'a,', '<Plug>(swap-textobject-a)', {})
+      vim.keymap.set({ 'o', 'x' }, 'i,', '<Plug>(swap-textobject-i)')
+      vim.keymap.set({ 'o', 'x' }, 'a,', '<Plug>(swap-textobject-a)')
     end,
   }
 
@@ -123,12 +121,10 @@ local function plugins(use)
     'monaqa/dial.nvim',
     keys = { '<Plug>(dial-' },
     setup = function()
-      vim.api.nvim_set_keymap('n', '<C-a>', '<Plug>(dial-increment)', { silent = true })
-      vim.api.nvim_set_keymap('n', '<C-x>', '<Plug>(dial-decrement)', { silent = true })
-      vim.api.nvim_set_keymap('n', '<C-a>', '<Plug>(dial-increment)', { silent = true })
-      vim.api.nvim_set_keymap('n', '<C-x>', '<Plug>(dial-decrement)', { silent = true })
-      vim.api.nvim_set_keymap('v', '<C-a>', '<Plug>(dial-increment-additional)', { silent = true })
-      vim.api.nvim_set_keymap('v', '<C-x>', '<Plug>(dial-decrement-additional)', { silent = true })
+      vim.keymap.set({ 'n', 'x' }, '<C-a>', '<Plug>(dial-increment)')
+      vim.keymap.set({ 'n', 'x' }, '<C-x>', '<Plug>(dial-decrement)')
+      vim.keymap.set('x', '<C-a>', '<Plug>(dial-increment-additional)')
+      vim.keymap.set('x', '<C-x>', '<Plug>(dial-decrement-additional)')
     end,
     config = function()
       local dial = require 'dial'
@@ -146,8 +142,7 @@ local function plugins(use)
     'tyru/open-browser.vim',
     keys = { '<Plug>(openbrowser-smart-search)' },
     setup = function()
-      vim.api.nvim_set_keymap('n', 'gx', '<Plug>(openbrowser-smart-search)', { silent = true })
-      vim.api.nvim_set_keymap('x', 'gx', '<Plug>(openbrowser-smart-search)', { silent = true })
+      vim.keymap.set({ 'n', 'x' }, 'gx', '<Plug>(openbrowser-smart-search)')
     end,
   }
 
@@ -158,18 +153,10 @@ local function plugins(use)
       -- vim.api.nvim_set_keymap('n', ';', '<Plug>(eft-repeat)', {})
       -- vim.api.nvim_set_keymap('x', ';', '<Plug>(eft-repeat)', {})
       -- vim.api.nvim_set_keymap('o', ';', '<Plug>(eft-repeat)', {})
-      vim.api.nvim_set_keymap('n', 'f', '<Plug>(eft-f)', {})
-      vim.api.nvim_set_keymap('x', 'f', '<Plug>(eft-f)', {})
-      vim.api.nvim_set_keymap('o', 'f', '<Plug>(eft-f)', {})
-      vim.api.nvim_set_keymap('n', 'F', '<Plug>(eft-F)', {})
-      vim.api.nvim_set_keymap('x', 'F', '<Plug>(eft-F)', {})
-      vim.api.nvim_set_keymap('o', 'F', '<Plug>(eft-F)', {})
-      vim.api.nvim_set_keymap('n', 't', '<Plug>(eft-t)', {})
-      vim.api.nvim_set_keymap('x', 't', '<Plug>(eft-t)', {})
-      vim.api.nvim_set_keymap('o', 't', '<Plug>(eft-t)', {})
-      vim.api.nvim_set_keymap('n', 'T', '<Plug>(eft-T)', {})
-      vim.api.nvim_set_keymap('x', 'T', '<Plug>(eft-T)', {})
-      vim.api.nvim_set_keymap('o', 'T', '<Plug>(eft-T)', {})
+      vim.keymap.set({ 'n', 'x', 'o' }, 'f', '<Plug>(eft-f)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'F', '<Plug>(eft-F)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 't', '<Plug>(eft-t)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'T', '<Plug>(eft-T)')
     end,
   }
 
@@ -199,8 +186,7 @@ local function plugins(use)
     requires = { 'kana/vim-operator-user' },
     keys = { '<Plug>(operator-replace)' },
     setup = function()
-      vim.api.nvim_set_keymap('n', '_', '<Plug>(operator-replace)', { silent = true })
-      vim.api.nvim_set_keymap('x', '_', '<Plug>(operator-replace)', { silent = true })
+      vim.keymap.set({ 'n', 'x' }, '_', '<Plug>(operator-replace)')
     end,
   }
 
@@ -212,8 +198,8 @@ local function plugins(use)
     setup = function()
       vim.g.niceblock_no_default_key_mappings = 1
 
-      vim.api.nvim_set_keymap('x', 'A', '<Plug>(niceblock-A)', {})
-      vim.api.nvim_set_keymap('x', 'I', '<Plug>(niceblock-I)', {})
+      vim.keymap.set('x', 'A', '<Plug>(niceblock-A)')
+      vim.keymap.set('x', 'I', '<Plug>(niceblock-I)')
     end,
   }
 
@@ -326,13 +312,12 @@ local function plugins(use)
     },
     cmd = { 'Trouble' },
     setup = function()
-      local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap('n', '<LocalLeader>xx', '<Cmd>Trouble<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<LocalLeader>xw', '<Cmd>Trouble workspace_diagnostics<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<LocalLeader>xd', '<Cmd>Trouble document_diagnostics<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<LocalLeader>xl', '<Cmd>Trouble loclist<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<LocalLeader>xq', '<Cmd>Trouble quickfix<CR>', opts)
-      vim.api.nvim_set_keymap('n', 'gR', '<cmd>Trouble lsp_references<cr>', opts)
+      vim.keymap.set('n', '<LocalLeader>xx', '<Cmd>Trouble<CR>')
+      vim.keymap.set('n', '<LocalLeader>xw', '<Cmd>Trouble workspace_diagnostics<CR>')
+      vim.keymap.set('n', '<LocalLeader>xd', '<Cmd>Trouble document_diagnostics<CR>')
+      vim.keymap.set('n', '<LocalLeader>xl', '<Cmd>Trouble loclist<CR>')
+      vim.keymap.set('n', '<LocalLeader>xq', '<Cmd>Trouble quickfix<CR>')
+      vim.keymap.set('n', 'gR', '<Cmd>Trouble lsp_references<CR>')
     end,
     config = function()
       require('trouble').setup {
@@ -381,19 +366,7 @@ local function plugins(use)
     cmd = { 'ToggleTerm' },
     setup = function()
       vim.g.toggleterm_terminal_mapping = [[<C-\>]]
-
-      vim.api.nvim_set_keymap(
-        'n',
-        [[<C-\>]],
-        '<Cmd>execute v:count1 . "ToggleTerm"<CR>',
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'i',
-        [[<C-\>]],
-        '<Cmd>execute v:count1 . "ToggleTerm"<CR>',
-        { noremap = true, silent = true }
-      )
+      vim.keymap.set({ 'n', 'i' }, [[<C-\>]], '<Cmd>execute v:count1 . "ToggleTerm"<CR>')
     end,
     config = function()
       require('toggleterm').setup {
@@ -402,27 +375,6 @@ local function plugins(use)
         shade_terminals = false,
         start_in_insert = false,
       }
-
-      function _G.set_terminal_keymaps()
-        -- local opts = { noremap = true }
-        -- vim.api.nvim_buf_set_keymap(0, 't', '<Esc>', [[<C-\><C-n>]], opts)
-        -- vim.api.nvim_buf_set_keymap(0, 't', '<M-h>', [[<C-\><C-n><C-W>h]], opts)
-        -- vim.api.nvim_buf_set_keymap(0, 't', '<M-j>', [[<C-\><C-n><C-W>j]], opts)
-        -- vim.api.nvim_buf_set_keymap(0, 't', '<M-k>', [[<C-\><C-n><C-W>k]], opts)
-        -- vim.api.nvim_buf_set_keymap(0, 't', '<M-l>', [[<C-\><C-n><C-W>l]], opts)
-
-        local function t(s)
-          return vim.api.nvim_replace_termcodes(s, true, true, true)
-        end
-
-        function _G.escape_terminal()
-          return require('ky.utils').find_proc_in_tree(vim.b.terminal_job_pid, { 'nvim', 'fzf' }, 0) and t '<Esc>'
-            or t [[<C-\><C-n>]]
-        end
-        vim.api.nvim_set_keymap('t', '<Esc>', 'v:lua.escape_terminal()', { noremap = true, silent = true, expr = true })
-      end
-
-      vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
     end,
   }
 
@@ -464,23 +416,18 @@ local function plugins(use)
     'kevinhwang91/nvim-hlslens',
     after = 'vim-asterisk',
     setup = function()
-      local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap(
-        'n',
-        'n',
-        [[<Cmd>lua vim.cmd('normal! ' .. vim.v.count1 .. 'nzzzv') require('hlslens').start()<CR>]],
-        opts
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        'N',
-        [[<Cmd>lua vim.cmd('normal! ' .. vim.v.count1 .. 'Nzzzv') require('hlslens').start()<CR>]],
-        opts
-      )
-      vim.api.nvim_set_keymap('', '*', '<Plug>(asterisk-z*)<Cmd>lua require("hlslens").start()<CR>', {})
-      vim.api.nvim_set_keymap('', '#', '<Plug>(asterisk-z#)<Cmd>lua require("hlslens").start()<CR>', {})
-      vim.api.nvim_set_keymap('', 'g*', '<Plug>(asterisk-gz*)<Cmd>lua require("hlslens").start()<CR>', {})
-      vim.api.nvim_set_keymap('', 'g#', '<Plug>(asterisk-gz#)<Cmd>lua require("hlslens").start()<CR>', {})
+      vim.keymap.set('n', 'n', function()
+        vim.cmd('normal! ' .. vim.v.count1 .. 'nzzzv')
+        require('hlslens').start()
+      end)
+      vim.keymap.set('n', 'N', function()
+        vim.cmd('normal! ' .. vim.v.count1 .. 'Nzzzv')
+        require('hlslens').start()
+      end)
+      vim.keymap.set('', '*', '<Plug>(asterisk-z*)<Cmd>lua require("hlslens").start()<CR>')
+      vim.keymap.set('', '#', '<Plug>(asterisk-z#)<Cmd>lua require("hlslens").start()<CR>')
+      vim.keymap.set('', 'g*', '<Plug>(asterisk-gz*)<Cmd>lua require("hlslens").start()<CR>')
+      vim.keymap.set('', 'g#', '<Plug>(asterisk-gz#)<Cmd>lua require("hlslens").start()<CR>')
     end,
     config = function()
       require('hlslens').setup { calm_down = true }
@@ -492,10 +439,10 @@ local function plugins(use)
     requires = 'nvim-lua/plenary.nvim',
     cmd = { 'Neogit' },
     setup = function()
-      vim.api.nvim_set_keymap('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>gs', '<Cmd>Neogit kind=split<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>gv', '<Cmd>Neogit kind=vsplit<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>gc', '<Cmd>Neogit commit<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>', { silent = true })
+      vim.keymap.set('n', '<LocalLeader>gs', '<Cmd>Neogit kind=split<CR>', { silent = true })
+      vim.keymap.set('n', '<LocalLeader>gv', '<Cmd>Neogit kind=vsplit<CR>', { silent = true })
+      vim.keymap.set('n', '<LocalLeader>gc', '<Cmd>Neogit commit<CR>', { silent = true })
     end,
     config = function()
       require('neogit').setup {
@@ -514,8 +461,8 @@ local function plugins(use)
     cond = not_headless,
     cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     setup = function()
-      vim.api.nvim_set_keymap('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>')
+      vim.keymap.set('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory<CR>')
     end,
     config = function()
       require('diffview').setup {
@@ -548,10 +495,8 @@ local function plugins(use)
     'haya14busa/vim-edgemotion',
     keys = { '<Plug>(edgemotion-' },
     setup = function()
-      vim.api.nvim_set_keymap('n', '<C-j>', '<Plug>(edgemotion-j)', { silent = true })
-      vim.api.nvim_set_keymap('x', '<C-j>', '<Plug>(edgemotion-j)', { silent = true })
-      vim.api.nvim_set_keymap('n', '<C-k>', '<Plug>(edgemotion-k)', { silent = true })
-      vim.api.nvim_set_keymap('x', '<C-k>', '<Plug>(edgemotion-k)', { silent = true })
+      vim.keymap.set({ 'n', 'x' }, '<C-j>', '<Plug>(edgemotion-j)')
+      vim.keymap.set({ 'n', 'x' }, '<C-k>', '<Plug>(edgemotion-k)')
     end,
   }
 
@@ -571,6 +516,7 @@ local function plugins(use)
     keys = {
       { 'n', '<LocalLeader>f' },
       { 'n', '<LocalLeader>g' },
+      { 'n', '<LocalLeader><LocalLeader>' },
     },
     requires = {
       { 'nvim-lua/plenary.nvim' },
@@ -604,12 +550,7 @@ local function plugins(use)
         config = function()
           require('project_nvim').setup {}
           require('telescope').load_extension 'projects'
-          vim.api.nvim_set_keymap(
-            'n',
-            '<LocalLeader>fp',
-            '<Cmd>Telescope projects<CR>',
-            { noremap = true, silent = true }
-          )
+          vim.keymap.set('n', '<LocalLeader>fp', '<Cmd>Telescope projects<CR>')
         end,
       },
     },
@@ -622,13 +563,16 @@ local function plugins(use)
     'michaelb/sniprun',
     keys = { '<Plug>Snip' },
     run = 'bash ./install.sh',
-    setup = function()
-      vim.api.nvim_set_keymap('v', '<LocalLeader>sr', '<Plug>SnipRun', { silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>sr', '<Plug>SnipRun', { silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>so', '<Plug>SnipRunOperator', { silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>sc', '<Plug>SnipClose', { silent = true })
-    end,
     config = function()
+      vim.keymap.set('n', '<LocalLeader>rr', function ()
+        require('sniprun').run('n')
+      end)
+      vim.keymap.set('x', '<LocalLeader>rr', function ()
+        require('sniprun').run('v')
+      end)
+      vim.keymap.set('x', '<LocalLeader>rc', function ()
+        require('sniprun.display').close_all()
+      end)
       require('sniprun').setup {
         selected_interpreters = { 'Lua_nvim' }, --" use those instead of the default for the current filetype
       }
@@ -686,9 +630,9 @@ local function plugins(use)
     requires = 'nvim-lua/plenary.nvim',
     cmd = { 'TodoQuickFix', 'TodoTrouble', 'TodoTelescope' },
     setup = function()
-      vim.api.nvim_set_keymap('n', '<LocalLeader>tf', '<Cmd>TodoTelescope<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>tq', '<Cmd>TodoQuickFix<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<LocalLeader>tt', '<Cmd>TodoTrouble<CR>', { noremap = true, silent = true })
+      vim.keymap.set('n', '<LocalLeader>tf', '<Cmd>TodoTelescope<CR>')
+      vim.keymap.set('n', '<LocalLeader>tq', '<Cmd>TodoQuickFix<CR>')
+      vim.keymap.set('n', '<LocalLeader>tt', '<Cmd>TodoTrouble<CR>')
     end,
     config = function()
       require('todo-comments').setup {
@@ -723,10 +667,10 @@ local function plugins(use)
     'David-Kunz/treesitter-unit',
     after = 'nvim-treesitter',
     setup = function()
-      vim.api.nvim_set_keymap('x', 'iu', ':lua require"treesitter-unit".select()<CR>', { noremap = true })
-      vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
-      vim.api.nvim_set_keymap('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', { noremap = true })
-      vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+      vim.keymap.set('x', 'iu', ':lua require"treesitter-unit".select()<CR>', { silent = true })
+      vim.keymap.set('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { silent = true })
+      vim.keymap.set('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', { silent = true })
+      vim.keymap.set('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { silent = true })
     end,
   }
 
@@ -757,54 +701,33 @@ local function plugins(use)
     },
     setup = function()
       -- Show package versions
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>ns',
-        ":lua require('package-info').show()<CR>",
-        { silent = true, noremap = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>ns', function()
+        require('package-info').show()
+      end, { silent = true })
       -- Hide package versions
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>nh',
-        ":lua require('package-info').hide()<CR>",
-        { silent = true, noremap = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>nh', function()
+        require('package-info').hide()
+      end, { silent = true })
       -- Update package on line
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>nu',
-        ":lua require('package-info').update()<CR>",
-        { silent = true, noremap = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>nu', function()
+        require('package-info').update()
+      end, { silent = true })
       -- Delete package on line
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>nd',
-        ":lua require('package-info').delete()<CR>",
-        { silent = true, noremap = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>nu', function()
+        require('package-info').delete()
+      end, { silent = true })
       -- Install a new package
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>ni',
-        ":lua require('package-info').install()<CR>",
-        { silent = true, noremap = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>nu', function()
+        require('package-info').install()
+      end, { silent = true })
       -- Reinstall dependencies
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>nr',
-        ":lua require('package-info').reinstall()<CR>",
-        { silent = true, noremap = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>nr', function()
+        require('package-info').reinstall()
+      end, { silent = true })
       -- Install a different package version
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>nc',
-        ":lua require('package-info').change_version()<CR>",
-        { silent = true, noremap = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>nc', function()
+        require('package-info').change_version()
+      end, { silent = true })
     end,
     config = function()
       require('package-info').setup {}
@@ -868,26 +791,17 @@ local function plugins(use)
       vim.cmd [[autocmd VimEnter * nested lua require'persistence'.load()]]
 
       -- restore the session for the current directory
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>qs',
-        [[<cmd>lua require("persistence").load()<cr>]],
-        { noremap = true, silent = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>qs', function()
+        require('persistence').load()
+      end)
       -- restore the last session
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>ql',
-        [[<cmd>lua require("persistence").load({ last = true })<cr>]],
-        { noremap = true, silent = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>ql', function()
+        require('persistence').load { last = true }
+      end)
       -- stop Persistence => session won't be saved on exit
-      vim.api.nvim_set_keymap(
-        'n',
-        '<LocalLeader>qd',
-        [[<cmd>lua require("persistence").stop()<cr>]],
-        { noremap = true, silent = true }
-      )
+      vim.keymap.set('n', '<LocalLeader>qd', function()
+        require('persistence').stop()
+      end)
     end,
     config = function()
       require('persistence').setup()
@@ -902,10 +816,8 @@ local function plugins(use)
       vim.g.scratch_no_mappings = 1
       vim.g.scratch_persistence_file = vim.fn.stdpath 'cache' .. '/scratch.log'
 
-      vim.api.nvim_set_keymap('n', '<LocalLeader>ss', '<Plug>(scratch-insert-reuse)', {})
-      vim.api.nvim_set_keymap('n', '<LocalLeader>sc', '<Plug>(scratch-insert-clear)', {})
-      vim.api.nvim_set_keymap('x', '<LocalLeader>ss', '<Plug>(scratch-selection-reuse)', {})
-      vim.api.nvim_set_keymap('x', '<LocalLeader>sc', '<Plug>(scratch-selection-clear)', {})
+      vim.keymap.set('n', '<LocalLeader>s', '<Plug>(scratch-insert-reuse)')
+      vim.keymap.set('x', '<LocalLeader>s', '<Plug>(scratch-selection-reuse)')
     end,
   }
 
@@ -921,12 +833,12 @@ end
 
 bootstrap()
 
-vim.api.nvim_set_keymap('n', '<LocalLeader>pc', '<Cmd>PackerCompile<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<LocalLeader>pC', '<Cmd>PackerClean<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<LocalLeader>ps', '<Cmd>PackerSync<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<LocalLeader>pS', '<Cmd>PackerStatus<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<LocalLeader>pu', '<Cmd>PackerUpdate<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<LocalLeader>pi', '<Cmd>PackerInstall<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<LocalLeader>pc', '<Cmd>PackerCompile<CR>')
+vim.keymap.set('n', '<LocalLeader>pC', '<Cmd>PackerClean<CR>')
+vim.keymap.set('n', '<LocalLeader>ps', '<Cmd>PackerSync<CR>')
+vim.keymap.set('n', '<LocalLeader>pS', '<Cmd>PackerStatus<CR>')
+vim.keymap.set('n', '<LocalLeader>pu', '<Cmd>PackerUpdate<CR>')
+vim.keymap.set('n', '<LocalLeader>pi', '<Cmd>PackerInstall<CR>')
 
 require('packer').startup {
   plugins,

@@ -1,199 +1,195 @@
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+local set = vim.keymap.set
 
 -- Nop
-map('', '<Space>', '<Nop>', {})
-map('n', '+', '<Nop>', {})
-map('n', '<C-h>', '<Nop>', {})
--- map('n', '<C-j>', '<Nop>', {})
--- map('n', '<C-k>', '<Nop>', {})
-map('n', '<C-n>', '<Nop>', {})
-map('n', '<C-p>', '<Nop>', {})
-map('n', '<C-z>', '<Nop>', {})
-map('n', '<S-Tab>', '<Nop>', {})
-map('n', '<Tab>', '<Nop>', {})
-map('n', '~', '<Nop>', {})
-map('n', 'Q', '<Nop>', { noremap = true })
-map('n', 'ZQ', '<Nop>', { noremap = true })
-map('n', 'ZZ', '<Nop>', { noremap = true })
-map('c', '<C-j>', '<Nop>', {})
-map('c', '<C-o>', '<Nop>', {})
-map('c', '<C-x>', '<Nop>', {})
-map('c', '<C-z>', '<Nop>', {})
-map('i', '<C-_>', '<Nop>', {})
-map('i', '<C-l>', '<Nop>', {})
-map('i', '<C-z>', '<Nop>', {})
-map('', 's', '<Nop>', {})
+set('', '<Space>', '<Nop>', { remap = true })
+set('n', '+', '<Nop>')
+set('n', '<C-h>', '<Nop>')
+set('n', '<C-n>', '<Nop>')
+set('n', '<C-p>', '<Nop>')
+set('n', '<C-z>', '<Nop>')
+set('n', 'Q', '<Nop>')
+set('n', 'ZQ', '<Nop>')
+set('n', 'ZZ', '<Nop>')
+set('c', '<C-j>', '<Nop>')
+set('c', '<C-o>', '<Nop>')
+set('c', '<C-x>', '<Nop>')
+set('c', '<C-z>', '<Nop>')
+set('i', '<C-_>', '<Nop>')
+-- map('i', '<C-l>', '<Nop>', {})
+set('i', '<C-z>', '<Nop>')
+set('n', 's', '<Nop>', { remap = true })
 
-map('x', '=', '=gv', opts)
+set('x', '=', '=gv')
 
-map('n', 'x', '"_x', opts)
-map('n', '<Leader>c', '"_c', opts)
-map('n', '<Leader>d', '"_d', opts)
+set('n', 'x', '"_x')
+set('n', '<Leader>c', '"_c')
+set('n', '<Leader>d', '"_d')
 
-map('n', '<Leader>h', ':<C-u>help<Space>', opts)
+set('n', '<Leader>h', ':<C-u>help<Space>')
 
 -- swap ; for :
-map('', ';', ':', { noremap = true })
-map('', ':', ';', { noremap = true })
-map('', 'q;', 'q:', { noremap = true })
+set('', ';', ':')
+set('', ':', ';')
+set('', 'q;', 'q:')
 
 -- save and quit
-map('n', '<Leader>w', '<Cmd>update<CR>', opts)
-map('n', '<Leader>W', '<Cmd>update!<CR>', opts)
-map('n', '<Leader>q', '<Cmd>quit<CR>', opts)
-map('n', '<Leader>Q', '<Cmd>quit!<CR>', opts)
-map('n', '<Leader>a', '<Cmd>quitall<CR>', opts)
-map('n', '<Leader>A', '<Cmd>quitall!<CR>', opts)
+set('n', '<Leader>w', '<Cmd>update<CR>')
+set('n', '<Leader>W', '<Cmd>update!<CR>')
+set('n', '<Leader>q', '<Cmd>quit<CR>')
+set('n', '<Leader>Q', '<Cmd>quit!<CR>')
+set('n', '<Leader>a', '<Cmd>quitall<CR>')
+set('n', '<Leader>A', '<Cmd>quitall!<CR>')
 
 -- keep cursor centered after movement
-map('n', '<C-o>', '<C-o>zz', opts)
-map('n', '<C-i>', '<C-i>zz', opts)
-map('n', '<C-d>', '<C-d>zz', opts)
-map('n', '<C-u>', '<C-u>zz', opts)
-map('n', '<C-f>', '<C-f>zz', opts)
-map('n', '<C-b>', '<C-b>zz', opts)
-map('n', 'G', 'Gzz', opts)
+set('n', '<C-o>', '<C-o>zz')
+set('n', '<C-i>', '<C-i>zz')
+set('n', '<C-d>', '<C-d>zz')
+set('n', '<C-u>', '<C-u>zz')
+set('n', '<C-f>', '<C-f>zz')
+set('n', '<C-b>', '<C-b>zz')
+set('n', 'G', 'Gzz')
 
 -- move in inert mode
-map('i', '<C-p>', '<Up>', opts)
-map('i', '<C-n>', '<Down>', opts)
-map('i', '<C-f>', '<Right>', opts)
-map('i', '<C-b>', '<Left>', opts)
-map('i', '<C-a>', '<Esc>^i', opts)
-map('i', '<C-e>', '<End>', opts)
+set('i', '<C-p>', '<Up>')
+set('i', '<C-n>', '<Down>')
+set('i', '<C-f>', '<Right>')
+set('i', '<C-b>', '<Left>')
+set('i', '<C-a>', '<Esc>^i')
+set('i', '<C-e>', '<End>')
 
 -- edit in inert mode
-map('i', '<M-w>', '<Cmd>normal diw<CR>', opts)
-map('i', '<M-S-w>', '<Cmd>normal daw<CR>', opts)
-map('i', '<M-b>', '<Cmd>normal dib<CR>', opts)
-map('i', '<M-S-B>', '<Cmd>normal dab<CR>', opts)
-map('i', '<M-o>', '<C-o>o', opts)
-map('i', '<M-O>', '<C-o>O', opts)
+set('i', '<M-w>', '<Cmd>normal diw<CR>')
+set('i', '<M-S-w>', '<Cmd>normal daw<CR>')
+set('i', '<M-b>', '<Cmd>normal dib<CR>')
+set('i', '<M-S-B>', '<Cmd>normal dab<CR>')
+set('i', '<M-o>', '<C-o>o')
+set('i', '<M-O>', '<C-o>O')
 -- WARN: experimental
--- map('i', ',', ',<Space>', opts)
+-- map('i', ',', ',<Space>', )
 
 -- move in cmdline mode
-map('c', '<C-p>', '<Up>', { noremap = true })
-map('c', '<C-n>', '<Down>', { noremap = true })
-map('c', '<C-f>', '<Right>', { noremap = true })
-map('c', '<C-b>', '<Left>', { noremap = true })
-map('c', '<C-d>', '<Del>', { noremap = true })
-map('c', '<C-a>', '<Home>', { noremap = true })
-map('c', '<C-e>', '<End>', { noremap = true })
+set('c', '<C-p>', '<Up>')
+set('c', '<C-n>', '<Down>')
+set('c', '<C-f>', '<Right>')
+set('c', '<C-b>', '<Left>')
+set('c', '<C-d>', '<Del>')
+set('c', '<C-a>', '<Home>')
+set('c', '<C-e>', '<End>')
 
 -- map('n', '/', '/\v', { noremap = true })
 -- map('n', '?', '?\v', { noremap = true })
-map('c', '%%', [[getcmdtype() == ':' ? expand('%:h').'/' : '%%']], { noremap = true, expr = true })
-map('c', '::', [[getcmdtype() == ':' ? expand('%:p:h').'/' : '::']], { noremap = true, expr = true })
-map('c', '/', [[getcmdtype() == '/' ? '\/' : '/']], { noremap = true, expr = true })
-map('c', '?', [[getcmdtype() == '?' ? '\?' : '?']], { noremap = true, expr = true })
+
+set('c', '%%', function()
+  return vim.fn.getcmdtype() == ':' and vim.fn.expand '%:h' .. '/' or '%%'
+end, { expr = true })
+set('c', '::', function()
+  return vim.fn.getcmdtype() == ':' and vim.fn.expand '%:p:h' .. '/' or '::'
+end, { expr = true })
+set('c', '/', function()
+  return vim.fn.getcmdtype() == '/' and [[\/]] or [[/]]
+end, { expr = true })
+set('c', '?', function()
+  return vim.fn.getcmdtype() == '/' and [[\/]] or [[/]]
+end, { expr = true })
 
 -- use `ALT+{h,j,k,l}` to navigate windows from any mode
 -- see :h terminal
-map('n', '<M-h>', '<C-w>h', opts)
-map('n', '<M-j>', '<C-w>j', opts)
-map('n', '<M-k>', '<C-w>k', opts)
-map('n', '<M-l>', '<C-w>l', opts)
-map('i', '<M-h>', [[<C-\><C-n><C-w>h]], opts)
-map('i', '<M-j>', [[<C-\><C-n><C-w>j]], opts)
-map('i', '<M-k>', [[<C-\><C-n><C-w>k]], opts)
-map('i', '<M-l>', [[<C-\><C-n><C-w>l]], opts)
-map('t', '<M-h>', [[<C-\><C-n><C-W>h]], opts)
-map('t', '<M-j>', [[<C-\><C-n><C-W>j]], opts)
-map('t', '<M-k>', [[<C-\><C-n><C-W>k]], opts)
-map('t', '<M-l>', [[<C-\><C-n><C-W>l]], opts)
-map('t', '<Esc>', [[<C-\><C-n>]], opts)
+set('n', '<M-h>', '<C-w>h')
+set('n', '<M-j>', '<C-w>j')
+set('n', '<M-k>', '<C-w>k')
+set('n', '<M-l>', '<C-w>l')
+set('i', '<M-h>', [[<C-\><C-n><C-w>h]])
+set('i', '<M-j>', [[<C-\><C-n><C-w>j]])
+set('i', '<M-k>', [[<C-\><C-n><C-w>k]])
+set('i', '<M-l>', [[<C-\><C-n><C-w>l]])
+set('t', '<M-h>', [[<C-\><C-n><C-W>h]])
+set('t', '<M-j>', [[<C-\><C-n><C-W>j]])
+set('t', '<M-k>', [[<C-\><C-n><C-W>k]])
+set('t', '<M-l>', [[<C-\><C-n><C-W>l]])
+set('t', '<Esc>', [[<C-\><C-n>]])
 
 -- buffer
-map('n', '<BS>', '<C-^>', opts)
-map('n', '<M-.>', '<Cmd>bnext<CR>', opts)
-map('n', '<M-,>', '<Cmd>bprevious<CR>', opts)
-map('n', '<M-c>', '<Cmd>bdelete<CR>', opts)
-map('n', '<M-C>', '<Cmd>bdelete!<CR>', opts)
+set('n', '<BS>', '<C-^>')
+set('n', '<M-.>', '<Cmd>bnext<CR>')
+set('n', '<M-,>', '<Cmd>bprevious<CR>')
+set('n', '<M-c>', '<Cmd>bdelete<CR>')
+set('n', '<M-C>', '<Cmd>bdelete!<CR>')
 
--- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
-map('n', 'i', [[len(getline('.')) ? 'i' : '"_cc']], { noremap = true, expr = true })
-map('n', 'A', [[len(getline('.')) ? 'A' : '"_cc']], { noremap = true, expr = true })
+set('n', 'i', function()
+  return string.len(vim.trim(vim.fn.getline '.')) ~= 0 and 'i' or '"_cc'
+end, { expr = true })
+set('n', 'A', function()
+  return string.len(vim.trim(vim.fn.getline '.')) ~= 0 and 'A' or '"_cc'
+end, { expr = true })
 
 -- see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
-map('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>", { noremap = true })
-map('c', '<M-f>', "<C-r>=fnamemodify(@%, ':t')<CR>", { noremap = true })
-map('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]], { noremap = true })
-map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages<Bar>set more<CR>]], {
-  noremap = true,
-})
+set('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>")
+set('c', '<M-f>', "<C-r>=fnamemodify(@%, ':t')<CR>")
+set('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]])
+set('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages<Bar>set more<CR>]])
 
-map('n', '<M-q>', '<Cmd>lua require"ky.utils".toggle_quickfix()<CR>', opts)
+set('n', '<M-q>', function()
+  if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
+    vim.cmd 'cclose'
+  else
+    vim.cmd 'botright copen'
+  end
+end)
 
 -- textobj shortcuts
 -- WARN: experimental
--- map('o', ')', 't)', opts)
--- map('x', ')', 't)', opts)
-map('o', '(', 't(', opts)
-map('x', '(', 't(', opts)
-map('o', ',', 't,', opts)
-map('x', ',', 't,', opts)
-map('o', "'", "i'", opts)
-map('x', '"', 'i"', opts)
-map('o', '}', 'i}', opts)
-map('x', '}', 'i}', opts)
-map('o', ')', 'i)', opts)
-map('x', ')', 'i)', opts)
-map('o', ']', 'i]', opts)
-map('x', ']', 'i]', opts)
+set('o', '"', 'i"')
+set('o', "'", "i'")
+set('o', '`', 'i`')
+set('o', '{', 'i{')
+set('o', '(', 'i(')
+set('o', '[', 'i[')
 
 -- do not select blanks
-map('o', 'a"', '2i"', opts)
-map('x', 'a"', '2i"', opts)
-map('o', "a'", "2i'", opts)
-map('x', "a'", "2i'", opts)
-map('o', 'a`', '2i`', opts)
-map('x', 'a`', '2i`', opts)
+set({ 'o', 'x' }, 'a"', '2i"')
+set({ 'o', 'x' }, "a'", "2i'")
+set({ 'o', 'x' }, 'a`', '2i`')
 
 -- see https://github.com/mhinz/vim-galore#quickly-move-current-line
-map('n', '[e', "<Cmd>execute 'move -1-' . v:count1<CR>", { noremap = true })
-map('n', ']e', "<Cmd>execute 'move +' . v:count1<CR>", { noremap = true })
+set('n', '[e', "<Cmd>execute 'move -1-' . v:count1<CR>")
+set('n', ']e', "<Cmd>execute 'move +' . v:count1<CR>")
 
 -- see https://github.com/mhinz/vim-galore#quickly-add-empty-lines
-map('n', '[<Space>', "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>'[", opts)
-map('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>', opts)
+set('n', '[<Space>', "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>'[")
+set('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>')
 
-map('n', '<Leader>.', [[<Cmd>execute 'edit .'<CR>]], { noremap = true })
-map('n', '-', [[<Cmd>execute 'edit ' .. expand('%:p:h')<CR>]], { noremap = true })
-map('n', '~', [[<Cmd>execute 'edit ' .. expand('$HOME')<CR>]], { noremap = true })
+set('n', '<Leader>.', [[<Cmd>execute 'edit .'<CR>]])
+set('n', '-', [[<Cmd>execute 'edit ' .. expand('%:p:h')<CR>]])
+set('n', '~', [[<Cmd>execute 'edit ' .. expand('$HOME')<CR>]])
 -- TODO: consider the case nil is returned
-map(
-  'n',
-  '+',
-  [[<Cmd>lua vim.cmd('edit ' .. require('lspconfig.util').find_git_ancestor(vim.fn.getcwd()))<CR>]],
-  { noremap = true }
-)
+set('n', '+', function()
+  vim.cmd('edit ' .. require('lspconfig.util').find_git_ancestor(vim.fn.getcwd()))
+end)
 
-map('n', '<Leader>cd', '<Cmd>tcd %:p:h <Bar> pwd<CR>', opts)
-map('n', '<Leader>ud', '<Cmd>tcd .. <Bar> pwd<CR>', opts)
+set('n', '<Leader>cd', '<Cmd>tcd %:p:h <Bar> pwd<CR>')
+set('n', '<Leader>ud', '<Cmd>tcd .. <Bar> pwd<CR>')
 
 -- tab
-map('n', '<Leader>te', '<Cmd>tabedit %<CR>', opts)
-map('n', '<Leader>tc', '<Cmd>tabclose<CR>', opts)
-map('n', '<Leader>tC', '<Cmd>tabclose!<CR>', opts)
-map('n', '<Leader>tn', '<Cmd>tabnew<CR>', opts)
-map('n', '<Leader>to', '<Cmd>tabonly<CR>', opts)
-map('n', '<Leader>ts', '<Cmd>tab split<CR>', opts)
-map('n', '<Leader>ti', '<Cmd>tabs<CR>', opts)
-map('n', '<Leader>tl', [[<Cmd>execute 'tabmove +' . v:count1<CR>]], opts)
-map('n', '<Leader>th', [[<Cmd>execute 'tabmove -' . v:count1<CR>]], opts)
+set('n', '<Leader>te', '<Cmd>tabedit %<CR>')
+set('n', '<Leader>tc', '<Cmd>tabclose<CR>')
+set('n', '<Leader>tC', '<Cmd>tabclose!<CR>')
+set('n', '<Leader>tn', '<Cmd>tabnew<CR>')
+set('n', '<Leader>to', '<Cmd>tabonly<CR>')
+set('n', '<Leader>ts', '<Cmd>tab split<CR>')
+set('n', '<Leader>ti', '<Cmd>tabs<CR>')
+set('n', '<Leader>tl', [[<Cmd>execute 'tabmove +' . v:count1<CR>]])
+set('n', '<Leader>th', [[<Cmd>execute 'tabmove -' . v:count1<CR>]])
 
 -- move line(s)
--- map('i', '<M-j>', '<Esc>:m .+1<CR>==gi', opts)
--- map('i', '<M-k>', '<Esc>:m .-2<CR>==gi', opts)
-map('x', '<M-j>', ":m '>+1<CR>gv=gv", opts)
-map('x', '<M-k>', ":m '<-2<CR>gv=gv", opts)
+-- map('i', '<M-j>', '<Esc>:m .+1<CR>==gi')
+-- map('i', '<M-k>', '<Esc>:m .-2<CR>==gi')
+set('x', '<M-j>', ":m '>+1<CR>gv=gv")
+set('x', '<M-k>', ":m '<-2<CR>gv=gv")
 
 -- keep curosor position after joining
-map('n', 'J', 'mzJ`z', opts)
+set('n', 'J', 'mzJ`z')
 -- split line at current cursor position
-map('n', '<Leader>j', 'i<CR><Esc>k$', opts)
+set('n', '<Leader>j', 'i<CR><Esc>k$')
 
 -- Multiple Cursors
 -- TODO: convert to lua
@@ -217,3 +213,46 @@ nnoremap cQ :call SetupCR()<CR>#``qz
 xnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
 xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
 ]]
+
+vim.keymap.set('t', '<Esc>', function()
+  ---searches process tree for a process having a name in the `names` list
+  ---https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
+  local find_proc_in_tree = function(rootpid, names, acc)
+    if acc > 9 or not vim.fn.exists '*nvim_get_proc' then
+      return false
+    end
+    local p = vim.api.nvim_get_proc(rootpid)
+    if vim.fn.empty(p) ~= 1 and vim.tbl_contains(names, p.name) then
+      return true
+    end
+    local ids = vim.api.nvim_get_proc_children(rootpid)
+    for _, id in ipairs(ids) do
+      if M.find_proc_in_tree(id, names, 1 + acc) then
+        return true
+      end
+    end
+    return false
+  end
+  local names = { 'nvim', 'fzf' }
+  return find_proc_in_tree(vim.b.terminal_job_pid, names, 0) and '<Esc>' or [[<C-\><C-n>]]
+end, { expr = true })
+
+set('n', '<F1>', function()
+  local items = vim.fn.synstack(vim.fn.line '.', vim.fn.col '.')
+  if vim.fn.empty(items) ~= 1 then
+    for _, i1 in ipairs(items) do
+      local i2 = vim.fn.synIDtrans(i1)
+      local n1 = vim.fn.synIDattr(i1, 'name')
+      local n2 = vim.fn.synIDattr(i2, 'name')
+      print(string.format('%s -> %s', n1, n2))
+    end
+  end
+end)
+
+-- profile
+set('n', '<F2>', function()
+  require('plenary.profile').start('profile.log', { flame = true })
+end)
+set('n', '<F3>', function()
+  require('plenary.profile').stop()
+end)

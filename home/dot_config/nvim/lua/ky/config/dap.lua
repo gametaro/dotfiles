@@ -27,57 +27,30 @@ dap.adapters.nlua = function(callback, config)
   callback { type = 'server', host = config.host, port = config.port }
 end
 
-vim.api.nvim_set_keymap(
-  'n',
-  '<LocalLeader>dc',
-  '<Cmd>lua require"dap".continue()<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  '<LocalLeader>do',
-  '<Cmd>lua require"dap".step_over()<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  '<LocalLeader>di',
-  '<Cmd>lua require"dap".step_into()<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  '<LocalLeader>de',
-  '<Cmd>lua require"dap".step_out()<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  '<LocalLeader>db',
-  '<Cmd>lua require"dap".toggle_breakpoint()<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  '<LocalLeader>dB',
-  '<Cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  '<LocalLeader>dp',
-  '<Cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  '<LocalLeader>dr',
-  '<Cmd>lua require"dap".repl.open()<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  'n',
-  '<LocalLeader>dl',
-  '<Cmd>lua require"dap".run_last()<CR>',
-  { noremap = true, silent = true }
-)
+vim.keymap.set('n', '<LocalLeader>dc', function()
+  require('dap').continue()
+end)
+vim.keymap.set('n', '<LocalLeader>do', function()
+  require('dap').step_over()
+end)
+vim.keymap.set('n', '<LocalLeader>di', function()
+  require('dap').step_into()
+end)
+vim.keymap.set('n', '<LocalLeader>de', function()
+  require('dap').step_out()
+end)
+vim.keymap.set('n', '<LocalLeader>db', function()
+  require('dap').toggle_breakpoint()
+end)
+vim.keymap.set('n', '<LocalLeader>dB', function()
+  require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+end)
+vim.keymap.set('n', '<LocalLeader>dp', function()
+  require('dap').set_breakpoint(nil, nil, vim.fn.input 'Log point message: ')
+end)
+vim.keymap.set('n', '<LocalLeader>dr', function()
+  require('dap').repl.open()
+end)
+vim.keymap.set('n', '<LocalLeader>dl', function()
+  require('dap').run_last()
+end)
