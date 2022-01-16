@@ -121,11 +121,13 @@ set({ 'n', 'x', 'o' }, '0', function()
   return string.match(string.sub(vim.api.nvim_get_current_line(), 0, vim.fn.col '.' - 1), '^%s+$') ~= nil and '0' or '^'
 end, { expr = true })
 
+-- toggle `i`, `A` and `cc`
+-- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
 set('n', 'i', function()
-  return string.len(vim.trim(vim.fn.getline '.')) ~= 0 and 'i' or '"_cc'
+  return string.len(vim.trim(vim.api.nvim_get_current_line())) ~= 0 and 'i' or '"_cc'
 end, { expr = true })
 set('n', 'A', function()
-  return string.len(vim.trim(vim.fn.getline '.')) ~= 0 and 'A' or '"_cc'
+  return string.len(vim.trim(vim.api.nvim_get_current_line())) ~= 0 and 'A' or '"_cc'
 end, { expr = true })
 
 -- see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
