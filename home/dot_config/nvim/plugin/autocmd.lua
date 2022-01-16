@@ -46,3 +46,5 @@ vim.cmd 'autocmd mine FileType qf set nobuflisted'
 -- vim.cmd 'autocmd mine CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics { focusable = false }'
 vim.cmd 'autocmd mine TermOpen term://* startinsert'
 vim.cmd 'autocmd mine TermOpen term://* setlocal nonumber norelativenumber'
+
+vim.cmd 'autocmd mine BufEnter * setlocal formatoptions-=cro'
