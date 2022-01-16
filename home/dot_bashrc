@@ -84,3 +84,7 @@ if [[ $(command -v starship) ]]; then
   export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
   eval "$(starship init bash)"
 fi
+
+if [[ $(command -v direnv) ]]; then
+  eval "$(direnv hook bash)"
+fi

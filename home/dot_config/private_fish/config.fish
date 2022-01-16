@@ -52,4 +52,8 @@ if command -q starship
     starship init fish | source
 end
 
+if command -q direnv
+    direnv hook fish | source
+end
+
 set -x GPG_TTY (tty)
