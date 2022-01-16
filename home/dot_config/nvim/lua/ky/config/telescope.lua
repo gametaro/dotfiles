@@ -35,7 +35,7 @@ local defaults = themes.get_ivy {
     '--smart-case',
     '--hidden',
   },
-  file_ignore_patterns = { '^.git/', '^.node_modules/' },
+  file_ignore_patterns = { '.git/', '.node_modules/' },
   set_env = {
     ['COLORTERM'] = 'truecolor',
   },
