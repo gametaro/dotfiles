@@ -89,7 +89,7 @@ set('c', '/', function()
   return vim.fn.getcmdtype() == '/' and [[\/]] or [[/]]
 end, { expr = true })
 set('c', '?', function()
-  return vim.fn.getcmdtype() == '/' and [[\/]] or [[/]]
+  return vim.fn.getcmdtype() == '?' and [[\?]] or [[?]]
 end, { expr = true })
 
 -- use `ALT+{h,j,k,l}` to navigate windows from any mode
