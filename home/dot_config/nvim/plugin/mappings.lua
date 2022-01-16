@@ -215,9 +215,10 @@ xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '
 ]]
 
 vim.keymap.set('t', '<Esc>', function()
+  local M = {}
   ---searches process tree for a process having a name in the `names` list
   ---https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
-  local find_proc_in_tree = function(rootpid, names, acc)
+  M.find_proc_in_tree = function(rootpid, names, acc)
     if acc > 9 or not vim.fn.exists '*nvim_get_proc' then
       return false
     end
@@ -234,7 +235,7 @@ vim.keymap.set('t', '<Esc>', function()
     return false
   end
   local names = { 'nvim', 'fzf' }
-  return find_proc_in_tree(vim.b.terminal_job_pid, names, 0) and '<Esc>' or [[<C-\><C-n>]]
+  return M.find_proc_in_tree(vim.b.terminal_job_pid, names, 0) and '<Esc>' or [[<C-\><C-n>]]
 end, { expr = true })
 
 set('n', '<F1>', function()
