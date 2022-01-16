@@ -106,18 +106,6 @@ local function plugins(use)
   -- }
 
   use {
-    'yuki-yano/zero.nvim',
-    keys = {
-      { 'n', '0' },
-      { 'x', '0' },
-      { 'o', '0' },
-    },
-    config = function()
-      require('zero').setup()
-    end,
-  }
-
-  use {
     'monaqa/dial.nvim',
     keys = { '<Plug>(dial-' },
     setup = function()
