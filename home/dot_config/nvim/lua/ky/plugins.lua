@@ -292,6 +292,7 @@ local function plugins(use)
 
   use {
     'folke/which-key.nvim',
+    disable = true,
     event = 'BufRead',
     config = function()
       require('which-key').setup {
