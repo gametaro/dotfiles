@@ -8,10 +8,10 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 ## Installation
 
 ```bash
-sh -c "$(curl -fsLS git.io/chezmoi)" -- -b ~/.local/bin init --apply gametaro
+sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --apply gametaro
 
 # for transitory environments
-sh -c "$(curl -fsLS git.io/chezmoi)" -- -b ~/.local/bin init --one-shot gametaro
+sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --one-shot gametaro
 ```
 
 or with chezmoi:
