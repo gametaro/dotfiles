@@ -25,16 +25,6 @@ local defaults = themes.get_ivy {
     preview = { '', '', '', '', '', '', '', '' },
   },
   width = 0.8,
-  vimgrep_arguments = {
-    'rg',
-    '--color=never',
-    '--no-heading',
-    '--with-filename',
-    '--line-number',
-    '--column',
-    '--smart-case',
-    '--hidden',
-  },
   file_ignore_patterns = { '.git/', '.node_modules/' },
   set_env = {
     ['COLORTERM'] = 'truecolor',
