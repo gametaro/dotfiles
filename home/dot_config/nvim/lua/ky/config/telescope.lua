@@ -53,9 +53,6 @@ telescope.setup {
   },
   pickers = {
     buffers = {
-      ignore_current_buffer = true,
-      sort_lastused = true,
-      sort_mru = true,
       mappings = {
         i = {
           ['<c-d>'] = actions.delete_buffer,
@@ -69,7 +66,6 @@ telescope.setup {
       enable_preview = true,
     },
     find_files = {
-      hidden = true,
       mappings = {
         n = {
           ['cd'] = function(prompt_bufnr)
@@ -85,7 +81,11 @@ telescope.setup {
 }
 
 vim.keymap.set('n', '<LocalLeader>fb', function()
-  require('telescope.builtin').buffers()
+  require('telescope.builtin').buffers {
+    ignore_current_buffer = true,
+    sort_lastused = true,
+    sort_mru = true,
+  }
 end)
 vim.keymap.set('n', '<LocalLeader>fj', function()
   require('telescope.builtin').jumplist()
@@ -94,7 +94,9 @@ vim.keymap.set('n', '<LocalLeader>fc', function()
   require('telescope.builtin').commands()
 end)
 vim.keymap.set('n', '<LocalLeader>ff', function()
-  require('telescope.builtin').find_files()
+  require('telescope.builtin').find_files {
+    hidden = true,
+  }
 end)
 vim.keymap.set('n', '<LocalLeader>fg', function()
   require('telescope.builtin').live_grep()
