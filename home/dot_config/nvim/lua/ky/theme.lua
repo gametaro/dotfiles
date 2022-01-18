@@ -25,7 +25,6 @@ function M.setup(theme)
       local nightfox = require 'nightfox'
       nightfox.setup {
         fox = 'nightfox',
-        alt_nc = true,
       }
       nightfox.load()
     end
