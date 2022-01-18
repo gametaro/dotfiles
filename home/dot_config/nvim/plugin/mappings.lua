@@ -57,11 +57,6 @@ set('i', '<C-b>', '<Left>')
 set('i', '<C-a>', '<Esc>^i')
 set('i', '<C-e>', '<End>')
 
--- edit in inert mode
-set('i', '<M-w>', '<Cmd>normal diw<CR>')
-set('i', '<M-S-w>', '<Cmd>normal daw<CR>')
-set('i', '<M-b>', '<Cmd>normal dib<CR>')
-set('i', '<M-S-B>', '<Cmd>normal dab<CR>')
 set('i', '<M-o>', '<C-o>o')
 set('i', '<M-O>', '<C-o>O')
 -- WARN: experimental
