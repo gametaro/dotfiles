@@ -29,7 +29,7 @@ set('n', '<Leader>h', ':<C-u>help<Space>')
 
 -- swap ; for :
 set('', ';', ':')
-set('', ':', ';')
+-- set('', ':', ';')
 set('', 'q;', 'q:')
 
 -- save and quit

@@ -127,9 +127,7 @@ local function plugins(use)
     'hrsh7th/vim-eft',
     keys = { '<Plug>(eft-' },
     setup = function()
-      -- vim.api.nvim_set_keymap('n', ';', '<Plug>(eft-repeat)', {})
-      -- vim.api.nvim_set_keymap('x', ';', '<Plug>(eft-repeat)', {})
-      -- vim.api.nvim_set_keymap('o', ';', '<Plug>(eft-repeat)', {})
+      vim.keymap.set({ 'n', 'x', 'o' }, ':', '<Plug>(eft-repeat)')
       vim.keymap.set({ 'n', 'x', 'o' }, 'f', '<Plug>(eft-f)')
       vim.keymap.set({ 'n', 'x', 'o' }, 'F', '<Plug>(eft-F)')
       vim.keymap.set({ 'n', 'x', 'o' }, 't', '<Plug>(eft-t)')
