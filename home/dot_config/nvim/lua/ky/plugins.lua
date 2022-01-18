@@ -94,17 +94,6 @@ local function plugins(use)
   --   end,
   -- }
 
-  -- use {
-  --   'lukas-reineke/indent-blankline.nvim',
-  --   opt = true,
-  --   config = function()
-  --     require('indent_blankline').setup {
-  --       buftype_exclude = { 'nofile', 'terminal', 'help' },
-  --       filetype_exclude = { 'packer', 'Trouble' },
-  --     }
-  --   end,
-  -- }
-
   use {
     'monaqa/dial.nvim',
     keys = { '<Plug>(dial-' },
@@ -332,41 +321,6 @@ local function plugins(use)
     end,
   }
 
-  -- use {
-  --   'romgrk/barbar.nvim',
-  --   after = 'nvim-web-devicons',
-  --   setup = function()
-  --     local opts = { noremap = true, silent = true }
-  --     vim.api.nvim_set_keymap('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-9>', '<Cmd>BufferLast<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-w>', '<Cmd>BufferWipeout<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-o>', '<Cmd>BufferCloseAllButCurrent<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-r>', '<Cmd>BufferCloseBuffersRight<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-s>', '<Cmd>BufferPick<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
-  --
-  --     vim.g.bufferline = {
-  --       animation = false,
-  --       clickable = false,
-  --       closable = false,
-  --       exclude_ft = { 'NeogitStatus', 'NeogitCommitMessage' },
-  --       maximum_padding = 1,
-  --     }
-  --   end,
-  -- }
-
   use {
     'akinsho/toggleterm.nvim',
     cmd = { 'ToggleTerm' },
@@ -565,14 +519,6 @@ local function plugins(use)
     end,
   }
 
-  -- use {
-  --   'dstein64/nvim-scrollview',
-  --   event = 'BufRead',
-  --   setup = function()
-  --     vim.g.scrollview_current_only = 1
-  --   end,
-  -- }
-
   use {
     'kana/vim-submode',
     event = 'BufRead',
@@ -637,17 +583,6 @@ local function plugins(use)
       }
     end,
   }
-
-  -- use {
-  --   'rmagatti/auto-session',
-  --   config = function()
-  --     require('auto-session').setup {
-  --       auto_session_enabled = true,
-  --       auto_save_enabled = true,
-  --       auto_restore_enabled = true,
-  --     }
-  --   end,
-  -- }
 
   use {
     'David-Kunz/treesitter-unit',
@@ -719,28 +654,6 @@ local function plugins(use)
       require('package-info').setup {}
     end,
   }
-
-  -- use {
-  --   'rmagatti/goto-preview',
-  --   setup = function()
-  --     vim.api.nvim_set_keymap(
-  --       'n',
-  --       'gpd',
-  --       "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
-  --       { noremap = true }
-  --     )
-  --     vim.api.nvim_set_keymap(
-  --       'n',
-  --       'gpi',
-  --       "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
-  --       { noremap = true }
-  --     )
-  --     vim.api.nvim_set_keymap('n', 'gpq', "<cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })
-  --   end,
-  --   config = function()
-  --     require('goto-preview').setup {}
-  --   end,
-  -- }
 
   use {
     'iamcco/markdown-preview.nvim',
