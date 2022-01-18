@@ -340,7 +340,7 @@ local function plugins(use)
 
   use {
     'kyazdani42/nvim-tree.lua',
-    opt = true,
+    disable = true,
     config = function()
       require 'ky.config.tree'
     end,
