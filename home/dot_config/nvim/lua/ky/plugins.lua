@@ -794,8 +794,6 @@ local function plugins(use)
     event = 'BufReadPre', -- this will only start session saving when an actual file was opened
     module = 'persistence',
     setup = function()
-      vim.cmd [[autocmd VimEnter * nested lua require'persistence'.load()]]
-
       -- restore the session for the current directory
       vim.keymap.set('n', '<LocalLeader>qs', function()
         require('persistence').load()
