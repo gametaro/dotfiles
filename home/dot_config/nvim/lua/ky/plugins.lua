@@ -565,26 +565,6 @@ local function plugins(use)
     end,
   }
 
-  use {
-    'michaelb/sniprun',
-    keys = { '<Plug>Snip' },
-    run = 'bash ./install.sh',
-    config = function()
-      vim.keymap.set('n', '<LocalLeader>rr', function()
-        require('sniprun').run 'n'
-      end)
-      vim.keymap.set('x', '<LocalLeader>rr', function()
-        require('sniprun').run 'v'
-      end)
-      vim.keymap.set('x', '<LocalLeader>rc', function()
-        require('sniprun.display').close_all()
-      end)
-      require('sniprun').setup {
-        selected_interpreters = { 'Lua_nvim' }, --" use those instead of the default for the current filetype
-      }
-    end,
-  }
-
   -- use {
   --   'dstein64/nvim-scrollview',
   --   event = 'BufRead',
