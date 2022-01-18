@@ -72,7 +72,6 @@ telescope.setup {
 
 vim.keymap.set('n', '<LocalLeader>fb', function()
   require('telescope.builtin').buffers {
-    ignore_current_buffer = true,
     sort_lastused = true,
     sort_mru = true,
   }
