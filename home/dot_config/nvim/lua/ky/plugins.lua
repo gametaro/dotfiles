@@ -239,6 +239,23 @@ local function plugins(use)
       {
         'L3MON4D3/LuaSnip',
         requires = 'rafamadriz/friendly-snippets',
+        setup = function()
+          vim.keymap.set({ 'i', 's' }, '<Tab>', function()
+            if require('luasnip').expand_or_jumpable() then
+              require('luasnip').expand_or_jump()
+            end
+          end)
+          vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
+            if require('luasnip').jumpable(-1) then
+              require('luasnip').jump(-1)
+            end
+          end)
+          vim.keymap.set({ 'i', 's' }, '<C-l>', function()
+            if require('luasnip').choice_active() then
+              require('luasnip').change_choice(1)
+            end
+          end)
+        end,
         config = function()
           local ls = require 'luasnip'
           ls.config.set_config {

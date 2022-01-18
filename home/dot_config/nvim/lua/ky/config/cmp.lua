@@ -1,38 +1,5 @@
 local cmp = require 'cmp'
 local compare = require 'cmp.config.compare'
-local luasnip = require 'luasnip'
-
--- local has_words_before = function()
---   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
---   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
--- end
-
-vim.cmd [[
-imap <silent><expr> <C-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : ''
-smap <silent><expr> <C-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : ''
-]]
-
-local tab = function(fallback)
-  -- if cmp.visible() then
-  --   cmp.select_next_item()
-  if luasnip.expand_or_jumpable() then
-    luasnip.expand_or_jump()
-    -- elseif has_words_before() then
-    --   cmp.complete()
-  else
-    fallback()
-  end
-end
-
-local s_tab = function(fallback)
-  -- if cmp.visible() then
-  --   cmp.select_prev_item()
-  if luasnip.jumpable(-1) then
-    luasnip.jump(-1)
-  else
-    fallback()
-  end
-end
 
 -- -- @see https://github.com/tzachar/cmp-fuzzy-buffer#sorting-and-filtering
 -- local compare_fuzzy_buffer = function(entry1, entry2)
@@ -102,8 +69,6 @@ cmp.setup {
     end,
   },
   mapping = {
-    ['<Tab>'] = cmp.mapping(tab, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(s_tab, { 'i', 's' }),
     ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' }),
     ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert }, { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
