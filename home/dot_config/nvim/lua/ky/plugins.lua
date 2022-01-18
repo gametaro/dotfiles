@@ -585,17 +585,6 @@ local function plugins(use)
   }
 
   use {
-    'David-Kunz/treesitter-unit',
-    after = 'nvim-treesitter',
-    setup = function()
-      vim.keymap.set('x', 'iu', ':lua require"treesitter-unit".select()<CR>', { silent = true })
-      vim.keymap.set('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { silent = true })
-      vim.keymap.set('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', { silent = true })
-      vim.keymap.set('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { silent = true })
-    end,
-  }
-
-  use {
     'rcarriga/nvim-notify',
     cond = not_headless,
     event = 'BufRead',
