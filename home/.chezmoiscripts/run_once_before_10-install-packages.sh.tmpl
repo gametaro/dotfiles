@@ -1,4 +1,5 @@
 {{ if (eq .chezmoi.os "linux") -}}
+
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
@@ -74,15 +75,5 @@ main() {
 {{ end -}}
 
 main "$@"
-
-{{ end -}}
-
-{{ if (eq .chezmoi.os "windows") -}}
-iwr -useb get.scoop.sh | iex
-
-scoop bucket add versions
-scoop bucket add extras
-scoop install git bat fd fzf neovim-nightly nodejs ripgrep starship wezterm
-# winget install git wezterm
 
 {{ end -}}
