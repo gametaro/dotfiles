@@ -30,6 +30,7 @@ jobs:
 
       - name: Chezmoi Init on windows
         if: ${{ runner.os == 'Windows' }}
+        shell: pwsh
         run: |
           iex "& { $(irm https://chezmoi.io/get.ps1) } "
           .\bin\chezmoi init --apply
