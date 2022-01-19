@@ -33,7 +33,7 @@ jobs:
         shell: pwsh
         run: |
           iex "& { $(irm https://chezmoi.io/get.ps1) } "
-          .\bin\chezmoi init --apply
+          .\bin\chezmoi init --apply gametaro
 
   centos:
     runs-on: ubuntu-latest

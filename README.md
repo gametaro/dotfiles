@@ -16,7 +16,7 @@ sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --one-shot gametaro
 
 ```powershell
 iex "& { $(irm https://chezmoi.io/get.ps1) } "
-.\bin\chezmoi init --apply
+.\bin\chezmoi init --apply gametaro
 ```
 or with chezmoi:
 
