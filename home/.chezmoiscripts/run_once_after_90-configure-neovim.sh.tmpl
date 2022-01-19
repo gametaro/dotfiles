@@ -15,3 +15,9 @@ fi
 # "$nvim" --headless -c 'TSInstallSync maintained' -c 'quitall'
 "$nvim" --headless -c 'LspInstall --sync sumneko_lua tsserver jsonls bashls eslint yamlls' -c 'quitall'
 {{- end -}}
+
+{{- if (eq .chezmoi.os "linux") -}}
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'TSInstallSync maintained' -c 'quitall'
+"$nvim" --headless -c 'LspInstall --sync sumneko_lua tsserver jsonls bashls eslint yamlls' -c 'quitall'
+{{- end -}}

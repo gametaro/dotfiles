@@ -9,6 +9,7 @@ jobs:
         os:
           - macos-latest
           - ubuntu-latest
+          - windows-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -24,7 +25,14 @@ jobs:
           sudo apt-get update
 
       - name: Chezmoi Init
+        if: ${{ runner.os != 'Windows' }}
         run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply gametaro
+
+      - name: Chezmoi Init on windows
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          iex "& { $(irm https://chezmoi.io/get.ps1) } "
+          .\bin\chezmoi init --apply
 
   centos:
     runs-on: ubuntu-latest
