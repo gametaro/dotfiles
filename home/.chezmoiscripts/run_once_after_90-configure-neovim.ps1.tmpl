@@ -1,9 +1,9 @@
 {{ if (eq .chezmoi.os "windows") }}
 
-$Env:XDG_CONFIG_HOME = $HOME+"\.config"
+. $PROFILE
 
-~\scoop\shims\nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-# ~\scoop\shims\nvim --headless -c 'TSInstallSync maintained' -c 'quitall'
-~\scoop\shims\nvim --headless -c 'LspInstall --sync sumneko_lua tsserver jsonls bashls eslint yamlls powershell_es' -c 'quitall'
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'TSInstallSync maintained' -c 'quitall'
+nvim --headless -c 'LspInstall --sync sumneko_lua tsserver jsonls bashls eslint yamlls powershell_es' -c 'quitall'
 
 {{ end }}

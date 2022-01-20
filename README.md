@@ -7,6 +7,8 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 
 ## Installation
 
+Unix:
+
 ```bash
 sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --apply gametaro
 
@@ -14,17 +16,19 @@ sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --apply gametaro
 sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --one-shot gametaro
 ```
 
+Windows:
+
 ```powershell
 iex "& { $(irm https://chezmoi.io/get.ps1) } "
 .\bin\chezmoi init --apply gametaro
 ```
-or with chezmoi:
+With chezmoi:
 
 ```bash
 chezmoi init gametaro
 ```
 
-or with docker:
+With docker:
 
 ```bash
 git clone --depth 1 https://github.com/gametaro/dotfiles.git

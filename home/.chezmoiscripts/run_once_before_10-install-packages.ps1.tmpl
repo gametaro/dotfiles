@@ -5,7 +5,21 @@ iwr -useb get.scoop.sh | iex
 
 scoop bucket add versions
 scoop bucket add extras
-scoop install git bat fd fzf neovim-nightly nodejs ripgrep starship wezterm
-# winget install git wezterm
+
+$Packages = @(
+  "git",
+  "sudo",
+  "bat",
+  "fd",
+  "fzf",
+  "neovim-nightly",
+  "nodejs",
+  "ripgrep",
+  "starship",
+  "wezterm",
+  "zoxide"
+)
+
+scoop install @Packages
 
 {{ end }}

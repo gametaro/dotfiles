@@ -6,6 +6,13 @@ $ENV:RIPGREP_CONFIG_PATH = "$HOME\.config\ripgrep\config"
 Set-Alias -Name g -Value git
 Set-Alias -Name v -Value nvim
 
-Set-PSReadlineOption -EditMode Emacs -BellStyle None
+$PSReadlineOptions = @{
+  BellStyle = "None"
+  EditMode = "Emacs"
+  HistoryNoDuplicates = $true
+  HistorySearchCursorMovesToEnd = $true
+  PredictionSource = "History"
+}
+Set-PSReadlineOption @PSReadlineOptions
 
 Invoke-Expression (&starship init powershell)
