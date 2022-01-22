@@ -3,7 +3,7 @@
 . $PROFILE
 
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-nvim --headless -c 'TSInstallSync maintained' -c 'quitall'
+nvim --headless -c 'packadd nvim-treesitter' -c 'TSInstallSync! lua vim bash json toml markdown' -c 'quitall'
 nvim --headless -c 'LspInstall --sync sumneko_lua tsserver jsonls bashls eslint yamlls powershell_es' -c 'quitall'
 
 {{ end }}
