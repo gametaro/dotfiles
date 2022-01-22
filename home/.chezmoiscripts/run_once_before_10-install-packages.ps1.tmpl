@@ -1,10 +1,12 @@
 {{ if (eq .chezmoi.os "windows") }}
 
 # install scoop
-iwr -useb get.scoop.sh | iex
+if ( -not Test-Path -Path $HOME\scoop) {
+  iwr -useb get.scoop.sh | iex
 
-scoop bucket add versions
-scoop bucket add extras
+  scoop bucket add versions
+  scoop bucket add extras
+}
 
 $Packages = @(
   "git",
