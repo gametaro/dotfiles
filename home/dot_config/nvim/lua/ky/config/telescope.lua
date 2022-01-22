@@ -1,8 +1,8 @@
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
 local themes = require 'telescope.themes'
- 
-local sep = package.config:sub(1,1)
+
+local sep = package.config:sub(1, 1)
 
 local defaults = themes.get_ivy {
   mappings = {
