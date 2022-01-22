@@ -481,7 +481,7 @@ local function plugins(use)
       {
         'nvim-telescope/telescope-frecency.nvim',
         cond = function()
-          return jit.os ~=  'Windows'
+          return jit.os ~= 'Windows'
         end,
         after = 'telescope.nvim',
         requires = { 'tami5/sqlite.lua' },
@@ -492,7 +492,7 @@ local function plugins(use)
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         cond = function()
-          return jit.os ~=  'Windows'
+          return jit.os ~= 'Windows'
         end,
         run = 'make',
         after = 'telescope.nvim',
