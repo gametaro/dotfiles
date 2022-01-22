@@ -7,4 +7,10 @@ set completion-map-case on
 set completion-query-items 50
 set mark-modified-lines on
 set visible-stats on
-# vim: set filetype=readline:
+
+{{ if (eq .chezmoi.os "windows") -}}
+set history-point-at-end-of-anchored-search on
+C-y: clink-copy-line
+C-v: clink-paste
+{{ end -}}
+{{/* vim: set filetype=readline: */}}

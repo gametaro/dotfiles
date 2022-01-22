@@ -3,11 +3,11 @@ install.sh
 Dockerfile
 
 {{ if ne .chezmoi.os "windows" }}
+AppData
 Documents
 {{ else }}
 .bashrc
 .bash_aliases
-.inputrc
 .tool_versions
 .config/asdf
 .config/direnv
