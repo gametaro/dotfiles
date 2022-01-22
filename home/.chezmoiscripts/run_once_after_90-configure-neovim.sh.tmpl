@@ -1,17 +1,10 @@
 {{- if (eq .chezmoi.os "linux") -}}
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+set -Eeu
 
-set -Eeuo pipefail
+. "$HOME/.profile"
 
-. "$HOME/.asdf/asdf.sh"
-
-if [ ! "$(command -v nvim)" ]; then
-  nvim="$HOME/.asdf/shims/nvim"
-else
-  nvim=nvim
-fi
-  
-"$nvim" --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 # "$nvim" --headless -c 'TSInstallSync maintained' -c 'quitall'
-"$nvim" --headless -c 'LspInstall --sync sumneko_lua tsserver jsonls bashls eslint yamlls' -c 'quitall'
+nvim --headless -c 'LspInstall --sync sumneko_lua tsserver jsonls bashls eslint yamlls' -c 'quitall'
 {{- end -}}

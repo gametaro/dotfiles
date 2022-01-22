@@ -1,0 +1,35 @@
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+export EDITOR="nvim"
+export VISUAL="nvim"
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
+
+export ASDF_DIR="$HOME/.asdf"
+export ASDF_DATA_DIR="$ASDF_DIR"
+
+if [ -d "$HOME/.asdf" ]; then
+  export ASDF_CONFIG_FILE="$XDG_CONFIG_HOME/asdf/config"
+fi
+
+if [ "$(command -v rg)" ]; then
+  export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/config"
+fi
+
+if [ "$(command -v starship)" ]; then
+  export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
+fi
+
+if [ -d "$HOME/bin" ]; then
+  PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ]; then
+  PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -d "$HOME/.asdf" ]; then
+  PATH="$ASDF_DIR/bin:$ASDF_DIR/shims:$PATH"
+fi

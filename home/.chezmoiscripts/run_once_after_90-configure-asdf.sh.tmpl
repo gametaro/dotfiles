@@ -1,7 +1,8 @@
 {{- if (eq .chezmoi.os "linux") -}}
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+set -Eeu
 
-. "$HOME/.asdf/asdf.sh"
+. "$HOME/.profile"
 
 while read -r plugin _; do
   asdf plugin-add "$plugin"

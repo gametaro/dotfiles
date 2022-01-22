@@ -1,25 +1,15 @@
 {{- if (eq .chezmoi.os "linux") -}}
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+set -Eeu
 
-set -Eeuo pipefail
-
-install_asdf() {
-  if [[ ! -e $HOME/.asdf ]]; then
-    git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.8.1
-  fi
-}
-
-main() {
-  install_asdf
-}
-
-main "$@"
+if [ ! -e "$HOME/.asdf" ]; then
+  git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.9.0
+fi
 {{- end -}}
 
 {{- if (eq .chezmoi.os "darwin") -}}
-#!/usr/bin/env bash
-
-set -Eeuo pipefail
+#!/usr/bin/env sh
+set -Eeu
 
 brew install asdf
 {{- end -}}
