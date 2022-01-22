@@ -480,6 +480,9 @@ local function plugins(use)
       { 'nvim-lua/plenary.nvim' },
       {
         'nvim-telescope/telescope-frecency.nvim',
+        cond = function()
+          return jit.os ~=  'Windows'
+        end,
         after = 'telescope.nvim',
         requires = { 'tami5/sqlite.lua' },
         config = function()
@@ -488,6 +491,9 @@ local function plugins(use)
       },
       {
         'nvim-telescope/telescope-fzf-native.nvim',
+        cond = function()
+          return jit.os ~=  'Windows'
+        end,
         run = 'make',
         after = 'telescope.nvim',
         config = function()
