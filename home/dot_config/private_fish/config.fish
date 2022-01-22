@@ -35,6 +35,10 @@ if status --is-interactive
     abbr -a -g dol docker images
 end
 
+if command -q zoxide
+    zoxide init fish | source
+end
+
 if command -q starship
     starship init fish | source
 end

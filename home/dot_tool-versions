@@ -7,3 +7,4 @@ neovim nightly
 nodejs 17.3.0
 ripgrep 13.0.0
 starship 1.0.0
+zoxide 0.8.0
