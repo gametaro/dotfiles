@@ -10,7 +10,7 @@ export MANWIDTH=999
 export ASDF_DIR="$HOME/.asdf"
 export ASDF_DATA_DIR="$ASDF_DIR"
 
-if [ -d "$HOME/.asdf" ]; then
+if [ -d "$ASDF_DIR" ]; then
   export ASDF_CONFIG_FILE="$XDG_CONFIG_HOME/asdf/config"
 fi
 
@@ -30,6 +30,7 @@ if [ -d "$HOME/.local/bin" ]; then
   PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -d "$HOME/.asdf" ]; then
+if [ -d "$ASDF_DIR" ]; then
   PATH="$ASDF_DIR/bin:$ASDF_DIR/shims:$PATH"
 fi
+# vim: set filetype=sh:

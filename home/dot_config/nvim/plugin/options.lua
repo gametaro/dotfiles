@@ -40,7 +40,7 @@ opt.listchars = {
   tab = [[]→\]],
   trail = '·',
 }
-opt.modeline = false
+-- opt.modeline = false
 -- opt.mouse = 'a'
 opt.number = true
 opt.pumheight = 15

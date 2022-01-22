@@ -7,3 +7,4 @@ set completion-map-case on
 set completion-query-items 50
 set mark-modified-lines on
 set visible-stats on
+# vim: set filetype=readline:
