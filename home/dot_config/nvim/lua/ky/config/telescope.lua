@@ -1,6 +1,8 @@
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
 local themes = require 'telescope.themes'
+ 
+local sep = package.config:sub(1,1)
 
 local defaults = themes.get_ivy {
   mappings = {
@@ -25,7 +27,7 @@ local defaults = themes.get_ivy {
     preview = { '', '', '', '', '', '', '', '' },
   },
   width = 0.8,
-  file_ignore_patterns = { '.git/', '.node_modules/' },
+  file_ignore_patterns = { '.git' .. sep, '.node_modules' .. sep },
   set_env = {
     ['COLORTERM'] = 'truecolor',
   },
