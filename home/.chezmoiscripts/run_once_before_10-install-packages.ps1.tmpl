@@ -1,12 +1,14 @@
 {{ if (eq .chezmoi.os "windows") }}
 
 # install scoop
-if ( -not (Test-Path -Path $HOME\scoop) ) {
+if ( -not (Test-Path -Path $HOME\scoop) )
+{
   iwr -useb get.scoop.sh | iex
-
-  scoop bucket add versions
-  scoop bucket add extras
 }
+
+scoop bucket add versions
+scoop bucket add extras
+scoop bucket add nerd-fonts
 
 $Packages = @(
   "aria2",
@@ -21,7 +23,9 @@ $Packages = @(
   "ripgrep",
   "starship",
   "wezterm",
-  "zoxide"
+  "zoxide",
+  "Firacode-NF",
+  "pwsh"
 )
 
 scoop install @Packages
