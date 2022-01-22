@@ -10,12 +10,6 @@ function M.is_nightly()
   return vim.fn.has 'nvim-0.7' > 0
 end
 
---toggle quickfix window
---@return any
-function M.toggle_quickfix()
-  return vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd 'cclose' or vim.cmd 'botright copen'
-end
-
 ---go to quickfix window
 ---@return any
 function M.goto_quickfix()
