@@ -19,9 +19,11 @@ sh -c "$(curl -fsLS chezmoi.io/get)" -- -b ~/.local/bin init --one-shot gametaro
 Windows:
 
 ```powershell
+Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 iex "& { $(irm https://chezmoi.io/get.ps1) } "
 .\bin\chezmoi init --apply gametaro
 ```
+
 With chezmoi:
 
 ```bash
