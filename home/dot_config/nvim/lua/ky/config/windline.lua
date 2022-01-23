@@ -16,7 +16,7 @@ local hl_list = {
 }
 local basic = {}
 
-local breakpoint_width = 90
+local breakpoint_width = 80
 basic.divider = { b.divider, '' }
 basic.bg = { ' ', 'StatusLine' }
 
@@ -28,13 +28,6 @@ local colors_mode = {
   Command = { 'magenta', 'black' },
 }
 
-basic.vi_mode = {
-  name = 'vi_mode',
-  hl_colors = colors_mode,
-  text = function()
-    return { { '  ', state.mode[2] } }
-  end,
-}
 basic.square_mode = {
   hl_colors = colors_mode,
   text = function()
@@ -74,6 +67,10 @@ basic.file = {
         -- { b.cache_file_size(), 'default' },
         -- { ' ', '' },
         { b.cache_file_name('[No Name]', 'unique'), 'magenta' },
+        { b.file_encoding()},
+        { ' ' },
+        { b.file_format({ icon = true }) },
+        { ' ' },
         -- { b.line_col_lua, 'white' },
         -- { b.progress_lua, '' },
         -- { ' ', '' },
@@ -84,7 +81,10 @@ basic.file = {
         -- { b.cache_file_size(), 'default' },
         -- { ' ', '' },
         { b.cache_file_name('[No Name]', 'unique'), 'magenta' },
-        -- { ' ', '' },
+        { b.file_encoding()},
+        { ' ' },
+        { b.file_format({ icon = true }) },
+        { ' ' },
         { b.file_modified ' ', 'magenta' },
       }
     end
@@ -183,7 +183,6 @@ local default = {
   active = {
     basic.square_mode,
     { ' ', '' },
-    -- basic.vi_mode,
     basic.file,
     basic.lsp_diagnos,
     basic.divider,
