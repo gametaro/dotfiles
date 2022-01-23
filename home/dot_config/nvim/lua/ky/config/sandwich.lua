@@ -14,7 +14,7 @@ vim.cmd [=[
           \ ])
         autocmd mine_sandwich FileType sh call sandwich#util#addlocal([
           \   {'buns': ['$(', ')'], 'nesting': 0, 'input': ['4(']},
-          \   {'buns': ['"$', '"'], 'nesting': 0, 'input': ['"4']},
+          \   {'buns': ['"$', '"'], 'nesting': 0, 'input': ['4"']},
           \   {'buns': ['${', '}'], 'nesting': 0, 'input': ['4{']},
           \   {'buns': ['[[', ']]'], 'nesting': 0, 'input': ['2[', '2]']},
           \ ])
