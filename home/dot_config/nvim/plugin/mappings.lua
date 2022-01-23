@@ -166,7 +166,7 @@ set('n', '-', [[<Cmd>execute 'edit ' .. expand('%:p:h')<CR>]])
 set('n', '~', [[<Cmd>execute 'edit ' .. expand('$HOME')<CR>]])
 -- TODO: consider the case nil is returned
 set('n', '+', function()
-  vim.cmd('edit ' .. require('lspconfig.util').find_git_ancestor(vim.fn.getcwd()))
+  vim.cmd('edit ' .. require('lspconfig.util').find_git_ancestor(vim.loop.cwd()))
 end)
 
 set('n', '<Leader>cd', '<Cmd>tcd %:p:h <Bar> pwd<CR>')
