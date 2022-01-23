@@ -479,17 +479,6 @@ local function plugins(use)
     requires = {
       { 'nvim-lua/plenary.nvim' },
       {
-        'nvim-telescope/telescope-frecency.nvim',
-        cond = function()
-          return jit.os ~= 'Windows'
-        end,
-        after = 'telescope.nvim',
-        requires = { 'tami5/sqlite.lua' },
-        config = function()
-          require('telescope').load_extension 'frecency'
-        end,
-      },
-      {
         'nvim-telescope/telescope-fzf-native.nvim',
         cond = function()
           return jit.os ~= 'Windows'
@@ -498,14 +487,6 @@ local function plugins(use)
         after = 'telescope.nvim',
         config = function()
           require('telescope').load_extension 'fzf'
-        end,
-      },
-      {
-        'nvim-telescope/telescope-smart-history.nvim',
-        requires = { 'tami5/sqlite.lua' },
-        after = 'telescope.nvim',
-        run = function()
-          os.execute 'mkdir -p ~/.local/share/nvim/databases'
         end,
       },
       {

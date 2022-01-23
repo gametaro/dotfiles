@@ -15,10 +15,6 @@ local defaults = themes.get_ivy {
     },
   },
   path_display = { 'smart', 'absolute', 'truncate' },
-  history = {
-    path = vim.fn.stdpath 'data' .. '/databases/telescope_history.sqlite3',
-    limit = 100,
-  },
   prompt_prefix = '   ',
   preview_title = '',
   prompt_title = '',
@@ -125,7 +121,4 @@ end)
 -- map('n', '<LocalLeader>gs', '<Cmd>lua require("telescope.builtin").git_status()<CR>', opts)
 vim.keymap.set('n', '<LocalLeader>gS', function()
   require('telescope.builtin').git_stash()
-end)
-vim.keymap.set('n', '<LocalLeader><LocalLeader>', function()
-  require('telescope').extensions.frecency.frecency()
 end)
