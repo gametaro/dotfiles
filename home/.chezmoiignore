@@ -8,7 +8,9 @@ Documents
 {{ else }}
 .bashrc
 .bash_aliases
-.tool_versions
+.bash_profile
+.profile
+.tool-versions
 .config/asdf
 .config/direnv
 .config/fish
