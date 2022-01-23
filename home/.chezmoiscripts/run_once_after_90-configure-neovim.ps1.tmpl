@@ -1,0 +1,10 @@
+{{ if (eq .chezmoi.os "windows") }}
+
+. $PROFILE
+
+~\scoop\shims\nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"
+~\scoop\shims\nvim --headless -c "packadd nvim-treesitter" -c "TSInstallSync! lua vim bash json toml markdown" -c "quitall"
+~\scoop\shims\nvim --headless -c "LspInstall --sync sumneko_lua tsserver jsonls bashls eslint yamlls powershell_es" -c "quitall"
+
+{{ end }}
+{{/* vim: set filetype=ps1: */}}
