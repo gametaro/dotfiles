@@ -20,8 +20,9 @@ jobs:
           if [[ -n $(git status -s) ]]; then
             git commit -am "style: format with stylua"
           fi
+
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
@@ -53,8 +54,9 @@ jobs:
           if [[ -n $(git status -s) ]]; then
             git commit -am "style: format with shfmt"
           fi
+
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
