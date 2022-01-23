@@ -2,7 +2,7 @@
 
 %USERPROFILE%\scoop\nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 %USERPROFILE%\scoop\nvim --headless -c 'packadd nvim-treesitter' -c 'TSInstallSync! lua vim bash json toml markdown' -c 'quitall'
-%USERPROFILE%\scoop\nvim --headless -c 'LspInstall --sync sumneko_lua tsserver jsonls bashls eslint yamlls powershell_es' -c 'quitall'
+%USERPROFILE%\scoop\nvim --headless -c 'LspInstall --sync sumneko_lua jsonls bashls yamlls powershell_es' -c 'quitall'
 
 {{ end }}
 {{/* vim: set filetype=cmd: */}}
