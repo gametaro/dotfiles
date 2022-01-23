@@ -1,6 +1,7 @@
 README.md
 install.sh
 Dockerfile
+LICENSE
 
 {{ if ne .chezmoi.os "windows" }}
 AppData
