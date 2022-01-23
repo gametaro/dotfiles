@@ -6,13 +6,14 @@ if ( -not (Test-Path -Path $HOME\scoop) )
   iwr -useb get.scoop.sh | iex
 }
 
+scoop install git
+
 scoop bucket add versions
 scoop bucket add extras
 scoop bucket add nerd-fonts
 
 $Packages = @(
   "aria2",
-  "git",
   "curl",
   "sudo",
   "gcc"
