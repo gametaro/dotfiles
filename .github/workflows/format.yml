@@ -11,13 +11,20 @@ jobs:
         uses: JohnnyMorganz/stylua-action@1.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --glob '*.lua' -- .
+          args: --glob \'*.lua\' -- .
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          if ! [[ -z $(git status -s) ]]; then
+            git commit -am "style: format with stylua"
+          fi
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          commit_message: "style: format with stylua"
-          branch: ${{ github.head_ref }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
 
   shfmt:
     runs-on: ubuntu-latest
@@ -40,8 +47,14 @@ jobs:
         run: shfmt -w -i 2 -bn -ci -kp .
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          if ! [[ -z $(git status -s) ]]; then
+            git commit -am "style: format with shfmt"
+          fi
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          commit_message: "style: format with shfmt"
-          branch: ${{ github.head_ref }}
-
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
