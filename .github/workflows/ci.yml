@@ -11,7 +11,7 @@ jobs:
           - ubuntu-latest
           - windows-latest
     runs-on: ${{ matrix.os }}
-    time-out-minutes: 5
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v2
 
@@ -38,7 +38,7 @@ jobs:
 
   centos:
     runs-on: ubuntu-latest
-    time-out-minutes: 5
+    timeout-minutes: 5
     container: centos:latest
     steps:
       - uses: actions/checkout@v2
@@ -51,7 +51,7 @@ jobs:
 
   fedora:
     runs-on: ubuntu-latest
-    time-out-minutes: 5
+    timeout-minutes: 5
     container: fedora:latest
     steps:
       - uses: actions/checkout@v2

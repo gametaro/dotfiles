@@ -10,7 +10,7 @@ permissions:
 jobs:
   benchmark:
     runs-on: ubuntu-latest
-    time-out-minutes: 5
+    timeout-minutes: 5
     env:
       OUTPUT_FILE: output.txt
     steps:
