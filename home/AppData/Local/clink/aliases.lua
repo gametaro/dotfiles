@@ -1,4 +1,4 @@
-local doskey = function (lhs, rhs, opts)
+local doskey = function(lhs, rhs, opts)
   opts = opts or '$*'
   os.execute(string.format('doskey %s=%s %s', lhs, rhs, opts))
 end

@@ -20,9 +20,9 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   })
 
   -- Use OSC 7 as per the above example
-  set_environment_variables["prompt"] = "$E]7;file://localhost/$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m "
+  set_environment_variables['prompt'] = '$E]7;file://localhost/$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m '
   -- use a more ls-like output format for dir
-  set_environment_variables["DIRCMD"] = "/d"
+  set_environment_variables['DIRCMD'] = '/d'
 end
 
 return {
@@ -30,10 +30,10 @@ return {
   launch_menu = launch_menu,
   use_ime = true,
   enable_tab_bar = true,
-  font = wezterm.font({
-    family='FiraCode NF',
-    harfbuzz_features={"calt=0", "clig=0", "liga=0"}
-  }),
+  font = wezterm.font {
+    family = 'FiraCode NF',
+    harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+  },
   font_size = 8.0,
   color_scheme = 'nightfox',
   add_wsl_distributions_to_launch_menu = false,
