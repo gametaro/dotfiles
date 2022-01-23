@@ -498,6 +498,31 @@ local function plugins(use)
           vim.keymap.set('n', '<LocalLeader>fp', '<Cmd>Telescope projects<CR>')
         end,
       },
+      {
+        'nvim-telescope/telescope-file-browser.nvim',
+        after = 'telescope.nvim',
+        config = function()
+          require('telescope').load_extension 'file_browser'
+
+          vim.keymap.set('n', '<LocalLeader>f.', function()
+            require('telescope').extensions.file_browser.file_browser {
+              hidden = true,
+            }
+          end)
+          vim.keymap.set('n', '<LocalLeader>f-', function()
+            require('telescope').extensions.file_browser.file_browser {
+              cwd = '%:p:h',
+              hidden = true,
+            }
+          end)
+          vim.keymap.set('n', '<LocalLeader>f~', function()
+            require('telescope').extensions.file_browser.file_browser {
+              cwd = '$HOME',
+              hidden = true,
+            }
+          end)
+        end,
+      },
     },
     config = function()
       require 'ky.config.telescope'
