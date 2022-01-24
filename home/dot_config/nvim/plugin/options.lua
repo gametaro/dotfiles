@@ -20,6 +20,12 @@ opt.diffopt = {
   'vertical',
 }
 opt.expandtab = true
+opt.fileformat = 'unix'
+opt.fileformats = {
+  'unix',
+  'dos',
+  'mac'
+}
 opt.fillchars = { diff = '/' }
 -- see :h fo-table
 opt.formatoptions:remove {
