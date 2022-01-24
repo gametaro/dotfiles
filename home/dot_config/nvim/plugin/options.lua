@@ -24,7 +24,7 @@ opt.fileformat = 'unix'
 opt.fileformats = {
   'unix',
   'dos',
-  'mac'
+  'mac',
 }
 opt.fillchars = { diff = '/' }
 -- see :h fo-table
