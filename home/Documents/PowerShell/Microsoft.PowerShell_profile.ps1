@@ -34,11 +34,6 @@ if ($PSReadlineVersion -ge '2.1.0')
   Set-PSReadLineKeyHandler -Key Ctrl+n -Function HistorySearchForward
 }
 
-if ($psversiontable.psversion.major -ge 7)
-{
-  $ErrorView = 'ConciseView'
-}
-
 if ((Get-Module psreadline).Version -gt 2.1.99 -and (Get-Command 'Enable-AzPredictor' -ErrorAction SilentlyContinue))
 {
   Enable-AzPredictor
@@ -48,9 +43,9 @@ if (Get-Command zoxide -Type Application -ErrorAction SilentlyContinue)
 {
   Invoke-Expression (& {
       $hook = if ($PSVersionTable.PSVersion.Major -lt 6)
-      { 'prompt' 
+      { 'prompt'
       } else
-      { 'pwd' 
+      { 'pwd'
       }
     (zoxide init --hook $hook powershell | Out-String)
     })
