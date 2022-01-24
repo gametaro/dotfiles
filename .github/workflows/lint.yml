@@ -18,5 +18,6 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_LUA: false
+          LINTER_RULES_PATH: /
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
