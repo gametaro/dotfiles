@@ -91,8 +91,8 @@ cmp.setup {
       vim_item.menu = ({
         path = '[Path]',
         buffer = '[Buffer]',
-        fuzzy_path = '[Path]',
-        fuzzy_buffer = '[Buffer]',
+        -- fuzzy_path = '[Path]',
+        -- fuzzy_buffer = '[Buffer]',
         nvim_lsp = '[LSP]',
         luasnip = '[LuaSnip]',
         nvim_lua = '[Lua]',
