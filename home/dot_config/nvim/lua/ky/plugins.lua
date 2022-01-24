@@ -702,19 +702,6 @@ local function plugins(use)
   }
 
   use {
-    'mtth/scratch.vim',
-    keys = { '<Plug>(scratch-' },
-    setup = function()
-      vim.g.scratch_autohide = 0
-      vim.g.scratch_no_mappings = 1
-      vim.g.scratch_persistence_file = vim.fn.stdpath 'cache' .. '/scratch.log'
-
-      vim.keymap.set('n', '<LocalLeader>s', '<Plug>(scratch-insert-reuse)')
-      vim.keymap.set('x', '<LocalLeader>s', '<Plug>(scratch-selection-reuse)')
-    end,
-  }
-
-  use {
     'andymass/vim-matchup',
     event = 'BufRead',
     setup = function()
