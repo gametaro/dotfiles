@@ -128,7 +128,7 @@ require('lir').setup {
 function _G.LirSettings()
   vim.keymap.set('x', 'J', function()
     require('lir.mark.actions').toggle_mark 'v'
-  end, { buffer = 0 })
+  end, { buffer = true })
 end
 
 vim.cmd [[augroup lir-settings]]
