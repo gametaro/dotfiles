@@ -2,25 +2,20 @@ name: Lint
 on: [push, pull_request]
 
 jobs:
-  actionlint:
+  build:
+    name: Lint Code Base
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run actionlint
-        shell: bash
-        run: |
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-          ./actionlint -color
 
-  shellcheck:
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Run ShellCheck
-        env:
-          SHELLCHECK_OPTS: -e SC1091
-        uses: ludeeus/action-shellcheck@master
+      - name: Checkout Code
+        uses: actions/checkout@v2
         with:
-          check_together: "yes"
+          fetch-depth: 0
 
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_LUA: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
