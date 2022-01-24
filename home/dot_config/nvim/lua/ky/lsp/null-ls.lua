@@ -1,6 +1,7 @@
 local null_ls = require 'null-ls'
 local f = null_ls.builtins.formatting
 local d = null_ls.builtins.diagnostics
+local h = null_ls.builtins.hover
 local on_attach = require('ky.lsp').on_attach
 
 local M = {}
@@ -49,6 +50,7 @@ local sources = {
     disabled_filetypes = { 'NeogitCommitMessage' },
     condition = condition 'codespell',
   },
+  h.dictionary
 }
 
 function M.setup()
