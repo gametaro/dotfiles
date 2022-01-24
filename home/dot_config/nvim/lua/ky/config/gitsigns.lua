@@ -1,6 +1,4 @@
-local gitsigns = require 'gitsigns'
-
-gitsigns.setup {
+require('gitsigns').setup {
   signs = {
     add = { hl = 'GitSignsAdd', text = '▍', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
     change = { hl = 'GitSignsChange', text = '▍', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
@@ -9,34 +7,48 @@ gitsigns.setup {
     changedelete = { hl = 'GitSignsChange', text = '▍', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
   },
   signcolumn = true,
-  numhl = false,
+  numhl = true,
   linehl = false,
-  word_diff = true,
-  keymaps = {
-    -- Default keymap options
-    noremap = true,
-
-    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'" },
-    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'" },
-
-    ['n <LocalLeader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ['x <LocalLeader>hs'] = '<Cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <LocalLeader>hu'] = '<Cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-    ['n <LocalLeader>hr'] = '<Cmd>lua require"gitsigns".reset_hunk()<CR>',
-    ['x <LocalLeader>hr'] = '<Cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <LocalLeader>hR'] = '<Cmd>lua require"gitsigns".reset_buffer()<CR>',
-    ['n <LocalLeader>hp'] = '<Cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ['n <LocalLeader>hb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
-    ['n <LocalLeader>hq'] = '<Cmd>lua require"gitsigns".setqflist("all")<CR>',
-    ['n <LocalLeader>hl'] = '<Cmd>lua require"gitsigns".setloclist()<CR>',
-    ['n <LocalLeader>hS'] = '<Cmd>lua require"gitsigns".stage_buffer()<CR>',
-    ['n <LocalLeader>hU'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
-
-    ['o ih'] = '<Cmd>lua require"gitsigns.actions".select_hunk()<CR>',
-    ['x ih'] = '<Cmd>lua require"gitsigns.actions".select_hunk()<CR>',
-  },
+  word_diff = false,
   current_line_blame = false,
   preview_config = {
     border = 'none',
   },
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, lhs, rhs, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, lhs, rhs, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
+    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+
+    -- Actions
+    map({ 'n', 'x' }, '<LocalLeader>hs', gs.stage_hunk)
+    map({ 'n', 'x' }, '<LocalLeader>hr', gs.reset_hunk)
+    map('n', '<LocalLeader>hS', gs.stage_buffer)
+    map('n', '<LocalLeader>hu', gs.undo_stage_hunk)
+    map('n', '<LocalLeader>hR', gs.reset_buffer)
+    map('n', '<LocalLeader>hp', gs.preview_hunk)
+    map('n', '<LocalLeader>hb', function()
+      gs.blame_line { full = true }
+    end)
+    map('n', '<LocalLeader>tb', gs.toggle_current_line_blame)
+    map('n', '<LocalLeader>hd', gs.diffthis)
+    map('n', '<LocalLeader>hD', function()
+      gs.diffthis '~'
+    end)
+    map('n', '<LocalLeader>hq', gs.setqflist)
+    map('n', '<LocalLeader>hQ', function()
+      gs.setqflist 'all'
+    end)
+    map('n', '<LocalLeader>td', gs.toggle_deleted)
+
+    -- Text object
+    map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end,
 }
