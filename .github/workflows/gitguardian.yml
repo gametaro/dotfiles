@@ -1,3 +1,4 @@
+---
 name: GitGuardian
 on: [push, pull_request]
 
