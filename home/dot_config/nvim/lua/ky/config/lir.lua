@@ -114,16 +114,6 @@ require('lir').setup {
     ['c'] = clipboard_actions.copy,
     ['x'] = clipboard_actions.cut,
     ['p'] = clipboard_actions.paste,
-    ['~'] = function()
-      vim.cmd('edit ' .. vim.fn.expand '$HOME')
-    end,
-    ['+'] = function()
-      local dir = require('lspconfig.util').find_git_ancestor(vim.fn.getcwd())
-      if dir == nil or dir == '' then
-        return
-      end
-      vim.cmd('edit ' .. dir)
-    end,
   },
   -- float = {
   --   winblend = 0,
@@ -136,13 +126,9 @@ require('lir').setup {
 
 -- use visual mode
 function _G.LirSettings()
-  vim.api.nvim_buf_set_keymap(
-    0,
-    'x',
-    'J',
-    ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
-    { noremap = true, silent = true }
-  )
+  vim.keymap.set('x', 'J', function()
+    require('lir.mark.actions').toggle_mark 'v'
+  end, { buffer = 0 })
 end
 
 vim.cmd [[augroup lir-settings]]
