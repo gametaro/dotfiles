@@ -50,7 +50,7 @@ local sources = {
     disabled_filetypes = { 'NeogitCommitMessage' },
     condition = condition 'codespell',
   },
-  h.dictionary
+  h.dictionary,
 }
 
 function M.setup()
