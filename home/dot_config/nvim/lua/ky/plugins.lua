@@ -619,31 +619,31 @@ local function plugins(use)
       -- Show package versions
       vim.keymap.set('n', '<LocalLeader>ns', function()
         require('package-info').show()
-      end, { silent = true })
+      end)
       -- Hide package versions
       vim.keymap.set('n', '<LocalLeader>nh', function()
         require('package-info').hide()
-      end, { silent = true })
+      end)
       -- Update package on line
       vim.keymap.set('n', '<LocalLeader>nu', function()
         require('package-info').update()
-      end, { silent = true })
+      end)
       -- Delete package on line
       vim.keymap.set('n', '<LocalLeader>nu', function()
         require('package-info').delete()
-      end, { silent = true })
+      end)
       -- Install a new package
       vim.keymap.set('n', '<LocalLeader>nu', function()
         require('package-info').install()
-      end, { silent = true })
+      end)
       -- Reinstall dependencies
       vim.keymap.set('n', '<LocalLeader>nr', function()
         require('package-info').reinstall()
-      end, { silent = true })
+      end)
       -- Install a different package version
       vim.keymap.set('n', '<LocalLeader>nc', function()
         require('package-info').change_version()
-      end, { silent = true })
+      end)
     end,
     config = function()
       require('package-info').setup {}
@@ -683,17 +683,13 @@ local function plugins(use)
     module = 'persistence',
     setup = function()
       -- restore the session for the current directory
-      vim.keymap.set('n', '<LocalLeader>qs', function()
-        require('persistence').load()
-      end)
+      vim.keymap.set('n', '<LocalLeader>qs', require('persistence').load)
       -- restore the last session
       vim.keymap.set('n', '<LocalLeader>ql', function()
         require('persistence').load { last = true }
       end)
       -- stop Persistence => session won't be saved on exit
-      vim.keymap.set('n', '<LocalLeader>qd', function()
-        require('persistence').stop()
-      end)
+      vim.keymap.set('n', '<LocalLeader>qd', require('persistence').stop)
     end,
     config = function()
       require('persistence').setup()
