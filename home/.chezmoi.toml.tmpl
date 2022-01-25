@@ -1,15 +1,18 @@
 {{- $headless := false -}}
+{{- $name := "Kotaro Yamada" -}}
+{{- $email := "32237320+gametaro@users.noreply.github.com" -}}
 
 {{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (env "GITHUB_ACTIONS") (eq .chezmoi.username "root" "vscode") -}}
 {{-   $headless = true -}}
 {{- end -}}
 
+{{- if not $headless -}}
+{{- $name = promptString "name" $name | quote -}}
+{{- $email = promptString "email" $email | quote -}}
+{{- end -}}
+
 [data]
-    name = "Kotaro Yamada"
     headless = {{ $headless }}
-{{- if $headless }}
-    email = "32237320+gametaro@users.noreply.github.com"
-{{- else }}
-    email = {{ promptString "email" | quote }}
-{{- end }}
+    name = {{ $name }}
+    email = {{ $email }}
 {{/* vim: set filetype=toml: */}}
