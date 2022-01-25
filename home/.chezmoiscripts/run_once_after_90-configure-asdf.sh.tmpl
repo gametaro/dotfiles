@@ -4,8 +4,13 @@ set -Eeu
 
 . "$HOME/.profile"
 
+plugin_add() {
+  # don't exit with exit code 2
+  asdf plugin-add "$1" "${2:-}" || [ $? -eq 2 ]
+}
+
 while read -r plugin _; do
-  asdf plugin-add "$plugin"
+  plugin_add "$plugin"
 done <"$HOME/.tool-versions"
 
 asdf install
