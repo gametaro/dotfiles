@@ -16,8 +16,3 @@ vim.fn['submode#enter_with']('undo/redo', 'n', '', 'g-', 'g-')
 vim.fn['submode#enter_with']('undo/redo', 'n', '', 'g+', 'g+')
 vim.fn['submode#map']('undo/redo', 'n', '', '-', 'g-')
 vim.fn['submode#map']('undo/redo', 'n', '', '+', 'g+')
-
-vim.fn['submode#enter_with']('undo/redo', 'n', '', 'g-', 'g-')
-vim.fn['submode#enter_with']('undo/redo', 'n', '', 'g+', 'g+')
-vim.fn['submode#map']('undo/redo', 'n', '', '-', 'g-')
-vim.fn['submode#map']('undo/redo', 'n', '', '+', 'g+')
