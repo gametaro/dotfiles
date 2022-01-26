@@ -26,6 +26,8 @@ $PSReadlineOptions = @{
 }
 Set-PSReadlineOption @PSReadlineOptions
 
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+
 $PSReadlineVersion = (Get-Module PSReadLine).version
 if ($PSReadlineVersion -ge '2.1.0')
 {
