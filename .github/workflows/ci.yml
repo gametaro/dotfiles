@@ -16,11 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install requisites on macos
+      - name: Install requisites (macos)
         if: ${{ runner.os == 'macOS' }}
         run: brew install coreutils
 
-      - name: Install requisites on ubuntu
+      - name: Install requisites (ubuntu)
         if: ${{ runner.os == 'Linux' }}
         run: |
           sudo add-apt-repository ppa:fish-shell/release-3
@@ -30,7 +30,7 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply gametaro
 
-      - name: Chezmoi Init on windows
+      - name: Chezmoi Init (windows)
         if: ${{ runner.os == 'Windows' }}
         shell: pwsh
         run: |
@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install requisites on centos
+      - name: Install requisites (centos)
         run: dnf clean all && dnf install -y curl sudo
 
       - name: Chezmoi Init
@@ -57,7 +57,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install requisites on fedora
+      - name: Install requisites (fedora)
         run: dnf clean all && dnf install -y curl sudo
 
       - name: Chezmoi Init
