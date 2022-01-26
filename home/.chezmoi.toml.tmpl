@@ -7,12 +7,12 @@
 {{- end -}}
 
 {{- if not $headless -}}
-{{- $name = promptString "name" $name | quote -}}
-{{- $email = promptString "email" $email | quote -}}
+{{-   $name = promptString "name" $name -}}
+{{-   $email = promptString "email" $email -}}
 {{- end -}}
 
 [data]
-    headless = {{ $headless }}
-    name = {{ $name }}
-    email = {{ $email }}
+  headless = {{ $headless }}
+  name = {{ $name | quote }}
+  email = {{ $email | quote }}
 {{/* vim: set filetype=toml: */}}
