@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1643204785169,
+  "lastUpdate": 1643208256410,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -3245,6 +3245,33 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.16421518424222226,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "bar",
+            "name": "foo"
+          },
+          "committer": {
+            "email": "bar",
+            "name": "foo"
+          },
+          "distinct": true,
+          "id": "9860cc36573b22adc9d7bcb2b2f72c2382dac024",
+          "message": "chore(pwsh): rename psscriptanalyzer config file",
+          "timestamp": "2022-01-26T23:41:32+09:00",
+          "tree_id": "e30c468ac86db7ed65c33f1f1b695b4acda9cb1f",
+          "url": "https://github.com/gametaro/dotfiles/commit/9860cc36573b22adc9d7bcb2b2f72c2382dac024"
+        },
+        "date": 1643208255453,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.23031526408000005,
             "unit": "Second"
           }
         ]
