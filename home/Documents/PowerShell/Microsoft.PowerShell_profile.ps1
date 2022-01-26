@@ -43,9 +43,11 @@ if (Get-Command zoxide -Type Application -ErrorAction SilentlyContinue)
 {
   Invoke-Expression (& {
       $hook = if ($PSVersionTable.PSVersion.Major -lt 6)
-      { 'prompt'
+      { 
+        'prompt'
       } else
-      { 'pwd'
+      { 
+        'pwd'
       }
     (zoxide init --hook $hook powershell | Out-String)
     })
