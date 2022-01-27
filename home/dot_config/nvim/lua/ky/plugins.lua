@@ -333,9 +333,13 @@ local function plugins(use)
     config = function()
       require('toggleterm').setup {
         size = vim.fn.float2nr(vim.o.lines * 0.4),
+        direction = 'float',
         open_mapping = [[<c-\>]],
-        shade_terminals = false,
+        shade_terminals = true,
         start_in_insert = false,
+        float_opts = {
+          border = 'single',
+        },
       }
     end,
   }
