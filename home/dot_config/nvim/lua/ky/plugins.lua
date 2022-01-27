@@ -703,6 +703,21 @@ local function plugins(use)
       vim.g.matchup_matchparen_deferred_hide_delay = 300
     end,
   }
+
+  use {
+    'rlane/pounce.nvim',
+    setup = function()
+      vim.keymap.set({ 'n', 'x' }, '<LocalLeader>s', '<Cmd>Pounce<CR>')
+    end,
+    config = function()
+      require('pounce').setup {
+        accept_keys = 'JFKDLSAHGNUVRBYTMICEOXWPQZ',
+        accept_best_key = '<enter>',
+        multi_window = true,
+        debug = false,
+      }
+    end,
+  }
 end
 
 bootstrap()
