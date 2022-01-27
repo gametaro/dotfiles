@@ -576,7 +576,7 @@ local function plugins(use)
     requires = 'nvim-lua/plenary.nvim',
     cmd = { 'TodoQuickFix', 'TodoTrouble', 'TodoTelescope' },
     setup = function()
-      vim.keymap.set('n', '<LocalLeader>tf', '<Cmd>TodoTelescope<CR>')
+      -- vim.keymap.set('n', '<LocalLeader>tf', '<Cmd>TodoTelescope<CR>')
       vim.keymap.set('n', '<LocalLeader>tq', '<Cmd>TodoQuickFix<CR>')
       vim.keymap.set('n', '<LocalLeader>tt', '<Cmd>TodoTrouble<CR>')
     end,
