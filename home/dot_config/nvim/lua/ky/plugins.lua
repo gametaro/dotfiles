@@ -752,6 +752,20 @@ local function plugins(use)
       vim.keymap.set('n', '<LocalLeader>As', '<Cmd>AS<CR>')
     end,
   }
+
+  use {
+    'vim-test/vim-test',
+    cmd = { 'Test*' },
+    keys = {
+      { 'n', '<LocalLeader>t' },
+    },
+    setup = function()
+      vim.keymap.set('n', '<LocalLeader>tn', '<Cmd>TestNearest<CR>')
+      vim.keymap.set('n', '<LocalLeader>tf', '<Cmd>TestFile<CR>')
+      vim.keymap.set('n', '<LocalLeader>ts', '<Cmd>TestSuite<CR>')
+      vim.keymap.set('n', '<LocalLeader>tv', '<Cmd>TestVisit<CR>')
+    end,
+  }
 end
 
 bootstrap()
