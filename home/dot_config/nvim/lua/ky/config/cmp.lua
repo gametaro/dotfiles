@@ -90,15 +90,15 @@ cmp.setup {
 
       vim_item.menu = ({
         path = '[Path]',
-        buffer = '[Buffer]',
+        buffer = '[Buf]',
         -- fuzzy_path = '[Path]',
         -- fuzzy_buffer = '[Buffer]',
         nvim_lsp = '[LSP]',
-        luasnip = '[LuaSnip]',
+        luasnip = '[Snip]',
         nvim_lua = '[Lua]',
         -- emoji = '[Emoji]',
         cmp_git = '[Git]',
-        cmdline = '[Cmdline]',
+        cmdline = '[Cmd]',
         nvim_lsp_document_symbol = '[Symbol]',
       })[entry.source.name]
       return vim_item
