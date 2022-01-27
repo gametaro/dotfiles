@@ -77,14 +77,10 @@ function M.on_attach(client, bufnr)
   --     ]]
   -- end
   if client.resolved_capabilities.document_formatting then
-    vim.keymap.set('n', '<A-f>', function()
-      vim.lsp.buf.formatting()
-    end, opts)
+    vim.keymap.set('n', '<A-f>', vim.lsp.buf.formatting)
     -- vim.cmd 'autocmd mine BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
   elseif client.resolved_capabilities.document_range_formatting then
-    vim.keymap.set('n', '<A-f>f', function()
-      vim.lsp.buf.range_formatting()
-    end, opts)
+    vim.keymap.set('n', '<A-f>f', vim.lsp.buf.range_formatting)
   end
 end
 
