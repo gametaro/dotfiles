@@ -17,6 +17,7 @@ require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done { map_char
 
 local Rule = require 'nvim-autopairs.rule'
 local cond = require 'nvim-autopairs.conds'
+local ts_cond = require 'nvim-autopairs.ts-conds'
 
 npairs.add_rules {
   -- add {} afer =>
@@ -59,6 +60,7 @@ npairs.add_rules {
   Rule('=', '')
     :with_pair(cond.not_inside_quote())
     :with_pair(cond.not_filetypes { 'sh' })
+    :with_pair(ts_cond.is_not_ts_node { 'element' })
     :with_pair(function(opts)
       local last_char = opts.line:sub(opts.col - 1, opts.col - 1)
       if last_char:match '[%w%=%s]' then
