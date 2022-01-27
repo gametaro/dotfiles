@@ -732,7 +732,7 @@ local function plugins(use)
     'tpope/vim-projectionist',
     setup = function()
       vim.g.projectionist_heuristics = {
-        ['lua/*.lua'] = {
+        ['*.lua'] = {
           ['*.lua'] = { alternate = { '{}_spec.lua' }, type = 'source' },
           ['*_spec.lua'] = { alternate = '{}.lua', type = 'test' },
         },
