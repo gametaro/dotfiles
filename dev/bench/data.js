@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1643296510760,
+  "lastUpdate": 1643301971237,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -3388,6 +3388,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.17890391170000003,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "90de8d3dd516df559c2efe974a498129223ff587",
+          "message": "chore(todo-comments): disable tf mapping\n\nIt conflicts with vim-test",
+          "timestamp": "2022-01-28T01:44:02+09:00",
+          "tree_id": "f22d8308dc375d40d8cd152e777f2ac4d1c55cad",
+          "url": "https://github.com/gametaro/dotfiles/commit/90de8d3dd516df559c2efe974a498129223ff587"
+        },
+        "date": 1643301970367,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.17121513364823535,
             "unit": "Second"
           }
         ]
