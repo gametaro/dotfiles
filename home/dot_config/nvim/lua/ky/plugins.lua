@@ -111,7 +111,13 @@ local function plugins(use)
     end,
   }
 
-  use { 'thinca/vim-prettyprint', cmd = { 'PP', 'PrettyPrint' } }
+  use {
+    'thinca/vim-prettyprint',
+    cmd = { 'PP', 'PrettyPrint' },
+    setup = function()
+      vim.api.nvim_add_user_command('PPGlobal', 'Capture PP g:', {})
+    end,
+  }
 
   use { 'tyru/capture.vim', cmd = 'Capture' }
 
