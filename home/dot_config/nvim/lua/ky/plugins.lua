@@ -473,7 +473,6 @@ local function plugins(use)
     keys = {
       { 'n', '<LocalLeader>f' },
       { 'n', '<LocalLeader>g' },
-      { 'n', '<LocalLeader><LocalLeader>' },
     },
     requires = {
       { 'nvim-lua/plenary.nvim' },
