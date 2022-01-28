@@ -769,6 +769,13 @@ local function plugins(use)
       vim.keymap.set('n', '<LocalLeader>tv', '<Cmd>TestVisit<CR>')
     end,
   }
+
+  use {
+    'j-hui/fidget.nvim',
+    config = function()
+      require('fidget').setup {}
+    end,
+  }
 end
 
 bootstrap()
