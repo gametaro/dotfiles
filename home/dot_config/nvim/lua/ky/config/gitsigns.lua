@@ -12,7 +12,7 @@ require('gitsigns').setup {
   word_diff = false,
   current_line_blame = false,
   preview_config = {
-    border = require'ky.theme'.border,
+    border = require('ky.theme').border,
   },
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns

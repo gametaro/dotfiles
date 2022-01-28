@@ -8,7 +8,7 @@ local lsp = vim.lsp
 local M = {}
 
 local float = {
-  border = require'ky.theme'.border,
+  border = require('ky.theme').border,
 }
 
 vim.diagnostic.config {
