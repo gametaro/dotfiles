@@ -7,6 +7,8 @@ M.icons = {
   info = ' ',
 }
 
+M.border = 'single'
+
 function M.setup(theme)
   if pcall(require, theme) then
     local sidebars = {

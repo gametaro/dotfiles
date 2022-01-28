@@ -81,7 +81,7 @@ cmp.setup {
     ['<CR>'] = cmp.mapping.confirm { select = true },
   },
   documentation = {
-    border = 'none',
+    border = require('ky.theme').border,
   },
   formatting = {
     deprecated = true,
