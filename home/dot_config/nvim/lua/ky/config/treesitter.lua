@@ -6,10 +6,6 @@ require('nvim-treesitter.configs').setup {
   autotag = { enable = true },
   context_commentstring = { enable = true, enable_autocmd = false },
   rainbow = { enable = true, extended_mode = true, max_file_length = 1000 },
-  textsubjects = {
-    enable = true,
-    keymaps = { ['.'] = 'textsubjects-smart' },
-  },
   matchup = {
     enable = true, -- mandatory, false will disable the whole extension
     -- [options]
