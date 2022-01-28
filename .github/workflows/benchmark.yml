@@ -15,48 +15,49 @@ jobs:
     env:
       OUTPUT_FILE: output.txt
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Install hyperfine
-      run: |
-        curl -s https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
-        | jq -r '.assets[] | select(.name? | match("hyperfine-musl_.*_amd64.deb")) | .browser_download_url' \
-        | wget -qi - -O hyperfine.deb
-        sudo dpkg -i hyperfine.deb
+      - name: Install hyperfine
+        run: |
+          curl -s https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
+          # yamllint disable-line rule:line-length
+          | jq -r '.assets[] | select(.name? | match("hyperfine-musl_.*_amd64.deb")) | .browser_download_url' \
+          | wget -qi - -O hyperfine.deb
+          sudo dpkg -i hyperfine.deb
 
-    - name: Chezmoi Init
-      run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply gametaro
+      - name: Chezmoi Init
+        run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply gametaro
 
-    - name: Run benchmark
-      run: |
-        TEMP_FILE=$(mktemp)
+      - name: Run benchmark
+        run: |
+          TEMP_FILE=$(mktemp)
 
-        hyperfine "$HOME/.asdf/shims/nvim -c quitall" \
-        --export-json "$TEMP_FILE" \
-        --warmup 5 \
-        --min-runs 15 \
-        --show-output
+          hyperfine "$HOME/.asdf/shims/nvim -c quitall" \
+          --export-json "$TEMP_FILE" \
+          --warmup 5 \
+          --min-runs 15 \
+          --show-output
 
-        MEAN=$(jq .results[].mean < "$TEMP_FILE")
+          MEAN=$(jq .results[].mean < "$TEMP_FILE")
 
-        cat <<EOF >"$OUTPUT_FILE"
-        [
-            {
-                "name": "Neovim startup time - Mean",
-                "unit": "Second",
-                "value": $MEAN
-            }
-        ]
-        EOF
+          cat <<EOF >"$OUTPUT_FILE"
+          [
+              {
+                  "name": "Neovim startup time - Mean",
+                  "unit": "Second",
+                  "value": $MEAN
+              }
+          ]
+          EOF
 
-    - name: Upload benchmark
-      uses: benchmark-action/github-action-benchmark@v1
-      with:
-        tool: customSmallerIsBetter
-        output-file-path: ${{ env.OUTPUT_FILE }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: true
-        comment-on-alert: true
-        fail-on-alert: true
-        alert-threshold: '150%'
-        alert-comment-cc-users: '@gametaro'
+      - name: Upload benchmark
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          tool: customSmallerIsBetter
+          output-file-path: ${{ env.OUTPUT_FILE }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          comment-on-alert: true
+          fail-on-alert: true
+          alert-threshold: '150%'
+          alert-comment-cc-users: '@gametaro'
