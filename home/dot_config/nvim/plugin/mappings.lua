@@ -221,6 +221,7 @@ map('t', '<Esc>', function()
   ---searches process tree for a process having a name in the `names` list
   ---https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
   M.find_proc_in_tree = function(rootpid, names, acc)
+    acc = acc or 0
     if acc > 9 or not vim.fn.exists '*nvim_get_proc' then
       return false
     end
@@ -237,7 +238,7 @@ map('t', '<Esc>', function()
     return false
   end
   local names = { 'nvim', 'fzf' }
-  return M.find_proc_in_tree(vim.b.terminal_job_pid, names, 0) and '<Esc>' or [[<C-\><C-n>]]
+  return M.find_proc_in_tree(vim.b.terminal_job_pid, names) and '<Esc>' or [[<C-\><C-n>]]
 end, { expr = true })
 
 map('n', '<F1>', function()
