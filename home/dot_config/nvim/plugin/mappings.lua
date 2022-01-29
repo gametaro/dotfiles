@@ -88,7 +88,6 @@ map('c', '?', function()
 end, { expr = true })
 
 -- use `ALT+{h,j,k,l}` to navigate windows from any mode
--- see :h terminal
 map('n', '<M-h>', '<C-w>h')
 map('n', '<M-j>', '<C-w>j')
 map('n', '<M-k>', '<C-w>k')
@@ -97,10 +96,10 @@ map('i', '<M-h>', [[<C-\><C-n><C-w>h]])
 map('i', '<M-j>', [[<C-\><C-n><C-w>j]])
 map('i', '<M-k>', [[<C-\><C-n><C-w>k]])
 map('i', '<M-l>', [[<C-\><C-n><C-w>l]])
-map('t', '<M-h>', [[<C-\><C-n><C-W>h]])
-map('t', '<M-j>', [[<C-\><C-n><C-W>j]])
-map('t', '<M-k>', [[<C-\><C-n><C-W>k]])
-map('t', '<M-l>', [[<C-\><C-n><C-W>l]])
+map('t', '<M-h>', '<Cmd>wincmd h<CR>')
+map('t', '<M-j>', '<Cmd>wincmd j<CR>')
+map('t', '<M-k>', '<Cmd>wincmd k<CR>')
+map('t', '<M-l>', '<Cmd>wincmd l<CR>')
 
 -- buffer
 map('n', '<BS>', '<C-^>')
