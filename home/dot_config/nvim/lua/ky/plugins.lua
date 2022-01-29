@@ -15,9 +15,9 @@ local config = {
   },
   display = {
     open_fn = function()
-      return require('packer.util').float { border = 'none' }
+      return require('packer.util').float { border = require('ky.theme').border }
     end,
-    prompt_border = 'none',
+    prompt_border = require('ky.theme').border,
   },
   compile_path = vim.fn.stdpath 'config' .. '/lua/packer_compiled.lua',
 }
@@ -338,7 +338,7 @@ local function plugins(use)
         shade_terminals = true,
         start_in_insert = false,
         float_opts = {
-          border = 'single',
+          border = require('ky.theme').border,
         },
       }
     end,
