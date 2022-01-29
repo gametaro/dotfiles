@@ -774,7 +774,11 @@ local function plugins(use)
   use {
     'j-hui/fidget.nvim',
     config = function()
-      require('fidget').setup {}
+      require('fidget').setup {
+        text = {
+          spinner = 'dots',
+        },
+      }
     end,
   }
 end
