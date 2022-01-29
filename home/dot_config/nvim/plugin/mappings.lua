@@ -38,8 +38,6 @@ map('n', '<Leader>q', '<Cmd>confirm quit<CR>')
 map('n', '<Leader>a', '<Cmd>confirm quitall<CR>')
 
 -- keep cursor centered after movement
-map('n', '<C-o>', '<C-o>zz')
-map('n', '<C-i>', '<C-i>zz')
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
 map('n', '<C-f>', '<C-f>zz')
@@ -149,14 +147,6 @@ map('o', '[', 'i[')
 map({ 'o', 'x' }, 'a"', '2i"')
 map({ 'o', 'x' }, "a'", "2i'")
 map({ 'o', 'x' }, 'a`', '2i`')
-
--- see https://github.com/mhinz/vim-galore#quickly-move-current-line
-map('n', '[e', "<Cmd>execute 'move -1-' . v:count1<CR>")
-map('n', ']e', "<Cmd>execute 'move +' . v:count1<CR>")
-
--- see https://github.com/mhinz/vim-galore#quickly-add-empty-lines
-map('n', '[<Space>', "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>'[")
-map('n', ']<Space>', '<Cmd>put =repeat(nr2char(10), v:count1)<CR>')
 
 map('n', '<Leader>.', [[<Cmd>execute 'edit .'<CR>]])
 map('n', '-', [[<Cmd>execute 'edit ' .. expand('%:p:h')<CR>]])
