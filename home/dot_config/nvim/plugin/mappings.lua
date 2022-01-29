@@ -101,7 +101,6 @@ map('t', '<M-h>', [[<C-\><C-n><C-W>h]])
 map('t', '<M-j>', [[<C-\><C-n><C-W>j]])
 map('t', '<M-k>', [[<C-\><C-n><C-W>k]])
 map('t', '<M-l>', [[<C-\><C-n><C-W>l]])
-map('t', '<Esc>', [[<C-\><C-n>]])
 
 -- buffer
 map('n', '<BS>', '<C-^>')
