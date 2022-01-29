@@ -47,4 +47,17 @@ vim.cmd 'autocmd mine FileType qf set nobuflisted'
 vim.cmd 'autocmd mine TermOpen term://* startinsert'
 vim.cmd 'autocmd mine TermOpen term://* setlocal nonumber norelativenumber'
 
+_G.save_term_mode = function()
+  vim.api.nvim_buf_set_var(0, 'term_mode', vim.fn.mode())
+end
+_G.restore_term_mode = function()
+  local ok, term_mode = pcall(vim.api.nvim_buf_get_var, 0, 'term_mode')
+  if ok and term_mode == 't' then
+    vim.cmd 'startinsert'
+  end
+end
+vim.cmd 'autocmd mine TermEnter term://* lua save_term_mode()'
+vim.cmd 'autocmd mine TermLeave term://* lua save_term_mode()'
+vim.cmd 'autocmd mine BufEnter term://* lua restore_term_mode()'
+
 vim.cmd 'autocmd mine BufEnter * setlocal formatoptions-=cro'
