@@ -33,12 +33,9 @@ map('', ';', ':')
 map('', 'q;', 'q:')
 
 -- save and quit
-map('n', '<Leader>w', '<Cmd>update<CR>')
-map('n', '<Leader>W', '<Cmd>update!<CR>')
-map('n', '<Leader>q', '<Cmd>quit<CR>')
-map('n', '<Leader>Q', '<Cmd>quit!<CR>')
-map('n', '<Leader>a', '<Cmd>quitall<CR>')
-map('n', '<Leader>A', '<Cmd>quitall!<CR>')
+map('n', '<Leader>w', '<Cmd>confirm update<CR>')
+map('n', '<Leader>q', '<Cmd>confirm quit<CR>')
+map('n', '<Leader>a', '<Cmd>confirm quitall<CR>')
 
 -- keep cursor centered after movement
 map('n', '<C-o>', '<C-o>zz')
