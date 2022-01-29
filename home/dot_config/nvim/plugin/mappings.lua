@@ -67,6 +67,8 @@ map('c', '<C-b>', '<Left>')
 map('c', '<C-d>', '<Del>')
 map('c', '<C-a>', '<Home>')
 map('c', '<C-e>', '<End>')
+map('c', '<M-b>', '<S-Left>')
+map('c', '<M-f>', '<S-right>')
 
 -- map('n', '/', '/\v', { noremap = true })
 -- map('n', '?', '?\v', { noremap = true })
@@ -122,7 +124,7 @@ end, { expr = true })
 
 -- see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
 map('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>")
-map('c', '<M-f>', "<C-r>=fnamemodify(@%, ':t')<CR>")
+-- map('c', '<M-f>', "<C-r>=fnamemodify(@%, ':t')<CR>")
 map('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]])
 map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages<Bar>set more<CR>]])
 
