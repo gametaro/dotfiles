@@ -48,7 +48,7 @@ vim.cmd 'autocmd mine TermOpen term://* startinsert'
 vim.cmd 'autocmd mine TermOpen term://* setlocal nonumber norelativenumber'
 
 _G.save_term_mode = function()
-  vim.api.nvim_buf_set_var(0, 'term_mode', vim.fn.mode())
+  vim.api.nvim_buf_set_var(0, 'term_mode', vim.api.nvim_get_mode().mode)
 end
 _G.restore_term_mode = function()
   local ok, term_mode = pcall(vim.api.nvim_buf_get_var, 0, 'term_mode')
