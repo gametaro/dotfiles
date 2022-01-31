@@ -22,6 +22,13 @@ map('n', 's', '<Nop>', { remap = true })
 map('x', '=', '=gv')
 
 map('n', 'x', '"_x')
+map('n', 'X', '"_X')
+map('n', 'dd', function()
+  local lnum = vim.fn.line '.'
+  local lines = vim.api.nvim_buf_get_lines(0, lnum - 1, lnum - 1 + vim.v.count1, true)
+  return string.len(vim.trim(table.concat(lines))) == 0 and '"_dd' or 'dd'
+end, { expr = true })
+
 map('n', '<Leader>c', '"_c')
 map('n', '<Leader>d', '"_d')
 
@@ -114,10 +121,12 @@ end, { expr = true })
 -- toggle `i`, `A` and `cc`
 -- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
 map('n', 'i', function()
-  return (string.len(vim.trim(vim.api.nvim_get_current_line())) ~= 0 or vim.bo.buftype == 'terminal') and 'i' or '"_cc'
+  local is_blank_line = string.len(vim.trim(vim.api.nvim_get_current_line())) == 0
+  return (not is_blank_line or vim.bo.buftype == 'terminal') and 'i' or '"_cc'
 end, { expr = true })
 map('n', 'A', function()
-  return (string.len(vim.trim(vim.api.nvim_get_current_line())) ~= 0 or vim.bo.buftype == 'terminal') and 'A' or '"_cc'
+  local is_blank_line = string.len(vim.trim(vim.api.nvim_get_current_line())) == 0
+  return (not is_blank_line or vim.bo.buftype == 'terminal') and 'A' or '"_cc'
 end, { expr = true })
 
 -- see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
@@ -148,12 +157,20 @@ map({ 'o', 'x' }, 'a"', '2i"')
 map({ 'o', 'x' }, "a'", "2i'")
 map({ 'o', 'x' }, 'a`', '2i`')
 
-map('n', '<Leader>.', [[<Cmd>execute 'edit .'<CR>]])
-map('n', '-', [[<Cmd>execute 'edit ' .. expand('%:p:h')<CR>]])
-map('n', '~', [[<Cmd>execute 'edit ' .. expand('$HOME')<CR>]])
--- TODO: consider the case nil is returned
+map('n', '<Leader>.', function()
+  vim.cmd('edit ' .. vim.fn.expand '%:p:h')
+end)
+map('n', '-', function()
+  vim.cmd('edit ' .. vim.fn.expand '%:p:h')
+end)
+map('n', '~', function()
+  vim.cmd('edit ' .. vim.fn.expand '$HOME')
+end)
 map('n', '+', function()
-  vim.cmd('edit ' .. require('lspconfig.util').find_git_ancestor(vim.loop.cwd()))
+  local git_root = require('lspconfig.util').find_git_ancestor(vim.loop.cwd())
+  if git_root then
+    vim.cmd('edit ' .. git_root)
+  end
 end)
 
 map('n', '<Leader>cd', '<Cmd>tcd %:p:h <Bar> pwd<CR>')
