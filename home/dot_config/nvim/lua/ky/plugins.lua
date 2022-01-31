@@ -250,12 +250,25 @@ local function plugins(use)
         end,
         config = function()
           local ls = require 'luasnip'
+          local types = require 'luasnip.util.types'
           ls.config.set_config {
             history = true,
             updateevents = 'InsertLeave',
             region_check_events = 'CursorHold',
-            delete_check_events = 'TextChanged',
+            delete_check_events = 'TextChanged,InsertEnter',
             enable_autosnippets = true,
+            ext_opts = {
+              [types.insertNode] = {
+                active = {
+                  virt_text = { { '●' } },
+                },
+              },
+              [types.choiceNode] = {
+                active = {
+                  virt_text = { { '■' } },
+                },
+              },
+            },
           }
           require('luasnip.loaders.from_vscode').load()
           ls.filetype_extend('NeogitCommitMessage', { 'gitcommit' })
