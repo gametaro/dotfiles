@@ -158,7 +158,7 @@ map({ 'o', 'x' }, "a'", "2i'")
 map({ 'o', 'x' }, 'a`', '2i`')
 
 map('n', '<Leader>.', function()
-  vim.cmd('edit ' .. vim.fn.expand '%:p:h')
+  vim.cmd 'edit .'
 end)
 map('n', '-', function()
   vim.cmd('edit ' .. vim.fn.expand '%:p:h')
