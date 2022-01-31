@@ -1,5 +1,5 @@
-local cmp = require 'cmp'
-local compare = require 'cmp.config.compare'
+local cmp = require('cmp')
+local compare = require('cmp.config.compare')
 
 -- -- @see https://github.com/tzachar/cmp-fuzzy-buffer#sorting-and-filtering
 -- local compare_fuzzy_buffer = function(entry1, entry2)
@@ -10,8 +10,8 @@ local compare = require 'cmp.config.compare'
 
 -- @see https://github.com/lukas-reineke/cmp-under-comparator
 local compare_under_comparator = function(entry1, entry2)
-  local _, entry1_under = entry1.completion_item.label:find '^_+'
-  local _, entry2_under = entry2.completion_item.label:find '^_+'
+  local _, entry1_under = entry1.completion_item.label:find('^_+')
+  local _, entry2_under = entry2.completion_item.label:find('^_+')
 
   return (entry1_under or 0) < (entry2_under or 0)
 end

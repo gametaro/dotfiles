@@ -1,11 +1,11 @@
 local not_headless = require('ky.utils').not_headless
 
 local function bootstrap()
-  local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/opt/packer.nvim'
+  local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
   if not vim.loop.fs_stat(install_path) then
     vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
   end
-  vim.cmd 'packadd packer.nvim'
+  vim.cmd('packadd packer.nvim')
 end
 
 local config = {
@@ -19,20 +19,20 @@ local config = {
     end,
     prompt_border = require('ky.theme').border,
   },
-  compile_path = vim.fn.stdpath 'config' .. '/lua/packer_compiled.lua',
+  compile_path = vim.fn.stdpath('config') .. '/lua/packer_compiled.lua',
 }
 
 local function plugins(use)
   use { 'wbthomason/packer.nvim', opt = true }
-  use 'lewis6991/impatient.nvim'
-  use 'nvim-lua/plenary.nvim'
-  use 'kyazdani42/nvim-web-devicons'
+  use('lewis6991/impatient.nvim')
+  use('nvim-lua/plenary.nvim')
+  use('kyazdani42/nvim-web-devicons')
 
   use {
     'machakann/vim-sandwich',
     event = { 'BufRead' },
     config = function()
-      require 'ky.config.sandwich'
+      require('ky.config.sandwich')
     end,
   }
 
@@ -63,7 +63,7 @@ local function plugins(use)
         pre_hook = function(ctx)
           -- Only calculate commentstring for tsx filetypes
           if vim.bo.filetype == 'typescriptreact' then
-            local U = require 'Comment.utils'
+            local U = require('Comment.utils')
 
             -- Determine whether to use linewise or blockwise commentstring
             local type = ctx.ctype == U.ctype.line and '__default' or '__multiline'
@@ -104,7 +104,7 @@ local function plugins(use)
       vim.keymap.set('x', '<C-x>', '<Plug>(dial-decrement-additional)')
     end,
     config = function()
-      local dial = require 'dial'
+      local dial = require('dial')
       dial.augends['custom#boolean'] = dial.common.enum_cyclic { name = 'boolean', strlist = { 'true', 'false' } }
       table.insert(dial.config.searchlist.normal, 'markup#markdown#header')
       table.insert(dial.config.searchlist.normal, 'custom#boolean')
@@ -153,11 +153,11 @@ local function plugins(use)
     },
     run = function()
       if not_headless() then
-        vim.cmd [[ TSUpdate ]]
+        vim.cmd([[ TSUpdate ]])
       end
     end,
     config = function()
-      require 'ky.config.treesitter'
+      require('ky.config.treesitter')
     end,
   }
 
@@ -249,8 +249,8 @@ local function plugins(use)
           end)
         end,
         config = function()
-          local ls = require 'luasnip'
-          local types = require 'luasnip.util.types'
+          local ls = require('luasnip')
+          local types = require('luasnip.util.types')
           ls.config.set_config {
             history = true,
             updateevents = 'InsertLeave',
@@ -276,7 +276,7 @@ local function plugins(use)
       },
     },
     config = function()
-      require 'ky.config.cmp'
+      require('ky.config.cmp')
     end,
   }
 
@@ -284,19 +284,19 @@ local function plugins(use)
     'windwp/nvim-autopairs',
     after = 'nvim-cmp',
     config = function()
-      require 'ky.config.autopairs'
+      require('ky.config.autopairs')
     end,
   }
 
   use { 'folke/tokyonight.nvim', opt = true }
-  use 'EdenEast/nightfox.nvim'
-  use 'rebelot/kanagawa.nvim'
+  use('EdenEast/nightfox.nvim')
+  use('rebelot/kanagawa.nvim')
 
   use {
     'windwp/windline.nvim',
     event = 'VimEnter',
     config = function()
-      require 'ky.config.windline'
+      require('ky.config.windline')
     end,
   }
 
@@ -361,7 +361,7 @@ local function plugins(use)
     'kyazdani42/nvim-tree.lua',
     disable = true,
     config = function()
-      require 'ky.config.tree'
+      require('ky.config.tree')
     end,
   }
 
@@ -380,7 +380,7 @@ local function plugins(use)
       },
     },
     config = function()
-      require 'ky.config.lir'
+      require('ky.config.lir')
     end,
   }
 
@@ -466,7 +466,7 @@ local function plugins(use)
     requires = 'nvim-lua/plenary.nvim',
     event = 'BufRead',
     config = function()
-      require 'ky.config.gitsigns'
+      require('ky.config.gitsigns')
     end,
   }
 
@@ -503,7 +503,7 @@ local function plugins(use)
         run = 'make',
         after = 'telescope.nvim',
         config = function()
-          require('telescope').load_extension 'fzf'
+          require('telescope').load_extension('fzf')
         end,
       },
       {
@@ -511,7 +511,7 @@ local function plugins(use)
         after = 'telescope.nvim',
         config = function()
           require('project_nvim').setup {}
-          require('telescope').load_extension 'projects'
+          require('telescope').load_extension('projects')
           vim.keymap.set('n', '<LocalLeader>fp', '<Cmd>Telescope projects<CR>')
         end,
       },
@@ -519,7 +519,7 @@ local function plugins(use)
         'nvim-telescope/telescope-file-browser.nvim',
         after = 'telescope.nvim',
         config = function()
-          require('telescope').load_extension 'file_browser'
+          require('telescope').load_extension('file_browser')
 
           vim.keymap.set('n', '<LocalLeader>f.', function()
             require('telescope').extensions.file_browser.file_browser {
@@ -542,7 +542,7 @@ local function plugins(use)
       },
     },
     config = function()
-      require 'ky.config.telescope'
+      require('ky.config.telescope')
     end,
   }
 
@@ -550,7 +550,7 @@ local function plugins(use)
     'kana/vim-submode',
     event = 'BufRead',
     config = function()
-      require 'ky.config.submode'
+      require('ky.config.submode')
     end,
   }
 
@@ -616,7 +616,7 @@ local function plugins(use)
     cond = not_headless,
     event = 'BufRead',
     config = function()
-      local notify = require 'notify'
+      local notify = require('notify')
       local icons = require('ky.theme').icons
       notify.setup {
         timeout = 1500,

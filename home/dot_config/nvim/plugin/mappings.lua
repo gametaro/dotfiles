@@ -24,7 +24,7 @@ map('x', '=', '=gv')
 map('n', 'x', '"_x')
 map('n', 'X', '"_X')
 map('n', 'dd', function()
-  local lnum = vim.fn.line '.'
+  local lnum = vim.fn.line('.')
   local lines = vim.api.nvim_buf_get_lines(0, lnum - 1, lnum - 1 + vim.v.count1, true)
   return string.len(vim.trim(table.concat(lines))) == 0 and '"_dd' or 'dd'
 end, { expr = true })
@@ -79,10 +79,10 @@ map('c', '<M-f>', '<S-right>')
 -- map('n', '?', '?\v', { noremap = true })
 
 map('c', '%%', function()
-  return vim.fn.getcmdtype() == ':' and vim.fn.expand '%:h' .. '/' or '%%'
+  return vim.fn.getcmdtype() == ':' and vim.fn.expand('%:h') .. '/' or '%%'
 end, { expr = true })
 map('c', '::', function()
-  return vim.fn.getcmdtype() == ':' and vim.fn.expand '%:p:h' .. '/' or '::'
+  return vim.fn.getcmdtype() == ':' and vim.fn.expand('%:p:h') .. '/' or '::'
 end, { expr = true })
 map('c', '/', function()
   return vim.fn.getcmdtype() == '/' and [[\/]] or [[/]]
@@ -115,7 +115,8 @@ map('n', '<M-C>', '<Cmd>bdelete!<CR>')
 -- toggle `0` and `^`
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
-  return string.match(string.sub(vim.api.nvim_get_current_line(), 0, vim.fn.col '.' - 1), '^%s+$') ~= nil and '0' or '^'
+  return string.match(string.sub(vim.api.nvim_get_current_line(), 0, vim.fn.col('.') - 1), '^%s+$') ~= nil and '0'
+    or '^'
 end, { expr = true })
 
 -- toggle `i`, `A` and `cc`
@@ -137,9 +138,9 @@ map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages
 
 map('n', '<M-q>', function()
   if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
-    vim.cmd 'cclose'
+    vim.cmd('cclose')
   else
-    vim.cmd 'botright copen'
+    vim.cmd('botright copen')
   end
 end)
 
@@ -158,13 +159,13 @@ map({ 'o', 'x' }, "a'", "2i'")
 map({ 'o', 'x' }, 'a`', '2i`')
 
 map('n', '<Leader>.', function()
-  vim.cmd 'edit .'
+  vim.cmd('edit .')
 end)
 map('n', '-', function()
-  vim.cmd('edit ' .. vim.fn.expand '%:p:h')
+  vim.cmd('edit ' .. vim.fn.expand('%:p:h'))
 end)
 map('n', '~', function()
-  vim.cmd('edit ' .. vim.fn.expand '$HOME')
+  vim.cmd('edit ' .. vim.fn.expand('$HOME'))
 end)
 map('n', '+', function()
   local git_root = require('lspconfig.util').find_git_ancestor(vim.loop.cwd())
@@ -201,7 +202,7 @@ map('n', '<Leader>j', 'i<CR><Esc>k$')
 -- Multiple Cursors
 -- TODO: convert to lua
 -- @see: http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
-vim.cmd [[
+vim.cmd([[
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
 
 nnoremap cn *``cgn
@@ -219,7 +220,7 @@ nnoremap cQ :call SetupCR()<CR>#``qz
 
 xnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
 xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
-]]
+]])
 
 map('t', '<Esc>', function()
   local M = {}
@@ -227,7 +228,7 @@ map('t', '<Esc>', function()
   ---https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
   M.find_proc_in_tree = function(rootpid, names, acc)
     acc = acc or 0
-    if acc > 9 or not vim.fn.exists '*nvim_get_proc' then
+    if acc > 9 or not vim.fn.exists('*nvim_get_proc') then
       return false
     end
     local p = vim.api.nvim_get_proc(rootpid)
@@ -248,7 +249,7 @@ end, { expr = true })
 
 map('n', '<F1>', function()
   local fn = vim.fn
-  local items = fn.synstack(fn.line '.', fn.col '.')
+  local items = fn.synstack(fn.line('.'), fn.col('.'))
   if fn.empty(items) ~= 1 then
     for _, i1 in ipairs(items) do
       local i2 = fn.synIDtrans(i1)

@@ -1,6 +1,6 @@
-local lsp_installer = require 'nvim-lsp-installer'
-local ts = require 'nvim-lsp-ts-utils'
-local cmp_nvim_lsp = require 'cmp_nvim_lsp'
+local lsp_installer = require('nvim-lsp-installer')
+local ts = require('nvim-lsp-ts-utils')
+local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local icons = require('ky.theme').icons
 
 local lsp = vim.lsp

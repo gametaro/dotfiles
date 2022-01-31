@@ -1,10 +1,10 @@
-local windline = require 'windline'
-local helper = require 'windline.helpers'
-local b = require 'windline.components.basic'
+local windline = require('windline')
+local helper = require('windline.helpers')
+local b = require('windline.components.basic')
 local state = _G.WindLine.state
 
-local lsp_comps = require 'windline.components.lsp'
-local git_comps = require 'windline.components.git'
+local lsp_comps = require('windline.components.lsp')
+local git_comps = require('windline.components.git')
 
 local icons = require('ky.theme').icons
 
@@ -74,7 +74,7 @@ basic.file = {
         -- { b.line_col_lua, 'white' },
         -- { b.progress_lua, '' },
         -- { ' ', '' },
-        { b.file_modified ' ', 'magenta' },
+        { b.file_modified(' '), 'magenta' },
       }
     else
       return {
@@ -85,7 +85,7 @@ basic.file = {
         { ' ' },
         { b.file_format { icon = true } },
         { ' ' },
-        { b.file_modified ' ', 'magenta' },
+        { b.file_modified(' '), 'magenta' },
       }
     end
   end,
@@ -172,7 +172,7 @@ local explorer = {
     { '  ', { 'black', 'red' } },
     { helper.separators.slant_right, { 'red', 'NormalBg' } },
     { b.divider, '' },
-    { b.file_name '', { 'white', 'black_light' } },
+    { b.file_name(''), { 'white', 'black_light' } },
   },
   always_active = true,
   show_last_status = true,

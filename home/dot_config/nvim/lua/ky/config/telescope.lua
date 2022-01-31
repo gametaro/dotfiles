@@ -1,6 +1,6 @@
-local telescope = require 'telescope'
-local actions = require 'telescope.actions'
-local themes = require 'telescope.themes'
+local telescope = require('telescope')
+local actions = require('telescope.actions')
+local themes = require('telescope.themes')
 
 local sep = package.config:sub(1, 1)
 

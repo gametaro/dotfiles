@@ -1,14 +1,14 @@
 -- disable matchup when operating sandwich
-vim.cmd [[autocmd User OperatrSandwichAddPre,OperatorSandwichReplacePre NoMatchParen]]
-vim.cmd [[autocmd User OperatorSandwichAddPost,OperatorSandwichReplacePost DoMatchParen]]
+vim.cmd([[autocmd User OperatrSandwichAddPre,OperatorSandwichReplacePre NoMatchParen]])
+vim.cmd([[autocmd User OperatorSandwichAddPost,OperatorSandwichReplacePost DoMatchParen]])
 
-vim.cmd [[
+vim.cmd([[
       augroup mine_sandwich
       autocmd!
       augroup END
-      ]]
+      ]])
 -- NOTE: `4` means `$`
-vim.cmd [=[
+vim.cmd([=[
         autocmd mine_sandwich FileType python call sandwich#util#addlocal([
           \   {'buns': ['"""', '"""'], 'nesting': 0, 'input': ['3"']},
           \ ])
@@ -29,7 +29,7 @@ vim.cmd [=[
           \   {'buns': ['^\(#\{1,6}\s+.\+\)', '^\(#\{1,6}\s+.\+\)'], 'nesting': 0, 'regex': 1, 'input': ['#']},
           \   {'buns': ['^\(\s*\(*\|-\)\s\+\)', '\n'], 'nesting': 0, 'regex': 1, 'input': ['-']},
           \ ])
-      ]=]
+      ]=])
 
 vim.keymap.set('n', '.', '<Plug>(operator-sandwich-dot)')
 vim.keymap.set('n', 's(', '<Plug>(operator-sandwich-add-query1st)(')
@@ -66,9 +66,9 @@ vim.fn['operator#sandwich#set']('all', 'all', 'cursor', 'keep')
 vim.fn['operator#sandwich#set']('delete', 'all', 'highlight', 0)
 vim.fn['textobj#sandwich#set']('all', 'skip_break', 1)
 
-vim.cmd [[
+vim.cmd([[
   let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
   let g:sandwich#recipes += [
   \   {'buns': ['/', '/'], 'nesting': 0, 'input': ['/']},
   \ ]
-]]
+]])

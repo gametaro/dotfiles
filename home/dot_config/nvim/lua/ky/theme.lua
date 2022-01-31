@@ -24,7 +24,7 @@ function M.setup(theme)
       vim.g.tokyonight_sidebars = sidebars
       vim.cmd(string.format('colorscheme %s', theme))
     elseif theme == 'nightfox' then
-      local nightfox = require 'nightfox'
+      local nightfox = require('nightfox')
       nightfox.setup {
         fox = 'nightfox',
       }

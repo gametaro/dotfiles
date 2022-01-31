@@ -44,7 +44,7 @@
 --------------------------------------------------------------------------------
 -- Compatibility check.
 if not io.popenrw then
-  print 'fzf.lua requires a newer version of Clink; please upgrade.'
+  print('fzf.lua requires a newer version of Clink; please upgrade.')
   return
 end
 
@@ -62,7 +62,7 @@ if rl.setbinding then
     'If the default key bindings interfere with your own, you can turn off the\ndefault key bindings and add bindings manually to your .inputrc file.\n\nChanging this takes effect for the next session.'
   )
 
-  if settings.get 'fzf.default_bindings' then
+  if settings.get('fzf.default_bindings') then
     rl.setbinding([["\C-t"]], [["luafunc:fzf_file"]])
     rl.setbinding([["\C-r"]], [["luafunc:fzf_history"]])
     rl.setbinding([["\M-c"]], [["luafunc:fzf_directory"]])
@@ -78,8 +78,8 @@ local diag = false
 local fzf_complete_intercept = false
 
 local function get_fzf(env)
-  local height = settings.get 'fzf.height'
-  local command = settings.get 'fzf.exe_location'
+  local height = settings.get('fzf.height')
+  local command = settings.get('fzf.exe_location')
   if os.expandenv and command then
     -- Expand so that os.getshortpathname() can work even when envvars are
     -- present.
@@ -108,7 +108,7 @@ local function get_fzf(env)
 end
 
 local function get_clink()
-  local clink_alias = os.getalias 'clink'
+  local clink_alias = os.getalias('clink')
   if not clink_alias or clink_alias == '' then
     return ''
   end
@@ -134,7 +134,7 @@ end
 
 function fzf_complete(rl_buffer)
   fzf_complete_intercept = true
-  rl.invokecommand 'complete'
+  rl.invokecommand('complete')
   if fzf_complete_intercept then
     rl_buffer:ding()
   end
@@ -162,13 +162,13 @@ function fzf_history(rl_buffer)
   -- Then fzf would be invoked as:    fzf.exe --query""pgm.exe & rd /s"
   -- And since the & is not inside quotes, the 'rd /s' command gets actually
   -- run by mistake!
-  local r = io.popen(history .. ' | ' .. get_fzf 'FZF_CTRL_R_OPTS' .. ' -i --tac')
+  local r = io.popen(history .. ' | ' .. get_fzf('FZF_CTRL_R_OPTS') .. ' -i --tac')
   if not r then
     rl_buffer:ding()
     return
   end
 
-  local str = r:read '*all'
+  local str = r:read('*all')
   str = str and str:gsub('[\r\n]', '') or ''
   r:close()
 
@@ -184,7 +184,7 @@ function fzf_history(rl_buffer)
 end
 
 function fzf_file(rl_buffer, line_state)
-  local ctrl_t_command = os.getenv 'FZF_CTRL_T_COMMAND'
+  local ctrl_t_command = os.getenv('FZF_CTRL_T_COMMAND')
   if not ctrl_t_command then
     ctrl_t_command = 'dir /b /s /a:-s $dir'
   end
@@ -192,13 +192,13 @@ function fzf_file(rl_buffer, line_state)
   ctrl_t_command = replace_dir(ctrl_t_command, line_state)
 
   print('"' .. ctrl_t_command .. '"')
-  local r = io.popen(ctrl_t_command .. ' | ' .. get_fzf 'FZF_CTRL_T_OPTS' .. ' -i -m')
+  local r = io.popen(ctrl_t_command .. ' | ' .. get_fzf('FZF_CTRL_T_OPTS') .. ' -i -m')
   if not r then
     rl_buffer:ding()
     return
   end
 
-  local str = r:read '*line'
+  local str = r:read('*line')
   str = str and str:gsub('[\r\n]+', ' ') or ''
   str = str:gsub(' +$', '')
   r:close()
@@ -211,12 +211,12 @@ function fzf_file(rl_buffer, line_state)
 end
 
 function fzf_directory(rl_buffer, line_state)
-  local alt_c_opts = os.getenv 'FZF_ALT_C_OPTS'
+  local alt_c_opts = os.getenv('FZF_ALT_C_OPTS')
   if not alt_c_opts then
     alt_c_opts = ''
   end
 
-  local alt_c_command = os.getenv 'FZF_ALT_C_COMMAND'
+  local alt_c_command = os.getenv('FZF_ALT_C_COMMAND')
   if not alt_c_command then
     alt_c_command = 'dir /b /s /a:d-s $dir'
   end
@@ -224,13 +224,13 @@ function fzf_directory(rl_buffer, line_state)
   alt_c_command = replace_dir(alt_c_command, line_state)
 
   local temp_contents = rl_buffer:getbuffer()
-  local r = io.popen(alt_c_command .. ' | ' .. get_fzf 'FZF_ALT_C_OPTS' .. ' -i')
+  local r = io.popen(alt_c_command .. ' | ' .. get_fzf('FZF_ALT_C_OPTS') .. ' -i')
   if not r then
     rl_buffer:ding()
     return
   end
 
-  local str = r:read '*all'
+  local str = r:read('*all')
   str = str and str:gsub('[\r\n]', '') or ''
   r:close()
 
@@ -240,7 +240,7 @@ function fzf_directory(rl_buffer, line_state)
     rl_buffer:insert('cd /d ' .. str)
     rl_buffer:endundogroup()
     rl_buffer:refreshline()
-    rl.invokecommand 'accept-line'
+    rl.invokecommand('accept-line')
     return
   end
 
@@ -250,7 +250,7 @@ end
 function fzf_bindings(rl_buffer)
   if not rl.getkeybindings then
     rl_buffer:beginoutput()
-    print 'fzf_bindings() in fzf.lua requires a newer version of Clink; please upgrade.'
+    print('fzf_bindings() in fzf.lua requires a newer version of Clink; please upgrade.')
     return
   end
 
@@ -261,7 +261,7 @@ function fzf_bindings(rl_buffer)
   end
 
   local line
-  local r, w = io.popenrw(get_fzf 'FZF_BINDINGS_OPTS' .. ' -i')
+  local r, w = io.popenrw(get_fzf('FZF_BINDINGS_OPTS') .. ' -i')
   if r and w then
     -- Write key bindings to the write pipe.
     for _, kb in ipairs(bindings) do
@@ -271,7 +271,7 @@ function fzf_bindings(rl_buffer)
 
     -- Read filtered matches.
     local ret = {}
-    line = r:read '*line'
+    line = r:read('*line')
     r:close()
   end
 
@@ -292,7 +292,7 @@ local function filter_matches(matches, completion_type, filename_completion_desi
   end
 
   -- Start fzf.
-  local r, w = io.popenrw(get_fzf 'FZF_COMPLETE_OPTS')
+  local r, w = io.popenrw(get_fzf('FZF_COMPLETE_OPTS'))
   if not r or not w then
     return
   end
@@ -306,7 +306,7 @@ local function filter_matches(matches, completion_type, filename_completion_desi
   -- Read filtered matches.
   local ret = {}
   while true do
-    local line = r:read '*line'
+    local line = r:read('*line')
     if not line then
       break
     end

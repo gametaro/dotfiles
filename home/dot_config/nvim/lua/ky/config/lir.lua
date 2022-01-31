@@ -1,10 +1,10 @@
-local lir = require 'lir'
-local utils = require 'lir.utils'
-local config = require 'lir.config'
-local actions = require 'lir.actions'
-local mark_actions = require 'lir.mark.actions'
-local clipboard_actions = require 'lir.clipboard.actions'
-local Path = require 'plenary.path'
+local lir = require('lir')
+local utils = require('lir.utils')
+local config = require('lir.config')
+local actions = require('lir.actions')
+local mark_actions = require('lir.mark.actions')
+local clipboard_actions = require('lir.clipboard.actions')
+local Path = require('plenary.path')
 
 local function lcd(path)
   vim.cmd(string.format('lcd %s', path))
@@ -44,7 +44,7 @@ local function create()
   if need_confirm(name) then
     -- '.' is not included or '/' is not included, then
     -- I may have entered it as a directory, I'll check.
-    if not name:match '%.' and not name:match '/' then
+    if not name:match('%.') and not name:match('/') then
       if vim.fn.confirm('Directory?', '&No\n&Yes', 1) == 2 then
         name = name .. '/'
       end
@@ -69,14 +69,14 @@ local function create()
   end
 
   -- If the first character is '.' and show_hidden_files is false, set it to true
-  if name:match [[^%.]] and not config.values.show_hidden_files then
+  if name:match([[^%.]]) and not config.values.show_hidden_files then
     config.values.show_hidden_files = true
   end
 
   actions.reload()
 
   -- Jump to a line in the parent directory of the file you created.
-  local lnum = lir.get_context():indexof(name:match '^[^/]+')
+  local lnum = lir.get_context():indexof(name:match('^[^/]+'))
   if lnum then
     vim.cmd(tostring(lnum))
   end
@@ -109,7 +109,7 @@ require('lir').setup {
 
     ['<Tab>'] = function()
       mark_actions.toggle_mark()
-      vim.cmd 'normal! j'
+      vim.cmd('normal! j')
     end,
     ['c'] = clipboard_actions.copy,
     ['x'] = clipboard_actions.cut,

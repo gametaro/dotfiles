@@ -1,4 +1,4 @@
-local dap = require 'dap'
+local dap = require('dap')
 
 vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
 vim.fn.sign_define('DapStopped', { text = '🟢', texthl = '', linehl = '', numhl = '' })
@@ -9,14 +9,14 @@ dap.configurations.lua = {
     request = 'attach',
     name = 'Attach to running Neovim instance',
     host = function()
-      local value = vim.fn.input 'Host [127.0.0.1]: '
+      local value = vim.fn.input('Host [127.0.0.1]: ')
       if value ~= '' then
         return value
       end
       return '127.0.0.1'
     end,
     port = function()
-      local value = tonumber(vim.fn.input 'Port: ')
+      local value = tonumber(vim.fn.input('Port: '))
       assert(value, 'Please provide a port number')
       return value
     end,
@@ -43,10 +43,10 @@ vim.keymap.set('n', '<LocalLeader>db', function()
   require('dap').toggle_breakpoint()
 end)
 vim.keymap.set('n', '<LocalLeader>dB', function()
-  require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+  require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))
 end)
 vim.keymap.set('n', '<LocalLeader>dp', function()
-  require('dap').set_breakpoint(nil, nil, vim.fn.input 'Log point message: ')
+  require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
 end)
 vim.keymap.set('n', '<LocalLeader>dr', function()
   require('dap').repl.open()

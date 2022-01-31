@@ -1,4 +1,4 @@
-local wezterm = require 'wezterm'
+local wezterm = require('wezterm')
 
 local launch_menu = {}
 local set_environment_variables = {}

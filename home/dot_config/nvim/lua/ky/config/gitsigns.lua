@@ -40,11 +40,11 @@ require('gitsigns').setup {
     map('n', '<LocalLeader>tb', gs.toggle_current_line_blame)
     map('n', '<LocalLeader>hd', gs.diffthis)
     map('n', '<LocalLeader>hD', function()
-      gs.diffthis '~'
+      gs.diffthis('~')
     end)
     map('n', '<LocalLeader>hq', gs.setqflist)
     map('n', '<LocalLeader>hQ', function()
-      gs.setqflist 'all'
+      gs.setqflist('all')
     end)
     map('n', '<LocalLeader>td', gs.toggle_deleted)
 
