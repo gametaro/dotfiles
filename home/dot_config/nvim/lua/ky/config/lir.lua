@@ -122,16 +122,7 @@ require('lir').setup {
   --     highlight_dirname = true,
   --   },
   -- },
+  on_init = function()
+    vim.keymap.set('x', 'J', ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>', { buffer = true })
+  end,
 }
-
--- use visual mode
-function _G.LirSettings()
-  vim.keymap.set('x', 'J', function()
-    require('lir.mark.actions').toggle_mark 'v'
-  end, { buffer = true })
-end
-
-vim.cmd [[augroup lir-settings]]
-vim.cmd [[  autocmd!]]
-vim.cmd [[  autocmd Filetype lir :lua LirSettings()]]
-vim.cmd [[augroup END]]
