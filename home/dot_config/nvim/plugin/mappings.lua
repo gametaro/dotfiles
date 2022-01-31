@@ -247,12 +247,13 @@ map('t', '<Esc>', function()
 end, { expr = true })
 
 map('n', '<F1>', function()
-  local items = vim.fn.synstack(vim.fn.line '.', vim.fn.col '.')
-  if vim.fn.empty(items) ~= 1 then
+  local fn = vim.fn
+  local items = fn.synstack(fn.line '.', fn.col '.')
+  if fn.empty(items) ~= 1 then
     for _, i1 in ipairs(items) do
-      local i2 = vim.fn.synIDtrans(i1)
-      local n1 = vim.fn.synIDattr(i1, 'name')
-      local n2 = vim.fn.synIDattr(i2, 'name')
+      local i2 = fn.synIDtrans(i1)
+      local n1 = fn.synIDattr(i1, 'name')
+      local n2 = fn.synIDattr(i2, 'name')
       print(string.format('%s -> %s', n1, n2))
     end
   end
