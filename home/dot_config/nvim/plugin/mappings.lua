@@ -3,9 +3,7 @@ local map = vim.keymap.set
 -- Nop
 map('', '<Space>', '<Nop>', { remap = true })
 map('n', '+', '<Nop>')
-map('n', '<C-h>', '<Nop>')
 map('n', '<C-n>', '<Nop>')
-map('n', '<C-p>', '<Nop>')
 map('n', '<C-z>', '<Nop>')
 map('n', 'Q', '<Nop>')
 map('n', 'ZQ', '<Nop>')
@@ -48,7 +46,6 @@ map('n', '<Leader>a', '<Cmd>confirm quitall<CR>')
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
 map('n', '<C-f>', '<C-f>zz')
-map('n', '<C-b>', '<C-b>zz')
 map('n', 'G', 'Gzz')
 
 -- move in inert mode
@@ -106,6 +103,7 @@ map('t', '<M-k>', '<Cmd>wincmd k<CR>')
 map('t', '<M-l>', '<Cmd>wincmd l<CR>')
 
 -- buffer
+map('n', '<BS>', '<Nop>', { remap = true })
 map('n', '<BS>', '<C-^>')
 map('n', '<M-.>', '<Cmd>bnext<CR>')
 map('n', '<M-,>', '<Cmd>bprevious<CR>')
