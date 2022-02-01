@@ -522,20 +522,28 @@ local function plugins(use)
         config = function()
           require('telescope').load_extension('file_browser')
 
-          vim.keymap.set('n', '<LocalLeader>f.', function()
+          vim.keymap.set('n', '<LocalLeader>.', function()
             require('telescope').extensions.file_browser.file_browser {
               hidden = true,
             }
           end)
-          vim.keymap.set('n', '<LocalLeader>f-', function()
+          vim.keymap.set('n', '<LocalLeader>-', function()
             require('telescope').extensions.file_browser.file_browser {
               cwd = '%:p:h',
               hidden = true,
             }
           end)
-          vim.keymap.set('n', '<LocalLeader>f~', function()
+          vim.keymap.set('n', '<LocalLeader>~', function()
             require('telescope').extensions.file_browser.file_browser {
               cwd = '$HOME',
+              hidden = true,
+            }
+          end)
+          vim.keymap.set('n', '<LocalLeader>+', function()
+            local ok, git_root = pcall(require('lspconfig.util').find_git_ancestor, vim.loop.cwd())
+            require('telescope.builtin.git')
+            require('telescope').extensions.file_browser.file_browser {
+              cwd = ok and git_root or vim.loop.cwd(),
               hidden = true,
             }
           end)
