@@ -2,33 +2,31 @@
 vim.cmd([[autocmd User OperatrSandwichAddPre,OperatorSandwichReplacePre NoMatchParen]])
 vim.cmd([[autocmd User OperatorSandwichAddPost,OperatorSandwichReplacePost DoMatchParen]])
 
-vim.cmd([[
-      augroup mine_sandwich
-      autocmd!
-      augroup END
-      ]])
 -- NOTE: `4` means `$`
 vim.cmd([=[
-        autocmd mine_sandwich FileType python call sandwich#util#addlocal([
+      augroup mine_sandwich
+        autocmd!
+        autocmd FileType python call sandwich#util#addlocal([
           \   {'buns': ['"""', '"""'], 'nesting': 0, 'input': ['3"']},
           \ ])
-        autocmd mine_sandwich FileType sh call sandwich#util#addlocal([
+        autocmd FileType sh call sandwich#util#addlocal([
           \   {'buns': ['$(', ')'], 'nesting': 0, 'input': ['4(']},
           \   {'buns': ['"$', '"'], 'nesting': 0, 'input': ['4"']},
           \   {'buns': ['${', '}'], 'nesting': 0, 'input': ['4{']},
           \   {'buns': ['[[', ']]'], 'nesting': 0, 'input': ['2[', '2]']},
           \ ])
-        autocmd mine_sandwich FileType lua call sandwich#util#addlocal([
+        autocmd FileType lua call sandwich#util#addlocal([
           \   {'buns': ['[[', ']]'], 'nesting': 0, 'input': ['2[', '2]']},
           \ ])
-        autocmd mine_sandwich FileType javascript,typescript,javascriptreact,typescriptreact call sandwich#util#addlocal([
+        autocmd FileType javascript,typescript,javascriptreact,typescriptreact call sandwich#util#addlocal([
           \   {'buns': ['${', '}'], 'nesting': 0, 'input': ['4']},
           \ ])
-        autocmd mine_sandwich FileType markdown call sandwich#util#addlocal([
+        autocmd FileType markdown call sandwich#util#addlocal([
           \   {'buns': ['```\a*', '```'], 'nesting': 0, 'regex': 1, 'input': ['3`']},
           \   {'buns': ['^\(#\{1,6}\s+.\+\)', '^\(#\{1,6}\s+.\+\)'], 'nesting': 0, 'regex': 1, 'input': ['#']},
           \   {'buns': ['^\(\s*\(*\|-\)\s\+\)', '\n'], 'nesting': 0, 'regex': 1, 'input': ['-']},
           \ ])
+      augroup END
       ]=])
 
 vim.keymap.set('n', '.', '<Plug>(operator-sandwich-dot)')

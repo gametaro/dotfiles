@@ -59,7 +59,10 @@ if rl.setbinding then
     'fzf.default_bindings',
     true,
     'Use default key bindings',
-    'If the default key bindings interfere with your own, you can turn off the\ndefault key bindings and add bindings manually to your .inputrc file.\n\nChanging this takes effect for the next session.'
+    [[If the default key bindings interfere with your own, you can turn off the
+    default key bindings and add bindings manually to your .inputrc file.
+
+    Changing this takes effect for the next session.]]
   )
 
   if settings.get('fzf.default_bindings') then
