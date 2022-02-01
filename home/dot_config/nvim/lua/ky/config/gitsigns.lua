@@ -28,8 +28,8 @@ require('gitsigns').setup {
     map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
 
     -- Actions
-    map({ 'n', 'x' }, '<LocalLeader>hs', gs.stage_hunk)
-    map({ 'n', 'x' }, '<LocalLeader>hr', gs.reset_hunk)
+    map({ 'n', 'x' }, '<LocalLeader>hs', ':Gitsigns stage_hunk<CR>')
+    map({ 'n', 'x' }, '<LocalLeader>hr', ':Gitsigns reset_hunk<CR>')
     map('n', '<LocalLeader>hS', gs.stage_buffer)
     map('n', '<LocalLeader>hu', gs.undo_stage_hunk)
     map('n', '<LocalLeader>hR', gs.reset_buffer)
