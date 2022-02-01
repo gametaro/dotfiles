@@ -27,6 +27,16 @@ local defaults = themes.get_ivy {
   set_env = {
     ['COLORTERM'] = 'truecolor',
   },
+  vimgrep_arguments = {
+    'rg',
+    '--color=never',
+    '--no-heading',
+    '--with-filename',
+    '--line-number',
+    '--column',
+    '--smart-case',
+    '--trim',
+  },
 }
 
 telescope.setup {
@@ -54,6 +64,7 @@ telescope.setup {
       enable_preview = true,
     },
     find_files = {
+      find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
       mappings = {
         n = {
           ['cd'] = function(prompt_bufnr)
@@ -67,58 +78,3 @@ telescope.setup {
     },
   },
 }
-
-vim.keymap.set('n', '<LocalLeader>fb', function()
-  require('telescope.builtin').buffers {
-    sort_lastused = true,
-    sort_mru = true,
-  }
-end)
-vim.keymap.set('n', '<LocalLeader>fj', function()
-  require('telescope.builtin').jumplist()
-end)
-vim.keymap.set('n', '<LocalLeader>fc', function()
-  require('telescope.builtin').commands()
-end)
-vim.keymap.set('n', '<LocalLeader>ff', function()
-  require('telescope.builtin').find_files {
-    hidden = true,
-  }
-end)
-vim.keymap.set('n', '<LocalLeader>fg', function()
-  require('telescope.builtin').live_grep()
-end)
-vim.keymap.set('n', '<LocalLeader>fh', function()
-  require('telescope.builtin').help_tags()
-end)
-vim.keymap.set('n', '<LocalLeader>fm', function()
-  require('telescope.builtin').marks()
-end)
-vim.keymap.set('n', '<LocalLeader>fo', function()
-  require('telescope.builtin').oldfiles()
-end)
-vim.keymap.set('n', '<LocalLeader>fq', function()
-  require('telescope.builtin').quickfix()
-end)
-vim.keymap.set('n', '<LocalLeader>fr', function()
-  require('telescope.builtin').resume()
-end)
-vim.keymap.set('n', '<LocalLeader>fs', function()
-  require('telescope.builtin').grep_string()
-end)
-vim.keymap.set('n', '<LocalLeader>fl', function()
-  require('telescope.builtin').diagnostics()
-end)
--- FIXME: conflicting with neogit and diffview
-vim.keymap.set('n', '<LocalLeader>gb', function()
-  require('telescope.builtin').git_branches()
-end)
--- map('n', '<LocalLeader>gc', '<Cmd>lua require("telescope.builtin").git_commits()<CR>', opts)
-vim.keymap.set('n', '<LocalLeader>gC', function()
-  require('telescope.builtin').git_bcommits()
-end)
--- map('n', '<LocalLeader>gf', '<Cmd>lua require("telescope.builtin").git_files()<CR>', opts)
--- map('n', '<LocalLeader>gs', '<Cmd>lua require("telescope.builtin").git_status()<CR>', opts)
-vim.keymap.set('n', '<LocalLeader>gS', function()
-  require('telescope.builtin').git_stash()
-end)

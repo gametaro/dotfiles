@@ -541,6 +541,44 @@ local function plugins(use)
         end,
       },
     },
+    setup = function()
+      local map = vim.keymap.set
+
+      map('n', '<C-p>', '<Nop>', { remap = true })
+      map('n', '<C-p>', function()
+        local opts = { hidden = true, find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' } }
+        local ok = pcall(require('telescope.builtin').git_files, opts)
+        if not ok then
+          require('telescope.builtin').find_files { opts }
+        end
+      end)
+      map('n', '<C-b>', '<Nop>')
+      map('n', '<C-b>', function()
+        require('telescope.builtin').buffers {
+          sort_lastused = true,
+          sort_mru = true,
+        }
+      end)
+      map('n', '<C-g>', '<Nop>', { remap = true })
+      map('n', '<C-g>', function()
+        require('telescope.builtin').live_grep { disable_coordinates = true }
+      end)
+      map('n', '<LocalLeader>fs', function()
+        require('telescope.builtin').grep_string { disable_coordinates = true }
+      end)
+      map('n', '<C-h>', '<Nop>', { remap = true })
+      map('n', '<C-h>', require('telescope.builtin').help_tags)
+      map('n', '<LocalLeader>c', require('telescope.builtin').commands)
+      map('n', '<LocalLeader>fj', require('telescope.builtin').jumplist)
+      map('n', '<LocalLeader>fm', require('telescope.builtin').marks)
+      map('n', '<LocalLeader>fo', require('telescope.builtin').oldfiles)
+      map('n', '<LocalLeader>fr', require('telescope.builtin').resume)
+      map('n', '<LocalLeader>gb', require('telescope.builtin').git_branches)
+      map('n', '<LocalLeader>gc', require('telescope.builtin').git_commits)
+      map('n', '<LocalLeader>gC', require('telescope.builtin').git_bcommits)
+      map('n', '<LocalLeader>gs', require('telescope.builtin').git_status)
+      map('n', '<LocalLeader>gS', require('telescope.builtin').git_stash)
+    end,
     config = function()
       require('ky.config.telescope')
     end,
