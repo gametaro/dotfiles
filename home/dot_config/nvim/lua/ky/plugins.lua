@@ -496,10 +496,7 @@ local function plugins(use)
 
   use {
     'nvim-telescope/telescope.nvim',
-    keys = {
-      { 'n', '<LocalLeader>f' },
-      { 'n', '<LocalLeader>g' },
-    },
+    event = 'BufRead',
     requires = {
       { 'nvim-lua/plenary.nvim' },
       {
