@@ -841,6 +841,8 @@ local function plugins(use)
       }
     end,
   }
+
+  use('gpanders/editorconfig.nvim')
 end
 
 bootstrap()
