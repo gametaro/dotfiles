@@ -565,10 +565,12 @@ local function plugins(use)
 
       map('n', '<C-p>', '<Nop>', { remap = true })
       map('n', '<C-p>', function()
-        local opts = { hidden = true, find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' } }
-        local ok = pcall(require('telescope.builtin').git_files, opts)
+        local ok = pcall(require('telescope.builtin').git_files, { hidden = true })
         if not ok then
-          require('telescope.builtin').find_files { opts }
+          require('telescope.builtin').find_files {
+            find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
+            hidden = true,
+          }
         end
       end)
       map('n', '<C-b>', '<Nop>')
