@@ -423,9 +423,9 @@ local function plugins(use)
     cmd = { 'Neogit' },
     setup = function()
       vim.keymap.set('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>', { silent = true })
-      vim.keymap.set('n', '<LocalLeader>gs', '<Cmd>Neogit kind=split<CR>', { silent = true })
+      -- vim.keymap.set('n', '<LocalLeader>gs', '<Cmd>Neogit kind=split<CR>', { silent = true })
       vim.keymap.set('n', '<LocalLeader>gv', '<Cmd>Neogit kind=vsplit<CR>', { silent = true })
-      vim.keymap.set('n', '<LocalLeader>gc', '<Cmd>Neogit commit<CR>', { silent = true })
+      -- vim.keymap.set('n', '<LocalLeader>gc', '<Cmd>Neogit commit<CR>', { silent = true })
     end,
     config = function()
       require('neogit').setup {
