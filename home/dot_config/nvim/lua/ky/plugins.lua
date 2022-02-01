@@ -3,7 +3,14 @@ local not_headless = require('ky.utils').not_headless
 local function bootstrap()
   local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
   if not vim.loop.fs_stat(install_path) then
-    vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
+    vim.fn.system {
+      'git',
+      'clone',
+      '--depth',
+      '1',
+      'https://github.com/wbthomason/packer.nvim',
+      install_path,
+    }
   end
   vim.cmd('packadd packer.nvim')
 end
@@ -109,7 +116,10 @@ local function plugins(use)
     end,
     config = function()
       local dial = require('dial')
-      dial.augends['custom#boolean'] = dial.common.enum_cyclic { name = 'boolean', strlist = { 'true', 'false' } }
+      dial.augends['custom#boolean'] = dial.common.enum_cyclic {
+        name = 'boolean',
+        strlist = { 'true', 'false' },
+      }
       table.insert(dial.config.searchlist.normal, 'markup#markdown#header')
       table.insert(dial.config.searchlist.normal, 'custom#boolean')
     end,

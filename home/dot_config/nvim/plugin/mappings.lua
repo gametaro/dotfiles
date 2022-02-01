@@ -113,7 +113,9 @@ map('n', '<M-C>', '<Cmd>bdelete!<CR>')
 -- toggle `0` and `^`
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
-  return string.match(string.sub(vim.api.nvim_get_current_line(), 0, vim.fn.col('.') - 1), '^%s+$') ~= nil and '0'
+  return string.match(string.sub(vim.api.nvim_get_current_line(), 0, vim.fn.col('.') - 1), '^%s+$')
+        ~= nil
+      and '0'
     or '^'
 end, { expr = true })
 

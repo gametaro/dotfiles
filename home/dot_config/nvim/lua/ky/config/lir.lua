@@ -123,6 +123,11 @@ require('lir').setup {
   --   },
   -- },
   on_init = function()
-    vim.keymap.set('x', 'J', ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>', { buffer = true })
+    vim.keymap.set(
+      'x',
+      'J',
+      ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
+      { buffer = true }
+    )
   end,
 }

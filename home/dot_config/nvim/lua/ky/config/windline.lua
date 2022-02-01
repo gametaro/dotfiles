@@ -46,9 +46,27 @@ basic.lsp_diagnos = {
     if lsp_comps.check_lsp(bufnr) then
       return {
         { ' ', 'red' },
-        { lsp_comps.lsp_error { format = string.format('%s', icons.error) .. '%s', show_zero = true }, 'red' },
-        { lsp_comps.lsp_warning { format = string.format(' %s', icons.warn) .. '%s', show_zero = true }, 'yellow' },
-        { lsp_comps.lsp_hint { format = string.format(' %s', icons.hint) .. '%s', show_zero = true }, 'blue' },
+        {
+          lsp_comps.lsp_error {
+            format = string.format('%s', icons.error) .. '%s',
+            show_zero = true,
+          },
+          'red',
+        },
+        {
+          lsp_comps.lsp_warning {
+            format = string.format(' %s', icons.warn) .. '%s',
+            show_zero = true,
+          },
+          'yellow',
+        },
+        {
+          lsp_comps.lsp_hint {
+            format = string.format(' %s', icons.hint) .. '%s',
+            show_zero = true,
+          },
+          'blue',
+        },
       }
     end
     return ''
