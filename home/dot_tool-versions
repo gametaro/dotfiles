@@ -1,10 +1,10 @@
-bat 0.18.3
+bat 0.19.0
 direnv 2.30.3
-fd 8.3.0
-fzf 0.28.0
+fd 8.3.2
+fzf 0.29.0
 hub v2.14.2
 neovim nightly
-nodejs 17.3.0
+nodejs lts
 ripgrep 13.0.0
-starship 1.0.0
+starship 1.2.1
 zoxide 0.8.0
