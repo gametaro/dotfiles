@@ -506,7 +506,7 @@ local function plugins(use)
 
   use {
     'nvim-telescope/telescope.nvim',
-    event = 'BufRead',
+    event = 'VimEnter',
     requires = {
       { 'nvim-lua/plenary.nvim' },
       {
