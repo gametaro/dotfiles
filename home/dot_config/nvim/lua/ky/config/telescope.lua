@@ -21,7 +21,7 @@ local defaults = themes.get_ivy {
     preview = { '', '', '', '', '', '', '', '' },
   },
   width = 0.8,
-  file_ignore_patterns = { '%.git', 'node_modules' },
+  file_ignore_patterns = { '%.git$', 'node_modules' },
   set_env = {
     ['COLORTERM'] = 'truecolor',
   },
