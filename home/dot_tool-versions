@@ -1,10 +1,10 @@
-bat 0.19.0
-direnv 2.30.3
-fd 8.3.2
-fzf 0.29.0
-hub v2.14.2
-neovim nightly
-nodejs lts
-ripgrep 13.0.0
-starship 1.2.1
-zoxide 0.8.0
+bat 0.19.0 system
+direnv 2.30.3 system
+fd 8.3.2 system
+fzf 0.29.0 system
+hub v2.14.2 system
+neovim nightly system
+nodejs lts system
+ripgrep 13.0.0 system
+starship 1.2.1 system
+zoxide 0.8.0 system
