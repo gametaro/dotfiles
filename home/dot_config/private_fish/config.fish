@@ -27,7 +27,6 @@ if status --is-interactive
     abbr -a -g chc chezmoi cd
     abbr -a -g cha chezmoi apply
     abbr -a -g che chezmoi edit $argv
-    abbr -a -g do docker
     abbr -a -g dor docker run
     abbr -a -g dob docker build
     abbr -a -g dop docker ps
