@@ -168,8 +168,8 @@ map('n', '~', function()
   vim.cmd('edit ' .. vim.fn.expand('$HOME'))
 end)
 map('n', '+', function()
-  local git_root = require('lspconfig.util').find_git_ancestor(vim.loop.cwd())
-  if git_root then
+  local ok, git_root = pcall(require('lspconfig.util').find_git_ancestor, vim.loop.cwd())
+  if ok and git_root then
     vim.cmd('edit ' .. git_root)
   end
 end)
