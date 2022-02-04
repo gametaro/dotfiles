@@ -1,14 +1,7 @@
 local cmp = require('cmp')
 local compare = require('cmp.config.compare')
 
--- -- @see https://github.com/tzachar/cmp-fuzzy-buffer#sorting-and-filtering
--- local compare_fuzzy_buffer = function(entry1, entry2)
---   return (entry1.source.name == 'fuzzy_buffer' and entry2.source.name == 'fuzzy_buffer')
---       and (entry1.completion_item.data.score > entry2.completion_item.data.score)
---     or nil
--- end
-
--- @see https://github.com/lukas-reineke/cmp-under-comparator
+---@see https://github.com/lukas-reineke/cmp-under-comparator
 local compare_under_comparator = function(entry1, entry2)
   local _, entry1_under = entry1.completion_item.label:find('^_+')
   local _, entry2_under = entry2.completion_item.label:find('^_+')
@@ -44,7 +37,14 @@ local kind_icons = {
   TypeParameter = '',
 }
 
-cmp.setup {
+---@type cmp.ConfigSchema
+local config = {
+  completion = {
+    keyword_pattern = [[\k\+]],
+  },
+  confirmation = {
+    default_behavior = 'replace',
+  },
   sorting = {
     priority_weight = 2,
     comparators = {
@@ -54,9 +54,9 @@ cmp.setup {
       compare.score,
       compare.recently_used,
       compare_under_comparator,
-      compare.kind,
+      -- compare.kind,
       compare.sort_text,
-      compare.length,
+      -- compare.length,
       compare.order,
     },
   },
@@ -115,19 +115,25 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'path' },
-    -- { name = 'fuzzy_path' },
     -- { name = 'emoji' },
     { name = 'cmp_git' },
   }, {
     {
-      -- name = 'fuzzy_buffer',
       name = 'buffer',
+      ---@type cmp_buffer.Options
       options = {
+        keyword_pattern = [[\k\+]],
         get_bufnrs = function()
           local bufs = {}
           for _, buf in ipairs(vim.api.nvim_list_bufs()) do
             local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
-            if buftype ~= 'nofile' and buftype ~= 'prompt' then
+            if
+              buftype ~= 'help'
+              and buftype ~= 'nofile'
+              and buftype ~= 'prompt'
+              and buftype ~= 'quickfix'
+              and buftype ~= 'terminal'
+            then
               bufs[#bufs + 1] = buf
             end
           end
@@ -138,12 +144,13 @@ cmp.setup {
   }),
 }
 
-local config = {
+local cmd_config = {
   sources = cmp.config.sources({
     {
-      -- name = 'fuzzy_buffer',
+      ---@type cmp_buffer.Options
       name = 'buffer',
       options = {
+        keyword_pattern = [[\k\+]],
         get_bufnrs = function()
           return { vim.api.nvim_get_current_buf() }
         end,
@@ -154,8 +161,9 @@ local config = {
   }),
 }
 
-cmp.setup.cmdline('/', config)
-cmp.setup.cmdline('?', config)
+cmp.setup(config)
+cmp.setup.cmdline('/', cmd_config)
+cmp.setup.cmdline('?', cmd_config)
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
     -- { name = 'fuzzy_path' },
