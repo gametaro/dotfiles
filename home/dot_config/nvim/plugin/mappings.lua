@@ -27,8 +27,10 @@ map('n', 'dd', function()
   return string.len(vim.trim(table.concat(lines))) == 0 and '"_dd' or 'dd'
 end, { expr = true })
 
-map('n', '<Leader>c', '"_c')
-map('n', '<Leader>d', '"_d')
+map({ 'n', 'x' }, '<Leader>c', '"_c')
+map({ 'n', 'x' }, '<Leader>C', '"_C')
+map({ 'n', 'x' }, '<Leader>d', '"_d')
+map({ 'n', 'x' }, '<Leader>D', '"_D')
 
 map('n', '<Leader>h', ':<C-u>help<Space>')
 
