@@ -10,7 +10,7 @@ end
 
 opt.autowriteall = true
 opt.clipboard = 'unnamedplus'
-opt.completeopt = { 'menu', 'menuone', 'noselect', 'noinsert' }
+opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.diffopt = {
   'algorithm:histogram',
   'closeoff',
