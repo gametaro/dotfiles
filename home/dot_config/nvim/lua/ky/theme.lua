@@ -28,6 +28,13 @@ function M.setup(theme)
         fox = 'nightfox',
       }
       nightfox.load()
+    elseif theme == 'kanagawa' then
+      require('kanagawa').setup {
+        commentStyle = 'NONE',
+        keywordStyle = 'NONE',
+        variablebuiltinStyle = 'NONE',
+      }
+      require('kanagawa').load()
     else
       vim.cmd(string.format('colorscheme %s', theme))
     end
