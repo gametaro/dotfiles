@@ -372,14 +372,6 @@ local function plugins(use)
   }
 
   use {
-    'kyazdani42/nvim-tree.lua',
-    disable = true,
-    config = function()
-      require('ky.config.tree')
-    end,
-  }
-
-  use {
     'tamago324/lir.nvim',
     event = { 'BufRead' },
     requires = {
