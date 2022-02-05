@@ -350,26 +350,26 @@ local function plugins(use)
     end,
   }
 
-  use {
-    'akinsho/toggleterm.nvim',
-    cmd = { 'ToggleTerm' },
-    setup = function()
-      vim.g.toggleterm_terminal_mapping = [[<C-\>]]
-      vim.keymap.set({ 'n', 'i' }, [[<C-\>]], '<Cmd>execute v:count1 . "ToggleTerm"<CR>')
-    end,
-    config = function()
-      require('toggleterm').setup {
-        size = vim.fn.float2nr(vim.o.lines * 0.4),
-        direction = 'float',
-        open_mapping = [[<c-\>]],
-        shade_terminals = true,
-        start_in_insert = false,
-        float_opts = {
-          border = require('ky.theme').border,
-        },
-      }
-    end,
-  }
+  -- use {
+  --   'akinsho/toggleterm.nvim',
+  --   cmd = { 'ToggleTerm' },
+  --   setup = function()
+  --     vim.g.toggleterm_terminal_mapping = [[<C-\>]]
+  --     vim.keymap.set({ 'n', 'i' }, [[<C-\>]], '<Cmd>execute v:count1 . "ToggleTerm"<CR>')
+  --   end,
+  --   config = function()
+  --     require('toggleterm').setup {
+  --       size = vim.fn.float2nr(vim.o.lines * 0.4),
+  --       direction = 'float',
+  --       open_mapping = [[<c-\>]],
+  --       shade_terminals = true,
+  --       start_in_insert = false,
+  --       float_opts = {
+  --         border = require('ky.theme').border,
+  --       },
+  --     }
+  --   end,
+  -- }
 
   use {
     'tamago324/lir.nvim',
