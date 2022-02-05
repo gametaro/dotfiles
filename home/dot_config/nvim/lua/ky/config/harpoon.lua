@@ -23,7 +23,10 @@ map('n', [[<C-\>]], function()
     create_with = 'terminal',
   }
 end)
-map('n', '<M-a>', require('harpoon.mark').add_file)
+map('n', '<M-a>', function()
+  require('harpoon.mark').add_file()
+  vim.notify(string.format('harpoon.mark: mark added'), vim.log.levels.INFO, { title = 'harpoon' })
+end)
 map('n', '<M-u>', require('harpoon.ui').toggle_quick_menu)
 map('n', '<M-c>', require('harpoon.cmd-ui').toggle_quick_menu)
 map('n', '<M-n>', function()
