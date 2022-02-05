@@ -1,12 +1,14 @@
 local telescope = require('telescope')
 local actions = require('telescope.actions')
-local themes = require('telescope.themes')
+local actions_layout = require('telescope.actions.layout')
 
-local defaults = themes.get_ivy {
+local defaults = {
   mappings = {
     i = {
       ['<C-j>'] = actions.cycle_history_next,
       ['<C-k>'] = actions.cycle_history_prev,
+      ['<M-m>'] = actions_layout.toggle_mirror,
+      ['<M-p>'] = actions_layout.toggle_preview,
     },
     n = {
       ['q'] = actions.close,
@@ -14,11 +16,16 @@ local defaults = themes.get_ivy {
   },
   path_display = { 'smart', 'absolute', 'truncate' },
   prompt_prefix = '   ',
-  preview_title = '',
-  prompt_title = '',
-  results_title = '',
+  sorting_strategy = 'ascending',
+  layout_strategy = 'bottom_pane',
+  layout_config = {
+    height = 25,
+    preview_cutoff = 100,
+  },
   borderchars = {
-    preview = { '', '', '', '', '', '', '', '' },
+    prompt = { '─', ' ', ' ', ' ', '─', '─', ' ', ' ' },
+    results = { '─', ' ', ' ', ' ', '─', '─', ' ', ' ' },
+    preview = { ' ' },
   },
   width = 0.8,
   file_ignore_patterns = { '%.git$', 'node_modules' },
@@ -81,7 +88,7 @@ local map = vim.keymap.set
 
 map('n', '<C-p>', '<Nop>', { remap = true })
 map('n', '<C-p>', function()
-  local ok = pcall(require('telescope.builtin').git_files, { hidden = true })
+  local ok = pcall(require('telescope.builtin').git_files)
   if not ok then
     require('telescope.builtin').find_files {
       find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
@@ -93,21 +100,27 @@ map('n', '<C-b>', '<Nop>')
 map('n', '<C-b>', function()
   require('telescope.builtin').buffers {
     sort_lastused = true,
-    sort_mru = true,
+    -- sort_mru = true,
   }
 end)
 map('n', '<C-g>', '<Nop>', { remap = true })
-map('n', '<C-g>', function()
-  require('telescope.builtin').live_grep { disable_coordinates = true }
-end)
-map('n', '<LocalLeader>fs', function()
-  require('telescope.builtin').grep_string { disable_coordinates = true }
+map('n', '<C-g>', require('telescope.builtin').live_grep)
+map('n', '<C-s>', require('telescope.builtin').grep_string)
+map('n', '<LocalLeader>fd', function()
+  require('telescope.builtin').find_files {
+    prompt_title = 'Dot Files',
+    find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
+    cwd = '$XDG_DATA_HOME/chezmoi/',
+    hidden = true,
+  }
 end)
 map('n', '<C-h>', '<Nop>', { remap = true })
 map('n', '<C-h>', require('telescope.builtin').help_tags)
-map('n', '<LocalLeader>c', require('telescope.builtin').commands)
+map('n', '<LocalLeader>fv', require('telescope.builtin').vim_options)
+map('n', '<LocalLeader>fc', require('telescope.builtin').commands)
 map('n', '<LocalLeader>fj', require('telescope.builtin').jumplist)
-map('n', '<LocalLeader>fm', require('telescope.builtin').marks)
+-- map('n', '<LocalLeader>fm', require('telescope.builtin').marks)
+map('n', '<LocalLeader>fm', require('telescope.builtin').man_pages)
 map('n', '<LocalLeader>fo', require('telescope.builtin').oldfiles)
 map('n', '<LocalLeader>fr', require('telescope.builtin').resume)
 map('n', '<LocalLeader>gb', require('telescope.builtin').git_branches)
