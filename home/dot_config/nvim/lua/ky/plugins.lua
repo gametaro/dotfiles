@@ -632,11 +632,8 @@ local function plugins(use)
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
     cond = function()
-      local ok, node_modules_root = pcall(
-        require('lspconfig.util').find_node_modules_ancestor,
-        vim.loop.cwd()
-      )
-      return ok and node_modules_root
+      local ok, util = pcall(require, 'lspconfig.util')
+      return ok and not not util.find_node_modules_ancestor(vim.loop.cwd())
     end,
     setup = function()
       local command = vim.api.nvim_add_user_command
