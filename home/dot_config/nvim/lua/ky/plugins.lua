@@ -605,20 +605,7 @@ local function plugins(use)
       vim.keymap.set('n', '<LocalLeader>tt', '<Cmd>TodoTrouble<CR>')
     end,
     config = function()
-      require('todo-comments').setup {
-        search = {
-          command = 'rg',
-          args = {
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--hidden',
-            '--glob=!.git',
-          },
-        },
-      }
+      require('todo-comments').setup {}
     end,
   }
 
