@@ -631,38 +631,16 @@ local function plugins(use)
   use {
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
-    keys = {
-      { 'n', '<LocalLeader>n' },
-    },
+    cmd = 'Npm*',
     setup = function()
-      -- Show package versions
-      vim.keymap.set('n', '<LocalLeader>ns', function()
-        require('package-info').show()
-      end)
-      -- Hide package versions
-      vim.keymap.set('n', '<LocalLeader>nh', function()
-        require('package-info').hide()
-      end)
-      -- Update package on line
-      vim.keymap.set('n', '<LocalLeader>nu', function()
-        require('package-info').update()
-      end)
-      -- Delete package on line
-      vim.keymap.set('n', '<LocalLeader>nu', function()
-        require('package-info').delete()
-      end)
-      -- Install a new package
-      vim.keymap.set('n', '<LocalLeader>nu', function()
-        require('package-info').install()
-      end)
-      -- Reinstall dependencies
-      vim.keymap.set('n', '<LocalLeader>nr', function()
-        require('package-info').reinstall()
-      end)
-      -- Install a different package version
-      vim.keymap.set('n', '<LocalLeader>nc', function()
-        require('package-info').change_version()
-      end)
+      local command = vim.api.nvim_add_user_command
+      command('NpmShow', require('package-info').show, { nargs = 0 })
+      command('NpmHide', require('package-info').hide, { nargs = 0 })
+      command('NpmUpdate', require('package-info').update, { nargs = 0 })
+      command('NpmDelete', require('package-info').delete, { nargs = 0 })
+      command('NpmInstall', require('package-info').install, { nargs = 0 })
+      command('NpmReinstall', require('package-info').reinstall, { nargs = 0 })
+      command('NpmChange', require('package-info').change_version, { nargs = 0 })
     end,
     config = function()
       require('package-info').setup {}
