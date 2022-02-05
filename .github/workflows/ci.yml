@@ -36,18 +36,18 @@ jobs:
         run: |
           $params = "init --apply gametaro"; iex "& { $(irm https://chezmoi.io/get.ps1) } "
 
-  centos:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    container: centos:latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install requisites (centos)
-        run: dnf clean all && dnf install -y curl sudo
-
-      - name: Chezmoi Init
-        run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply gametaro
+  # centos:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
+  #   container: centos:latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #
+  #     - name: Install requisites (centos)
+  #       run: dnf clean all && dnf install -y curl sudo
+  #
+  #     - name: Chezmoi Init
+  #       run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply gametaro
 
   fedora:
     runs-on: ubuntu-latest
