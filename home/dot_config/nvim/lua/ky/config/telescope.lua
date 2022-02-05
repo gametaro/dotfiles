@@ -99,8 +99,9 @@ end)
 map('n', '<C-b>', '<Nop>')
 map('n', '<C-b>', function()
   require('telescope.builtin').buffers {
-    sort_lastused = true,
+    -- sort_lastused = true,
     -- sort_mru = true,
+    only_cwd = true
   }
 end)
 map('n', '<C-g>', '<Nop>', { remap = true })
@@ -121,7 +122,11 @@ map('n', '<LocalLeader>fc', require('telescope.builtin').commands)
 map('n', '<LocalLeader>fj', require('telescope.builtin').jumplist)
 -- map('n', '<LocalLeader>fm', require('telescope.builtin').marks)
 map('n', '<LocalLeader>fm', require('telescope.builtin').man_pages)
-map('n', '<LocalLeader>fo', require('telescope.builtin').oldfiles)
+map('n', '<LocalLeader>fo', function()
+  require('telescope.builtin').oldfiles{
+    only_cwd = true
+  }
+end)
 map('n', '<LocalLeader>fr', require('telescope.builtin').resume)
 map('n', '<LocalLeader>gb', require('telescope.builtin').git_branches)
 map('n', '<LocalLeader>gc', require('telescope.builtin').git_commits)
