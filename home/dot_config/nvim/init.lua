@@ -8,5 +8,5 @@ vim.g.did_load_filetypes = 0
 
 require('ky.disable')
 require('ky.plugins')
-require('ky.theme').setup('nightfox')
+require('ky.theme').setup('kanagawa')
 pcall(require, 'packer_compiled')
