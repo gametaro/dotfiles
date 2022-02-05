@@ -109,8 +109,8 @@ map('n', '<BS>', '<Nop>', { remap = true })
 map('n', '<BS>', '<C-^>')
 map('n', '<M-.>', '<Cmd>bnext<CR>')
 map('n', '<M-,>', '<Cmd>bprevious<CR>')
-map('n', '<M-c>', '<Cmd>bdelete<CR>')
-map('n', '<M-C>', '<Cmd>bdelete!<CR>')
+-- map('n', '<M-c>', '<Cmd>bdelete<CR>')
+-- map('n', '<M-C>', '<Cmd>bdelete!<CR>')
 
 -- toggle `0` and `^`
 -- see https://github.com/yuki-yano/zero.nvim
