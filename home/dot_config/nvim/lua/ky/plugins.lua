@@ -799,6 +799,14 @@ local function plugins(use)
       require('ky.config.harpoon')
     end,
   }
+
+  use {
+    'alvarosevilla95/luatab.nvim',
+    event = { 'BufRead' },
+    config = function()
+      require('luatab').setup {}
+    end,
+  }
 end
 
 bootstrap()
