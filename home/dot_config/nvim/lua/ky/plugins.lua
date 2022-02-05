@@ -807,6 +807,13 @@ local function plugins(use)
   }
 
   use('gpanders/editorconfig.nvim')
+
+  use {
+    'ThePrimeagen/harpoon',
+    config = function()
+      require('ky.config.harpoon')
+    end,
+  }
 end
 
 bootstrap()
