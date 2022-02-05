@@ -101,7 +101,7 @@ map('n', '<C-b>', function()
   require('telescope.builtin').buffers {
     -- sort_lastused = true,
     -- sort_mru = true,
-    only_cwd = true
+    only_cwd = true,
   }
 end)
 map('n', '<C-g>', '<Nop>', { remap = true })
@@ -123,8 +123,8 @@ map('n', '<LocalLeader>fj', require('telescope.builtin').jumplist)
 -- map('n', '<LocalLeader>fm', require('telescope.builtin').marks)
 map('n', '<LocalLeader>fm', require('telescope.builtin').man_pages)
 map('n', '<LocalLeader>fo', function()
-  require('telescope.builtin').oldfiles{
-    only_cwd = true
+  require('telescope.builtin').oldfiles {
+    only_cwd = true,
   }
 end)
 map('n', '<LocalLeader>fr', require('telescope.builtin').resume)
