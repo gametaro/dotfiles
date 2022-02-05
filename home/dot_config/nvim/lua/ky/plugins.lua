@@ -542,10 +542,11 @@ local function plugins(use)
             }
           end)
           vim.keymap.set('n', '<LocalLeader>+', function()
-            local ok, git_root = pcall(require('lspconfig.util').find_git_ancestor, vim.loop.cwd())
-            require('telescope.builtin.git')
+            local _cwd = vim.loop.cwd()
+            local ok, util = pcall(require, 'lspconfig.util')
+            local cwd = ok and util.find_git_ancestor(_cwd) or _cwd
             require('telescope').extensions.file_browser.file_browser {
-              cwd = ok and git_root or vim.loop.cwd(),
+              cwd = cwd,
               hidden = true,
             }
           end)

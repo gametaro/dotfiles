@@ -171,10 +171,10 @@ map('n', '~', function()
   vim.cmd('edit ' .. vim.fn.expand('$HOME'))
 end)
 map('n', '+', function()
-  local ok, git_root = pcall(require('lspconfig.util').find_git_ancestor, vim.loop.cwd())
-  if ok and git_root then
-    vim.cmd('edit ' .. git_root)
-  end
+  local ok, util = pcall(require, 'lspconfig.util')
+  local cwd = vim.loop.cwd()
+  local path = ok and util.find_git_ancestor(cwd) or cwd
+  vim.cmd('edit ' .. path)
 end)
 
 map('n', '<Leader>cd', '<Cmd>tcd %:p:h <Bar> pwd<CR>')
