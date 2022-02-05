@@ -631,16 +631,36 @@ local function plugins(use)
   use {
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
-    cmd = 'Npm*',
+    cond = function()
+      local ok, node_modules_root = pcall(
+        require('lspconfig.util').find_node_modules_ancestor,
+        vim.loop.cwd()
+      )
+      return ok and node_modules_root
+    end,
     setup = function()
       local command = vim.api.nvim_add_user_command
-      command('NpmShow', require('package-info').show, { nargs = 0 })
-      command('NpmHide', require('package-info').hide, { nargs = 0 })
-      command('NpmUpdate', require('package-info').update, { nargs = 0 })
-      command('NpmDelete', require('package-info').delete, { nargs = 0 })
-      command('NpmInstall', require('package-info').install, { nargs = 0 })
-      command('NpmReinstall', require('package-info').reinstall, { nargs = 0 })
-      command('NpmChange', require('package-info').change_version, { nargs = 0 })
+      command('NpmShow', function()
+        require('package-info').show()
+      end, { nargs = 0 })
+      command('NpmHide', function()
+        require('package-info').hide()
+      end, { nargs = 0 })
+      command('NpmUpdate', function()
+        require('package-info').update()
+      end, { nargs = 0 })
+      command('NpmDelete', function()
+        require('package-info').delete()
+      end, { nargs = 0 })
+      command('NpmInstall', function()
+        require('package-info').install()
+      end, { nargs = 0 })
+      command('NpmReinstall', function()
+        require('package-info').reinstall()
+      end, { nargs = 0 })
+      command('NpmChange', function()
+        require('package-info').change_version()
+      end, { nargs = 0 })
     end,
     config = function()
       require('package-info').setup {}
