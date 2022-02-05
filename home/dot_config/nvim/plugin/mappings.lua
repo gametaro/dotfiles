@@ -138,7 +138,7 @@ map('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>")
 map('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]])
 map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages<Bar>set more<CR>]])
 
-map('n', '<M-q>', function()
+map('n', '<C-q>', function()
   if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
     vim.cmd('cclose')
   else
