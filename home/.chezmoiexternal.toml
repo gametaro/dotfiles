@@ -28,9 +28,13 @@
 {{- end }}
 [".config/wezterm/colors/nightfox.toml"]
     type = "file"
-    url = "https://github.com/edeneast/nightfox.nvim/raw/main/extra/nightfox/nightfox_wezterm.toml"
+    url = "https://raw.githubusercontent.com/EdenEast/nightfox.nvim/main/extra/nightfox/nightfox_wezterm.toml"
     refreshPeriod = "168h"
 [".config/wezterm/colors/duskfox.toml"]
     type = "file"
-    url = "https://github.com/edeneast/nightfox.nvim/raw/main/extra/duskfox/nightfox_wezterm.toml"
+    url = "https://raw.githubusercontent.com/EdenEast/nightfox.nvim/main/extra/duskfox/nightfox_wezterm.toml"
+    refreshPeriod = "168h"
+[".config/wezterm/colors/kanagawa.lua"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/rebelot/kanagawa.nvim/master/extras/wezterm.lua"
     refreshPeriod = "168h"
