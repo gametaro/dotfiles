@@ -272,9 +272,9 @@ map('n', '<F3>', function()
 end)
 
 -- toggle options for easier copy
-map('n', '<F10>',function ()
+map('n', '<F10>', function()
   vim.wo.list = not vim.wo.list
   vim.wo.number = not vim.wo.number
   vim.wo.relativenumber = not vim.wo.relativenumber
-  vim.wo.signcolumn = vim.wo.signcolumn ==  'yes' and 'no' or 'yes'
+  vim.wo.signcolumn = vim.wo.signcolumn == 'yes' and 'no' or 'yes'
 end)
