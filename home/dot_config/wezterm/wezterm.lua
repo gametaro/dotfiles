@@ -29,7 +29,7 @@ end
 return {
   adjust_window_size_when_changing_font_size = false,
   set_environment_variables = set_environment_variables,
-  selection_word_boundary = " \t\n{}[]()\"'`.,;:",
+  selection_word_boundary = ' \t\n{}[]()"\'`.,;:',
   launch_menu = launch_menu,
   enable_tab_bar = true,
   font = wezterm.font {
@@ -47,5 +47,5 @@ return {
     right = 2,
     top = 0,
     bottom = 0,
-  }
+  },
 }
