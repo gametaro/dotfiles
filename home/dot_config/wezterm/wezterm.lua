@@ -27,9 +27,10 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
 end
 
 return {
+  adjust_window_size_when_changing_font_size = false,
   set_environment_variables = set_environment_variables,
+  selection_word_boundary = " \t\n{}[]()\"'`.,;:",
   launch_menu = launch_menu,
-  use_ime = true,
   enable_tab_bar = true,
   font = wezterm.font {
     family = 'FiraCode NF',
@@ -41,4 +42,10 @@ return {
   initial_rows = 30,
   initial_cols = 100,
   scrollback_lines = 10000,
+  window_padding = {
+    left = 2,
+    right = 2,
+    top = 0,
+    bottom = 0,
+  }
 }
