@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1644234694517,
+  "lastUpdate": 1644249133958,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -3910,6 +3910,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.16963863162235296,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "3ac209e09d76766b675786b3493d7f7ac6136f8e",
+          "message": "feat(plugins): add `vscode.nvim`\n\nBetter support for language-specific colors",
+          "timestamp": "2022-02-08T00:47:52+09:00",
+          "tree_id": "71be056b4d01c4870e4c2fbeb2aa050fc3e63cdb",
+          "url": "https://github.com/gametaro/dotfiles/commit/3ac209e09d76766b675786b3493d7f7ac6136f8e"
+        },
+        "date": 1644249132810,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.1981225588266667,
             "unit": "Second"
           }
         ]
