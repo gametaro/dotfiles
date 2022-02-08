@@ -37,7 +37,7 @@ function M.setup(theme)
       require('kanagawa').load()
     elseif theme == 'vscode' then
       vim.g.vscode_style = 'dark'
-      vim.g.vscode_italic_comment = 1
+      vim.g.vscode_italic_comment = 0
       vim.cmd('colorscheme vscode')
     else
       vim.cmd(string.format('colorscheme %s', theme))
