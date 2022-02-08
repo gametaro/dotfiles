@@ -7,5 +7,5 @@ vim.g.did_load_filetypes = 0
 pcall(require, 'impatient')
 require('ky.disable')
 require('ky.plugins')
-require('ky.theme').setup('kanagawa')
+require('ky.theme').setup('vscode')
 pcall(require, 'packer_compiled')
