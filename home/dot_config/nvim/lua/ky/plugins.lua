@@ -431,6 +431,11 @@ local function plugins(use)
       -- vim.keymap.set('n', '<LocalLeader>gc', '<Cmd>Neogit commit<CR>', { silent = true })
     end,
     config = function()
+      vim.cmd([[
+      autocmd!
+      autocmd FileType NeogitStatus setlocal nolist
+      ]])
+
       require('neogit').setup {
         disable_builtin_notifications = true,
         disable_commit_confirmation = true,
