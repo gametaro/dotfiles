@@ -13,6 +13,12 @@ if command -q chezmoi
     end
 end
 
+if command -q gh
+    if not test -e ~/.config/fish/completions/gh.fish
+        gh completion --shell fish > ~/.config/fish/completions/gh.fish
+    end
+end
+
 if status --is-interactive
     abbr -a -g mv mv -i
     abbr -a -g cp cp -i
