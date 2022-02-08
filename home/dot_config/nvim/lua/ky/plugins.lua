@@ -469,6 +469,11 @@ local function plugins(use)
             ['q'] = '<Cmd>DiffviewClose<CR>',
           },
         },
+        hooks = {
+          diff_buf_read = function()
+            vim.opt_local.list = false
+          end,
+        },
       }
     end,
   }
