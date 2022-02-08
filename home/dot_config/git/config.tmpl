@@ -9,6 +9,7 @@
   autoSetupRebase = always
 [core]
   editor = nvim
+  pager = delta
 [color]
   branch = auto
   diff = auto
@@ -29,4 +30,12 @@
   enabled = true
 [status]
   showUntrackedFiles = all
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+[merge]
+  conflictstyle = diff3
+[diff]
+  colorMoved = default
 {{/* vim: set filetype=gitconfig: */}}
