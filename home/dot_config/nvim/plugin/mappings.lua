@@ -37,7 +37,7 @@ map('n', '<Leader>h', ':<C-u>help<Space>')
 -- swap ; for :
 map('', ';', ':')
 -- map('', ':', ';')
-map('', 'q;', 'q:')
+-- map('', 'q;', 'q:')
 
 -- save and quit
 map('n', '<Leader>w', '<Cmd>confirm update<CR>')
