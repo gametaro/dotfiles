@@ -17,6 +17,13 @@ map('i', '<C-_>', '<Nop>')
 map('i', '<C-z>', '<Nop>')
 map('n', 's', '<Nop>', { remap = true })
 
+map('n', 'j', function()
+  return (vim.v.count > 5 and 'm`' .. vim.v.count or '') .. 'gj'
+end, { expr = true })
+map('n', 'k', function()
+  return (vim.v.count > 5 and 'm`' .. vim.v.count or '') .. 'gk'
+end, { expr = true })
+
 map('x', '=', '=gv')
 
 map('n', 'x', '"_x')
