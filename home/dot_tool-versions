@@ -7,5 +7,5 @@ github-cli 2.5.0 system
 neovim nightly system
 nodejs lts system
 ripgrep 13.0.0 system
-starship 1.2.1 system
+starship 1.3.0 system
 zoxide 0.8.0 system
