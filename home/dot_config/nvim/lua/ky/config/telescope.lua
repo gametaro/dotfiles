@@ -99,7 +99,7 @@ end)
 map('n', '<C-b>', '<Nop>')
 map('n', '<C-b>', function()
   require('telescope.builtin').buffers {
-    -- sort_lastused = true,
+    sort_lastused = true,
     -- sort_mru = true,
     only_cwd = true,
   }
