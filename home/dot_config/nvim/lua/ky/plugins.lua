@@ -487,14 +487,14 @@ local function plugins(use)
     end,
   }
 
-  -- use {
-  --   'haya14busa/vim-edgemotion',
-  --   keys = { '<Plug>(edgemotion-' },
-  --   setup = function()
-  --     vim.keymap.set({ 'n', 'x' }, '<C-j>', '<Plug>(edgemotion-j)')
-  --     vim.keymap.set({ 'n', 'x' }, '<C-k>', '<Plug>(edgemotion-k)')
-  --   end,
-  -- }
+  use {
+    'haya14busa/vim-edgemotion',
+    keys = { '<Plug>(edgemotion-' },
+    setup = function()
+      vim.keymap.set({ 'n', 'x' }, '<C-j>', '<Plug>(edgemotion-j)')
+      vim.keymap.set({ 'n', 'x' }, '<C-k>', '<Plug>(edgemotion-k)')
+    end,
+  }
 
   use {
     'kana/vim-textobj-user',
