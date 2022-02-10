@@ -20,6 +20,23 @@ vim.diagnostic.config {
 
 lsp.handlers['textDocument/hover'] = lsp.with(lsp.handlers.hover, float)
 lsp.handlers['textDocument/signatureHelp'] = lsp.with(lsp.handlers.signature_help, float)
+-- https://github.com/neovim/nvim-lspconfig/wiki/User-contributed-tips#use-nvim-notify-to-display-lsp-messages
+lsp.handlers['window/showMessage'] = function(_, result, ctx)
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  local level = ({
+    'ERROR',
+    'WARN',
+    'INFO',
+    'DEBUG',
+  })[result.type]
+  vim.notify({ result.message }, level, {
+    title = 'LSP | ' .. client.name,
+    timeout = 10000,
+    keep = function()
+      return level == 'ERROR' or level == 'WARN'
+    end,
+  })
+end
 
 local signs = { Error = icons.error, Warn = icons.warn, Hint = icons.hint, Info = icons.info }
 for type, icon in pairs(signs) do
