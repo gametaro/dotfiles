@@ -9,6 +9,7 @@ local M = {}
 
 local float = {
   border = require('ky.theme').border,
+  source = 'always',
 }
 
 vim.diagnostic.config {
