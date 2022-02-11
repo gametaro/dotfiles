@@ -126,6 +126,10 @@ map({ 'n', 'x', 'o' }, '0', function()
       and '0'
     or '^'
 end, { expr = true, desc = 'toggle `0` and `^`' })
+map({ 'n', 'x', 'o' }, '$', function()
+  local line = api.nvim_get_current_line()
+  return string.match(string.sub(line, -(string.len(line) - fn.col('.'))), '^%s+$') and '$' or 'g_'
+end, { expr = true, desc = 'toggle `$` and `g_`' })
 
 ---check if the current line is blank
 ---@return boolean
