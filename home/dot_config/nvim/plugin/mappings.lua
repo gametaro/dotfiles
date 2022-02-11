@@ -2,6 +2,7 @@ local map = vim.keymap.set
 local api = vim.api
 local fn = vim.fn
 local cmd = vim.cmd
+local fmt = string.format
 
 -- Nop
 map('', '<Space>', '<Nop>', { remap = true })
@@ -29,11 +30,11 @@ end, { expr = true })
 map('x', '=', '=gv')
 
 for _, v in ipairs { 'c', 'C', 'd', 'D', 'x', 'X' } do
-  local lhs = (v == 'x' or v == 'X') and v or string.format('<Leader>%s', v)
+  local lhs = (v == 'x' or v == 'X') and v or fmt('<Leader>%s', v)
   map(
     { 'n', 'x' },
     lhs,
-    string.format('"_%s', v),
+    fmt('"_%s', v),
     { desc = 'does not store the deleted text in any register. see :help quote_' }
   )
 end
@@ -104,10 +105,10 @@ end, { expr = true })
 
 for _, v in ipairs { 'h', 'j', 'k', 'l' } do
   local desc = 'use `ALT+{h,j,k,l}` to navigate windows from any mode'
-  local lhs = string.format('<M-%s>', v)
-  map('n', lhs, string.format('<C-w>%s', v), { desc = desc })
-  map('i', lhs, string.format([[<C-\><C-n><C-w>%s]], v), { desc = desc })
-  map('t', lhs, string.format('<Cmd>wincmd %s<CR>', v), { desc = desc })
+  local lhs = fmt('<M-%s>', v)
+  map('n', lhs, fmt('<C-w>%s', v), { desc = desc })
+  map('i', lhs, fmt([[<C-\><C-n><C-w>%s]], v), { desc = desc })
+  map('t', lhs, fmt('<Cmd>wincmd %s<CR>', v), { desc = desc })
 end
 
 -- buffer
@@ -141,7 +142,7 @@ for _, v in ipairs { 'i', 'A' } do
     return (not is_blank_line() or vim.bo.buftype == 'terminal') and v or '"_cc'
   end, {
     expr = true,
-    desc = string.format('toggle `%s` and `"_cc` based on the current line', v),
+    desc = fmt('toggle `%s` and `"_cc` based on the current line', v),
   })
 end
 
@@ -161,16 +162,11 @@ end, { desc = 'toggle quickfix window' })
 
 -- WARN: experimental
 for _, v in ipairs { '"', "'", '`', '{', '(', '[' } do
-  map('o', v, string.format('i%s', v), { desc = 'textobj shortcuts' })
+  map('o', v, fmt('i%s', v), { desc = 'textobj shortcuts' })
 end
 
 for _, v in ipairs { '"', "'", '`' } do
-  map(
-    { 'o', 'x' },
-    string.format('a%s', v),
-    string.format('2i', v),
-    { desc = 'do not select blanks' }
-  )
+  map({ 'o', 'x' }, fmt('a%s', v), fmt('2i', v), { desc = 'do not select blanks' })
 end
 
 map('n', '<Leader>.', function()
@@ -272,7 +268,7 @@ map('n', '<F1>', function()
       local i2 = fn.synIDtrans(i1)
       local n1 = fn.synIDattr(i1, 'name')
       local n2 = fn.synIDattr(i2, 'name')
-      print(string.format('%s -> %s', n1, n2))
+      print(fmt('%s -> %s', n1, n2))
     end
   end
 end, { desc = 'show highlight-groups at the cursor' })
