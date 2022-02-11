@@ -28,18 +28,21 @@ end, { expr = true })
 
 map('x', '=', '=gv')
 
-map('n', 'x', '"_x')
-map('n', 'X', '"_X')
+for _, v in ipairs { 'c', 'C', 'd', 'D', 'x', 'X' } do
+  local lhs = (v == 'x' or v == 'X') and v or string.format('<Leader>%s', v)
+  map(
+    { 'n', 'x' },
+    lhs,
+    string.format('"_%s', v),
+    { desc = 'does not store the deleted text in any register. see :help quote_' }
+  )
+end
+
 map('n', 'dd', function()
   local lnum = fn.line('.')
   local lines = api.nvim_buf_get_lines(0, lnum - 1, lnum - 1 + vim.v.count1, true)
   return string.len(vim.trim(table.concat(lines))) == 0 and '"_dd' or 'dd'
-end, { expr = true })
-
-map({ 'n', 'x' }, '<Leader>c', '"_c')
-map({ 'n', 'x' }, '<Leader>C', '"_C')
-map({ 'n', 'x' }, '<Leader>d', '"_d')
-map({ 'n', 'x' }, '<Leader>D', '"_D')
+end, { expr = true, desc = 'does not store the blank line in register. see :help quote_' })
 
 map('n', '<Leader>h', ':<C-u>help<Space>')
 
@@ -99,19 +102,13 @@ map('c', '?', function()
   return fn.getcmdtype() == '?' and [[\?]] or [[?]]
 end, { expr = true })
 
--- use `ALT+{h,j,k,l}` to navigate windows from any mode
-map('n', '<M-h>', '<C-w>h')
-map('n', '<M-j>', '<C-w>j')
-map('n', '<M-k>', '<C-w>k')
-map('n', '<M-l>', '<C-w>l')
-map('i', '<M-h>', [[<C-\><C-n><C-w>h]])
-map('i', '<M-j>', [[<C-\><C-n><C-w>j]])
-map('i', '<M-k>', [[<C-\><C-n><C-w>k]])
-map('i', '<M-l>', [[<C-\><C-n><C-w>l]])
-map('t', '<M-h>', '<Cmd>wincmd h<CR>')
-map('t', '<M-j>', '<Cmd>wincmd j<CR>')
-map('t', '<M-k>', '<Cmd>wincmd k<CR>')
-map('t', '<M-l>', '<Cmd>wincmd l<CR>')
+for _, v in ipairs { 'h', 'j', 'k', 'l' } do
+  local desc = 'use `ALT+{h,j,k,l}` to navigate windows from any mode'
+  local lhs = string.format('<M-%s>', v)
+  map('n', lhs, string.format('<C-w>%s', v), { desc = desc })
+  map('i', lhs, string.format([[<C-\><C-n><C-w>%s]], v), { desc = desc })
+  map('t', lhs, string.format('<Cmd>wincmd %s<CR>', v), { desc = desc })
+end
 
 -- buffer
 map('n', '<BS>', '<Nop>', { remap = true })
@@ -139,12 +136,14 @@ local is_blank_line = function()
 end
 
 -- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
-map('n', 'i', function()
-  return (not is_blank_line() or vim.bo.buftype == 'terminal') and 'i' or '"_cc'
-end, { expr = true, desc = 'toggle `i` and `cc` based on the current line' })
-map('n', 'A', function()
-  return (not is_blank_line() or vim.bo.buftype == 'terminal') and 'A' or '"_cc'
-end, { expr = true, desc = 'toggle `A` and `cc` based on the current line' })
+for _, v in ipairs { 'i', 'A' } do
+  map('n', v, function()
+    return (not is_blank_line() or vim.bo.buftype == 'terminal') and v or '"_cc'
+  end, {
+    expr = true,
+    desc = string.format('toggle `%s` and `"_cc` based on the current line', v),
+  })
+end
 
 -- see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
 map('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>")
@@ -160,19 +159,19 @@ map('n', '<C-q>', function()
   end
 end, { desc = 'toggle quickfix window' })
 
--- textobj shortcuts
 -- WARN: experimental
-map('o', '"', 'i"')
-map('o', "'", "i'")
-map('o', '`', 'i`')
-map('o', '{', 'i{')
-map('o', '(', 'i(')
-map('o', '[', 'i[')
+for _, v in ipairs { '"', "'", '`', '{', '(', '[' } do
+  map('o', v, string.format('i%s', v), { desc = 'textobj shortcuts' })
+end
 
--- do not select blanks
-map({ 'o', 'x' }, 'a"', '2i"')
-map({ 'o', 'x' }, "a'", "2i'")
-map({ 'o', 'x' }, 'a`', '2i`')
+for _, v in ipairs { '"', "'", '`' } do
+  map(
+    { 'o', 'x' },
+    string.format('a%s', v),
+    string.format('2i', v),
+    { desc = 'do not select blanks' }
+  )
+end
 
 map('n', '<Leader>.', function()
   cmd('edit .')
