@@ -441,12 +441,20 @@ local function plugins(use)
     cond = not_headless,
     cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     setup = function()
-      vim.keymap.set('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>')
+      vim.keymap.set('n', '<LocalLeader>gd', function()
+        vim.cmd('DiffviewOpen --untracked-files=no -- ' .. vim.fn.expand('%:p'))
+      end)
+      vim.keymap.set('n', '<LocalLeader>gD', '<Cmd>DiffviewOpen<CR>')
       vim.keymap.set('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory<CR>')
     end,
     config = function()
       require('diffview').setup {
         enhanced_diff_hl = true,
+        file_panel = {
+          position = 'bottom',
+          width = 35,
+          height = 12,
+        },
         key_bindings = {
           view = {
             ['q'] = '<Cmd>DiffviewClose<CR>',
