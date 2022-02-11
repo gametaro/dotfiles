@@ -1,4 +1,7 @@
 local map = vim.keymap.set
+local api = vim.api
+local fn = vim.fn
+local cmd = vim.cmd
 
 -- Nop
 map('', '<Space>', '<Nop>', { remap = true })
@@ -28,8 +31,8 @@ map('x', '=', '=gv')
 map('n', 'x', '"_x')
 map('n', 'X', '"_X')
 map('n', 'dd', function()
-  local lnum = vim.fn.line('.')
-  local lines = vim.api.nvim_buf_get_lines(0, lnum - 1, lnum - 1 + vim.v.count1, true)
+  local lnum = fn.line('.')
+  local lines = api.nvim_buf_get_lines(0, lnum - 1, lnum - 1 + vim.v.count1, true)
   return string.len(vim.trim(table.concat(lines))) == 0 and '"_dd' or 'dd'
 end, { expr = true })
 
@@ -84,16 +87,16 @@ map('c', '<M-f>', '<S-right>')
 -- map('n', '?', '?\v', { noremap = true })
 
 map('c', '%%', function()
-  return vim.fn.getcmdtype() == ':' and vim.fn.expand('%:h') .. '/' or '%%'
+  return fn.getcmdtype() == ':' and fn.expand('%:h') .. '/' or '%%'
 end, { expr = true })
 map('c', '::', function()
-  return vim.fn.getcmdtype() == ':' and vim.fn.expand('%:p:h') .. '/' or '::'
+  return fn.getcmdtype() == ':' and fn.expand('%:p:h') .. '/' or '::'
 end, { expr = true })
 map('c', '/', function()
-  return vim.fn.getcmdtype() == '/' and [[\/]] or [[/]]
+  return fn.getcmdtype() == '/' and [[\/]] or [[/]]
 end, { expr = true })
 map('c', '?', function()
-  return vim.fn.getcmdtype() == '?' and [[\?]] or [[?]]
+  return fn.getcmdtype() == '?' and [[\?]] or [[?]]
 end, { expr = true })
 
 -- use `ALT+{h,j,k,l}` to navigate windows from any mode
@@ -121,10 +124,8 @@ map('n', '<M-,>', '<Cmd>bprevious<CR>')
 
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
-  return string.match(string.sub(vim.api.nvim_get_current_line(), 0, vim.fn.col('.') - 1), '^%s+$')
-        ~= nil
-      and '0'
-    or '^'
+  local line = api.nvim_get_current_line()
+  return string.match(string.sub(line, 1, fn.col('.') - 1), '^%s+$') and '0' or '^'
 end, { expr = true, desc = 'toggle `0` and `^`' })
 map({ 'n', 'x', 'o' }, '$', function()
   local line = api.nvim_get_current_line()
@@ -134,7 +135,7 @@ end, { expr = true, desc = 'toggle `$` and `g_`' })
 ---check if the current line is blank
 ---@return boolean
 local is_blank_line = function()
-  return string.len(vim.trim(vim.api.nvim_get_current_line())) == 0
+  return string.len(vim.trim(api.nvim_get_current_line())) == 0
 end
 
 -- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
@@ -152,10 +153,10 @@ map('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]])
 map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages<Bar>set more<CR>]])
 
 map('n', '<C-q>', function()
-  if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
-    vim.cmd('cclose')
+  if fn.getqflist({ winid = 0 }).winid ~= 0 then
+    cmd('cclose')
   else
-    vim.cmd('botright copen')
+    cmd('botright copen')
   end
 end, { desc = 'toggle quickfix window' })
 
@@ -174,19 +175,19 @@ map({ 'o', 'x' }, "a'", "2i'")
 map({ 'o', 'x' }, 'a`', '2i`')
 
 map('n', '<Leader>.', function()
-  vim.cmd('edit .')
+  cmd('edit .')
 end)
 map('n', '-', function()
-  vim.cmd('edit ' .. vim.fn.expand('%:p:h'))
+  cmd('edit ' .. fn.expand('%:p:h'))
 end)
 map('n', '~', function()
-  vim.cmd('edit ' .. vim.fn.expand('$HOME'))
+  cmd('edit ' .. fn.expand('$HOME'))
 end)
 map('n', '+', function()
   local ok, util = pcall(require, 'lspconfig.util')
   local cwd = vim.loop.cwd()
   local path = ok and util.find_git_ancestor(cwd) or cwd
-  vim.cmd('edit ' .. path)
+  cmd('edit ' .. path)
 end)
 
 map('n', '<Leader>cd', '<Cmd>tcd %:p:h <Bar> pwd<CR>')
@@ -214,7 +215,7 @@ map('n', '<Leader>j', 'i<CR><Esc>k$', { desc = 'split line at current cursor pos
 -- Multiple Cursors
 -- TODO: convert to lua
 -- @see: http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
-vim.cmd([[
+cmd([[
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
 
 nnoremap cn *``cgn
@@ -242,14 +243,14 @@ xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '
 ---@see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
 local function find_proc_in_tree(rootpid, names, acc)
   acc = acc or 0
-  if acc > 9 or not vim.fn.exists('*nvim_get_proc') then
+  if acc > 9 or not fn.exists('*nvim_get_proc') then
     return false
   end
-  local p = vim.api.nvim_get_proc(rootpid)
-  if vim.fn.empty(p) ~= 1 and vim.tbl_contains(names, p.name) then
+  local p = api.nvim_get_proc(rootpid)
+  if fn.empty(p) ~= 1 and vim.tbl_contains(names, p.name) then
     return true
   end
-  local ids = vim.api.nvim_get_proc_children(rootpid)
+  local ids = api.nvim_get_proc_children(rootpid)
   for _, id in ipairs(ids) do
     if find_proc_in_tree(id, names, 1 + acc) then
       return true
@@ -264,10 +265,9 @@ map('t', '<Esc>', function()
 end, { expr = true, desc = [[toggle `<Esc>` and `<C-\><C-n>` according to process tree]] })
 
 map('n', '<F1>', function()
-  local fn = vim.fn
   local items = fn.synstack(fn.line('.'), fn.col('.'))
   if fn.empty(items) == 1 then
-    pcall(vim.cmd, 'TSHighlightCapturesUnderCursor')
+    pcall(cmd, 'TSHighlightCapturesUnderCursor')
   else
     for _, i1 in ipairs(items) do
       local i2 = fn.synIDtrans(i1)
