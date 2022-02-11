@@ -96,17 +96,10 @@ map('c', '::', function()
 end, { expr = true })
 
 for _, v in ipairs { '/', '?' } do
-  map('c', '/', function()
+  map('c', v, function()
     return fn.getcmdtype() == v and fmt([[\%s]], v) or v
   end, { expr = true, desc = fmt('escape %s', v) })
 end
-
-map('c', '/', function()
-  return fn.getcmdtype() == '/' and [[\/]] or [[/]]
-end, { expr = true })
-map('c', '?', function()
-  return fn.getcmdtype() == '?' and [[\?]] or [[?]]
-end, { expr = true })
 
 for _, v in ipairs { 'h', 'j', 'k', 'l' } do
   local desc = 'use `ALT+{h,j,k,l}` to navigate windows from any mode'
