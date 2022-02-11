@@ -164,7 +164,7 @@ for _, v in ipairs { '"', "'", '`', '{', '(', '[' } do
 end
 
 for _, v in ipairs { '"', "'", '`' } do
-  map({ 'o', 'x' }, fmt('a%s', v), fmt('2i', v), { desc = 'do not select blanks' })
+  map({ 'o', 'x' }, fmt('a%s', v), fmt('2i%s', v), { desc = 'do not select blanks' })
 end
 
 map('n', '<Leader>.', function()
