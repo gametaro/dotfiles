@@ -1,3 +1,5 @@
+vim.g.submode_timeout = false
+
 vim.fn['submode#enter_with']('winsize', 'n', '', '<C-w>>', '<C-w>>')
 vim.fn['submode#enter_with']('winsize', 'n', '', '<C-w><', '<C-w><')
 vim.fn['submode#enter_with']('winsize', 'n', '', '<C-w>+', '<C-w>+')
