@@ -274,6 +274,7 @@ local function plugins(use)
           }
           require('luasnip.loaders.from_vscode').load()
           ls.filetype_extend('NeogitCommitMessage', { 'gitcommit' })
+          ls.filetype_extend('typescript', { 'javascript' })
         end,
       },
     },
