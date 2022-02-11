@@ -13,7 +13,6 @@ map('c', '<C-o>', '<Nop>')
 map('c', '<C-x>', '<Nop>')
 map('c', '<C-z>', '<Nop>')
 map('i', '<C-_>', '<Nop>')
--- map('i', '<C-l>', '<Nop>', {})
 map('i', '<C-z>', '<Nop>')
 map('n', 's', '<Nop>', { remap = true })
 
@@ -120,25 +119,27 @@ map('n', '<M-,>', '<Cmd>bprevious<CR>')
 -- map('n', '<M-c>', '<Cmd>bdelete<CR>')
 -- map('n', '<M-C>', '<Cmd>bdelete!<CR>')
 
--- toggle `0` and `^`
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
   return string.match(string.sub(vim.api.nvim_get_current_line(), 0, vim.fn.col('.') - 1), '^%s+$')
         ~= nil
       and '0'
     or '^'
-end, { expr = true })
+end, { expr = true, desc = 'toggle `0` and `^`' })
 
--- toggle `i`, `A` and `cc`
+---check if the current line is blank
+---@return boolean
+local is_blank_line = function()
+  return string.len(vim.trim(vim.api.nvim_get_current_line())) == 0
+end
+
 -- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
 map('n', 'i', function()
-  local is_blank_line = string.len(vim.trim(vim.api.nvim_get_current_line())) == 0
-  return (not is_blank_line or vim.bo.buftype == 'terminal') and 'i' or '"_cc'
-end, { expr = true })
+  return (not is_blank_line() or vim.bo.buftype == 'terminal') and 'i' or '"_cc'
+end, { expr = true, desc = 'toggle `i` and `cc` based on the current line' })
 map('n', 'A', function()
-  local is_blank_line = string.len(vim.trim(vim.api.nvim_get_current_line())) == 0
-  return (not is_blank_line or vim.bo.buftype == 'terminal') and 'A' or '"_cc'
-end, { expr = true })
+  return (not is_blank_line() or vim.bo.buftype == 'terminal') and 'A' or '"_cc'
+end, { expr = true, desc = 'toggle `A` and `cc` based on the current line' })
 
 -- see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
 map('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>")
@@ -152,7 +153,7 @@ map('n', '<C-q>', function()
   else
     vim.cmd('botright copen')
   end
-end)
+end, { desc = 'toggle quickfix window' })
 
 -- textobj shortcuts
 -- WARN: experimental
@@ -198,16 +199,13 @@ map('n', '<Leader>ti', '<Cmd>tabs<CR>')
 map('n', '<Leader>tl', [[<Cmd>execute 'tabmove +' . v:count1<CR>]])
 map('n', '<Leader>th', [[<Cmd>execute 'tabmove -' . v:count1<CR>]])
 
--- move line(s)
 -- map('i', '<M-j>', '<Esc>:m .+1<CR>==gi')
 -- map('i', '<M-k>', '<Esc>:m .-2<CR>==gi')
-map('x', '<M-j>', ":m '>+1<CR>gv=gv")
-map('x', '<M-k>', ":m '<-2<CR>gv=gv")
+map('x', '<M-j>', ":m '>+1<CR>gv=gv", { desc = 'move up line(s)' })
+map('x', '<M-k>', ":m '<-2<CR>gv=gv", { desc = 'move down line(s)' })
 
--- keep curosor position after joining
-map('n', 'J', 'mzJ`z')
--- split line at current cursor position
-map('n', '<Leader>j', 'i<CR><Esc>k$')
+map('n', 'J', 'mzJ`z', { desc = 'keep curosor position after joining' })
+map('n', '<Leader>j', 'i<CR><Esc>k$', { desc = 'split line at current cursor position' })
 
 -- Multiple Cursors
 -- TODO: convert to lua
@@ -232,35 +230,41 @@ xnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
 xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
 ]])
 
-map('t', '<Esc>', function()
-  local M = {}
-  ---searches process tree for a process having a name in the `names` list
-  ---https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
-  M.find_proc_in_tree = function(rootpid, names, acc)
-    acc = acc or 0
-    if acc > 9 or not vim.fn.exists('*nvim_get_proc') then
-      return false
-    end
-    local p = vim.api.nvim_get_proc(rootpid)
-    if vim.fn.empty(p) ~= 1 and vim.tbl_contains(names, p.name) then
-      return true
-    end
-    local ids = vim.api.nvim_get_proc_children(rootpid)
-    for _, id in ipairs(ids) do
-      if M.find_proc_in_tree(id, names, 1 + acc) then
-        return true
-      end
-    end
+---searches process tree for a process having a name in the `names` list
+---@param rootpid number
+---@param names table
+---@param acc number
+---@return boolean
+---@see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
+local function find_proc_in_tree(rootpid, names, acc)
+  acc = acc or 0
+  if acc > 9 or not vim.fn.exists('*nvim_get_proc') then
     return false
   end
+  local p = vim.api.nvim_get_proc(rootpid)
+  if vim.fn.empty(p) ~= 1 and vim.tbl_contains(names, p.name) then
+    return true
+  end
+  local ids = vim.api.nvim_get_proc_children(rootpid)
+  for _, id in ipairs(ids) do
+    if find_proc_in_tree(id, names, 1 + acc) then
+      return true
+    end
+  end
+  return false
+end
+
+map('t', '<Esc>', function()
   local names = { 'nvim', 'fzf' }
-  return M.find_proc_in_tree(vim.b.terminal_job_pid, names) and '<Esc>' or [[<C-\><C-n>]]
-end, { expr = true })
+  return find_proc_in_tree(vim.b.terminal_job_pid, names) and '<Esc>' or [[<C-\><C-n>]]
+end, { expr = true, desc = [[toggle `<Esc>` and `<C-\><C-n>` according to process tree]] })
 
 map('n', '<F1>', function()
   local fn = vim.fn
   local items = fn.synstack(fn.line('.'), fn.col('.'))
-  if fn.empty(items) ~= 1 then
+  if fn.empty(items) == 1 then
+    pcall(vim.cmd, 'TSHighlightCapturesUnderCursor')
+  else
     for _, i1 in ipairs(items) do
       local i2 = fn.synIDtrans(i1)
       local n1 = fn.synIDattr(i1, 'name')
@@ -268,20 +272,18 @@ map('n', '<F1>', function()
       print(string.format('%s -> %s', n1, n2))
     end
   end
-end)
+end, { desc = 'show highlight-groups at the cursor' })
 
--- profile
 map('n', '<F2>', function()
   require('plenary.profile').start('profile.log', { flame = true })
-end)
+end, { desc = 'start profiling with plenary' })
 map('n', '<F3>', function()
   require('plenary.profile').stop()
-end)
+end, { desc = 'stop profiling with plenary' })
 
--- toggle options for easier copy
 map('n', '<F10>', function()
   vim.wo.list = not vim.wo.list
   vim.wo.number = not vim.wo.number
   vim.wo.relativenumber = not vim.wo.relativenumber
   vim.wo.signcolumn = vim.wo.signcolumn == 'yes' and 'no' or 'yes'
-end)
+end, { desc = 'toggle options for easier copy' })
