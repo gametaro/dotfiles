@@ -458,9 +458,15 @@ local function plugins(use)
             ['q'] = '<Cmd>DiffviewClose<CR>',
           },
         },
+        default_args = {
+          DiffviewFileHistory = { '--base=LOCAL' },
+        },
         hooks = {
           diff_buf_read = function()
             vim.opt_local.list = false
+          end,
+          view_opened = function()
+            vim.cmd('wincmd p')
           end,
         },
       }
