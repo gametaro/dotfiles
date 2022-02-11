@@ -792,6 +792,16 @@ local function plugins(use)
       require('luatab').setup {}
     end,
   }
+
+  use {
+    'kana/vim-smartword',
+    event = 'BufRead',
+    setup = function()
+      for _, v in ipairs { 'w', 'b', 'e', 'ge' } do
+        vim.keymap.set('', v, string.format('<Plug>(smartword-%s)'))
+      end
+    end,
+  }
 end
 
 bootstrap()
