@@ -57,11 +57,9 @@ map('n', '<Leader>w', '<Cmd>confirm update<CR>')
 map('n', '<Leader>q', '<Cmd>confirm quit<CR>')
 map('n', '<Leader>a', '<Cmd>confirm quitall<CR>')
 
--- keep cursor centered after movement
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-u>', '<C-u>zz')
-map('n', '<C-f>', '<C-f>zz')
-map('n', 'G', 'Gzz')
+for _, v in ipairs { '<C-u>', '<C-d>', 'G' } do
+  map('n', v, fmt('%szz', v), { desc = 'keep cursor centered after movement' })
+end
 
 -- move in inert mode
 map('i', '<C-p>', '<Up>')
@@ -96,6 +94,13 @@ end, { expr = true })
 map('c', '::', function()
   return fn.getcmdtype() == ':' and fn.expand('%:p:h') .. '/' or '::'
 end, { expr = true })
+
+for _, v in ipairs { '/', '?' } do
+  map('c', '/', function()
+    return fn.getcmdtype() == v and fmt([[\%s]], v) or v
+  end, { expr = true, desc = fmt('escape %s', v) })
+end
+
 map('c', '/', function()
   return fn.getcmdtype() == '/' and [[\/]] or [[/]]
 end, { expr = true })
