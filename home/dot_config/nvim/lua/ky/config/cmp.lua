@@ -48,7 +48,6 @@ local config = {
   sorting = {
     priority_weight = 2,
     comparators = {
-      -- compare_fuzzy_buffer,
       compare.offset,
       compare.exact,
       compare.score,
@@ -166,7 +165,6 @@ cmp.setup.cmdline('/', cmd_config)
 cmp.setup.cmdline('?', cmd_config)
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    -- { name = 'fuzzy_path' },
     { name = 'path' },
   }, {
     { name = 'cmdline' },
