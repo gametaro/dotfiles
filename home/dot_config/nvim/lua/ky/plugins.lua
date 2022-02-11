@@ -798,7 +798,7 @@ local function plugins(use)
     event = 'BufRead',
     setup = function()
       for _, v in ipairs { 'w', 'b', 'e', 'ge' } do
-        vim.keymap.set({ 'n', 'x', 'o' }, v, string.format('<Plug>(smartword-%s)'))
+        vim.keymap.set({ 'n', 'x', 'o' }, v, string.format('<Plug>(smartword-%s)', v))
       end
     end,
   }
