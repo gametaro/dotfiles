@@ -114,7 +114,7 @@ map('t', '<M-l>', '<Cmd>wincmd l<CR>')
 -- buffer
 map('n', '<BS>', '<Nop>', { remap = true })
 map('n', '<BS>', '<C-^>')
-map('t', [[<C-\>]], '<Cmd>edit #<CR>')
+map('t', [[<C-\>]], '<Cmd>buffer #<CR>')
 map('n', '<M-.>', '<Cmd>bnext<CR>')
 map('n', '<M-,>', '<Cmd>bprevious<CR>')
 -- map('n', '<M-c>', '<Cmd>bdelete<CR>')
