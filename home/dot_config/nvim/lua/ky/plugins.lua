@@ -260,11 +260,11 @@ local function plugins(use)
             delete_check_events = 'TextChanged,InsertEnter',
             enable_autosnippets = true,
             ext_opts = {
-              [types.insertNode] = {
-                active = {
-                  virt_text = { { '●' } },
-                },
-              },
+              -- [types.insertNode] = {
+              --   active = {
+              --     virt_text = { { '●' } },
+              --   },
+              -- },
               [types.choiceNode] = {
                 active = {
                   virt_text = { { '■' } },
