@@ -229,7 +229,13 @@ local function plugins(use)
       { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
-      { 'petertriho/cmp-git', after = 'nvim-cmp' },
+      {
+        'petertriho/cmp-git',
+        after = 'nvim-cmp',
+        config = function()
+          require('cmp_git').setup()
+        end,
+      },
       {
         'L3MON4D3/LuaSnip',
         requires = 'rafamadriz/friendly-snippets',
