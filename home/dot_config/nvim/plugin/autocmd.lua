@@ -20,7 +20,7 @@ vim.cmd(
 )
 
 -- highlight on yank
-vim.cmd('autocmd mine TextYankPost * lua vim.highlight.on_yank {higroup = "Search", timeout = 250}')
+vim.cmd('autocmd mine TextYankPost * lua vim.highlight.on_yank {higroup = "Search", timeout = 200}')
 
 -- configure VIM to run chezmoi apply whenever a dotfile is saved
 vim.cmd('autocmd mine BufWritePost ~/.local/share/chezmoi/* silent !chezmoi apply --source-path %')
