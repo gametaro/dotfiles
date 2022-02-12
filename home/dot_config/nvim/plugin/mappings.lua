@@ -28,7 +28,7 @@ end
 map('x', '=', '=gv')
 
 for _, v in ipairs { 'c', 'C', 'd', 'D', 'x', 'X' } do
-  local lhs = (v == 'x' or v == 'X') and v or fmt('<Leader>%s', v)
+  local lhs = string.lower(v) == 'x' and v or fmt('<Leader>%s', v)
   map(
     { 'n', 'x' },
     lhs,
