@@ -1,13 +1,6 @@
 local g, opt = vim.g, vim.opt
 local indent = 2
 
--- neovide
-if vim.fn.exists('g:neovide') > 0 then
-  g.neovide_cursor_animation_length = 0
-  g.neovide_cursor_trail_length = 0
-  opt.guifont = 'FiraCode NF:style=Regular:h11'
-end
-
 opt.autowriteall = true
 opt.clipboard = 'unnamedplus'
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
@@ -95,4 +88,11 @@ end
 
 if vim.fn.executable('rg') > 0 then
   opt.grepprg = 'rg --vimgrep --smart-case --hidden --glob=!.git'
+end
+
+-- neovide
+if vim.fn.exists('g:neovide') > 0 then
+  g.neovide_cursor_animation_length = 0
+  g.neovide_cursor_trail_length = 0
+  opt.guifont = 'FiraCode NF:style=Regular:h11'
 end
