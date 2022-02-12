@@ -114,8 +114,6 @@ local config = {
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'path' },
-    -- { name = 'emoji' },
-    { name = 'cmp_git' },
   }, {
     {
       name = 'buffer',
@@ -169,4 +167,10 @@ cmp.setup.cmdline(':', {
   }, {
     { name = 'cmdline' },
   }),
+})
+cmp.setup.filetype('gitcommit', {
+  sources = {
+    { name = 'luasnip' },
+    { name = 'cmp_git' },
+  },
 })
