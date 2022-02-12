@@ -30,6 +30,7 @@ vim.cmd([=[
       ]=])
 
 local map = vim.keymap.set
+map({ 'n', 'x' }, 's', '<Nop>')
 map('n', '.', '<Plug>(operator-sandwich-dot)')
 map('n', 's(', '<Plug>(operator-sandwich-add-query1st)(')
 map('x', 's(', '<Plug>(operator-sandwich-add)(')

@@ -18,7 +18,6 @@ map('c', '<C-x>', '<Nop>')
 map('c', '<C-z>', '<Nop>')
 map('i', '<C-_>', '<Nop>')
 map('i', '<C-z>', '<Nop>')
-map('n', 's', '<Nop>', { remap = true })
 
 for _, v in ipairs { 'j', 'k' } do
   map('n', v, function()
