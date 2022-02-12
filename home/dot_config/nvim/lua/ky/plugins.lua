@@ -779,6 +779,19 @@ local function plugins(use)
       end
     end,
   }
+
+  use {
+    'kwkarlwang/bufjump.nvim',
+    opt = true,
+    setup = function()
+      vim.keymap.set('n', '<M-o>', function()
+        require('bufjump').backward()
+      end, { desc = 'jump to previous buffer in the jumplist' })
+      vim.keymap.set('n', '<M-i>', function()
+        require('bufjump').forward()
+      end, { desc = 'jump to next buffer in the jumplist' })
+    end,
+  }
 end
 
 bootstrap()
