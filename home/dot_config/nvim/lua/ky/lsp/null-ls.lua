@@ -6,7 +6,7 @@ local on_attach = require('ky.lsp').on_attach
 
 local M = {}
 
-local function condition(cmd)
+local function executable(cmd)
   return function()
     return vim.fn.executable(cmd) == 1
   end
@@ -14,40 +14,40 @@ end
 
 local sources = {
   f.prettierd.with {
-    condition = condition('prettierd'),
+    condition = executable('prettierd'),
     filetypes = { 'html', 'yaml', 'markdown', 'javascript', 'typescript' },
   },
   f.shellharden.with {
-    condition = condition('shellharden'),
+    condition = executable('shellharden'),
   },
   f.shfmt.with {
-    condition = condition('shfmt'),
+    condition = executable('shfmt'),
     extra_args = { '-i', '2', '-bn', '-ci', '-kp' },
   },
   f.stylua.with {
-    condition = condition('stylua'),
+    condition = executable('stylua'),
   },
   f.autopep8.with {
-    condition = condition('autopep8'),
+    condition = executable('autopep8'),
   },
   f.fish_indent.with {
-    condition = condition('fish_indent'),
+    condition = executable('fish_indent'),
   },
   d.markdownlint.with {
-    condition = condition('markdownlint'),
+    condition = executable('markdownlint'),
   },
   d.shellcheck.with {
-    condition = condition('shellcheck'),
+    condition = executable('shellcheck'),
   },
   d.flake8.with {
-    condition = condition('flake8'),
+    condition = executable('flake8'),
   },
   d.pylint.with {
-    condition = condition('pylint'),
+    condition = executable('pylint'),
   },
   d.codespell.with {
     disabled_filetypes = { 'NeogitCommitMessage' },
-    condition = condition('codespell'),
+    condition = executable('codespell'),
   },
   h.dictionary,
 }
