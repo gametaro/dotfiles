@@ -6,18 +6,9 @@ local fmt = string.format
 
 -- Nop
 map('', '<Space>', '<Nop>')
-map('n', '+', '<Nop>')
-map('n', '<C-n>', '<Nop>')
-map('n', '<C-z>', '<Nop>')
-map('n', 'Q', '<Nop>')
+map('', ',', '<Nop>')
 map('n', 'ZQ', '<Nop>')
 map('n', 'ZZ', '<Nop>')
-map('c', '<C-j>', '<Nop>')
-map('c', '<C-o>', '<Nop>')
-map('c', '<C-x>', '<Nop>')
-map('c', '<C-z>', '<Nop>')
-map('i', '<C-_>', '<Nop>')
-map('i', '<C-z>', '<Nop>')
 
 for _, v in ipairs { 'j', 'k' } do
   map('n', v, function()

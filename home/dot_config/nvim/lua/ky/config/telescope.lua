@@ -86,7 +86,6 @@ telescope.setup {
 
 local map = vim.keymap.set
 
-map('n', '<C-p>', '<Nop>', { remap = true })
 map('n', '<C-p>', function()
   local ok = pcall(require('telescope.builtin').git_files)
   if not ok then
@@ -96,7 +95,6 @@ map('n', '<C-p>', function()
     }
   end
 end)
-map('n', '<C-b>', '<Nop>')
 map('n', '<C-b>', function()
   require('telescope.builtin').buffers {
     sort_lastused = true,
@@ -104,7 +102,6 @@ map('n', '<C-b>', function()
     only_cwd = true,
   }
 end)
-map('n', '<C-g>', '<Nop>', { remap = true })
 map('n', '<C-g>', require('telescope.builtin').live_grep)
 map('n', '<C-s>', require('telescope.builtin').grep_string)
 map('n', '<LocalLeader>fd', function()
@@ -115,7 +112,6 @@ map('n', '<LocalLeader>fd', function()
     hidden = true,
   }
 end)
-map('n', '<C-h>', '<Nop>', { remap = true })
 map('n', '<C-h>', require('telescope.builtin').help_tags)
 map('n', '<LocalLeader>fv', require('telescope.builtin').vim_options)
 map('n', '<LocalLeader>fc', require('telescope.builtin').commands)
