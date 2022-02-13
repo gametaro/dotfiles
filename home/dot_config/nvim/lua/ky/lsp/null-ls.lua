@@ -48,6 +48,7 @@ local sources = {
   d.codespell.with {
     disabled_filetypes = { 'NeogitCommitMessage' },
     condition = executable('codespell'),
+    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
   },
   h.dictionary,
 }
