@@ -1,8 +1,9 @@
+local fmt = string.format
+
 -- disable matchup when operating sandwich
 vim.cmd([[autocmd User OperatrSandwichAddPre,OperatorSandwichReplacePre NoMatchParen]])
 vim.cmd([[autocmd User OperatorSandwichAddPost,OperatorSandwichReplacePost DoMatchParen]])
 
--- NOTE: `4` means `$`
 vim.cmd([=[
       augroup mine_sandwich
         autocmd!
@@ -10,16 +11,16 @@ vim.cmd([=[
           \   {'buns': ['"""', '"""'], 'nesting': 0, 'input': ['3"']},
           \ ])
         autocmd FileType sh call sandwich#util#addlocal([
-          \   {'buns': ['$(', ')'], 'nesting': 0, 'input': ['4(']},
-          \   {'buns': ['"$', '"'], 'nesting': 0, 'input': ['4"']},
-          \   {'buns': ['${', '}'], 'nesting': 0, 'input': ['4{']},
+          \   {'buns': ['$(', ')'], 'nesting': 0, 'input': ['$(']},
+          \   {'buns': ['"$', '"'], 'nesting': 0, 'input': ['$"']},
+          \   {'buns': ['${', '}'], 'nesting': 0, 'input': ['${']},
           \   {'buns': ['[[', ']]'], 'nesting': 0, 'input': ['2[', '2]']},
           \ ])
         autocmd FileType lua call sandwich#util#addlocal([
           \   {'buns': ['[[', ']]'], 'nesting': 0, 'input': ['2[', '2]']},
           \ ])
         autocmd FileType javascript,typescript,javascriptreact,typescriptreact call sandwich#util#addlocal([
-          \   {'buns': ['${', '}'], 'nesting': 0, 'input': ['4']},
+          \   {'buns': ['${', '}'], 'nesting': 0, 'input': ['$']},
           \ ])
         autocmd FileType markdown call sandwich#util#addlocal([
           \   {'buns': ['```\a*', '```'], 'nesting': 0, 'regex': 1, 'input': ['3`']},
@@ -32,30 +33,11 @@ vim.cmd([=[
 local map = vim.keymap.set
 map({ 'n', 'x' }, 's', '<Nop>')
 map('n', '.', '<Plug>(operator-sandwich-dot)')
-map('n', 's(', '<Plug>(operator-sandwich-add-query1st)(')
-map('x', 's(', '<Plug>(operator-sandwich-add)(')
-map('n', 's9', '<Plug>(operator-sandwich-add-query1st)(')
-map('x', 's9', '<Plug>(operator-sandwich-add)(')
-map('n', 's)', '<Plug>(operator-sandwich-add-query1st))')
-map('x', 's)', '<Plug>(operator-sandwich-add))')
-map('n', 's0', '<Plug>(operator-sandwich-add-query1st))')
-map('x', 's0', '<Plug>(operator-sandwich-add))')
-map('n', 's[', '<Plug>(operator-sandwich-add-query1st)[')
-map('x', 's[', '<Plug>(operator-sandwich-add)[')
-map('n', 's]', '<Plug>(operator-sandwich-add-query1st)]')
-map('x', 's]', '<Plug>(operator-sandwich-add)]')
-map('n', 's{', '<Plug>(operator-sandwich-add-query1st){')
-map('x', 's{', '<Plug>(operator-sandwich-add){')
-map('n', 's}', '<Plug>(operator-sandwich-add-query1st)}')
-map('x', 's}', '<Plug>(operator-sandwich-add)}')
-map('n', "s'", "<Plug>(operator-sandwich-add-query1st)'")
-map('x', "s'", "<Plug>(operator-sandwich-add)'")
-map('n', 's"', '<Plug>(operator-sandwich-add-query1st)"')
-map('x', 's"', '<Plug>(operator-sandwich-add)"')
-map('n', 's`', '<Plug>(operator-sandwich-add-query1st)`')
-map('x', 's`', '<Plug>(operator-sandwich-add)`')
-map('n', 'sf', '<Plug>(operator-sandwich-add-query1st)f')
-map('x', 'sf', '<Plug>(operator-sandwich-add)f')
+
+for _, v in ipairs { '(', ')', '[', ']', '{', '}', "'", '"', '`', 'f' } do
+  map('n', fmt('s%s', v), fmt('<Plug>(operator-sandwich-add-query1st)%s', v))
+  map('x', fmt('s%s', v), fmt('<Plug>(operator-sandwich-add)%s', v))
+end
 
 map({ 'o', 'x' }, 'im', '<Plug>(textobj-sandwich-literal-query-i)')
 map({ 'o', 'x' }, 'am', '<Plug>(textobj-sandwich-literal-query-a)')
