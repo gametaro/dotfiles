@@ -20,6 +20,7 @@ packages=(
 
 main() {
   {{ if (eq .chezmoi.osRelease.id "ubuntu") -}}
+  sudo add-apt-repository ppa:git-core/ppa
   sudo add-apt-repository ppa:fish-shell/release-3
   {{ end -}}
   {{ if (eq .chezmoi.osRelease.id "debian") -}}
