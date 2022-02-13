@@ -5,7 +5,7 @@ local cmd = vim.cmd
 local fmt = string.format
 
 -- Nop
-map('', '<Space>', '<Nop>', { remap = true })
+map('', '<Space>', '<Nop>')
 map('n', '+', '<Nop>')
 map('n', '<C-n>', '<Nop>')
 map('n', '<C-z>', '<Nop>')
@@ -24,8 +24,6 @@ for _, v in ipairs { 'j', 'k' } do
     return (vim.v.count > 5 and 'm`' .. vim.v.count or '') .. v
   end, { expr = true })
 end
-
-map('x', '=', '=gv')
 
 for _, v in ipairs { 'c', 'C', 'd', 'D', 'x', 'X' } do
   local lhs = string.lower(v) == 'x' and v or fmt('<Leader>%s', v)
@@ -66,6 +64,7 @@ map('i', '<C-f>', '<Right>')
 map('i', '<C-b>', '<Left>')
 map('i', '<C-a>', '<Esc>^i')
 map('i', '<C-e>', '<End>')
+map('i', '<C-]>', '<Esc><Right>')
 
 map('i', '<M-o>', '<C-o>o')
 map('i', '<M-O>', '<C-o>O')
