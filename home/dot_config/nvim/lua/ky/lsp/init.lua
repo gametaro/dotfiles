@@ -102,130 +102,128 @@ function M.on_attach(client, bufnr)
   end
 end
 
-function M.setup()
-  lsp_installer.on_server_ready(function(server)
-    local default_opts = {
-      capabilities = capabilities,
-      on_attach = M.on_attach,
-      flags = {
-        debounce_text_changes = 500,
-      },
-    }
+lsp_installer.on_server_ready(function(server)
+  local default_opts = {
+    capabilities = capabilities,
+    on_attach = M.on_attach,
+    flags = {
+      debounce_text_changes = 500,
+    },
+  }
 
-    local opts = {
-      ['sumneko_lua'] = function()
-        local runtime_path = vim.split(package.path, ';')
-        table.insert(runtime_path, 'lua/?.lua')
-        table.insert(runtime_path, 'lua/?/init.lua')
+  local opts = {
+    ['sumneko_lua'] = function()
+      local runtime_path = vim.split(package.path, ';')
+      table.insert(runtime_path, 'lua/?.lua')
+      table.insert(runtime_path, 'lua/?/init.lua')
 
-        return vim.tbl_deep_extend('force', default_opts, {
-          settings = {
-            Lua = {
-              runtime = {
-                version = 'LuaJIT',
-                path = runtime_path,
-              },
-              diagnostics = {
-                globals = { 'vim' },
-              },
-              workspace = {
-                library = vim.api.nvim_get_runtime_file('', true),
-              },
+      return vim.tbl_deep_extend('force', default_opts, {
+        settings = {
+          Lua = {
+            runtime = {
+              version = 'LuaJIT',
+              path = runtime_path,
+            },
+            diagnostics = {
+              globals = { 'vim' },
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file('', true),
             },
           },
-        })
-        -- return require('lua-dev').setup {
-        --   lspconfig = vim.tbl_deep_extend('force', default_opts, {
-        --     settings = {
-        --       Lua = {
-        --         workspace = {
-        --           library = vim.api.nvim_get_runtime_file('', true),
-        --         },
-        --       },
-        --     },
-        --   }),
-        -- }
-      end,
-      ['jsonls'] = function()
-        return vim.tbl_deep_extend('force', default_opts, {
-          settings = {
-            json = {
-              schemas = require('schemastore').json.schemas(),
+        },
+      })
+      -- return require('lua-dev').setup {
+      --   lspconfig = vim.tbl_deep_extend('force', default_opts, {
+      --     settings = {
+      --       Lua = {
+      --         workspace = {
+      --           library = vim.api.nvim_get_runtime_file('', true),
+      --         },
+      --       },
+      --     },
+      --   }),
+      -- }
+    end,
+    ['jsonls'] = function()
+      return vim.tbl_deep_extend('force', default_opts, {
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+          },
+        },
+      })
+    end,
+    ['yamlls'] = function()
+      return vim.tbl_deep_extend('force', default_opts, {
+        settings = {
+          yaml = {
+            schemas = require('schemastore').json.schemas(),
+            -- for cloudformation
+            -- see https://github.com/aws-cloudformation/cfn-lint-visual-studio-code/issues/69
+            customTags = {
+              '!And',
+              '!And sequence',
+              '!If',
+              '!If sequence',
+              '!Not',
+              '!Not sequence',
+              '!Equals',
+              '!Equals sequence',
+              '!Or',
+              '!Or sequence',
+              '!FindInMap',
+              '!FindInMap sequence',
+              '!Base64',
+              '!Join',
+              '!Join sequence',
+              '!Cidr',
+              '!Ref',
+              '!Sub',
+              '!Sub sequence',
+              '!GetAtt',
+              '!GetAZs',
+              '!ImportValue',
+              '!ImportValue sequence',
+              '!Select',
+              '!Select sequence',
+              '!Split',
+              '!Split sequence',
             },
           },
-        })
-      end,
-      ['yamlls'] = function()
-        return vim.tbl_deep_extend('force', default_opts, {
-          settings = {
-            yaml = {
-              schemas = require('schemastore').json.schemas(),
-              -- for cloudformation
-              -- see https://github.com/aws-cloudformation/cfn-lint-visual-studio-code/issues/69
-              customTags = {
-                '!And',
-                '!And sequence',
-                '!If',
-                '!If sequence',
-                '!Not',
-                '!Not sequence',
-                '!Equals',
-                '!Equals sequence',
-                '!Or',
-                '!Or sequence',
-                '!FindInMap',
-                '!FindInMap sequence',
-                '!Base64',
-                '!Join',
-                '!Join sequence',
-                '!Cidr',
-                '!Ref',
-                '!Sub',
-                '!Sub sequence',
-                '!GetAtt',
-                '!GetAZs',
-                '!ImportValue',
-                '!ImportValue sequence',
-                '!Select',
-                '!Select sequence',
-                '!Split',
-                '!Split sequence',
-              },
+        },
+      })
+    end,
+    ['pyright'] = function()
+      return vim.tbl_deep_extend('force', default_opts, {
+        settings = {
+          python = {
+            analysis = {
+              extraPaths = {},
             },
           },
-        })
-      end,
-      ['pyright'] = function()
-        return vim.tbl_deep_extend('force', default_opts, {
-          settings = {
-            python = {
-              analysis = {
-                extraPaths = {},
-              },
-            },
-          },
-        })
-      end,
-      ['tsserver'] = function()
-        vim.tbl_deep_extend('force', default_opts, {
-          on_attach = function(client, bufnr)
-            M.on_attach(client, bufnr)
+        },
+      })
+    end,
+    ['tsserver'] = function()
+      vim.tbl_deep_extend('force', default_opts, {
+        on_attach = function(client, bufnr)
+          M.on_attach(client, bufnr)
 
-            client.resolved_capabilities.document_formatting = false
-            client.resolved_capabilities.document_range_formatting = false
+          client.resolved_capabilities.document_formatting = false
+          client.resolved_capabilities.document_range_formatting = false
 
-            ts.setup {
-              update_imports_on_move = true,
-              require_confirmation_on_move = true,
-            }
-            ts.setup_client(client)
-          end,
-        })
-      end,
-    }
+          ts.setup {
+            update_imports_on_move = true,
+            require_confirmation_on_move = true,
+          }
+          ts.setup_client(client)
+        end,
+      })
+    end,
+  }
 
-    server:setup(opts[server.name] and opts[server.name]() or default_opts)
-  end)
-end
+  server:setup(opts[server.name] and opts[server.name]() or default_opts)
+end)
 
 return M

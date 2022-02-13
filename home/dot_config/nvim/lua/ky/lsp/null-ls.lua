@@ -4,8 +4,6 @@ local d = null_ls.builtins.diagnostics
 local h = null_ls.builtins.hover
 local on_attach = require('ky.lsp').on_attach
 
-local M = {}
-
 local function executable(cmd)
   return function()
     return vim.fn.executable(cmd) == 1
@@ -53,14 +51,10 @@ local sources = {
   h.dictionary,
 }
 
-function M.setup()
-  null_ls.setup {
-    sources = sources,
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 500,
-    },
-  }
-end
-
-return M
+null_ls.setup {
+  sources = sources,
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 500,
+  },
+}

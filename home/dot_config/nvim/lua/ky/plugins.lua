@@ -199,7 +199,7 @@ local function plugins(use)
       { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
     },
     config = function()
-      require('ky.lsp').setup()
+      require('ky.lsp')
     end,
   }
 
@@ -207,7 +207,7 @@ local function plugins(use)
     'jose-elias-alvarez/null-ls.nvim',
     event = { 'BufRead' },
     config = function()
-      require('ky.lsp.null-ls').setup()
+      require('ky.lsp.null-ls')
     end,
   }
 
