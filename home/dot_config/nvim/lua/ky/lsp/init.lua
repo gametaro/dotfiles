@@ -1,5 +1,4 @@
 local lsp_installer = require('nvim-lsp-installer')
-local ts = require('nvim-lsp-ts-utils')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local icons = require('ky.theme').icons
 
@@ -206,7 +205,10 @@ lsp_installer.on_server_ready(function(server)
       })
     end,
     ['tsserver'] = function()
-      vim.tbl_deep_extend('force', default_opts, {
+      local ts = require('nvim-lsp-ts-utils')
+
+      return vim.tbl_deep_extend('force', default_opts, {
+        init_options = ts.init_options,
         on_attach = function(client, bufnr)
           M.on_attach(client, bufnr)
 
