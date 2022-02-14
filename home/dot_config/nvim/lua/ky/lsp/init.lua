@@ -107,7 +107,7 @@ lsp_installer.on_server_ready(function(server)
     capabilities = capabilities,
     on_attach = M.on_attach,
     flags = {
-      debounce_text_changes = 500,
+      debounce_text_changes = 150,
     },
   }
 

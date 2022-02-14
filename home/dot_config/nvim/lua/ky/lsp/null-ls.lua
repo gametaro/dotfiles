@@ -55,6 +55,6 @@ null_ls.setup {
   sources = sources,
   on_attach = on_attach,
   flags = {
-    debounce_text_changes = 500,
+    debounce_text_changes = 150,
   },
 }
