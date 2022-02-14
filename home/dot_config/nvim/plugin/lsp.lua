@@ -18,7 +18,7 @@ vim.diagnostic.config {
   virtual_text = {
     source = 'always',
     prefix = '●',
-    severity = vim.diagnostic.severity.ERROR
+    severity = vim.diagnostic.severity.ERROR,
   },
   float = float,
 }
