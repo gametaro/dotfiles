@@ -781,7 +781,6 @@ local function plugins(use)
 
   use {
     'kwkarlwang/bufjump.nvim',
-    opt = true,
     setup = function()
       vim.keymap.set('n', '<M-o>', function()
         require('bufjump').backward()
