@@ -790,6 +790,14 @@ local function plugins(use)
       end, { desc = 'jump to next buffer in the jumplist' })
     end,
   }
+
+  use {
+    'kosayoda/nvim-lightbulb',
+    event = { 'BufRead' },
+    setup = function()
+      vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
+    end,
+  }
 end
 
 bootstrap()
