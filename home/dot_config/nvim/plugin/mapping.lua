@@ -193,6 +193,8 @@ map('x', '<M-k>', ":m '<-2<CR>gv=gv", { desc = 'move down line(s)' })
 map('n', 'J', 'mzJ`z', { desc = 'keep curosor position after joining' })
 map('n', '<Leader>j', 'i<CR><Esc>k$', { desc = 'split line at current cursor position' })
 
+map('x', 'gs', ':sort<CR>')
+
 -- Multiple Cursors
 -- TODO: convert to lua
 -- @see: http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
