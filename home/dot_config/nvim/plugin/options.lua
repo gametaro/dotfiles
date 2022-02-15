@@ -4,6 +4,7 @@ local indent = 2
 opt.autowriteall = true
 opt.clipboard = 'unnamedplus'
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
+opt.confirm = true
 opt.diffopt = {
   'algorithm:histogram',
   'closeoff',

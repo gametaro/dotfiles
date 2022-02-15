@@ -40,9 +40,9 @@ map('', ';', ':')
 -- map('', 'q;', 'q:')
 
 -- save and quit
-map('n', '<Leader>w', '<Cmd>confirm update<CR>')
-map('n', '<Leader>q', '<Cmd>confirm quit<CR>')
-map('n', '<Leader>a', '<Cmd>confirm quitall<CR>')
+map('n', '<Leader>w', '<Cmd>update<CR>')
+map('n', '<Leader>q', '<Cmd>quit<CR>')
+map('n', '<Leader>a', '<Cmd>quitall<CR>')
 
 for _, v in ipairs { '<C-u>', '<C-d>', 'G' } do
   map('n', v, fmt('%szz', v), { desc = 'keep cursor centered after movement' })
