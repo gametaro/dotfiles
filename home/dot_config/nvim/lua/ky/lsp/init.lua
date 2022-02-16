@@ -92,17 +92,6 @@ lsp_installer.on_server_ready(function(server)
           },
         },
       })
-      -- return require('lua-dev').setup {
-      --   lspconfig = vim.tbl_deep_extend('force', default_opts, {
-      --     settings = {
-      --       Lua = {
-      --         workspace = {
-      --           library = vim.api.nvim_get_runtime_file('', true),
-      --         },
-      --       },
-      --     },
-      --   }),
-      -- }
     end,
     ['jsonls'] = function()
       return vim.tbl_deep_extend('force', default_opts, {

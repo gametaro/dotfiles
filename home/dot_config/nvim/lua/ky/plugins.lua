@@ -193,7 +193,6 @@ local function plugins(use)
     event = { 'BufRead' },
     requires = {
       { 'williamboman/nvim-lsp-installer' },
-      { 'folke/lua-dev.nvim' },
       { 'b0o/schemastore.nvim' },
       { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
     },
