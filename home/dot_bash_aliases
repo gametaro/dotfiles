@@ -34,6 +34,9 @@ alias g='git'
 # Neovim
 alias v='nvim'
 
+# Npm
+alias n='npm'
+
 # ripgrep
 if [[ $(command -v rg) ]]; then
   alias grep='rg'

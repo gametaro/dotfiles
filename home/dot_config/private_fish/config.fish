@@ -38,6 +38,8 @@ if status --is-interactive
     abbr -a -g dop docker ps
     abbr -a -g dol docker logs
     abbr -a -g dol docker images
+    abbr -a -g n npm
+    abbr -a -g ns npm start
 end
 
 if command -q zoxide
