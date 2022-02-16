@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1645022806926,
+  "lastUpdate": 1645025027444,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -4490,6 +4490,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.23152017130000008,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "49971ca45dd72af0f535c41801a137c25857603d",
+          "message": "feat(plugins): add `telescope-zf-native.nvim`\n\nTry to use this instead of fzf-native.",
+          "timestamp": "2022-02-17T00:19:09+09:00",
+          "tree_id": "bc9a5257509dc11d52f62784a5e54b373f7bbff6",
+          "url": "https://github.com/gametaro/dotfiles/commit/49971ca45dd72af0f535c41801a137c25857603d"
+        },
+        "date": 1645025026261,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.17570009097250003,
             "unit": "Second"
           }
         ]
