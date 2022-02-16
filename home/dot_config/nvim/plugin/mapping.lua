@@ -98,13 +98,19 @@ for _, v in ipairs { 'h', 'j', 'k', 'l' } do
 end
 
 -- buffer
-map('n', '<BS>', '<Nop>', { remap = true })
 map('n', '<BS>', '<C-^>')
-map('t', [[<C-\>]], '<Cmd>buffer #<CR>')
-map('n', '<M-.>', '<Cmd>bnext<CR>')
-map('n', '<M-,>', '<Cmd>bprevious<CR>')
--- map('n', '<M-c>', '<Cmd>bdelete<CR>')
--- map('n', '<M-C>', '<Cmd>bdelete!<CR>')
+map('n', 'gb', function()
+  vim.cmd('buffer #')
+end)
+map('t', [[<C-\>]], function()
+  vim.cmd('buffer #')
+end)
+map('n', '<Tab>', function()
+  vim.cmd('bnext')
+end)
+map('n', '<S-Tab>', function()
+  vim.cmd('bprevious')
+end)
 
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
