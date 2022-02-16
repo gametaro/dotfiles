@@ -488,6 +488,7 @@ local function plugins(use)
       { 'nvim-lua/plenary.nvim' },
       {
         'nvim-telescope/telescope-fzf-native.nvim',
+        disable = true,
         run = 'make',
         after = 'telescope.nvim',
         config = function()
@@ -535,6 +536,13 @@ local function plugins(use)
               hidden = true,
             }
           end)
+        end,
+      },
+      {
+        'natecraddock/telescope-zf-native.nvim',
+        after = 'telescope.nvim',
+        config = function()
+          require('telescope').load_extension('zf-native')
         end,
       },
     },
