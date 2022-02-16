@@ -287,7 +287,6 @@ local function plugins(use)
     end,
   }
 
-  use { 'folke/tokyonight.nvim', opt = true }
   use('EdenEast/nightfox.nvim')
   use('rebelot/kanagawa.nvim')
   use('Mofiqul/vscode.nvim')

@@ -11,18 +11,7 @@ M.border = 'single'
 
 function M.setup(theme)
   if pcall(require, theme) then
-    if theme == 'tokyonight' then
-      local sidebars = {
-        'NeogitStatus',
-        'help',
-        'packer',
-        'qf',
-        'terminal',
-        'toggleterminal',
-      }
-      vim.g.tokyonight_sidebars = sidebars
-      vim.cmd('colorscheme tokyonight')
-    elseif theme == 'nightfox' then
+    if theme == 'nightfox' then
       local nightfox = require('nightfox')
       nightfox.setup {
         fox = 'nightfox',
