@@ -365,14 +365,12 @@ local function plugins(use)
     'kevinhwang91/nvim-hlslens',
     after = 'vim-asterisk',
     setup = function()
-      vim.keymap.set('n', 'n', function()
-        vim.cmd('normal! ' .. vim.v.count1 .. 'nzzzv')
-        require('hlslens').start()
-      end)
-      vim.keymap.set('n', 'N', function()
-        vim.cmd('normal! ' .. vim.v.count1 .. 'Nzzzv')
-        require('hlslens').start()
-      end)
+      for _, v in ipairs { 'n', 'N' } do
+        vim.keymap.set('n', v, function()
+          vim.cmd('normal! ' .. vim.v.count1 .. v)
+          require('hlslens').start()
+        end)
+      end
       vim.keymap.set('', '*', '<Plug>(asterisk-z*)<Cmd>lua require("hlslens").start()<CR>')
       vim.keymap.set('', '#', '<Plug>(asterisk-z#)<Cmd>lua require("hlslens").start()<CR>')
       vim.keymap.set('', 'g*', '<Plug>(asterisk-gz*)<Cmd>lua require("hlslens").start()<CR>')
