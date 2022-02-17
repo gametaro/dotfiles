@@ -22,19 +22,26 @@ map('n', [[<C-\>]], function()
     idx = vim.v.count1,
     create_with = 'terminal',
   }
-end)
+end, { desc = 'harpoon: go to terminal with count' })
 map('n', '<M-a>', function()
   require('harpoon.mark').add_file()
   vim.notify('harpoon.mark: mark added', vim.log.levels.INFO, { title = 'harpoon' })
-end)
-map('n', '<M-u>i', require('harpoon.ui').toggle_quick_menu)
-map('n', '<M-u>c', require('harpoon.cmd-ui').toggle_quick_menu)
-map('n', '<M-n>', function()
-  require('harpoon.ui').nav_file(vim.v.count1)
-end)
+end, { desc = 'harpoon: add mark' })
+map('n', '<M-t>u', require('harpoon.ui').toggle_quick_menu, { desc = 'harpoon: toggle quick menu' })
+map(
+  'n',
+  '<M-t>c',
+  require('harpoon.cmd-ui').toggle_quick_menu,
+  { desc = 'harpoon: toggle quick cmd menu' }
+)
+for i = 1, 5 do
+  map('n', string.format('<M-%s>', i), function()
+    require('harpoon.ui').nav_file(i)
+  end, { desc = 'navigate to file' })
+end
 for i = 1, 5 do
   map('n', string.format('<M-c>%s', i), function()
     require('harpoon.term').gotoTerminal(vim.v.count1)
     require('harpoon.term').sendCommand(vim.v.count1, i)
-  end)
+  end, { desc = string.format('harpoon: go to terminal %s and execute command', i) })
 end
