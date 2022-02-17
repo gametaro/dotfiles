@@ -692,7 +692,8 @@ local function plugins(use)
   use {
     'rlane/pounce.nvim',
     setup = function()
-      vim.keymap.set({ 'n', 'x' }, '<LocalLeader>s', '<Cmd>Pounce<CR>')
+      vim.keymap.set({ 'n', 'x', 'o' }, '<LocalLeader>s', '<Cmd>Pounce<CR>')
+      vim.keymap.set({ 'n', 'x', 'o' }, '<LocalLeader>S', '<Cmd>PounceRepeat<CR>')
     end,
     config = function()
       require('pounce').setup {
