@@ -141,7 +141,7 @@ local function plugins(use)
     keys = { '<Plug>(eft-' },
     setup = function()
       vim.keymap.set({ 'n', 'x', 'o' }, ':', '<Plug>(eft-repeat)')
-      for _, v in ipairs { 'f', 'f', 't', 'T' } do
+      for _, v in ipairs { 'f', 'F', 't', 'T' } do
         vim.keymap.set({ 'n', 'x', 'o' }, v, string.format('<Plug>(eft-%s)', v))
       end
     end,
