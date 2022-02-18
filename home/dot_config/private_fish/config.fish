@@ -1,10 +1,13 @@
 set fish_greeting
 
 if test -d ~/.asdf
-    source ~/.asdf/asdf.fish
     if not test -L ~/.config/fish/completions/asdf.fish
         mkdir -p ~/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
     end
+end
+
+if command -q direnv
+    direnv hook fish | source
 end
 
 if command -q chezmoi
@@ -15,7 +18,7 @@ end
 
 if command -q gh
     if not test -e ~/.config/fish/completions/gh.fish
-        gh completion --shell fish > ~/.config/fish/completions/gh.fish
+        gh completion --shell fish >~/.config/fish/completions/gh.fish
     end
 end
 
@@ -48,10 +51,6 @@ end
 
 if command -q starship
     starship init fish | source
-end
-
-if command -q direnv
-    direnv hook fish | source
 end
 
 set -x GPG_TTY (tty)
