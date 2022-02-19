@@ -1,4 +1,5 @@
 local cmp = require('cmp')
+local mapping = cmp.mapping
 local compare = require('cmp.config.compare')
 
 ---@see https://github.com/lukas-reineke/cmp-under-comparator
@@ -68,22 +69,29 @@ local config = {
     end,
   },
   mapping = {
-    ['<C-p>'] = cmp.mapping(
-      cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+    ['<C-p>'] = mapping(
+      mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
       { 'i', 'c' }
     ),
-    ['<C-n>'] = cmp.mapping(
-      cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+    ['<C-n>'] = mapping(
+      mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
       { 'i', 'c' }
     ),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-e>'] = cmp.mapping {
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
+    ['<C-f>'] = mapping(mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-b>'] = mapping(mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-Space>'] = mapping(mapping.complete(), { 'i', 'c' }),
+    ['<C-e>'] = mapping {
+      i = mapping.abort(),
+      c = mapping.close(),
     },
-    ['<CR>'] = cmp.mapping.confirm { select = true },
+    ['<CR>'] = mapping.confirm { behavior = cmp.ConfirmBehavior.Insert, select = true },
+    ['<C-y>'] = mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
+    ['<Tab>'] = mapping(function(fallback)
+      if cmp.visible() then
+        return cmp.complete_common_string()
+      end
+      fallback()
+    end, { 'i', 'c' }),
   },
   documentation = {
     border = require('ky.theme').border,
