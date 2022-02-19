@@ -1,0 +1,11 @@
+vim = require('vim.shared')
+vim = require('vim.uri')
+
+vim.F = require('vim.F')
+vim.ui = require('vim.ui')
+vim.diagnostic = require('vim.diagnostic')
+vim.filetype = require('vim.filetype')
+vim.highlight = require('vim.highlight')
+vim.keymap = require('vim.keymap')
+vim.lsp = require('vim.lsp')
+vim.treesitter = require('vim.treesitter')
