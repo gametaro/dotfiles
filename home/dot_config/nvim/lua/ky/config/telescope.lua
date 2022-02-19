@@ -42,6 +42,9 @@ local defaults = {
     '--smart-case',
     '--trim',
   },
+  cache_picker = {
+    num_pickers = 3,
+  },
 }
 
 telescope.setup {
@@ -148,7 +151,9 @@ map('n', '<LocalLeader>fo', function()
     only_cwd = true,
   }
 end)
-map('n', '<LocalLeader>fr', require('telescope.builtin').resume)
+map('n', '<LocalLeader>fr', function()
+  require('telescope.builtin').resume { cache_index = vim.v.count1 }
+end)
 map('n', '<LocalLeader>gb', require('telescope.builtin').git_branches)
 map('n', '<LocalLeader>gc', require('telescope.builtin').git_commits)
 map('n', '<LocalLeader>gC', require('telescope.builtin').git_bcommits)
