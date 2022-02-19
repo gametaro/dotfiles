@@ -48,7 +48,7 @@ vim.cmd('autocmd mine FocusGained,WinEnter * silent! checktime')
 vim.cmd('autocmd mine BufWritePost * if &diff | diffupdate | endif')
 vim.cmd('autocmd mine VimResized * wincmd =')
 
-vim.cmd('autocmd mine FileType qf set nobuflisted')
+vim.cmd('autocmd mine FileType qf set nobuflisted nolist')
 
 -- vim.cmd 'autocmd mine CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics { focusable = false }'
 vim.cmd('autocmd mine TermOpen term://* startinsert')
