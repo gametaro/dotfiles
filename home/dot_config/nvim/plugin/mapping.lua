@@ -33,6 +33,7 @@ map('n', 'dd', function()
 end, { expr = true, desc = 'does not store the blank line in register. see :help quote_' })
 
 map('n', '<Leader>h', ':<C-u>help<Space>')
+map('n', '<Leader>l', ':<C-u>lua =')
 
 -- swap ; for :
 map('', ';', ':')
@@ -43,33 +44,28 @@ map('', ';', ':')
 map('n', '<Leader>w', '<Cmd>update<CR>')
 map('n', '<Leader>q', '<Cmd>quit<CR>')
 map('n', '<Leader>a', '<Cmd>quitall<CR>')
+map('n', '<Leader>e', function()
+  cmd('update')
+  cmd('luafile %')
+end, { desc = 'write and execute current lua file' })
 
 for _, v in ipairs { '<C-u>', '<C-d>', 'G' } do
   map('n', v, fmt('%szz', v), { desc = 'keep cursor centered after movement' })
 end
 
--- move in inert mode
-map('i', '<C-p>', '<Up>')
-map('i', '<C-n>', '<Down>')
-map('i', '<C-f>', '<Right>')
-map('i', '<C-b>', '<Left>')
-map('i', '<C-a>', '<Esc>^i')
-map('i', '<C-e>', '<End>')
+-- movement in insert/cmdline mode
+map({ 'i', 'c' }, '<C-p>', '<Up>')
+map({ 'i', 'c' }, '<C-n>', '<Down>')
+map({ 'i', 'c' }, '<C-f>', '<Right>')
+map({ 'i', 'c' }, '<C-b>', '<Left>')
+map('i', '<C-a>', '<C-o>^')
+map('c', '<C-a>', '<Home>')
+map({ 'i', 'c' }, '<C-e>', '<End>')
 map('i', '<C-]>', '<Esc><Right>')
 
 map('i', '<M-o>', '<C-o>o')
 map('i', '<M-O>', '<C-o>O')
--- WARN: experimental
--- map('i', ',', ',<Space>', )
 
--- move in cmdline mode
-map('c', '<C-p>', '<Up>')
-map('c', '<C-n>', '<Down>')
-map('c', '<C-f>', '<Right>')
-map('c', '<C-b>', '<Left>')
-map('c', '<C-d>', '<Del>')
-map('c', '<C-a>', '<Home>')
-map('c', '<C-e>', '<End>')
 map('c', '<M-b>', '<S-Left>')
 map('c', '<M-f>', '<S-right>')
 
@@ -90,7 +86,7 @@ for _, v in ipairs { '/', '?' } do
 end
 
 for _, v in ipairs { 'h', 'j', 'k', 'l' } do
-  local desc = 'use `ALT+{h,j,k,l}` to navigate windows from any mode'
+  local desc = fmt('use `ALT+%s` to navigate windows from any mode', v)
   local lhs = fmt('<M-%s>', v)
   map('n', lhs, fmt('<C-w>%s', v), { desc = desc })
   map('i', lhs, fmt([[<C-\><C-n><C-w>%s]], v), { desc = desc })
@@ -100,16 +96,16 @@ end
 -- buffer
 map('n', '<BS>', '<C-^>')
 map('n', 'gb', function()
-  vim.cmd('buffer #')
+  cmd('buffer #')
 end)
 map('t', [[<C-\>]], function()
-  vim.cmd('buffer #')
+  cmd('buffer #')
 end)
 map('n', '<Tab>', function()
-  vim.cmd('bnext')
+  cmd('bnext')
 end)
 map('n', '<S-Tab>', function()
-  vim.cmd('bprevious')
+  cmd('bprevious')
 end)
 
 -- see https://github.com/yuki-yano/zero.nvim
@@ -154,7 +150,7 @@ end, { desc = 'toggle quickfix window' })
 
 -- WARN: experimental
 for _, v in ipairs { '"', "'", '`', '{', '(', '[' } do
-  map('o', v, fmt('i%s', v), { desc = 'textobj shortcuts' })
+  map('o', v, fmt('i%s', v), { desc = 'text object shortcuts' })
 end
 
 for _, v in ipairs { '"', "'", '`' } do
