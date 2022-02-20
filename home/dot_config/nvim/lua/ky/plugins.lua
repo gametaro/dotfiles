@@ -26,7 +26,6 @@ local config = {
     end,
     prompt_border = require('ky.theme').border,
   },
-  compile_path = vim.fn.stdpath('config') .. '/lua/packer_compiled.lua',
 }
 
 local function plugins(use)
