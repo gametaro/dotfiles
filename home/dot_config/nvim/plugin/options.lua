@@ -46,7 +46,6 @@ opt.listchars = {
 -- opt.mouse = 'a'
 opt.number = true
 opt.pumheight = 10
-opt.quickfixtextfunc = '{info -> v:lua._G.qftf(info)}'
 opt.relativenumber = true
 opt.shada = "!,'0,f0,<50,s10,h"
 opt.scrolloff = 5

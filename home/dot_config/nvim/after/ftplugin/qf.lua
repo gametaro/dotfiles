@@ -1,5 +1,11 @@
 local fn = vim.fn
 
+vim.opt_local.buflisted = false
+vim.opt_local.list = false
+vim.opt_local.number = false
+vim.opt_local.relativenumber = false
+vim.opt_local.quickfixtextfunc = '{info -> v:lua._G.qftf(info)}'
+
 local items = function(info)
   return info.quickfix == 1 and fn.getqflist({ id = info.id, items = 0 }).items
     or fn.getloclist(info.winid, { id = info.id, items = 0 }).items
