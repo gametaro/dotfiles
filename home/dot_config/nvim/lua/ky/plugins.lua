@@ -102,17 +102,22 @@ local function plugins(use)
     setup = function()
       vim.keymap.set({ 'n', 'x' }, '<C-a>', '<Plug>(dial-increment)')
       vim.keymap.set({ 'n', 'x' }, '<C-x>', '<Plug>(dial-decrement)')
-      vim.keymap.set('x', '<C-a>', '<Plug>(dial-increment-additional)')
-      vim.keymap.set('x', '<C-x>', '<Plug>(dial-decrement-additional)')
+      vim.keymap.set('x', 'g<C-a>', 'g<Plug>(dial-increment)')
+      vim.keymap.set('x', 'g<C-x>', 'g<Plug>(dial-decrement)')
     end,
     config = function()
-      local dial = require('dial')
-      dial.augends['custom#boolean'] = dial.common.enum_cyclic {
-        name = 'boolean',
-        strlist = { 'true', 'false' },
+      local augend = require('dial.augend')
+      require('dial.config').augends:register_group {
+        default = {
+          augend.integer.alias.decimal,
+          augend.integer.alias.hex,
+          augend.date.alias['%Y/%m/%d'],
+          augend.date.alias['%Y-%m-%d'],
+          augend.date.alias['%m/%d'],
+          augend.date.alias['%H:%M'],
+          augend.constant.alias.bool,
+        },
       }
-      table.insert(dial.config.searchlist.normal, 'markup#markdown#header')
-      table.insert(dial.config.searchlist.normal, 'custom#boolean')
     end,
   }
 
