@@ -10,35 +10,35 @@ local ins_generate = require('ky.snippets.helpers').ins_generate
 
 return {
   s(
-    'c',
+    'l',
     c(1, {
-      sn(nil, fmt('const {} = {};', ins_generate())),
+      sn(nil, fmt('let {}', { r(1, 'name') })),
+      sn(nil, fmt('let {} = {}', { r(1, 'name'), i(2) })),
+    })
+  ),
+  s('c', fmt('const {} = {}', ins_generate())),
+  s(
+    'cd',
+    c(1, {
       sn(nil, fmta('const { <> } = <>;', { r(2, 'value'), r(1, 'name') })),
       sn(nil, fmt('const [ {} ] = {};', { r(2, 'value'), r(1, 'name') })),
     })
   ),
-  s(
-    'ternary',
-    c(1, {
-      sn(nil, fmt('{} ? {} : {}', { r(1, 'cond'), r(2, 'true'), r(3, 'false') })),
-      sn(nil, fmt('const {} = {} ? {} : {};', { i(1), r(2, 'cond'), r(3, 'true'), r(4, 'false') })),
-    })
-  ),
-  s(
-    'json',
-    c(1, {
-      sn(nil, fmt('JSON.parse({})', r(1, 'value'))),
-      sn(nil, fmt('JSON.stringify({})', r(1, 'value'))),
-    })
-  ),
-  s(
-    'log',
-    c(1, {
-      sn(nil, fmt('console.log({})', r(1, 'value'))),
-      sn(nil, fmt('console.warn({})', r(1, 'value'))),
-      sn(nil, fmt('console.error({})', r(1, 'value'))),
-    })
-  ),
+  s('te', fmt('{} ? {} : {}', ins_generate())),
+  s('j', {
+    t('JSON.'),
+    c(1, { t('parse'), t('stringify') }),
+    t('('),
+    i(2),
+    t(')'),
+  }),
+  s('cl', {
+    t('console.'),
+    c(1, { t('log'), t('warn'), t('error') }),
+    t('('),
+    i(2),
+    t(')'),
+  }),
   s(
     'await',
     c(1, {
@@ -103,12 +103,12 @@ return {
       sn(nil, fmt("import {} as {} from '{}'", { r(2, 'name'), i(3), r(1, 'from') })),
     })
   ),
-  s(
-    'export',
-    c(1, {
-      sn(nil, fmt('export const {} = {}', ins_generate())),
-    })
-  ),
+  s('ex', {
+    t('export '),
+    i(1),
+    t(' '),
+    i(2),
+  }),
   s('fa', {
     c(1, {
       sn(nil, fmt('({}) => {}', { r(1, 'args'), r(2, 'code') })),
@@ -198,4 +198,62 @@ return {
       ),
     })
   ),
+  s(
+    'class',
+    fmta(
+      [[
+      class <> {
+        constructor(<>) {
+          <>
+        }
+      }]],
+      ins_generate()
+    )
+  ),
+  s('member', {
+    c(1, { t('public '), t('private ') }),
+    i(2),
+    c(3, { t(': '), t(' = ') }),
+    i(4),
+  }),
+  s(
+    'method',
+    fmta(
+      [[
+      <><>(<>) {
+        <>
+      }
+      ]],
+      {
+        c(1, { t(''), t('public '), t('private ') }),
+        i(2),
+        i(3),
+        i(4),
+      }
+    )
+  ),
+  s('t', {
+    t('this.'),
+  }),
+  s('o', {
+    t('Object.'),
+    c(1, { t('keys('), t('values('), t('entries('), t('assign(') }),
+    i(2),
+    t(')'),
+  }),
+  s(':', {
+    t(': '),
+  }),
+  s('=', {
+    t(' = '),
+  }),
+  s('/', {
+    t('// '),
+  }),
+  s('s', {
+    t('string'),
+  }),
+  s('n', {
+    t('number'),
+  }),
 }
