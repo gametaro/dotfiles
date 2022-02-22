@@ -1,4 +1,4 @@
-local not_headless = require('ky.utils').not_headless
+local in_headless = require('ky.utils').in_headless
 
 local function bootstrap()
   local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
@@ -161,7 +161,7 @@ local function plugins(use)
       { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
     },
     run = function()
-      if not_headless() then
+      if not in_headless() then
         vim.cmd([[ TSUpdate ]])
       end
     end,
@@ -374,7 +374,7 @@ local function plugins(use)
   use {
     'sindrets/diffview.nvim',
     requires = 'nvim-lua/plenary.nvim',
-    cond = not_headless,
+    cond = not in_headless,
     cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     setup = function()
       vim.keymap.set('n', '<LocalLeader>gd', function()
@@ -567,7 +567,7 @@ local function plugins(use)
 
   use {
     'rcarriga/nvim-notify',
-    cond = not_headless,
+    cond = not in_headless,
     event = 'BufRead',
     config = function()
       local notify = require('notify')
@@ -600,7 +600,7 @@ local function plugins(use)
     'iamcco/markdown-preview.nvim',
     ft = { 'markdown' },
     run = function()
-      if not_headless() then
+      if not in_headless() then
         vim.fn['mkdp#util#install']()
       end
     end,
