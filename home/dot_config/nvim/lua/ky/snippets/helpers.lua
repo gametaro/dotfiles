@@ -23,4 +23,16 @@ return {
       end,
     })
   end,
+  rep_generate = function(nodes)
+    return setmetatable(nodes or {}, {
+      __index = function(table, key)
+        local idx = tonumber(key)
+        if idx then
+          local val = ls.r(idx, tostring(idx))
+          rawset(table, key, val)
+          return val
+        end
+      end,
+    })
+  end,
 }
