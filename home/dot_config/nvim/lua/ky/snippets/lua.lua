@@ -5,6 +5,7 @@ local c = require('ky.snippets.helpers').c
 local i = require('ky.snippets.helpers').i
 local r = require('ky.snippets.helpers').r
 local fmt = require('ky.snippets.helpers').fmt
+local fmta = require('ky.snippets.helpers').fmta
 local ins_generate = require('ky.snippets.helpers').ins_generate
 
 return {
@@ -13,6 +14,24 @@ return {
     c(1, {
       sn(nil, fmt('local {}', r(1, 'name'))),
       sn(nil, fmt('local {} = {}', { r(1, 'name'), i(2) })),
+    })
+  ),
+  s(
+    't',
+    c(1, {
+      sn(nil, fmta('<> = { <> }', { r(1, 'name'), r(2, 'value') })),
+      sn(nil, fmta('local <> = { <> }', { r(1, 'name'), r(2, 'value') })),
+      sn(
+        nil,
+        fmta(
+          [[
+          local <> = { 
+            <>
+          }
+          ]],
+          { r(1, 'name'), r(2, 'value') }
+        )
+      ),
     })
   ),
   s(
@@ -50,7 +69,7 @@ return {
     t { '', 'end' },
   }),
   s(
-    'f',
+    'lf',
     c(1, {
       sn(
         nil,
@@ -72,6 +91,65 @@ return {
           end
           ]],
           { r(1, 'name'), r(2, 'args'), r(3, 'code') }
+        )
+      ),
+    })
+  ),
+  s(
+    'af',
+    fmt(
+      [[
+          function({})
+            {}
+          end
+          ]],
+      { r(1, 'name'), r(2, 'args') }
+    )
+  ),
+  s(
+    'f',
+    c(1, {
+      sn(
+        nil,
+        fmt(
+          [[
+          function {}({})
+            {}
+          end
+          ]],
+          { r(1, 'name'), r(2, 'args'), r(3, 'code') }
+        )
+      ),
+      sn(
+        nil,
+        fmt(
+          [[
+          function {}({}) {} end
+          ]],
+          { r(1, 'name'), r(2, 'args'), r(3, 'code') }
+        )
+      ),
+    })
+  ),
+  s(
+    'map',
+    c(1, {
+      sn(
+        nil,
+        fmt(
+          [[
+      vim.keymap.set({}, {}, {})
+      ]],
+          { r(1, 'mode'), r(2, 'lhs'), r(3, 'rhs') }
+        )
+      ),
+      sn(
+        nil,
+        fmta(
+          [[
+      vim.keymap.set(<>, <>, <>, { <> })
+      ]],
+          { r(1, 'mode'), r(2, 'lhs'), r(3, 'rhs'), i(4) }
         )
       ),
     })
