@@ -45,7 +45,6 @@ _G.snippets_reload()
 vim.cmd([[
 augroup snippets_reload
 au!
-au BufWritePost ~/.config/nvim/lua/ky/snippets/*.lua lua _G.snippets_reload()
 au BufWritePost ~/.local/share/chezmoi/home/dot_config/nvim/lua/ky/snippets/*.lua lua _G.snippets_reload()
 augroup END
 ]])
