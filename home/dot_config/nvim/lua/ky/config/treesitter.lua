@@ -9,6 +9,9 @@ require('nvim-treesitter.configs').setup {
     enable = true, -- mandatory, false will disable the whole extension
     -- [options]
   },
+  autotag = {
+    enable = true,
+  },
   playground = {
     enable = true,
     disable = {},
