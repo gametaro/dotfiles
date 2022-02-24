@@ -55,7 +55,13 @@ local function plugins(use)
     end,
   }
 
-  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+  use {
+    'kevinhwang91/nvim-bqf',
+    ft = 'qf',
+    setup = function()
+      vim.api.nvim_set_hl(0, 'BqfPreviewBorder', { default = true, link = 'FloatBorder' })
+    end,
+  }
 
   use {
     'numToStr/Comment.nvim',
