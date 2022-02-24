@@ -90,7 +90,7 @@ if fn.executable('fish') > 0 then
 end
 
 if fn.executable('rg') > 0 then
-  opt.grepprg = 'rg --vimgrep --smart-case --hidden --glob=!.git'
+  opt.grepprg = 'rg --vimgrep --smart-case --hidden'
 end
 
 -- neovide

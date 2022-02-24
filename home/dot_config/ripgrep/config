@@ -1,3 +1,2 @@
---glob=!{.git,node_modules}
 --smart-case
 --hidden
