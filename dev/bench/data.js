@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1645707620246,
+  "lastUpdate": 1645715163588,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -4925,6 +4925,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.19204105407333333,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "af082188f159a5611cf38a28691ee5915ad8d17e",
+          "message": "chore: move ignore file for fd and rg",
+          "timestamp": "2022-02-25T00:02:04+09:00",
+          "tree_id": "406f735d45fc2453529ebbdbf2cae989b5d3f348",
+          "url": "https://github.com/gametaro/dotfiles/commit/af082188f159a5611cf38a28691ee5915ad8d17e"
+        },
+        "date": 1645715162290,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.18236367542750004,
             "unit": "Second"
           }
         ]
