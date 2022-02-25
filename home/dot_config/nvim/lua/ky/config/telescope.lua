@@ -1,6 +1,8 @@
 local telescope = require('telescope')
 local actions = require('telescope.actions')
 local actions_layout = require('telescope.actions.layout')
+local themes = require('telescope.themes')
+local builtin = require('telescope.builtin')
 
 local defaults = {
   mappings = {
@@ -115,47 +117,52 @@ telescope.setup {
 local map = vim.keymap.set
 
 map('n', '<C-p>', function()
-  local ok = pcall(require('telescope.builtin').git_files)
+  local ok = pcall(builtin.git_files)
   if not ok then
-    require('telescope.builtin').find_files {
+    builtin.find_files {
       find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
       hidden = true,
     }
   end
 end)
 map('n', '<C-b>', function()
-  require('telescope.builtin').buffers {
+  builtin.buffers(themes.get_dropdown {
     sort_lastused = true,
     -- sort_mru = true,
     only_cwd = true,
-  }
+    previewer = false,
+  })
 end)
-map('n', '<C-g>', require('telescope.builtin').live_grep)
-map('n', '<C-s>', require('telescope.builtin').grep_string)
+map('n', '<C-g>', builtin.live_grep)
+map('n', '<C-s>', builtin.grep_string)
 map('n', '<LocalLeader>fd', function()
-  require('telescope.builtin').find_files {
+  builtin.find_files {
     prompt_title = 'Dot Files',
     find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
     cwd = '$XDG_DATA_HOME/chezmoi/',
     hidden = true,
   }
 end)
-map('n', '<C-h>', require('telescope.builtin').help_tags)
-map('n', '<LocalLeader>fv', require('telescope.builtin').vim_options)
-map('n', '<LocalLeader>fc', require('telescope.builtin').commands)
-map('n', '<LocalLeader>fj', require('telescope.builtin').jumplist)
--- map('n', '<LocalLeader>fm', require('telescope.builtin').marks)
-map('n', '<LocalLeader>fm', require('telescope.builtin').man_pages)
-map('n', '<LocalLeader>fo', function()
-  require('telescope.builtin').oldfiles {
+map('n', '<C-h>', builtin.help_tags)
+map('n', '<LocalLeader>fv', builtin.vim_options)
+map('n', '<LocalLeader>fc', builtin.commands)
+map('n', '<LocalLeader>fj', builtin.jumplist)
+-- map('n', '<LocalLeader>fm', builtin.marks)
+map('n', '<LocalLeader>fm', builtin.man_pages)
+map('n', '<C-n>', function()
+  builtin.oldfiles(themes.get_dropdown {
     only_cwd = true,
-  }
+    previewer = false,
+  })
 end)
 map('n', '<LocalLeader>fr', function()
-  require('telescope.builtin').resume { cache_index = vim.v.count1 }
+  builtin.resume { cache_index = vim.v.count1 }
 end)
-map('n', '<LocalLeader>gb', require('telescope.builtin').git_branches)
-map('n', '<LocalLeader>gc', require('telescope.builtin').git_commits)
-map('n', '<LocalLeader>gC', require('telescope.builtin').git_bcommits)
-map('n', '<LocalLeader>gs', require('telescope.builtin').git_status)
-map('n', '<LocalLeader>gS', require('telescope.builtin').git_stash)
+map('n', '<LocalLeader>gb', builtin.git_branches)
+map('n', '<LocalLeader>gc', builtin.git_commits)
+map('n', '<LocalLeader>gC', builtin.git_bcommits)
+map('n', '<LocalLeader>gs', builtin.git_status)
+map('n', '<LocalLeader>gS', builtin.git_stash)
+map('n', '<LocalLeader>ld', builtin.lsp_document_symbols)
+map('n', '<LocalLeader>lw', builtin.lsp_workspace_symbols)
+map('n', '<LocalLeader>ls', builtin.lsp_dynamic_workspace_symbols)
