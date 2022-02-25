@@ -1,6 +1,6 @@
 require('nvim-treesitter.configs').setup {
   -- ensure_installed = 'maintained',
-  highlight = { enable = true },
+  highlight = { enable = true, disable = { 'html' } },
   incremental_selection = { enable = false },
   indent = { enable = true, disable = { 'yaml' } },
   context_commentstring = { enable = true, enable_autocmd = false },
