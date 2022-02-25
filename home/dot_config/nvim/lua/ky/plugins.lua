@@ -716,17 +716,6 @@ local function plugins(use)
     end,
   }
 
-  use {
-    'j-hui/fidget.nvim',
-    config = function()
-      require('fidget').setup {
-        text = {
-          spinner = 'dots',
-        },
-      }
-    end,
-  }
-
   use('gpanders/editorconfig.nvim')
 
   use {
