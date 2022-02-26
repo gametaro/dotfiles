@@ -37,7 +37,7 @@ return {
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
   },
   font_size = 8.0,
-  color_scheme = 'kanagawa',
+  color_scheme = 'nightfox',
   add_wsl_distributions_to_launch_menu = false,
   initial_rows = 30,
   initial_cols = 100,
