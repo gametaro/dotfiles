@@ -10,14 +10,6 @@ function M.is_nightly()
   return vim.fn.has('nvim-0.7') > 0
 end
 
----go to quickfix window
----@return any
-function M.goto_quickfix()
-  local winid = vim.fn.getqflist({ winid = 0 }).winid
-  vim.cmd('cwindow')
-  return winid ~= 0 and vim.fn.win_gotoid(winid)
-end
-
 ---go to loclist window
 ---@return any
 function M.goto_loclist()

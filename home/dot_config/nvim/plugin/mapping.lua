@@ -140,14 +140,6 @@ map('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>")
 map('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]])
 map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages<Bar>set more<CR>]])
 
-map('n', '<C-q>', function()
-  if fn.getqflist({ winid = 0 }).winid ~= 0 then
-    cmd('cclose')
-  else
-    cmd('botright copen')
-  end
-end, { desc = 'toggle quickfix window' })
-
 -- WARN: experimental
 for _, v in ipairs { '"', "'", '`', '{', '(', '[' } do
   map('o', v, fmt('i%s', v), { desc = 'text object shortcuts' })
@@ -186,6 +178,71 @@ map('n', '<Leader>ts', '<Cmd>tab split<CR>')
 map('n', '<Leader>ti', '<Cmd>tabs<CR>')
 map('n', '<Leader>tl', [[<Cmd>execute 'tabmove +' . v:count1<CR>]])
 map('n', '<Leader>th', [[<Cmd>execute 'tabmove -' . v:count1<CR>]])
+
+-- quickfix
+map('n', 'q', '<Nop>')
+map('n', 'Q', 'q')
+map('n', 'ql', function()
+  local ok, msg = pcall(cmd, 'clist')
+  if not ok then
+    vim.notify(msg, vim.log.levels.WARN)
+  end
+end)
+map('n', 'qh', function()
+  local ok, msg = pcall(cmd, vim.v.count1 .. 'chistory')
+  if not ok then
+    vim.notify(msg, vim.log.levels.WARN)
+  end
+end)
+map('n', 'qf', function()
+  vim.ui.select({
+    'Yes',
+    'No',
+  }, {
+    prompt = 'Free all the quickfix lists in the stack?:',
+  }, function(choice)
+    choice = choice or ''
+    if choice == 'Yes' then
+      fn.setqflist({}, 'f')
+    end
+  end)
+end, { desc = 'free all the quickfix lists in the stack. see :help setqflist-examples' })
+map('n', 'qp', function()
+  local ok, msg = pcall(cmd, vim.v.count1 .. 'colder')
+  if not ok then
+    vim.notify(msg, vim.log.levels.WARN)
+  end
+end)
+map('n', 'qn', function()
+  local ok, msg = pcall(cmd, vim.v.count1 .. 'cnewer')
+  if not ok then
+    vim.notify(msg, vim.log.levels.WARN)
+  end
+end)
+map('n', ']q', function()
+  local ok, _ = pcall(cmd, vim.v.count1 .. 'cnext')
+  if not ok then
+    pcall(cmd, 'cfirst')
+  end
+end)
+map('n', '[q', function()
+  local ok, _ = pcall(cmd, vim.v.count1 .. 'cprevious')
+  if not ok then
+    pcall(cmd, 'clast')
+  end
+end)
+map('n', 'gq', function()
+  local winid = fn.getqflist({ winid = 0 }).winid
+  cmd('cwindow')
+  return winid ~= 0 and fn.win_gotoid(winid)
+end, { desc = 'go to quickfix window' })
+map('n', '<C-q>', function()
+  if fn.getqflist({ winid = 0 }).winid ~= 0 then
+    cmd('cclose')
+  else
+    cmd('botright copen')
+  end
+end, { desc = 'toggle quickfix window' })
 
 -- map('i', '<M-j>', '<Esc>:m .+1<CR>==gi')
 -- map('i', '<M-k>', '<Esc>:m .-2<CR>==gi')
