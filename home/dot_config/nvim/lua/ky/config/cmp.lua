@@ -149,6 +149,7 @@ local config = {
   }),
 }
 
+---@type cmp.ConfigSchema
 local cmd_config = {
   sources = cmp.config.sources({
     {
