@@ -94,7 +94,9 @@ for _, v in ipairs { 'h', 'j', 'k', 'l' } do
 end
 
 -- buffer
-map('n', '<BS>', '<C-^>')
+map('n', '<BS>', function()
+  return vim.v.count .. '<C-^>'
+end, { expr = true })
 map('n', 'gb', function()
   cmd('buffer #')
 end)
