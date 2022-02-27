@@ -338,8 +338,12 @@ local function plugins(use)
     setup = function()
       for _, v in ipairs { 'n', 'N' } do
         vim.keymap.set('n', v, function()
-          vim.cmd('normal! ' .. vim.v.count1 .. v)
-          require('hlslens').start()
+          local ok, msg = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. v)
+          if ok then
+            require('hlslens').start()
+          else
+            vim.notify(msg, vim.log.levels.INFO, { title = 'hlslens' })
+          end
         end)
       end
       vim.keymap.set('', '*', '<Plug>(asterisk-z*)<Cmd>lua require("hlslens").start()<CR>')
