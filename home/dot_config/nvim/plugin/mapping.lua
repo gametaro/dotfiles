@@ -112,13 +112,13 @@ end)
 map('n', 'g;', function()
   local ok = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. 'g;')
   if not ok then
-    pcall(cmd, 'normal! ' .. vim.v.count1 .. '999g,')
+    pcall(cmd, 'normal! 999g,')
   end
 end, { desc = 'Go to [count] older position in change list (wrapscan).' })
 map('n', 'g,', function()
   local ok = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. 'g,')
   if not ok then
-    pcall(cmd, 'normal! ' .. vim.v.count1 .. '999g;')
+    pcall(cmd, 'normal! 999g;')
   end
 end, { desc = 'Go to [count] newer position in change list (wrapscan).' })
 
