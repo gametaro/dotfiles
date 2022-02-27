@@ -152,7 +152,7 @@ local config = {
 ---@type cmp.ConfigSchema
 local cmd_config = {
   view = {
-    entries = { name = 'wildmenu', separator = '|' }
+    entries = { name = 'wildmenu', separator = '|' },
   },
   sources = cmp.config.sources({
     {
