@@ -21,9 +21,9 @@ local config = {
     threshold = 1,
   },
   display = {
-    open_fn = function()
-      return require('packer.util').float { border = require('ky.theme').border }
-    end,
+    -- open_fn = function()
+    --   return require('packer.util').float { border = require('ky.theme').border }
+    -- end,
     prompt_border = require('ky.theme').border,
   },
 }
