@@ -101,12 +101,26 @@ end)
 map('t', [[<C-\>]], function()
   cmd('buffer #')
 end)
-map('n', '<Tab>', function()
-  cmd('bnext')
+map('n', ']b', function()
+  cmd(vim.v.count1 .. 'bnext')
 end)
-map('n', '<S-Tab>', function()
-  cmd('bprevious')
+map('n', '[b', function()
+  cmd(vim.v.count1 .. 'bprevious')
 end)
+
+-- changelist
+map('n', 'g;', function()
+  local ok = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. 'g;')
+  if not ok then
+    pcall(cmd, 'normal! ' .. vim.v.count1 .. '999g,')
+  end
+end, { desc = 'Go to [count] older position in change list (wrapscan).' })
+map('n', 'g,', function()
+  local ok = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. 'g,')
+  if not ok then
+    pcall(cmd, 'normal! ' .. vim.v.count1 .. '999g;')
+  end
+end, { desc = 'Go to [count] newer position in change list (wrapscan).' })
 
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
