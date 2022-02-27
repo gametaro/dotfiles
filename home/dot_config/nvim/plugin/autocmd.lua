@@ -11,7 +11,7 @@ autocmd mine QuickFixCmdPost l* nested lwindow
 ]])
 
 -- close with "q"
-local close_filetypes = { 'help', 'capture', 'lspinfo', 'qf', 'null-ls-info', 'scratch' }
+local close_filetypes = { 'help', 'capture', 'lspinfo', 'null-ls-info', 'scratch' }
 vim.cmd(
   string.format(
     'autocmd mine FileType %s nnoremap <buffer> <nowait> q <C-w>c',
