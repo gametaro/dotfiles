@@ -49,7 +49,7 @@ map('n', '<Leader>e', function()
   cmd('luafile %')
 end, { desc = 'write and execute current lua file' })
 
-for _, v in ipairs { '<C-u>', '<C-d>', 'G' } do
+for _, v in ipairs { '<C-u>', '<C-d>' } do
   map('n', v, fmt('%szz', v), { desc = 'keep cursor centered after movement' })
 end
 
