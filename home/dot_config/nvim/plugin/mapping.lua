@@ -182,6 +182,22 @@ map('n', '<Leader>th', [[<Cmd>execute 'tabmove -' . v:count1<CR>]])
 -- quickfix
 map('n', 'q', '<Nop>')
 map('n', 'Q', 'q')
+map('n', 'qq', function()
+  cmd(vim.v.count1 .. 'cc')
+end, { desc = 'go to specific error' })
+map('n', 'qo', function()
+  cmd('copen')
+end, { desc = 'open quickfix window' })
+map('n', 'qc', function()
+  cmd('cclose')
+end, { desc = 'close quickfix window' })
+map('n', 'qt', function()
+  if fn.getqflist({ winid = 0 }).winid == 0 then
+    cmd('copen')
+  else
+    cmd('cclose')
+  end
+end, { desc = 'toggle quickfix window' })
 map('n', 'ql', function()
   local ok, msg = pcall(cmd, 'clist')
   if not ok then
@@ -207,14 +223,14 @@ map('n', 'qf', function()
     end
   end)
 end, { desc = 'free all the quickfix lists in the stack. see :help setqflist-examples' })
-map('n', 'qp', function()
-  local ok, msg = pcall(cmd, vim.v.count1 .. 'colder')
+map('n', ']Q', function()
+  local ok, msg = pcall(cmd, vim.v.count1 .. 'cnewer')
   if not ok then
     vim.notify(msg, vim.log.levels.WARN)
   end
 end)
-map('n', 'qn', function()
-  local ok, msg = pcall(cmd, vim.v.count1 .. 'cnewer')
+map('n', '[Q', function()
+  local ok, msg = pcall(cmd, vim.v.count1 .. 'colder')
   if not ok then
     vim.notify(msg, vim.log.levels.WARN)
   end
@@ -236,13 +252,6 @@ map('n', 'gq', function()
   cmd('cwindow')
   return winid ~= 0 and fn.win_gotoid(winid)
 end, { desc = 'go to quickfix window' })
-map('n', '<C-q>', function()
-  if fn.getqflist({ winid = 0 }).winid ~= 0 then
-    cmd('cclose')
-  else
-    cmd('botright copen')
-  end
-end, { desc = 'toggle quickfix window' })
 
 -- map('i', '<M-j>', '<Esc>:m .+1<CR>==gi')
 -- map('i', '<M-k>', '<Esc>:m .-2<CR>==gi')
