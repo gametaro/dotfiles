@@ -39,7 +39,7 @@ opt.listchars = {
   eol = '↵',
   extends = '»',
   precedes = '«',
-  tab = [[]→\]],
+  tab = '>-',
   trail = '·',
 }
 -- opt.modeline = false
