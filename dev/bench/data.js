@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1646058851562,
+  "lastUpdate": 1646061100733,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -5244,6 +5244,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.17964155553250002,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "93abc6e33f97a77905f42dd54dfd0cb11455f6c9",
+          "message": "feat(chezmoi): use nvim for three-way merge",
+          "timestamp": "2022-03-01T00:06:52+09:00",
+          "tree_id": "a5de3bc44f08818c17f1cf655d8435912dc67e95",
+          "url": "https://github.com/gametaro/dotfiles/commit/93abc6e33f97a77905f42dd54dfd0cb11455f6c9"
+        },
+        "date": 1646061098636,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.1908418526,
             "unit": "Second"
           }
         ]
