@@ -11,6 +11,10 @@
 {{-   $email = promptString "email" $email -}}
 {{- end -}}
 
+[merge]
+  command = "nvim"
+  args = [ "-d", "-c", '"$wincmd w"', "-c", '"wincmd J"' ]
+
 [data]
   headless = {{ $headless }}
   name = {{ $name | quote }}
