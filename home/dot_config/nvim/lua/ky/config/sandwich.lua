@@ -1,8 +1,18 @@
 local fmt = string.format
 
--- disable matchup when operating sandwich
-vim.cmd([[autocmd User OperatrSandwichAddPre,OperatorSandwichReplacePre NoMatchParen]])
-vim.cmd([[autocmd User OperatorSandwichAddPost,OperatorSandwichReplacePost DoMatchParen]])
+vim.api.nvim_create_autocmd {
+  event = 'User',
+  pattern = { 'OperatrSandwichAddPre', 'OperatorSandwichReplacePre' },
+  command = 'NoMatchParen',
+  desc = 'disable matchup',
+}
+
+vim.api.nvim_create_autocmd {
+  event = 'User',
+  pattern = { 'OperatorSandwichAddPost', 'OperatorSandwichReplacePost' },
+  command = 'DoMatchParen',
+  desc = 're-enable matchup',
+}
 
 -- keep cursor position
 vim.fn['operator#sandwich#set']('all', 'all', 'cursor', 'keep')

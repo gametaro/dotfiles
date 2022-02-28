@@ -1,29 +1,55 @@
-vim.cmd([[
-augroup mine
-autocmd!
-augroup END
-]])
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 
--- automatically open the quickfix window
-vim.cmd([[
-autocmd mine QuickFixCmdPost [^l]* nested cwindow
-autocmd mine QuickFixCmdPost l* nested lwindow
-]])
+augroup {
+  name = 'mine',
+  clear = true, -- default
+}
 
--- close with "q"
-local close_filetypes = { 'help', 'capture', 'lspinfo', 'null-ls-info', 'scratch' }
-vim.cmd(
-  string.format(
-    'autocmd mine FileType %s nnoremap <buffer> <nowait> q <C-w>c',
-    table.concat(close_filetypes, ',')
-  )
-)
+autocmd {
+  group = 'mine',
+  event = 'QuickFixCmdPost',
+  pattern = '[^l]*',
+  nested = true,
+  command = 'cwindow',
+  desc = 'automatically open the quickfix window',
+}
 
--- highlight on yank
-vim.cmd('autocmd mine TextYankPost * lua vim.highlight.on_yank {higroup = "Search", timeout = 200}')
+autocmd {
+  group = 'mine',
+  event = 'QuickFixCmdPost',
+  pattern = 'l*',
+  nested = true,
+  command = 'lwindow',
+  desc = 'automatically open the location list window',
+}
 
--- configure VIM to run chezmoi apply whenever a dotfile is saved
-vim.cmd('autocmd mine BufWritePost ~/.local/share/chezmoi/* silent !chezmoi apply --source-path %')
+autocmd {
+  group = 'mine',
+  event = 'FileType',
+  pattern = { 'help', 'capture', 'lspinfo', 'null-ls-info', 'scratch' },
+  callback = function()
+    vim.keymap.set('n', 'q', '<C-w>c', { buffer = true, nowait = true })
+  end,
+  desc = 'close with `q`',
+}
+
+autocmd {
+  group = 'mine',
+  event = 'TextYankPost',
+  callback = function()
+    vim.highlight.on_yank { higroup = 'Search', timeout = 200 }
+  end,
+  desc = 'highlight on yank',
+}
+
+autocmd {
+  group = 'mine',
+  event = 'BufWritePost',
+  pattern = '**/.local/share/chezmoi/*',
+  command = 'silent !chezmoi apply --source-path %',
+  desc = 'run chezmoi apply whenever a dotfile is saved',
+}
 
 -- -- show cursor line only in active window
 -- vim.cmd [[
@@ -34,35 +60,85 @@ vim.cmd('autocmd mine BufWritePost ~/.local/share/chezmoi/* silent !chezmoi appl
 -- PackerCompile on save
 -- vim.cmd 'autocmd mine BufWritePost */lua/*.lua source <afile> | PackerCompile'
 
--- always jump to the last cursor position
-vim.cmd(
-  [[autocmd mine BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]]
-)
+autocmd {
+  group = 'mine',
+  event = 'BufReadPost',
+  command = [[if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]],
+  desc = 'always jump to the last cursor position',
+}
 
-vim.cmd('autocmd mine FocusLost * nested silent! wall')
-vim.cmd(
-  'autocmd mine BufLeave * lua if require"ky.utils".can_save() then vim.cmd "silent! update" end'
-)
+autocmd {
+  group = 'mine',
+  event = 'FocusLost',
+  nested = true,
+  command = 'silent! wall',
+}
 
-vim.cmd('autocmd mine FocusGained,WinEnter * silent! checktime')
-vim.cmd('autocmd mine BufWritePost * if &diff | diffupdate | endif')
-vim.cmd('autocmd mine VimResized * wincmd =')
+autocmd {
+  group = 'mine',
+  event = 'BufLeave',
+  callback = function()
+    if vim.bo.buftype == '' and vim.bo.filetype ~= '' and vim.bo.modifiable then
+      vim.cmd('silent! update')
+    end
+  end,
+}
 
--- vim.cmd 'autocmd mine CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics { focusable = false }'
-vim.cmd('autocmd mine TermOpen term://* startinsert')
-vim.cmd('autocmd mine TermOpen term://* setlocal nonumber norelativenumber')
+autocmd {
+  group = 'mine',
+  event = { 'FocusGained', 'WinEnter' },
+  command = 'silent! checktime',
+}
 
-_G.save_term_mode = function()
-  vim.api.nvim_buf_set_var(0, 'term_mode', vim.api.nvim_get_mode().mode)
-end
-_G.restore_term_mode = function()
-  local ok, term_mode = pcall(vim.api.nvim_buf_get_var, 0, 'term_mode')
-  if ok and term_mode == 't' then
-    vim.cmd('startinsert')
-  end
-end
-vim.cmd('autocmd mine TermEnter term://* lua save_term_mode()')
-vim.cmd('autocmd mine TermLeave term://* lua save_term_mode()')
-vim.cmd('autocmd mine BufEnter term://* lua restore_term_mode()')
+autocmd {
+  group = 'mine',
+  event = 'BufWritePost',
+  command = 'if &diff | diffupdate | endif',
+}
 
-vim.cmd('autocmd mine BufEnter * setlocal formatoptions-=cro')
+autocmd {
+  group = 'mine',
+  event = 'VimResized',
+  command = 'wincmd =',
+}
+
+autocmd {
+  group = 'mine',
+  event = 'TermOpen',
+  pattern = 'term://*',
+  command = 'startinsert',
+}
+
+autocmd {
+  group = 'mine',
+  event = 'TermOpen',
+  pattern = 'term://*',
+  command = 'setlocal nonumber norelativenumber',
+}
+
+autocmd {
+  group = 'mine',
+  event = { 'TermEnter', 'TermLeave' },
+  pattern = 'term://*',
+  callback = function()
+    vim.api.nvim_buf_set_var(0, 'term_mode', vim.api.nvim_get_mode().mode)
+  end,
+}
+
+autocmd {
+  group = 'mine',
+  event = 'BufEnter',
+  pattern = 'term://*',
+  callback = function()
+    local ok, term_mode = pcall(vim.api.nvim_buf_get_var, 0, 'term_mode')
+    if ok and term_mode == 't' then
+      vim.cmd('startinsert')
+    end
+  end,
+}
+
+autocmd {
+  group = 'mine',
+  event = 'BufEnter',
+  command = 'setlocal formatoptions-=cro',
+}

@@ -20,7 +20,7 @@ ls.config.set_config {
   },
 }
 
-function _G.snippets_reload()
+local reload_snippets = function()
   for m, _ in pairs(ls.snippets) do
     package.loaded['ky.snippets.' .. m] = nil
   end
@@ -40,14 +40,20 @@ function _G.snippets_reload()
   })
 end
 
-_G.snippets_reload()
+reload_snippets()
 
-vim.cmd([[
-augroup snippets_reload
-au!
-au BufWritePost ~/.local/share/chezmoi/home/dot_config/nvim/lua/ky/snippets/*.lua lua _G.snippets_reload()
-augroup END
-]])
+vim.api.nvim_create_augroup {
+  name = 'snippets_reload',
+}
+vim.api.nvim_create_autocmd {
+  group = 'snippets_reload',
+  event = 'BufWritePost',
+  pattern = '~/.local/share/chezmoi/home/dot_config/nvim/lua/ky/snippets/*.lua',
+  callback = function()
+    reload_snippets()
+  end,
+  desc = 'hot reload snippets',
+}
 
 vim.api.nvim_add_user_command('LuaSnipEdit', function()
   local fts = require('luasnip.util.util').get_snippet_filetypes()
