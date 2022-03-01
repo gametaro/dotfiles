@@ -74,6 +74,7 @@ lsp_installer.on_server_ready(function(server)
       table.insert(runtime_path, 'lua/?/init.lua')
 
       return vim.tbl_deep_extend('force', default_opts, {
+        cmd = { 'lua-language-server' }, -- enable formatting with `--preview`
         settings = {
           Lua = {
             runtime = {
@@ -85,6 +86,21 @@ lsp_installer.on_server_ready(function(server)
             },
             workspace = {
               library = vim.api.nvim_get_runtime_file('', true),
+            },
+            completion = {
+              callSnippet = true,
+            },
+            format = {
+              enable = true,
+            },
+            hint = {
+              setType = true,
+            },
+            IntelliSense = {
+              traceBeSetted = true,
+              traceFieldInject = true,
+              traceLocalSet = true,
+              traceReturn = true,
             },
           },
         },
