@@ -1,8 +1,10 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ','
+local g = vim.g
 
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
+g.mapleader = ' '
+g.maplocalleader = ','
+
+g.do_filetype_lua = 1
+g.did_load_filetypes = 0
 
 pcall(function()
   require('impatient').enable_profile()
