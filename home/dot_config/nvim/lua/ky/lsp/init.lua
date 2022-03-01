@@ -65,9 +65,6 @@ lsp_installer.on_server_ready(function(server)
   local default_opts = {
     capabilities = capabilities,
     on_attach = M.on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
   }
 
   local opts = {

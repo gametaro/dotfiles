@@ -54,7 +54,4 @@ local sources = {
 null_ls.setup {
   sources = sources,
   on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
 }
