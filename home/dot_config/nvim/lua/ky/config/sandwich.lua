@@ -1,18 +1,16 @@
 local fmt = string.format
 
-vim.api.nvim_create_autocmd {
-  event = 'User',
+vim.api.nvim_create_autocmd('User', {
   pattern = { 'OperatrSandwichAddPre', 'OperatorSandwichReplacePre' },
   command = 'NoMatchParen',
   desc = 'disable matchup',
-}
+})
 
-vim.api.nvim_create_autocmd {
-  event = 'User',
+vim.api.nvim_create_autocmd('User', {
   pattern = { 'OperatorSandwichAddPost', 'OperatorSandwichReplacePost' },
   command = 'DoMatchParen',
   desc = 're-enable matchup',
-}
+})
 
 -- keep cursor position
 vim.fn['operator#sandwich#set']('all', 'all', 'cursor', 'keep')

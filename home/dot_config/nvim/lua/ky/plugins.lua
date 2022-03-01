@@ -367,11 +367,10 @@ local function plugins(use)
       -- vim.keymap.set('n', '<LocalLeader>gc', '<Cmd>Neogit commit<CR>', { silent = true })
     end,
     config = function()
-      vim.api.nvim_create_autocmd {
-        event = 'FileType',
+      vim.api.nvim_create_autocmd('FileType', {
         pattern = 'NeogitStatus',
         command = 'setlocal nolist',
-      }
+      })
 
       require('neogit').setup {
         disable_builtin_notifications = true,
@@ -764,12 +763,11 @@ local function plugins(use)
     'kosayoda/nvim-lightbulb',
     event = { 'BufRead' },
     setup = function()
-      vim.api.nvim_create_autocmd {
-        event = { 'CursorHold', 'CursorHoldI' },
+      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
         callback = function()
           require('nvim-lightbulb').update_lightbulb()
         end,
-      }
+      })
     end,
   }
 end
