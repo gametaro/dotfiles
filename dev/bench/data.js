@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1646143958044,
+  "lastUpdate": 1646192072948,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -5302,6 +5302,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.18424630126749997,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a9c60368fd78a49d251694cf09a64c7cda3e821d",
+          "message": "chore(deps): bump actions/checkout from 2 to 3\n\nBumps [actions/checkout](https://github.com/actions/checkout) from 2 to 3.\n- [Release notes](https://github.com/actions/checkout/releases)\n- [Changelog](https://github.com/actions/checkout/blob/main/CHANGELOG.md)\n- [Commits](https://github.com/actions/checkout/compare/v2...v3)\n\n---\nupdated-dependencies:\n- dependency-name: actions/checkout\n  dependency-type: direct:production\n  update-type: version-update:semver-major\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2022-03-02T03:31:51Z",
+          "tree_id": "c23dfcc4043b6d589b3bb4ec4c00c30640b83906",
+          "url": "https://github.com/gametaro/dotfiles/commit/a9c60368fd78a49d251694cf09a64c7cda3e821d"
+        },
+        "date": 1646192071979,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.22488486853333337,
             "unit": "Second"
           }
         ]
