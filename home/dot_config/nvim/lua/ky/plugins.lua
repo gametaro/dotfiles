@@ -276,6 +276,9 @@ local function plugins(use)
     config = function()
       require('which-key').setup {
         plugins = {
+          presets = {
+            operators = false,
+          },
           spelling = {
             enabled = true,
           },
@@ -768,6 +771,31 @@ local function plugins(use)
           require('nvim-lightbulb').update_lightbulb()
         end,
       })
+    end,
+  }
+
+  use {
+    'mvllow/modes.nvim',
+    event = { 'BufRead' },
+    config = function()
+      vim.opt.cursorline = true
+      require('modes').setup {
+        colors = {
+          copy = '#f5c359',
+          delete = '#c75c6a',
+          insert = '#78ccc5',
+          visual = '#9745be',
+        },
+
+        -- Cursorline highlight opacity
+        line_opacity = 0.1,
+
+        -- Highlight cursor
+        set_cursor = true,
+
+        -- Highlight in active window only
+        focus_only = true,
+      }
     end,
   }
 end
