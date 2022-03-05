@@ -180,7 +180,7 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' },
   }),
 })
-cmp.setup.filetype({'gitcommit', 'NeogitCommitMessage'}, {
+cmp.setup.filetype({ 'gitcommit', 'NeogitCommitMessage' }, {
   sources = {
     { name = 'luasnip' },
     { name = 'cmp_git' },
