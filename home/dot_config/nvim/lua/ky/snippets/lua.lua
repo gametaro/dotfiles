@@ -7,6 +7,7 @@ local r = require('ky.snippets.helpers').r
 local fmt = require('ky.snippets.helpers').fmt
 local fmta = require('ky.snippets.helpers').fmta
 local ins_generate = require('ky.snippets.helpers').ins_generate
+local rep_generate = require('ky.snippets.helpers').rep_generate
 
 return {
   s(
@@ -19,8 +20,8 @@ return {
   s(
     't',
     c(1, {
-      sn(nil, fmta('<> = { <> }', { r(1, 'name'), r(2, 'value') })),
-      sn(nil, fmta('local <> = { <> }', { r(1, 'name'), r(2, 'value') })),
+      sn(nil, fmta('<> = { <> }', rep_generate())),
+      sn(nil, fmta('local <> = { <> }', rep_generate())),
       sn(
         nil,
         fmta(
@@ -29,7 +30,7 @@ return {
             <>
           }
           ]],
-          { r(1, 'name'), r(2, 'value') }
+          rep_generate()
         )
       ),
     })
@@ -37,15 +38,15 @@ return {
   s(
     'rq',
     c(1, {
-      sn(nil, fmt("require('{}')", r(1, 'name'))),
-      sn(nil, fmt("local {} = require('{}')", { i(2), r(1, 'name') })),
+      sn(nil, fmt("require('{}')", rep_generate())),
+      sn(nil, fmt("local {} = require('{}')", rep_generate())),
     })
   ),
   s('if', {
     t { 'if ' },
     i(1),
     t { ' then', '\t' },
-    i(0),
+    i(2),
     t { '', 'end' },
   }),
   s('p', fmt('print({})', ins_generate())),
@@ -79,7 +80,7 @@ return {
             {}
           end
           ]],
-          { r(1, 'name'), r(2, 'args'), r(3, 'code') }
+          rep_generate()
         )
       ),
       sn(
@@ -90,19 +91,19 @@ return {
             {}
           end
           ]],
-          { r(1, 'name'), r(2, 'args'), r(3, 'code') }
+          rep_generate()
         )
       ),
     })
   ),
   s(
-    'af',
+    'fa',
     fmt(
       [[
-          function({})
-            {}
-          end
-          ]],
+      function({})
+        {}
+      end
+      ]],
       { r(1, 'name'), r(2, 'args') }
     )
   ),
@@ -117,7 +118,7 @@ return {
             {}
           end
           ]],
-          { r(1, 'name'), r(2, 'args'), r(3, 'code') }
+          rep_generate()
         )
       ),
       sn(
@@ -126,7 +127,7 @@ return {
           [[
           function {}({}) {} end
           ]],
-          { r(1, 'name'), r(2, 'args'), r(3, 'code') }
+          rep_generate()
         )
       ),
     })
@@ -138,18 +139,18 @@ return {
         nil,
         fmt(
           [[
-      vim.keymap.set({}, {}, {})
-      ]],
-          { r(1, 'mode'), r(2, 'lhs'), r(3, 'rhs') }
+          vim.keymap.set({}, {}, {})
+          ]],
+          rep_generate()
         )
       ),
       sn(
         nil,
         fmta(
           [[
-      vim.keymap.set(<>, <>, <>, { <> })
-      ]],
-          { r(1, 'mode'), r(2, 'lhs'), r(3, 'rhs'), i(4) }
+          vim.keymap.set(<>, <>, <>, { <> })
+          ]],
+          rep_generate()
         )
       ),
     })
