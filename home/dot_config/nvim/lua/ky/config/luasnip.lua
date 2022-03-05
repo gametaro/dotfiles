@@ -47,7 +47,7 @@ vim.api.nvim_create_augroup('snippets_reload', {
 })
 vim.api.nvim_create_autocmd('BufWritePost', {
   group = 'snippets_reload',
-  pattern = '~/.local/share/chezmoi/home/dot_config/nvim/lua/ky/snippets/*.lua',
+  pattern = '**/.local/share/chezmoi/home/dot_config/nvim/lua/ky/snippets/*.lua',
   callback = function()
     reload_snippets()
   end,
