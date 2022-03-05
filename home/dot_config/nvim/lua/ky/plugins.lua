@@ -364,17 +364,28 @@ local function plugins(use)
     requires = 'nvim-lua/plenary.nvim',
     cmd = { 'Neogit' },
     setup = function()
-      vim.keymap.set('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>', { silent = true })
+      vim.keymap.set('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>')
       -- vim.keymap.set('n', '<LocalLeader>gs', '<Cmd>Neogit kind=split<CR>', { silent = true })
-      vim.keymap.set('n', '<LocalLeader>gv', '<Cmd>Neogit kind=vsplit<CR>', { silent = true })
+      vim.keymap.set('n', '<LocalLeader>gv', '<Cmd>Neogit kind=vsplit<CR>')
       -- vim.keymap.set('n', '<LocalLeader>gc', '<Cmd>Neogit commit<CR>', { silent = true })
-    end,
-    config = function()
+
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'NeogitStatus',
-        command = 'setlocal nolist',
+        callback = function()
+          vim.opt_local.list = false
+        end,
       })
 
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'NeogitCommitMessage',
+        callback = function()
+          vim.opt_local.spell = true
+          vim.opt_local.formatoptions:append { 't' }
+          vim.opt_local.textwidth = 72
+        end,
+      })
+    end,
+    config = function()
       require('neogit').setup {
         disable_builtin_notifications = true,
         disable_commit_confirmation = true,
