@@ -113,6 +113,11 @@ local function rec_promise()
   })
 end
 
+local is_test_file = function()
+  local fname = vim.fn.expand('%:t')
+  return vim.endswith(fname, 'spec.ts') or vim.endswith(fname, 'test.ts')
+end
+
 return {
   s('p', {
     i(1),
@@ -545,6 +550,9 @@ return {
     t { quote .. ', () => {', '\t' },
     i(0),
     t { '', '})' .. semi },
+  }, {
+    condition = is_test_file,
+    show_condition = is_test_file,
   }),
   s('it', {
     t('it(' .. quote),
@@ -555,36 +563,57 @@ return {
     }),
     i(0),
     t { '', '})' .. semi },
+  }, {
+    condition = is_test_file,
+    show_condition = is_test_file,
   }),
   s('before', {
     t { 'before(() => {', '\t' },
     i(0),
     t { '', '})' .. semi },
+  }, {
+    condition = is_test_file,
+    show_condition = is_test_file,
   }),
   s('beforeAll', {
     t { 'beforeAll(() => {', '\t' },
     i(0),
     t { '', '})' .. semi },
+  }, {
+    condition = is_test_file,
+    show_condition = is_test_file,
   }),
   s('beforeEach', {
     t { 'beforeEach(() => {', '\t' },
     i(0),
     t { '', '})' .. semi },
+  }, {
+    condition = is_test_file,
+    show_condition = is_test_file,
   }),
   s('after', {
     t { 'after(() => {', '\t' },
     i(0),
     t { '', '})' .. semi },
+  }, {
+    condition = is_test_file,
+    show_condition = is_test_file,
   }),
   s('afterAll', {
     t { 'afterAll(() => {', '\t' },
     i(0),
     t { '', '})' .. semi },
+  }, {
+    condition = is_test_file,
+    show_condition = is_test_file,
   }),
   s('afterEach', {
     t { 'afterEach(() => {', '\t' },
     i(0),
     t { '', '})' .. semi },
+  }, {
+    condition = is_test_file,
+    show_condition = is_test_file,
   }),
   s('expect', {
     t { 'expect(' },
@@ -592,5 +621,8 @@ return {
     t { ')' },
     i(0),
     t { semi },
+  }, {
+    condition = is_test_file,
+    show_condition = is_test_file,
   }),
 }
