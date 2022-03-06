@@ -10,10 +10,10 @@ return vim.tbl_map(function(type)
     fmt(
       string.format(
         [[
-      %s({}): {}
+        %s({}): {}
 
-      {}
-      ]],
+        {}
+        ]],
         type
       ),
       ins_generate()

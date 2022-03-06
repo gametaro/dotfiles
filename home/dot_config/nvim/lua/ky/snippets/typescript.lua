@@ -27,6 +27,13 @@ local function rec_elseif()
     c(1, {
       t { '' },
       sn(nil, {
+        t { ' else (' },
+        i(1),
+        t { ') {', '\t' },
+        i(2),
+        t { '', '}' },
+      }),
+      sn(nil, {
         t { ' else if (' },
         i(1),
         t { ') {', '\t' },
@@ -55,7 +62,89 @@ local function rec_case()
   })
 end
 
+local function rec_prop_comma()
+  return sn(nil, {
+    c(1, {
+      t { '' },
+      sn(nil, {
+        t { '', '' },
+        i(1),
+        t(': '),
+        i(2),
+        t(','),
+        d(3, rec_prop_comma, {}),
+      }),
+    }),
+  })
+end
+
+local function rec_prop_semi()
+  return sn(nil, {
+    c(1, {
+      t { '' },
+      sn(nil, {
+        t { '', '\t' },
+        i(1),
+        t(': '),
+        i(2),
+        t(semi),
+        d(3, rec_prop_semi, {}),
+      }),
+    }),
+  })
+end
+
+local function rec_promise()
+  return sn(nil, {
+    c(1, {
+      t { '' },
+      sn(nil, {
+        t('.then(('),
+        i(1),
+        t { ') => {', '\t' },
+        i(2),
+        t { '', '})' },
+        d(3, rec_promise, {}),
+      }),
+      sn(nil, {
+        t('.catch(('),
+        i(1),
+        t { ') => {', '\t' },
+        i(2),
+        t { '', '})' },
+      }),
+    }),
+  })
+end
+
 return {
+  s('p', {
+    i(1),
+    c(2, {
+      sn(nil, {
+        t('.then(('),
+        i(1),
+        t { ') => {', '\t' },
+        i(2),
+        t { '', '})' },
+        d(3, rec_promise, {}),
+      }),
+      sn(nil, {
+        t('.catch(('),
+        i(1),
+        t { ') => {', '\t' },
+        i(2),
+        t { '', '})' },
+      }),
+    }),
+  }),
+  s('prop', {
+    i(1),
+    t(': '),
+    i(2),
+    t(','),
+    d(3, rec_prop_comma, {}),
+  }),
   s(
     'l',
     c(1, {
@@ -180,45 +269,43 @@ return {
       sn(nil, fmta('const { <> } = process.env;', r(1, 'name'))),
     })
   ),
-  s(
-    'import',
-    c(1, {
-      sn(nil, fmta("import { <> } from '<>'", { r(2, 'name'), r(1, 'from') })),
-      sn(nil, fmt("import {} from '{}'", { r(2, 'name'), r(1, 'from') })),
-      sn(nil, fmt("import {} as {} from '{}'", { r(2, 'name'), i(3), r(1, 'from') })),
-    })
-  ),
+  s('import', {
+    t('import '),
+    c(2, {
+      sn(nil, {
+        t('{ '),
+        r(1, 'name'),
+        t(' } from ' .. quote),
+      }),
+      sn(nil, {
+        c(1, {
+          t(''),
+          t('* as '),
+        }),
+        r(2, 'name'),
+        t(' from ' .. quote),
+      }),
+    }),
+    i(1),
+    t(quote .. semi),
+  }),
   s('ex', {
     t('export '),
-    i(1),
-    t(' '),
-    i(2),
+    i(0),
   }),
   s('fa', {
-    c(1, {
-      sn(nil, fmt('({}) => {}', rep_generate())),
-      sn(
-        nil,
-        fmt(
-          [[
-          ({}) => {{
-            {}
-          }}
-          ]],
-          rep_generate()
-        )
-      ),
-      sn(
-        nil,
-        fmt(
-          [[
-          const {} = ({}) => {{
-            {}
-          }}
-          ]],
-          rep_generate()
-        )
-      ),
+    t('('),
+    i(1),
+    t(') => '),
+    c(2, {
+      sn(nil, {
+        r(1, 'code'),
+      }),
+      sn(nil, {
+        t { '{', '\t' },
+        r(1, 'code'),
+        t { '', '}' },
+      }),
     }),
   }),
   s('af', {
@@ -272,7 +359,67 @@ return {
     t('.forEach('),
     i(2),
     t { ' => {', '\t' },
+    i(0),
+    t { '', '})' },
+  }),
+  s('map', {
+    i(1),
+    t('.map('),
+    i(2),
+    t { ' => {', '\t' },
+    i(0),
+    t { '', '})' },
+  }),
+  s('flatMap', {
+    i(1),
+    t('.flatMap('),
+    i(2),
+    t { ' => {', '\t' },
+    i(0),
+    t { '', '})' },
+  }),
+  s('reduce', {
+    i(1),
+    t('.reduce(('),
+    i(2),
+    t(', '),
     i(3),
+    t { ') => {', '\t' },
+    i(0),
+    t { '', '}, ' },
+    i(4),
+    t(')'),
+  }),
+  s('filter', {
+    i(1),
+    t('.filter('),
+    i(2),
+    t { ' => {', '\t' },
+    i(0),
+    t { '', '})' },
+  }),
+  s('find', {
+    i(1),
+    t('.find('),
+    i(2),
+    t { ' => {', '\t' },
+    i(0),
+    t { '', '})' },
+  }),
+  s('every', {
+    i(1),
+    t('.every('),
+    i(2),
+    t { ' => {', '\t' },
+    i(0),
+    t { '', '})' },
+  }),
+  s('some', {
+    i(1),
+    t('.some('),
+    i(2),
+    t { ' => {', '\t' },
+    i(0),
     t { '', '})' },
   }),
   s('switch', {
@@ -321,35 +468,62 @@ return {
     )
   ),
   s('member', {
-    c(1, { t('public '), t('private ') }),
+    c(1, {
+      t('public '),
+      t('private '),
+    }),
     i(2),
     c(3, { t(': '), t(' = ') }),
     i(4),
   }),
-  s(
-    'method',
-    fmta(
-      [[
-      <><>(<>) {
-        <>
-      }
-      ]],
-      {
-        c(1, { t(''), t('public '), t('private ') }),
-        i(2),
-        i(3),
-        i(4),
-      }
-    )
-  ),
+  s('method', {
+    c(1, {
+      t(''),
+      t('public '),
+      t('private '),
+    }),
+    i(2),
+    t('('),
+    i(3),
+    t { ') {', '\t' },
+    i(0),
+    t { '', '}' },
+  }),
   s('t', {
     t('this.'),
   }),
   s('o', {
     t('Object.'),
-    c(1, { t('keys('), t('values('), t('entries('), t('assign(') }),
+    c(1, {
+      t('keys('),
+      t('values('),
+      t('entries('),
+      t('assign('),
+    }),
     i(2),
     t(format(')%s', semi)),
+  }),
+  s('type', {
+    t('type '),
+    i(1),
+    t { ' = {', '\t' },
+    i(2),
+    t(': '),
+    i(3),
+    t(semi),
+    d(4, rec_prop_semi, {}),
+    t { '', '}' },
+  }),
+  s('interface', {
+    t('interface '),
+    i(1),
+    t { ' {', '\t' },
+    i(2),
+    t(': '),
+    i(3),
+    t(semi),
+    d(4, rec_prop_semi, {}),
+    t { '', '}' },
   }),
   s('=', {
     t(' = '),
