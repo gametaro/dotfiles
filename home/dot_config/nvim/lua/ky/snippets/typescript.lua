@@ -10,8 +10,6 @@ local fmta = require('ky.snippets.helpers').fmta
 local ins_generate = require('ky.snippets.helpers').ins_generate
 local rep_generate = require('ky.snippets.helpers').rep_generate
 
-local format = string.format
-
 local opts = {
   single_quote = true,
   semi = true,
@@ -27,10 +25,8 @@ local function rec_elseif()
     c(1, {
       t { '' },
       sn(nil, {
-        t { ' else (' },
+        t { ' else {', '\t' },
         i(1),
-        t { ') {', '\t' },
-        i(2),
         t { '', '}' },
       }),
       sn(nil, {
@@ -148,11 +144,11 @@ return {
   s(
     'l',
     c(1, {
-      sn(nil, fmt(format('let {}%s', semi), { r(1, 'name') })),
-      sn(nil, fmt(format('let {} = {}%s', semi), { r(1, 'name'), i(2) })),
+      sn(nil, fmt('let {}' .. semi, { r(1, 'name') })),
+      sn(nil, fmt('let {} = {}' .. semi, { r(1, 'name'), i(2) })),
     })
   ),
-  s('c', fmt(format('const {} = {}%s', semi), ins_generate())),
+  s('c', fmt('const {} = {}' .. semi, ins_generate())),
   s(
     'cd',
     c(1, {
@@ -160,13 +156,13 @@ return {
       sn(nil, fmt('const [ {} ] = {};', { r(2, 'name'), r(1, 'value') })),
     })
   ),
-  s('te', fmt(format('{} ? {} : {}%s', semi), ins_generate())),
+  s('te', fmt('{} ? {} : {}' .. semi, ins_generate())),
   s('j', {
     t('JSON.'),
     c(1, { t('parse'), t('stringify') }),
     t('('),
     i(2),
-    t(format(')%s', semi)),
+    t(')' .. semi),
   }),
   s('cl', {
     t('console.'),
@@ -177,7 +173,7 @@ return {
     }),
     t('('),
     i(2),
-    t(format(')%s', semi)),
+    t(')' .. semi),
   }),
   s('a', { t('await '), i(1) }),
   s(
@@ -247,16 +243,22 @@ return {
     i(1),
     t { '', '} ' },
     c(2, {
-      t('catch ('),
-      t('finally ('),
-    }),
-    i(3),
-    t { ') {', '\t' },
-    i(4),
-    c(5, {
-      t { '', '}' },
       sn(nil, {
-        t { '', '} finally {', '\t' },
+        t('catch ('),
+        i(1),
+        t { ') {', '\t' },
+        i(2),
+        c(3, {
+          t { '', '}' },
+          sn(nil, {
+            t { '', '} finally {', '\t' },
+            i(1),
+            t { '', '}' },
+          }),
+        }),
+      }),
+      sn(nil, {
+        t { 'finally {', '\t' },
         i(1),
         t { '', '}' },
       }),
@@ -431,11 +433,11 @@ return {
     t { ':', '\t\t' },
     i(3),
     t { '', '\t\t' },
-    t { format('break%s', semi), '\t' },
+    t { 'break' .. semi, '\t' },
     d(4, rec_case, {}),
     t { 'default:', '\t\t' },
-    t { format('break%s', semi) },
-    t { '', format('}%s', semi) },
+    t { 'break' .. semi },
+    t { '', '}' .. semi },
   }),
   s('while', {
     c(1, {
@@ -444,14 +446,14 @@ return {
         r(1, 'condition'),
         t { ') {', '\t' },
         r(2, 'statement'),
-        t { '', format('}%s', semi) },
+        t { '', '}' .. semi },
       }),
       sn(nil, {
         t { 'do {', '\t' },
         r(2, 'statement'),
         t { '', '} while (' },
         r(1, 'condition'),
-        t { format(')%s', semi) },
+        t { ')' .. semi },
       }),
     }),
   }),
@@ -501,7 +503,7 @@ return {
       t('assign('),
     }),
     i(2),
-    t(format(')%s', semi)),
+    t(')' .. semi),
   }),
   s('type', {
     t('type '),
@@ -538,51 +540,51 @@ return {
     t('number'),
   }),
   s('desc', {
-    t(format('describe(%s', quote)),
+    t('describe(' .. quote),
     i(1),
-    t { format('%s), () => {', quote), '\t' },
+    t { quote .. ', () => {', '\t' },
     i(0),
-    t { '', format('})%s', semi) },
+    t { '', '})' .. semi },
   }),
   s('it', {
-    t(format('it(%s', quote)),
+    t('it(' .. quote),
     i(1),
     c(2, {
-      t { format('%s, () => {', quote), '\t' },
-      t { format('%s, async () => {', quote), '\t' },
+      t { quote .. ', () => {', '\t' },
+      t { quote .. ', async () => {', '\t' },
     }),
     i(0),
-    t { '', format('})%s', semi) },
+    t { '', '})' .. semi },
   }),
   s('before', {
     t { 'before(() => {', '\t' },
     i(0),
-    t { '', format('})%s', semi) },
+    t { '', '})' .. semi },
   }),
   s('beforeAll', {
     t { 'beforeAll(() => {', '\t' },
     i(0),
-    t { '', format('})%s', semi) },
+    t { '', '})' .. semi },
   }),
   s('beforeEach', {
     t { 'beforeEach(() => {', '\t' },
     i(0),
-    t { '', format('})%s', semi) },
+    t { '', '})' .. semi },
   }),
   s('after', {
     t { 'after(() => {', '\t' },
     i(0),
-    t { '', format('})%s', semi) },
+    t { '', '})' .. semi },
   }),
   s('afterAll', {
     t { 'afterAll(() => {', '\t' },
     i(0),
-    t { '', format('})%s', semi) },
+    t { '', '})' .. semi },
   }),
   s('afterEach', {
     t { 'afterEach(() => {', '\t' },
     i(0),
-    t { '', format('})%s', semi) },
+    t { '', '})' .. semi },
   }),
   s('expect', {
     t { 'expect(' },
