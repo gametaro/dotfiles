@@ -109,7 +109,7 @@ lsp.handlers['$/progress'] = function(_, result, ctx)
       local new_notif = vim.notify(
         val.message and format_message(val.message) or 'Complete',
         'info',
-        { icon = '', replace = notif_data.notification, timeout = 2000 }
+        { icon = '', replace = notif_data.notification, timeout = 1500 }
       )
       client_notifs[client_id][result.token] = {
         notification = new_notif,
