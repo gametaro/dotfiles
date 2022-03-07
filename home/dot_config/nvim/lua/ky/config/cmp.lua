@@ -174,6 +174,9 @@ cmp.setup(config)
 cmp.setup.cmdline('/', cmd_config)
 cmp.setup.cmdline('?', cmd_config)
 cmp.setup.cmdline(':', {
+  view = {
+    entries = { name = 'wildmenu', separator = '|' }
+  },
   sources = cmp.config.sources({
     { name = 'path' },
   }, {
