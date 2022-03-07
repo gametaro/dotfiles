@@ -69,9 +69,9 @@ map('n', leader('e'), function()
   cmd('luafile %')
 end, { desc = 'write and execute current lua file' })
 
-for _, v in ipairs { '<C-u>', '<C-d>' } do
-  map('n', v, fmt('%szz', v), { desc = 'keep cursor centered after movement' })
-end
+-- for _, v in ipairs { '<C-u>', '<C-d>' } do
+--   map('n', v, fmt('%szz', v), { desc = 'keep cursor centered after movement' })
+-- end
 
 -- movement in insert/cmdline mode
 map({ 'i', 'c' }, '<C-p>', '<Up>')
