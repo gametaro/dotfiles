@@ -6,6 +6,7 @@ ls.config.set_config {
   region_check_events = 'CursorHold',
   delete_check_events = 'TextChanged,InsertEnter',
   enable_autosnippets = true,
+  store_selection_keys = '<Tab>',
   ext_opts = {
     -- [types.insertNode] = {
     --   active = {
