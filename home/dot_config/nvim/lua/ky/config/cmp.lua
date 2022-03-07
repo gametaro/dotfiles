@@ -187,5 +187,11 @@ cmp.setup.filetype({ 'gitcommit', 'NeogitCommitMessage' }, {
   sources = {
     { name = 'luasnip' },
     { name = 'cmp_git' },
+
+cmp.setup.filetype({ 'markdown' }, {
+  sources = {
+    { name = 'luasnip' },
+    { name = 'spell' },
+    { name = 'buffer' },
   },
 })
