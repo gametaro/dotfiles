@@ -66,7 +66,7 @@ opt.shortmess:append {
   s = true,
 }
 opt.showbreak = '↳ '
-opt.showcmd = false
+-- opt.showcmd = false
 opt.showmode = false
 opt.signcolumn = 'yes'
 opt.smartcase = true
