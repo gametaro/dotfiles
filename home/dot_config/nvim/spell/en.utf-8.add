@@ -1,5 +1,6 @@
 TODO
 api
+args
 async
 augroup
 auth
@@ -27,9 +28,12 @@ json
 jwt
 keymap
 localhost
+lsp
 lua
 lwindow
 map
+md
+neovim
 npm
 nvim
 oauth
@@ -42,6 +46,7 @@ src
 svg
 toml
 truthy
+txt
 uri
 url
 urls
@@ -50,4 +55,5 @@ util
 utils
 uuid
 wildmenu
+www
 yml
