@@ -175,7 +175,7 @@ cmp.setup.cmdline('/', cmd_config)
 cmp.setup.cmdline('?', cmd_config)
 cmp.setup.cmdline(':', {
   view = {
-    entries = { name = 'wildmenu', separator = '|' }
+    entries = { name = 'wildmenu', separator = '|' },
   },
   sources = cmp.config.sources({
     { name = 'path' },
@@ -187,6 +187,9 @@ cmp.setup.filetype({ 'gitcommit', 'NeogitCommitMessage' }, {
   sources = {
     { name = 'luasnip' },
     { name = 'cmp_git' },
+    { name = 'spell' },
+  },
+})
 
 cmp.setup.filetype({ 'markdown' }, {
   sources = {
