@@ -1,26 +1,34 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local cmd = vim.api.nvim_command
+local fn = vim.fn
 
-augroup('mine', { clear = true })
+local name = 'mine'
+
+augroup(name, { clear = true })
 
 autocmd('QuickFixCmdPost', {
-  group = 'mine',
+  group = name,
   pattern = '[^l]*',
   nested = true,
-  command = 'cwindow',
+  callback = function()
+    cmd('cwindow')
+  end,
   desc = 'automatically open the quickfix window',
 })
 
 autocmd('QuickFixCmdPost', {
-  group = 'mine',
+  group = name,
   pattern = 'l*',
   nested = true,
-  command = 'lwindow',
+  callback = function()
+    cmd('lwindow')
+  end,
   desc = 'automatically open the location list window',
 })
 
 autocmd('FileType', {
-  group = 'mine',
+  group = name,
   pattern = { 'help', 'capture', 'lspinfo', 'null-ls-info', 'scratch' },
   callback = function()
     vim.keymap.set('n', 'q', '<C-w>c', { buffer = true, nowait = true })
@@ -29,7 +37,7 @@ autocmd('FileType', {
 })
 
 autocmd('TextYankPost', {
-  group = 'mine',
+  group = name,
   callback = function()
     vim.highlight.on_yank { higroup = 'Search', timeout = 200 }
   end,
@@ -37,9 +45,11 @@ autocmd('TextYankPost', {
 })
 
 autocmd('BufWritePost', {
-  group = 'mine',
+  group = name,
   pattern = '**/.local/share/chezmoi/*',
-  command = 'silent !chezmoi apply --source-path %',
+  callback = function()
+    fn.system { 'chezmoi', 'apply', '--source-path', fn.expand('%:p') }
+  end,
   desc = 'run chezmoi apply whenever a dotfile is saved',
 })
 
@@ -53,19 +63,36 @@ autocmd('BufWritePost', {
 -- vim.cmd 'autocmd mine BufWritePost */lua/*.lua source <afile> | PackerCompile'
 
 autocmd('BufReadPost', {
-  group = 'mine',
-  command = [[if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]],
-  desc = 'always jump to the last cursor position',
+  group = name,
+  callback = function()
+    autocmd('FileType', {
+      buffer = 0,
+      once = true,
+      callback = function()
+        local ft = vim.bo.ft:lower() -- for neogit
+        if
+          not (ft:find('commit') or (ft:find('rebase')))
+          and fn.line('\'"') > 1
+          and fn.line('\'"') <= fn.line('$')
+        then
+          cmd('normal! g`"')
+        end
+      end,
+    })
+  end,
+  desc = 'always jump to the last cursor position. see :help restore-cursor',
 })
 
 autocmd('FocusLost', {
-  group = 'mine',
+  group = name,
   nested = true,
-  command = 'silent! wall',
+  callback = function()
+    cmd('silent! wall')
+  end,
 })
 
 autocmd('BufLeave', {
-  group = 'mine',
+  group = name,
   callback = function()
     if vim.bo.buftype == '' and vim.bo.filetype ~= '' and vim.bo.modifiable then
       vim.cmd('silent! update')
@@ -74,34 +101,47 @@ autocmd('BufLeave', {
 })
 
 autocmd({ 'FocusGained', 'WinEnter' }, {
-  group = 'mine',
-  command = 'silent! checktime',
+  group = name,
+  callback = function()
+    cmd('silent! checktime')
+  end,
 })
 
 autocmd('BufWritePost', {
-  group = 'mine',
-  command = 'if &diff | diffupdate | endif',
+  group = name,
+  callback = function()
+    if vim.wo.diff then
+      cmd('diffupdate')
+    end
+  end,
 })
 
 autocmd('VimResized', {
-  group = 'mine',
-  command = 'wincmd =',
+  group = name,
+  callback = function()
+    cmd('wincmd =')
+  end,
 })
 
 autocmd('TermOpen', {
-  group = 'mine',
+  group = name,
   pattern = 'term://*',
-  command = 'startinsert',
+  callback = function()
+    cmd('startinsert')
+  end,
 })
 
 autocmd('TermOpen', {
-  group = 'mine',
+  group = name,
   pattern = 'term://*',
-  command = 'setlocal nonumber norelativenumber',
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+  end,
 })
 
 autocmd({ 'TermEnter', 'TermLeave' }, {
-  group = 'mine',
+  group = name,
   pattern = 'term://*',
   callback = function()
     vim.api.nvim_buf_set_var(0, 'term_mode', vim.api.nvim_get_mode().mode)
@@ -109,17 +149,23 @@ autocmd({ 'TermEnter', 'TermLeave' }, {
 })
 
 autocmd('BufEnter', {
-  group = 'mine',
+  group = name,
   pattern = 'term://*',
   callback = function()
     local ok, term_mode = pcall(vim.api.nvim_buf_get_var, 0, 'term_mode')
     if ok and term_mode == 't' then
-      vim.cmd('startinsert')
+      cmd('startinsert')
     end
   end,
 })
 
 autocmd('BufEnter', {
-  group = 'mine',
-  command = 'setlocal formatoptions-=cro',
+  group = name,
+  callback = function()
+    vim.opt_local.formatoptions:remove {
+      'c',
+      'o',
+      'r',
+    }
+  end,
 })
