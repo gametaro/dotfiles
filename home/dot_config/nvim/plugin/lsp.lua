@@ -27,7 +27,7 @@ lsp.handlers['textDocument/hover'] = lsp.with(lsp.handlers.hover, float)
 lsp.handlers['textDocument/signatureHelp'] = lsp.with(lsp.handlers.signature_help, float)
 -- https://github.com/neovim/nvim-lspconfig/wiki/User-contributed-tips#use-nvim-notify-to-display-lsp-messages
 lsp.handlers['window/showMessage'] = function(_, result, ctx)
-  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  local client = lsp.get_client_by_id(ctx.client_id)
   local level = ({
     'ERROR',
     'WARN',
@@ -85,7 +85,7 @@ lsp.handlers['$/progress'] = function(_, result, ctx)
     if val.kind == 'begin' then
       local message = format_message(val.message or 'Loading...', val.percentage)
       local notification = vim.notify(message, 'info', {
-        title = format_title(val.title, vim.lsp.get_client_by_id(client_id)),
+        title = format_title(val.title, lsp.get_client_by_id(client_id)),
         icon = spinner_frames[1],
         timeout = false,
         hide_from_history = true,
