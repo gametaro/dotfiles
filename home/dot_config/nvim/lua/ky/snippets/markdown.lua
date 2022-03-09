@@ -11,29 +11,27 @@ local header_gen = function(num)
   return s('h' .. tostring(num), fmt(string.rep('#', num) .. ' {}', ins_generate()))
 end
 
-local function rec_ls()
+local function rec_dash()
   return sn(nil, {
     c(1, {
-      -- important!! Having the sn(...) as the first choice will cause infinite recursion.
       t { '' },
-      -- The same dynamicNode as in the snippet (also note: self reference).
       sn(nil, {
         t { '', '- ' },
         i(1),
-        d(2, rec_ls, {}),
+        d(2, rec_dash, {}),
       }),
     }),
   })
 end
 
-local function rec_ls_2()
+local function rec_star()
   return sn(nil, {
     c(1, {
       t { '' },
       sn(nil, {
         t { '', '* ' },
         i(1),
-        d(2, rec_ls_2, {}),
+        d(2, rec_star, {}),
       }),
     }),
   })
@@ -63,13 +61,13 @@ local snippets = {
   s('ul-', {
     t { '- ' },
     i(1),
-    d(2, rec_ls, {}),
+    d(2, rec_dash, {}),
     t(''),
   }),
   s('ul*', {
     t { '* ' },
     i(1),
-    d(2, rec_ls_2, {}),
+    d(2, rec_star, {}),
     t(''),
   }),
   s(
