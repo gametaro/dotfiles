@@ -78,6 +78,7 @@ opt.splitright = true
 opt.swapfile = false
 opt.tabstop = indent
 opt.termguicolors = true
+opt.tildeop = true
 opt.timeoutlen = 500
 opt.ttimeoutlen = 10
 opt.undofile = true
