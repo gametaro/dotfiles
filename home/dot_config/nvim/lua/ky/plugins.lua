@@ -177,13 +177,37 @@ local function plugins(use)
     end,
   }
 
+  -- use {
+  --   'kana/vim-operator-replace',
+  --   requires = { 'kana/vim-operator-user' },
+  --   keys = { '<Plug>(operator-replace)' },
+  --   setup = function()
+  --     vim.keymap.set({ 'n', 'x' }, '_', '<Plug>(operator-replace)')
+  --   end,
+  -- }
+
   use {
-    'kana/vim-operator-replace',
-    requires = { 'kana/vim-operator-user' },
-    keys = { '<Plug>(operator-replace)' },
+    'gbprod/substitute.nvim',
     setup = function()
-      vim.keymap.set({ 'n', 'x' }, '_', '<Plug>(operator-replace)')
+      vim.keymap.set('n', 'S', function()
+        require('substitute').operator()
+      end)
+      vim.keymap.set('x', 'S', function()
+        require('substitute').visual()
+      end)
+      vim.keymap.set('n', 'X', function()
+        require('substitute.exchange').operator()
+      end)
+      vim.keymp.set('x', 'X', function()
+        require('substitute.exchange').visual()
+      end)
+      vim.keymp.set('n', 'Xc', function()
+        require('substitute.exchange').cancel()
+      end)
     end,
+    config = function()
+      require('substitute').setup()
+    end
   }
 
   use {
