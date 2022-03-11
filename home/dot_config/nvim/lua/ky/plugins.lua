@@ -122,6 +122,16 @@ local function plugins(use)
           augend.date.alias['%m/%d'],
           augend.date.alias['%H:%M'],
           augend.constant.alias.bool,
+          augend.constant.new {
+            elements = { 'and', 'or' },
+            word = true,
+            cyclic = true,
+          },
+          augend.constant.new {
+            elements = { '&&', '||' },
+            word = false,
+            cyclic = true,
+          },
         },
       }
     end,
@@ -617,17 +627,16 @@ local function plugins(use)
 
   use {
     'rcarriga/nvim-notify',
-    cond = not_headless,
     config = function()
       local notify = require('notify')
-      local icons = require('ky.theme').icons
+      -- local icons = require('ky.theme').icons
       notify.setup {
         timeout = 1500,
-        icons = {
-          ERROR = string.gsub(icons.error, '%s+', ''),
-          WARN = string.gsub(icons.warn, '%s+', ''),
-          INFO = string.gsub(icons.info, '%s+', ''),
-        },
+        -- icons = {
+        --   ERROR = vim.trim(icons.error),
+        --   WARN = vim.trim(icons.warn),
+        --   INFO = vim.trim(icons.info),
+        -- },
       }
       vim.notify = notify
     end,
@@ -752,6 +761,9 @@ local function plugins(use)
       { 'n', '<LocalLeader>t' },
     },
     setup = function()
+      vim.g['test#strategy'] = 'harpoon'
+      vim.g['test#harpoon_term'] = 1
+
       vim.keymap.set('n', '<LocalLeader>tn', '<Cmd>TestNearest<CR>')
       vim.keymap.set('n', '<LocalLeader>tf', '<Cmd>TestFile<CR>')
       vim.keymap.set('n', '<LocalLeader>ts', '<Cmd>TestSuite<CR>')
