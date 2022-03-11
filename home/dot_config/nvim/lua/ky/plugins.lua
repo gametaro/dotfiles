@@ -217,7 +217,7 @@ local function plugins(use)
     end,
     config = function()
       require('substitute').setup()
-    end
+    end,
   }
 
   use {
