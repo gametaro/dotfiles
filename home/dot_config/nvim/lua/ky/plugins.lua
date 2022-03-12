@@ -1,6 +1,10 @@
-local not_headless = require('ky.utils').not_headless()
+---check nvim is running on headless mode
+---@return boolean
+local not_headless = function()
+  return #vim.api.nvim_list_uis() > 0
+end
 
-local function bootstrap()
+local bootstrap = function()
   local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
   if not vim.loop.fs_stat(install_path) then
     vim.fn.system {
@@ -28,7 +32,7 @@ local config = {
   },
 }
 
-local function plugins(use)
+local plugins = function(use)
   use { 'wbthomason/packer.nvim', opt = true }
   use('lewis6991/impatient.nvim')
   use('nvim-lua/plenary.nvim')
@@ -434,7 +438,6 @@ local function plugins(use)
   use {
     'sindrets/diffview.nvim',
     requires = 'nvim-lua/plenary.nvim',
-    cond = not_headless,
     cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     setup = function()
       vim.keymap.set('n', '<LocalLeader>gd', function()

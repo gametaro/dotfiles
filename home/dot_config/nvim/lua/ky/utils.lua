@@ -24,10 +24,4 @@ function M.can_save()
   return vim.bo.buftype == '' and vim.bo.filetype ~= '' and vim.bo.modifiable
 end
 
----check nvim is running on headless mode
----@return boolean
-function M.not_headless()
-  return #vim.api.nvim_list_uis() > 0
-end
-
 return M
