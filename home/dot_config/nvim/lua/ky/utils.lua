@@ -18,10 +18,4 @@ function M.goto_loclist()
   return winid ~= 0 and vim.fn.win_gotoid(winid)
 end
 
----check if the current buffer can be saved
----@return boolean
-function M.can_save()
-  return vim.bo.buftype == '' and vim.bo.filetype ~= '' and vim.bo.modifiable
-end
-
 return M
