@@ -326,27 +326,27 @@ local plugins = function(use)
     end,
   }
 
-  use {
-    'folke/trouble.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-    keys = {
-      { 'n', '<LocalLeader>x' },
-    },
-    cmd = { 'Trouble' },
-    setup = function()
-      vim.keymap.set('n', '<LocalLeader>xx', '<Cmd>Trouble<CR>')
-      vim.keymap.set('n', '<LocalLeader>xw', '<Cmd>Trouble workspace_diagnostics<CR>')
-      vim.keymap.set('n', '<LocalLeader>xd', '<Cmd>Trouble document_diagnostics<CR>')
-      vim.keymap.set('n', '<LocalLeader>xl', '<Cmd>Trouble loclist<CR>')
-      vim.keymap.set('n', '<LocalLeader>xq', '<Cmd>Trouble quickfix<CR>')
-      vim.keymap.set('n', 'gR', '<Cmd>Trouble lsp_references<CR>')
-    end,
-    config = function()
-      require('trouble').setup {
-        auto_close = true,
-      }
-    end,
-  }
+  -- use {
+  --   'folke/trouble.nvim',
+  --   requires = { 'kyazdani42/nvim-web-devicons' },
+  --   keys = {
+  --     { 'n', '<LocalLeader>x' },
+  --   },
+  --   cmd = { 'Trouble' },
+  --   setup = function()
+  --     vim.keymap.set('n', '<LocalLeader>xx', '<Cmd>Trouble<CR>')
+  --     vim.keymap.set('n', '<LocalLeader>xw', '<Cmd>Trouble workspace_diagnostics<CR>')
+  --     vim.keymap.set('n', '<LocalLeader>xd', '<Cmd>Trouble document_diagnostics<CR>')
+  --     vim.keymap.set('n', '<LocalLeader>xl', '<Cmd>Trouble loclist<CR>')
+  --     vim.keymap.set('n', '<LocalLeader>xq', '<Cmd>Trouble quickfix<CR>')
+  --     vim.keymap.set('n', 'gR', '<Cmd>Trouble lsp_references<CR>')
+  --   end,
+  --   config = function()
+  --     require('trouble').setup {
+  --       auto_close = true,
+  --     }
+  --   end,
+  -- }
 
   use {
     'tamago324/lir.nvim',
