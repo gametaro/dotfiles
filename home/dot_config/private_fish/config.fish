@@ -22,6 +22,12 @@ if command -q gh
     end
 end
 
+if command -q podman
+    if not test -e ~/.config/fish/completions/podman.fish
+        podman completion fish -f ~/.config/fish/completions/podman.fish
+    end
+end
+
 if status --is-interactive
     abbr -a -g mv mv -i
     abbr -a -g cp cp -i
