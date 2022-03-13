@@ -273,7 +273,9 @@ local plugins = function(use)
         'petertriho/cmp-git',
         after = 'nvim-cmp',
         config = function()
-          require('cmp_git').setup()
+          require('cmp_git').setup {
+            filetypes = { 'gitcommit', 'NeogitCommitMessage' },
+          }
         end,
       },
       {
