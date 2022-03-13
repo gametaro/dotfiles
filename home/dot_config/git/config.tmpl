@@ -7,15 +7,11 @@
   path = ~/.config/git/alias
 [branch]
   autoSetupRebase = always
+[commit]
+  verbose = true
 [core]
   editor = nvim
   pager = delta
-[color]
-  branch = auto
-  diff = auto
-  interactive = auto
-  status = auto
-  ui = auto
 [fetch]
   prune = true
   writeCommitGraph = true
@@ -25,6 +21,7 @@
   default = current
   followTags = true
 [rebase]
+  autoSquash = true
   autoStash = true
 [rerere]
   enabled = true
@@ -43,4 +40,5 @@
   cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [diff]
   colorMoved = default
+  noprefix = true
 {{/* vim: set filetype=gitconfig: */}}
