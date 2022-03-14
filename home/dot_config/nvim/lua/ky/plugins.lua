@@ -406,9 +406,7 @@ local plugins = function(use)
     cmd = { 'Neogit' },
     setup = function()
       vim.keymap.set('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>')
-      -- vim.keymap.set('n', '<LocalLeader>gs', '<Cmd>Neogit kind=split<CR>', { silent = true })
-      vim.keymap.set('n', '<LocalLeader>gv', '<Cmd>Neogit kind=vsplit<CR>')
-      -- vim.keymap.set('n', '<LocalLeader>gc', '<Cmd>Neogit commit<CR>', { silent = true })
+      vim.keymap.set('n', '<LocalLeader>gG', '<Cmd>Neogit commit<CR>')
 
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'NeogitStatus',
