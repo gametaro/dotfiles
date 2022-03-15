@@ -185,6 +185,19 @@ lsp_installer.on_server_ready(function(server)
         end,
       })
     end,
+    ['eslint'] = function()
+      return vim.tbl_deep_extend('force', default_opts, {
+        on_attach = function(client, bufnr)
+          M.on_attach(client, bufnr)
+          client.resolved_capabilities.document_formatting = false
+        end,
+        settings = {
+          format = {
+            enable = false,
+          },
+        },
+      })
+    end,
   }
 
   server:setup(opts[server.name] and opts[server.name]() or default_opts)
