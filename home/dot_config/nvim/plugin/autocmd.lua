@@ -3,12 +3,10 @@ local autocmd = vim.api.nvim_create_autocmd
 local cmd = vim.api.nvim_command
 local fn = vim.fn
 
-local name = 'mine'
-
-augroup(name, { clear = true })
+local group = augroup('mine', { clear = true })
 
 autocmd('QuickFixCmdPost', {
-  group = name,
+  group = group,
   pattern = '[^l]*',
   nested = true,
   callback = function()
@@ -18,7 +16,7 @@ autocmd('QuickFixCmdPost', {
 })
 
 autocmd('QuickFixCmdPost', {
-  group = name,
+  group = group,
   pattern = 'l*',
   nested = true,
   callback = function()
@@ -28,7 +26,7 @@ autocmd('QuickFixCmdPost', {
 })
 
 autocmd('FileType', {
-  group = name,
+  group = group,
   pattern = { 'help', 'capture', 'lspinfo', 'null-ls-info', 'scratch' },
   callback = function()
     vim.keymap.set('n', 'q', '<C-w>c', { buffer = true, nowait = true })
@@ -37,7 +35,7 @@ autocmd('FileType', {
 })
 
 autocmd('TextYankPost', {
-  group = name,
+  group = group,
   callback = function()
     vim.highlight.on_yank { higroup = 'Search', timeout = 200 }
   end,
@@ -45,7 +43,7 @@ autocmd('TextYankPost', {
 })
 
 autocmd('BufWritePost', {
-  group = name,
+  group = group,
   pattern = '**/.local/share/chezmoi/*',
   callback = function()
     fn.system { 'chezmoi', 'apply', '--source-path', fn.expand('%:p') }
@@ -63,7 +61,7 @@ autocmd('BufWritePost', {
 -- vim.cmd 'autocmd mine BufWritePost */lua/*.lua source <afile> | PackerCompile'
 
 autocmd('BufReadPost', {
-  group = name,
+  group = group,
   callback = function()
     autocmd('FileType', {
       buffer = 0,
@@ -84,7 +82,7 @@ autocmd('BufReadPost', {
 })
 
 autocmd('FocusLost', {
-  group = name,
+  group = group,
   nested = true,
   callback = function()
     cmd('silent! wall')
@@ -92,7 +90,7 @@ autocmd('FocusLost', {
 })
 
 autocmd('BufLeave', {
-  group = name,
+  group = group,
   callback = function()
     if vim.bo.buftype == '' and vim.bo.filetype ~= '' and vim.bo.modifiable then
       vim.cmd('silent! update')
@@ -101,14 +99,14 @@ autocmd('BufLeave', {
 })
 
 autocmd({ 'FocusGained', 'WinEnter' }, {
-  group = name,
+  group = group,
   callback = function()
     cmd('silent! checktime')
   end,
 })
 
 autocmd('BufWritePost', {
-  group = name,
+  group = group,
   callback = function()
     if vim.wo.diff then
       cmd('diffupdate')
@@ -117,14 +115,14 @@ autocmd('BufWritePost', {
 })
 
 autocmd('VimResized', {
-  group = name,
+  group = group,
   callback = function()
     cmd('wincmd =')
   end,
 })
 
 autocmd('TermOpen', {
-  group = name,
+  group = group,
   pattern = 'term://*',
   callback = function()
     cmd('startinsert')
@@ -132,7 +130,7 @@ autocmd('TermOpen', {
 })
 
 autocmd('TermOpen', {
-  group = name,
+  group = group,
   pattern = 'term://*',
   callback = function()
     vim.opt_local.number = false
@@ -141,7 +139,7 @@ autocmd('TermOpen', {
 })
 
 autocmd({ 'TermEnter', 'TermLeave' }, {
-  group = name,
+  group = group,
   pattern = 'term://*',
   callback = function()
     vim.api.nvim_buf_set_var(0, 'term_mode', vim.api.nvim_get_mode().mode)
@@ -149,7 +147,7 @@ autocmd({ 'TermEnter', 'TermLeave' }, {
 })
 
 autocmd('BufEnter', {
-  group = name,
+  group = group,
   pattern = 'term://*',
   callback = function()
     local ok, term_mode = pcall(vim.api.nvim_buf_get_var, 0, 'term_mode')
@@ -160,7 +158,7 @@ autocmd('BufEnter', {
 })
 
 autocmd('BufEnter', {
-  group = name,
+  group = group,
   callback = function()
     vim.opt_local.formatoptions:remove {
       'c',
