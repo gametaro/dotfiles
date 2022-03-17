@@ -12,11 +12,7 @@ M.border = 'single'
 function M.setup(theme)
   if pcall(require, theme) then
     if theme == 'nightfox' then
-      local nightfox = require('nightfox')
-      nightfox.setup {
-        fox = 'nightfox',
-      }
-      nightfox.load()
+      vim.cmd('colorscheme nightfox')
     elseif theme == 'kanagawa' then
       require('kanagawa').setup {
         commentStyle = 'NONE',
