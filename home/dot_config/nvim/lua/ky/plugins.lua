@@ -30,6 +30,7 @@ local config = {
     -- end,
     prompt_border = require('ky.theme').border,
   },
+  max_jobs = jit.os == "OSX" and 50 or nil
 }
 
 local plugins = function(use)
