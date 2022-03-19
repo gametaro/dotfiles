@@ -89,7 +89,7 @@ opt.wildoptions = 'pum'
 opt.wrap = false
 
 if fn.executable('fish') > 0 then
-  opt.shell = '/usr/bin/fish'
+  opt.shell = 'fish'
 end
 
 if fn.executable('rg') > 0 then
