@@ -1,16 +1,9 @@
-{{- if (eq .chezmoi.os "linux") -}}
+{{- if (eq .chezmoi.os "linux" "darwin") -}}
 #!/usr/bin/env sh
 set -eu
 
 if [ ! -e "$HOME/.asdf" ]; then
   git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.9.0
 fi
-{{- end -}}
-
-{{- if (eq .chezmoi.os "darwin") -}}
-#!/usr/bin/env sh
-set -Eeu
-
-brew install asdf
 {{- end -}}
 {{/* vim: set filetype=sh: */}}
