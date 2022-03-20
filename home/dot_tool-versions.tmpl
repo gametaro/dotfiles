@@ -10,4 +10,6 @@ nodejs lts system
 ripgrep 13.0.0 system
 starship 1.4.1 system
 stylua 0.12.5 system
+{{- if (ne .chezmoi.os "darwin") }}
 zoxide 0.8.0 system
+{{- end }}
