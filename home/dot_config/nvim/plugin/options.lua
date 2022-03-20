@@ -42,6 +42,7 @@ opt.foldmethod = 'expr'
 opt.ignorecase = true
 opt.imsearch = 0
 opt.isfname:remove { '=' }
+opt.laststatus = 3
 opt.lazyredraw = true
 opt.list = true
 opt.listchars = {
