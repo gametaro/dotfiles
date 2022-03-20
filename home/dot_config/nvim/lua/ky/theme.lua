@@ -12,6 +12,9 @@ M.border = 'single'
 function M.setup(theme)
   if pcall(require, theme) then
     if theme == 'nightfox' then
+      require('nightfox').init {
+        dim_inactive = true,
+      }
       vim.cmd('colorscheme nightfox')
     elseif theme == 'kanagawa' then
       require('kanagawa').setup {
