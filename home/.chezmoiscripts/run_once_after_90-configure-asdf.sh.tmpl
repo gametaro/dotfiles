@@ -13,6 +13,10 @@ while read -r plugin _; do
   plugin_add "$plugin"
 done <"$HOME/.tool-versions"
 
+{{ if (eq .chezmoi.os "darwin") -}}
+# use gnu-tar instead of builtins when installing zoxide
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+{{ end -}}
 asdf install
 {{- end -}}
 {{/* vim: set filetype=sh: */}}
