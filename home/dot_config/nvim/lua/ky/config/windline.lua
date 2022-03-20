@@ -233,5 +233,3 @@ windline.setup {
     explorer,
   },
 }
-
-require('wlfloatline').setup()

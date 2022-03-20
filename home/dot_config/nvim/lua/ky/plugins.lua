@@ -306,6 +306,7 @@ local plugins = function(use)
 
   use {
     'windwp/windline.nvim',
+    disable = true,
     event = 'VimEnter',
     config = function()
       require('ky.config.windline')
@@ -856,6 +857,14 @@ local plugins = function(use)
     event = { 'BufRead' },
     config = function()
       require('git-conflict').setup()
+    end,
+  }
+
+  use {
+    'feline-nvim/feline.nvim',
+    event = 'VimEnter',
+    config = function()
+      require('ky.config.feline')
     end,
   }
 end
