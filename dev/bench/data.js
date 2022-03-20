@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1647781919469,
+  "lastUpdate": 1647786656820,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -6143,6 +6143,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.22033868018,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "c5740d4ce6224cb7cbea0b05c11087dcc8d66b69",
+          "message": "fix(chezmoi):use gnu-tar when installing zoxide",
+          "timestamp": "2022-03-20T23:28:26+09:00",
+          "tree_id": "8e94c2511da3a140c7621d284f4d3fcebb7d2117",
+          "url": "https://github.com/gametaro/dotfiles/commit/c5740d4ce6224cb7cbea0b05c11087dcc8d66b69"
+        },
+        "date": 1647786655795,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.19427037902000002,
             "unit": "Second"
           }
         ]
