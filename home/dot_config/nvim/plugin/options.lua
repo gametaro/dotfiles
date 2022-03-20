@@ -22,7 +22,16 @@ opt.fileformats = {
   'dos',
   'mac',
 }
-opt.fillchars = { diff = '/' }
+opt.fillchars = {
+  diff = '/',
+  horiz = '━',
+  horizup = '┻',
+  horizdown = '┳',
+  vert = '┃',
+  vertleft = '┫',
+  vertright = '┣',
+  verthoriz = '╋',
+}
 -- see :h fo-table
 opt.formatoptions:remove {
   'c',
