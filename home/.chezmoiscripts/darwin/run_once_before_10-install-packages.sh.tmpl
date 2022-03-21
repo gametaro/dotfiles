@@ -1,8 +1,7 @@
-{{- if (eq .chezmoi.os "darwin") -}}
+{{ if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
-{{ else if (eq .osid "darwin") -}}
 
 packages=(
   git

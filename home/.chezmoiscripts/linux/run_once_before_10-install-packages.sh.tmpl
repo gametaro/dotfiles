@@ -1,53 +1,66 @@
-{{ if (eq .chezmoi.os "linux" ) -}}
+{{ if eq .chezmoi.os "linux" -}}
+
+{{ if eq .osid "linux-debian" "linux-ubuntu" -}}
+{{ $packages := list
+  "build-essential"
+  "curl"
+  "fish"
+  "git"
+  "jq"
+  "libsqlite3-dev"
+  "procps"
+  "sqlite3"
+  "unzip"
+  "wget"
+}}
+{{ else }}
+{{ $packages := list
+  "bc"
+  "curl"
+  "gcc-c++"
+  "git"
+  "jq"
+  "procps-ng"
+  "sqlite-devel"
+  "unzip"
+  "wget"
+}}
+{{ end }}
+
+{{ $sudo := "sudo " -}}
+{{ if eq .chezmoi.username "root" -}}
+{{   $sudo = "" -}}
+{{ end -}}
+
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
 
-{{   if (eq .chezmoi.osRelease.id "debian" "ubuntu") -}}
-packages=(
-  build-essential
-  curl
-  fish
-  git
-  jq
-  libsqlite3-dev
-  procps
-  sqlite3
-  unzip
-  wget
-)
+{{ if eq .osid "linux-ubuntu" -}}
+{{ $sudo }}add-apt-repository ppa:git-core/ppa
+{{ $sudo }}add-apt-repository ppa:fish-shell/release-3
+{{ end -}}
 
-{{     if (eq .chezmoi.osRelease.id "ubuntu") -}}
-sudo add-apt-repository ppa:git-core/ppa
-sudo add-apt-repository ppa:fish-shell/release-3
-{{     else if (eq .chezmoi.osRelease.id "debian") -}}
+{{ if eq .osid "linux-debian" -}}
 echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_10/ /' \
-  | sudo tee /etc/apt/sources.list.d/shells:fish:release:3.list
+  | {{ $sudo }}tee /etc/apt/sources.list.d/shells:fish:release:3.list
 curl -fsSLk https://download.opensuse.org/repositories/shells:fish:release:3/Debian_10/Release.key \
   | gpg --dearmor \
-  | sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
-{{     end -}}
-sudo apt-get update
-sudo apt-get install -y "${packages[@]}"
-{{   else if (eq .chezmoi.osRelease.id "amzn" "centos" "fedora" "rhel") -}}
+  | {{ $sudo }}tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
+{{ end -}}
 
-packages=(
-  bc
-  curl
-  gcc-c++
-  git
-  jq
-  procps-ng
-  sqlite-devel
-  unzip
-  wget
-)
+{{ if eq .osid "linux-debian" "linux-ubuntu" -}}
+{{ $sudo }}apt-get update
+{{ $sudo }}apt-get install -y {{ $packages | join " " }}
+{{ end -}}
 
-sudo dnf install -y "${packages[@]}"
-sudo dnf group install -y "Development Tools"
+{{ if eq .osid "linux-amzn" "linux-centos" "linux-fedora" "linux-rhel") -}}
+{{ $sudo }}dnf install -y {{ $packages | join " " }}
+{{ $sudo }}dnf group install -y "Development Tools"
 cd /etc/yum.repos.d/
-sudo wget https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_8/shells:fish:release:3.repo
-sudo dnf install -y fish
-{{   end -}}
+{{ $sudo }}wget https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_8/shells:fish:release:3.repo
+{{ $sudo }}dnf install -y fish
+{{ end -}}
+
 {{ end -}}
 {{/* vim: set filetype=sh: */}}
