@@ -1,47 +1,44 @@
 {{ if eq .chezmoi.os "linux" -}}
 
-{{ if eq .osid "linux-debian" "linux-ubuntu" -}}
 {{ $packages := list
-  "build-essential"
   "curl"
-  "fish"
   "git"
   "jq"
+  "unzip"
+  "wget" -}}
+
+{{ if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
+{{ $packages = concat $packages (list
+  "build-essential"
+  "fish"
   "libsqlite3-dev"
   "procps"
-  "sqlite3"
-  "unzip"
-  "wget"
-}}
-{{ else }}
-{{ $packages := list
+  "sqlite3") -}}
+{{ end -}}
+
+{{ if eq .chezmoi.osRelease.id "amzn" "centos" "fedora" "rhel" -}}
+{{ $packages = concat $packages (list
   "bc"
-  "curl"
   "gcc-c++"
-  "git"
-  "jq"
   "procps-ng"
-  "sqlite-devel"
-  "unzip"
-  "wget"
-}}
-{{ end }}
+  "sqlite-devel") -}}
+{{ end -}}
 
 {{ $sudo := "sudo " -}}
 {{ if eq .chezmoi.username "root" -}}
-{{   $sudo = "" -}}
+{{ $sudo = "" -}}
 {{ end -}}
 
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
 
-{{ if eq .osid "linux-ubuntu" -}}
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
 {{ $sudo }}add-apt-repository ppa:git-core/ppa
 {{ $sudo }}add-apt-repository ppa:fish-shell/release-3
 {{ end -}}
 
-{{ if eq .osid "linux-debian" -}}
+{{ if eq .chezmoi.osRelease.id "debian" -}}
 echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_10/ /' \
   | {{ $sudo }}tee /etc/apt/sources.list.d/shells:fish:release:3.list
 curl -fsSLk https://download.opensuse.org/repositories/shells:fish:release:3/Debian_10/Release.key \
@@ -49,12 +46,12 @@ curl -fsSLk https://download.opensuse.org/repositories/shells:fish:release:3/Deb
   | {{ $sudo }}tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
 {{ end -}}
 
-{{ if eq .osid "linux-debian" "linux-ubuntu" -}}
+{{ if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
 {{ $sudo }}apt-get update
 {{ $sudo }}apt-get install -y {{ $packages | join " " }}
 {{ end -}}
 
-{{ if eq .osid "linux-amzn" "linux-centos" "linux-fedora" "linux-rhel") -}}
+{{ if eq .chezmoi.osRelease.id "amzn" "centos" "fedora" "rhel" -}}
 {{ $sudo }}dnf install -y {{ $packages | join " " }}
 {{ $sudo }}dnf group install -y "Development Tools"
 cd /etc/yum.repos.d/

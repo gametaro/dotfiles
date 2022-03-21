@@ -1,18 +1,32 @@
-{{ if (eq .chezmoi.os "darwin") -}}
+{{ if eq .chezmoi.os "darwin" -}}
+
+{{ $brews := list
+  "curl"
+  "fish"
+  "gcc"
+  "git"
+  "gnu-tar"
+  "gnupg"
+  "jq"
+  "pinentry-mac"
+  "wget"
+  "zoxide" -}}
+
+{{ $casks := list
+  "iterm2" -}}
+
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
 
-packages=(
-  git
-  curl
-  fish
-  gcc
-  gnu-tar
-  zoxide
-)
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+EOF
 
-brew update
-brew install "${packages[@]}"
 {{ end -}}
 {{/* vim: set filetype=sh: */}}
