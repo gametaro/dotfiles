@@ -2,12 +2,16 @@
 #!/usr/bin/env sh
 set -eu
 
-. "$HOME/.profile"
-
 plugin_add() {
   # don't exit with exit code 2
   asdf plugin-add "$1" "${2:-}" || [ $? -eq 2 ]
 }
+
+if [ ! -e "$HOME/.asdf" ]; then
+  git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.9.0
+fi
+
+. "$HOME/.profile"
 
 while read -r plugin _; do
   plugin_add "$plugin"
