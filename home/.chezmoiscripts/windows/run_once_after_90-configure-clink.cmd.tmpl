@@ -1,5 +1,4 @@
 {{ if (eq .chezmoi.os "windows") }}
-{{- writeToStdout "Configuring clink...\n" -}}
 %USERPROFILE%\scoop\shims\clink autorun install
 {{ end }}
 {{/* vim: set filetype=cmd: */}}
