@@ -1,0 +1,20 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+{{- writeToStdout "Installing packages...\n" -}}
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+{{ else if (eq .osid "darwin") -}}
+
+packages=(
+  git
+  curl
+  fish
+  gcc
+  gnu-tar
+  zoxide
+)
+
+brew update
+brew install "${packages[@]}"
+{{ end -}}
+{{/* vim: set filetype=sh: */}}

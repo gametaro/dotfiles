@@ -1,4 +1,5 @@
 {{- if (eq .chezmoi.os "linux" "darwin") -}}
+{{- writeToStdout "Installing asdf...\n" -}}
 #!/usr/bin/env sh
 set -eu
 

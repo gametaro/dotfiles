@@ -1,4 +1,5 @@
 {{ if (eq .chezmoi.os "windows") }}
+{{- writeToStdout "Installing packages...\n" -}}
 
 # install scoop
 if ( -not (Test-Path -Path $HOME\scoop) )

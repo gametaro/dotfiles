@@ -1,4 +1,5 @@
 {{- if (eq .chezmoi.os "linux") -}}
+{{- writeToStdout "Configuring Neovim...\n" -}}
 #!/usr/bin/env sh
 set -eu
 
