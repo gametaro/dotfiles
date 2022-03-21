@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1647786656820,
+  "lastUpdate": 1647828063310,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -6172,6 +6172,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.19427037902000002,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "adb57487872e204ea21880533bb7a30e9c743543",
+          "message": "fix(chezmoi): do not use asdf for installing zoxide on mac",
+          "timestamp": "2022-03-21T00:10:56+09:00",
+          "tree_id": "e1121dbd86fe3758fea9548ff848eab02a119f65",
+          "url": "https://github.com/gametaro/dotfiles/commit/adb57487872e204ea21880533bb7a30e9c743543"
+        },
+        "date": 1647828062384,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.20436798763333333,
             "unit": "Second"
           }
         ]
