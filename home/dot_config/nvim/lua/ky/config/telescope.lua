@@ -24,12 +24,7 @@ local defaults = {
     height = 25,
     preview_cutoff = 100,
   },
-  borderchars = {
-    prompt = { '─', ' ', ' ', ' ', '─', '─', ' ', ' ' },
-    results = { '─', ' ', ' ', ' ', '─', '─', ' ', ' ' },
-    preview = { ' ' },
-  },
-  width = 0.8,
+  border = false,
   file_ignore_patterns = { '%.git$', 'node_modules' },
   set_env = {
     ['COLORTERM'] = 'truecolor',
