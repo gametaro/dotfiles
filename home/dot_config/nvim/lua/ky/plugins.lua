@@ -832,7 +832,9 @@ local plugins = function(use)
     event = { 'BufRead' },
     config = function()
       vim.opt.cursorline = true
-      require('modes').setup {}
+      require('modes').setup {
+        focus_only = true,
+      }
     end,
   }
 
