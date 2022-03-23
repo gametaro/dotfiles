@@ -270,6 +270,7 @@ local plugins = function(use)
       { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
       { 'f3fora/cmp-spell', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-emoji', after = 'nvim-cmp' },
       {
         'petertriho/cmp-git',
         after = 'nvim-cmp',

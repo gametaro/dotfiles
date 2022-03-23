@@ -197,6 +197,7 @@ cmp.setup.filetype({ 'markdown' }, {
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'spell' },
+    { name = 'emoji' },
   }, {
     { name = 'buffer' },
   }),
