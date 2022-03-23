@@ -13,6 +13,10 @@
 {{-   else if eq .chezmoi.os "linux" }}
 {{-     $fontDir = ".local/share/fonts" }}
 {{-   end }}
+["{{ $fontDir }}/Fira Code Bold Nerd Font Complete Windows Compatible.ttf"]
+    type = "file"
+    url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Bold/complete/Fira%20Code%20Bold%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf"
+    refreshPeriod = "168h"
 ["{{ $fontDir }}/Fira Code Medium Nerd Font Complete Windows Compatible.ttf"]
     type = "file"
     url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Medium/complete/Fira%20Code%20Medium%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf"
