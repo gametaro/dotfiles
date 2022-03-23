@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1647948407989,
+  "lastUpdate": 1648038060676,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -6375,6 +6375,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.1915214669733333,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "9efc4c14b2a8e20f3cf977b1c81429e9ba7a40c8",
+          "message": "chore(chezmoi): add FiraCode bold font",
+          "timestamp": "2022-03-23T21:18:27+09:00",
+          "tree_id": "fb59478be3e5962c8b70fb18f3a9e74e7c8dd676",
+          "url": "https://github.com/gametaro/dotfiles/commit/9efc4c14b2a8e20f3cf977b1c81429e9ba7a40c8"
+        },
+        "date": 1648038059695,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.184528168335,
             "unit": "Second"
           }
         ]
