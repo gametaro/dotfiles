@@ -383,7 +383,7 @@ end
 map('t', '<Esc>', function()
   local names = { 'nvim', 'fzf' }
   return find_proc_in_tree(vim.b.terminal_job_pid, names) and '<Esc>' or [[<C-\><C-n>]]
-end, { expr = true, desc = [[toggle `<Esc>` and `<C-\><C-n>` according to process tree]] })
+end, { expr = true, desc = [[toggle `<Esc>` and `<C-\><C-n>` based on current process tree]] })
 
 map('n', '<F1>', function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
