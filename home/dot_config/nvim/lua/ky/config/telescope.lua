@@ -122,7 +122,6 @@ map('n', '<C-p>', function()
   local ok = pcall(builtin.git_files)
   if not ok then
     builtin.find_files {
-      find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
       hidden = true,
     }
   end
@@ -140,7 +139,6 @@ map('n', '<C-s>', builtin.grep_string)
 map('n', '<LocalLeader>fd', function()
   builtin.find_files {
     prompt_title = 'Dot Files',
-    find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
     cwd = '$XDG_DATA_HOME/chezmoi/',
     hidden = true,
   }
