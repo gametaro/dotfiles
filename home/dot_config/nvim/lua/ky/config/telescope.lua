@@ -129,7 +129,7 @@ end)
 map('n', '<C-b>', function()
   builtin.buffers(themes.get_dropdown {
     sort_lastused = true,
-    -- sort_mru = true,
+    sort_mru = true,
     only_cwd = true,
     previewer = false,
   })
