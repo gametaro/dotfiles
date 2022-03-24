@@ -132,6 +132,7 @@ map('n', '<C-b>', function()
     sort_mru = true,
     only_cwd = true,
     previewer = false,
+    border = false,
   })
 end)
 map('n', '<C-g>', builtin.live_grep)
@@ -153,6 +154,7 @@ map('n', '<C-n>', function()
   builtin.oldfiles(themes.get_dropdown {
     only_cwd = true,
     previewer = false,
+    border = false,
   })
 end)
 map('n', '<LocalLeader>fr', function()
