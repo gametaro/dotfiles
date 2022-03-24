@@ -21,7 +21,7 @@ local defaults = {
   sorting_strategy = 'ascending',
   layout_strategy = 'bottom_pane',
   layout_config = {
-    height = 25,
+    height = 0.5,
     preview_cutoff = 100,
   },
   border = false,
