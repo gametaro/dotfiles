@@ -93,7 +93,7 @@ autocmd('BufLeave', {
   group = group,
   callback = function()
     if vim.bo.buftype == '' and vim.bo.filetype ~= '' and vim.bo.modifiable then
-      vim.cmd('silent! update')
+      cmd('silent! update')
     end
   end,
 })
