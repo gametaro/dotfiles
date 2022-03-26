@@ -1,6 +1,11 @@
 require('gitsigns').setup {
   signs = {
-    add = { hl = 'GitSignsAdd', text = '▍', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+    add = {
+      hl = 'GitSignsAdd',
+      text = '▍',
+      numhl = 'GitSignsAddNr',
+      linehl = 'GitSignsAddLn',
+    },
     change = {
       hl = 'GitSignsChange',
       text = '▍',
@@ -73,6 +78,7 @@ require('gitsigns').setup {
     map('n', '<LocalLeader>hQ', function()
       gs.setqflist('all')
     end)
+    map('n', '<LocalLeader>hl', gs.setloclist)
     map('n', '<LocalLeader>td', gs.toggle_deleted)
 
     -- Text object
