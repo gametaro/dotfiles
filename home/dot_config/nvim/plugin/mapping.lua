@@ -287,25 +287,25 @@ map('n', qf('f'), function()
     end
   end)
 end, { desc = 'free all the quickfix lists in the stack. see :help setqflist-examples' })
-map('n', qf('N'), function()
+map('n', ']Q', function()
   local ok, _ = pcmd(vim.v.count1 .. 'cnewer')
   if not ok then
     pcmd('1chistory')
   end
 end)
-map('n', qf('P'), function()
+map('n', '[Q', function()
   local ok, _ = pcmd(vim.v.count1 .. 'colder')
   if not ok then
     pcmd(fn.getqflist({ nr = '$' }).nr .. 'chistory')
   end
 end)
-map('n', qf('n'), function()
+map('n', ']q', function()
   local ok, _ = pcmd(vim.v.count1 .. 'cnext')
   if not ok then
     pcmd('cfirst')
   end
 end)
-map('n', qf('p'), function()
+map('n', '[q', function()
   local ok, _ = pcmd(vim.v.count1 .. 'cprevious')
   if not ok then
     pcmd('clast')
