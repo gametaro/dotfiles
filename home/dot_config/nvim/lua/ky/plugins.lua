@@ -802,6 +802,7 @@ local plugins = function(use)
 
   use {
     'mvllow/modes.nvim',
+    disable = true,
     event = { 'BufRead' },
     config = function()
       vim.opt.cursorline = true
