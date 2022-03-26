@@ -47,7 +47,7 @@ for _, v in ipairs { 'cc', 'dd', 'yy' } do
 end
 
 map('n', leader('h'), ':<C-u>help<Space>')
-map('n', leader('l'), ':<C-u>lua =')
+-- map('n', leader('l'), ':<C-u>lua =')
 
 -- swap ; for :
 map('', ';', ':')
@@ -144,9 +144,9 @@ map('n', 'g,', function()
     pcmd('normal! 999g;')
   end
 end, { desc = 'Go to [count] newer position in change list (wrapscan).' })
-map('n', 'gl', function()
-  cmd('changes')
-end)
+-- map('n', 'gl', function()
+--   cmd('changes')
+-- end)
 
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
@@ -321,6 +321,62 @@ map('n', qf('0'), function()
 end)
 map('n', qf('$'), function()
   pcmd('clast')
+end)
+
+-- locationlist
+local loc = prefix(leader('l'))
+map('n', ']l', function()
+  local ok = pcmd(vim.v.count1 .. 'lnext')
+  if not ok then
+    pcmd('lfirst')
+  end
+end)
+map('n', '[l', function()
+  local ok = pcmd(vim.v.count1 .. 'lprevious')
+  if not ok then
+    pcmd('llast')
+  end
+end)
+map('n', ']L', function()
+  local ok = pcmd(vim.v.count1 .. 'lnewer')
+  if not ok then
+    pcmd('1lhistory')
+  end
+end)
+map('n', '[L', function()
+  local ok = pcmd(vim.v.count1 .. 'lolder')
+  if not ok then
+    pcmd(fn.getloclist(0, { nr = 0 }).nr .. 'chistory')
+  end
+end)
+map('n', loc('o'), function()
+  cmd('lopen')
+end)
+map('n', loc('c'), function()
+  cmd('lclose')
+end)
+map('n', loc('l'), function()
+  local ok, msg = pcmd('llist')
+  if not ok then
+    vim.notify(msg, vim.log.levels.INFO)
+  end
+end)
+map('n', loc('h'), function()
+  local ok, msg = pcmd(vim.v.count1 .. 'lhistory')
+  if not ok then
+    vim.notify(msg, vim.log.levels.INFO)
+  end
+end)
+map('n', 'gl', function()
+  local winid = fn.getloclist(0, { winid = 0 }).winid
+  cmd('lwindow')
+  return winid ~= 0 and fn.win_gotoid(winid)
+end, { desc = 'go to location list window' })
+map('n', loc('0'), function()
+  pcmd('lfirst')
+end)
+map('n', loc('$'), function()
+  pcmd('llast')
 end)
 
 -- map('i', '<M-j>', '<Esc>:m .+1<CR>==gi')
