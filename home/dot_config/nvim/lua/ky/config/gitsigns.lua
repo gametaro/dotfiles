@@ -50,9 +50,26 @@ require('gitsigns').setup {
     end
 
     -- Navigation
-    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
-
+    map('n', ']c', function()
+      if vim.wo.diff then
+        return ']c'
+      else
+        vim.schedule(function()
+          gs.next_hunk { preview = true }
+        end)
+        return '<Ignore>'
+      end
+    end, { expr = true })
+    map('n', '[c', function()
+      if vim.wo.diff then
+        return '[c'
+      else
+        vim.schedule(function()
+          gs.prev_hunk { preview = true }
+        end)
+        return '<Ignore>'
+      end
+    end, { expr = true })
     -- Actions
     map('n', '<LocalLeader>hs', gs.stage_hunk)
     map('n', '<LocalLeader>hr', gs.reset_hunk)
