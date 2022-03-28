@@ -1,7 +1,5 @@
-local s = require('ky.snippets.helpers').s
-local t = require('ky.snippets.helpers').t
-local i = require('ky.snippets.helpers').i
-local fmt = require('ky.snippets.helpers').fmt
+---@diagnostic disable: undefined-global
+
 local ins_generate = require('ky.snippets.helpers').ins_generate
 
 local tag_gen = function(tag, attributes)

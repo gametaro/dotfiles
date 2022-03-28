@@ -1,10 +1,5 @@
-local sn = require('ky.snippets.helpers').sn
-local s = require('ky.snippets.helpers').s
-local t = require('ky.snippets.helpers').t
-local c = require('ky.snippets.helpers').c
-local i = require('ky.snippets.helpers').i
-local d = require('ky.snippets.helpers').d
-local fmt = require('ky.snippets.helpers').fmt
+---@diagnostic disable: undefined-global
+
 local ins_generate = require('ky.snippets.helpers').ins_generate
 
 local header_gen = function(num)

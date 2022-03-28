@@ -1,7 +1,4 @@
-local ls = require('luasnip')
-
-local fmt = require('luasnip.extras.fmt').fmt
-local fmta = require('luasnip.extras.fmt').fmta
+---@diagnostic disable: undefined-global
 
 local function ins_generate(nodes)
   return setmetatable(nodes or {}, {
