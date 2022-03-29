@@ -1,5 +1,4 @@
 ---@diagnostic disable: undefined-global
-local ins_generate = require('ky.snippets.helpers').ins_generate
 
 local types = { 'fix', 'feat', 'build', 'chore', 'ci', 'docs', 'style', 'refactor', 'perf', 'test' }
 

@@ -1,8 +1,5 @@
 ---@diagnostic disable: undefined-global
 
-local ins_generate = require('ky.snippets.helpers').ins_generate
-local rep_generate = require('ky.snippets.helpers').rep_generate
-
 local opts = {
   single_quote = true,
   semi = true,

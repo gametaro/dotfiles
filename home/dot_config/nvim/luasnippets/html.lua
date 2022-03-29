@@ -1,7 +1,5 @@
 ---@diagnostic disable: undefined-global
 
-local ins_generate = require('ky.snippets.helpers').ins_generate
-
 local tag_gen = function(tag, attributes)
   attributes = attributes or {}
   local padding = ' '

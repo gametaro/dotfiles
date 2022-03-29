@@ -1,7 +1,5 @@
 ---@diagnostic disable: undefined-global
 
-local ins_generate = require('ky.snippets.helpers').ins_generate
-
 local header_gen = function(num)
   return s('h' .. tostring(num), fmt(string.rep('#', num) .. ' {}', ins_generate()))
 end

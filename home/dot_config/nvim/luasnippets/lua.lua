@@ -1,7 +1,5 @@
 ---@diagnostic disable: undefined-global
 
-local rep_generate = require('ky.snippets.helpers').rep_generate
-
 local format = string.format
 
 local function rec_elseif()

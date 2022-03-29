@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-global
+local ls = require('luasnip')
 
 local function ins_generate(nodes)
   return setmetatable(nodes or {}, {
@@ -27,16 +27,6 @@ local function rep_generate(nodes)
 end
 
 return {
-  s = ls.s,
-  i = ls.i,
-  t = ls.t,
-  c = ls.c,
-  sn = ls.sn,
-  d = ls.d,
-  r = ls.r,
-  f = ls.f,
-  fmt = fmt,
-  fmta = fmta,
   ins_generate = ins_generate,
   rep_generate = rep_generate,
 }
