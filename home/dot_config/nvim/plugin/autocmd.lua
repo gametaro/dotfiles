@@ -67,13 +67,12 @@ autocmd('BufReadPost', {
       buffer = 0,
       once = true,
       callback = function()
-        local ft = vim.bo.ft:lower() -- for neogit
+        local row, col = unpack(vim.api.nvim_buf_get_mark(0, '"'))
         if
-          not (ft:find('commit') or (ft:find('rebase')))
-          and fn.line('\'"') > 1
-          and fn.line('\'"') <= fn.line('$')
+          not vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo.ft)
+          and { row, col } ~= { 1, 0 }
         then
-          cmd('normal! g`"')
+          vim.api.nvim_win_set_cursor(0, { row, col })
         end
       end,
     })
