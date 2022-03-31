@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1648563440599,
+  "lastUpdate": 1648729909100,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -6636,6 +6636,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.2172861310666667,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "06a811ead215fac5250eac547e521f31c8f42dcb",
+          "message": "fix(nightfox): pallet -> palette",
+          "timestamp": "2022-03-31T21:29:09+09:00",
+          "tree_id": "bfc568d13bac04f6f96019a4600ecb27c5af9b0a",
+          "url": "https://github.com/gametaro/dotfiles/commit/06a811ead215fac5250eac547e521f31c8f42dcb"
+        },
+        "date": 1648729908183,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.17823822648,
             "unit": "Second"
           }
         ]
