@@ -3,19 +3,19 @@ local vi_mode = require('feline.providers.vi_mode')
 local git = require('feline.providers.git')
 
 local spec = require('nightfox.spec').load('nightfox')
-local pallet = require('nightfox.pallet').load('nightfox')
+local palette = require('nightfox.palette').load('nightfox')
 
 local theme = {
-  black = pallet.black.base,
-  blue = pallet.blue.base,
-  cyan = pallet.cyan.base,
-  green = pallet.green.base,
-  magenta = pallet.magenta.base,
-  orange = pallet.orange.base,
-  pink = pallet.pink.base,
-  red = pallet.red.base,
-  white = pallet.white.dim,
-  yellow = pallet.yellow.dim,
+  black = palette.black.base,
+  blue = palette.blue.base,
+  cyan = palette.cyan.base,
+  green = palette.green.base,
+  magenta = palette.magenta.base,
+  orange = palette.orange.base,
+  pink = palette.pink.base,
+  red = palette.red.base,
+  white = palette.white.dim,
+  yellow = palette.yellow.dim,
 }
 
 local vi_mode_colors = {
