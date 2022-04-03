@@ -8,6 +8,9 @@ local default = {
   augend.date.alias['%m/%d'],
   augend.date.alias['%H:%M'],
   augend.constant.alias.bool,
+  augend.constant.new {
+    elements = { 'TODO', 'WARN', 'NOTE', 'HACK' },
+  },
 }
 
 local merge_with_default = function(group_name)
