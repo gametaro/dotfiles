@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1648729909100,
+  "lastUpdate": 1648974600864,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -6665,6 +6665,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.17823822648,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "9b4d2c8c7e7d0f2380877ba50039a97d99e994fd",
+          "message": "chore(dial): add constant augend for todos",
+          "timestamp": "2022-04-03T17:26:54+09:00",
+          "tree_id": "e70b15d981815e283158e77a38cb4acef2ebfe0c",
+          "url": "https://github.com/gametaro/dotfiles/commit/9b4d2c8c7e7d0f2380877ba50039a97d99e994fd"
+        },
+        "date": 1648974599625,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.19256026875333332,
             "unit": "Second"
           }
         ]
