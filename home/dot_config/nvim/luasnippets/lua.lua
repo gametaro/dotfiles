@@ -59,7 +59,7 @@ return {
     })
   ),
   s(
-    'rq',
+    'req',
     c(1, {
       sn(nil, fmt(format('require(%s{}%s)', quote, quote), rep_generate())),
       sn(nil, fmt(format('local {} = require(%s{}%s)', quote, quote), rep_generate())),
@@ -99,39 +99,37 @@ return {
     c(1, {
       sn(
         nil,
-        fmt(
-          [[
-          local function {}({})
-            {}
-          end
-          ]],
-          rep_generate()
-        )
+        {
+          t('local function '),
+          r(1, 'name'),
+          t('('),
+          r(2, 'arg'),
+          t { ')', '\t' },
+          r(3, 'code'),
+          t { '', 'end' },
+        }
       ),
       sn(
         nil,
-        fmt(
-          [[
-          local {} = function ({})
-            {}
-          end
-          ]],
-          rep_generate()
-        )
+        {
+          t('local '),
+          r(1, 'name'),
+          t('= function('),
+          r(2, 'arg'),
+          t { ')', '\t' },
+          r(3, 'code'),
+          t { '', 'end' },
+        }
       ),
     })
   ),
-  s(
-    'fa',
-    fmt(
-      [[
-      function({})
-        {}
-      end
-      ]],
-      { r(1, 'name'), r(2, 'args') }
-    )
-  ),
+  s('fa', {
+    t('function('),
+    i(1),
+    t { ')', '\t' },
+    i(2),
+    t { '', 'end' },
+  }),
   s('f', {
     t('function '),
     i(1),

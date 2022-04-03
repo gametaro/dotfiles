@@ -166,13 +166,13 @@ return {
   }),
   s('cl', {
     t('console.'),
-    c(1, {
+    c(2, {
       t('log'),
       t('warn'),
       t('error'),
     }),
     t('('),
-    i(2),
+    i(1),
     t(')' .. semi),
   }),
   s('a', { t('await '), i(1) }),

@@ -21,6 +21,7 @@ ls.config.setup {
     },
   },
   snip_env = {
+    ls = require('luasnip'),
     s = require('luasnip.nodes.snippet').S,
     sn = require('luasnip.nodes.snippet').SN,
     t = require('luasnip.nodes.textNode').T,
