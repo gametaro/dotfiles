@@ -97,30 +97,24 @@ return {
   s(
     'lf',
     c(1, {
-      sn(
-        nil,
-        {
-          t('local function '),
-          r(1, 'name'),
-          t('('),
-          r(2, 'arg'),
-          t { ')', '\t' },
-          r(3, 'code'),
-          t { '', 'end' },
-        }
-      ),
-      sn(
-        nil,
-        {
-          t('local '),
-          r(1, 'name'),
-          t('= function('),
-          r(2, 'arg'),
-          t { ')', '\t' },
-          r(3, 'code'),
-          t { '', 'end' },
-        }
-      ),
+      sn(nil, {
+        t('local function '),
+        r(1, 'name'),
+        t('('),
+        r(2, 'arg'),
+        t { ')', '\t' },
+        r(3, 'code'),
+        t { '', 'end' },
+      }),
+      sn(nil, {
+        t('local '),
+        r(1, 'name'),
+        t('= function('),
+        r(2, 'arg'),
+        t { ')', '\t' },
+        r(3, 'code'),
+        t { '', 'end' },
+      }),
     })
   ),
   s('fa', {
