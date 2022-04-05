@@ -18,5 +18,7 @@ while read -r plugin _; do
 done <"$HOME/.tool-versions"
 
 asdf install
+
+asdf direnv setup --shell fish --version latest
 {{- end -}}
 {{/* vim: set filetype=sh: */}}
