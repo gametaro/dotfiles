@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1649482234372,
+  "lastUpdate": 1649484060076,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -6781,6 +6781,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.19962334779333338,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "f48a65b996b343ce4dc1b177b337b44d8d8633fa",
+          "message": "feat(substitute): integrate with yanky.nvim",
+          "timestamp": "2022-04-09T14:56:32+09:00",
+          "tree_id": "34b67097ab82168ed95ca1ed51d7e67a1c0e2463",
+          "url": "https://github.com/gametaro/dotfiles/commit/f48a65b996b343ce4dc1b177b337b44d8d8633fa"
+        },
+        "date": 1649484059109,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.20687844627333335,
             "unit": "Second"
           }
         ]
