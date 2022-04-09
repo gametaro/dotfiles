@@ -800,6 +800,39 @@ local plugins = function(use)
       require('ky.config.feline')
     end,
   }
+
+  use {
+    'gbprod/yanky.nvim',
+    setup = function()
+      vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
+      vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
+      vim.keymap.set({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)')
+      vim.keymap.set({ 'n', 'x' }, 'gP', '<Plug>(YankyGPutBefore)')
+      vim.keymap.set('n', '<LocalLeader>yn', '<Plug>(YankyCycleForward)')
+      vim.keymap.set('n', '<LocalLeader>yp', '<Plug>(YankyCycleBackward)')
+      vim.keymap.set({ 'n', 'x' }, 'y', '<Plug>(YankyYank)')
+    end,
+    config = function()
+      require('yanky').setup {
+        ring = {
+          history_length = 10,
+          storage = 'shada',
+          sync_with_numbered_registers = true,
+        },
+        system_clipboard = {
+          sync_with_ring = true,
+        },
+        highlight = {
+          on_put = true,
+          on_yank = true,
+          timer = 200,
+        },
+        preserve_cursor_position = {
+          enabled = true,
+        },
+      }
+    end,
+  }
 end
 
 bootstrap()
