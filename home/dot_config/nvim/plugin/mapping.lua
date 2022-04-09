@@ -89,8 +89,8 @@ map('i', '<M-O>', '<C-o>O')
 map('c', '<M-b>', '<S-Left>')
 map('c', '<M-f>', '<S-right>')
 
-map({ 'n', 'x' }, 'p', ']p')
-map({ 'n', 'x' }, 'P', '[p')
+-- map({ 'n', 'x' }, 'p', ']p')
+-- map({ 'n', 'x' }, 'P', '[p')
 
 -- map('n', '/', '/\v', { noremap = true })
 -- map('n', '?', '?\v', { noremap = true })
