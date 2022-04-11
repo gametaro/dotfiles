@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1649647764396,
+  "lastUpdate": 1649672905136,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -6839,6 +6839,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.18741498810666668,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "57faeddecf4e817facc58c6a78ba4d5ec59aa4a9",
+          "message": "Merge pull request #2 from gametaro/dependabot/github_actions/actions/setup-go-3",
+          "timestamp": "2022-04-11T19:25:56+09:00",
+          "tree_id": "3758bbde2908029e0b0ac60837c3cc71ac34b022",
+          "url": "https://github.com/gametaro/dotfiles/commit/57faeddecf4e817facc58c6a78ba4d5ec59aa4a9"
+        },
+        "date": 1649672903919,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.18879332504000004,
             "unit": "Second"
           }
         ]
