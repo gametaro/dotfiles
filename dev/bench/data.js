@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1649484060076,
+  "lastUpdate": 1649647764396,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -6810,6 +6810,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.20687844627333335,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "41c728d1ffbcc00ce6242eba56ba2dd2cd2e794b",
+          "message": "chore(deps): bump actions/setup-go from 2 to 3\n\nBumps [actions/setup-go](https://github.com/actions/setup-go) from 2 to 3.\n- [Release notes](https://github.com/actions/setup-go/releases)\n- [Commits](https://github.com/actions/setup-go/compare/v2...v3)\n\n---\nupdated-dependencies:\n- dependency-name: actions/setup-go\n  dependency-type: direct:production\n  update-type: version-update:semver-major\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2022-04-11T03:26:55Z",
+          "tree_id": "3758bbde2908029e0b0ac60837c3cc71ac34b022",
+          "url": "https://github.com/gametaro/dotfiles/commit/41c728d1ffbcc00ce6242eba56ba2dd2cd2e794b"
+        },
+        "date": 1649647763112,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.18741498810666668,
             "unit": "Second"
           }
         ]
