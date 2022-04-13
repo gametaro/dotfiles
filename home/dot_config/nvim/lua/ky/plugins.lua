@@ -837,6 +837,8 @@ local plugins = function(use)
       }
     end,
   }
+
+  use 'tpope/vim-repeat'
 end
 
 bootstrap()
