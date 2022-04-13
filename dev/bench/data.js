@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1649759093553,
+  "lastUpdate": 1649853451785,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -6897,6 +6897,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.18588629753000002,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "cf659b2f06b18ee3de4b485e79cc082b1051de11",
+          "message": "feat(plugins): add vim-repeat",
+          "timestamp": "2022-04-13T21:25:18+09:00",
+          "tree_id": "155078328e479cbbaf3da609dc90a70731f8c55c",
+          "url": "https://github.com/gametaro/dotfiles/commit/cf659b2f06b18ee3de4b485e79cc082b1051de11"
+        },
+        "date": 1649853450780,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.18937922099333332,
             "unit": "Second"
           }
         ]
