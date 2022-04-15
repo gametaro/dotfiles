@@ -867,8 +867,6 @@ local plugins = function(use)
   }
 
   use('tpope/vim-repeat')
-
-  use('declancm/cinnamon.nvim')
 end
 
 bootstrap()
