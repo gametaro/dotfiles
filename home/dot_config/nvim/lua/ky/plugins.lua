@@ -891,6 +891,13 @@ vim.keymap.set('n', '<LocalLeader>pS', '<Cmd>PackerStatus<CR>')
 vim.keymap.set('n', '<LocalLeader>pu', '<Cmd>PackerUpdate<CR>')
 vim.keymap.set('n', '<LocalLeader>pi', '<Cmd>PackerInstall<CR>')
 
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'PackerCompileDone',
+  callback = function()
+    vim.notify('packer.compile: Complete', vim.log.levels.INFO, { title = 'packer.nvim' })
+  end,
+})
+
 require('packer').startup {
   plugins,
   config = config,
