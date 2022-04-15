@@ -867,6 +867,19 @@ local plugins = function(use)
   }
 
   use('tpope/vim-repeat')
+
+  use {
+    'AckslD/nvim-trevJ.lua',
+    module = 'trevj',
+    setup = function()
+      vim.keymap.set('n', '<LocalLeader>j', function()
+        require('trevj').format_at_cursor()
+      end)
+    end,
+    config = function()
+      require('trevj').setup()
+    end,
+  }
 end
 
 bootstrap()
