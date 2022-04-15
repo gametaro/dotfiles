@@ -166,3 +166,13 @@ autocmd('BufEnter', {
     }
   end,
 })
+
+autocmd('BufWritePre', {
+  group = group,
+  callback = function()
+    local dir = fn.expand('<afile>:p:h')
+    if fn.isdirectory(dir) == 0 then
+      fn.mkdir(dir, 'p')
+    end
+  end,
+})
