@@ -188,7 +188,7 @@ return {
     t { '', '})' },
   }),
   s('com', {
-    t('vim.api.nvim_add_user_command(' .. quote),
+    t('vim.api.nvim_create_user_command(' .. quote),
     i(1),
     t(quote .. ', function('),
     i(2),

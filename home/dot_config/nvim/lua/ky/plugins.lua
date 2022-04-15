@@ -91,8 +91,8 @@ local plugins = function(use)
     'thinca/vim-prettyprint',
     cmd = { 'PP', 'PrettyPrint' },
     setup = function()
-      vim.api.nvim_add_user_command('PPGlobal', 'Capture PP g:', {})
-      vim.api.nvim_add_user_command('PPBuffer', 'Capture PP b:', {})
+      vim.api.nvim_create_user_command('PPGlobal', 'Capture PP g:', {})
+      vim.api.nvim_create_user_command('PPBuffer', 'Capture PP b:', {})
     end,
   }
 
