@@ -1,5 +1,4 @@
 local cmp = require('cmp')
-local mapping = cmp.mapping
 local compare = require('cmp.config.compare')
 
 ---@see https://github.com/lukas-reineke/cmp-under-comparator
@@ -38,6 +37,17 @@ local kind_icons = {
   TypeParameter = '',
 }
 
+---@type cmp.WindowConfig
+local window = {
+  border = require('ky.theme').border,
+  winhighlight = table.concat({
+    'Normal:NormalFloat',
+    'FloatBorder:FloatBorder',
+    'CursorLine:Visual',
+    'Search:None',
+  }, ','),
+}
+
 ---@type cmp.ConfigSchema
 local config = {
   completion = {
@@ -45,6 +55,10 @@ local config = {
   },
   confirmation = {
     default_behavior = 'replace',
+  },
+  window = {
+    completion = cmp.config.window.bordered(window),
+    documentation = cmp.config.window.bordered(window),
   },
   sorting = {
     priority_weight = 2,
@@ -68,33 +82,12 @@ local config = {
       require('luasnip').lsp_expand(args.body)
     end,
   },
-  mapping = {
-    ['<C-p>'] = mapping(
-      mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-      { 'i', 'c' }
-    ),
-    ['<C-n>'] = mapping(
-      mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-      { 'i', 'c' }
-    ),
-    ['<C-f>'] = mapping(mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-b>'] = mapping(mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-Space>'] = mapping(mapping.complete(), { 'i', 'c' }),
-    ['<C-e>'] = mapping {
-      i = mapping.abort(),
-      c = mapping.close(),
-    },
-    ['<CR>'] = mapping.confirm { behavior = cmp.ConfirmBehavior.Insert, select = true },
-    ['<C-y>'] = mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
-    ['<Tab>'] = mapping(function(fallback)
-      if cmp.visible() then
-        return cmp.complete_common_string()
-      end
-      fallback()
-    end, { 'i', 'c' }),
-  },
-  documentation = {
-    border = require('ky.theme').border,
+  mapping = cmp.mapping.preset.insert {
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm { select = true },
   },
   formatting = {
     deprecated = true,
@@ -149,8 +142,30 @@ local config = {
   }),
 }
 
+local cmdline_mapping = cmp.mapping.preset.cmdline {
+  ['<C-n>'] = {
+    c = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item { behavior = cmp.SelectBehavior.Insert }
+      else
+        fallback()
+      end
+    end,
+  },
+  ['<C-p>'] = {
+    c = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item { behavior = cmp.SelectBehavior.Insert }
+      else
+        fallback()
+      end
+    end,
+  },
+}
+
 ---@type cmp.ConfigSchema
-local cmd_config = {
+local cmdline_config = {
+  mapping = cmdline_mapping,
   view = {
     entries = { name = 'wildmenu', separator = '|' },
   },
@@ -171,9 +186,10 @@ local cmd_config = {
 }
 
 cmp.setup(config)
-cmp.setup.cmdline('/', cmd_config)
-cmp.setup.cmdline('?', cmd_config)
+cmp.setup.cmdline('/', cmdline_config)
+cmp.setup.cmdline('?', cmdline_config)
 cmp.setup.cmdline(':', {
+  mapping = cmdline_mapping,
   view = {
     entries = { name = 'wildmenu', separator = '|' },
   },
