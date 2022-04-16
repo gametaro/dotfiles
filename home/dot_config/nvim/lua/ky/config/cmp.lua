@@ -144,22 +144,10 @@ local config = {
 
 local cmdline_mapping = cmp.mapping.preset.cmdline {
   ['<C-n>'] = {
-    c = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item { behavior = cmp.SelectBehavior.Insert }
-      else
-        fallback()
-      end
-    end,
+    c = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
   },
   ['<C-p>'] = {
-    c = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item { behavior = cmp.SelectBehavior.Insert }
-      else
-        fallback()
-      end
-    end,
+    c = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
   },
 }
 
