@@ -63,8 +63,30 @@ local plugins = function(use)
   use {
     'kevinhwang91/nvim-bqf',
     ft = 'qf',
+    requires = {
+      {
+        'junegunn/fzf',
+        run = function()
+          if not_headless() then
+            vim.fn['fzf#install']()
+          end
+        end,
+      },
+    },
     setup = function()
-      vim.api.nvim_set_hl(0, 'BqfPreviewBorder', { default = true, link = 'FloatBorder' })
+      vim.api.nvim_set_hl(0, 'BqfPreviewBorder', {
+        default = true,
+        link = 'FloatBorder',
+      })
+    end,
+    config = function()
+      require('bqf').setup {
+        filter = {
+          fzf = {
+            extra_opts = { '--bind', 'ctrl-o:toggle-all', '--delimiter', '│' },
+          },
+        },
+      }
     end,
   }
 
