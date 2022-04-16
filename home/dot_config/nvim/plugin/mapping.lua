@@ -22,11 +22,11 @@ map('', ',', '<Nop>')
 map('n', 'ZQ', '<Nop>')
 map('n', 'ZZ', '<Nop>')
 
-for _, v in ipairs { 'j', 'k' } do
-  map('n', v, function()
-    return (vim.v.count > 5 and 'm`' .. vim.v.count or '') .. v
-  end, { expr = true })
-end
+-- for _, v in ipairs { 'j', 'k' } do
+--   map('n', v, function()
+--     return (vim.v.count > 5 and 'm`' .. vim.v.count or '') .. v
+--   end, { expr = true })
+-- end
 
 for _, v in ipairs { 'c', 'C', 'd', 'D', 'x', 'X' } do
   local lhs = string.lower(v) == 'x' and v or leader(v)
