@@ -22,7 +22,7 @@ function M.on_attach(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   map('n', 'gD', vim.lsp.buf.declaration)
   map('n', 'gd', vim.lsp.buf.definition)
-  map('n', 'K', vim.lsp.buf.hover)
+  -- map('n', 'K', vim.lsp.buf.hover)
   -- map('n', 'gi', vim.lsp.buf.implementation)
   -- map('i', '<C-s>', vim.lsp.buf.signature_help)
   map('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder)
