@@ -22,7 +22,7 @@ require('nvim-treesitter.configs').setup {
     max_file_length = 1000,
   },
   matchup = {
-    enable = false, -- mandatory, false will disable the whole extension
+    enable = true, -- mandatory, false will disable the whole extension
     -- [options]
   },
   autotag = {
