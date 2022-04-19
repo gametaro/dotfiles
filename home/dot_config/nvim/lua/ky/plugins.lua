@@ -918,6 +918,7 @@ local plugins = function(use)
 
   use {
     'lewis6991/hover.nvim',
+    disable = true,
     event = 'BufRead',
     config = function()
       require('hover').setup {
