@@ -122,20 +122,17 @@ local config = {
       options = {
         keyword_pattern = [[\k\+]],
         get_bufnrs = function()
-          local bufs = {}
-          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          return vim.tbl_filter(function(buf)
             local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
-            if
-              buftype ~= 'help'
-              and buftype ~= 'nofile'
-              and buftype ~= 'prompt'
-              and buftype ~= 'quickfix'
-              and buftype ~= 'terminal'
-            then
-              bufs[#bufs + 1] = buf
-            end
-          end
-          return bufs
+            return vim.api.nvim_buf_is_loaded(buf)
+              and not vim.tbl_contains({
+                'help',
+                'nofile',
+                'prompt',
+                'quickfix',
+                'terminal',
+              }, buftype)
+          end, vim.api.nvim_list_bufs())
         end,
       },
     },
