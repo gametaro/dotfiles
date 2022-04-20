@@ -564,36 +564,22 @@ local plugins = function(use)
   }
 
   use {
+    'ojroques/vim-oscyank',
+    setup = function()
+      vim.api.nvim_create_autocmd('TextYankPost', {
+        group = vim.api.nvim_create_augroup('oscyank', { clear = true }),
+        callback = function()
+          if vim.v.event.operator == 'y' and vim.v.event.regname == '' then
+            vim.cmd('OSCYankReg "')
+          end
+        end,
+      })
+    end,
+  }
+
+  use {
     'kevinhwang91/nvim-hclipboard',
     event = 'BufRead',
-    requires = {
-      'ojroques/vim-oscyank',
-      setup = function()
-        -- See https://github.com/ojroques/vim-oscyank/issues/24
-        local function copy(lines, _)
-          vim.fn.OSCYankString(table.concat(lines, '\n'))
-        end
-
-        local function paste()
-          return {
-            vim.fn.split(vim.fn.getreg(''), '\n'),
-            vim.fn.getregtype(''),
-          }
-        end
-
-        vim.g.clipboard = {
-          name = 'osc52',
-          copy = {
-            ['+'] = copy,
-            ['*'] = copy,
-          },
-          paste = {
-            ['+'] = paste,
-            ['*'] = paste,
-          },
-        }
-      end,
-    },
     config = function()
       require('hclipboard').start()
     end,
