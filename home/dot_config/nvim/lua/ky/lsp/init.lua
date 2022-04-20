@@ -59,6 +59,8 @@ function M.on_attach(client, bufnr)
   elseif client.resolved_capabilities.document_range_formatting then
     vim.keymap.set('n', '<M-f>f', vim.lsp.buf.range_formatting)
   end
+
+  require('lsp-format').on_attach(client)
 end
 
 lsp_installer.on_server_ready(function(server)
@@ -173,10 +175,6 @@ lsp_installer.on_server_ready(function(server)
         init_options = ts.init_options,
         on_attach = function(client, bufnr)
           M.on_attach(client, bufnr)
-
-          client.resolved_capabilities.document_formatting = false
-          client.resolved_capabilities.document_range_formatting = false
-
           ts.setup {
             update_imports_on_move = true,
             require_confirmation_on_move = true,
@@ -188,13 +186,11 @@ lsp_installer.on_server_ready(function(server)
     ['eslint'] = function()
       return vim.tbl_deep_extend('force', default_opts, {
         on_attach = function(client, bufnr)
+          client.resolved_capabilities.document_formatting = true
           M.on_attach(client, bufnr)
-          client.resolved_capabilities.document_formatting = false
         end,
         settings = {
-          format = {
-            enable = false,
-          },
+          format = { enable = true },
         },
       })
     end,

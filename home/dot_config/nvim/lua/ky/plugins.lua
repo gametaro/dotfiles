@@ -216,6 +216,16 @@ local plugins = function(use)
       { 'williamboman/nvim-lsp-installer' },
       { 'b0o/schemastore.nvim' },
       { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
+      {
+        'lukas-reineke/lsp-format.nvim',
+        config = function()
+          require('lsp-format').setup {
+            typescript = {
+              exclude = { 'tsserver', 'eslint' },
+            },
+          }
+        end,
+      },
     },
     config = function()
       require('ky.lsp')
