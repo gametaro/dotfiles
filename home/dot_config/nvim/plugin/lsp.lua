@@ -83,7 +83,7 @@ end
 
 lsp.handlers['$/progress'] = function(_, result, ctx)
   local client_id = ctx.client_id
-  local client_name = vim.lsp.get_client_by_id(client_id).name
+  local client_name = lsp.get_client_by_id(client_id).name
   local val = result.value
   local ignore = { 'null-ls' }
   if not val.kind or vim.tbl_contains(ignore, client_name) then
