@@ -25,6 +25,7 @@ local defaults = {
     preview_cutoff = 100,
   },
   border = false,
+  winblend = 20,
   file_ignore_patterns = { '%.git$', 'node_modules' },
   set_env = {
     ['COLORTERM'] = 'truecolor',

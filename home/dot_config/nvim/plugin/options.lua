@@ -55,6 +55,7 @@ opt.listchars = {
 -- opt.modeline = false
 -- opt.mouse = 'a'
 opt.number = true
+opt.pumblend = 20
 opt.pumheight = 10
 opt.relativenumber = true
 opt.shada = "!,'0,f0,<50,s10,h"
@@ -96,6 +97,7 @@ opt.updatetime = 250
 opt.virtualedit = 'block'
 opt.wildignorecase = true
 opt.wildoptions = 'pum'
+opt.winblend = 20
 opt.wrap = false
 
 if fn.executable('fish') > 0 then
