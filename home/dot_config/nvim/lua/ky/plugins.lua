@@ -502,7 +502,6 @@ local plugins = function(use)
       { 'nvim-lua/plenary.nvim' },
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        disable = true,
         run = 'make',
         after = 'telescope.nvim',
         config = function()

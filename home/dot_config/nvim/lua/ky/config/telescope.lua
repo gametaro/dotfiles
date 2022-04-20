@@ -47,17 +47,17 @@ local defaults = {
 telescope.setup {
   defaults = defaults,
   extensions = {
-    -- fzf = {
-    --   fuzzy = true,
-    --   override_generic_sorter = true,
-    --   override_file_sorter = true,
-    --   case_mode = 'smart_case',
-    -- },
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = 'smart_case',
+    },
     ['zf-native'] = {
       -- options for sorting file-like items
       file = {
         -- override default telescope file sorter
-        enable = true,
+        enable = false,
 
         -- highlight matching text in results
         highlight_results = true,
@@ -69,7 +69,7 @@ telescope.setup {
       -- options for sorting all other items
       generic = {
         -- override default telescope generic item sorter
-        enable = true,
+        enable = false,
 
         -- highlight matching text in results
         highlight_results = true,
