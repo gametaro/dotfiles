@@ -12,8 +12,15 @@ M.border = 'single'
 function M.setup(theme)
   if pcall(require, theme) then
     if theme == 'nightfox' then
-      require('nightfox').init {
-        dim_inactive = true,
+      local spec = require('nightfox.spec').load('nightfox')
+      require('nightfox').setup {
+        options = {
+          dim_inactive = true,
+        },
+        groups = {
+          NormalFloat = { fg = spec.fg1, bg = spec.bg0 },
+          FloatBorder = { fg = spec.fg3, bg = spec.bg0 },
+        },
       }
       vim.cmd('colorscheme nightfox')
     elseif theme == 'kanagawa' then
