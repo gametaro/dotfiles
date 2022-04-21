@@ -558,6 +558,17 @@ local plugins = function(use)
           require('telescope').load_extension('zf-native')
         end,
       },
+      {
+        'AckslD/nvim-neoclip.lua',
+        after = 'telescope.nvim',
+        config = function()
+          require('neoclip').setup {
+            default_register = { '"', '+' },
+          }
+          require('telescope').load_extension('neoclip')
+          vim.keymap.set('n', '<LocalLeader>"', '<Cmd>Telescope neoclip<CR>')
+        end,
+      },
     },
     config = function()
       require('ky.config.telescope')
