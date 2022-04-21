@@ -574,7 +574,8 @@ local plugins = function(use)
 
   use {
     'ojroques/vim-oscyank',
-    setup = function()
+    event = 'TextYankPost',
+    config = function()
       vim.api.nvim_create_autocmd('TextYankPost', {
         group = vim.api.nvim_create_augroup('oscyank', { clear = true }),
         callback = function()
