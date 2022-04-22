@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1650542239776,
+  "lastUpdate": 1650631381384,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -7274,6 +7274,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.18163649621,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "ba76dc2eb8111b687c27ba708403495e26f7e9e0",
+          "message": "feat(yanky): add mapping for YankyRingHistory",
+          "timestamp": "2022-04-22T20:59:51+09:00",
+          "tree_id": "c58a1e179f9f69f756a3f1c08c097f3d8434eb15",
+          "url": "https://github.com/gametaro/dotfiles/commit/ba76dc2eb8111b687c27ba708403495e26f7e9e0"
+        },
+        "date": 1650631380406,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.18355425920500001,
             "unit": "Second"
           }
         ]
