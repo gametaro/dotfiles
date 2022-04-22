@@ -940,6 +940,23 @@ local plugins = function(use)
       vim.keymap.set('n', 'gK', require('hover').hover_select, { desc = 'hover.nvim (select)' })
     end,
   }
+
+  use {
+    'ipod825/igit.nvim',
+    requires = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'ipod825/libp.nvim' },
+    },
+    cmd = { 'IGit' },
+    setup = function()
+      vim.keymap.set('n', '<LocalLeader>is', '<Cmd>IGit status<CR>')
+      vim.keymap.set('n', '<LocalLeader>il', '<Cmd>IGit log<CR>')
+      vim.keymap.set('n', '<LocalLeader>ib', '<Cmd>IGit branch<CR>')
+    end,
+    config = function()
+      require('igit').setup()
+    end,
+  }
 end
 
 bootstrap()
