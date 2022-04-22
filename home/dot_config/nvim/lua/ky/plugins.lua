@@ -49,7 +49,7 @@ local plugins = function(use)
 
   use {
     'machakann/vim-swap',
-    event = { 'BufRead' },
+    keys = { '<Plug>(swap-' },
     setup = function()
       vim.g.swap_no_default_key_mappings = 1
 
@@ -728,6 +728,7 @@ local plugins = function(use)
 
   use {
     'rlane/pounce.nvim',
+    cmd = { 'Pounce' },
     setup = function()
       vim.keymap.set({ 'n', 'x', 'o' }, '<LocalLeader>s', '<Cmd>Pounce<CR>')
       vim.keymap.set({ 'n', 'x', 'o' }, '<LocalLeader>S', '<Cmd>PounceRepeat<CR>')
