@@ -870,6 +870,7 @@ local plugins = function(use)
   use {
     'gbprod/yanky.nvim',
     keys = { '<Plug>(Yanky' },
+    cmd = { 'YankyRingHistory' },
     setup = function()
       vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
       vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
@@ -878,26 +879,11 @@ local plugins = function(use)
       vim.keymap.set('n', ']y', '<Plug>(YankyCycleForward)')
       vim.keymap.set('n', '[y', '<Plug>(YankyCycleBackward)')
       vim.keymap.set({ 'n', 'x' }, 'y', '<Plug>(YankyYank)')
+      vim.keymap.set('n', '<LocalLeader>y', '<Cmd>YankyRingHistory<CR>')
     end,
     config = function()
-      require('yanky').setup {
-        ring = {
-          history_length = 10,
-          storage = 'shada',
-          sync_with_numbered_registers = true,
-        },
-        system_clipboard = {
-          sync_with_ring = true,
-        },
-        highlight = {
-          on_put = true,
-          on_yank = true,
-          timer = 200,
-        },
-        preserve_cursor_position = {
-          enabled = true,
-        },
-      }
+      require('yanky').setup()
+      require('telescope').load_extension('yank_history')
     end,
   }
 
