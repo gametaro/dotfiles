@@ -883,7 +883,11 @@ local plugins = function(use)
       vim.keymap.set('n', '<LocalLeader>y', '<Cmd>YankyRingHistory<CR>')
     end,
     config = function()
-      require('yanky').setup()
+      require('yanky').setup {
+        highlight = {
+          timer = 150,
+        },
+      }
       require('telescope').load_extension('yank_history')
     end,
   }
