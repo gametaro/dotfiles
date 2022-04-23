@@ -842,7 +842,10 @@ local plugins = function(use)
       vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
         group = vim.api.nvim_create_augroup('LightbulbUpdate', { clear = true }),
         callback = function()
-          require('nvim-lightbulb').update_lightbulb()
+          require('nvim-lightbulb').update_lightbulb {
+            sign = { enabled = false },
+            virtual_text = { enabled = true, text = '💡' },
+          }
         end,
       })
     end,
