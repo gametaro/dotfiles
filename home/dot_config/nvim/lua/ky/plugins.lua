@@ -223,6 +223,9 @@ local plugins = function(use)
             typescript = {
               exclude = { 'tsserver', 'eslint' },
             },
+            lua = {
+              exclude = { 'sumneko_lua' },
+            },
           }
         end,
       },
