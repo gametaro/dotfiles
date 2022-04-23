@@ -1,12 +1,16 @@
 local fmt = string.format
 
+local group = vim.api.nvim_create_augroup('SandWichMatchup', { clear = true })
+
 vim.api.nvim_create_autocmd('User', {
-  pattern = { 'OperatrSandwichAddPre', 'OperatorSandwichReplacePre' },
+  group = group,
+  pattern = { 'OperatorSandwichAddPre', 'OperatorSandwichReplacePre' },
   command = 'NoMatchParen',
   desc = 'disable matchup',
 })
 
 vim.api.nvim_create_autocmd('User', {
+  group = group,
   pattern = { 'OperatorSandwichAddPost', 'OperatorSandwichReplacePost' },
   command = 'DoMatchParen',
   desc = 're-enable matchup',

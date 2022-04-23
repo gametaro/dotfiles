@@ -111,6 +111,7 @@ telescope.setup {
 }
 
 vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('TelescopePromptCursorline', { clear = true }),
   pattern = 'TelescopePrompt',
   callback = function()
     vim.opt_local.cursorline = false

@@ -392,7 +392,10 @@ local plugins = function(use)
       vim.keymap.set('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>')
       vim.keymap.set('n', '<LocalLeader>gG', '<Cmd>Neogit commit<CR>')
 
+      local group = vim.api.nvim_create_augroup('Neogit', { clear = true })
+
       vim.api.nvim_create_autocmd('FileType', {
+        group = group,
         pattern = 'NeogitStatus',
         callback = function()
           vim.opt_local.list = false
@@ -400,6 +403,7 @@ local plugins = function(use)
       })
 
       vim.api.nvim_create_autocmd('FileType', {
+        group = group,
         pattern = 'NeogitCommitMessage',
         callback = function()
           vim.opt_local.spell = true
@@ -833,6 +837,7 @@ local plugins = function(use)
     event = { 'BufRead' },
     setup = function()
       vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+        group = vim.api.nvim_create_augroup('LightbulbUpdate', { clear = true }),
         callback = function()
           require('nvim-lightbulb').update_lightbulb()
         end,
@@ -973,6 +978,7 @@ vim.keymap.set('n', '<LocalLeader>pu', '<Cmd>PackerUpdate<CR>')
 vim.keymap.set('n', '<LocalLeader>pi', '<Cmd>PackerInstall<CR>')
 
 vim.api.nvim_create_autocmd('User', {
+  group = vim.api.nvim_create_augroup('PackerCompileDone', { clear = true }),
   pattern = 'PackerCompileDone',
   callback = function()
     vim.notify('packer.compile: Complete', vim.log.levels.INFO, { title = 'packer.nvim' })
