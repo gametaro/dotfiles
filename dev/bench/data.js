@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1650707412187,
+  "lastUpdate": 1650714952738,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -7361,6 +7361,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.19687337522000004,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "669accc1d974fc995dd671118cf33eb7bbb2fd88",
+          "message": "feat(plugins): add indent-blankline.nvim",
+          "timestamp": "2022-04-23T20:24:13+09:00",
+          "tree_id": "ffbe2b7f1418aa01c04d069420cc5cea32616dd0",
+          "url": "https://github.com/gametaro/dotfiles/commit/669accc1d974fc995dd671118cf33eb7bbb2fd88"
+        },
+        "date": 1650714951509,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.18214271410500008,
             "unit": "Second"
           }
         ]
