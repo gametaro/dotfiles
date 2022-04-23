@@ -66,10 +66,10 @@ autocmd('BufReadPost', {
     autocmd('FileType', {
       buffer = 0,
       once = true,
-      callback = function()
+      callback = function(t)
         local row, col = unpack(vim.api.nvim_buf_get_mark(0, '"'))
         if
-          not vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo.ft)
+          not vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, t.match)
           and { row, col } ~= { 1, 0 }
         then
           vim.api.nvim_win_set_cursor(0, { row, col })
