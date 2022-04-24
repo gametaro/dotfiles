@@ -8,9 +8,11 @@ auth
 autocmd
 backend
 cd
+chezmoi
 ci
 cli
 cmd
+colorscheme
 concat
 config
 configs
@@ -21,6 +23,7 @@ dotfiles
 enum
 eol
 frontend
+gametaro
 gif
 github
 graphql
@@ -50,6 +53,7 @@ quickfix
 rebase
 scss
 src
+stackoverflow
 stderr
 stdin
 sudo
