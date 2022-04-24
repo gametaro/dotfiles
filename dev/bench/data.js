@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1650786196310,
+  "lastUpdate": 1650787316785,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -7477,6 +7477,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.19601249941333335,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "ca1f15b723c357ae7fd4f717cebcdfd9e4a48eb5",
+          "message": "chore(chezmoi): do not install git on macos\n\nCI fails on macos after updating git to 2.36.0.\nTemporarily disable installation until fixed.",
+          "timestamp": "2022-04-24T16:59:02+09:00",
+          "tree_id": "2f71377907d17d87608ce6f1567d7e30f287641b",
+          "url": "https://github.com/gametaro/dotfiles/commit/ca1f15b723c357ae7fd4f717cebcdfd9e4a48eb5"
+        },
+        "date": 1650787315878,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.18804673669333336,
             "unit": "Second"
           }
         ]
