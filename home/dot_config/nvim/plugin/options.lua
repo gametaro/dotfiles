@@ -82,6 +82,7 @@ opt.smartcase = true
 opt.smartindent = true
 opt.spellcapcheck = ''
 opt.spelloptions = 'camel'
+opt.spelllang = { 'en', 'programming' }
 opt.splitbelow = true
 opt.splitright = true
 opt.swapfile = false

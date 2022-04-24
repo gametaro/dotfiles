@@ -1030,6 +1030,8 @@ local plugins = function(use)
       vim.g.wordmotion_spaces = { [[\W]], '_' }
     end,
   }
+
+  use { 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' }
 end
 
 bootstrap()
