@@ -2,6 +2,7 @@ local null_ls = require('null-ls')
 local f = null_ls.builtins.formatting
 local d = null_ls.builtins.diagnostics
 local h = null_ls.builtins.hover
+local ca = null_ls.builtins.code_actions
 local on_attach = require('ky.lsp').on_attach
 
 local function executable(cmd)
@@ -49,6 +50,7 @@ local sources = {
     method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
   },
   h.dictionary,
+  ca.gitrebase,
 }
 
 null_ls.setup {
