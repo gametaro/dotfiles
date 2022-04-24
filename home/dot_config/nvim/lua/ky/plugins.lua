@@ -739,7 +739,15 @@ local plugins = function(use)
   }
 
   use {
+    'rmagatti/auto-session',
+    config = function()
+      require('auto-session').setup {}
+    end,
+  }
+
+  use {
     'folke/persistence.nvim',
+    disable = true,
     event = 'BufReadPre', -- this will only start session saving when an actual file was opened
     module = 'persistence',
     setup = function()
