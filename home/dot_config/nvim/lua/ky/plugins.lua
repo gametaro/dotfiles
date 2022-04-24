@@ -686,14 +686,12 @@ local plugins = function(use)
     'rcarriga/nvim-notify',
     config = function()
       local notify = require('notify')
-      -- local icons = require('ky.theme').icons
       notify.setup {
         timeout = 1500,
-        -- icons = {
-        --   ERROR = vim.trim(icons.error),
-        --   WARN = vim.trim(icons.warn),
-        --   INFO = vim.trim(icons.info),
-        -- },
+        render = function(bufnr, notif, highlights)
+          local renderer = notif.title[1] == '' and 'minimal' or 'default'
+          require('notify.render')[renderer](bufnr, notif, highlights)
+        end,
       }
       vim.notify = notify
     end,
