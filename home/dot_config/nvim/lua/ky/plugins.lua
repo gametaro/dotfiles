@@ -121,10 +121,43 @@ local plugins = function(use)
   use { 'tyru/capture.vim', cmd = 'Capture' }
 
   use {
-    'tyru/open-browser.vim',
-    keys = { '<Plug>(openbrowser-smart-search)' },
+    'ruifm/gitlinker.nvim',
+    requires = {
+      {
+        'nvim-lua/plenary.nvim',
+      },
+      {
+        'tyru/open-browser.vim',
+        setup = function()
+          vim.keymap.set({ 'n', 'x' }, 'gx', '<Plug>(openbrowser-smart-search)')
+        end,
+      },
+    },
     setup = function()
-      vim.keymap.set({ 'n', 'x' }, 'gx', '<Plug>(openbrowser-smart-search)')
+      for _, v in ipairs { 'n', 'v' } do
+        vim.keymap.set(v, 'gb', function()
+          require('gitlinker').get_buf_range_url(
+            v,
+            { action_callback = vim.fn['openbrowser#open'] }
+          )
+        end)
+        vim.keymap.set(v, '<LocalLeader>gy', function()
+          require('gitlinker').get_buf_range_url(v)
+        end)
+      end
+      vim.keymap.set('n', 'gB', function()
+        require('gitlinker').get_repo_url {
+          action_callback = vim.fn['openbrowser#open'],
+        }
+      end)
+      vim.keymap.set('n', '<LocalLeader>gY', function()
+        require('gitlinker').get_repo_url()
+      end)
+    end,
+    config = function()
+      require('gitlinker').setup {
+        mappings = nil,
+      }
     end,
   }
 

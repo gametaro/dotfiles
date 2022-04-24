@@ -118,9 +118,9 @@ end
 
 -- buffer
 map('n', '<BS>', '<C-^>')
-map('n', 'gb', function()
-  cmd('buffer #')
-end)
+-- map('n', 'gb', function()
+--   cmd('buffer #')
+-- end)
 map('t', [[<C-\>]], function()
   cmd('buffer #')
 end)
