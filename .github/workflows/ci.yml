@@ -34,8 +34,8 @@ jobs:
         if: ${{ runner.os == 'Windows' }}
         shell: pwsh
         run: |
-          $params = "init --apply gametaro"; iex "& { $(irm https://chezmoi.io/get.ps1) } "
-
+          (irm -useb https://chezmoi.io/get.ps1) | powershell -c -
+          bin/chezmoi.exe init --apply gametaro
   # centos:
   #   runs-on: ubuntu-latest
   #   timeout-minutes: 10

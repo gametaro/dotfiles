@@ -20,7 +20,8 @@ Windows:
 
 ```powershell
 Set-ExecutionPolicy RemoteSigned -scope CurrentUser
-$params = "init --apply gametaro"; iex "& { $(irm https://chezmoi.io/get.ps1) } "
+(irm -useb https://chezmoi.io/get.ps1) | powershell -c -
+bin/chezmoi.exe init --apply gametaro
 ```
 
 With chezmoi:
