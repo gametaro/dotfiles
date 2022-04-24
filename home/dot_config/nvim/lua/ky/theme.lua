@@ -9,35 +9,38 @@ M.icons = {
 
 M.border = 'single'
 
-function M.setup(theme)
-  if pcall(require, theme) then
-    if theme == 'nightfox' then
-      local spec = require('nightfox.spec').load('nightfox')
-      require('nightfox').setup {
-        options = {
-          dim_inactive = true,
-        },
-        groups = {
-          NormalFloat = { fg = spec.fg1, bg = spec.bg0 },
-          FloatBorder = { fg = spec.fg3, bg = spec.bg0 },
-        },
-      }
-      vim.cmd('colorscheme nightfox')
-    elseif theme == 'kanagawa' then
-      require('kanagawa').setup {
-        commentStyle = 'NONE',
-        keywordStyle = 'NONE',
-        variablebuiltinStyle = 'NONE',
-      }
-      require('kanagawa').load()
-    elseif theme == 'vscode' then
-      vim.g.vscode_style = 'dark'
-      vim.g.vscode_italic_comment = 0
-      vim.cmd('colorscheme vscode')
-    else
-      vim.cmd(string.format('colorscheme %s', theme))
-    end
-  end
+M.colorscheme = 'nightfox'
+
+if
+  vim.tbl_contains({
+    'nightfox',
+    'duskfox',
+    'nordfox',
+    'dayfox',
+    'dawnfox',
+    'terafox',
+  }, M.colorscheme)
+then
+  require('nightfox').setup {
+    options = {
+      dim_inactive = true,
+    },
+    groups = {
+      NormalFloat = { fg = 'fg1', bg = 'bg0' },
+      FloatBorder = { fg = 'fg3', bg = 'bg0' },
+    },
+  }
+elseif M.colorscheme == 'kanagawa' then
+  require('kanagawa').setup {
+    commentStyle = 'NONE',
+    keywordStyle = 'NONE',
+    variablebuiltinStyle = 'NONE',
+  }
+elseif M.colorscheme == 'vscode' then
+  vim.g.vscode_style = 'dark'
+  vim.g.vscode_italic_comment = 0
 end
+
+vim.cmd('colorscheme ' .. M.colorscheme)
 
 return M
