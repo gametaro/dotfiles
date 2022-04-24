@@ -70,6 +70,7 @@ autocmd('BufReadPost', {
         local row, col = unpack(vim.api.nvim_buf_get_mark(0, '"'))
         if
           not vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, t.match)
+          and vim.api.nvim_win_is_valid(0)
           and { row, col } ~= { 1, 0 }
         then
           vim.api.nvim_win_set_cursor(0, { row, col })
