@@ -2,8 +2,9 @@ local lsp = require('feline.providers.lsp')
 local vi_mode = require('feline.providers.vi_mode')
 local git = require('feline.providers.git')
 
-local spec = require('nightfox.spec').load('nightfox')
-local palette = require('nightfox.palette').load('nightfox')
+local colorscheme = require('ky.ui').colorscheme
+local spec = require('nightfox.spec').load(colorscheme)
+local palette = require('nightfox.palette').load(colorscheme)
 
 local theme = {
   black = palette.black.base,
