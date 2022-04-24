@@ -87,7 +87,7 @@ require('nvim-treesitter.configs').setup {
     },
     lsp_interop = {
       enable = false,
-      border = require('ky.theme').border,
+      border = require('ky.ui').border,
       peek_definition_code = {
         ['df'] = '@function.outer',
       },

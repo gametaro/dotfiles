@@ -1,9 +1,9 @@
-local icons = require('ky.theme').icons
+local icons = require('ky.ui').icons
 
 local lsp = vim.lsp
 
 local float = {
-  border = require('ky.theme').border,
+  border = require('ky.ui').border,
   source = 'always',
 }
 

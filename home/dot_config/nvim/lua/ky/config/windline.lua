@@ -6,7 +6,7 @@ local state = _G.WindLine.state
 local lsp_comps = require('windline.components.lsp')
 local git_comps = require('windline.components.git')
 
-local icons = require('ky.theme').icons
+local icons = require('ky.ui').icons
 
 local hl_list = {
   Black = { 'white', 'black' },

@@ -39,7 +39,7 @@ local kind_icons = {
 
 ---@type cmp.WindowConfig
 local window = {
-  border = require('ky.theme').border,
+  border = require('ky.ui').border,
   winhighlight = table.concat({
     'Normal:NormalFloat',
     'FloatBorder:FloatBorder',

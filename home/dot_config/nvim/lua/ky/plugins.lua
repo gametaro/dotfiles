@@ -26,9 +26,9 @@ local config = {
   },
   display = {
     -- open_fn = function()
-    --   return require('packer.util').float { border = require('ky.theme').border }
+    --   return require('packer.util').float { border = require('ky.ui').border }
     -- end,
-    prompt_border = require('ky.theme').border,
+    prompt_border = require('ky.ui').border,
   },
   max_jobs = jit.os == 'OSX' and 50 or nil,
 }

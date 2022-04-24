@@ -37,7 +37,7 @@ require('gitsigns').setup {
   word_diff = false,
   current_line_blame = false,
   preview_config = {
-    border = require('ky.theme').border,
+    border = require('ky.ui').border,
   },
   trouble = false,
   on_attach = function(bufnr)
