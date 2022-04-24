@@ -428,7 +428,7 @@ local plugins = function(use)
       vim.keymap.set('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>')
       vim.keymap.set('n', '<LocalLeader>gG', '<Cmd>Neogit commit<CR>')
 
-      local group = vim.api.nvim_create_augroup('Neogit', { clear = true })
+      local group = vim.api.nvim_create_augroup('NeogitFileType', { clear = true })
 
       vim.api.nvim_create_autocmd('FileType', {
         group = group,
