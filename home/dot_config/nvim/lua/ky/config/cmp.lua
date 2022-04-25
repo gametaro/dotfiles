@@ -187,7 +187,7 @@ cmp.setup.cmdline(':', {
 cmp.setup.filetype({ 'gitcommit', 'NeogitCommitMessage' }, {
   sources = cmp.config.sources {
     { name = 'luasnip' },
-    { name = 'cmp_git' },
+    { name = 'git' },
     { name = 'spell' },
     { name = 'buffer' },
   },
