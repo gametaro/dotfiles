@@ -65,9 +65,11 @@ local config = {
     comparators = {
       compare.offset,
       compare.exact,
+      -- compare.scopes,
       compare.score,
       compare.recently_used,
       compare_under_comparator,
+      compare.locality,
       -- compare.kind,
       compare.sort_text,
       -- compare.length,
