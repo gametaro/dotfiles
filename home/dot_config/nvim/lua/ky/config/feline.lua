@@ -7,6 +7,8 @@ local spec = require('nightfox.spec').load(colorscheme)
 local palette = require('nightfox.palette').load(colorscheme)
 
 local theme = {
+  fg = spec.fg2,
+  bg = spec.bg0,
   black = palette.black.base,
   blue = palette.blue.base,
   cyan = palette.cyan.base,
@@ -58,14 +60,11 @@ local file_info = {
     },
   },
   hl = {
-    fg = 'white',
-    bg = 'bg',
     style = 'bold',
   },
   right_sep = {
     str = ' ',
     hl = {
-      fg = 'white',
       bg = 'bg',
       style = 'bold',
     },
@@ -79,7 +78,6 @@ local git_branch = {
   end,
   hl = {
     fg = 'magenta',
-    bg = 'bg',
     style = 'bold',
   },
 }
@@ -91,7 +89,6 @@ local git_diff_added = {
   end,
   hl = {
     fg = spec.git.add,
-    bg = 'bg',
     style = 'bold',
   },
 }
@@ -103,7 +100,6 @@ local git_diff_changed = {
   end,
   hl = {
     fg = spec.git.changed,
-    bg = 'bg',
     style = 'bold',
   },
 }
@@ -115,7 +111,6 @@ local git_diff_removed = {
   end,
   hl = {
     fg = spec.git.removed,
-    bg = 'bg',
     style = 'bold',
   },
 }
@@ -168,50 +163,47 @@ local lsp_client_names = {
   provider = 'lsp_client_names',
   hl = {
     fg = 'yellow',
-    bg = 'bg',
     style = 'bold',
   },
   right_sep = ' ',
 }
 
--- local file_icon = {
---   provider = function()
---     local filename = vim.fn.expand('%:t')
---     local extension = vim.fn.expand('%:e')
---     local icon = require('nvim-web-devicons').get_icon(filename, extension)
---     return icon or '?'
---   end,
---   hl = function()
---     local val = {}
---     local filename = vim.fn.expand('%:t')
---     local extension = vim.fn.expand('%:e')
---     local icon, name = require('nvim-web-devicons').get_icon(filename, extension)
---     if icon ~= nil then
---       val.fg = vim.fn.synIDattr(vim.fn.hlID(name), 'fg')
---     else
---       val.fg = 'white'
---     end
---     val.bg = 'bg'
---     val.style = 'bold'
---     return val
---   end,
---   right_sep = ' ',
--- }
+local file_icon = {
+  provider = function()
+    local filename = vim.fn.expand('%:t')
+    local extension = vim.fn.expand('%:e')
+    local icon = require('nvim-web-devicons').get_icon(filename, extension)
+    return icon or '?'
+  end,
+  hl = function()
+    local val = {}
+    local filename = vim.fn.expand('%:t')
+    local extension = vim.fn.expand('%:e')
+    local icon, name = require('nvim-web-devicons').get_icon(filename, extension)
+    if icon ~= nil then
+      val.fg = vim.fn.synIDattr(vim.fn.hlID(name), 'fg')
+    else
+      val.fg = 'fg'
+    end
+    val.style = 'bold'
+    return val
+  end,
+  right_sep = ' ',
+}
 
--- local file_type = {
---   provider = 'file_type',
---   hl = function()
---     local filename = vim.fn.expand('%:t')
---     local extension = vim.fn.expand('%:e')
---     local icon, name = require('nvim-web-devicons').get_icon(filename, extension)
---     return {
---       fg = icon and vim.fn.synIDattr(vim.fn.hlID(name), 'fg') or 'white',
---       bg = 'bg',
---       style = 'bold',
---     }
---   end,
---   right_sep = ' ',
--- }
+local file_type = {
+  provider = 'file_type',
+  hl = function()
+    local filename = vim.fn.expand('%:t')
+    local extension = vim.fn.expand('%:e')
+    local icon, name = require('nvim-web-devicons').get_icon(filename, extension)
+    return {
+      fg = icon and vim.fn.synIDattr(vim.fn.hlID(name), 'fg') or 'fg',
+      style = 'bold',
+    }
+  end,
+  right_sep = ' ',
+}
 
 local file_size = {
   provider = 'file_size',
@@ -220,7 +212,6 @@ local file_size = {
   end,
   hl = {
     fg = 'blue',
-    bg = 'bg',
     style = 'bold',
   },
   right_sep = ' ',
@@ -235,8 +226,6 @@ local file_format = {
       or ''
   end,
   hl = {
-    fg = 'white',
-    bg = 'bg',
     style = 'bold',
   },
   right_sep = ' ',
@@ -245,8 +234,6 @@ local file_format = {
 local file_encoding = {
   provider = 'file_encoding',
   hl = {
-    fg = 'white',
-    bg = 'bg',
     style = 'bold',
   },
   right_sep = ' ',
@@ -255,8 +242,6 @@ local file_encoding = {
 local position = {
   provider = 'position',
   hl = {
-    fg = 'white',
-    bg = 'bg',
     style = 'bold',
   },
   right_sep = ' ',
@@ -265,8 +250,6 @@ local position = {
 local line_percentage = {
   provider = 'line_percentage',
   hl = {
-    fg = 'white',
-    bg = 'bg',
     style = 'bold',
   },
   right_sep = ' ',
@@ -276,7 +259,6 @@ local scroll_bar = {
   provider = 'scroll_bar',
   hl = {
     fg = 'yellow',
-    bg = 'bg',
   },
 }
 
@@ -284,7 +266,7 @@ local active = {
   {
     vi_mode_symbol,
     file_info,
-    file_size,
+    -- file_size,
     -- file_icon,
     -- file_type,
     diagnostic_errors,
@@ -316,6 +298,15 @@ local inactive = {
 require('feline').setup {
   theme = theme,
   vi_mode_colors = vi_mode_colors,
+  force_inactive = {
+    filetypes = {
+      '^lir$',
+      '^packer$',
+      '^Neogit',
+      '^qf$',
+      '^help$',
+    },
+  },
   components = {
     active = active,
     inactive = inactive,
