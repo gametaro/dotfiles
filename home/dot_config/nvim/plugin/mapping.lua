@@ -385,7 +385,7 @@ map('x', '<M-j>', ":m '>+1<CR>gv=gv", { desc = 'move up line(s)' })
 map('x', '<M-k>', ":m '<-2<CR>gv=gv", { desc = 'move down line(s)' })
 
 map('n', 'J', 'mzJ`z', { desc = 'keep curosor position after joining' })
-map('n', leader('j'), 'i<CR><Esc>k$', { desc = 'split line at current cursor position' })
+-- map('n', leader('j'), 'i<CR><Esc>k$', { desc = 'split line at current cursor position' })
 
 map('x', 'gs', ':sort<CR>')
 
