@@ -634,6 +634,7 @@ local plugins = function(use)
       --     end
       --   end,
       -- })
+      vim.g.oscyank_silent = true
 
       vim.cmd([[
       let g:clipboard = {
