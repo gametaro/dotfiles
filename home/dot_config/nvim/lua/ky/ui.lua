@@ -27,8 +27,8 @@ if pcall(require, M.colorscheme) then
         dim_inactive = true,
       },
       groups = {
-        NormalFloat = { fg = 'fg1', bg = 'bg0' },
-        FloatBorder = { fg = 'fg3', bg = 'bg0' },
+        NormalFloat = { link = 'Normal' },
+        FloatBorder = { bg = 'bg1' },
       },
     }
   elseif M.colorscheme == 'kanagawa' then
