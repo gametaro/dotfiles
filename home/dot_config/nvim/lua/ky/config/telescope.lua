@@ -16,7 +16,7 @@ local defaults = {
       ['q'] = actions.close,
     },
   },
-  path_display = { 'smart', 'absolute', 'truncate' },
+  path_display = { truncate = 3 },
   prompt_prefix = '   ',
   sorting_strategy = 'ascending',
   layout_strategy = 'bottom_pane',
