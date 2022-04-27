@@ -708,6 +708,7 @@ local plugins = function(use)
         end,
       }
       vim.notify = notify
+      require('telescope').load_extension('notify')
     end,
   }
 
