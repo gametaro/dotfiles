@@ -303,6 +303,7 @@ require('feline').setup {
       '^lir$',
       '^packer$',
       '^Neogit',
+      '^Telescope',
       '^qf$',
       '^help$',
     },
