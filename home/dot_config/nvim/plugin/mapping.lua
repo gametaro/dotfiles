@@ -421,7 +421,7 @@ xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '
 ---searches process tree for a process having a name in the `names` list
 ---@param rootpid number
 ---@param names table
----@param acc number
+---@param acc? number
 ---@return boolean
 ---@see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
 local function find_proc_in_tree(rootpid, names, acc)
