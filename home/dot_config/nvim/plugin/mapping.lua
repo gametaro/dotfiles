@@ -169,7 +169,13 @@ end
 -- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
 for _, v in ipairs { 'i', 'A' } do
   map('n', v, function()
-    return (not is_blank_line() or vim.bo.buftype == 'terminal') and v or '"_cc'
+    return (
+          not is_blank_line()
+          or vim.bo.buftype == 'terminal'
+          or vim.bo.filetype == 'TelescopePrompt'
+        )
+        and v
+      or '"_cc'
   end, {
     expr = true,
     desc = fmt('toggle `%s` and `"_cc` based on the current line', v),
