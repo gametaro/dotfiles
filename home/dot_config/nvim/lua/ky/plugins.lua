@@ -1067,6 +1067,13 @@ local plugins = function(use)
   }
 
   use { 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' }
+
+  use {
+    'b0o/incline.nvim',
+    config = function()
+      require('incline').setup()
+    end,
+  }
 end
 
 bootstrap()
