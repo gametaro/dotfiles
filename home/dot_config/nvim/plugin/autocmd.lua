@@ -1,7 +1,8 @@
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-local cmd = vim.api.nvim_command
+local api = vim.api
 local fn = vim.fn
+local augroup = api.nvim_create_augroup
+local autocmd = api.nvim_create_autocmd
+local cmd = api.nvim_command
 
 local group = augroup('mine', { clear = true })
 
@@ -76,13 +77,13 @@ autocmd('BufReadPost', {
     if vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo.filetype) then
       return
     end
-    local row, col = unpack(vim.api.nvim_buf_get_mark(0, '"'))
+    local row, col = unpack(api.nvim_buf_get_mark(0, '"'))
     if
-      vim.api.nvim_win_is_valid(0)
+      api.nvim_win_is_valid(0)
       and { row, col } ~= { 1, 0 }
-      and row <= vim.api.nvim_buf_line_count(0)
+      and row <= api.nvim_buf_line_count(0)
     then
-      vim.api.nvim_win_set_cursor(0, { row, col })
+      api.nvim_win_set_cursor(0, { row, col })
     end
   end,
   desc = 'always jump to the last cursor position. see :help restore-cursor',
@@ -149,7 +150,7 @@ autocmd({ 'TermEnter', 'TermLeave' }, {
   group = group,
   pattern = 'term://*',
   callback = function()
-    vim.api.nvim_buf_set_var(0, 'term_mode', vim.api.nvim_get_mode().mode)
+    api.nvim_buf_set_var(0, 'term_mode', api.nvim_get_mode().mode)
   end,
 })
 
@@ -157,7 +158,7 @@ autocmd('BufEnter', {
   group = group,
   pattern = 'term://*',
   callback = function()
-    local ok, term_mode = pcall(vim.api.nvim_buf_get_var, 0, 'term_mode')
+    local ok, term_mode = pcall(api.nvim_buf_get_var, 0, 'term_mode')
     if ok and term_mode == 't' then
       cmd('startinsert')
     end
