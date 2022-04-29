@@ -1086,6 +1086,14 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = 'plugins.lua',
+  group = vim.api.nvim_create_augroup('PackerCompileOnWrite', { clear = true }),
+  callback = function()
+    vim.schedule(require('packer').compile)
+  end,
+})
+
 require('packer').startup {
   plugins,
   config = config,
