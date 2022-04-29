@@ -44,9 +44,19 @@ autocmd('TextYankPost', {
 
 autocmd('BufWritePost', {
   group = group,
-  pattern = '**/.local/share/chezmoi/*',
-  callback = function()
-    fn.system { 'chezmoi', 'apply', '--source-path', fn.expand('%:p') }
+  pattern = vim.env.XDG_DATA_HOME .. '/chezmoi/*',
+  callback = function(t)
+    local output = ''
+    local on_data = function(_, data)
+      output = output .. table.concat(data, '\n')
+      if #output ~= 0 then
+        vim.notify(output)
+      end
+    end
+    fn.jobstart(table.concat({ 'chezmoi', 'apply', '--source-path', t.match }, ' '), {
+      on_stdout = on_data,
+      on_stderr = on_data,
+    })
   end,
   desc = 'run chezmoi apply whenever a dotfile is saved',
 })
@@ -56,9 +66,6 @@ autocmd('BufWritePost', {
 -- autocmd mine InsertLeave,WinEnter * set cursorline
 -- autocmd mine InsertEnter,WinLeave * set nocursorline
 -- ]]
-
--- PackerCompile on save
--- vim.cmd 'autocmd mine BufWritePost */lua/*.lua source <afile> | PackerCompile'
 
 autocmd('BufReadPost', {
   group = group,
