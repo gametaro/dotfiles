@@ -46,6 +46,9 @@ autocmd('BufWritePost', {
   group = group,
   pattern = vim.env.XDG_DATA_HOME .. '/chezmoi/*',
   callback = function(t)
+    if string.match(t.file, '%.git/') then
+      return
+    end
     local output = ''
     local on_data = function(_, data)
       output = output .. table.concat(data, '\n')
