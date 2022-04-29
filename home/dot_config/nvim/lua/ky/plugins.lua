@@ -646,19 +646,28 @@ local plugins = function(use)
       -- })
       vim.g.oscyank_silent = true
 
-      vim.cmd([[
-      let g:clipboard = {
-        \   'name': 'osc52',
-        \   'copy': {
-        \     '+': {lines, regtype -> OSCYankString(join(lines, "\n"))},
-        \     '*': {lines, regtype -> OSCYankString(join(lines, "\n"))},
-        \   },
-        \   'paste': {
-        \     '+': {-> [split(getreg(''), '\n'), getregtype('')]},
-        \     '*': {-> [split(getreg(''), '\n'), getregtype('')]},
-        \   },
-        \ }
-      ]])
+      local function copy(lines, _)
+        vim.fn.OSCYankString(table.concat(lines, '\n'))
+      end
+
+      local function paste()
+        return {
+          vim.fn.split(vim.fn.getreg(''), '\n'),
+          vim.fn.getregtype(''),
+        }
+      end
+
+      vim.g.clipboard = {
+        name = 'osc52',
+        copy = {
+          ['+'] = copy,
+          ['*'] = copy,
+        },
+        paste = {
+          ['+'] = paste,
+          ['*'] = paste,
+        },
+      }
     end,
   }
 
