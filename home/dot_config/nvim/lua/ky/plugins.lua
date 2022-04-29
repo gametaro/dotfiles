@@ -1071,7 +1071,15 @@ local plugins = function(use)
   use {
     'b0o/incline.nvim',
     config = function()
-      require('incline').setup()
+      require('incline').setup {
+        hide = {
+          focused_win = true,
+          only_win = true,
+        },
+        ignore = {
+          filetypes = { 'qf' },
+        },
+      }
     end,
   }
 end
