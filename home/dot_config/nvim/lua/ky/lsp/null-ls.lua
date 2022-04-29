@@ -3,7 +3,7 @@ local f = null_ls.builtins.formatting
 local d = null_ls.builtins.diagnostics
 local h = null_ls.builtins.hover
 local ca = null_ls.builtins.code_actions
-local on_attach = require('ky.lsp').on_attach
+local on_attach = require('ky.lsp.on_attach')
 
 local function executable(cmd)
   return function()
