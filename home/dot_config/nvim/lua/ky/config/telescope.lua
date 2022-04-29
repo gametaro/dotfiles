@@ -137,7 +137,7 @@ map('n', '<C-b>', function()
     border = false,
   })
 end)
-map('n', '<C-g>', builtin.live_grep)
+-- map('n', '<C-g>', builtin.live_grep)
 map('n', '<C-s>', builtin.grep_string)
 map('n', '<LocalLeader>fd', function()
   builtin.find_files {

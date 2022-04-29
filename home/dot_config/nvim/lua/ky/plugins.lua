@@ -609,6 +609,16 @@ local plugins = function(use)
           vim.keymap.set('n', '<LocalLeader>"', '<Cmd>Telescope neoclip<CR>')
         end,
       },
+      {
+        'nvim-telescope/telescope-rg.nvim',
+        after = 'telescope.nvim',
+        config = function()
+          require('telescope').load_extension('live_grep_raw')
+          vim.keymap.set('n', '<C-g>', function()
+            require('telescope').extensions.live_grep_raw.live_grep_raw()
+          end)
+        end,
+      },
     },
     config = function()
       require('ky.config.telescope')
