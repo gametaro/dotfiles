@@ -40,8 +40,8 @@ end
 
 for _, v in ipairs { 'cc', 'dd', 'yy' } do
   map('n', v, function()
-    local line, _ = unpack(vim.api.nvim_win_get_cursor(0))
-    local lines = api.nvim_buf_get_lines(0, line - 1, line - 1 + vim.v.count1, true)
+    local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    local lines = api.nvim_buf_get_lines(0, row - 1, row - 1 + vim.v.count1, true)
     return string.len(vim.trim(table.concat(lines))) == 0 and fmt('"_%s', v) or v
   end, { expr = true, desc = 'does not store the blank line in register. see :help quote_' })
 end
@@ -150,14 +150,14 @@ end, { desc = 'Go to [count] newer position in change list (wrapscan).' })
 
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local current_line = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-  return current_line:sub(1, col):match('^%s+$') and '0' or '^'
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local lines = vim.api.nvim_buf_get_lines(0, row - 1, row, true)[1]
+  return lines:sub(1, col):match('^%s+$') and '0' or '^'
 end, { expr = true, desc = 'toggle `0` and `^`' })
 map({ 'n', 'x', 'o' }, '$', function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local current_line = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-  return current_line:sub(col + 1 - current_line:len()):match('^%s+$') and '$' or 'g_'
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local lines = vim.api.nvim_buf_get_lines(0, row - 1, row, true)[1]
+  return lines:sub(col + 1 - lines:len()):match('^%s+$') and '$' or 'g_'
 end, { expr = true, desc = 'toggle `$` and `g_`' })
 
 ---check if the current line is blank
@@ -448,8 +448,8 @@ map('t', '<Esc>', function()
 end, { expr = true, desc = [[toggle `<Esc>` and `<C-\><C-n>` based on current process tree]] })
 
 map('n', '<F1>', function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local items = fn.synstack(line + 1, col)
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local items = fn.synstack(row + 1, col)
   if vim.tbl_isempty(items) then
     pcmd('TSHighlightCapturesUnderCursor')
   else
