@@ -654,6 +654,7 @@ local plugins = function(use)
 
   use {
     'kevinhwang91/nvim-hclipboard',
+    disable = true,
     after = 'vim-oscyank',
     config = function()
       require('hclipboard').start()
