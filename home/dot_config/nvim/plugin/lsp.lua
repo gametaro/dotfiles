@@ -36,10 +36,6 @@ lsp.handlers['window/showMessage'] = function(_, result, ctx)
   })[result.type]
   vim.notify({ result.message }, level, {
     title = 'LSP | ' .. client.name,
-    timeout = 10000,
-    keep = function()
-      return level == 'ERROR' or level == 'WARN'
-    end,
   })
 end
 
@@ -116,7 +112,7 @@ lsp.handlers['$/progress'] = function(_, result, ctx)
       {
         icon = '',
         replace = notif_data.notification,
-        timeout = 1500,
+        timeout = 1000,
       }
     )
     notif_data.spinner = nil

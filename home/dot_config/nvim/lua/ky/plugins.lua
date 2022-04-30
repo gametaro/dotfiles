@@ -719,16 +719,7 @@ local plugins = function(use)
   use {
     'rcarriga/nvim-notify',
     config = function()
-      local notify = require('notify')
-      notify.setup {
-        timeout = 1500,
-        render = function(bufnr, notif, highlights)
-          local renderer = notif.title[1] == '' and 'minimal' or 'default'
-          require('notify.render')[renderer](bufnr, notif, highlights)
-        end,
-      }
-      vim.notify = notify
-      require('telescope').load_extension('notify')
+      require('ky.config.notify')
     end,
   }
 
