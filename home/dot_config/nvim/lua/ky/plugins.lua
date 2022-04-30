@@ -73,20 +73,8 @@ local plugins = function(use)
         end,
       },
     },
-    setup = function()
-      vim.api.nvim_set_hl(0, 'BqfPreviewBorder', {
-        default = true,
-        link = 'FloatBorder',
-      })
-    end,
     config = function()
-      require('bqf').setup {
-        filter = {
-          fzf = {
-            extra_opts = { '--bind', 'ctrl-o:toggle-all', '--delimiter', '│' },
-          },
-        },
-      }
+      require('ky.config.bqf')
     end,
   }
 
