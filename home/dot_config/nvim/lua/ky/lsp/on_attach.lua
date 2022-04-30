@@ -36,7 +36,7 @@ return function(client, bufnr)
   end
 
   -- sometimes feel annoyed...
-  -- if client.resolved_capabilities.document_highlight then
+  -- if client.server_capabilities.documentHighlightProvider then
   --   vim.cmd [[
   --     augroup lsp_document_highlight
   --       autocmd! * <buffer>
@@ -45,10 +45,10 @@ return function(client, bufnr)
   --     augroup END
   --     ]]
   -- end
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     vim.keymap.set('n', '<M-f>', vim.lsp.buf.formatting)
     -- vim.cmd 'autocmd mine BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
-  elseif client.resolved_capabilities.document_range_formatting then
+  elseif client.server_capabilities.documentRangeFormattingProvider then
     vim.keymap.set('n', '<M-f>f', vim.lsp.buf.range_formatting)
   end
 

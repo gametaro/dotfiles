@@ -2,7 +2,7 @@ local on_attach = require('ky.lsp.on_attach')
 
 return {
   on_attach = function(client, bufnr)
-    client.resolved_capabilities.document_formatting = true
+    client.server_capabilities.documentFormattingProvider = true
     on_attach(client, bufnr)
   end,
   settings = {
