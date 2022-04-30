@@ -624,6 +624,10 @@ local plugins = function(use)
   use {
     'ojroques/vim-oscyank',
     setup = function()
+      vim.g.oscyank_silent = true
+      vim.keymap.set('n', '<LocalLeader>y', '<Plug>OSCYank')
+      vim.keymap.set('x', '<LocalLeader>y', ':OSCYank<CR>')
+
       -- vim.api.nvim_create_autocmd('TextYankPost', {
       --   group = vim.api.nvim_create_augroup('oscyank', { clear = true }),
       --   callback = function()
@@ -632,30 +636,29 @@ local plugins = function(use)
       --     end
       --   end,
       -- })
-      vim.g.oscyank_silent = true
 
-      local function copy(lines, _)
-        vim.fn.OSCYankString(table.concat(lines, '\n'))
-      end
+      -- local function copy(lines, _)
+      --   vim.fn.OSCYankString(table.concat(lines, '\n'))
+      -- end
 
-      local function paste()
-        return {
-          vim.fn.split(vim.fn.getreg(''), '\n'),
-          vim.fn.getregtype(''),
-        }
-      end
+      -- local function paste()
+      --   return {
+      --     vim.fn.split(vim.fn.getreg(''), '\n'),
+      --     vim.fn.getregtype(''),
+      --   }
+      -- end
 
-      vim.g.clipboard = {
-        name = 'osc52',
-        copy = {
-          ['+'] = copy,
-          ['*'] = copy,
-        },
-        paste = {
-          ['+'] = paste,
-          ['*'] = paste,
-        },
-      }
+      -- vim.g.clipboard = {
+      --   name = 'osc52',
+      --   copy = {
+      --     ['+'] = copy,
+      --     ['*'] = copy,
+      --   },
+      --   paste = {
+      --     ['+'] = paste,
+      --     ['*'] = paste,
+      --   },
+      -- }
     end,
   }
 
@@ -945,7 +948,7 @@ local plugins = function(use)
       vim.keymap.set('n', ']y', '<Plug>(YankyCycleForward)')
       vim.keymap.set('n', '[y', '<Plug>(YankyCycleBackward)')
       vim.keymap.set({ 'n', 'x' }, 'y', '<Plug>(YankyYank)')
-      vim.keymap.set('n', '<LocalLeader>y', '<Cmd>YankyRingHistory<CR>')
+      vim.keymap.set('n', '<LocalLeader>fy', '<Cmd>YankyRingHistory<CR>')
     end,
     config = function()
       require('yanky').setup {
