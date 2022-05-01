@@ -44,7 +44,6 @@ local vi_mode_symbol = {
   hl = function()
     return {
       fg = vi_mode.get_mode_color(),
-      bg = 'bg',
       style = 'bold',
     }
   end,
@@ -65,7 +64,6 @@ local file_info = {
   right_sep = {
     str = ' ',
     hl = {
-      bg = 'bg',
       style = 'bold',
     },
   },
