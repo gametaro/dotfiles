@@ -24,11 +24,14 @@ if pcall(require, M.colorscheme) then
   then
     require('nightfox').setup {
       options = {
-        dim_inactive = true,
+        dim_inactive = false,
       },
       groups = {
         NormalFloat = { link = 'Normal' },
-        FloatBorder = { bg = 'bg1' },
+        FloatBorder = { fg = 'bg4' },
+        BqfPreviewBorder = { link = 'FloatBorder' },
+        IndentBlanklineContextChar = { link = 'FloatBorder' }, -- fg3
+        CmpDocumentationBorder = { link = 'FloatBorder' },
       },
     }
   elseif M.colorscheme == 'kanagawa' then

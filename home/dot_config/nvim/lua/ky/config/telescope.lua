@@ -17,15 +17,20 @@ local defaults = {
     },
   },
   path_display = { truncate = 3 },
-  prompt_prefix = '   ',
+  prompt_prefix = ' ',
+  dynamic_preview_title = true,
   sorting_strategy = 'ascending',
   layout_strategy = 'bottom_pane',
   layout_config = {
     height = 0.5,
     preview_cutoff = 100,
   },
-  border = false,
-  winblend = 20,
+  winblend = 10,
+  borderchars = {
+    prompt = { '─', ' ', '─', ' ', '─', '─', ' ', ' ' },
+    results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+    preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+  },
   file_ignore_patterns = { '%.git$', 'node_modules' },
   set_env = {
     ['COLORTERM'] = 'truecolor',

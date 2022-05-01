@@ -96,7 +96,7 @@ opt.updatetime = 250
 opt.virtualedit = 'block'
 opt.wildignorecase = true
 opt.wildoptions = 'pum'
-opt.winblend = 20
+opt.winblend = 10
 opt.wrap = false
 
 if fn.executable('fish') > 0 then
