@@ -12,9 +12,6 @@ local defaults = {
       ['<M-m>'] = actions_layout.toggle_mirror,
       ['<M-p>'] = actions_layout.toggle_preview,
     },
-    n = {
-      ['q'] = actions.close,
-    },
   },
   path_display = { truncate = 3 },
   prompt_prefix = ' ',
@@ -114,14 +111,6 @@ telescope.setup {
     },
   },
 }
-
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('TelescopePromptCursorline', { clear = true }),
-  pattern = 'TelescopePrompt',
-  callback = function()
-    vim.opt_local.cursorline = false
-  end,
-})
 
 local map = vim.keymap.set
 
