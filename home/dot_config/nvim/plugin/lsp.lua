@@ -15,11 +15,12 @@ end
 
 vim.diagnostic.config {
   severity_sort = true,
-  virtual_text = {
-    source = 'always',
-    prefix = '●',
-    severity = vim.diagnostic.severity.ERROR,
-  },
+  virtual_text = false,
+  -- virtual_text = {
+  --   source = 'always',
+  --   prefix = '●',
+  --   severity = vim.diagnostic.severity.ERROR,
+  -- },
   float = float,
 }
 
