@@ -169,6 +169,13 @@ local plugins = function(use)
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' },
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
       { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
+      {
+        'm-demare/hlargs.nvim',
+        after = 'nvim-treesitter',
+        config = function()
+          require('hlargs').setup()
+        end,
+      },
     },
     run = function()
       if not_headless() then
