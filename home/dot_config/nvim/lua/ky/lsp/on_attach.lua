@@ -30,6 +30,7 @@ return function(client, bufnr)
   map('n', '[d', vim.diagnostic.goto_prev)
   map('n', ']d', vim.diagnostic.goto_next)
   map('n', '<LocalLeader>lq', vim.diagnostic.setqflist)
+  map('n', '<LocalLeader>ll', vim.diagnostic.setloclist)
 
   if client.config.flags then
     client.config.flags.allow_incremental_sync = true
