@@ -46,8 +46,9 @@ return function(client, bufnr)
   --     ]]
   -- end
   if client.server_capabilities.documentFormattingProvider then
-    vim.keymap.set('n', '<M-f>', vim.lsp.buf.formatting)
-    -- vim.cmd 'autocmd mine BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
+    vim.keymap.set('n', '<M-f>', function()
+      vim.lsp.buf.format { async = true }
+    end)
   elseif client.server_capabilities.documentRangeFormattingProvider then
     vim.keymap.set('n', '<M-f>f', vim.lsp.buf.range_formatting)
   end
