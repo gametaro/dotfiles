@@ -24,13 +24,13 @@ opt.fileformats = {
 }
 opt.fillchars = {
   diff = '/',
-  horiz = '━',
-  horizup = '┻',
-  horizdown = '┳',
-  vert = '┃',
-  vertleft = '┫',
-  vertright = '┣',
-  verthoriz = '╋',
+  -- horiz = '━',
+  -- horizup = '┻',
+  -- horizdown = '┳',
+  -- vert = '┃',
+  -- vertleft = '┫',
+  -- vertright = '┣',
+  -- verthoriz = '╋',
 }
 -- see :h fo-table
 opt.formatoptions:remove {
