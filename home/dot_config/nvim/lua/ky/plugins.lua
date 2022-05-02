@@ -758,6 +758,22 @@ local plugins = function(use)
   use {
     'stevearc/dressing.nvim',
     event = { 'BufRead' },
+    config = function()
+      require('dressing').setup {
+        input = {
+          border = require('ky.ui').border,
+        },
+        select = {
+          telescope = require('telescope.themes').get_cursor {
+            borderchars = {
+              prompt = { '─', '│', ' ', '│', '┌', '┐', '│', '│' },
+              results = { '─', '│', '─', '│', '├', '┤', '┘', '└' },
+              preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+            },
+          },
+        },
+      }
+    end,
   }
 
   use {
