@@ -12,6 +12,7 @@ return {
       },
       diagnostics = {
         globals = { 'vim' },
+        disable = { 'missing-parameter', 'redundant-parameter' },
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file('', true),
@@ -20,7 +21,7 @@ return {
         callSnippet = 'Replace',
       },
       format = {
-        enable = false,
+        enable = true,
       },
       hint = {
         setType = true,
