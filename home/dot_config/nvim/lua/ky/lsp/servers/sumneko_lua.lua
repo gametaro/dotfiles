@@ -26,12 +26,6 @@ return {
       hint = {
         setType = true,
       },
-      IntelliSense = {
-        traceBeSetted = true,
-        traceFieldInject = true,
-        traceLocalSet = true,
-        traceReturn = true,
-      },
     },
   },
 }
