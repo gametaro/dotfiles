@@ -13,8 +13,8 @@ syn match qfNote / [NH] .*$/ contained
 
 lua <<EOF
 vim.api.nvim_set_hl(0, 'qfFileName', { default = true, link = 'Directory' })
-vim.api.nvim_set_hl(0, 'qfSeparatorLeft', { default = true, link = 'Delimiter' })
-vim.api.nvim_set_hl(0, 'qfSeparatorRight', { default = true, link = 'Delimiter' })
+vim.api.nvim_set_hl(0, 'qfSeparatorLeft', { default = true, link = 'WinSeparator' })
+vim.api.nvim_set_hl(0, 'qfSeparatorRight', { default = true, link = 'WinSeparator' })
 vim.api.nvim_set_hl(0, 'qfLineNr', { default = true, link = 'LineNr' })
 vim.api.nvim_set_hl(0, 'qfError', { default = true, link = 'DiagnosticError' })
 vim.api.nvim_set_hl(0, 'qfWarning', { default = true, link = 'DiagnosticWarn' })
