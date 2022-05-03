@@ -779,7 +779,7 @@ local plugins = function(use)
   use {
     'rmagatti/auto-session',
     config = function()
-      require('auto-session').setup {}
+      require('ky.config.auto-session')
     end,
   }
 
