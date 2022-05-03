@@ -327,8 +327,9 @@ local plugins = function(use)
   }
 
   use {
-    'folke/which-key.nvim',
+    'zeertzjq/which-key.nvim',
     event = 'BufRead',
+    branch = 'fix-prefix',
     config = function()
       require('which-key').setup {
         plugins = {
