@@ -954,6 +954,7 @@ local plugins = function(use)
 
   use {
     'feline-nvim/feline.nvim',
+    disable = true,
     event = 'VimEnter',
     config = function()
       require('ky.config.feline')
@@ -1087,6 +1088,13 @@ local plugins = function(use)
           filetypes = { 'qf' },
         },
       }
+    end,
+  }
+
+  use {
+    'rebelot/heirline.nvim',
+    config = function()
+      require('ky.config.heirline')
     end,
   }
 end
