@@ -184,7 +184,7 @@ FileNameBlock = utils.insert(
 
 local FileType = {
   provider = function()
-    return string.upper(vim.bo.filetype)
+    return vim.bo.filetype
   end,
   hl = { fg = utils.get_highlight('Comment').fg },
 }
@@ -192,7 +192,7 @@ local FileType = {
 local FileEncoding = {
   provider = function()
     local encoding = (vim.bo.fileencoding ~= '' and vim.bo.fileencoding) or vim.o.encoding
-    return encoding:upper()
+    return encoding
   end,
   hl = { fg = utils.get_highlight('Comment').fg },
 }
