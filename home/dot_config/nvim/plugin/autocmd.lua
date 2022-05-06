@@ -46,13 +46,13 @@ autocmd('TextYankPost', {
 autocmd('BufWritePost', {
   group = group,
   pattern = vim.env.XDG_DATA_HOME .. '/chezmoi/*',
-  callback = function(t)
-    if string.match(t.file, '%.git/') then
+  callback = function(a)
+    if string.match(a.file, '%.git/') then
       return
     end
     local output = ''
     local notification
-    local command = { 'chezmoi', 'apply', '--source-path', t.match }
+    local command = { 'chezmoi', 'apply', '--source-path', a.match }
     local win, height
     local length = 0
     local on_data = function(_, data)
