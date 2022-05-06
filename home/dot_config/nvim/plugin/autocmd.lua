@@ -51,13 +51,26 @@ autocmd('BufWritePost', {
       return
     end
     local output = ''
+    local notification
+    local command = { 'chezmoi', 'apply', '--source-path', t.match }
+    local win, height
+    local length = 0
     local on_data = function(_, data)
       output = output .. table.concat(data, '\n')
       if #output ~= 0 then
-        vim.notify(output)
+        notification = vim.notify(output, 'info', {
+          title = table.concat(command, ' '),
+          icon = '🏠',
+          replace = notification,
+          on_open = function(win_)
+            win, height = win_, vim.api.nvim_win_get_height(win_)
+          end,
+        })
+        vim.api.nvim_win_set_height(win, height + length)
+        length = length + 1
       end
     end
-    fn.jobstart(table.concat({ 'chezmoi', 'apply', '--source-path', t.match }, ' '), {
+    fn.jobstart(command, {
       on_stdout = on_data,
       on_stderr = on_data,
     })
