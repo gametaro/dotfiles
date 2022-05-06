@@ -30,13 +30,16 @@ local quote = opts.single_quote and "'" or '"'
 
 return {
   s('l', {
-    t('local '),
-    i(1),
-    c(2, {
-      t(''),
+    c(1, {
       sn(nil, {
-        t(' = '),
+        t('local '),
         i(1),
+      }),
+      sn(nil, {
+        t('local '),
+        i(1),
+        t(' = '),
+        i(2),
       }),
     }),
   }),
@@ -49,7 +52,7 @@ return {
         nil,
         fmta(
           [[
-          local <> = { 
+          local <> = {
             <>
           }
           ]],
@@ -62,7 +65,13 @@ return {
     'req',
     c(1, {
       sn(nil, fmt(format('require(%s{}%s)', quote, quote), rep_generate())),
-      sn(nil, fmt(format('local {} = require(%s{}%s)', quote, quote), rep_generate())),
+      sn(nil, {
+        t('local '),
+        i(2),
+        t(' = require(' .. quote),
+        i(1),
+        t(quote .. ')'),
+      }),
     })
   ),
   s('if', {
