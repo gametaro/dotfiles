@@ -217,7 +217,7 @@ local FileFormat = {
 local FileSize = {
   provider = function()
     local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
-    local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
+    local fsize = vim.loop.fs_stat(vim.api.nvim_buf_get_name(0)).size
     fsize = (fsize < 0 and 0) or fsize
     if fsize <= 0 then
       return '0' .. suffix[1]
