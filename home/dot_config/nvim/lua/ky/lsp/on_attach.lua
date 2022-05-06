@@ -29,8 +29,8 @@ return function(client, bufnr)
   map('n', '<LocalLeader>e', vim.diagnostic.open_float)
   map('n', '[d', vim.diagnostic.goto_prev)
   map('n', ']d', vim.diagnostic.goto_next)
-  map('n', '<LocalLeader>lq', vim.diagnostic.setqflist)
-  map('n', '<LocalLeader>ll', vim.diagnostic.setloclist)
+  map('n', '<LocalLeader>dq', vim.diagnostic.setqflist)
+  map('n', '<LocalLeader>dl', vim.diagnostic.setloclist)
 
   if client.config.flags then
     client.config.flags.allow_incremental_sync = true
