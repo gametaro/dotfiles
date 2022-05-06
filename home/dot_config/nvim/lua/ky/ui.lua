@@ -1,10 +1,10 @@
 local M = {}
 
 M.icons = {
-  error = ' ',
-  warn = ' ',
-  hint = ' ',
-  info = ' ',
+  error = '',
+  warn = '',
+  hint = '',
+  info = '',
 }
 
 M.border = 'single'
