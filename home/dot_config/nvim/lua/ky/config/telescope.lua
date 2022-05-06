@@ -23,7 +23,7 @@ local defaults = {
     height = 0.5,
     preview_cutoff = 100,
   },
-  winblend = 10,
+  winblend = vim.o.winblend,
   borderchars = {
     prompt = { '─', ' ', '─', ' ', '─', '─', ' ', ' ' },
     results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
