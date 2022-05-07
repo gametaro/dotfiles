@@ -4,7 +4,27 @@ local config = require('lir.config')
 local actions = require('lir.actions')
 local mark_actions = require('lir.mark.actions')
 local clipboard_actions = require('lir.clipboard.actions')
+local history = require('lir.history')
 local Path = require('plenary.path')
+
+local cache_file_path = Path:new(vim.fn.stdpath('cache'), 'lir', 'history')
+
+local function save()
+  local dir = cache_file_path:parent()
+  if not dir:exists() then
+    dir:mkdir { parents = true }
+  end
+  cache_file_path:write(vim.mpack.encode(history.get_all()), 'w')
+end
+
+local function restore()
+  if cache_file_path:exists() then
+    local ok, histories = pcall(vim.mpack.decode, cache_file_path:read())
+    if ok then
+      history.replace_all(histories)
+    end
+  end
+end
 
 local function lcd(path)
   vim.cmd(string.format('lcd %s', path))
@@ -82,6 +102,44 @@ local function create()
   end
 end
 
+local function hidden_status()
+  if vim.w.lir_is_float then
+    local bufnr = vim.w.lir_curdir_win.bufnr
+    local ns = vim.api.nvim_create_namespace('lir_hidden')
+    if config.values.show_hidden_files then
+      vim.api.nvim_buf_set_extmark(bufnr, ns, 0, 1, {
+        end_col = 2,
+        -- Icons and marks can be freely changed.
+        virt_text = { { '', 'WarningMsg' } },
+      })
+    else
+      vim.api.nvim_buf_set_extmark(bufnr, ns, 0, 1, {
+        end_col = 2,
+        -- Icons and marks can be freely changed.
+        virt_text = { { '', 'Comment' } },
+      })
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd('User', {
+  group = vim.api.nvim_create_augroup('lir-hidden-status', { clear = true }),
+  pattern = 'LirSetTextFloatCurdirWindow',
+  callback = hidden_status,
+})
+
+vim.api.nvim_create_autocmd('ExitPre', {
+  group = vim.api.nvim_create_augroup('lir-persistent-history', { clear = true }),
+  callback = save,
+})
+
+vim.keymap.set('n', '<LocalLeader><LocalLeader>', require('lir.float').init)
+vim.keymap.set('n', '<LocalLeader>.', function()
+  require('lir.float').init(vim.loop.cwd())
+end)
+
+restore()
+
 require('lir').setup {
   hide_cursor = true,
   show_hidden_files = true,
@@ -115,13 +173,23 @@ require('lir').setup {
     ['x'] = clipboard_actions.cut,
     ['p'] = clipboard_actions.paste,
   },
-  -- float = {
-  --   winblend = 0,
-  --   curdir_window = {
-  --     enable = true,
-  --     highlight_dirname = true,
-  --   },
-  -- },
+  float = {
+    winblend = vim.o.winblend,
+    curdir_window = {
+      enable = true,
+      highlight_dirname = true,
+    },
+    win_opts = function()
+      local width = math.floor(vim.o.columns * 0.8)
+      local height = math.floor(vim.o.lines * 0.8)
+      return {
+        border = { '┌', '─', '┐', '│', '┘', '─', '└', '│' },
+        width = width,
+        height = height,
+        col = math.floor((vim.o.columns - width) / 2),
+      }
+    end,
+  },
   on_init = function()
     vim.keymap.set(
       'x',

@@ -558,11 +558,11 @@ local plugins = function(use)
         config = function()
           require('telescope').load_extension('file_browser')
 
-          vim.keymap.set('n', '<LocalLeader>.', function()
-            require('telescope').extensions.file_browser.file_browser {
-              hidden = true,
-            }
-          end)
+          -- vim.keymap.set('n', '<LocalLeader>.', function()
+          --   require('telescope').extensions.file_browser.file_browser {
+          --     hidden = true,
+          --   }
+          -- end)
           vim.keymap.set('n', '<LocalLeader>-', function()
             require('telescope').extensions.file_browser.file_browser {
               cwd = '%:p:h',
