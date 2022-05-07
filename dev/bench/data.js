@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1651936302893,
+  "lastUpdate": 1651942930365,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -7854,6 +7854,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 1.21385243764,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "ab7a30e3e0b586402719bb4f4a30ec3f39fe8880",
+          "message": "feat(lir): enable float window\n\nand add the following features;\n\n* persist cursor history\n* show hidden status",
+          "timestamp": "2022-05-08T01:55:08+09:00",
+          "tree_id": "3030af51bfce26ea92274d6b98fd7a18372784d4",
+          "url": "https://github.com/gametaro/dotfiles/commit/ab7a30e3e0b586402719bb4f4a30ec3f39fe8880"
+        },
+        "date": 1651942929296,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 1.27648126042,
             "unit": "Second"
           }
         ]
