@@ -413,12 +413,26 @@ local Spell = {
   provider = '暈',
 }
 
+local Snippets = {
+  condition = function()
+    local has_luasnip = pcall(require, 'luasnip')
+    return vim.tbl_contains({ 's', 'i' }, vim.api.nvim_get_mode().mode) and has_luasnip
+  end,
+  provider = function()
+    local forward = (require('luasnip').expand_or_locally_jumpable()) and '' or ''
+    local backward = (require('luasnip').jumpable(-1)) and ' ' or ''
+    return backward .. forward
+  end,
+  hl = { fg = colors.orange, bold = true },
+}
+
 local DefaultStatusLine = {
   ViMode,
   Space,
   FileNameBlock,
   Space,
   Align,
+  Snippets,
   Spell,
   Space,
   Diagnostics,
