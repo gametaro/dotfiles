@@ -3,6 +3,7 @@ local utils = require('heirline.utils')
 local colorscheme = require('ky.ui').colorscheme
 local spec = require('nightfox.spec').load(colorscheme)
 local palette = require('nightfox.palette').load(colorscheme)
+local job = require('ky.job')
 
 local colors = {
   fg = spec.fg2,
@@ -24,6 +25,36 @@ local colors = {
 
 local Align = { provider = '%=' }
 local Space = { provider = ' ' }
+
+local git_rev = function()
+  job(
+    'git',
+    {
+      'rev-list',
+      '--count',
+      '--left-right',
+      'HEAD...@{upstream}',
+    },
+    vim.schedule_wrap(function(data)
+      local ahead, behind = unpack(vim.split(data or '', '\t'))
+      vim.api.nvim_set_var('git_rev', {
+        ahead = tonumber(ahead) or 0,
+        behind = tonumber(behind) or 0,
+      })
+    end)
+  )
+end
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = vim.api.nvim_create_augroup('GitRev', { clear = true }),
+  once = true,
+  callback = function()
+    local timer = vim.loop.new_timer()
+    timer:start(0, 10000, function()
+      git_rev()
+    end)
+  end,
+})
 
 local ViMode = {
   init = function(self)
@@ -321,6 +352,17 @@ local Git = {
       return ' ' .. self.status_dict.head
     end,
     hl = { fg = colors.magenta },
+  },
+  {
+    condition = function()
+      local has_git_rev = pcall(vim.api.nvim_get_var, 'git_rev')
+      return has_git_rev
+    end,
+    provider = function()
+      return (vim.g.git_rev.ahead > 0 and ' ⇡' .. vim.g.git_rev.ahead or '')
+        .. (vim.g.git_rev.behind > 0 and ' ⇣' .. vim.g.git_rev.behind or '')
+    end,
+    hl = { fg = colors.orange },
   },
   {
     provider = function(self)
