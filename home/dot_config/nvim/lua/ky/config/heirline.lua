@@ -284,25 +284,25 @@ local Diagnostics = {
   },
   {
     provider = function(self)
-      return self.error_icon .. self.errors .. ' '
+      return self.errors > 0 and self.error_icon .. self.errors .. ' '
     end,
     hl = { fg = colors.diag.error },
   },
   {
     provider = function(self)
-      return self.warn_icon .. self.warnings .. ' '
+      return self.warnings > 0 and self.warn_icon .. self.warnings .. ' '
     end,
     hl = { fg = colors.diag.warn },
   },
   {
     provider = function(self)
-      return self.info_icon .. self.info .. ' '
+      return self.info > 0 and self.info_icon .. self.info .. ' '
     end,
     hl = { fg = colors.diag.info },
   },
   {
     provider = function(self)
-      return self.hint_icon .. self.hints
+      return self.hints > 0 and self.hint_icon .. self.hints
     end,
     hl = { fg = colors.diag.hint },
   },
@@ -325,22 +325,21 @@ local Git = {
   {
     provider = function(self)
       local count = self.status_dict.added or 0
-      return ' +' .. count
+      return count > 0 and ' +' .. count
     end,
     hl = { fg = colors.git.add },
   },
   {
     provider = function(self)
       local count = self.status_dict.removed or 0
-      return ' -' .. count
+      return count > 0 and ' -' .. count
     end,
     hl = { fg = colors.git.removed },
   },
   {
-
     provider = function(self)
       local count = self.status_dict.changed or 0
-      return ' ~' .. count
+      return count > 0 and ' ~' .. count
     end,
     hl = { fg = colors.git.changed },
   },
