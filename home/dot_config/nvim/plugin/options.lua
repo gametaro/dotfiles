@@ -38,7 +38,6 @@ opt.formatoptions:remove {
   'o',
   'r',
 }
-opt.foldmethod = 'expr'
 opt.ignorecase = true
 opt.imsearch = 0
 opt.isfname:remove { '=' }
