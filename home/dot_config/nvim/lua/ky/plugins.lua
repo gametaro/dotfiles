@@ -30,7 +30,7 @@ local config = {
     -- end,
     prompt_border = require('ky.ui').border,
   },
-  max_jobs = jit.os == 'OSX' and 50 or nil,
+  max_jobs = vim.loop.os_uname().sysname == 'Darwin' and 50 or nil,
 }
 
 local plugins = function(use)
