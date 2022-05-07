@@ -23,10 +23,12 @@ require('incline').setup {
       extension,
       { default = true }
     )
-    local bg = string.format('#%06x', vim.api.nvim_get_hl_by_name('StatusLine', true).background)
+    local hl = vim.api.nvim_get_hl_by_name('Search', true)
+    local fg = string.format('#%06x', hl.foreground)
+    local bg = string.format('#%06x', hl.background)
     return {
       { icon .. ' ', guifg = color, guibg = bg },
-      { fname, guibg = bg, gui = 'bold' },
+      { fname, guifg = fg, guibg = bg, gui = 'bold' },
     }
   end,
 }
