@@ -1,8 +1,7 @@
 local conditions = require('heirline.conditions')
 local utils = require('heirline.utils')
-local colorscheme = require('ky.ui').colorscheme
-local spec = require('nightfox.spec').load(colorscheme)
-local palette = require('nightfox.palette').load(colorscheme)
+local spec = require('nightfox.spec').load(vim.g.colors_name)
+local palette = require('nightfox.palette').load(vim.g.colors_name)
 local job = require('ky.job')
 
 local colors = {
