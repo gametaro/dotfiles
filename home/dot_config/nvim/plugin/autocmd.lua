@@ -220,3 +220,16 @@ autocmd('ModeChanged', {
     end
   end,
 })
+
+autocmd('DiagnosticChanged', {
+  group = group,
+  callback = function()
+    local qf = fn.getqflist { winid = 0, title = 0 }
+
+    if qf.winid ~= 0 and qf.title == 'Diagnostics' then
+      require('ky.defer').debounce_trailing(function()
+        vim.diagnostic.setqflist { open = false }
+      end, 1500)()
+    end
+  end,
+})
