@@ -198,3 +198,25 @@ autocmd('BufWritePre', {
     end
   end,
 })
+
+autocmd('ModeChanged', {
+  group = group,
+  pattern = '*:s',
+  callback = function()
+    local ok, luasnip = pcall(require, 'luasnip')
+    if ok and luasnip.in_snippet() then
+      return vim.diagnostic.disable()
+    end
+  end,
+})
+
+autocmd('ModeChanged', {
+  group = group,
+  pattern = '[is]:n',
+  callback = function()
+    local ok, luasnip = pcall(require, 'luasnip')
+    if ok and luasnip.in_snippet() then
+      return vim.diagnostic.enable()
+    end
+  end,
+})
