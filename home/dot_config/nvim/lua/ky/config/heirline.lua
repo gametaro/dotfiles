@@ -183,7 +183,7 @@ local FilePath = {
 local FileFlags = {
   {
     provider = function()
-      return vim.bo.modified and ' '
+      return vim.bo.modified and ' ●' -- '
     end,
     hl = { fg = colors.green },
   },
@@ -351,7 +351,7 @@ local Git = {
     provider = function(self)
       return ' ' .. self.status_dict.head
     end,
-    hl = { fg = colors.magenta },
+    hl = { fg = colors.magenta, bold = true },
   },
   {
     condition = function()
