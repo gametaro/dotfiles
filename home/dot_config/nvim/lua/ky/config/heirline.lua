@@ -133,7 +133,7 @@ local FileNameBlock = {
 
 local FileIcon = {
   init = function(self)
-    local filename = self.filename
+    local filename = vim.fn.fnamemodify(self.filename, ':t')
     local extension = vim.fn.fnamemodify(filename, ':e')
     self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color(
       filename,
