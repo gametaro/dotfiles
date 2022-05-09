@@ -147,6 +147,7 @@ map('n', '<LocalLeader>fc', builtin.commands)
 map('n', '<LocalLeader>fj', builtin.jumplist)
 -- map('n', '<LocalLeader>fm', builtin.marks)
 map('n', '<LocalLeader>fm', builtin.man_pages)
+map('n', '<LocalLeader>fh', builtin.highlights)
 map('n', '<C-n>', function()
   builtin.oldfiles(themes.get_dropdown {
     only_cwd = true,
