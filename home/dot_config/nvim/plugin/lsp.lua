@@ -13,6 +13,8 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+vim.lsp.set_log_level(vim.log.levels.OFF)
+
 vim.diagnostic.config {
   severity_sort = true,
   virtual_text = false,
