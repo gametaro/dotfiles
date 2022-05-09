@@ -15,6 +15,12 @@ end
 
 vim.lsp.set_log_level(vim.log.levels.OFF)
 
+vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<LocalLeader>dq', vim.diagnostic.setqflist)
+vim.keymap.set('n', '<LocalLeader>dl', vim.diagnostic.setloclist)
+
 vim.diagnostic.config {
   severity_sort = true,
   virtual_text = false,

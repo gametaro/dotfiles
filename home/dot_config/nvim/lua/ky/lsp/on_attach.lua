@@ -12,9 +12,15 @@ return function(client, bufnr)
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  map('n', 'gD', vim.lsp.buf.declaration)
-  map('n', 'gd', vim.lsp.buf.definition)
-  map('n', 'K', vim.lsp.buf.hover)
+  if client.server_capabilities.declarationProvider then
+    map('n', 'gD', vim.lsp.buf.declaration)
+  end
+  if client.server_capabilities.definitionProvider then
+    map('n', 'gd', vim.lsp.buf.definition)
+  end
+  if client.server_capabilities.hoverProvider then
+    map('n', 'K', vim.lsp.buf.hover)
+  end
   -- map('n', 'gi', vim.lsp.buf.implementation)
   -- map('i', '<C-s>', vim.lsp.buf.signature_help)
   map('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder)
@@ -22,15 +28,19 @@ return function(client, bufnr)
   map('n', '<LocalLeader>wl', function()
     vim.pretty_print(vim.lsp.buf.list_workspace_folders())
   end)
-  map('n', '<LocalLeader>D', vim.lsp.buf.type_definition)
-  map('n', '<LocalLeader>rn', vim.lsp.buf.rename)
-  map('n', '<LocalLeader>ca', vim.lsp.buf.code_action)
-  map('n', 'gr', vim.lsp.buf.references)
-  map('n', '<LocalLeader>e', vim.diagnostic.open_float)
-  map('n', '[d', vim.diagnostic.goto_prev)
-  map('n', ']d', vim.diagnostic.goto_next)
-  map('n', '<LocalLeader>dq', vim.diagnostic.setqflist)
-  map('n', '<LocalLeader>dl', vim.diagnostic.setloclist)
+  if client.server_capabilities.typeDefinitionProvider then
+    map('n', '<LocalLeader>D', vim.lsp.buf.type_definition)
+  end
+  if client.server_capabilities.renameProvider then
+    map('n', '<LocalLeader>rn', vim.lsp.buf.rename)
+  end
+  if client.server_capabilities.codeActionProvider then
+    map('n', '<LocalLeader>ca', vim.lsp.buf.code_action)
+    map('x', '<LocalLeader>ca', vim.lsp.buf.range_code_action)
+  end
+  if client.server_capabilities.referencesProvider then
+    map('n', 'gr', vim.lsp.buf.references)
+  end
 
   if client.config.flags then
     client.config.flags.allow_incremental_sync = true
