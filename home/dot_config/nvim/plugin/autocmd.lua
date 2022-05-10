@@ -233,3 +233,16 @@ autocmd('DiagnosticChanged', {
     end
   end,
 })
+
+autocmd('DiagnosticChanged', {
+  group = group,
+  callback = function()
+    local loc = fn.getloclist(0, { winid = 0, title = 0 })
+
+    if loc.winid ~= 0 and loc.title == 'Diagnostics' then
+      require('ky.defer').debounce_trailing(function()
+        vim.diagnostic.setloclist { open = false }
+      end, 1500)()
+    end
+  end,
+})
