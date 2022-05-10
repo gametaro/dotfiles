@@ -330,7 +330,7 @@ map('n', qf('$'), function()
 end)
 
 -- locationlist
-local loc = prefix(leader('l'))
+local loc = prefix('qw')
 map('n', ']l', function()
   local ok = pcmd(vim.v.count1 .. 'lnext')
   if not ok then
