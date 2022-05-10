@@ -397,7 +397,7 @@ local plugins = function(use)
     setup = function()
       for _, v in ipairs { 'n', 'N' } do
         vim.keymap.set('n', v, function()
-          local ok, msg = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. v)
+          local ok, msg = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. v .. 'zv')
           if ok then
             require('hlslens').start()
           else
@@ -1086,6 +1086,17 @@ local plugins = function(use)
     'rebelot/heirline.nvim',
     config = function()
       require('ky.config.heirline')
+    end,
+  }
+
+  use {
+    'anuvyklack/pretty-fold.nvim',
+    requires = 'anuvyklack/nvim-keymap-amend',
+    config = function()
+      require('pretty-fold').setup()
+      require('pretty-fold.preview').setup {
+        border = require('ky.ui').border,
+      }
     end,
   }
 end

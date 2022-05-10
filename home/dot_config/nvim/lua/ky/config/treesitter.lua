@@ -94,5 +94,3 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
-
--- vim.opt.foldexpr = [[nvim_treesitter#foldexpr()]]
