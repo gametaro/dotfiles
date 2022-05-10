@@ -1,7 +1,7 @@
 require('incline').setup {
   hide = {
-    -- focused_win = true,
-    -- only_win = true,
+    focused_win = true,
+    only_win = true,
   },
   ignore = {
     filetypes = { 'qf' },
