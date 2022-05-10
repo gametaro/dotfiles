@@ -27,11 +27,13 @@ if pcall(require, M.colorscheme) then
         dim_inactive = false,
       },
       groups = {
-        NormalFloat = { link = 'Normal' },
-        FloatBorder = { fg = 'bg4' },
-        BqfPreviewBorder = { link = 'FloatBorder' },
-        IndentBlanklineContextChar = { link = 'FloatBorder' }, -- fg3
-        CmpDocumentationBorder = { link = 'FloatBorder' },
+        all = {
+          NormalFloat = { link = 'Normal' },
+          FloatBorder = { fg = 'bg4' },
+          BqfPreviewBorder = { link = 'FloatBorder' },
+          IndentBlanklineContextChar = { link = 'FloatBorder' }, -- fg3
+          CmpDocumentationBorder = { link = 'FloatBorder' },
+        },
       },
     }
   elseif M.colorscheme == 'kanagawa' then
