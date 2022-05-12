@@ -66,7 +66,9 @@ map('n', leader('a'), function()
 end)
 map('n', leader('e'), function()
   cmd('update')
-  cmd('luafile %')
+  if vim.bo.filetype == 'lua' then
+    cmd('luafile %')
+  end
 end, { desc = 'write and execute current lua file' })
 
 -- for _, v in ipairs { '<C-u>', '<C-d>' } do
