@@ -21,8 +21,12 @@ return function(client, bufnr)
   if client.server_capabilities.hoverProvider then
     map('n', 'K', vim.lsp.buf.hover)
   end
-  -- map('n', 'gi', vim.lsp.buf.implementation)
-  -- map('i', '<C-s>', vim.lsp.buf.signature_help)
+  if client.server_capabilities.implementationProvider then
+    map('n', 'gi', vim.lsp.buf.implementation)
+  end
+  if client.server_capabilities.signatureHelpProvider then
+    map('i', '<C-s>', vim.lsp.buf.signature_help)
+  end
   map('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder)
   map('n', '<LocalLeader>wr', vim.lsp.buf.remove_workspace_folder)
   map('n', '<LocalLeader>wl', function()
@@ -40,6 +44,9 @@ return function(client, bufnr)
   end
   if client.server_capabilities.referencesProvider then
     map('n', 'gr', vim.lsp.buf.references)
+  end
+  if client.server_capabilities.codeLensProvider then
+    map('n', '<LocalLeader>cl', vim.lsp.codelens.run)
   end
 
   if client.config.flags then
