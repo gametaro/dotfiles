@@ -18,7 +18,7 @@ if colorscheme == 'nightfox' then
         IndentBlanklineContextChar = { link = 'FloatBorder' }, -- fg3
         CmpDocumentationBorder = { link = 'FloatBorder' },
         DiffText = { style = 'bold' },
-        DiffDelete = { fg = 'git.removed' },
+        DiffDelete = { fg = 'syntax.comment' },
       },
     },
   }
