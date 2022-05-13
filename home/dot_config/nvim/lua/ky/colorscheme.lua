@@ -22,6 +22,7 @@ if colorscheme == 'nightfox' then
       },
     },
   }
+  colorscheme = 'terafox'
 elseif colorscheme == 'kanagawa' then
   require('kanagawa').setup {
     commentStyle = 'NONE',
