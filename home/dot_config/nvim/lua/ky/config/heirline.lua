@@ -423,8 +423,14 @@ local QuickfixName = {
     return vim.bo.filetype == 'qf'
   end,
   provider = function()
-    local title = vim.fn.getqflist({ title = 0 }).title
-    return '🚦 ' .. title
+    local title = '[No Name]'
+    local icon = '🚦'
+    if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
+      title = vim.fn.getqflist({ title = 0 }).title
+    elseif vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
+      title = vim.fn.getloclist(0, { title = 0 }).title
+    end
+    return icon .. ' ' .. title
   end,
 }
 
