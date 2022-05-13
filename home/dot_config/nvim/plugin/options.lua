@@ -23,7 +23,7 @@ opt.fileformats = {
   'mac',
 }
 opt.fillchars = {
-  diff = '/',
+  diff = '/', -- '╱'
   -- horiz = '━',
   -- horizup = '┻',
   -- horizdown = '┳',
