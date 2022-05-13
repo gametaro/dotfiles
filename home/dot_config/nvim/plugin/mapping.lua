@@ -366,6 +366,13 @@ end)
 map('n', loc('c'), function()
   cmd('lclose')
 end)
+map('n', loc('t'), function()
+  if fn.getloclist(0, { winid = 0 }).winid == 0 then
+    cmd('lopen')
+  else
+    cmd('lclose')
+  end
+end, { desc = 'toggle quickfix window' })
 map('n', loc('l'), function()
   local ok, msg = pcmd('llist')
   if not ok then
