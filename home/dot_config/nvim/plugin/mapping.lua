@@ -358,7 +358,10 @@ map('n', '[L', function()
   end
 end)
 map('n', loc('o'), function()
-  cmd('lopen')
+  local ok, msg = pcmd('lopen')
+  if not ok then
+    vim.notify(msg, vim.log.levels.INFO)
+  end
 end)
 map('n', loc('c'), function()
   cmd('lclose')
