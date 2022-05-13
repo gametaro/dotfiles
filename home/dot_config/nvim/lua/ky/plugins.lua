@@ -472,7 +472,6 @@ local plugins = function(use)
     end,
     config = function()
       require('diffview').setup {
-        enhanced_diff_hl = true,
         file_panel = {
           position = 'bottom',
           width = 35,
