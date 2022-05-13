@@ -1101,6 +1101,21 @@ local plugins = function(use)
       }
     end,
   }
+
+  use {
+    'jghauser/fold-cycle.nvim',
+    setup = function()
+      vim.keymap.set('n', '<Tab>', function()
+        return require('fold-cycle').open()
+      end, { desc = 'Fold-cycle: open folds' })
+      vim.keymap.set('n', '<S-Tab>', function()
+        return require('fold-cycle').close()
+      end, { desc = 'Fold-cycle: close folds' })
+    end,
+    config = function()
+      require('fold-cycle').setup()
+    end,
+  }
 end
 
 bootstrap()
