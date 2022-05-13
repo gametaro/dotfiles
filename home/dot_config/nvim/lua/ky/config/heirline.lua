@@ -270,7 +270,7 @@ local Ruler = {
     provider = function()
       return '%l'
     end,
-    hl = { fg = spec.fg2, bold = true },
+    hl = { fg = spec.fg2 },
   },
   {
     provider = function()
@@ -282,7 +282,7 @@ local Ruler = {
     provider = function()
       return '%2c'
     end,
-    hl = { fg = spec.fg2, bold = true },
+    hl = { fg = spec.fg2 },
   },
 }
 
