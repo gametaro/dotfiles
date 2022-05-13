@@ -47,7 +47,7 @@ for _, v in ipairs { 'cc', 'dd', 'yy' } do
 end
 
 map('n', leader('h'), ':<C-u>help<Space>')
--- map('n', leader('l'), ':<C-u>lua =')
+map('n', leader('l'), ':<C-u>lua =')
 
 -- swap ; for :
 map('', ';', ':')
