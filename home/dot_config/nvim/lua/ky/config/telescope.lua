@@ -4,6 +4,19 @@ local actions_layout = require('telescope.actions.layout')
 local themes = require('telescope.themes')
 local builtin = require('telescope.builtin')
 
+local borderchars = {
+  prompt = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+  results = { '─', '│', '─', '│', '├', '┤', '┘', '└' },
+  preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+}
+
+local horizontal = {
+  layout_strategy = 'horizontal',
+  borderchars = borderchars.preview,
+  preview_title = false,
+  -- sorting_strategy = 'descending',
+}
+
 local defaults = {
   mappings = {
     i = {
@@ -22,6 +35,14 @@ local defaults = {
   layout_config = {
     height = 0.5,
     preview_cutoff = 100,
+    bottom_pane = {
+      preview_width = 0.55,
+    },
+    horizontal = {
+      height = 0.95,
+      width = 0.95,
+      preview_width = 0.55,
+    },
   },
   winblend = vim.o.winblend,
   borderchars = {
@@ -84,7 +105,7 @@ telescope.setup {
     },
   },
   pickers = {
-    buffers = {
+    buffers = themes.get_dropdown {
       mappings = {
         i = {
           ['<C-x>'] = actions.delete_buffer,
@@ -93,12 +114,23 @@ telescope.setup {
           ['<C-x>'] = actions.delete_buffer,
         },
       },
+      borderchars = borderchars,
+      sort_lastused = true,
+      sort_mru = true,
+      only_cwd = true,
+      previewer = false,
+    },
+    oldfiles = themes.get_dropdown {
+      borderchars = borderchars,
+      only_cwd = true,
+      previewer = false,
     },
     colorscheme = {
       enable_preview = true,
     },
     find_files = {
       find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
+      hidden = true,
       mappings = {
         n = {
           ['cd'] = function(prompt_bufnr)
@@ -110,6 +142,10 @@ telescope.setup {
         },
       },
     },
+    git_bcommits = horizontal,
+    git_commits = horizontal,
+    git_status = horizontal,
+    git_stash = horizontal,
   },
 }
 
@@ -118,27 +154,16 @@ local map = vim.keymap.set
 map('n', '<C-p>', function()
   local ok = pcall(builtin.git_files)
   if not ok then
-    builtin.find_files {
-      hidden = true,
-    }
+    builtin.find_files()
   end
 end)
-map('n', '<C-b>', function()
-  builtin.buffers(themes.get_dropdown {
-    sort_lastused = true,
-    sort_mru = true,
-    only_cwd = true,
-    previewer = false,
-    -- border = false,
-  })
-end)
+map('n', '<C-b>', builtin.buffers)
 -- map('n', '<C-g>', builtin.live_grep)
 map('n', '<C-s>', builtin.grep_string)
 map('n', '<LocalLeader>fd', function()
   builtin.find_files {
     prompt_title = 'Dot Files',
     cwd = '$XDG_DATA_HOME/chezmoi/',
-    hidden = true,
   }
 end)
 map('n', '<C-h>', builtin.help_tags)
@@ -148,13 +173,7 @@ map('n', '<LocalLeader>fj', builtin.jumplist)
 -- map('n', '<LocalLeader>fm', builtin.marks)
 map('n', '<LocalLeader>fm', builtin.man_pages)
 map('n', '<LocalLeader>fh', builtin.highlights)
-map('n', '<C-n>', function()
-  builtin.oldfiles(themes.get_dropdown {
-    only_cwd = true,
-    previewer = false,
-    -- border = false,
-  })
-end)
+map('n', '<C-n>', builtin.oldfiles)
 map('n', '<LocalLeader>fr', function()
   builtin.resume { cache_index = vim.v.count1 }
 end)
