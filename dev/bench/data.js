@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1652591353517,
+  "lastUpdate": 1652698534914,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -8115,6 +8115,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 1.224000931333333,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "c6964d17381799551077f7c6bb1fc705da70b8dd",
+          "message": "fix(fold-cycle): change mapping for fold open",
+          "timestamp": "2022-05-16T19:52:03+09:00",
+          "tree_id": "9194e8707aaa2a76af3bf0bd8142f81d16fb526a",
+          "url": "https://github.com/gametaro/dotfiles/commit/c6964d17381799551077f7c6bb1fc705da70b8dd"
+        },
+        "date": 1652698534335,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 1.2272355665733332,
             "unit": "Second"
           }
         ]
