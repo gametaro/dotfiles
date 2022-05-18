@@ -141,7 +141,7 @@ end)
 restore()
 
 require('lir').setup {
-  hide_cursor = true,
+  hide_cursor = false,
   show_hidden_files = true,
   devicons_enable = true,
   mappings = {
