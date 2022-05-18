@@ -24,6 +24,12 @@ local defaults = {
       ['<C-k>'] = actions.cycle_history_prev,
       ['<M-m>'] = actions_layout.toggle_mirror,
       ['<M-p>'] = actions_layout.toggle_preview,
+      ['<C-s>'] = actions.select_horizontal,
+      ['<C-x>'] = false,
+    },
+    n = {
+      ['<C-s>'] = actions.select_horizontal,
+      ['<C-x>'] = false,
     },
   },
   path_display = { truncate = 3 },
