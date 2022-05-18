@@ -408,13 +408,27 @@ local WorkDir = {
   }),
 }
 
-local TerminalName = {
-  condition = function()
-    return vim.bo.buftype == 'terminal'
+local TerminalIcon = {
+  init = function(self)
+    self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color_by_filetype(
+      'terminal',
+      { default = true }
+    )
   end,
-  provider = function()
-    local tname, _ = vim.api.nvim_buf_get_name(0):gsub('.*:', '')
-    return ' ' .. tname
+  provider = function(self)
+    return self.icon
+  end,
+  hl = function(self)
+    return { fg = self.icon_color }
+  end,
+}
+
+local TerminalName = {
+  init = function(self)
+    self.tname = vim.api.nvim_buf_get_name(0):gsub('.*:', '')
+  end,
+  provider = function(self)
+    return self.tname
   end,
 }
 
@@ -532,9 +546,11 @@ local TerminalStatusLine = {
     return conditions.buffer_matches { buftype = { 'terminal' } }
   end,
   { condition = conditions.is_active, ViMode, Space },
-  FileType,
+  TerminalIcon,
   Space,
   TerminalName,
+  Align,
+  Ruler,
 }
 
 local StatusLines = {
