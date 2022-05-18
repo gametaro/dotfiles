@@ -467,6 +467,23 @@ local TelescopeName = {
   end,
 }
 
+local LirName = {
+  init = function(self)
+    local dir = require('lir').get_context().dir
+    self.dir = vim.fn.fnamemodify(dir, ':.:h')
+    self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color('lir_folder_icon')
+  end,
+  condition = function()
+    return vim.bo.filetype == 'lir'
+  end,
+  provider = function(self)
+    return self.icon .. ' ' .. self.dir
+  end,
+  hl = function(self)
+    return { fg = self.icon_color }
+  end,
+}
+
 local Spell = {
   condition = function()
     return vim.wo.spell
@@ -532,6 +549,7 @@ local SpecialStatusLine = {
   end,
   ViMode,
   Space,
+  LirName,
   QuickfixName,
   TelescopeName,
   HelpFileName,
