@@ -1,36 +1,10 @@
-local icons = require('ky.ui').icons
-
 local lsp = vim.lsp
 
 local float = {
   border = require('ky.ui').border,
-  source = 'always',
 }
 
-local signs = { Error = icons.error, Warn = icons.warn, Hint = icons.hint, Info = icons.info }
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
-vim.lsp.set_log_level(vim.log.levels.OFF)
-
-vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<LocalLeader>dq', vim.diagnostic.setqflist)
-vim.keymap.set('n', '<LocalLeader>dl', vim.diagnostic.setloclist)
-
-vim.diagnostic.config {
-  severity_sort = true,
-  virtual_text = false,
-  -- virtual_text = {
-  --   source = 'always',
-  --   prefix = '●',
-  --   severity = vim.diagnostic.severity.ERROR,
-  -- },
-  float = float,
-}
+lsp.set_log_level(vim.log.levels.OFF)
 
 -- HACK: override builtin handler not to notify even if no information is available
 lsp.handlers['textDocument/hover'] = lsp.with(function(_, result, ctx, config)
