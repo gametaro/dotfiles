@@ -1071,6 +1071,7 @@ local plugins = function(use)
 
   use {
     'anuvyklack/pretty-fold.nvim',
+    disable = true,
     config = function()
       require('pretty-fold').setup()
     end,
@@ -1078,6 +1079,7 @@ local plugins = function(use)
 
   use {
     'jghauser/fold-cycle.nvim',
+    disable = true,
     setup = function()
       vim.keymap.set('n', '<C-f>', function()
         return require('fold-cycle').open()

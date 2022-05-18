@@ -32,9 +32,9 @@ opt.fillchars = {
   -- vertright = '┣',
   -- verthoriz = '╋',
 }
-opt.foldexpr = [[nvim_treesitter#foldexpr()]]
-opt.foldlevelstart = 1
-opt.foldmethod = 'expr'
+-- opt.foldexpr = [[nvim_treesitter#foldexpr()]]
+-- opt.foldlevelstart = 1
+-- opt.foldmethod = 'expr'
 -- see :h fo-table
 opt.formatoptions:remove {
   'c',
