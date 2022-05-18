@@ -14,7 +14,7 @@ local horizontal = {
   layout_strategy = 'horizontal',
   borderchars = borderchars.preview,
   preview_title = false,
-  -- sorting_strategy = 'descending',
+  sorting_strategy = 'descending',
 }
 
 local defaults = {
