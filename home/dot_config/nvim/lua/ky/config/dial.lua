@@ -13,7 +13,7 @@ local default = {
   },
 }
 
-local merge_with_default = function(group_name)
+local with_default = function(group_name)
   group_name = group_name or {}
   for _, v in ipairs(default) do
     table.insert(group_name, v)
@@ -59,10 +59,10 @@ local typescript = {
 
 require('dial.config').augends:register_group {
   default = default,
-  lua = merge_with_default(lua),
-  python = merge_with_default(python),
-  typescript = merge_with_default(typescript),
-  markdown = merge_with_default(markdown),
+  lua = with_default(lua),
+  python = with_default(python),
+  typescript = with_default(typescript),
+  markdown = with_default(markdown),
 }
 
 vim.keymap.set({ 'n', 'x' }, '<C-a>', '<Plug>(dial-increment)')
