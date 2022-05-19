@@ -176,6 +176,13 @@ local plugins = function(use)
           require('hlargs').setup()
         end,
       },
+      {
+        'SmiteshP/nvim-gps',
+        after = 'nvim-treesitter',
+        config = function()
+          require('nvim-gps').setup()
+        end,
+      },
     },
     run = function()
       if not_headless() then
