@@ -321,8 +321,8 @@ local plugins = function(use)
   }
 
   use('EdenEast/nightfox.nvim')
-  use('rebelot/kanagawa.nvim')
-  use('Mofiqul/vscode.nvim')
+  use { 'rebelot/kanagawa.nvim', opt = true }
+  use { 'Mofiqul/vscode.nvim', opt = true }
 
   use {
     'windwp/windline.nvim',
