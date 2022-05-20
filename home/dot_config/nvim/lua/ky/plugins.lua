@@ -478,11 +478,17 @@ local plugins = function(use)
       vim.keymap.set('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory<CR>')
     end,
     config = function()
+      local win_config = {
+        position = 'bottom',
+        width = 35,
+        height = 12,
+      }
       require('diffview').setup {
         file_panel = {
-          position = 'bottom',
-          width = 35,
-          height = 12,
+          win_config = win_config,
+        },
+        file_history_panel = {
+          win_config = win_config,
         },
         key_bindings = {
           view = {
