@@ -289,10 +289,9 @@ local Ruler = {
 local LSPActive = {
   condition = conditions.lsp_attached,
   provider = function()
-    local names = {}
-    for _, client in pairs(vim.lsp.buf_get_clients(0)) do
-      table.insert(names, client.name)
-    end
+    local names = vim.tbl_map(function(client)
+      return client.name
+    end, vim.lsp.get_active_clients { bufnr = 0 })
     return table.concat(names, ' ') .. '%<'
   end,
   hl = { fg = utils.get_highlight('Comment').fg },
