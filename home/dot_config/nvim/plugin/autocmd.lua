@@ -87,6 +87,9 @@ autocmd('BufWritePost', {
 autocmd('BufReadPost', {
   group = group,
   callback = function()
+    if vim.tbl_contains({ 'nofile' }, vim.bo.buftype) then
+      return
+    end
     if vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo.filetype) then
       return
     end
