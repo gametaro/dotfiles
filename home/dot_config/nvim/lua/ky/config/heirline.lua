@@ -417,7 +417,7 @@ local TerminalName = {
     self.tname = vim.api.nvim_buf_get_name(0):gsub('.*:', '')
   end,
   provider = function(self)
-    return self.icon .. self.tname
+    return self.icon .. ' ' .. self.tname
   end,
   hl = function(self)
     return { fg = self.icon_color }
