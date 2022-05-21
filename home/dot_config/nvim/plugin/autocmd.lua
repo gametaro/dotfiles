@@ -1,13 +1,16 @@
 local api = vim.api
 local fn = vim.fn
 local augroup = api.nvim_create_augroup
-local autocmd = api.nvim_create_autocmd
 local cmd = api.nvim_command
 
 local group = augroup('mine', { clear = true })
 
+local autocmd = function(event, opts)
+  opts = opts or {}
+  return api.nvim_create_autocmd(event, vim.tbl_extend('force', { group = group }, opts))
+end
+
 autocmd('QuickFixCmdPost', {
-  group = group,
   pattern = '[^l]*',
   nested = true,
   callback = function()
@@ -17,7 +20,6 @@ autocmd('QuickFixCmdPost', {
 })
 
 autocmd('QuickFixCmdPost', {
-  group = group,
   pattern = 'l*',
   nested = true,
   callback = function()
@@ -27,7 +29,6 @@ autocmd('QuickFixCmdPost', {
 })
 
 autocmd('FileType', {
-  group = group,
   pattern = { 'help', 'capture', 'lspinfo', 'null-ls-info', 'scratch' },
   callback = function()
     vim.keymap.set('n', 'q', '<C-w>c', { buffer = true, nowait = true })
@@ -36,7 +37,6 @@ autocmd('FileType', {
 })
 
 autocmd('TextYankPost', {
-  group = group,
   callback = function()
     vim.highlight.on_yank { higroup = 'Search', timeout = 150 }
   end,
@@ -44,7 +44,6 @@ autocmd('TextYankPost', {
 })
 
 autocmd('BufWritePost', {
-  group = group,
   pattern = (vim.env.XDG_DATA_HOME or '') .. '/chezmoi/*',
   callback = function(a)
     if string.match(a.file, '%.git/') then
@@ -85,7 +84,6 @@ autocmd('BufWritePost', {
 -- ]]
 
 autocmd('BufReadPost', {
-  group = group,
   callback = function()
     if vim.tbl_contains({ 'nofile' }, vim.bo.buftype) then
       return
@@ -106,7 +104,6 @@ autocmd('BufReadPost', {
 })
 
 autocmd('FocusLost', {
-  group = group,
   nested = true,
   callback = function()
     cmd('silent! wall')
@@ -114,7 +111,6 @@ autocmd('FocusLost', {
 })
 
 autocmd('BufLeave', {
-  group = group,
   callback = function()
     if vim.bo.buftype == '' and vim.bo.filetype ~= '' and vim.bo.modifiable then
       cmd('silent! update')
@@ -123,14 +119,12 @@ autocmd('BufLeave', {
 })
 
 autocmd({ 'FocusGained', 'WinEnter' }, {
-  group = group,
   callback = function()
     cmd('silent! checktime')
   end,
 })
 
 autocmd('BufWritePost', {
-  group = group,
   callback = function()
     if vim.wo.diff then
       cmd('diffupdate')
@@ -139,14 +133,12 @@ autocmd('BufWritePost', {
 })
 
 autocmd('VimResized', {
-  group = group,
   callback = function()
     cmd('wincmd =')
   end,
 })
 
 autocmd('TermOpen', {
-  group = group,
   pattern = 'term://*',
   callback = function()
     cmd('startinsert')
@@ -154,7 +146,6 @@ autocmd('TermOpen', {
 })
 
 autocmd('TermOpen', {
-  group = group,
   pattern = 'term://*',
   callback = function()
     vim.opt_local.number = false
@@ -163,7 +154,6 @@ autocmd('TermOpen', {
 })
 
 autocmd({ 'TermEnter', 'TermLeave' }, {
-  group = group,
   pattern = 'term://*',
   callback = function()
     api.nvim_buf_set_var(0, 'term_mode', api.nvim_get_mode().mode)
@@ -171,7 +161,6 @@ autocmd({ 'TermEnter', 'TermLeave' }, {
 })
 
 autocmd('BufEnter', {
-  group = group,
   pattern = 'term://*',
   callback = function()
     local ok, term_mode = pcall(api.nvim_buf_get_var, 0, 'term_mode')
@@ -182,7 +171,6 @@ autocmd('BufEnter', {
 })
 
 autocmd('BufEnter', {
-  group = group,
   callback = function()
     vim.opt_local.formatoptions:remove {
       'c',
@@ -193,7 +181,6 @@ autocmd('BufEnter', {
 })
 
 autocmd('BufWritePre', {
-  group = group,
   callback = function()
     local dir = fn.expand('<afile>:p:h')
     if fn.isdirectory(dir) == 0 then
@@ -203,7 +190,6 @@ autocmd('BufWritePre', {
 })
 
 autocmd('ModeChanged', {
-  group = group,
   pattern = '*:s',
   callback = function()
     local ok, luasnip = pcall(require, 'luasnip')
@@ -214,7 +200,6 @@ autocmd('ModeChanged', {
 })
 
 autocmd('ModeChanged', {
-  group = group,
   pattern = '[is]:n',
   callback = function()
     local ok, luasnip = pcall(require, 'luasnip')
@@ -225,7 +210,6 @@ autocmd('ModeChanged', {
 })
 
 autocmd('DiagnosticChanged', {
-  group = group,
   callback = function()
     local qf = fn.getqflist { winid = 0, title = 0 }
 
@@ -238,7 +222,6 @@ autocmd('DiagnosticChanged', {
 })
 
 autocmd('DiagnosticChanged', {
-  group = group,
   callback = function()
     local loc = fn.getloclist(0, { winid = 0, title = 0 })
 
