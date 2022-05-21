@@ -471,10 +471,7 @@ local plugins = function(use)
     requires = 'nvim-lua/plenary.nvim',
     cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     setup = function()
-      vim.keymap.set('n', '<LocalLeader>gd', function()
-        vim.cmd('DiffviewOpen --untracked-files=no -- ' .. vim.fn.expand('%:p'))
-      end)
-      vim.keymap.set('n', '<LocalLeader>gD', '<Cmd>DiffviewOpen<CR>')
+      vim.keymap.set('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>')
       vim.keymap.set('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory<CR>')
     end,
     config = function()
