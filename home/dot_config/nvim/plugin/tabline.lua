@@ -69,11 +69,11 @@ end
 local icon = function(tab)
   local filename = vim.api.nvim_buf_get_name(tab_buf(tab))
   local extension = vim.fn.fnamemodify(filename, ':e')
-  local icon, color = require('nvim-web-devicons').get_icon_color(
-    filename,
-    extension,
-    { default = true }
-  )
+  local ok, devicons = prequire('nvim-web-devicons')
+  if not ok then
+    return ''
+  end
+  local icon, color = devicons.get_icon_color(filename, extension, { default = true })
   return icon, { fg = color }
 end
 
