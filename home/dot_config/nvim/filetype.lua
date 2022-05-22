@@ -4,5 +4,6 @@ vim.g.did_load_filetypes = 0
 vim.filetype.add {
   pattern = {
     ['Jenkinsfile.*'] = 'groovy',
+    ['tsconfig.*%.json'] = 'jsonc',
   },
 }
