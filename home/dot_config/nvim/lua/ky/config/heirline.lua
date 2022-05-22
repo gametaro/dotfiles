@@ -184,7 +184,7 @@ local FileFlags = {
     provider = function()
       return vim.bo.modified and ' ●' -- '
     end,
-    hl = { fg = colors.green },
+    hl = { fg = utils.get_highlight('diffChanged').fg },
   },
   {
     provider = function()
