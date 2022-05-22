@@ -19,10 +19,9 @@ local map = vim.keymap.set
 
 map('n', [[<C-\>]], function()
   require('harpoon.term').gotoTerminal {
-    idx = vim.v.count1,
-    create_with = 'terminal',
+    idx = vim.api.nvim_tabpage_get_number(vim.api.nvim_get_current_tabpage()),
   }
-end, { desc = 'harpoon: go to terminal with count' })
+end, { desc = 'harpoon: create and go to terminal' })
 map('n', '<M-a>', function()
   require('harpoon.mark').add_file()
   vim.notify('harpoon.mark: mark added', vim.log.levels.INFO, { title = 'harpoon' })
