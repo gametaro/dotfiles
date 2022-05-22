@@ -924,6 +924,7 @@ local plugins = function(use)
 
   use {
     'alvarosevilla95/luatab.nvim',
+    disable = true,
     event = { 'BufRead' },
     config = function()
       require('luatab').setup {}
