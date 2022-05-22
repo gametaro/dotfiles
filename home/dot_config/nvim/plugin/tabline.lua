@@ -57,9 +57,11 @@ local fname = function(tab)
 end
 
 local cwd = function(tab)
-  return vim.fn.fnamemodify(
-    vim.fn.getcwd(vim.api.nvim_tabpage_get_win(tab), vim.api.nvim_tabpage_get_number(tab)),
-    ':~'
+  return vim.fn.pathshorten(
+    vim.fn.fnamemodify(
+      vim.fn.getcwd(vim.api.nvim_tabpage_get_win(tab), vim.api.nvim_tabpage_get_number(tab)),
+      ':~'
+    )
   ),
     { italic = true }
 end
