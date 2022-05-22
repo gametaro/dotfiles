@@ -564,6 +564,7 @@ local plugins = function(use)
           vim.keymap.set('n', '<LocalLeader>fp', '<Cmd>Telescope projects<CR>')
 
           vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
+            group = vim.api.nvim_create_augroup('ProjectCd', { clear = true }),
             callback = function()
               if vim.tbl_contains({ 'nofile', 'prompt' }, vim.bo.buftype) then
                 return
