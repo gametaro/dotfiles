@@ -575,7 +575,7 @@ local plugins = function(use)
               local ok, project = prequire('project_nvim.project')
               if ok then
                 local root = project.get_project_root()
-                if root and vim.cmd('pwd') ~= root then
+                if root and vim.cmd('silent! pwd') ~= root then
                   vim.api.nvim_cmd({
                     cmd = 'tcd',
                     args = { root },
