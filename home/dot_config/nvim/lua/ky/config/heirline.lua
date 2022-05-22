@@ -564,9 +564,9 @@ local TerminalStatusLine = {
   { condition = conditions.is_active, ViMode, Space },
   Space,
   TerminalName,
-  Align,
-  TerminalTitle,
   Space,
+  TerminalTitle,
+  Align,
   Ruler,
 }
 
