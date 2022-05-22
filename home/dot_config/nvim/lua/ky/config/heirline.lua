@@ -423,6 +423,13 @@ local TerminalName = {
   end,
 }
 
+local TerminalTitle = {
+  provider = function()
+    return vim.b.term_title
+  end,
+  hl = { fg = utils.get_highlight('Comment').fg },
+}
+
 local QuickfixName = {
   condition = function()
     return vim.bo.filetype == 'qf'
@@ -558,6 +565,8 @@ local TerminalStatusLine = {
   Space,
   TerminalName,
   Align,
+  TerminalTitle,
+  Space,
   Ruler,
 }
 
