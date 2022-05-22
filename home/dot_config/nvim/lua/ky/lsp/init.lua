@@ -14,7 +14,7 @@ local default_config = {
 lsp_installer.setup {}
 
 for _, server in ipairs(lsp_installer.get_installed_servers()) do
-  local ok, config = pcall(require, 'ky.lsp.servers.' .. server.name)
+  local ok, config = prequire('ky.lsp.servers.' .. server.name)
   config = ok and vim.tbl_deep_extend('force', default_config, config) or default_config
   lsp_config[server.name].setup(config)
 end

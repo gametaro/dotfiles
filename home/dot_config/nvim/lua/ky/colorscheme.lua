@@ -1,6 +1,6 @@
 local colorscheme = 'nightfox'
 
-local ok = pcall(require, colorscheme)
+local ok = prequire(colorscheme)
 if not ok then
   return
 end

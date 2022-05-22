@@ -209,7 +209,7 @@ end)
 --   cmd('edit ' .. fn.expand('$HOME'))
 -- end)
 map('n', '+', function()
-  local ok, util = pcall(require, 'lspconfig.util')
+  local ok, util = prequire('lspconfig.util')
   local cwd = vim.loop.cwd()
   local path = ok and util.find_git_ancestor(cwd) or cwd
   cmd('edit ' .. path)

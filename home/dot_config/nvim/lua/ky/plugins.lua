@@ -571,7 +571,7 @@ local plugins = function(use)
               if vim.tbl_contains({ 'help', 'qf' }, vim.bo.filetype) then
                 return
               end
-              local ok, project = pcall(require, 'project_nvim.project')
+              local ok, project = prequire('project_nvim.project')
               if ok then
                 local root = project.get_project_root()
                 if root and vim.cmd('pwd') ~= root then
@@ -613,7 +613,7 @@ local plugins = function(use)
           end)
           vim.keymap.set('n', '<LocalLeader>+', function()
             local _cwd = vim.loop.cwd()
-            local ok, util = pcall(require, 'lspconfig.util')
+            local ok, util = prequire('lspconfig.util')
             local cwd = ok and util.find_git_ancestor(_cwd) or _cwd
             require('telescope').extensions.file_browser.file_browser {
               cwd = cwd,
@@ -761,7 +761,7 @@ local plugins = function(use)
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
     cond = function()
-      local ok, util = pcall(require, 'lspconfig.util')
+      local ok, util = prequire('lspconfig.util')
       return ok and not not util.find_node_modules_ancestor(vim.loop.cwd())
     end,
     config = function()

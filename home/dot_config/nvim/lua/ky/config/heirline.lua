@@ -484,7 +484,7 @@ local Spell = {
 
 local Snippets = {
   condition = function()
-    local has_luasnip = pcall(require, 'luasnip')
+    local has_luasnip = prequire('luasnip')
     return vim.tbl_contains({ 's', 'i' }, vim.api.nvim_get_mode().mode) and has_luasnip
   end,
   provider = function()
