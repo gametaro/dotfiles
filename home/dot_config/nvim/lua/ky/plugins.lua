@@ -1068,6 +1068,7 @@ local plugins = function(use)
 
   use {
     'b0o/incline.nvim',
+    disable = true,
     config = function()
       require('ky.config.incline')
     end,
