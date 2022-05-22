@@ -1,4 +1,4 @@
-local gps = require('nvim-gps')
+local ok, gps = prequire('nvim-gps')
 
 local fg = vim.api.nvim_get_hl_by_name('Comment', true).foreground
 local bg = vim.api.nvim_get_hl_by_name('Statusline', true).background
@@ -10,7 +10,7 @@ _G.winbar = function()
   local win = vim.api.nvim_get_current_win()
   local padding = string.rep(' ', 2)
 
-  if win == vim.g.statusline_winid then
+  if win == vim.g.statusline_winid and ok then
     return gps.is_available() and padding .. '%#WinBarGps#' .. gps.get_location() .. '%*' or ''
   end
   local full_filename = vim.api.nvim_buf_get_name(0)
