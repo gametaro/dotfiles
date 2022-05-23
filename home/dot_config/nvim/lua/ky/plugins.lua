@@ -1131,6 +1131,14 @@ local plugins = function(use)
       require('fold-cycle').setup()
     end,
   }
+
+  use {
+    'lewis6991/satellite.nvim',
+    event = { 'BufRead' },
+    config = function()
+      require('satellite').setup()
+    end,
+  }
 end
 
 bootstrap()
