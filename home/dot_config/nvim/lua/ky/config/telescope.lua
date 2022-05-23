@@ -14,7 +14,6 @@ local horizontal = {
   layout_strategy = 'horizontal',
   borderchars = borderchars.preview,
   preview_title = false,
-  sorting_strategy = 'descending',
 }
 
 local defaults = {
@@ -39,15 +38,16 @@ local defaults = {
   sorting_strategy = 'ascending',
   layout_strategy = 'bottom_pane',
   layout_config = {
-    height = 0.5,
-    preview_cutoff = 100,
     bottom_pane = {
+      height = 0.5,
       preview_width = 0.55,
+      preview_cutoff = 100,
     },
     horizontal = {
       height = 0.95,
-      width = 0.95,
+      width = 0.99,
       preview_width = 0.55,
+      prompt_position = 'top',
     },
   },
   winblend = vim.o.winblend,
