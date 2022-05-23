@@ -152,6 +152,7 @@ telescope.setup {
     git_commits = horizontal,
     git_status = horizontal,
     git_stash = horizontal,
+    help_tags = horizontal,
   },
 }
 
