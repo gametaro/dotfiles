@@ -5,8 +5,6 @@ local bg = vim.api.nvim_get_hl_by_name('Statusline', true).background
 vim.api.nvim_set_hl(0, 'WinBarGps', { fg = fg, bg = bg })
 
 _G.winbar = function()
-  vim.cmd('redrawstatus')
-
   local win = vim.api.nvim_get_current_win()
   local padding = string.rep(' ', 2)
 
