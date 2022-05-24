@@ -816,7 +816,7 @@ local plugins = function(use)
   use {
     'rmagatti/auto-session',
     config = function()
-      require('ky.config.auto-session')
+      require('auto-session').setup {}
     end,
   }
 
