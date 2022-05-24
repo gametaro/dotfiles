@@ -88,6 +88,7 @@ opt.spelloptions = 'camel'
 opt.splitbelow = true
 opt.splitright = true
 opt.swapfile = false
+opt.switchbuf = { 'useopen', 'uselast' }
 opt.tabstop = indent
 opt.termguicolors = true
 opt.tildeop = true
