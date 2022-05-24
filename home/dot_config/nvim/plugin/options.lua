@@ -7,12 +7,9 @@ opt.autowriteall = true
 -- opt.clipboard = 'unnamedplus'
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.confirm = true
-opt.diffopt = {
+opt.diffopt:append {
   'algorithm:histogram',
-  'closeoff',
-  'filler',
   'indent-heuristic',
-  'internal',
   'vertical',
 }
 opt.expandtab = true
