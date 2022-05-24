@@ -76,13 +76,13 @@ end, { desc = 'write and execute current lua file' })
 -- end
 
 -- movement in insert/cmdline mode
-map({ 'i', 'c' }, '<C-p>', '<Up>')
-map({ 'i', 'c' }, '<C-n>', '<Down>')
-map({ 'i', 'c' }, '<C-f>', '<Right>')
-map({ 'i', 'c' }, '<C-b>', '<Left>')
+map('!', '<C-p>', '<Up>')
+map('!', '<C-n>', '<Down>')
+map('!', '<C-f>', '<Right>')
+map('!', '<C-b>', '<Left>')
 map('i', '<C-a>', '<C-o>^')
 map('c', '<C-a>', '<Home>')
-map({ 'i', 'c' }, '<C-e>', '<End>')
+map('!', '<C-e>', '<End>')
 map('i', '<C-]>', '<Esc><Right>')
 
 map('i', '<M-o>', '<C-o>o')
