@@ -12,6 +12,7 @@ opt.diffopt:append {
   'indent-heuristic',
   'vertical',
 }
+opt.emoji = false
 opt.expandtab = true
 opt.fileformat = 'unix'
 opt.fileformats = {
