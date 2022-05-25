@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1653489924563,
+  "lastUpdate": 1653495994557,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -8405,6 +8405,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.21922149444000003,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "0d4e8ea9693afc55bd96884b629f4af2ec988a47",
+          "message": "feat: improve jumplist",
+          "timestamp": "2022-05-26T01:16:34+09:00",
+          "tree_id": "ff87fdc569b3e7f01f821cba4d75c59225b69769",
+          "url": "https://github.com/gametaro/dotfiles/commit/0d4e8ea9693afc55bd96884b629f4af2ec988a47"
+        },
+        "date": 1653495993976,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.23397131780666663,
             "unit": "Second"
           }
         ]
