@@ -1,9 +1,6 @@
 local mapping = require('yanky.telescope.mapping')
 
 require('yanky').setup {
-  ring = {
-    history_length = 50,
-  },
   picker = {
     telescope = {
       mappings = {
