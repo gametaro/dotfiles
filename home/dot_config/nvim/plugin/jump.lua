@@ -19,44 +19,46 @@ local should_jump = function(bufnr)
 end
 
 local backward = function()
-  local jumplist, last_pos = unpack(vim.fn.getjumplist())
+  local jumplist, curpos = unpack(vim.fn.getjumplist())
   if #jumplist == 0 then
     return
   end
 
+  curpos = curpos + 1
   local curbufnr = vim.api.nvim_get_current_buf()
 
-  local index
-  for i = (last_pos + 1) - 1, 1, -1 do
+  local dstpos
+  for i = curpos - 1, 1, -1 do
     if jumplist[i].bufnr ~= curbufnr and should_jump(jumplist[i].bufnr) then
-      index = i
+      dstpos = i
       break
     end
   end
 
-  if index ~= nil then
-    jump(last_pos + 1 - index, false)
+  if dstpos ~= nil then
+    jump((curpos + 1) - dstpos, false)
   end
 end
 
 local forward = function()
-  local jumplist, last_pos = unpack(vim.fn.getjumplist())
-  if #jumplist == 0 or #jumplist == last_pos then
+  local jumplist, curpos = unpack(vim.fn.getjumplist())
+  if #jumplist == 0 or #jumplist == curpos then
     return
   end
 
+  curpos = curpos + 1
   local curbufnr = vim.api.nvim_get_current_buf()
 
-  local index
-  for i = (last_pos + 1) + 1, #jumplist do
+  local dstpos
+  for i = curpos + 1, #jumplist do
     if jumplist[i].bufnr ~= curbufnr and should_jump(jumplist[i].bufnr) then
-      index = i
+      dstpos = i
       break
     end
   end
 
-  if index ~= nil then
-    jump(index - (last_pos + 1), true)
+  if dstpos ~= nil then
+    jump(dstpos - curpos, true)
   end
 end
 
