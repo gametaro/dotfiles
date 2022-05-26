@@ -9,6 +9,8 @@ local opts = {
 }
 
 local jump = function(count, forward)
+  count = vim.F.if_nil(count, 1)
+  forward = vim.F.if_nil(forward, true)
   vim.cmd('execute "normal! ' .. tostring(count) .. (forward and [[\<c-i>"]] or [[\<c-o>"]]))
 end
 
@@ -58,7 +60,7 @@ local forward = function()
   end
 
   if dstpos ~= nil then
-    jump(dstpos - curpos, true)
+    jump(dstpos - curpos)
   end
 end
 
