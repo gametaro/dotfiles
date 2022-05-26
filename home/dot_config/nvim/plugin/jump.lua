@@ -6,23 +6,29 @@
 local opts = {
   ignore_filetype = { 'gitcommit', 'gitrebase' },
   ignore_buftype = { 'terminal', 'nofile' },
+  on_success = function() end,
+  on_error = function()
+    vim.notify('No destination found')
+  end,
 }
 
 local jump = function(count, forward)
   count = vim.F.if_nil(count, 1)
   forward = vim.F.if_nil(forward, true)
-  vim.cmd('execute "normal! ' .. tostring(count) .. (forward and [[\<c-i>"]] or [[\<c-o>"]]))
+  vim.cmd('execute "normal! ' .. tostring(count) .. (forward and [[\<C-i>"]] or [[\<c-o>"]]))
 end
 
-local should_jump = function(bufnr)
+local condition = function(bufnr)
   return vim.api.nvim_buf_is_valid(bufnr)
     and not vim.tbl_contains(opts.ignore_buftype, vim.api.nvim_buf_get_option(bufnr, 'buftype'))
     and not vim.tbl_contains(opts.ignore_filetype, vim.api.nvim_buf_get_option(bufnr, 'filetype'))
 end
 
-local backward = function()
-  local jumplist, curpos = unpack(vim.fn.getjumplist())
-  if #jumplist == 0 then
+local backward = function(is_local, winnr, tabnr)
+  winnr = winnr or vim.api.nvim_win_get_number(0)
+  tabnr = tabnr or vim.api.nvim_tabpage_get_number(0)
+  local jumplist, curpos = unpack(vim.fn.getjumplist(winnr, tabnr))
+  if #jumplist == 0 or curpos == 0 then
     return
   end
 
@@ -30,20 +36,28 @@ local backward = function()
   local curbufnr = vim.api.nvim_get_current_buf()
 
   local dstpos
+  local dstbufnr
   for i = curpos - 1, 1, -1 do
-    if jumplist[i].bufnr ~= curbufnr and should_jump(jumplist[i].bufnr) then
+    dstbufnr = jumplist[i].bufnr
+    if (is_local and dstbufnr == curbufnr or dstbufnr ~= curbufnr) and condition(dstbufnr) then
       dstpos = i
       break
     end
   end
 
-  if dstpos ~= nil then
-    jump((curpos + 1) - dstpos, false)
+  if dstpos == nil then
+    opts.on_error()
+    return
   end
+
+  jump(dstpos - curpos, false)
+  opts.on_success()
 end
 
-local forward = function()
-  local jumplist, curpos = unpack(vim.fn.getjumplist())
+local forward = function(is_local, winnr, tabnr)
+  winnr = winnr or vim.api.nvim_win_get_number(0)
+  tabnr = tabnr or vim.api.nvim_tabpage_get_number(0)
+  local jumplist, curpos = unpack(vim.fn.getjumplist(winnr, tabnr))
   if #jumplist == 0 or #jumplist == curpos then
     return
   end
@@ -52,17 +66,33 @@ local forward = function()
   local curbufnr = vim.api.nvim_get_current_buf()
 
   local dstpos
+  local dstbufnr
   for i = curpos + 1, #jumplist do
-    if jumplist[i].bufnr ~= curbufnr and should_jump(jumplist[i].bufnr) then
+    dstbufnr = jumplist[i].bufnr
+    if (is_local and dstbufnr == curbufnr or dstbufnr ~= curbufnr) and condition(dstbufnr) then
       dstpos = i
       break
     end
   end
 
-  if dstpos ~= nil then
-    jump(dstpos - curpos)
+  if dstpos == nil then
+    opts.on_error()
+    return
   end
+
+  jump(dstpos - curpos)
+  opts.on_success()
 end
 
-vim.keymap.set('n', '<LocalLeader><C-i>', forward)
-vim.keymap.set('n', '<LocalLeader><C-o>', backward)
+vim.keymap.set('n', '<LocalLeader><C-i>', function()
+  forward(false)
+end)
+vim.keymap.set('n', '<LocalLeader><C-o>', function()
+  backward(false)
+end)
+vim.keymap.set('n', 'g<C-i>', function()
+  forward(true)
+end)
+vim.keymap.set('n', 'g<C-o>', function()
+  backward(true)
+end)
