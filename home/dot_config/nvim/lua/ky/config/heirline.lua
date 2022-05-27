@@ -289,10 +289,16 @@ local Ruler = {
 local LSPActive = {
   condition = conditions.lsp_attached,
   provider = function()
-    local names = vim.tbl_map(function(client)
-      return client.name
-    end, vim.lsp.get_active_clients { bufnr = 0 })
-    return table.concat(names, ' ') .. '%<'
+    local clients = table.concat(
+      vim.tbl_map(function(client)
+        return client and client.name or ''
+      end, vim.lsp.get_active_clients { bufnr = 0 }),
+      ' '
+    )
+    if not conditions.width_percent_below(#clients, 0.25) then
+      return
+    end
+    return clients
   end,
   hl = { fg = utils.get_highlight('Comment').fg },
 }
@@ -504,6 +510,36 @@ local Snippets = {
   hl = { fg = colors.orange, bold = true },
 }
 
+local WinBars = {
+  init = utils.pick_child_on_condition,
+  {
+    condition = function()
+      return conditions.buffer_matches {
+        buftype = { 'nofile', 'prompt', 'help', 'quickfix' },
+        filetype = { '^git.*' },
+      }
+    end,
+    provider = '',
+  },
+  {
+    condition = function()
+      return conditions.buffer_matches { buftype = { 'terminal' } }
+    end,
+    {
+      FileType,
+      Space,
+      TerminalName,
+    },
+  },
+  {
+    condition = function()
+      return not conditions.is_active()
+    end,
+    { hl = { fg = 'gray', force = true }, FileNameBlock },
+  },
+  FileNameBlock,
+}
+
 local DefaultStatusLine = {
   ViMode,
   Space,
@@ -602,4 +638,4 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end,
 })
 
-require('heirline').setup(StatusLines)
+require('heirline').setup(StatusLines, WinBars)
