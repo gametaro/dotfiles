@@ -64,7 +64,6 @@ opt.sidescrolloff = 5
 opt.secure = true
 opt.sessionoptions:append {
   'winpos',
-  'terminal',
 }
 opt.shiftround = true
 opt.shiftwidth = indent
