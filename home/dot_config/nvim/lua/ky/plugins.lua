@@ -1075,6 +1075,7 @@ local plugins = function(use)
 
   use {
     'lukas-reineke/indent-blankline.nvim',
+    disable = true,
     event = { 'BufRead' },
     config = function()
       require('indent_blankline').setup {
