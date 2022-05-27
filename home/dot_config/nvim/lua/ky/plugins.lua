@@ -1,8 +1,5 @@
 ---check nvim is running on headless mode
----@return boolean
-local not_headless = function()
-  return #vim.api.nvim_list_uis() > 0
-end
+local headless = #vim.api.nvim_list_uis() == 0
 
 local bootstrap = function()
   local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
@@ -67,7 +64,7 @@ local plugins = function(use)
       {
         'junegunn/fzf',
         run = function()
-          if not_headless() then
+          if not headless then
             vim.fn['fzf#install']()
           end
         end,
@@ -185,7 +182,7 @@ local plugins = function(use)
       },
     },
     run = function()
-      if not_headless() then
+      if not headless then
         vim.cmd([[ TSUpdate ]])
       end
     end,
@@ -774,7 +771,7 @@ local plugins = function(use)
     'iamcco/markdown-preview.nvim',
     ft = { 'markdown' },
     run = function()
-      if not_headless() then
+      if not headless then
         vim.fn['mkdp#util#install']()
       end
     end,
