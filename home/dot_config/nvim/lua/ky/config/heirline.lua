@@ -538,6 +538,17 @@ local WinBars = {
     { hl = { fg = 'gray', force = true }, FileNameBlock },
   },
   FileNameBlock,
+  hl = function()
+    return conditions.is_active()
+        and {
+          -- fg = utils.get_highlight('WinBar').fg,
+          bg = utils.get_highlight('WinBar').bg,
+        }
+      or {
+        -- fg = utils.get_highlight('WinBarNC').fg,
+        bg = utils.get_highlight('WinBarNC').bg,
+      }
+  end,
 }
 
 local DefaultStatusLine = {
