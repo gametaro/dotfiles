@@ -387,10 +387,12 @@ local Git = {
 
 local WorkDir = {
   provider = function(self)
-    self.icon = (vim.fn.haslocaldir(0) == 1 and 'l' or 'g') .. ' ' .. ' '
+    self.icon = (vim.fn.haslocaldir() == 1 and 'l' or vim.fn.haslocaldir(-1, 0) == 1 and 't' or 'g')
+      .. ' '
+      .. ' '
     self.cwd = vim.fn.fnamemodify(vim.loop.cwd(), ':~')
   end,
-  hl = { fg = colors.blue, bold = true },
+  hl = { fg = utils.get_highlight('Directory').fg, bold = true },
   utils.make_flexible_component(2, {
     provider = function(self)
       local trail = self.cwd:sub(-1) == '/' and '' or '/'
@@ -505,17 +507,18 @@ local Snippets = {
 local DefaultStatusLine = {
   ViMode,
   Space,
-  FileNameBlock,
+  -- FileNameBlock,
+  -- Space,
+  Git,
   Space,
+  Diagnostics,
+  Align,
+  WorkDir,
   Align,
   Snippets,
   Spell,
   Space,
-  Diagnostics,
-  Space,
   LSPActive,
-  Space,
-  Git,
   Space,
   -- FileSize,
   -- Space,
