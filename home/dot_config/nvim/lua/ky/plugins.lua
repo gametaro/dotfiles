@@ -165,7 +165,10 @@ local plugins = function(use)
       { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' },
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
-      { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
+      {
+        'nvim-treesitter/playground',
+        cmd = { 'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor' },
+      },
       {
         'm-demare/hlargs.nvim',
         disable = true,
