@@ -616,17 +616,15 @@ local StatusLines = {
   InactiveStatusLine,
   DefaultStatusLine,
   hl = function()
-    if conditions.is_active() then
-      return {
-        fg = utils.get_highlight('StatusLine').fg,
-        bg = utils.get_highlight('StatusLine').bg,
-      }
-    else
-      return {
+    return conditions.is_active()
+        and {
+          fg = utils.get_highlight('StatusLine').fg,
+          bg = utils.get_highlight('StatusLine').bg,
+        }
+      or {
         fg = utils.get_highlight('StatusLineNC').fg,
         bg = utils.get_highlight('StatusLineNC').bg,
       }
-    end
   end,
 }
 
