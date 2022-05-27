@@ -168,6 +168,7 @@ local plugins = function(use)
       { 'nvim-treesitter/playground', after = 'nvim-treesitter' },
       {
         'm-demare/hlargs.nvim',
+        disable = true,
         after = 'nvim-treesitter',
         config = function()
           require('hlargs').setup()
