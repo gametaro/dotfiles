@@ -549,7 +549,10 @@ local WinBars = {
         filetype = { '^git.*' },
       }
     end,
-    provider = '',
+    QuickfixName,
+    LirName,
+    TelescopeName,
+    HelpFileName,
   },
   {
     condition = function()
@@ -626,11 +629,6 @@ local SpecialStatusLine = {
     }
   end,
   ViMode,
-  Space,
-  LirName,
-  QuickfixName,
-  TelescopeName,
-  HelpFileName,
   Align,
   FileType,
   Space,
