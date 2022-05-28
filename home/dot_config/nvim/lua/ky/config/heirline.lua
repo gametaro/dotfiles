@@ -198,8 +198,7 @@ FileNameBlock = utils.insert(
   utils.insert(FileNameModifer, FileName),
   unpack(FileFlags),
   Space,
-  FilePath,
-  { provider = '%<' }
+  FilePath
 )
 
 local FileType = {
