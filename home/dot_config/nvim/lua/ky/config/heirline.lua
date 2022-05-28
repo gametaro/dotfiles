@@ -435,7 +435,7 @@ local TerminalTitle = {
   provider = function()
     return vim.b.term_title
   end,
-  hl = { fg = utils.get_highlight('Comment').fg },
+  hl = { fg = utils.get_highlight('Directory').fg, bold = true },
 }
 
 local QuickfixName = {
