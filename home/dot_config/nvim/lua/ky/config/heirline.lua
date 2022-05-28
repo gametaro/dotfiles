@@ -442,16 +442,46 @@ local QuickfixName = {
   condition = function()
     return vim.bo.filetype == 'qf'
   end,
-  provider = function()
-    local title = '[No Name]'
-    local icon = '🚦'
-    if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
-      title = vim.fn.getqflist({ title = 0 }).title
-    elseif vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
-      title = vim.fn.getloclist(0, { title = 0 }).title
-    end
-    return icon .. ' ' .. title
+  init = function(self)
+    self.qflist = vim.fn.getqflist { winid = 0, title = 0, size = 0, nr = 0, idx = 0 }
+    self.loclist = vim.fn.getloclist(0, { winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
+    self.qf_open = self.qflist.winid ~= 0
+    self.loc_open = self.loclist.winid ~= 0
   end,
+  Space,
+  {
+    provider = function(self)
+      return self.qf_open and 'Q' or self.loc_open and 'L' or ''
+    end,
+    hl = { fg = colors.gray },
+  },
+  Space,
+  {
+    provider = function(self)
+      return self.qf_open and self.qflist.title or self.loc_open and self.loclist.title or ''
+    end,
+    hl = { fg = colors.green },
+  },
+  Space,
+  {
+    provider = function(self)
+      local idx = self.qf_open and self.qflist.idx or self.loc_open and self.loclist.idx or ''
+      local size = self.qf_open and self.qflist.size or self.loc_open and self.loclist.size or ''
+      return string.format('(%s / %s)', idx, size)
+    end,
+    hl = { fg = colors.gray },
+  },
+  Space,
+  {
+    provider = function(self)
+      local nr = self.qf_open and self.qflist.nr or self.loc_open and self.loclist.nr or ''
+      local nrs = self.qf_open and vim.fn.getqflist({ nr = '$' }).nr
+        or self.loc_open and vim.fn.getloclist(0, { nr = '$' }).nr
+        or ''
+      return string.format('[%s / %s]', nr, nrs)
+    end,
+    hl = { fg = colors.gray },
+  },
 }
 
 local HelpFileName = {
