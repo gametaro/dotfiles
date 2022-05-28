@@ -251,6 +251,7 @@ local plugins = function(use)
     requires = {
       { 'williamboman/nvim-lsp-installer' },
       { 'b0o/schemastore.nvim' },
+      { 'folke/lua-dev.nvim' },
       { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
       {
         'lukas-reineke/lsp-format.nvim',
