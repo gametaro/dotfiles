@@ -62,6 +62,21 @@ local function create()
   end)
 end
 
+local delete = function()
+  local ctx = lir.get_context()
+  local name = ctx:current_value()
+  local path = Path:new(ctx.dir .. name)
+
+  vim.ui.select({ 'Yes', 'No' }, { prompt = string.format('Delete %s ?: ', name) }, function(choice)
+    if choice and choice == 'Yes' then
+      local is_dir = path:is_dir()
+      path:rm { recursive = is_dir }
+
+      actions.reload()
+    end
+  end)
+end
+
 local function hidden_status()
   if vim.w.lir_is_float then
     local bufnr = vim.w.lir_curdir_win.bufnr
@@ -123,7 +138,7 @@ require('lir').setup {
     ['@'] = actions.cd,
     ['y'] = actions.yank_path,
     ['.'] = actions.toggle_show_hidden,
-    ['d'] = actions.delete,
+    ['d'] = delete,
 
     ['<Tab>'] = function()
       mark_actions.toggle_mark()
