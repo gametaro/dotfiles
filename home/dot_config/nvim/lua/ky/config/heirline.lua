@@ -542,6 +542,7 @@ local WinBars = {
         filetype = { '^git.*' },
       }
     end,
+    Space,
     QuickfixName,
     LirName,
     TelescopeName,
@@ -552,6 +553,7 @@ local WinBars = {
       return conditions.buffer_matches { buftype = { 'terminal' } }
     end,
     {
+      Space,
       TerminalName,
     },
   },
@@ -559,9 +561,14 @@ local WinBars = {
     condition = function()
       return not conditions.is_active()
     end,
-    { hl = { fg = colors.gray, force = true }, FileNameBlock },
+    { hl = { fg = colors.gray, force = true }, Space, FileNameBlock },
   },
-  FileNameBlock,
+  {
+    Space,
+    FileNameBlock,
+    Align,
+    Diagnostics,
+  },
   hl = function()
     return conditions.is_active()
         and {
@@ -581,8 +588,8 @@ local DefaultStatusLine = {
   -- FileNameBlock,
   -- Space,
   Git,
-  Space,
-  Diagnostics,
+  -- Space,
+  -- Diagnostics,
   Align,
   WorkDir,
   Align,
