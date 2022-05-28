@@ -559,8 +559,6 @@ local WinBars = {
       return conditions.buffer_matches { buftype = { 'terminal' } }
     end,
     {
-      FileType,
-      Space,
       TerminalName,
     },
   },
@@ -640,9 +638,7 @@ local TerminalStatusLine = {
     return conditions.buffer_matches { buftype = { 'terminal' } }
   end,
   { condition = conditions.is_active, ViMode, Space },
-  Space,
-  TerminalName,
-  Space,
+  Align,
   TerminalTitle,
   Align,
   Ruler,
