@@ -81,14 +81,14 @@ telescope.setup {
     fzf = {
       fuzzy = true,
       override_generic_sorter = true,
-      override_file_sorter = true,
+      override_file_sorter = false,
       case_mode = 'smart_case',
     },
     ['zf-native'] = {
       -- options for sorting file-like items
       file = {
         -- override default telescope file sorter
-        enable = false,
+        enable = true,
 
         -- highlight matching text in results
         highlight_results = true,
