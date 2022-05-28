@@ -613,10 +613,7 @@ local InactiveStatusLine = {
   condition = function()
     return not conditions.is_active()
   end,
-  FileType,
-  Space,
-  FileName,
-  Align,
+  FileNameBlock,
 }
 
 local SpecialStatusLine = {
