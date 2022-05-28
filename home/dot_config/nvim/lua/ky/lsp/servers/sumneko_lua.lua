@@ -10,6 +10,9 @@ return require('lua-dev').setup {
         diagnostics = {
           globals = { 'vim' },
           disable = { 'missing-parameter', 'redundant-parameter' },
+          neededFileStatus = {
+            ['codestyle-check'] = 'Any',
+          },
         },
         -- workspace = {
         --   library = vim.api.nvim_get_runtime_file('', true),
