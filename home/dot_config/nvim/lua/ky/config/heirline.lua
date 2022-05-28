@@ -392,27 +392,21 @@ local Git = {
 }
 
 local WorkDir = {
-  provider = function(self)
-    self.icon = (vim.fn.haslocaldir() == 1 and 'l' or vim.fn.haslocaldir(-1, 0) == 1 and 't' or 'g')
-      .. ' '
-      .. ' '
-    self.cwd = vim.fn.fnamemodify(vim.loop.cwd(), ':~')
+  provider = function()
+    local flag = (
+      vim.fn.haslocaldir() == 1 and 'l'
+      or vim.fn.haslocaldir(-1, 0) == 1 and 't'
+      or 'g'
+    )
+    local icon = ''
+    local cwd = vim.fn.fnamemodify(vim.loop.cwd(), ':~')
+    if not conditions.width_percent_below(#cwd, 0.25) then
+      cwd = vim.fn.pathshorten(cwd)
+    end
+    local trail = cwd:sub(-1) == '/' and '' or '/'
+    return flag .. ' ' .. icon .. ' ' .. cwd .. trail
   end,
   hl = { fg = utils.get_highlight('Directory').fg, bold = true },
-  utils.make_flexible_component(2, {
-    provider = function(self)
-      local trail = self.cwd:sub(-1) == '/' and '' or '/'
-      return self.icon .. self.cwd .. trail .. ' '
-    end,
-  }, {
-    provider = function(self)
-      local cwd = vim.fn.pathshorten(self.cwd)
-      local trail = self.cwd:sub(-1) == '/' and '' or '/'
-      return self.icon .. cwd .. trail .. ' '
-    end,
-  }, {
-    provider = '',
-  }),
 }
 
 local TerminalName = {
