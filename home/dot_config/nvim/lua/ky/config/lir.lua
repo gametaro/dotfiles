@@ -1,5 +1,4 @@
 local lir = require('lir')
-local utils = require('lir.utils')
 local config = require('lir.config')
 local actions = require('lir.actions')
 local mark_actions = require('lir.mark.actions')
@@ -26,80 +25,41 @@ local function restore()
   end
 end
 
-local function lcd(path)
-  vim.cmd(string.format('lcd %s', path))
-end
-
-local no_confirm_patterns = {
-  '^LICENSE$',
-  '^Makefile$',
-}
-
-local function need_confirm(filename)
-  for _, pattern in ipairs(no_confirm_patterns) do
-    if filename:match(pattern) then
-      return false
-    end
-  end
-  return true
-end
-
--- NOTE: https://github.com/tamago324/lir.nvim/wiki/Custom-actions#input_newfile
 local function create()
-  local save_curdir = vim.fn.getcwd()
-  lcd(lir.get_context().dir)
-  local name = vim.fn.input('New file: ', '', 'file')
-  lcd(save_curdir)
-
-  if name == '' then
-    return
-  end
-
-  if name == '.' or name == '..' then
-    utils.error('Invalid file name: ' .. name)
-    return
-  end
-
-  -- If I need to check, I will.
-  if need_confirm(name) then
-    -- '.' is not included or '/' is not included, then
-    -- I may have entered it as a directory, I'll check.
-    if not name:match('%.') and not name:match('/') then
-      if vim.fn.confirm('Directory?', '&No\n&Yes', 1) == 2 then
-        name = name .. '/'
-      end
+  local dir = lir.get_context().dir
+  vim.ui.input({ prompt = 'New File: ', default = dir, completion = 'file' }, function(input)
+    if not input or input == dir then
+      return
     end
-  end
 
-  local path = Path:new(lir.get_context().dir .. name)
-  if string.match(name, '/$') then
-    -- mkdir
-    name = name:gsub('/$', '')
-    path:mkdir {
-      parents = true,
-      mode = tonumber('755', 8),
-      exists_ok = false,
-    }
-  else
-    -- touch
-    path:touch {
-      parents = true,
-      mode = tonumber('644', 8),
-    }
-  end
+    local file = Path:new(input)
+    if file:exists() then
+      vim.notify('file exists', vim.log.levels.INFO, { title = 'Lir' })
+      return
+    end
+    if vim.endswith(file.filename, Path.path.sep) then
+      Path:new(file.filename:sub(1, -2)):mkdir { parents = true }
+    else
+      file:touch {
+        parents = true,
+      }
+    end
 
-  -- If the first character is '.' and show_hidden_files is false, set it to true
-  if name:match([[^%.]]) and not config.values.show_hidden_files then
-    config.values.show_hidden_files = true
-  end
+    local filename = file.filename:gsub(dir, '')
 
-  actions.reload()
+    -- If the first character is '.' and show_hidden_files is false, set it to true
+    if vim.startswith(filename, '.') and not config.values.show_hidden_files then
+      config.values.show_hidden_files = true
+    end
 
-  -- Jump to a line in the parent directory of the file you created.
-  local lnum = lir.get_context():indexof(name:match('^[^/]+'))
-  if lnum then
-    vim.cmd(tostring(lnum))
-  end
+    actions.reload()
+
+    -- Jump to a line in the parent directory of the file you created.
+    local row = lir.get_context():indexof(filename:match('^[^/]+'))
+    if row then
+      vim.api.nvim_win_set_cursor(0, { row, 1 })
+    end
+  end)
 end
 
 local function hidden_status()
