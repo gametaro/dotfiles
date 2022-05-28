@@ -84,10 +84,10 @@ local forward = function(is_local, winnr, tabnr)
   opts.on_success()
 end
 
-vim.keymap.set('n', '<LocalLeader><C-i>', function()
+vim.keymap.set('n', '<Leader><C-i>', function()
   forward(false)
 end)
-vim.keymap.set('n', '<LocalLeader><C-o>', function()
+vim.keymap.set('n', '<Leader><C-o>', function()
   backward(false)
 end)
 vim.keymap.set('n', 'g<C-i>', function()

@@ -349,8 +349,7 @@ local Git = {
   },
   {
     condition = function()
-      local has_git_rev = pcall(vim.api.nvim_get_var, 'git_rev')
-      return has_git_rev
+      return pcall(vim.api.nvim_get_var, 'git_rev')
     end,
     provider = function()
       return (vim.g.git_rev.ahead > 0 and ' ⇡' .. vim.g.git_rev.ahead or '')
