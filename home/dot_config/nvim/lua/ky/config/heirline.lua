@@ -149,34 +149,23 @@ local FileIcon = {
 }
 
 local FileName = {
-  init = function(self)
-    self.lfilename = vim.fn.fnamemodify(self.filename, ':t')
-    if self.lfilename == '' then
-      self.lfilename = '[No Name]'
-    end
-  end,
   provider = function(self)
-    return self.lfilename
+    local filename = vim.fn.fnamemodify(self.filename, ':t')
+    return filename == '' and '[No Name]' or filename
   end,
 }
 
 local FilePath = {
-  init = function(self)
-    self.filepath = vim.fn.fnamemodify(self.filename, ':.:h')
-    if self.filepath == '' then
-      self.filepath = '[No Name]'
+  provider = function(self)
+    local filepath = vim.fn.fnamemodify(self.filename, ':.:h')
+    local icon = ''
+    local trail = filepath:sub(-1) == '/' and '' or '/'
+    if not conditions.width_percent_below(#filepath, 0.5) then
+      filepath = vim.fn.pathshorten(filepath)
     end
+    return icon .. ' ' .. filepath .. trail
   end,
-  utils.make_flexible_component(2, {
-    provider = function(self)
-      return self.filepath
-    end,
-  }, {
-    provider = function(self)
-      return vim.fn.pathshorten(self.filepath)
-    end,
-  }),
-  hl = { fg = utils.get_highlight('Comment').fg },
+  hl = { fg = utils.get_highlight('Directory').fg },
 }
 
 local FileFlags = {
