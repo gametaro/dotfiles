@@ -20,6 +20,7 @@ local colors = {
   red = palette.red.base,
   white = palette.white.dim,
   yellow = palette.yellow.dim,
+  gray = utils.get_highlight('NonText').fg,
 }
 
 local Align = { provider = '%=' }
@@ -549,7 +550,7 @@ local WinBars = {
     condition = function()
       return not conditions.is_active()
     end,
-    { hl = { fg = 'gray', force = true }, FileNameBlock },
+    { hl = { fg = colors.gray, force = true }, FileNameBlock },
   },
   FileNameBlock,
   hl = function()
