@@ -958,7 +958,7 @@ local plugins = function(use)
   use {
     'kosayoda/nvim-lightbulb',
     event = { 'BufRead' },
-    setup = function()
+    config = function()
       require('nvim-lightbulb').setup {
         sign = { enabled = false },
         virtual_text = { enabled = true, text = '💡' },
