@@ -24,10 +24,14 @@ local condition = function(bufnr)
     and not vim.tbl_contains(opts.ignore_filetype, vim.api.nvim_buf_get_option(bufnr, 'filetype'))
 end
 
-local backward = function(is_local, winnr, tabnr)
+local get_jumplist = function(winnr, tabnr)
   winnr = winnr or vim.api.nvim_win_get_number(0)
   tabnr = tabnr or vim.api.nvim_tabpage_get_number(0)
-  local jumplist, curpos = unpack(vim.fn.getjumplist(winnr, tabnr))
+  return unpack(vim.fn.getjumplist(winnr, tabnr))
+end
+
+local backward = function(is_local, winnr, tabnr)
+  local jumplist, curpos = get_jumplist(winnr, tabnr)
   if #jumplist == 0 or curpos == 0 then
     return
   end
@@ -55,9 +59,7 @@ local backward = function(is_local, winnr, tabnr)
 end
 
 local forward = function(is_local, winnr, tabnr)
-  winnr = winnr or vim.api.nvim_win_get_number(0)
-  tabnr = tabnr or vim.api.nvim_tabpage_get_number(0)
-  local jumplist, curpos = unpack(vim.fn.getjumplist(winnr, tabnr))
+  local jumplist, curpos = get_jumplist(winnr, tabnr)
   if #jumplist == 0 or #jumplist == curpos then
     return
   end
