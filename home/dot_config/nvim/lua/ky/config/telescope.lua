@@ -32,7 +32,7 @@ local defaults = {
     },
   },
   path_display = { truncate = 3 },
-  prompt_prefix = ' ',
+  -- prompt_prefix = ' ',
   dynamic_preview_title = true,
   results_title = false,
   sorting_strategy = 'ascending',
