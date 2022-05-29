@@ -69,8 +69,13 @@ local delete = function()
 
   vim.ui.select({ 'Yes', 'No' }, { prompt = string.format('Delete %s ?: ', name) }, function(choice)
     if choice and choice == 'Yes' then
-      local is_dir = path:is_dir()
-      path:rm { recursive = is_dir }
+      path:rm { recursive = path:is_dir() }
+      local bufs = vim.tbl_filter(function(buf)
+        return vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == path.filename
+      end, vim.api.nvim_list_bufs())
+      for _, buf in ipairs(bufs) do
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
 
       actions.reload()
     end
