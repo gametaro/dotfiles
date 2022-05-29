@@ -160,8 +160,8 @@ autocmd({ 'TermEnter', 'TermLeave' }, {
 
 autocmd('TermClose', {
   callback = function(a)
-    if not vim.v.event.status == 0 then
-      vim.api.nvim_buf_delete(a.buf, { force = true })
+    if vim.v.event.status == 0 then
+      api.nvim_buf_delete(a.buf, { force = true })
     end
   end,
   desc = 'close terminal buffers if the job exited without error. see :help terminal-status',
