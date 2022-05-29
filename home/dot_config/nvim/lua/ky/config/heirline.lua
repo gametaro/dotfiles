@@ -499,7 +499,7 @@ local LirName = {
   end,
   init = function(self)
     local dir = require('lir').get_context().dir
-    self.dir = vim.fn.fnamemodify(dir, ':.:h')
+    self.dir = vim.fn.fnamemodify(dir, ':~:h')
     self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color('lir_folder_icon')
     self.show_hidden_files = require('lir.config').values.show_hidden_files
   end,
