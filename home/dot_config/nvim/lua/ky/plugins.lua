@@ -925,15 +925,6 @@ local plugins = function(use)
   }
 
   use {
-    'alvarosevilla95/luatab.nvim',
-    disable = true,
-    event = { 'BufRead' },
-    config = function()
-      require('luatab').setup {}
-    end,
-  }
-
-  use {
     'kana/vim-smartword',
     disable = true,
     keys = { '<Plug>(smartword-' },
