@@ -168,14 +168,13 @@ local FileName = {
 local FilePath = {
   provider = function(self)
     local filepath = vim.fn.fnamemodify(self.filename, ':.:h')
-    local icon = ''
     local trail = filepath:sub(-1) == '/' and '' or '/'
     if not conditions.width_percent_below(#filepath, 0.5) then
       filepath = vim.fn.pathshorten(filepath)
     end
-    return icon .. ' ' .. filepath .. trail
+    return filepath .. trail
   end,
-  hl = { fg = utils.get_highlight('Directory').fg },
+  hl = { fg = utils.get_highlight('Comment').fg },
 }
 
 local FileFlags = {
@@ -189,7 +188,7 @@ local FileFlags = {
     provider = function()
       return (not vim.bo.modifiable or vim.bo.readonly) and ' '
     end,
-    hl = { fg = colors.orange },
+    hl = { fg = colors.diag.warn },
   },
 }
 
@@ -509,7 +508,7 @@ local LirName = {
       return string.format('%s %s ', self.icon, self.dir)
     end,
     hl = function(self)
-      return { fg = self.icon_color }
+      return { fg = self.icon_color, bold = true }
     end,
   },
   {
