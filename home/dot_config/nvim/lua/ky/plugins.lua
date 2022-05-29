@@ -936,18 +936,6 @@ local plugins = function(use)
   }
 
   use {
-    'kwkarlwang/bufjump.nvim',
-    setup = function()
-      vim.keymap.set('n', '<M-o>', function()
-        require('bufjump').backward()
-      end, { desc = 'jump to previous buffer in the jumplist' })
-      vim.keymap.set('n', '<M-i>', function()
-        require('bufjump').forward()
-      end, { desc = 'jump to next buffer in the jumplist' })
-    end,
-  }
-
-  use {
     'kosayoda/nvim-lightbulb',
     event = { 'BufRead' },
     config = function()
