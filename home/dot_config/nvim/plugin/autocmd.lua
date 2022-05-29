@@ -161,6 +161,20 @@ autocmd({ 'TermEnter', 'TermLeave' }, {
   end,
 })
 
+autocmd('TermClose', {
+  callback = function(a)
+    if not vim.v.event.status == 0 then
+      vim.api.nvim_cmd {
+        cmd = 'bdelete',
+        args = { a.buf },
+        bang = true,
+        mods = { silent = false },
+      }
+    end
+  end,
+  desc = 'close terminal buffers if the job exited without error. see :help terminal-status',
+})
+
 autocmd('BufEnter', {
   pattern = 'term://*',
   callback = function()
