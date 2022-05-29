@@ -1137,6 +1137,7 @@ local plugins = function(use)
 
   use {
     'lewis6991/satellite.nvim',
+    disable = true,
     event = { 'BufRead' },
     config = function()
       require('satellite').setup()
