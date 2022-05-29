@@ -1142,6 +1142,13 @@ local plugins = function(use)
       require('satellite').setup()
     end,
   }
+
+  use {
+    'lambdalisue/suda.vim',
+    setup = function()
+      vim.g.suda_smart_edit = 1
+    end,
+  }
 end
 
 bootstrap()
