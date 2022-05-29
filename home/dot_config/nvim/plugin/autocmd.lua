@@ -139,14 +139,12 @@ autocmd('VimResized', {
 })
 
 autocmd('TermOpen', {
-  pattern = 'term://*',
   callback = function()
     cmd('startinsert')
   end,
 })
 
 autocmd('TermOpen', {
-  pattern = 'term://*',
   callback = function()
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
@@ -155,7 +153,6 @@ autocmd('TermOpen', {
 })
 
 autocmd({ 'TermEnter', 'TermLeave' }, {
-  pattern = 'term://*',
   callback = function()
     api.nvim_buf_set_var(0, 'term_mode', api.nvim_get_mode().mode)
   end,
