@@ -633,6 +633,8 @@ local SpecialStatusLine = {
   end,
   ViMode,
   Align,
+  WorkDir,
+  Align,
   FileType,
   Space,
   Ruler,
