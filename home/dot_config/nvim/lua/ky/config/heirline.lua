@@ -9,10 +9,9 @@ local colors = {
   bg = spec.bg2,
   git = spec.git,
   diff = {
-    add = utils.get_highlight('DiffChanged').fg,
-    change = utils.get_highlight('DiffChange').fg,
-    delete = utils.get_highlight('DiffDelete').fg,
-    text = utils.get_highlight('DiffText').fg,
+    add = utils.get_highlight('diffAdded').fg,
+    change = utils.get_highlight('diffChanged').fg,
+    delete = utils.get_highlight('diffRemoved').fg,
   },
   diag = {
     error = utils.get_highlight('DiagnosticError').fg,
@@ -184,7 +183,7 @@ local FileFlags = {
     provider = function()
       return vim.bo.modified and ' ●' -- '
     end,
-    hl = { fg = utils.get_highlight('diffChanged').fg },
+    hl = { fg = colors.diff.change },
   },
   {
     provider = function()
