@@ -162,17 +162,11 @@ map({ 'n', 'x', 'o' }, '$', function()
   return lines:sub(col + 1 - lines:len()):match('^%s+$') and '$' or 'g_'
 end, { expr = true, desc = 'toggle `$` and `g_`' })
 
----check if the current line is blank
----@return boolean
-local is_blank_line = function()
-  return string.len(vim.trim(api.nvim_get_current_line())) == 0
-end
-
 -- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
 for _, v in ipairs { 'i', 'A' } do
   map('n', v, function()
     return (
-          not is_blank_line()
+          not api.nvim_get_current_line():match('^%s*$')
           or vim.bo.buftype == 'terminal'
           or vim.bo.filetype == 'TelescopePrompt'
         )
