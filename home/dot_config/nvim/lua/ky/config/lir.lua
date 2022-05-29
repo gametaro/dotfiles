@@ -123,26 +123,46 @@ require('lir').setup {
     ['l'] = actions.edit,
     ['o'] = actions.edit,
     ['<CR>'] = actions.edit,
-    ['<C-s>'] = actions.split,
-    ['<C-v>'] = actions.vsplit,
-    ['<C-t>'] = actions.tabedit,
+    ['s'] = actions.split,
+    ['v'] = actions.vsplit,
+    ['t'] = actions.tabedit,
 
     ['-'] = actions.up,
     ['h'] = actions.up,
     ['q'] = actions.quit,
+    ['<Esc>'] = actions.quit,
 
-    ['m'] = actions.mkdir,
+    -- ['m'] = actions.mkdir,
     -- ['a'] = actions.newfile,
     ['a'] = create,
     ['r'] = actions.rename,
-    ['@'] = actions.cd,
-    ['y'] = actions.yank_path,
+    ['@'] = function()
+      local dir = lir.get_context().dir
+      local cmd = vim.fn.haslocaldir() == 1 and 'lcd' or 'cd'
+      vim.api.nvim_cmd({ cmd = cmd, args = { dir }, mods = { silent = true } }, {})
+      vim.notify(cmd .. ': ' .. dir, vim.log.levels.INFO, { title = 'lir' })
+    end,
+    ['y'] = function()
+      local file = lir.get_context():current_value()
+      vim.fn.setreg(vim.v.register, file)
+      vim.notify('yank: ' .. file, vim.log.levels.INFO, { title = 'lir' })
+    end,
+    ['Y'] = function()
+      local ctx = lir.get_context()
+      local path = ctx.dir .. ctx:current_value()
+      vim.fn.setreg(vim.v.register, path)
+      vim.notify('yank: ' .. path, vim.log.levels.INFO, { title = 'lir' })
+    end,
     ['.'] = actions.toggle_show_hidden,
     ['d'] = delete,
 
     ['<Tab>'] = function()
       mark_actions.toggle_mark()
       vim.cmd('normal! j')
+    end,
+    ['<S-Tab>'] = function()
+      mark_actions.toggle_mark()
+      vim.cmd('normal! k')
     end,
     ['c'] = clipboard_actions.copy,
     ['x'] = clipboard_actions.cut,
@@ -168,7 +188,7 @@ require('lir').setup {
   on_init = function()
     vim.keymap.set(
       'x',
-      'J',
+      '<Tab>',
       ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
       { buffer = true }
     )
