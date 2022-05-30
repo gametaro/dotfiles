@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1653827435360,
+  "lastUpdate": 1653924498837,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -8579,6 +8579,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.22045319289999998,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "780533028e3cc266b0d09c8bc8dcf67dbc468fb3",
+          "message": "feat(jump): refine and add cwd aware capability",
+          "timestamp": "2022-05-31T00:24:07+09:00",
+          "tree_id": "563a5283a6729756f9d8b144e95965b5c312a164",
+          "url": "https://github.com/gametaro/dotfiles/commit/780533028e3cc266b0d09c8bc8dcf67dbc468fb3"
+        },
+        "date": 1653924498277,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.2153128150866667,
             "unit": "Second"
           }
         ]
