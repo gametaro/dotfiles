@@ -17,6 +17,9 @@ if colorscheme == 'nightfox' then
         BqfPreviewBorder = { link = 'FloatBorder' },
         IndentBlanklineContextChar = { link = 'FloatBorder' }, -- fg3
         CmpDocumentationBorder = { link = 'FloatBorder' },
+        CmpItemAbbrMatch = { style = 'bold' },
+        CmpItemAbbrMatchFuzzy = { style = 'bold' },
+        TelescopeMatching = { link = 'CmpItemAbbrMatch' },
         DiffText = { style = 'bold' },
         DiffDelete = { fg = 'syntax.comment' },
       },
