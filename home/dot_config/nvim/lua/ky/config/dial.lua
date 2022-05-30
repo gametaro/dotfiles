@@ -11,6 +11,10 @@ local default = {
   augend.constant.new {
     elements = { 'TODO', 'WARN', 'NOTE', 'HACK' },
   },
+  augend.paren.new {
+    patterns = { { "'", "'" }, { '"', '"' }, { '`', '`' } },
+    escape_char = [[\]],
+  },
 }
 
 local with_default = function(group_name)
@@ -47,10 +51,6 @@ local typescript = {
   },
   augend.constant.new {
     elements = { '&&', '||', '??' },
-  },
-  augend.paren.new {
-    patterns = { { "'", "'" }, { '"', '"' }, { '`', '`' } },
-    escape_char = [[\]],
   },
   augend.constant.new {
     elements = { 'console.log', 'console.warn', 'console.error' },
