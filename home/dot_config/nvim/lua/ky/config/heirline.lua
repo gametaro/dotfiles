@@ -163,6 +163,7 @@ local FileName = {
     local filename = vim.fn.fnamemodify(self.filename, ':t')
     return filename == '' and '[No Name]' or filename
   end,
+  hl = { bold = true },
 }
 
 local FilePath = {
@@ -174,7 +175,7 @@ local FilePath = {
     end
     return filepath .. trail
   end,
-  hl = { fg = utils.get_highlight('Comment').fg },
+  hl = { fg = utils.get_highlight('Comment').fg, bold = true },
 }
 
 local FileFlags = {
@@ -195,7 +196,7 @@ local FileFlags = {
 local FileNameModifer = {
   hl = function()
     if vim.bo.modified then
-      return { bold = true, force = true }
+      return { italic = true, force = true }
     end
   end,
 }
