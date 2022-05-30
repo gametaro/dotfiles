@@ -3,98 +3,125 @@
 -- 2. vim-EnhancedJumps
 -- 3. bufjump.nvim
 
-local opts = {
+local config = {
   ignore_filetype = { 'gitcommit', 'gitrebase' },
-  ignore_buftype = { 'terminal', 'nofile' },
+  ignore_buftype = { 'terminal' },
+  only_cwd = true,
   on_success = function() end,
   on_error = function()
     vim.notify('No destination found')
   end,
 }
 
-local jump = function(count, forward)
-  count = vim.F.if_nil(count, 1)
-  forward = vim.F.if_nil(forward, true)
-  vim.cmd('execute "normal! ' .. tostring(count) .. (forward and [[\<C-i>"]] or [[\<c-o>"]]))
-end
-
 local condition = function(bufnr)
-  return vim.api.nvim_buf_is_valid(bufnr)
-    and not vim.tbl_contains(opts.ignore_buftype, vim.api.nvim_buf_get_option(bufnr, 'buftype'))
-    and not vim.tbl_contains(opts.ignore_filetype, vim.api.nvim_buf_get_option(bufnr, 'filetype'))
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return false
+  end
+  if
+    config.ignore_buftype
+    and vim.tbl_contains(config.ignore_buftype, vim.api.nvim_buf_get_option(bufnr, 'buftype'))
+  then
+    return false
+  end
+  if
+    config.ignore_filetype
+    and vim.tbl_contains(config.ignore_filetype, vim.api.nvim_buf_get_option(bufnr, 'filetype'))
+  then
+    return false
+  end
+  if
+    config.only_cwd and not string.find(vim.api.nvim_buf_get_name(bufnr), vim.loop.cwd(), 1, true)
+  then
+    return false
+  end
+  return true
 end
 
-local get_jumplist = function(winnr, tabnr)
-  winnr = winnr or vim.api.nvim_win_get_number(0)
-  tabnr = tabnr or vim.api.nvim_tabpage_get_number(0)
+local get_jumplist = function()
+  local winnr = vim.api.nvim_win_get_number(0)
+  local tabnr = vim.api.nvim_tabpage_get_number(0)
   return unpack(vim.fn.getjumplist(winnr, tabnr))
 end
 
-local backward = function(is_local, winnr, tabnr)
-  local jumplist, curpos = get_jumplist(winnr, tabnr)
-  if #jumplist == 0 or curpos == 0 then
-    return
-  end
-
-  curpos = curpos + 1
+local get_pos = function(opts)
   local curbufnr = vim.api.nvim_get_current_buf()
 
   local dstpos
   local dstbufnr
-  for i = curpos - 1, 1, -1 do
-    dstbufnr = jumplist[i].bufnr
-    if (is_local and dstbufnr == curbufnr or dstbufnr ~= curbufnr) and condition(dstbufnr) then
-      dstpos = i
-      break
+  local from = opts.forward and (opts.curpos + 1) or (opts.curpos - 1)
+  local to = opts.forward and #opts.jumplist or 1
+  local unit = opts.forward and 1 or -1
+  for i = from, to, unit do
+    dstbufnr = opts.jumplist[i].bufnr
+    if opts.is_local and (dstbufnr == curbufnr) or (dstbufnr ~= curbufnr) then
+      if condition(dstbufnr) then
+        dstpos = i
+        break
+      end
     end
   end
 
-  if dstpos == nil then
-    opts.on_error()
-    return
-  end
-
-  jump(dstpos - curpos, false)
-  opts.on_success()
+  return dstpos, dstbufnr
 end
 
-local forward = function(is_local, winnr, tabnr)
-  local jumplist, curpos = get_jumplist(winnr, tabnr)
-  if #jumplist == 0 or #jumplist == curpos then
+local jump = function(is_local, forward)
+  local jumplist, curpos = get_jumplist()
+  if #jumplist == 0 then
     return
   end
 
   curpos = curpos + 1
-  local curbufnr = vim.api.nvim_get_current_buf()
-
-  local dstpos
-  local dstbufnr
-  for i = curpos + 1, #jumplist do
-    dstbufnr = jumplist[i].bufnr
-    if (is_local and dstbufnr == curbufnr or dstbufnr ~= curbufnr) and condition(dstbufnr) then
-      dstpos = i
-      break
-    end
-  end
-
-  if dstpos == nil then
-    opts.on_error()
+  if curpos == (forward and #jumplist or 1) then
     return
   end
 
-  jump(dstpos - curpos)
-  opts.on_success()
+  local dstpos = get_pos {
+    is_local = is_local,
+    curpos = curpos,
+    forward = forward,
+    jumplist = jumplist,
+  }
+  if not dstpos then
+    config.on_error()
+    return
+  end
+
+  vim.cmd(
+    string.format(
+      'execute "normal! %s%s"',
+      tostring(dstpos - curpos),
+      (forward and [[\<C-i>]] or [[\<c-o>]])
+    )
+  )
+
+  config.on_success()
+end
+
+local forward = function()
+  jump(false, true)
+end
+
+local backward = function()
+  jump(false, false)
+end
+
+local forward_local = function()
+  jump(true, true)
+end
+
+local backward_local = function()
+  jump(true, false)
 end
 
 vim.keymap.set('n', '<Leader><C-i>', function()
-  forward(false)
+  forward()
 end)
 vim.keymap.set('n', '<Leader><C-o>', function()
-  backward(false)
+  backward()
 end)
 vim.keymap.set('n', 'g<C-i>', function()
-  forward(true)
+  forward_local()
 end)
 vim.keymap.set('n', 'g<C-o>', function()
-  backward(true)
+  backward_local()
 end)
