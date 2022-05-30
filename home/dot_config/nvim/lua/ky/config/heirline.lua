@@ -674,7 +674,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   group = vim.api.nvim_create_augroup('heirline', { clear = true }),
   callback = function()
     require('heirline').reset_highlights()
-    require('heirline').setup(StatusLines)
+    require('heirline').setup(StatusLines, WinBars)
   end,
 })
 
