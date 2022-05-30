@@ -243,6 +243,6 @@ autocmd('DiagnosticChanged', {
 autocmd('FileType', {
   pattern = { 'gitcommit', 'gitrebase' },
   callback = function()
-    vim.bo.bufhidden = 'delete'
+    vim.bo.bufhidden = 'wipe'
   end,
 })
