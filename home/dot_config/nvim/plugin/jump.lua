@@ -5,7 +5,7 @@
 
 local config = {
   ignore_filetype = { 'gitcommit', 'gitrebase' },
-  ignore_buftype = { 'terminal' },
+  ignore_buftype = { 'terminal', 'help', 'quickfix', 'nofile' },
   only_cwd = true,
   on_success = function() end,
   on_error = function()
