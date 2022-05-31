@@ -564,6 +564,7 @@ local plugins = function(use)
       },
       {
         'nvim-telescope/telescope-file-browser.nvim',
+        disable = true,
         after = 'telescope.nvim',
         config = function()
           require('telescope').load_extension('file_browser')
@@ -605,6 +606,7 @@ local plugins = function(use)
       },
       {
         'AckslD/nvim-neoclip.lua',
+        disable = true,
         after = 'telescope.nvim',
         config = function()
           require('neoclip').setup {
@@ -632,6 +634,7 @@ local plugins = function(use)
 
   use {
     'kana/vim-submode',
+    disable = true,
     event = 'BufRead',
     config = function()
       require('ky.config.submode')
