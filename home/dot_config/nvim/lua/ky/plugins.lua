@@ -526,8 +526,8 @@ local plugins = function(use)
     'haya14busa/vim-edgemotion',
     keys = { '<Plug>(edgemotion-' },
     setup = function()
-      vim.keymap.set({ 'n', 'x' }, '<C-j>', '<Plug>(edgemotion-j)')
-      vim.keymap.set({ 'n', 'x' }, '<C-k>', '<Plug>(edgemotion-k)')
+      vim.keymap.set({ 'n', 'x' }, '<C-j>', "m'<Plug>(edgemotion-j)")
+      vim.keymap.set({ 'n', 'x' }, '<C-k>', "m'<Plug>(edgemotion-k)")
     end,
   }
 
