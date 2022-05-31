@@ -41,6 +41,7 @@ opt.formatoptions:remove {
 }
 opt.ignorecase = true
 opt.imsearch = 0
+opt.inccommand = 'split'
 opt.isfname:remove { '=' }
 opt.laststatus = 3
 opt.lazyredraw = true
