@@ -38,7 +38,7 @@ autocmd('FileType', {
 
 autocmd('TextYankPost', {
   callback = function()
-    vim.highlight.on_yank { higroup = 'Search', timeout = 150 }
+    vim.highlight.on_yank { higroup = 'Search', timeout = 200 }
   end,
   desc = 'highlight on yank',
 })
