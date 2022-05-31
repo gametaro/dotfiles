@@ -179,6 +179,7 @@ local plugins = function(use)
       },
       {
         'SmiteshP/nvim-gps',
+        disable = true,
         after = 'nvim-treesitter',
         config = function()
           require('nvim-gps').setup()
