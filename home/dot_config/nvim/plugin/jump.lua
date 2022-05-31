@@ -97,6 +97,36 @@ local jump = function(is_local, forward)
   config.on_success()
 end
 
+local toqflist = function(jumplist)
+  return vim.tbl_map(function(j)
+    local text = unpack(vim.api.nvim_buf_get_lines(j.bufnr, j.lnum - 1, j.lnum, true))
+    return { bufnr = j.bufnr, col = j.col, lnum = j.lnum, text = text }
+  end, jumplist)
+end
+
+local setlist = function(qf, open)
+  local jumplist = unpack(vim.fn.getjumplist())
+  local items = toqflist(vim.tbl_filter(function(j)
+    return vim.api.nvim_buf_is_loaded(j.bufnr)
+  end, jumplist))
+  if qf then
+    vim.fn.setqflist({}, ' ', { title = 'Jumplist', items = items })
+  else
+    vim.fn.setloclist(0, {}, ' ', { title = 'Jumplist', items = items })
+  end
+  if open then
+    vim.api.nvim_command(qf and 'botright copen' or 'lopen')
+  end
+end
+
+local setqfflist = function(open)
+  setlist(true, open)
+end
+
+local setloclist = function(open)
+  setlist(false, open)
+end
+
 local forward = function()
   jump(false, true)
 end
@@ -124,4 +154,10 @@ vim.keymap.set('n', 'g<C-i>', function()
 end)
 vim.keymap.set('n', 'g<C-o>', function()
   backward_local()
+end)
+vim.keymap.set('n', '<Leader>jq', function()
+  setqfflist(true)
+end)
+vim.keymap.set('n', '<Leader>jl', function()
+  setloclist(true)
 end)
