@@ -455,7 +455,7 @@ end, { expr = true, desc = [[toggle `<Esc>` and `<C-\><C-n>` based on current pr
 
 map('n', '<F1>', function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local items = fn.synstack(row + 1, col)
+  local items = fn.synstack(row, col + 1)
   if vim.tbl_isempty(items) then
     pcmd('TSHighlightCapturesUnderCursor')
   else
