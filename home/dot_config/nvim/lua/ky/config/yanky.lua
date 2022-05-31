@@ -6,14 +6,13 @@ require('yanky').setup {
       mappings = {
         default = mapping.put('p'),
         i = {
-          ['<c-p>'] = nil,
-          ['<c-k>'] = mapping.put('P'),
-          ['<c-x>'] = mapping.delete(),
+          ['<C-p>'] = nil,
+          ['<C-x>'] = mapping.delete(),
         },
         n = {
           p = mapping.put('p'),
           P = mapping.put('P'),
-          d = mapping.delete(),
+          x = mapping.delete(),
         },
       },
     },
