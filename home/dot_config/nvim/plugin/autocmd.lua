@@ -118,11 +118,11 @@ autocmd('BufLeave', {
   end,
 })
 
-autocmd({ 'FocusGained', 'WinEnter' }, {
-  callback = function()
-    cmd('silent! checktime')
-  end,
-})
+-- autocmd({ 'FocusGained', 'WinEnter' }, {
+--   callback = function()
+--     cmd('silent! checktime')
+--   end,
+-- })
 
 autocmd('BufWritePost', {
   callback = function()
