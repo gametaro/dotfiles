@@ -21,6 +21,8 @@ require('yanky').setup {
     sync_with_ring = false,
   },
   highlight = {
+    on_put = true,
+    on_yank = false,
     timer = 200,
   },
 }
