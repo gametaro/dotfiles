@@ -1,5 +1,6 @@
 local telescope = require('telescope')
 local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
 local actions_layout = require('telescope.actions.layout')
 local themes = require('telescope.themes')
 local builtin = require('telescope.builtin')
@@ -25,6 +26,11 @@ local defaults = {
       ['<M-p>'] = actions_layout.toggle_preview,
       ['<C-s>'] = actions.select_horizontal,
       ['<C-x>'] = false,
+      ['<C-y>'] = function(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        vim.fn.setreg(vim.v.register, selection.value)
+      end,
     },
     n = {
       ['<C-s>'] = actions.select_horizontal,
