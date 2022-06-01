@@ -8,6 +8,7 @@ return {
     ts.setup {
       update_imports_on_move = true,
       require_confirmation_on_move = true,
+      auto_inlay_hints = false,
     }
     ts.setup_client(client)
   end,
