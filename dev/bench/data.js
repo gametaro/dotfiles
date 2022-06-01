@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654009200260,
+  "lastUpdate": 1654100992292,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -8666,6 +8666,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.20257649660666668,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "e3a744b8a1eec34133c5d46ffd27f2ac19b4c38b",
+          "message": "feat(telescope): add action to yank selection",
+          "timestamp": "2022-06-01T23:41:29+09:00",
+          "tree_id": "0e6e027ba4e5251319c94035c1b08316c66b5f9b",
+          "url": "https://github.com/gametaro/dotfiles/commit/e3a744b8a1eec34133c5d46ffd27f2ac19b4c38b"
+        },
+        "date": 1654100991679,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.21883422362000002,
             "unit": "Second"
           }
         ]
