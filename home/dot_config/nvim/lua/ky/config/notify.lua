@@ -10,9 +10,9 @@ notify.setup {
   end,
   render = function(bufnr, notif, highlights)
     local renderer = notif.title[1] == '' and 'minimal' or 'default'
-    notif.keep = function()
-      return notif.level == 'ERROR'
-    end
+    -- notif.keep = function()
+    --   return notif.level == 'ERROR'
+    -- end
 
     render[renderer](bufnr, notif, highlights)
   end,
