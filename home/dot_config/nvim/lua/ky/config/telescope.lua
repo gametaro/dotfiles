@@ -26,6 +26,11 @@ local defaults = {
       ['<M-p>'] = actions_layout.toggle_preview,
       ['<C-s>'] = actions.select_horizontal,
       ['<C-x>'] = false,
+      ['<C-f>'] = actions.preview_scrolling_down,
+      ['<C-b>'] = actions.preview_scrolling_up,
+      ['<C-u>'] = { '<C-u>', type = 'command' },
+      ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
+      ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
       ['<C-y>'] = function(prompt_bufnr)
         local selection = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
@@ -35,6 +40,8 @@ local defaults = {
     n = {
       ['<C-s>'] = actions.select_horizontal,
       ['<C-x>'] = false,
+      ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
+      ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
     },
   },
   path_display = { truncate = 3 },
