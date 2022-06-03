@@ -17,6 +17,15 @@ local horizontal = {
   preview_title = false,
 }
 
+local yank = function(prompt_bufnr)
+  local selection = action_state.get_selected_entry()
+  if selection == nil then
+    return
+  end
+  actions.close(prompt_bufnr)
+  vim.fn.setreg(vim.v.register, selection.value)
+end
+
 local defaults = {
   mappings = {
     i = {
@@ -31,17 +40,14 @@ local defaults = {
       ['<C-u>'] = { '<C-u>', type = 'command' },
       ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
       ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
-      ['<C-y>'] = function(prompt_bufnr)
-        local selection = action_state.get_selected_entry()
-        actions.close(prompt_bufnr)
-        vim.fn.setreg(vim.v.register, selection.value)
-      end,
+      ['<C-y>'] = yank,
     },
     n = {
       ['<C-s>'] = actions.select_horizontal,
       ['<C-x>'] = false,
       ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
       ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
+      ['y'] = yank,
     },
   },
   path_display = { truncate = 3 },
