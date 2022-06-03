@@ -122,6 +122,7 @@ local ViMode = {
       t = colors.red,
     },
   },
+  update = 'ModeChanged',
   provider = function(self)
     return '%2(' .. self.mode_names[self.mode] .. '%)'
   end,
@@ -286,6 +287,7 @@ local Ruler = {
 
 local LSPActive = {
   condition = conditions.lsp_attached,
+  update = { 'LspAttach', 'LspDetach' },
   provider = function()
     local clients = table.concat(
       vim.tbl_map(function(client)
@@ -315,6 +317,7 @@ local Diagnostics = {
     info_icon = vim.fn.sign_getdefined('DiagnosticSignInfo')[1].text,
     hint_icon = vim.fn.sign_getdefined('DiagnosticSignHint')[1].text,
   },
+  update = { 'DiagnosticChanged', 'BufEnter' },
   {
     provider = function(self)
       return self.errors > 0 and self.error_icon .. self.errors .. ' '
