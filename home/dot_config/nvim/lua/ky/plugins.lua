@@ -1043,7 +1043,7 @@ local plugins = function(use)
   use {
     'chaoren/vim-wordmotion',
     setup = function()
-      vim.g.wordmotion_spaces = { [[\W]], '_' }
+      vim.g.wordmotion_spaces = { '.', ',', "'", '"', '`', '_' }
     end,
   }
 
