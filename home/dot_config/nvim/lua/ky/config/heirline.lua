@@ -394,9 +394,9 @@ local Git = {
 local WorkDir = {
   provider = function()
     local flag = (
-      vim.fn.haslocaldir() == 1 and 'l'
-      or vim.fn.haslocaldir(-1, 0) == 1 and 't'
-      or 'g'
+      vim.fn.haslocaldir() == 1 and 'L'
+      or vim.fn.haslocaldir(-1, 0) == 1 and 'T'
+      or 'G'
     )
     local icon = ''
     local cwd = vim.fn.fnamemodify(vim.loop.cwd(), ':~')
