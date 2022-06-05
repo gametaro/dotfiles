@@ -42,4 +42,4 @@ docker run --rm -it $(docker build -q .)
 
 Tested with [hyperfine](https://github.com/sharkdp/hyperfine).
 
-* [Neovim startup time](https://gametaro.github.io/dotfiles/dev/bench/)  
+* [Neovim startup time](https://gametaro.github.io/dotfiles/dev/bench/)
