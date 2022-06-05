@@ -328,11 +328,11 @@ local all = {
   TelescopeSelection = { link = 'Visual' },
 
   -- nvim-notify
-  NotifyERRORBorder = { fg = palette.red:blend(normal_bg, 0.5) },
-  NotifyWARNBorder = { fg = palette.orange:blend(normal_bg, 0.5) },
-  NotifyINFOBorder = { fg = palette.blue:blend(normal_bg, 0.5) },
-  NotifyDEBUGBorder = { fg = palette.green:blend(normal_bg, 0.5) },
-  NotifyTRACEBorder = { fg = comment_fg },
+  NotifyERRORBorder = { fg = red_tint_bg, bg = pmenu_bg },
+  NotifyWARNBorder = { fg = orange_tint_bg, bg = pmenu_bg },
+  NotifyINFOBorder = { fg = blue_tint_bg, bg = pmenu_bg },
+  NotifyDEBUGBorder = { fg = green_tint_bg, bg = pmenu_bg },
+  NotifyTRACEBorder = { fg = comment_fg, bg = pmenu_bg },
 
   NotifyERRORTitle = { fg = palette.red },
   NotifyWARNTitle = { fg = palette.orange },
@@ -345,6 +345,12 @@ local all = {
   NotifyINFOIcon = { link = 'NotifyINFOTitle' },
   NotifyDEBUGIcon = { link = 'NotifyDEBUGTitle' },
   NotifyTRACEIcon = { link = 'NotifyTRACETitle' },
+
+  NotifyERRORBody = { bg = pmenu_bg },
+  NotifyWARNBody = { bg = pmenu_bg },
+  NotifyINFOBody = { bg = pmenu_bg },
+  NotifyDEBUGBody = { bg = pmenu_bg },
+  NotifyTRACEBody = { bg = pmenu_bg },
 
   -- :help cmp-highlight
   CmpItemAbbr = {},
