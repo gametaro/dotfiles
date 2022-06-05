@@ -8,13 +8,13 @@ notify.setup {
       vim.api.nvim_win_set_config(win, { border = require('ky.ui').border })
     end
   end,
-  render = function(bufnr, notif, highlights)
+  render = function(bufnr, notif, highlights, config)
     local renderer = notif.title[1] == '' and 'minimal' or 'default'
     -- notif.keep = function()
     --   return notif.level == 'ERROR'
     -- end
 
-    render[renderer](bufnr, notif, highlights)
+    render[renderer](bufnr, notif, highlights, config)
   end,
 }
 
