@@ -82,6 +82,7 @@ for _, group_name in ipairs(group_names) do
         opts.buffer = true
         vim.keymap.set(mode, lhs, rhs, opts)
       end
+
       map('n', '<C-a>', require('dial.map').inc_normal(group_name))
       map('x', '<C-a>', require('dial.map').inc_visual(group_name))
       map('n', '<C-x>', require('dial.map').dec_normal(group_name))
