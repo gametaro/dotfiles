@@ -324,7 +324,7 @@ local all = {
   TelescopeNormal = { link = 'Pmenu' },
   TelescopePromptNormal = { link = 'Pmenu' },
   TelescopeBorder = { link = 'WinSeparator' },
-  TelescopeMatching = { fg = palette.blue },
+  TelescopeMatching = { fg = palette.blue, bold = true },
   TelescopeSelection = { link = 'Visual' },
 
   -- nvim-notify
