@@ -2,6 +2,7 @@ local g, opt = vim.g, vim.opt
 local fn = vim.fn
 
 local indent = 2
+local blend = 0
 
 opt.autowriteall = true
 -- opt.clipboard = 'unnamedplus'
@@ -43,9 +44,10 @@ opt.ignorecase = true
 opt.imsearch = 0
 opt.inccommand = 'split'
 opt.isfname:remove { '=' }
+-- opt.jumpoptions = 'stack'
 opt.laststatus = 3
 opt.lazyredraw = true
--- opt.list = true
+opt.list = true
 opt.listchars = {
   eol = '↵',
   extends = '»',
@@ -56,7 +58,7 @@ opt.listchars = {
 -- opt.modeline = false
 -- opt.mouse = 'a'
 -- opt.number = true
--- opt.pumblend = 10
+opt.pumblend = blend
 opt.pumheight = 10
 -- opt.relativenumber = true
 -- opt.shada = { '!', "'0", 'f0', '<50', 's10', 'h' }
@@ -97,7 +99,7 @@ opt.updatetime = 250
 opt.virtualedit = 'block'
 opt.wildignorecase = true
 opt.wildoptions = 'pum'
--- opt.winblend = 10
+opt.winblend = blend
 opt.wrap = false
 
 if fn.executable('fish') > 0 then
