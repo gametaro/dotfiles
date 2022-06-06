@@ -1,17 +1,17 @@
 local conditions = require('heirline.conditions')
 local utils = require('heirline.utils')
-local spec = require('nightfox.spec').load(vim.g.colors_name)
-local palette = require('nightfox.palette').load(vim.g.colors_name)
 local job = require('ky.job')
 
 local colors = {
-  fg = spec.fg2,
-  bg = spec.bg2,
-  git = spec.git,
+  git = {
+    add = utils.get_highlight('DiffAdd').fg,
+    changed = utils.get_highlight('DiffChange').fg,
+    removed = utils.get_highlight('DiffDelete').fg,
+  },
   diff = {
-    add = utils.get_highlight('diffAdded').fg,
-    change = utils.get_highlight('diffChanged').fg,
-    delete = utils.get_highlight('diffRemoved').fg,
+    add = utils.get_highlight('DiffAdd').fg,
+    change = utils.get_highlight('DiffChange').fg,
+    delete = utils.get_highlight('DiffDelete').fg,
   },
   diag = {
     error = utils.get_highlight('DiagnosticError').fg,
@@ -19,16 +19,11 @@ local colors = {
     info = utils.get_highlight('DiagnosticInfo').fg,
     hint = utils.get_highlight('DiagnosticHint').fg,
   },
-  black = palette.black.bright,
-  blue = palette.blue.base,
-  cyan = palette.cyan.dim,
-  green = palette.green.dim,
-  magenta = palette.magenta.dim,
-  orange = palette.orange.dim,
-  pink = palette.pink.base,
-  red = palette.red.base,
-  white = palette.white.dim,
-  yellow = palette.yellow.dim,
+  cyan = utils.get_highlight('Title'),
+  green = utils.get_highlight('DiagnosticInfo').fg,
+  magenta = utils.get_highlight('DiagnosticHint').fg,
+  orange = utils.get_highlight('DiagnosticWarn').fg,
+  red = utils.get_highlight('DiagnosticError').fg,
   gray = utils.get_highlight('NonText').fg,
 }
 
@@ -269,7 +264,6 @@ local Ruler = {
     provider = function()
       return '%l'
     end,
-    hl = { fg = spec.fg2 },
   },
   {
     provider = function()
@@ -281,7 +275,6 @@ local Ruler = {
     provider = function()
       return '%2c'
     end,
-    hl = { fg = spec.fg2 },
   },
 }
 
