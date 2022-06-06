@@ -48,22 +48,22 @@ local normal_fg = hsl(hue_base, 10, 78)
 
 -- tint
 local green_tint_bg = palette.green:blend(normal_bg, 0.7)
-local green_tint_fg = palette.green:blend(normal_fg, 0.7)
-local blue_tint_bg = palette.blue:blend(normal_bg, 0.5)
-local blue_tint_fg = palette.blue:blend(normal_fg, 0.5)
+-- local green_tint_fg = palette.green:blend(normal_fg, 0.7)
+local blue_tint_bg = palette.blue:blend(normal_bg, 0.7)
+-- local blue_tint_fg = palette.blue:blend(normal_fg, 0.7)
 local orange_tint_bg = palette.orange:blend(normal_bg, 0.7)
 local orange_tint_fg = palette.orange:blend(normal_fg, 0.7)
-local cyan_tint_bg = palette.cyan:blend(normal_bg, 0.7)
-local cyan_tint_fg = palette.cyan:blend(normal_fg, 0.7)
+-- local cyan_tint_bg = palette.cyan:blend(normal_bg, 0.7)
+-- local cyan_tint_fg = palette.cyan:blend(normal_fg, 0.7)
 local red_tint_bg = palette.red:blend(normal_bg, 0.7)
-local red_tint_fg = palette.red:blend(normal_fg, 0.7)
-local magenta_tint_bg = palette.magenta:blend(normal_bg, 0.5)
-local magenta_tint_fg = palette.magenta:blend(normal_fg, 0.5)
+-- local red_tint_fg = palette.red:blend(normal_fg, 0.7)
+-- local magenta_tint_bg = palette.magenta:blend(normal_bg, 0.7)
+-- local magenta_tint_fg = palette.magenta:blend(normal_fg, 0.7)
 local lgreen_tint_bg = palette.lgreen:blend(normal_bg, 0.7)
-local lgreen_tint_fg = palette.lgreen:blend(normal_fg, 0.7)
+-- local lgreen_tint_fg = palette.lgreen:blend(normal_fg, 0.7)
 
-local difftext_bg = cyan_tint_bg
-local difftext_fg = normal_fg
+-- local difftext_bg = cyan_tint_bg
+-- local difftext_fg = normal_fg
 
 local statusline_bg = hsl(hue_base, 20, 22)
 local statusline_fg = hsl(hue_base, 10, 70)
@@ -71,7 +71,7 @@ local statuslinenc_bg = statusline_bg:lighten(-3)
 local statuslinenc_fg = normal_fg:lighten(10)
 
 local cursorline_bg = normal_bg:saturate(1):lighten(5)
-local cursorline_fg = normal_fg:saturate(1):lighten(5)
+-- local cursorline_fg = normal_fg:saturate(1):lighten(5)
 
 local pmenu_bg = normal_bg:saturate(1):lighten(5)
 local pmenu_fg = normal_fg
@@ -111,7 +111,7 @@ local all = {
   DiffAdd = { bg = green_tint_bg },
   DiffChange = { bg = lgreen_tint_bg },
   DiffDelete = { bg = red_tint_bg },
-  DiffText = { bg = lgreen_tint_bg },
+  DiffText = { bg = lgreen_tint_bg:lighten(10) },
   -- EndOfBuffer = {},
   -- TermCursor = {},
   -- TermCursorNC = {},
@@ -152,7 +152,7 @@ local all = {
   Statusline = { fg = statusline_fg, bg = statusline_bg },
   StatuslineNC = { fg = statuslinenc_fg, bg = statuslinenc_bg },
   Tabline = { fg = statusline_fg, bg = statusline_bg },
-  TablineFill = { bg = normal_bg },
+  TablineFill = { bg = normal_bg:lighten(5) },
   TablineSel = { fg = normal_fg },
   Title = { fg = palette.cyan },
   Visual = { bg = visual_bg },
@@ -160,7 +160,7 @@ local all = {
   WarningMsg = { fg = palette.orange },
   WhiteSpace = { fg = whitespace_fg },
   WildMenu = { fg = wildmenu_fg, bg = wildmenu_bg },
-  Winbar = {},
+  -- Winbar = {},
   -- WinbarNC = {},
   -- Menu = {},
   Scrollbar = { fg = statusline_fg, bg = statusline_bg },
@@ -192,38 +192,38 @@ local all = {
   Constant = { fg = palette.orange },
   String = { fg = palette.lgreen },
   Character = { link = 'String' },
-  -- Number = {},
-  -- Boolean = {},
-  -- Float = {},
+  Number = { link = 'Constant' },
+  Boolean = { link = 'Constant' },
+  Float = { link = 'Number' },
 
   Identifier = { fg = palette.cyan },
   Function = { fg = palette.blue },
 
   Statement = { fg = palette.magenta },
-  -- Conditional = {},
-  -- Repeat = {},
-  -- Label = {},
-  -- Operator = {},
-  -- Keyword = {},
-  -- Exception = {},
+  Conditional = { link = 'Statement' },
+  Repeat = { link = 'Statement' },
+  Label = { link = 'Statement' },
+  Operator = { link = 'Statement' },
+  Keyword = { link = 'Statement' },
+  Exception = { link = 'Statement' },
 
   PreProc = { fg = palette.magenta },
-  -- Include = {},
-  -- Define = {},
-  -- Macro = {},
-  -- PreCondit = {},
+  Include = { link = 'PreProc' },
+  Define = { link = 'PreProc' },
+  Macro = { link = 'PreProc' },
+  PreCondit = { link = 'PreProc' },
 
   Type = { fg = palette.green },
-  -- StorageClass = {},
-  -- Structure = {},
-  -- Typedef = {},
+  StorageClass = { link = 'Type' },
+  Structure = { link = 'Type' },
+  Typedef = { link = 'Type' },
 
   Special = { fg = palette.orange },
-  -- SpecialChar = {},
-  -- Tag = {},
-  Delimiter = { fg = comment_fg },
-  -- SpecialComment = {},
-  -- Debug = {},
+  SpecialChar = { link = 'Special' },
+  Tag = { link = 'Special' },
+  Delimiter = { fg = whitespace_fg },
+  SpecialComment = { link = 'Special' },
+  Debug = { link = 'Special' },
 
   Underlined = { fg = palette.blue, underline = true },
 
@@ -236,9 +236,10 @@ local all = {
   diffAdded = { link = 'DiffAdd' },
   diffRemoved = { link = 'DiffDelete' },
   diffChanged = { link = 'DiffChange' },
-  -- diffOldFile = { fg = spec.diag.warn },
-  -- diffNewFile = { fg = spec.diag.hint },
-  -- diffFile = { fg = spec.diag.info },
+  diffFile = { link = 'Directory' },
+  diffOldFile = { fg = palette.red },
+  diffNewFile = { fg = palette.green },
+  -- diffFile = {},
 
   -- health
   healthSuccess = { fg = palette.green },
@@ -409,13 +410,13 @@ local all = {
   GItSignsChange = { fg = palette.orange },
   GItSignsDelete = { fg = palette.red },
 
-  -- GitSignsAddLn = { fg = search_fg, bg = palette.lgreen:saturate(10):lighten(10) },
-  -- GitSignsChangeLn = { fg = search_fg, bg = palette.orange:saturate(10) },
+  -- GitSignsAddLn = {},
+  -- GitSignsChangeLn = {},
   GitSignsDeleteLn = { link = 'DiffDelete' },
 
-  -- GitSignsAddInline = { fg = search_fg, bg = palette.green:saturate(1):lighten(-5) },
-  -- GitSignsChangeInline = { fg = search_fg, bg = palette.orange:saturate(1):lighten(-5) },
-  -- GitSignsDeleteInline = { fg = search_fg, bg = palette.red:saturate(1):lighten(-5) },
+  -- GitSignsAddInline = {},
+  -- GitSignsChangeInline = {},
+  -- GitSignsDeleteInline = {},
 
   -- GitSignsAddNr = {},
   -- GitSignsChangeNr = {},
@@ -437,7 +438,7 @@ local all = {
 
   -- vim-eft
   EftChar = { fg = search_fg, bg = search_bg },
-  EftSubChar = { fg = search_fg, bg = search_bg:lighten(15) },
+  EftSubChar = { fg = search_fg, bg = search_bg:lighten(20) },
 }
 
 for name, val in pairs(all) do
