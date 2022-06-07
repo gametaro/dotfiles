@@ -19,7 +19,7 @@ local colors = {
     info = utils.get_highlight('DiagnosticInfo').fg,
     hint = utils.get_highlight('DiagnosticHint').fg,
   },
-  cyan = utils.get_highlight('Title'),
+  cyan = utils.get_highlight('Title').fg,
   green = utils.get_highlight('DiagnosticInfo').fg,
   magenta = utils.get_highlight('DiagnosticHint').fg,
   orange = utils.get_highlight('DiagnosticWarn').fg,
