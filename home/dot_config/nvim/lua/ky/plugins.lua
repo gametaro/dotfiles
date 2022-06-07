@@ -538,7 +538,7 @@ local plugins = function(use)
       { 'kana/vim-textobj-entire', after = 'vim-textobj-user' },
       { 'kana/vim-textobj-line', after = 'vim-textobj-user' },
       { 'kana/vim-textobj-indent', after = 'vim-textobj-user' },
-      { 'Julian/vim-textobj-variable-segment', disable = true, after = 'vim-textobj-user' },
+      { 'Julian/vim-textobj-variable-segment', after = 'vim-textobj-user' },
     },
   }
 
@@ -900,11 +900,16 @@ local plugins = function(use)
 
   use {
     'kana/vim-smartword',
-    disable = true,
-    keys = { '<Plug>(smartword-' },
-    setup = function()
+    requires = { 'bkad/CamelCaseMotion' },
+    event = { 'VimEnter' }, -- required!
+    config = function()
       for _, v in ipairs { 'w', 'b', 'e', 'ge' } do
-        vim.keymap.set({ 'n', 'x', 'o' }, v, string.format('<Plug>(smartword-%s)', v))
+        vim.keymap.set(
+          '',
+          string.format('<Plug>(smartword-basic-%s)', v),
+          string.format('<Plug>CamelCaseMotion_%s', v)
+        )
+        vim.keymap.set('', v, string.format('<Plug>(smartword-%s)', v))
       end
     end,
   }
@@ -1042,6 +1047,7 @@ local plugins = function(use)
 
   use {
     'chaoren/vim-wordmotion',
+    disable = true,
     setup = function()
       vim.g.wordmotion_spaces = { '.', ',', "'", '"', '`', '_' }
     end,
