@@ -301,7 +301,7 @@ local LSPActive = {
   provider = function()
     local clients = table.concat(
       vim.tbl_map(function(client)
-        return client and client.name or ''
+        return client and string.format('%.4s…', client.name) or ''
       end, vim.lsp.get_active_clients { bufnr = 0 }),
       ' '
     )
