@@ -1109,6 +1109,13 @@ local plugins = function(use)
       vim.g.suda_smart_edit = 1
     end,
   }
+
+  use {
+    'johmsalas/text-case.nvim',
+    config = function()
+      require('textcase').setup {}
+    end,
+  }
 end
 
 bootstrap()
