@@ -63,6 +63,10 @@ vim.api.nvim_create_autocmd('BufEnter', {
 local ViMode = {
   init = function(self)
     self.mode = vim.api.nvim_get_mode().mode
+    if not self.once then
+      vim.api.nvim_create_autocmd('ModeChanged', { command = 'redrawstatus' })
+      self.once = true
+    end
   end,
   static = {
     mode_names = {
