@@ -356,17 +356,11 @@ local Diagnostics = {
 
 local Git = {
   condition = conditions.is_git_repo,
-  init = function(self)
-    self.status_dict = vim.b.gitsigns_status_dict
-    self.has_changes = self.status_dict.added ~= 0
-      or self.status_dict.removed ~= 0
-      or self.status_dict.changed ~= 0
-  end,
   {
-    provider = function(self)
-      return ' ' .. self.status_dict.head
+    provider = function()
+      return ' ' .. vim.b.gitsigns_status_dict.head
     end,
-    hl = { fg = colors.magenta, bold = true },
+    hl = { fg = colors.magenta },
   },
   {
     condition = function()
@@ -378,6 +372,16 @@ local Git = {
     end,
     hl = { fg = colors.orange },
   },
+}
+
+local GitStatus = {
+  condition = conditions.is_git_repo,
+  init = function(self)
+    self.status_dict = vim.b.gitsigns_status_dict
+    self.has_changes = self.status_dict.added ~= 0
+      or self.status_dict.removed ~= 0
+      or self.status_dict.changed ~= 0
+  end,
   {
     provider = function(self)
       local count = self.status_dict.added or 0
@@ -583,6 +587,9 @@ local WinBars = {
     FileNameBlock,
     Align,
     Diagnostics,
+    Space,
+    GitStatus,
+    Space,
   },
   hl = function()
     return conditions.is_active()
