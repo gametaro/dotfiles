@@ -485,15 +485,6 @@ local HelpFileName = {
   end,
 }
 
-local TelescopeName = {
-  condition = function()
-    return vim.bo.filetype == 'TelescopePrompt'
-  end,
-  provider = function()
-    return ''
-  end,
-}
-
 local LirName = {
   condition = function()
     return vim.bo.filetype == 'lir'
