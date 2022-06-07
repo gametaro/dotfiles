@@ -60,6 +60,19 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end,
 })
 
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'HeirlineInitWinbar',
+  callback = function(a)
+    local buf = a.buf
+    local buftype = vim.tbl_contains({ 'prompt', 'nofile' }, vim.bo[buf].buftype)
+    local filetype = vim.tbl_contains({ 'gitcommit' }, vim.bo[buf].filetype)
+
+    if (buftype or filetype) and vim.bo[buf].filetype ~= 'lir' then
+      vim.opt_local.winbar = nil
+    end
+  end,
+})
+
 local ViMode = {
   init = function(self)
     self.mode = vim.api.nvim_get_mode().mode
@@ -469,7 +482,7 @@ local QuickfixName = {
       local nrs = self.qf_open and vim.fn.getqflist({ nr = '$' }).nr
         or self.loc_open and vim.fn.getloclist(0, { nr = '$' }).nr
         or ''
-      return string.format('[%s / %s]', nr, nrs)
+      return string.format('(%s of %s)', nr, nrs)
     end,
     hl = { fg = colors.gray },
   },
@@ -495,6 +508,7 @@ local LirName = {
     self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color('lir_folder_icon')
     self.show_hidden_files = require('lir.config').values.show_hidden_files
   end,
+  Space,
   {
     provider = function(self)
       return string.format('%s %s ', self.icon, self.dir)
@@ -535,19 +549,20 @@ local Snippets = {
 
 local WinBars = {
   init = utils.pick_child_on_condition,
+  LirName,
   {
     condition = function()
       return conditions.buffer_matches {
-        buftype = { 'nofile', 'prompt', 'help', 'quickfix' },
+        buftype = { 'nofile', 'prompt' },
         filetype = { '^git.*' },
       }
     end,
-    Space,
-    QuickfixName,
-    LirName,
-    TelescopeName,
-    HelpFileName,
+    init = function()
+      vim.opt_local.winbar = nil
+    end,
   },
+  QuickfixName,
+  HelpFileName,
   {
     condition = function()
       return conditions.buffer_matches { buftype = { 'terminal' } }
