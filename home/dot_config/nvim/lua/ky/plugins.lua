@@ -617,12 +617,12 @@ local plugins = function(use)
         end,
       },
       {
-        'nvim-telescope/telescope-rg.nvim',
+        'nvim-telescope/telescope-live-grep-args.nvim',
         after = 'telescope.nvim',
         config = function()
-          require('telescope').load_extension('live_grep_raw')
+          require('telescope').load_extension('live_grep_args')
           vim.keymap.set('n', '<C-g>', function()
-            require('telescope').extensions.live_grep_raw.live_grep_raw()
+            require('telescope').extensions.live_grep_args.live_grep_args()
           end)
         end,
       },
