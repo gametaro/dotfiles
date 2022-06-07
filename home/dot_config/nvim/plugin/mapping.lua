@@ -315,8 +315,10 @@ map('n', '[q', function()
 end)
 map('n', 'gq', function()
   local winid = fn.getqflist({ winid = 0 }).winid
-  cmd('cwindow')
-  return winid ~= 0 and fn.win_gotoid(winid)
+  if winid ~= 0 then
+    cmd('cwindow')
+    fn.win_gotoid(winid)
+  end
 end, { desc = 'go to quickfix window' })
 map('n', qf('0'), function()
   pcmd('cfirst')
@@ -381,8 +383,10 @@ map('n', loc('h'), function()
 end)
 map('n', 'gl', function()
   local winid = fn.getloclist(0, { winid = 0 }).winid
-  cmd('lwindow')
-  return winid ~= 0 and fn.win_gotoid(winid)
+  if winid ~= 0 then
+    cmd('lwindow')
+    fn.win_gotoid(winid)
+  end
 end, { desc = 'go to location list window' })
 map('n', loc('0'), function()
   pcmd('lfirst')
