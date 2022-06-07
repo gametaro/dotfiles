@@ -112,7 +112,7 @@ local all = {
   DiffChange = { bg = lgreen_tint_bg },
   DiffDelete = { bg = red_tint_bg },
   DiffText = { bg = lgreen_tint_bg:lighten(10) },
-  -- EndOfBuffer = {},
+  EndOfBuffer = { fg = normal_bg, bg = normal_bg },
   -- TermCursor = {},
   -- TermCursorNC = {},
   ErrorMsg = { fg = palette.red },
