@@ -75,7 +75,7 @@ local cursorline_bg = normal_bg:saturate(1):lighten(5)
 
 local pmenu_bg = normal_bg:saturate(1):lighten(5)
 local pmenu_fg = normal_fg
-local pmenusel_bg = hsl(hue_base, 20, 45)
+local pmenusel_bg = hsl(hue_base, 20, 35)
 local pmenusel_fg = hsl(hue_base, 20, 95)
 
 local folded_bg = cursorline_bg
