@@ -246,6 +246,15 @@ local all = {
   healthWarning = { fg = palette.orange },
   healthError = { fg = palette.red },
 
+  -- lsp
+  LspReferenceRead = { bg = pmenusel_bg },
+  LspReferenceText = { bg = pmenusel_bg },
+  LspReferenceWrite = { bg = pmenusel_bg },
+  LspCodeLens = { fg = comment_fg },
+  -- LspCodeLensSeparator = {},
+  -- LspSignatureActiveParameter = {},
+  -- LspDiagnosticsDefaultInformation = {},
+
   -- :help nvim-treesitter-highlights
   -- TSAttribute = {},
   -- TSBoolean = {},
