@@ -738,8 +738,7 @@ local plugins = function(use)
     'vuki656/package-info.nvim',
     requires = 'MunifTanjim/nui.nvim',
     cond = function()
-      local ok, util = prequire('lspconfig.util')
-      return ok and not not util.find_node_modules_ancestor(vim.loop.cwd())
+      return not vim.tbl_isempty(vim.fs.find('package.json'))
     end,
     config = function()
       require('package-info').setup {}
