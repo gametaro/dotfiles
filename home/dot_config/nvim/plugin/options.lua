@@ -8,6 +8,7 @@ opt.autowriteall = true
 opt.backup = true
 opt.backupdir = { vim.fn.stdpath('state') .. '/backup//', '.' }
 vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
+opt.backupskip:append { '*/.git/*' }
 -- opt.clipboard = 'unnamedplus'
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.confirm = true
