@@ -67,7 +67,7 @@ local delete = function()
   local name = ctx:current_value()
   local path = Path:new(ctx.dir .. name)
 
-  vim.ui.select({ 'Yes', 'No' }, { prompt = string.format('Delete %s ?: ', name) }, function(choice)
+  vim.ui.select({ 'Yes', 'No' }, { prompt = string.format('Delete %s ?', name) }, function(choice)
     if choice and choice == 'Yes' then
       path:rm { recursive = path:is_dir() }
       local bufs = vim.tbl_filter(function(buf)
