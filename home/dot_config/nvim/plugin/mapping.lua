@@ -499,7 +499,7 @@ map('n', leader('k'), function()
       else
         target = dir .. '/' .. files[i - 1]
       end
-      cmd('edit' .. target)
+      cmd('edit ' .. target)
       return
     end
   end
@@ -516,7 +516,7 @@ map('n', leader('j'), function()
       else
         target = dir .. '/' .. files[i + 1]
       end
-      cmd('edit' .. target)
+      cmd('edit ' .. target)
       return
     end
   end
