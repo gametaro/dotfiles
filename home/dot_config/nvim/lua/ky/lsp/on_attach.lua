@@ -72,8 +72,14 @@ return function(client, bufnr)
   --   })
   -- end
   if client.server_capabilities.documentFormattingProvider then
-    vim.keymap.set('n', '<M-f>', function()
-      vim.lsp.buf.format { async = true }
+    map('n', '<M-f>', function()
+      vim.lsp.buf.format {
+        async = true,
+        bufnr = bufnr,
+        filter = function(c)
+          return not vim.tbl_contains({ 'sumneko_lua' }, c.name)
+        end,
+      }
     end)
   elseif client.server_capabilities.documentRangeFormattingProvider then
     vim.keymap.set('n', '<M-f>f', vim.lsp.buf.range_formatting)
