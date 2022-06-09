@@ -11,7 +11,11 @@ local default_config = {
   on_attach = on_attach,
 }
 
-lsp_installer.setup {}
+lsp_installer.setup {
+  ui = {
+    border = require('ky.ui').border,
+  },
+}
 
 for _, server in ipairs(lsp_installer.get_installed_servers()) do
   local ok, config = prequire('ky.lsp.servers.' .. server.name)
