@@ -915,6 +915,7 @@ local plugins = function(use)
 
   use {
     'kosayoda/nvim-lightbulb',
+    requires = 'antoinemadec/FixCursorHold.nvim',
     event = { 'BufRead' },
     config = function()
       require('nvim-lightbulb').setup {
