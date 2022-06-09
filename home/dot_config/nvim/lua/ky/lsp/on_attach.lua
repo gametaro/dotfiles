@@ -39,7 +39,11 @@ return function(client, bufnr)
     map('n', '<LocalLeader>rn', vim.lsp.buf.rename)
   end
   if client.server_capabilities.codeActionProvider then
-    map('n', '<LocalLeader>ca', vim.lsp.buf.code_action)
+    map('n', '<LocalLeader>ca', function()
+      vim.lsp.buf.code_action {
+        apply = true,
+      }
+    end)
     map('x', '<LocalLeader>ca', vim.lsp.buf.range_code_action)
   end
   if client.server_capabilities.referencesProvider then
