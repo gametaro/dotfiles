@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654697244437,
+  "lastUpdate": 1654735356940,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -8985,6 +8985,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.2557162458866666,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "563b1bf1032c115f47db497ffaec0b6bf7495f75",
+          "message": "feat(plugins): add FixCursorHold.nvim",
+          "timestamp": "2022-06-09T09:40:02+09:00",
+          "tree_id": "b22cddfb8ab6d9643d9643481d4788208e698a14",
+          "url": "https://github.com/gametaro/dotfiles/commit/563b1bf1032c115f47db497ffaec0b6bf7495f75"
+        },
+        "date": 1654735355989,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.21888434968666667,
             "unit": "Second"
           }
         ]
