@@ -55,13 +55,21 @@ return function(client, bufnr)
 
   -- sometimes feel annoyed...
   -- if client.server_capabilities.documentHighlightProvider then
-  --   vim.cmd [[
-  --     augroup lsp_document_highlight
-  --       autocmd! * <buffer>
-  --       autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-  --       autocmd CursorMoved,CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
-  --     augroup END
-  --     ]]
+  --   local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
+  --   vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+  --     group = group,
+  --     buffer = bufnr,
+  --     callback = function()
+  --       vim.lsp.buf.document_highlight()
+  --     end,
+  --   })
+  --   vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
+  --     group = group,
+  --     buffer = bufnr,
+  --     callback = function()
+  --       vim.lsp.buf.clear_references()
+  --     end,
+  --   })
   -- end
   if client.server_capabilities.documentFormattingProvider then
     vim.keymap.set('n', '<M-f>', function()
