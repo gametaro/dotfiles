@@ -476,3 +476,48 @@ map('n', '<F10>', function()
   vim.wo.relativenumber = not vim.wo.relativenumber
   vim.wo.signcolumn = vim.wo.signcolumn == 'yes' and 'no' or 'yes'
 end, { desc = 'toggle options for easier copy' })
+
+local list_files = function(path)
+  local files = {}
+  for name, type in vim.fs.dir(path) do
+    if type == 'file' then
+      table.insert(files, name)
+    end
+  end
+  return files
+end
+
+-- TODO: need refactoring
+map('n', leader('k'), function()
+  local target
+  local files = list_files(fn.expand('%:p:h'))
+  for i, file in ipairs(files) do
+    if file == fn.fnamemodify(api.nvim_buf_get_name(0), ':t') then
+      local dir = fn.expand('%:p:h')
+      if i == 1 then
+        target = dir .. '/' .. files[#files]
+      else
+        target = dir .. '/' .. files[i - 1]
+      end
+      cmd('edit' .. target)
+      return
+    end
+  end
+end, { desc = 'jump to previous file in current directory' })
+
+map('n', leader('j'), function()
+  local target
+  local files = list_files(fn.expand('%:p:h'))
+  for i, file in ipairs(files) do
+    if file == fn.fnamemodify(api.nvim_buf_get_name(0), ':t') then
+      local dir = fn.expand('%:p:h')
+      if i == #files then
+        target = dir .. '/' .. files[1]
+      else
+        target = dir .. '/' .. files[i + 1]
+      end
+      cmd('edit' .. target)
+      return
+    end
+  end
+end, { desc = 'jump to next file in current directory' })
