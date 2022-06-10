@@ -27,6 +27,7 @@ opt.fileformats = {
 }
 opt.fillchars = {
   diff = '╱', -- '/',
+  eob = ' ',
   -- horiz = '━',
   -- horizup = '┻',
   -- horizdown = '┳',
