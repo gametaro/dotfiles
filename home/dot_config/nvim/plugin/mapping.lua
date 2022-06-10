@@ -476,16 +476,3 @@ map('n', '<F10>', function()
   vim.wo.relativenumber = not vim.wo.relativenumber
   vim.wo.signcolumn = vim.wo.signcolumn == 'yes' and 'no' or 'yes'
 end, { desc = 'toggle options for easier copy' })
-
-vim.keymap.set(
-  'n',
-  '<Leader>j',
-  walkthrough.next_file,
-  { desc = 'Go to next file in current directory' }
-)
-vim.keymap.set(
-  'n',
-  '<Leader>k',
-  walkthrough.prev_file,
-  { desc = 'Go to previous file in current directory' }
-)

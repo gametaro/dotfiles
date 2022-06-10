@@ -3,13 +3,21 @@ local fn = vim.fn
 
 local M = {}
 
-local find = function(t, v)
+local index_of = function(t, v)
   for i = 1, #t do
     if t[i] == v then
       return i
     end
   end
   return nil
+end
+
+local next_index = function(idx, len)
+  return idx == len and 1 or idx + 1
+end
+
+local prev_index = function(idx, len)
+  return idx == 1 and len or idx - 1
 end
 
 local list_files = function(path)
@@ -25,35 +33,26 @@ end
 local walkthrough = function(opts)
   opts = opts or {}
 
-  local target
+  local target_idx
   local full_filename = api.nvim_buf_get_name(0)
   local filename = fn.fnamemodify(full_filename, ':t')
   local dirname = vim.fs.dirname(full_filename)
   -- would be better if results was cached per directory?
   local files = list_files(dirname)
-  local idx = find(files, filename)
+  local idx = index_of(files, filename)
   if idx == nil then
     return
   end
   if opts.next then
-    if idx == #files then
-      target = files[1]
-    else
-      target = files[idx + 1]
-    end
+    target_idx = next_index(idx, #files)
+  else
+    target_idx = prev_index(idx, #files)
   end
-  if not opts.next then
-    if idx == 1 then
-      target = files[#files]
-    else
-      target = files[idx - 1]
-    end
-  end
-  if target == nil then
+  if target_idx == nil then
     return
   end
 
-  vim.cmd('edit ' .. dirname .. '/' .. target)
+  vim.cmd('edit ' .. dirname .. '/' .. files[target_idx])
 end
 
 M.next_file = function(opts)
@@ -67,5 +66,8 @@ M.prev_file = function(opts)
   opts.next = false
   walkthrough(opts)
 end
+
+vim.keymap.set('n', '<Leader>j', M.next_file, { desc = 'Go to next file in current directory' })
+vim.keymap.set('n', '<Leader>k', M.prev_file, { desc = 'Go to previous file in current directory' })
 
 return M
