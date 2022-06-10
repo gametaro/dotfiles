@@ -12,6 +12,7 @@ opt.backupskip:append { '*/.git/*' }
 -- opt.clipboard = 'unnamedplus'
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.confirm = true
+opt.copyindent = true
 opt.diffopt:append {
   'algorithm:histogram',
   'indent-heuristic',
@@ -63,6 +64,7 @@ opt.listchars = {
 -- opt.modeline = false
 -- opt.mouse = 'a'
 -- opt.number = true
+opt.preserveindent = true
 opt.pumblend = blend
 opt.pumheight = 10
 -- opt.relativenumber = true
