@@ -37,7 +37,7 @@ local walkthrough = function(opts)
   local full_filename = api.nvim_buf_get_name(0)
   local filename = fn.fnamemodify(full_filename, ':t')
   local dirname = vim.fs.dirname(full_filename)
-  -- would be better if results was cached per directory?
+  -- would be better if results were cached per directory?
   local files = list_files(dirname)
   local idx = index_of(files, filename)
   if idx == nil then
