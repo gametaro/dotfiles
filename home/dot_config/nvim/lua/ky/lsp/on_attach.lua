@@ -36,7 +36,10 @@ return function(client, bufnr)
     map('n', '<LocalLeader>D', vim.lsp.buf.type_definition)
   end
   if client.server_capabilities.renameProvider then
-    map('n', '<LocalLeader>rn', vim.lsp.buf.rename)
+    map('n', '<LocalLeader>rN', vim.lsp.buf.rename)
+    map('n', '<LocalLeader>rn', function()
+      return ':IncRename ' .. vim.fn.expand('<cword>')
+    end, { expr = true })
   end
   if client.server_capabilities.codeActionProvider then
     map('n', '<LocalLeader>ca', function()

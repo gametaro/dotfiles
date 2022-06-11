@@ -267,6 +267,12 @@ local plugins = function(use)
           }
         end,
       },
+      {
+        'smjonas/inc-rename.nvim',
+        config = function()
+          require('inc_rename').setup()
+        end,
+      },
     },
     config = function()
       require('ky.lsp')
