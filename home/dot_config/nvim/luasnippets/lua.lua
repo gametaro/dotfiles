@@ -62,7 +62,7 @@ return {
     })
   ),
   s(
-    'req',
+    'rq',
     c(1, {
       sn(nil, fmt(format('require(%s{}%s)', quote, quote), rep_generate())),
       sn(nil, {
