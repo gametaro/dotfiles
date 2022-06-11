@@ -28,6 +28,7 @@ local config = {
     prompt_border = require('ky.ui').border,
   },
   max_jobs = vim.loop.os_uname().sysname == 'Darwin' and 50 or nil,
+  snapshot_path = vim.loop.cwd(),
 }
 
 local plugins = function(use)
@@ -1126,12 +1127,25 @@ end
 
 bootstrap()
 
-vim.keymap.set('n', '<LocalLeader>pc', '<Cmd>PackerCompile<CR>')
-vim.keymap.set('n', '<LocalLeader>pC', '<Cmd>PackerClean<CR>')
-vim.keymap.set('n', '<LocalLeader>ps', '<Cmd>PackerSync<CR>')
-vim.keymap.set('n', '<LocalLeader>pS', '<Cmd>PackerStatus<CR>')
-vim.keymap.set('n', '<LocalLeader>pu', '<Cmd>PackerUpdate<CR>')
-vim.keymap.set('n', '<LocalLeader>pi', '<Cmd>PackerInstall<CR>')
+vim.keymap.set('n', '<LocalLeader>pc', function()
+  require('packer').compile()
+end)
+vim.keymap.set('n', '<LocalLeader>pC', function()
+  require('packer').clean()
+end)
+vim.keymap.set('n', '<LocalLeader>ps', function()
+  require('packer').snapshot('packer_snapshot')
+  require('packer').sync()
+end)
+vim.keymap.set('n', '<LocalLeader>pS', function()
+  require('packer').status()
+end)
+vim.keymap.set('n', '<LocalLeader>pu', function()
+  require('packer').update()
+end)
+vim.keymap.set('n', '<LocalLeader>pi', function()
+  require('packer').install()
+end)
 
 vim.api.nvim_create_autocmd('User', {
   group = vim.api.nvim_create_augroup('PackerCompileDone', { clear = true }),
