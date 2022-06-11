@@ -256,7 +256,12 @@ local plugins = function(use)
     'neovim/nvim-lspconfig',
     event = { 'BufRead' },
     requires = {
-      { 'williamboman/nvim-lsp-installer' },
+      {
+        'williamboman/nvim-lsp-installer',
+        config = function()
+          require('ky.abbrev').cabbrev('lii', 'LspInstallInfo')
+        end,
+      },
       { 'b0o/schemastore.nvim' },
       { 'folke/lua-dev.nvim' },
       { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
