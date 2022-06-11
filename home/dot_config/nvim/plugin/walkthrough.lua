@@ -1,8 +1,6 @@
 local api = vim.api
 local fn = vim.fn
 
-local M = {}
-
 local index_of = function(t, v)
   for i = 1, #t do
     if t[i] == v then
@@ -55,19 +53,17 @@ local walkthrough = function(opts)
   vim.cmd('edit ' .. dirname .. '/' .. files[target_idx])
 end
 
-M.next_file = function(opts)
+local next_file = function(opts)
   opts = opts or {}
   opts.next = true
   walkthrough(opts)
 end
 
-M.prev_file = function(opts)
+local prev_file = function(opts)
   opts = opts or {}
   opts.next = false
   walkthrough(opts)
 end
 
-vim.keymap.set('n', '<Leader>j', M.next_file, { desc = 'Go to next file in current directory' })
-vim.keymap.set('n', '<Leader>k', M.prev_file, { desc = 'Go to previous file in current directory' })
-
-return M
+vim.keymap.set('n', '<Leader>j', next_file, { desc = 'Go to next file in current directory' })
+vim.keymap.set('n', '<Leader>k', prev_file, { desc = 'Go to previous file in current directory' })
