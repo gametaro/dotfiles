@@ -16,6 +16,8 @@ local bootstrap = function()
   vim.cmd('packadd packer.nvim')
 end
 
+local cwd = vim.loop.cwd()
+local snapshot_name = 'packer_snapshot'
 local config = {
   profile = {
     enable = false,
@@ -28,7 +30,10 @@ local config = {
     prompt_border = require('ky.ui').border,
   },
   max_jobs = vim.loop.os_uname().sysname == 'Darwin' and 50 or nil,
-  snapshot_path = vim.loop.cwd(),
+  snapshot = cwd .. '/' .. snapshot_name,
+  snapshot_path = cwd,
+  -- break some plugins, e.g., cmp
+  auto_reload_compiled = false,
 }
 
 local plugins = function(use)
@@ -1132,13 +1137,14 @@ vim.keymap.set('n', '<LocalLeader>pC', function()
   require('packer').clean()
 end)
 vim.keymap.set('n', '<LocalLeader>ps', function()
-  require('packer').snapshot('packer_snapshot')
+  require('packer').snapshot(snapshot_name)
   require('packer').sync()
 end)
 vim.keymap.set('n', '<LocalLeader>pS', function()
   require('packer').status()
 end)
 vim.keymap.set('n', '<LocalLeader>pu', function()
+  require('packer').snapshot(snapshot_name)
   require('packer').update()
 end)
 vim.keymap.set('n', '<LocalLeader>pi', function()
