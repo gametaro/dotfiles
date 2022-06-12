@@ -20,8 +20,6 @@ notify.setup {
 
 vim.notify = notify
 
-require('telescope').load_extension('notify')
-
 vim.keymap.set('n', 'gn', function()
   vim.cmd('Notifications')
 end)
