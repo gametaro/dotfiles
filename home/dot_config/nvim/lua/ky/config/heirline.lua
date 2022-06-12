@@ -49,7 +49,7 @@ local git_rev = function()
   )
 end
 
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd('VimEnter', {
   group = vim.api.nvim_create_augroup('GitRev', { clear = true }),
   once = true,
   callback = function()
