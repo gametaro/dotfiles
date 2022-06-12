@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-field
-
 -- Inspired by
 -- iceberg.vim
 -- nightfox.nvim
