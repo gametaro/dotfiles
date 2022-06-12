@@ -343,6 +343,9 @@ local plugins = function(use)
   use('EdenEast/nightfox.nvim')
   use { 'rebelot/kanagawa.nvim', opt = true }
   use { 'Mofiqul/vscode.nvim', opt = true }
+  use { 'cocopon/iceberg.vim', opt = true }
+  use { 'catppuccin/nvim', opt = true }
+  use { 'folke/tokyonight.nvim', opt = true }
 
   use {
     'windwp/windline.nvim',
