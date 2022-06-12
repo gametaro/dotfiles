@@ -1,6 +1,6 @@
 local fmt = string.format
 
-local group = vim.api.nvim_create_augroup('SandWichMatchup', { clear = true })
+local group = vim.api.nvim_create_augroup('SandwichMatchup', { clear = true })
 
 vim.api.nvim_create_autocmd('User', {
   group = group,
