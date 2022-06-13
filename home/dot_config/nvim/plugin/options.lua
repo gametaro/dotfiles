@@ -62,6 +62,7 @@ opt.listchars = {
   trail = '·',
 }
 -- opt.modeline = false
+opt.more = false
 -- opt.mouse = 'a'
 -- opt.number = true
 opt.preserveindent = true
