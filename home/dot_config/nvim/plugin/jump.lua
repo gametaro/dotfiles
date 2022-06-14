@@ -6,33 +6,23 @@
 local api = vim.api
 local fn = vim.fn
 
-local config = {
-  ignore_filetype = { 'gitcommit', 'gitrebase' },
-  ignore_buftype = { 'terminal', 'help', 'quickfix', 'nofile' },
-  only_cwd = true,
-  on_success = function() end,
-  on_error = function()
-    vim.notify('No destination found')
-  end,
-}
-
-local condition = function(bufnr)
+local condition = function(bufnr, opts)
   if not api.nvim_buf_is_valid(bufnr) then
     return false
   end
   if
-    config.ignore_buftype
-    and vim.tbl_contains(config.ignore_buftype, api.nvim_buf_get_option(bufnr, 'buftype'))
+    opts.ignore_buftype
+    and vim.tbl_contains(opts.ignore_buftype, api.nvim_buf_get_option(bufnr, 'buftype'))
   then
     return false
   end
   if
-    config.ignore_filetype
-    and vim.tbl_contains(config.ignore_filetype, api.nvim_buf_get_option(bufnr, 'filetype'))
+    opts.ignore_filetype
+    and vim.tbl_contains(opts.ignore_filetype, api.nvim_buf_get_option(bufnr, 'filetype'))
   then
     return false
   end
-  if config.only_cwd and not string.find(api.nvim_buf_get_name(bufnr), vim.loop.cwd(), 1, true) then
+  if opts.only_cwd and not string.find(api.nvim_buf_get_name(bufnr), vim.loop.cwd(), 1, true) then
     return false
   end
   return true
@@ -50,15 +40,16 @@ local jump = function(opts)
   end
 
   local current_bufnr = api.nvim_get_current_buf()
-  local target_pos
-  local target_bufnr
+  local prev_bufnr, next_bufnr, target_bufnr, target_pos
   local from = opts.forward and (current_pos + 1) or (current_pos - 1)
   local to = opts.forward and #jumplist or 1
   local unit = opts.forward and 1 or -1
   for i = from, to, unit do
+    prev_bufnr = target_bufnr
     target_bufnr = jumplist[i].bufnr
+    next_bufnr = jumplist[i + 1].bufnr
     if opts.is_local and (target_bufnr == current_bufnr) or (target_bufnr ~= current_bufnr) then
-      if condition(target_bufnr) then
+      if condition(target_bufnr, opts) then
         target_pos = i
         break
       end
@@ -66,7 +57,12 @@ local jump = function(opts)
   end
 
   if target_pos == nil then
-    config.on_error(target_bufnr)
+    opts.on_error {
+      prev_bufnr = prev_bufnr,
+      next_bufnr = next_bufnr,
+      target_bufnr = target_bufnr,
+      target_pos = target_pos,
+    }
     return
   end
 
@@ -78,7 +74,12 @@ local jump = function(opts)
     )
   )
 
-  config.on_success(target_bufnr)
+  opts.on_success {
+    prev_bufnr = prev_bufnr,
+    next_bufnr = next_bufnr,
+    target_bufnr = target_bufnr,
+    target_pos = target_pos,
+  }
 end
 
 local toqflist = function(jumplist)
@@ -103,7 +104,7 @@ local setlist = function(qf, open)
   end
 end
 
-local setqfflist = function(open)
+local setqflist = function(open)
   setlist(true, open)
 end
 
@@ -139,20 +140,40 @@ local backward_local = function(opts)
   jump(opts)
 end
 
+local default_opts = {
+  ignore_filetype = { 'gitcommit', 'gitrebase' },
+  ignore_buftype = { 'terminal', 'help', 'quickfix', 'nofile' },
+  only_cwd = false,
+  on_success = function() end,
+  on_error = function()
+    vim.notify('No destination found')
+  end,
+}
+
 vim.keymap.set('n', '<Leader><C-i>', function()
-  forward()
+  local opts = vim.tbl_extend('force', default_opts, {
+    on_error = function()
+      setqflist(true)
+    end,
+  })
+  forward(opts)
 end)
 vim.keymap.set('n', '<Leader><C-o>', function()
-  backward()
+  local opts = vim.tbl_extend('force', default_opts, {
+    on_error = function()
+      setqflist(true)
+    end,
+  })
+  backward(opts)
 end)
 vim.keymap.set('n', 'g<C-i>', function()
-  forward_local()
+  forward_local(default_opts)
 end)
 vim.keymap.set('n', 'g<C-o>', function()
-  backward_local()
+  backward_local(default_opts)
 end)
 -- vim.keymap.set('n', '<Leader>jq', function()
---   setqfflist(true)
+--   setqflist(true)
 -- end)
 -- vim.keymap.set('n', '<Leader>jl', function()
 --   setloclist(true)
