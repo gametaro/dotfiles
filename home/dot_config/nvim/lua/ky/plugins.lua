@@ -16,8 +16,14 @@ local bootstrap = function()
   vim.cmd('packadd packer.nvim')
 end
 
-local cwd = vim.loop.cwd()
-local snapshot_name = 'packer_snapshot'
+bootstrap()
+
+local packer = require('packer')
+local use = packer.use
+local snapshot_name = 'packer-lock.json'
+local snapshot_path = vim.fs.normalize(vim.env.XDG_DATA_HOME) .. '/chezmoi/home/dot_config/nvim'
+local compile_path = vim.fs.normalize(vim.fn.stdpath('config')) .. '/lua/packer_compiled.lua'
+
 local config = {
   profile = {
     enable = false,
@@ -30,13 +36,17 @@ local config = {
     prompt_border = require('ky.ui').border,
   },
   max_jobs = vim.loop.os_uname().sysname == 'Darwin' and 50 or nil,
-  snapshot = cwd .. '/' .. snapshot_name,
-  snapshot_path = cwd,
+  snapshot = snapshot_name,
+  snapshot_path = snapshot_path,
+  compile_path = compile_path,
   -- break some plugins, e.g., cmp
   auto_reload_compiled = false,
 }
 
-local plugins = function(use)
+packer.init(config)
+packer.reset()
+
+do
   use { 'wbthomason/packer.nvim', opt = true }
   use('lewis6991/impatient.nvim')
   use('nvim-lua/plenary.nvim')
@@ -358,6 +368,7 @@ local plugins = function(use)
 
   use {
     'folke/which-key.nvim',
+    disable = true,
     event = 'BufRead',
     config = function()
       require('which-key').setup {
@@ -749,6 +760,7 @@ local plugins = function(use)
 
   use {
     'rcarriga/nvim-notify',
+    event = 'VimEnter',
     config = function()
       require('ky.config.notify')
     end,
@@ -1084,6 +1096,7 @@ local plugins = function(use)
 
   use {
     'rebelot/heirline.nvim',
+    event = 'VimEnter',
     config = function()
       require('ky.config.heirline')
     end,
@@ -1137,27 +1150,31 @@ local plugins = function(use)
   }
 end
 
-bootstrap()
+if vim.loop.fs_stat(compile_path) then
+  vim.cmd('source ' .. compile_path)
+end
+-- packer.rollback(snapshot_name)
 
-vim.keymap.set('n', '<LocalLeader>pc', function()
-  require('packer').compile()
-end)
-vim.keymap.set('n', '<LocalLeader>pC', function()
-  require('packer').clean()
-end)
+vim.keymap.set('n', '<LocalLeader>pc', packer.compile)
+vim.keymap.set('n', '<LocalLeader>pC', packer.clean)
 vim.keymap.set('n', '<LocalLeader>ps', function()
-  require('packer').snapshot(snapshot_name)
+  if not vim.loop.fs_stat(snapshot_path) then
+    packer.snapshot(snapshot_name)
+  end
   require('packer').sync()
 end)
-vim.keymap.set('n', '<LocalLeader>pS', function()
-  require('packer').status()
-end)
+vim.keymap.set('n', '<LocalLeader>pS', packer.status)
 vim.keymap.set('n', '<LocalLeader>pu', function()
-  require('packer').snapshot(snapshot_name)
-  require('packer').update()
+  if not vim.loop.fs_stat(snapshot_path) then
+    packer.snapshot(snapshot_name)
+  end
+  packer.update()
 end)
 vim.keymap.set('n', '<LocalLeader>pi', function()
-  require('packer').install()
+  if not vim.loop.fs_stat(snapshot_path) then
+    packer.snapshot(snapshot_name)
+  end
+  packer.install()
 end)
 
 vim.api.nvim_create_autocmd('User', {
@@ -1172,11 +1189,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = 'plugins.lua',
   group = vim.api.nvim_create_augroup('PackerCompileOnWrite', { clear = true }),
   callback = function()
-    vim.schedule(require('packer').compile)
+    vim.schedule(packer.compile)
   end,
 })
-
-require('packer').startup {
-  plugins,
-  config = config,
-}
