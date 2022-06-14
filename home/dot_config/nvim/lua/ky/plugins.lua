@@ -975,6 +975,7 @@ local plugins = function(use)
 
   use {
     'gbprod/yanky.nvim',
+    after = 'telescope.nvim',
     config = function()
       require('ky.config.yanky')
     end,
