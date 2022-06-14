@@ -85,7 +85,9 @@ local process = function(component, tab)
   return surround(head)(tail)(label)
 end
 
-local components = { modified, icon, fname, cwd }
+local components = { --[[ modified, icon, fname, ]]
+  cwd,
+}
 
 local tabpage = function(tab)
   local t = vim.tbl_map(function(component)
