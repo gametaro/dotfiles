@@ -181,7 +181,7 @@ end
 map('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>")
 -- map('c', '<M-f>', "<C-r>=fnamemodify(@%, ':t')<CR>")
 map('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]])
-map('n', 'gm', [[<Cmd>set nomore<Bar>echo repeat("\n",&cmdheight)<Bar>40messages<Bar>set more<CR>]])
+map('n', 'gm', [[<Cmd>echo repeat("\n",&cmdheight)<Bar>40messages<CR>]])
 
 -- WARN: experimental
 for _, v in ipairs { '"', "'", '`', '{', '(', '[' } do
