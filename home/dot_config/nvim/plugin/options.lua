@@ -74,9 +74,7 @@ opt.pumheight = 10
 opt.scrolloff = 5
 opt.sidescrolloff = 5
 opt.secure = true
-opt.sessionoptions:append {
-  'winpos',
-}
+opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
 opt.shiftround = true
 opt.shiftwidth = indent
 opt.shortmess:append {
