@@ -63,7 +63,7 @@ local cwd = function(tab)
       ':~'
     )
   ),
-    { italic = true }
+    {}
 end
 
 local icon = function(tab)
