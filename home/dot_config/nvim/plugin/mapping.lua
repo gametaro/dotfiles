@@ -3,6 +3,7 @@ local api = vim.api
 local fn = vim.fn
 local cmd = vim.api.nvim_command
 local fmt = string.format
+local utils = require('ky.utils')
 
 local pcmd = function(command)
   return pcall(cmd, command)
@@ -469,9 +470,17 @@ map('n', '<F3>', function()
   require('plenary.profile').stop()
 end, { desc = 'stop profiling with plenary' })
 
+vim.keymap.set('n', '<Leader>s', function()
+  utils.toggle_options('laststatus', { 0, 3 })
+end, { desc = 'toggle laststatus' })
+
+vim.keymap.set('n', '<Leader>S', function()
+  utils.toggle_options('spell')
+end)
+
 map('n', '<F10>', function()
-  vim.wo.list = not vim.wo.list
-  vim.wo.number = not vim.wo.number
-  vim.wo.relativenumber = not vim.wo.relativenumber
-  vim.wo.signcolumn = vim.wo.signcolumn == 'yes' and 'no' or 'yes'
+  utils.toggle_options('list')
+  utils.toggle_options('number')
+  utils.toggle_options('relativenumber')
+  utils.toggle_options('signcolumn', { 'yes', 'no' })
 end, { desc = 'toggle options for easier copy' })
