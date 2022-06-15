@@ -604,6 +604,16 @@ local WinBars = {
   end,
 }
 
+local DisableStatusLine = {
+  condition = function()
+    return vim.o.laststatus == 0
+  end,
+  provider = function()
+    return [[%{repeat('─',winwidth('.'))}]]
+  end,
+  hl = { link = 'WinSeparator' },
+}
+
 local DefaultStatusLine = {
   ViMode,
   Space,
@@ -667,6 +677,7 @@ local TerminalStatusLine = {
 
 local StatusLines = {
   init = utils.pick_child_on_condition,
+  DisableStatusLine,
   SpecialStatusLine,
   TerminalStatusLine,
   InactiveStatusLine,
