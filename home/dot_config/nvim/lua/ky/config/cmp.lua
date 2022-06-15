@@ -121,7 +121,7 @@ local config = {
     {
       name = 'buffer',
       ---@type cmp_buffer.Options
-      options = {
+      option = {
         keyword_pattern = [[\k\+]],
         get_bufnrs = function()
           return vim.tbl_filter(function(buf)
@@ -160,7 +160,7 @@ local cmdline_config = {
     {
       ---@type cmp_buffer.Options
       name = 'buffer',
-      options = {
+      option = {
         keyword_pattern = [[\k\+]],
         get_bufnrs = function()
           return { vim.api.nvim_get_current_buf() }
