@@ -25,7 +25,7 @@ return function(client, bufnr)
     map('n', 'gi', vim.lsp.buf.implementation)
   end
   if client.server_capabilities.signatureHelpProvider then
-    map('i', '<C-s>', vim.lsp.buf.signature_help)
+    map('i', '<C-k>', vim.lsp.buf.signature_help)
   end
   map('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder)
   map('n', '<LocalLeader>wr', vim.lsp.buf.remove_workspace_folder)
