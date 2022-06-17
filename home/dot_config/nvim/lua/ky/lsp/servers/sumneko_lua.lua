@@ -11,7 +11,8 @@ return require('lua-dev').setup {
           globals = { 'vim' },
           disable = { 'missing-parameter', 'redundant-parameter' },
           neededFileStatus = {
-            ['codestyle-check'] = 'Any',
+            -- ['codestyle-check'] = 'Any',
+            -- ['type-check'] = 'Any',
           },
         },
         -- workspace = {
