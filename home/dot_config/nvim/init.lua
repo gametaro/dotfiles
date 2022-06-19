@@ -12,6 +12,7 @@ _G.P = function(...)
 end
 
 pcall(function()
+  vim.cmd('packadd impatient.nvim')
   require('impatient').enable_profile()
 end)
 require('ky.disable')
