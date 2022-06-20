@@ -1,6 +1,8 @@
 ---check nvim is running on headless mode
 local headless = #vim.api.nvim_list_uis() == 0
 
+local bootstrapping = false
+
 local stdpath = vim.fn.stdpath('data')
 local jetpack_path = '%s/site/pack/jetpack/%s/vim-jetpack'
 local src_path = string.format(jetpack_path, stdpath, 'src')
@@ -18,6 +20,8 @@ if not vim.loop.fs_stat(src_path) then
 
   vim.fn.mkdir(stdpath .. '/site/pack/jetpack/opt', 'p')
   vim.loop.fs_symlink(src_path, opt_path, { dir = true })
+
+  bootstrapping = true
 end
 
 vim.cmd('packadd vim-jetpack')
@@ -195,8 +199,7 @@ local sync = function()
     for _, name in ipairs(names) do
       if not jetpack.tap(name) then
         jetpack.sync()
-        -- FIXME: should exit only when bootstrapping
-        if headless then
+        if bootstrapping then
           vim.cmd('quitall!')
         end
         break
