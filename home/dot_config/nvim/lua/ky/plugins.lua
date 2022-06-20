@@ -205,7 +205,13 @@ local sync = function()
   end
 end
 
+local group = vim.api.nvim_create_augroup('jetpack', { clear = true })
 vim.api.nvim_create_autocmd('VimEnter', {
-  group = vim.api.nvim_create_augroup('jetpack', { clear = true }),
+  group = group,
+  callback = sync,
+})
+vim.api.nvim_create_autocmd('BufWritePost', {
+  group = group,
+  pattern = 'plugins.lua',
   callback = sync,
 })
