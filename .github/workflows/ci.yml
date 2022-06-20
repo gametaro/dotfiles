@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Chezmoi Init (${{ runnner.os }})
+      - name: Chezmoi Init
         if: ${{ runner.os != 'Windows' }}
         run: |
           sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply --branch ${BRANCH_NAME} gametaro
