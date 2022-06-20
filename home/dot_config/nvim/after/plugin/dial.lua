@@ -1,4 +1,4 @@
-local ok = prequire('dial')
+local ok = prequire('dial.augend')
 if not ok then
   return
 end
