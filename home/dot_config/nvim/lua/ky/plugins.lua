@@ -36,7 +36,7 @@ jetpack.startup(function(use)
   use('machakann/vim-sandwich')
   use { 'machakann/vim-swap', on = '<Plug>(swap-' }
   use { 'junegunn/fzf', run = 'call fzf#install()' }
-  use('kevinhwang91/nvim-bqf')
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
   use('numToStr/Comment.nvim')
   use('monaqa/dial.nvim')
 
