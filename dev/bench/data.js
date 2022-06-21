@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655732713132,
+  "lastUpdate": 1655823716510,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -9884,6 +9884,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 1.2035783454666666,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "077ecc4e263fedf6f5f9f5fbc84da5d7fbfbf3fd",
+          "message": "Merge pull request #3 from gametaro/jetpack\n\nJetpack",
+          "timestamp": "2022-06-21T23:59:20+09:00",
+          "tree_id": "af5900c23b4f06b1a4caf2f693f6e80ca1f8d8f8",
+          "url": "https://github.com/gametaro/dotfiles/commit/077ecc4e263fedf6f5f9f5fbc84da5d7fbfbf3fd"
+        },
+        "date": 1655823715346,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 1.433205762433333,
             "unit": "Second"
           }
         ]
