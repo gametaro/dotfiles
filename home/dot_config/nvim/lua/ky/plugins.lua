@@ -191,6 +191,8 @@ jetpack.startup(function(use)
   use('rebelot/heirline.nvim')
   use('lambdalisue/suda.vim')
   use('johmsalas/text-case.nvim')
+  use('anuvyklack/hydra.nvim')
+  use('anuvyklack/keymap-layer.nvim')
 end)
 
 local sync = function()
