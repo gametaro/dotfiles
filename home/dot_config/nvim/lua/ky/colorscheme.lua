@@ -1,4 +1,4 @@
-local colorscheme = 'heine'
+local colorscheme = 'nightfox'
 
 local ok = prequire(colorscheme)
 if not ok then
