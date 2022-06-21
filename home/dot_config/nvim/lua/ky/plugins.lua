@@ -93,8 +93,8 @@ jetpack.startup(function(use)
   use('haya14busa/vim-asterisk')
   use('kevinhwang91/nvim-hlslens')
 
-  use('TimUntersberger/neogit')
-  use('sindrets/diffview.nvim')
+  use { 'TimUntersberger/neogit', on = ':Neogit' }
+  use { 'sindrets/diffview.nvim', on = { ':DiffviewOpen', ':DiffviewFileHistory' } }
   use('lewis6991/gitsigns.nvim')
 
   use { 'haya14busa/vim-edgemotion', on = '<Plug>(edgemotion-' }
