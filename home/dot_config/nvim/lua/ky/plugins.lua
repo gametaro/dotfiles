@@ -34,7 +34,7 @@ jetpack.startup(function(use)
   use('nvim-lua/plenary.nvim')
   use('kyazdani42/nvim-web-devicons')
   use('machakann/vim-sandwich')
-  use('machakann/vim-swap')
+  use { 'machakann/vim-swap', on = '<Plug>(swap-' }
   use { 'junegunn/fzf', run = 'call fzf#install()' }
   use('kevinhwang91/nvim-bqf')
   use('numToStr/Comment.nvim')
