@@ -99,6 +99,7 @@ jetpack.startup(function(use)
   use { 'TimUntersberger/neogit', on = ':Neogit' }
   use { 'sindrets/diffview.nvim', on = { ':DiffviewOpen', ':DiffviewFileHistory' } }
   use('lewis6991/gitsigns.nvim')
+  use { 'rhysd/committia.vim', ft = { 'gitcommit' } }
 
   use { 'haya14busa/vim-edgemotion', on = '<Plug>(edgemotion-' }
 
