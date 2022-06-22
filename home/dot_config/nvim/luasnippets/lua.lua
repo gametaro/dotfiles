@@ -57,21 +57,26 @@ return {
     t(' }'),
   }),
   s(
-    't',
+    'lf',
     c(1, {
-      sn(nil, fmta('<> = { <> }', rep_generate())),
-      sn(nil, fmta('local <> = { <> }', rep_generate())),
-      sn(
-        nil,
-        fmta(
-          [[
-          local <> = {
-            <>
-          }
-          ]],
-          rep_generate()
-        )
-      ),
+      sn(nil, {
+        t('local function '),
+        r(1, 'name'),
+        t('('),
+        r(2, 'arg'),
+        t { ')', '\t' },
+        r(3, 'code'),
+        t { '', 'end' },
+      }),
+      sn(nil, {
+        t('local '),
+        r(1, 'name'),
+        t(' = function('),
+        r(2, 'arg'),
+        t { ')', '\t' },
+        r(3, 'code'),
+        t { '', 'end' },
+      }),
     })
   ),
   s(
@@ -116,29 +121,6 @@ return {
     i(0),
     t { '', 'end' },
   }),
-  s(
-    'lf',
-    c(1, {
-      sn(nil, {
-        t('local function '),
-        r(1, 'name'),
-        t('('),
-        r(2, 'arg'),
-        t { ')', '\t' },
-        r(3, 'code'),
-        t { '', 'end' },
-      }),
-      sn(nil, {
-        t('local '),
-        r(1, 'name'),
-        t('= function('),
-        r(2, 'arg'),
-        t { ')', '\t' },
-        r(3, 'code'),
-        t { '', 'end' },
-      }),
-    })
-  ),
   s('fa', {
     t('function('),
     i(1),
@@ -164,28 +146,70 @@ return {
       }),
     }),
   }),
-  s('string.format', {
-    t('string.format(' .. quote),
+  s('fmt', {
+    t('string.format('),
     i(1),
-    t(quote .. ', '),
+    t(', '),
     i(0),
     t(')'),
   }),
   s('vf', {
-    t('vim.fn.'),
-    i(1),
+    t('vim.fn'),
+    c(1, {
+      sn(nil, {
+        t('.'),
+        i(1),
+      }),
+      sn(nil, {
+        t('[' .. quote),
+        i(1),
+        t(quote .. ']'),
+      }),
+    }),
+    i(0),
   }),
   s('va', {
-    t('vim.api.nvim_'),
-    i(1),
+    c(1, {
+      sn(nil, {
+        t('api.nvim_'),
+        i(1),
+      }),
+      sn(nil, {
+        t('vim.api.nvim_'),
+        i(1),
+      }),
+    }),
+    i(0),
   }),
-  s('keymap', {
+  s('map', {
     t('vim.keymap.set('),
-    i(1),
-    t(', '),
+    c(1, {
+      sn(nil, {
+        t(quote),
+        i(1),
+        t(quote),
+      }),
+      sn(nil, {
+        t('{ '),
+        i(1),
+        t(' }'),
+      }),
+    }),
+    t(', ' .. quote),
     i(2),
-    t(', '),
-    i(3),
+    t(quote .. ', '),
+    c(3, {
+      sn(nil, {
+        t(quote),
+        i(1),
+        t(quote),
+      }),
+      sn(nil, {
+        t { 'function()', '\t' },
+        i(1),
+        t { '', 'end' },
+      }),
+    }),
     c(4, {
       t(''),
       sn(nil, {
@@ -216,6 +240,23 @@ return {
     }),
     i(0),
     t { '', '})' },
+  }),
+  s('aug', {
+    t('vim.api.nvim_create_augroup(' .. quote),
+    i(1),
+    t(quote .. ', {'),
+    c(2, {
+      sn(nil, {
+        t(''),
+        i(1),
+      }),
+      sn(nil, {
+        t(' clear = '),
+        i(1),
+        t(' '),
+      }),
+    }),
+    t('})'),
   }),
   s('com', {
     t('vim.api.nvim_create_user_command(' .. quote),
