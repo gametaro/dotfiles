@@ -23,7 +23,7 @@
   "sqlite-devel") -}}
 {{ end -}}
 
-{{ $sudo := "sudo " -}}
+{{ $sudo := "sudo -E " -}}
 {{ if eq .chezmoi.username "root" -}}
 {{ $sudo = "" -}}
 {{ end -}}
