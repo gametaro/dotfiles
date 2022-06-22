@@ -7,17 +7,17 @@ require('harpoon').setup {
   global_settings = {
     enter_on_sendcmd = true,
   },
-  projects = {
-    ['$XDG_DATA_HOME/chezmoi'] = {
-      term = {
-        cmds = {
-          'asdf uninstall neovim nightly && asdf install neovim nightly',
-          'asdf update --head',
-          'asdf plugin-update --all',
-        },
-      },
-    },
-  },
+  -- projects = {
+  --   ['$XDG_DATA_HOME/chezmoi'] = {
+  --     term = {
+  --       cmds = {
+  --         'asdf uninstall neovim nightly && asdf install neovim nightly',
+  --         'asdf update --head',
+  --         'asdf plugin-update --all',
+  --       },
+  --     },
+  --   },
+  -- },
 }
 
 local map = vim.keymap.set
