@@ -110,6 +110,7 @@ jetpack.startup(function(use)
   use('ahmedkhalf/project.nvim')
   use('natecraddock/telescope-zf-native.nvim')
   use('nvim-telescope/telescope-live-grep-args.nvim')
+  use { 'ilAYAli/scMRU.nvim', on = { 'Mru', 'Mfu', 'MruRepos' } }
 
   use('ojroques/vim-oscyank')
 
