@@ -4,7 +4,7 @@ local float = {
   border = require('ky.ui').border,
 }
 
-lsp.set_log_level(vim.log.levels.OFF)
+lsp.set_log_level(vim.log.levels.ERROR)
 
 -- HACK: override builtin handler not to notify even if no information is available
 lsp.handlers['textDocument/hover'] = lsp.with(function(_, result, ctx, config)
