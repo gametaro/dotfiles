@@ -33,11 +33,11 @@ Hydra {
 local gitsigns = require('gitsigns')
 
 local hint = [[
- _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
- _K_: prev hunk   _u_: undo stage hunk   _p_: preview hunk   _B_: blame show full 
- ^ ^              _S_: stage buffer      ^ ^                 _/_: show base file
- ^
- ^ ^              _<Enter>_: Neogit              _q_: exit
+  _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
+  _K_: prev hunk   _u_: undo stage hunk   _p_: preview hunk   _B_: blame show full  
+  ^ ^              _S_: stage buffer      ^ ^                 _/_: show base file
+  ^
+  ^ ^              _<Enter>_: Neogit              _q_: exit
 ]]
 
 Hydra {
