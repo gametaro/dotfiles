@@ -118,6 +118,10 @@ local custom_on_attach = {
 vim.api.nvim_create_autocmd('LspAttach', {
   group = 'mine',
   callback = function(a)
+    if not a.data.client_id then
+      return
+    end
+
     local bufnr = a.buf
     local client = vim.lsp.get_client_by_id(a.data.client_id)
 
