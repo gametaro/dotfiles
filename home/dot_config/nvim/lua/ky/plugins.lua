@@ -53,6 +53,7 @@ jetpack.startup(function(use)
   use('windwp/nvim-ts-autotag')
   use { 'nvim-treesitter/playground', opt = true }
   use('David-Kunz/treesitter-unit')
+  use('mfussenegger/nvim-ts-hint-textobject')
 
   use('gbprod/substitute.nvim')
   use { 'kana/vim-niceblock', on = '<Plug>(niceblock-' }
