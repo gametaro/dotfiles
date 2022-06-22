@@ -46,12 +46,14 @@ jetpack.startup(function(use)
 
   use { 'hrsh7th/vim-eft', on = '<Plug>(eft-' }
 
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use('nvim-treesitter/nvim-treesitter-textobjects')
   use('JoosepAlviste/nvim-ts-context-commentstring')
   use('p00f/nvim-ts-rainbow')
   use('windwp/nvim-ts-autotag')
   use { 'nvim-treesitter/playground', opt = true }
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use('David-Kunz/treesitter-unit')
+
   use('gbprod/substitute.nvim')
   use { 'kana/vim-niceblock', on = '<Plug>(niceblock-' }
 
