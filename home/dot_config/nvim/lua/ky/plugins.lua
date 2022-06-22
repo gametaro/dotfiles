@@ -197,6 +197,7 @@ jetpack.startup(function(use)
   use('johmsalas/text-case.nvim')
   use('anuvyklack/hydra.nvim')
   use('anuvyklack/keymap-layer.nvim')
+  use { 't9md/vim-quickhl', on = '<Plug>(quickhl-' }
 end)
 
 local sync = function()

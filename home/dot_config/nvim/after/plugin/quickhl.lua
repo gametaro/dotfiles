@@ -1,0 +1,6 @@
+vim.keymap.set('n', '<LocalLeader>m', '<Plug>(quickhl-manual-this-whole-word)')
+vim.keymap.set('x', '<LocalLeader>m', '<Plug>(quickhl-manual-this-whole-word)')
+vim.keymap.set('n', '<LocalLeader>M', '<Plug>(quickhl-manual-reset)')
+vim.keymap.set('x', '<LocalLeader>M', '<Plug>(quickhl-manual-reset)')
+-- vim.keymap.set('n', ']m', '<Plug>(quickhl-manual-go-to-next)')
+-- vim.keymap.set('n', '[m', '<Plug>(quickhl-manual-go-to-prev)')
