@@ -43,6 +43,19 @@ return {
       }),
     }),
   }),
+  s('ll', {
+    t('local '),
+    i(1),
+    t(' = '),
+    i(2),
+  }),
+  s('lt', {
+    t('local '),
+    i(1),
+    t(' = { '),
+    i(2),
+    t(' }'),
+  }),
   s(
     't',
     c(1, {
@@ -157,6 +170,14 @@ return {
     t(quote .. ', '),
     i(0),
     t(')'),
+  }),
+  s('vf', {
+    t('vim.fn.'),
+    i(1),
+  }),
+  s('va', {
+    t('vim.api.nvim_'),
+    i(1),
   }),
   s('keymap', {
     t('vim.keymap.set('),
