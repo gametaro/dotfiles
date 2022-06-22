@@ -18,14 +18,14 @@ end
 M.cabbrev('l', 'lua =')
 M.cabbrev('lv', 'lua =vim.')
 M.cabbrev('la', 'lua =vim.api.nvim_')
-M.cabbrev('lf', 'lua =vim.fn.')
-M.cabbrev('rq', "lua =require''''<Left>")
+M.cabbrev('lf', 'lua =vim.fn')
+M.cabbrev('lr', "lua =require''''<Left>")
 
 -- lsp
 M.cabbrev('lsi', 'LspInfo')
 M.cabbrev('lsr', 'LspRestart')
 
 -- capture.vim
-M.cabbrev('c', 'Capture ')
+M.cabbrev('c', 'Capture')
 
 return M
