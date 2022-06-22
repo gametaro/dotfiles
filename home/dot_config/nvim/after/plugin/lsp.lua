@@ -130,7 +130,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     require('lsp-format').on_attach(client)
 
     if custom_on_attach[client.name] then
-      custom_on_attach[client.name]()
+      custom_on_attach[client.name](client)
     end
   end,
 })
