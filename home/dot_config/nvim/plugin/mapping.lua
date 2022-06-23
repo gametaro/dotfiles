@@ -101,8 +101,18 @@ map('c', '<M-f>', '<S-right>')
 map('c', '%%', function()
   return fn.getcmdtype() == ':' and fn.expand('%:h') .. '/' or '%%'
 end, { expr = true })
-map('c', '::', function()
-  return fn.getcmdtype() == ':' and fn.expand('%:p:h') .. '/' or '::'
+-- poor man's autopairs
+map('c', '(', function()
+  return fn.getcmdtype() == ':' and '()<Left>' or '('
+end, { expr = true })
+map('c', '[', function()
+  return fn.getcmdtype() == ':' and '[]<Left>' or '['
+end, { expr = true })
+map('c', "'", function()
+  return fn.getcmdtype() == ':' and "''<Left>" or "'"
+end, { expr = true })
+map('c', '"', function()
+  return fn.getcmdtype() == ':' and '""<Left>' or '"'
 end, { expr = true })
 
 for _, v in ipairs { '/', '?' } do
