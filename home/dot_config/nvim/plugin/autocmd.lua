@@ -161,19 +161,28 @@ autocmd('TermOpen', {
       vim.keymap.set(mode, lhs, rhs, opts)
     end
 
-    map('n', '<CR>', [[i<CR><C-\><C-n>]])
-    map('n', 'dd', [[i<C-u><C-k><C-\><C-n>]])
+    -- WARN: experimental
+    local escape = [[<C-\><C-n>]]
+    map('n', '<CR>', string.format('i<CR>%s', escape))
     map('n', 'I', 'i<Home>')
     map('n', 'A', 'i<End>')
+    map('n', 'x', string.format('i<End><BS>%s', escape))
+    map('n', 'dw', string.format('i<End><C-w>%s', escape))
+    map('n', 'dd', string.format('i<End><C-u>%s', escape))
+    map('n', 'cw', 'i<End><C-w>')
+    map('n', 'cc', 'i<End><C-u>')
+    map('n', 'p', string.format('i<End>%sp', escape))
+    map('n', 'P', string.format('i<Home>%sp', escape))
+    map('n', 'u', string.format('i<C-_>%s', escape))
     map('n', '<C-p>', function()
       return 'i' .. string.rep('<Up>', vim.v.count1) .. [[<C-\><C-n>]]
     end, { expr = true })
     map('n', '<C-n>', function()
       return 'i' .. string.rep('<Down>', vim.v.count1) .. [[<C-\><C-n>]]
     end, { expr = true })
-    map('t', ';', function()
+    map('t', ':', function()
       local text = get_prompt_text()
-      return string.match(text, '^❯%s+$') and [[<C-\><C-n>:]] or ':'
+      return string.match(text, '❯%s+$') and [[<C-\><C-n>:]] or ':'
     end, { expr = true })
 
     cmd('startinsert')
