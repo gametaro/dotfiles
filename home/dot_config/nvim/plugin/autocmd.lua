@@ -140,17 +140,43 @@ autocmd('VimResized', {
   end,
 })
 
-autocmd('TermOpen', {
-  callback = function()
-    cmd('startinsert')
-  end,
-})
+local get_prompt_text = function()
+  local count = api.nvim_buf_line_count(0)
+  local lines = vim.tbl_filter(function(s)
+    return s ~= ''
+  end, api.nvim_buf_get_lines(0, 0, count, true))
+
+  return lines[#lines]
+end
 
 autocmd('TermOpen', {
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.signcolumn = 'no'
+  callback = function(a)
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+    vim.wo.signcolumn = 'no'
+
+    local function map(mode, lhs, rhs, opts)
+      opts = opts or {}
+      opts.buffer = a.buf
+      vim.keymap.set(mode, lhs, rhs, opts)
+    end
+
+    map('n', '<CR>', [[i<CR><C-\><C-n>]])
+    map('n', 'dd', [[i<C-u><C-k><C-\><C-n>]])
+    map('n', 'I', 'i<Home>')
+    map('n', 'A', 'i<End>')
+    map('n', '<C-p>', function()
+      return 'i' .. string.rep('<Up>', vim.v.count1) .. [[<C-\><C-n>]]
+    end, { expr = true })
+    map('n', '<C-n>', function()
+      return 'i' .. string.rep('<Down>', vim.v.count1) .. [[<C-\><C-n>]]
+    end, { expr = true })
+    map('t', ';', function()
+      local text = get_prompt_text()
+      return string.match(text, '^❯%s+$') and [[<C-\><C-n>:]] or ':'
+    end, { expr = true })
+
+    cmd('startinsert')
   end,
 })
 
