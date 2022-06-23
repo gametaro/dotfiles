@@ -98,8 +98,14 @@ map('c', '<M-f>', '<S-right>')
 -- map('n', '/', '/\v', { noremap = true })
 -- map('n', '?', '?\v', { noremap = true })
 
-map('c', '%%', function()
-  return fn.getcmdtype() == ':' and fn.expand('%:h') .. '/' or '%%'
+-- map('c', '%%', function()
+--   return fn.getcmdtype() == ':' and fn.expand('%:h') .. '/' or '%%'
+-- end, { expr = true })
+-- map('c', '::', function()
+--   return fn.getcmdtype() == ':' and fn.expand('%:p:h') .. '/' or '::'
+-- end, { expr = true })
+map('c', '<C-x>', function()
+  return fn.getcmdtype() == ':' and fn.expand('%:p') or ''
 end, { expr = true })
 -- poor man's autopairs
 map('c', '(', function()
