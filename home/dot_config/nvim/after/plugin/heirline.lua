@@ -333,7 +333,7 @@ local Diagnostics = {
     info_icon = icons.info,
     hint_icon = icons.hint,
   },
-  update = { 'DiagnosticChanged', 'BufEnter' },
+  -- update = { 'DiagnosticChanged', 'BufEnter' },
   {
     provider = function(self)
       return self.errors > 0 and self.error_icon .. self.errors .. ' '
