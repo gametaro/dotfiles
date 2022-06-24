@@ -198,6 +198,7 @@ jetpack.startup(function(use)
   use('anuvyklack/keymap-layer.nvim')
   use { 't9md/vim-quickhl', on = '<Plug>(quickhl-' }
   use('AndrewRadev/linediff.vim')
+  use('echasnovski/mini.nvim')
 end)
 
 local sync = function()
