@@ -27,4 +27,7 @@ utils.toggle_options = function(name, values, opts)
   end
 end
 
+---check nvim is running on headless mode
+utils.headless = #vim.api.nvim_list_uis() == 0
+
 return utils

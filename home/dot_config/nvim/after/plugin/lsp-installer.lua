@@ -4,7 +4,7 @@ if not ok then
 end
 
 require('nvim-lsp-installer').setup {
-  ensure_installed = {
+  ensure_installed = require('ky.utils').headless and {} or {
     'bashls',
     'cssls',
     'dockerls',

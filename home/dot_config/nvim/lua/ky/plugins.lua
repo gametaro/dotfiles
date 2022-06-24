@@ -1,5 +1,5 @@
 ---check nvim is running on headless mode
-local headless = #vim.api.nvim_list_uis() == 0
+local headless = require('ky.utils').headless
 
 local bootstrapping = false
 

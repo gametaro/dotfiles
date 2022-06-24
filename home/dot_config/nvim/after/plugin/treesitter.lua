@@ -5,6 +5,7 @@ end
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = 'all',
+  sync_install = require('ky.utils').headless,
   ignore_install = { 'comment' },
   highlight = {
     enable = true,
