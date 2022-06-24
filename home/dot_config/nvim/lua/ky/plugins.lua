@@ -144,7 +144,7 @@ jetpack.startup(function(use)
   use('rmagatti/auto-session')
   use('andymass/vim-matchup')
 
-  use('rlane/pounce.nvim')
+  use { 'rlane/pounce.nvim', on = { ':Pounce', ':PounceRepeat' } }
   use('tpope/vim-projectionist')
   vim.g.projectionist_heuristics = {
     ['*.lua'] = {
