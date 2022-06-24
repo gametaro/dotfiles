@@ -125,5 +125,7 @@ end
 if fn.exists('g:neovide') > 0 then
   g.neovide_cursor_animation_length = 0
   g.neovide_cursor_trail_length = 0
-  opt.guifont = 'FiraCode NF:style=Regular:h11'
+  g.neovide_floating_blur_amount_x = 2.0
+  g.neovide_floating_blur_amount_y = 2.0
+  opt.guifont = 'FiraCode NF:style=Regular:h12'
 end
