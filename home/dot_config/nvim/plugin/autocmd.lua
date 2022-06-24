@@ -255,24 +255,17 @@ autocmd('ModeChanged', {
 
 autocmd('DiagnosticChanged', {
   callback = function()
-    local qf = fn.getqflist { winid = 0, title = 0 }
+    require('ky.defer').debounce_trailing(function()
+      local qf = fn.getqflist { winid = 0, title = 0 }
+      local loc = fn.getloclist(0, { winid = 0, title = 0 })
 
-    if qf.winid ~= 0 and qf.title == 'Diagnostics' then
-      require('ky.defer').debounce_trailing(function()
+      if qf.winid ~= 0 and qf.title == 'Diagnostics' then
         vim.diagnostic.setqflist { open = false }
-      end, 1500)()
-    end
-  end,
-})
+      end
 
-autocmd('DiagnosticChanged', {
-  callback = function()
-    local loc = fn.getloclist(0, { winid = 0, title = 0 })
-
-    if loc.winid ~= 0 and loc.title == 'Diagnostics' then
-      require('ky.defer').debounce_trailing(function()
+      if loc.winid ~= 0 and loc.title == 'Diagnostics' then
         vim.diagnostic.setloclist { open = false }
-      end, 1500)()
-    end
+      end
+    end, 1500)()
   end,
 })
