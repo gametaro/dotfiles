@@ -486,12 +486,16 @@ map('n', '<F3>', function()
   require('plenary.profile').stop()
 end, { desc = 'stop profiling with plenary' })
 
-vim.keymap.set('n', '<Leader>s', function()
+map('n', '<Leader>s', function()
   utils.toggle_options('laststatus', { 0, 3 })
 end, { desc = 'toggle laststatus' })
 
-vim.keymap.set('n', '<Leader>S', function()
+map('n', '<Leader>S', function()
   utils.toggle_options('spell')
+end)
+
+map('n', '<Leader>m', function()
+  utils.toggle_options('mouse', { '', 'nvr' })
 end)
 
 map('n', '<F10>', function()

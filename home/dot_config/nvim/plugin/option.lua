@@ -68,7 +68,7 @@ opt.listchars = {
 }
 -- opt.modeline = false
 opt.more = false
--- opt.mouse = 'a'
+opt.mouse = 'nvr'
 -- opt.number = true
 opt.preserveindent = true
 opt.pumblend = blend
