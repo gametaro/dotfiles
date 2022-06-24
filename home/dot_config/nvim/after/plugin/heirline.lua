@@ -158,6 +158,12 @@ local FileNameBlock = {
   init = function(self)
     self.filename = vim.api.nvim_buf_get_name(0)
   end,
+  on_click = {
+    name = 'heirline_filename',
+    callback = function(self)
+      vim.cmd('edit ' .. vim.fs.dirname(self.filename))
+    end,
+  },
 }
 
 local FileIcon = {
@@ -304,6 +310,15 @@ local Ruler = {
 local LSPActive = {
   condition = conditions.lsp_attached,
   update = { 'LspAttach', 'LspDetach' },
+  on_click = {
+    name = 'heirline_lsp',
+    callback = function()
+      -- use vim.defer_fn() if the callback requires opening of a floating window
+      vim.defer_fn(function()
+        vim.cmd('LspInfo')
+      end, 100)
+    end,
+  },
   provider = function()
     local clients = table.concat(
       vim.tbl_map(function(client)
@@ -334,6 +349,17 @@ local Diagnostics = {
     hint_icon = icons.hint,
   },
   -- update = { 'DiagnosticChanged', 'BufEnter' },
+  on_click = {
+    name = 'heirline_diagnostics',
+    callback = function()
+      local qf = vim.fn.getqflist { winid = 0, title = 0 }
+      if qf.winid ~= 0 and qf.title == 'Diagnostics' then
+        vim.cmd('cclose')
+      else
+        vim.diagnostic.setqflist()
+      end
+    end,
+  },
   {
     provider = function(self)
       return self.errors > 0 and self.error_icon .. self.errors .. ' '
@@ -378,6 +404,12 @@ local Git = {
     end,
     hl = { fg = colors.orange },
   },
+  on_click = {
+    name = 'heirline_Neogit',
+    callback = function()
+      vim.cmd('Neogit')
+    end,
+  },
 }
 
 local GitStatus = {
@@ -388,6 +420,17 @@ local GitStatus = {
       or self.status_dict.removed ~= 0
       or self.status_dict.changed ~= 0
   end,
+  on_click = {
+    name = 'heirline_gitstatus',
+    callback = function()
+      local qf = vim.fn.getqflist { winid = 0, title = 0 }
+      if qf.winid ~= 0 and qf.title == 'Hunks' then
+        vim.cmd('cclose')
+      else
+        require('gitsigns').setqflist()
+      end
+    end,
+  },
   {
     provider = function(self)
       local count = self.status_dict.added or 0
@@ -412,6 +455,14 @@ local GitStatus = {
 }
 
 local WorkDir = {
+  on_click = {
+    name = 'heirline_workdir',
+    callback = function()
+      vim.defer_fn(function()
+        vim.cmd('edit .')
+      end, 100)
+    end,
+  },
   provider = function()
     local flag = (
       vim.fn.haslocaldir() == 1 and 'L'
@@ -540,6 +591,29 @@ local LirName = {
   },
 }
 
+local CloseButton = {
+  condition = function()
+    return not vim.bo.modified
+  end,
+  -- a small performance improvement:
+  -- re register the component callback only on layout/buffer changes.
+  update = { 'WinNew', 'WinClosed', 'BufEnter' },
+  { provider = ' ' },
+  {
+    provider = '',
+    hl = { fg = 'gray' },
+    on_click = {
+      callback = function(_, winid)
+        pcall(vim.api.nvim_win_close, winid, true)
+      end,
+      name = function(self)
+        return 'heirline_close_button_' .. self.winnr
+      end,
+      update = true,
+    },
+  },
+}
+
 local Spell = {
   condition = function()
     return vim.wo.spell
@@ -585,12 +659,12 @@ local WinBars = {
       TerminalName,
     },
   },
-  {
-    condition = function()
-      return not conditions.is_active()
-    end,
-    { hl = { fg = colors.gray, force = true }, Space, FileNameBlock },
-  },
+  -- {
+  --   condition = function()
+  --     return not conditions.is_active()
+  --   end,
+  --   { hl = { fg = colors.gray, force = true }, Space, FileNameBlock },
+  -- },
   {
     Space,
     FileNameBlock,
@@ -599,6 +673,7 @@ local WinBars = {
     Space,
     GitStatus,
     Space,
+    CloseButton,
   },
   hl = function()
     return conditions.is_active()
