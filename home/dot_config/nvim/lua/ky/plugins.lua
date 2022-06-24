@@ -100,6 +100,7 @@ jetpack.startup(function(use)
   use { 'sindrets/diffview.nvim', on = { ':DiffviewOpen', ':DiffviewFileHistory' } }
   use('lewis6991/gitsigns.nvim')
   use { 'rhysd/committia.vim', ft = { 'gitcommit' } }
+  use { 'rhysd/git-messenger.vim', on = '<Plug>(git-messenger' }
 
   use { 'haya14busa/vim-edgemotion', on = '<Plug>(edgemotion-' }
 
