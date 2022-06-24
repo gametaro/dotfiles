@@ -37,7 +37,7 @@ jobs:
         run: |
           TEMP_FILE=$(mktemp)
 
-          hyperfine "$HOME/.asdf/shims/nvim -c quitall" \
+          hyperfine "$HOME/.asdf/shims/nvim --headless -c quitall" \
           --export-json "$TEMP_FILE" \
           --warmup 5 \
           --min-runs 15 \
