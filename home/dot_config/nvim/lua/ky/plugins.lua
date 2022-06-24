@@ -1,6 +1,3 @@
----check nvim is running on headless mode
-local headless = require('ky.utils').headless
-
 local bootstrapping = false
 
 local stdpath = vim.fn.stdpath('data')
