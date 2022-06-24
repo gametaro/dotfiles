@@ -12,7 +12,6 @@ utils.toggle_options = function(name, values, opts)
     if vim.api.nvim_get_option_value(name, {}) == v then
       value = values[i == #values and 1 or i + 1]
       vim.api.nvim_set_option_value(name, value, {})
-      vim.opt[name] = value
       break
     end
   end
