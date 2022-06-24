@@ -71,7 +71,7 @@ vim.g['sandwich#recipes'] =
 
 local map = vim.keymap.set
 map({ 'n', 'x' }, 's', '<Nop>')
-map('n', '.', '<Plug>(operator-sandwich-dot)')
+map('n', '.', '<Plug>(operator-sandwich-predot)<Plug>(RepeatDot)')
 
 for _, v in ipairs { '(', ')', '[', ']', '{', '}', "'", '"', '`', 'f' } do
   map('n', fmt('s%s', v), fmt('<Plug>(operator-sandwich-add-query1st)%s', v))
