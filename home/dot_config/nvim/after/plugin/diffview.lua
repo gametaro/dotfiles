@@ -33,6 +33,7 @@ require('diffview').setup {
   hooks = {
     diff_buf_read = function()
       vim.opt_local.list = false
+      vim.opt_local.winbar = nil
     end,
     view_opened = function()
       vim.cmd('wincmd p')
