@@ -15,6 +15,7 @@ require('nvim-lsp-installer').setup {
     'sumneko_lua',
     'tsserver',
     'yamlls',
+    'marksman',
   },
   ui = {
     border = require('ky.ui').border,
