@@ -21,3 +21,5 @@ require('nvim-lsp-installer').setup {
     border = require('ky.ui').border,
   },
 }
+
+require('ky.abbrev').cabbrev('lii', 'LspInstallInfo')
