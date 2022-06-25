@@ -181,11 +181,7 @@ end, { expr = true, desc = 'toggle `$` and `g_`' })
 -- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
 for _, v in ipairs { 'i', 'A' } do
   map('n', v, function()
-    return (
-          not api.nvim_get_current_line():match('^%s*$')
-          or vim.bo.buftype == 'terminal'
-          or vim.bo.filetype == 'TelescopePrompt'
-        )
+    return (not api.nvim_get_current_line():match('^%s*$') or vim.bo.buftype == 'terminal')
         and v
       or '"_cc'
   end, {
