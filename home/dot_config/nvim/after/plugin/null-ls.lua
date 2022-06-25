@@ -6,7 +6,7 @@ end
 local null_ls = require('null-ls')
 local f = null_ls.builtins.formatting
 local d = null_ls.builtins.diagnostics
-local h = null_ls.builtins.hover
+-- local h = null_ls.builtins.hover
 local ca = null_ls.builtins.code_actions
 
 local function executable(cmd)
@@ -56,7 +56,7 @@ local sources = {
   d.vale.with {
     condition = executable('vale'),
   },
-  h.dictionary,
+  -- h.dictionary,
   ca.gitrebase,
 }
 
