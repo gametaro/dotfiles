@@ -5,123 +5,94 @@
 -- tokyonight.nvim
 -- and more!
 
+local hsluv = require('ky.hsluv')
+
 local M = {}
-
-local ok, C = prequire('nightfox.lib.color')
-if not ok then
-  return
-end
-
-local hsl = function(...)
-  return C.from_hsl(...)
-end
 
 M.compile_path = vim.fs.normalize(vim.fn.stdpath('cache')) .. '/heine.lua'
 
-local hue_base = 220
+M.clamp = function(value, min, max)
+  if value < min then
+    return min
+  elseif value > max then
+    return max
+  end
+  return value
+end
 
-local hue_red = 0
-local hue_orange = 20
-local hue_green = 90
-local hue_lgreen = 140
-local hue_cyan = 190
-local hue_blue = 220
-local hue_magenta = 260
+M.saturate = function(hex, v)
+  local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
+  return hsluv.hsluv_to_hex { h, M.clamp(s + v, 0, 100), l }
+end
+
+M.lighten = function(hex, v)
+  local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
+  return hsluv.hsluv_to_hex { h, s, M.clamp(l + v, 0, 100) }
+end
+
+M.saturate_and_lighten = function(hex, s, l)
+  return M.lighten(M.saturate(hex, s), l)
+end
+
+M.blend = function(c1, c2, f)
+  local r1, g1, b1 = unpack(hsluv.hsluv_to_rgb(hsluv.hex_to_hsluv(c1)))
+  local r2, g2, b2 = unpack(hsluv.hsluv_to_rgb(hsluv.hex_to_hsluv(c2)))
+  return hsluv.rgb_to_hex { (r2 - r1) * f + r1, (g2 - g1) * f + g1, (b2 - b1) * f + b1 }
+end
 
 M.palette = {
-  red = hsl(hue_red, 65, 68),
-  orange = hsl(hue_orange, 51, 68),
-  green = hsl(hue_green, 27, 70),
-  lgreen = hsl(hue_lgreen, 27, 68),
-  cyan = hsl(hue_cyan, 38, 67),
-  blue = hsl(hue_blue, 41, 68),
-  magenta = hsl(hue_magenta, 27, 70),
+  red = hsluv.hsluv_to_hex { 0, 65, 68 },
+  orange = hsluv.hsluv_to_hex { 20, 51, 68 },
+  green = hsluv.hsluv_to_hex { 90, 27, 70 },
+  lgreen = hsluv.hsluv_to_hex { 140, 27, 68 },
+  cyan = hsluv.hsluv_to_hex { 190, 38, 67 },
+  blue = hsluv.hsluv_to_hex { 220, 41, 68 },
+  magenta = hsluv.hsluv_to_hex { 260, 27, 70 },
 }
 
--- normal
-local normal_bg = hsl(hue_base, 25, 12)
-local normal_fg = hsl(hue_base, 10, 78)
+local hue_base = 220
 
--- tint
-local green_tint_bg = M.palette.green:blend(normal_bg, 0.7)
--- local green_tint_fg = palette.green:blend(normal_fg, 0.7)
-local blue_tint_bg = M.palette.blue:blend(normal_bg, 0.7)
--- local blue_tint_fg = palette.blue:blend(normal_fg, 0.7)
-local orange_tint_bg = M.palette.orange:blend(normal_bg, 0.7)
-local orange_tint_fg = M.palette.orange:blend(normal_fg, 0.7)
--- local cyan_tint_bg = palette.cyan:blend(normal_bg, 0.7)
--- local cyan_tint_fg = palette.cyan:blend(normal_fg, 0.7)
-local red_tint_bg = M.palette.red:blend(normal_bg, 0.7)
--- local red_tint_fg = palette.red:blend(normal_fg, 0.7)
--- local magenta_tint_bg = palette.magenta:blend(normal_bg, 0.7)
--- local magenta_tint_fg = palette.magenta:blend(normal_fg, 0.7)
-local lgreen_tint_bg = M.palette.lgreen:blend(normal_bg, 0.7)
--- local lgreen_tint_fg = palette.lgreen:blend(normal_fg, 0.7)
+local normal_bg = hsluv.hsluv_to_hex { hue_base, 25, 12 }
+local normal_fg = hsluv.hsluv_to_hex { hue_base, 10, 78 }
 
--- local difftext_bg = cyan_tint_bg
--- local difftext_fg = normal_fg
+local statusline_bg = hsluv.hsluv_to_hex { hue_base, 20, 22 }
+local statusline_fg = hsluv.hsluv_to_hex { hue_base, 10, 70 }
+local statuslinenc_bg = M.lighten(statusline_bg, -3)
+local statuslinenc_fg = M.lighten(normal_fg, 10)
 
-local statusline_bg = hsl(hue_base, 20, 22)
-local statusline_fg = hsl(hue_base, 10, 70)
-local statuslinenc_bg = statusline_bg:lighten(-3)
-local statuslinenc_fg = normal_fg:lighten(10)
-
-local cursorline_bg = normal_bg:saturate(1):lighten(5)
+local cursorline_bg = M.saturate_and_lighten(normal_bg, 1, 5)
 -- local cursorline_fg = normal_fg:saturate(1):lighten(5)
 
-local pmenu_bg = normal_bg:saturate(1):lighten(5)
+local pmenu_bg = cursorline_bg
 local pmenu_fg = normal_fg
-local pmenusel_bg = hsl(hue_base, 20, 35)
-local pmenusel_fg = hsl(hue_base, 20, 95)
+local pmenusel_bg = hsluv.hsluv_to_hex { hue_base, 20, 35 }
+local pmenusel_fg = hsluv.hsluv_to_hex { hue_base, 20, 95 }
 
 local folded_bg = cursorline_bg
-local folded_fg = folded_bg:saturate(5):lighten(35)
+local folded_fg = M.saturate_and_lighten(folded_bg, 5, 35)
 
-local comment_fg = hsl(hue_base, 18, 48)
+local comment_fg = hsluv.hsluv_to_hex { hue_base, 18, 48 }
 
-local matchparen_bg = normal_bg:saturate(3):lighten(20)
+local matchparen_bg = M.saturate_and_lighten(normal_bg, 3, 20)
 
-local linenr_fg = normal_bg:lighten(20)
+local linenr_fg = M.lighten(normal_bg, 20)
 
-local search_bg = hsl(hue_orange, 65, 72)
-local search_fg = hsl(hue_orange, 50, 15)
-local visual_bg = normal_bg:saturate(5):lighten(10)
+local search_bg = M.saturate_and_lighten(M.palette.orange, 15, 4)
+local search_fg = M.saturate_and_lighten(M.palette.orange, 50, -50)
+local visual_bg = M.saturate_and_lighten(normal_bg, 5, 10)
 
-local whitespace_fg = normal_bg:saturate(8):lighten(39)
-local wildmenu_bg = statusline_bg:lighten(5)
+local whitespace_fg = M.saturate_and_lighten(normal_bg, 8, 39)
+local wildmenu_bg = M.lighten(statusline_bg, 5)
 local wildmenu_fg = statusline_fg
 
-local specialkey_fg = normal_bg:saturate(10):lighten(35)
+local specialkey_fg = M.saturate_and_lighten(normal_bg, 10, 35)
 
-M.colors = {
-  fg = {
-    normal = normal_fg,
-    statusline = statuslinenc_fg,
-    statuslinenc = statuslinenc_fg,
-    pmenu = pmenu_fg,
-    pmenusel = pmenusel_fg,
-    comment = comment_fg,
-    linenr = linenr_fg,
-    search = search_fg,
-    whitespace = whitespace_fg,
-    wildmenu = wildmenu_fg,
-    specialkey = specialkey_fg,
-    folded = folded_fg,
-  },
-  bg = {
-    normal = normal_fg,
-    statusline = statuslinenc_fg,
-    statuslinenc = statuslinenc_bg,
-    cursorline_bg = cursorline_bg,
-    pmenu = pmenu_bg,
-    pmenusel = pmenusel_bg,
-    folded = folded_bg,
-    matchparen = matchparen_bg,
-    search = search_bg,
-    visual = visual_bg,
-    wildmenu = wildmenu_bg,
-  },
-}
+local green_tint_bg = M.blend(M.palette.green, normal_bg, 0.7)
+local blue_tint_bg = M.blend(M.palette.blue, normal_bg, 0.7)
+local orange_tint_bg = M.blend(M.palette.orange, normal_bg, 0.7)
+local orange_tint_fg = M.blend(M.palette.orange, normal_fg, 0.7)
+local red_tint_bg = M.blend(M.palette.red, normal_bg, 0.7)
+local lgreen_tint_bg = M.blend(M.palette.lgreen, normal_bg, 0.7)
 
 M.highlight_groups = {
   -- :help highlight-groups
@@ -137,7 +108,7 @@ M.highlight_groups = {
   DiffAdd = { bg = green_tint_bg },
   DiffChange = { bg = lgreen_tint_bg },
   DiffDelete = { bg = red_tint_bg },
-  DiffText = { bg = lgreen_tint_bg:lighten(10) },
+  DiffText = { bg = M.lighten(lgreen_tint_bg, 10) },
   EndOfBuffer = { fg = normal_bg, bg = normal_bg },
   -- TermCursor = {},
   -- TermCursorNC = {},
@@ -178,7 +149,7 @@ M.highlight_groups = {
   Statusline = { fg = statusline_fg, bg = statusline_bg },
   StatuslineNC = { fg = statuslinenc_fg, bg = statuslinenc_bg },
   Tabline = { fg = statusline_fg, bg = statusline_bg },
-  TablineFill = { bg = normal_bg:lighten(5) },
+  TablineFill = { bg = M.lighten(normal_bg, 5) },
   TablineSel = { fg = normal_fg },
   Title = { fg = M.palette.cyan },
   Visual = { bg = visual_bg },
@@ -481,10 +452,7 @@ M.load = function()
     vim.cmd('source ' .. M.compile_path)
     return
   end
-  for name, val in pairs(vim.deepcopy(M.highlight_groups)) do
-    val.fg = val.fg and val.fg:to_css()
-    val.bg = val.bg and val.bg:to_css()
-    val.sp = val.sp and val.sp:to_css()
+  for name, val in pairs(M.highlight_groups) do
     vim.api.nvim_set_hl(0, name, val)
   end
 end
@@ -509,17 +477,16 @@ end
 
 M.compile = function()
   local lines = {}
-  for name, val in pairs(vim.deepcopy(M.highlight_groups)) do
-    val.fg = val.fg and val.fg:to_css()
-    val.bg = val.bg and val.bg:to_css()
-    val.sp = val.sp and val.sp:to_css()
+  for name, val in pairs(M.highlight_groups) do
     table.insert(lines, string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val)))
   end
   table.sort(lines)
-  local file = io.open(M.compile_path)
+  local file, msg = io.open(M.compile_path, 'w')
   if file then
     file:write(table.concat(lines, '\n') .. '\n')
     file:close()
+  else
+    vim.notify(msg, vim.log.levels.ERROR, { title = 'heine' })
   end
 end
 
