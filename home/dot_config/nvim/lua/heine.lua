@@ -326,6 +326,9 @@ M.highlight_groups = {
   markdownCode = { link = 'String' },
   markdownCodeDelimiter = { link = 'String' },
 
+  -- typescript
+  typescriptParens = { link = 'Delimiter' },
+
   -- plugins
   -- telescope.nvim
   TelescopeNormal = { link = 'Pmenu' },
