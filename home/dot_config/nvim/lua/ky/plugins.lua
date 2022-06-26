@@ -48,7 +48,10 @@ jetpack.startup(function(use)
   use('JoosepAlviste/nvim-ts-context-commentstring')
   use('p00f/nvim-ts-rainbow')
   use('windwp/nvim-ts-autotag')
-  use { 'nvim-treesitter/playground', opt = true }
+  use {
+    'nvim-treesitter/playground',
+    on = { 'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor' },
+  }
   use('David-Kunz/treesitter-unit')
   use('mfussenegger/nvim-ts-hint-textobject')
 
