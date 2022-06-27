@@ -160,9 +160,9 @@ local cmdline_mapping = cmp.mapping.preset.cmdline {
 ---@type cmp.ConfigSchema
 local cmdline_config = {
   mapping = cmdline_mapping,
-  view = {
-    entries = { name = 'wildmenu', separator = '|' },
-  },
+  -- view = {
+  --   entries = { name = 'wildmenu', separator = '|' },
+  -- },
   sources = cmp.config.sources({
     {
       ---@type cmp_buffer.Options
@@ -184,9 +184,9 @@ cmp.setup.cmdline('/', cmdline_config)
 cmp.setup.cmdline('?', cmdline_config)
 cmp.setup.cmdline(':', {
   mapping = cmdline_mapping,
-  view = {
-    entries = { name = 'wildmenu', separator = '|' },
-  },
+  -- view = {
+  --   entries = { name = 'wildmenu', separator = '|' },
+  -- },
   sources = cmp.config.sources({
     { name = 'path' },
   }, {
