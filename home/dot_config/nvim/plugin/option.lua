@@ -58,6 +58,7 @@ opt.isfname:remove { '=' }
 opt.jumpoptions = 'stack'
 opt.laststatus = 3
 opt.lazyredraw = true
+opt.linebreak = true
 opt.list = true
 opt.listchars = {
   -- eol = '↵',
@@ -87,7 +88,7 @@ opt.shortmess:append {
   c = true,
   s = true,
 }
-opt.showbreak = '↳ '
+-- opt.showbreak = '↳ '
 -- opt.showcmd = false
 opt.showmode = false
 opt.signcolumn = 'yes'
