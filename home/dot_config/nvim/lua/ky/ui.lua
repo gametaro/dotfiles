@@ -7,6 +7,6 @@ M.icons = {
   info = '',
 }
 
-M.border = 'single'
+M.border = 'none'
 
 return M
