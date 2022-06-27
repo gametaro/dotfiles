@@ -9,9 +9,9 @@ local hsluv = require('ky.hsluv')
 
 local M = {}
 
-M.compile_path = vim.fs.normalize(vim.fn.stdpath('cache')) .. '/heine.lua'
+local compile_path = vim.fs.normalize(vim.fn.stdpath('cache')) .. '/heine.lua'
 
-M.clamp = function(value, min, max)
+local clamp = function(value, min, max)
   if value < min then
     return min
   elseif value > max then
@@ -22,12 +22,12 @@ end
 
 M.saturate = function(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
-  return hsluv.hsluv_to_hex { h, M.clamp(s + v, 0, 100), l }
+  return hsluv.hsluv_to_hex { h, clamp(s + v, 0, 100), l }
 end
 
 M.lighten = function(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
-  return hsluv.hsluv_to_hex { h, s, M.clamp(l + v, 0, 100) }
+  return hsluv.hsluv_to_hex { h, s, clamp(l + v, 0, 100) }
 end
 
 M.saturate_and_lighten = function(hex, s, l)
@@ -451,8 +451,8 @@ M.highlight_groups = {
 }
 
 M.load = function()
-  if vim.loop.fs_stat(M.compile_path) then
-    vim.cmd('source ' .. M.compile_path)
+  if vim.loop.fs_stat(compile_path) then
+    vim.cmd('source ' .. compile_path)
     return
   end
   for name, val in pairs(M.highlight_groups) do
