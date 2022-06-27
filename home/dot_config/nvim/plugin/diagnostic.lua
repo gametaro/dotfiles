@@ -16,7 +16,18 @@ vim.diagnostic.config {
   -- },
   float = {
     border = require('ky.ui').border,
-    source = 'always',
+    -- source = 'always',
+    header = { 'Diagnostic', 'Title' },
+    format = function(diag)
+      return string.format('%s %s(%s)', diag.message, diag.source, diag.code)
+    end,
+    prefix = function(diag, _, _)
+      local level = vim.diagnostic.severity[diag.severity]
+      vim.pretty_print(level)
+      local prefix = string.format(' %s ', icons[string.lower(level)])
+      local hiname = 'Diagnostic' .. level:sub(1, 1) .. level:sub(2):lower()
+      return prefix, hiname
+    end,
   },
 }
 
