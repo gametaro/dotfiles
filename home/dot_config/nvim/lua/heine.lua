@@ -30,7 +30,7 @@ M.lighten = function(hex, v)
   return hsluv.hsluv_to_hex { h, s, clamp(l + v, 0, 100) }
 end
 
-M.saturate_and_lighten = function(hex, s, l)
+M.saturate_lighten = function(hex, s, l)
   return M.lighten(M.saturate(hex, s), l)
 end
 
@@ -60,7 +60,7 @@ local statusline_fg = hsluv.hsluv_to_hex { hue_base, 10, 70 }
 local statuslinenc_bg = M.lighten(statusline_bg, -3)
 local statuslinenc_fg = M.lighten(normal_fg, 10)
 
-local cursorline_bg = M.saturate_and_lighten(normal_bg, 1, 5)
+local cursorline_bg = M.saturate_lighten(normal_bg, 1, 5)
 -- local cursorline_fg = normal_fg:saturate(1):lighten(5)
 
 local pmenu_bg = cursorline_bg
@@ -69,23 +69,23 @@ local pmenusel_bg = hsluv.hsluv_to_hex { hue_base, 20, 35 }
 local pmenusel_fg = hsluv.hsluv_to_hex { hue_base, 20, 95 }
 
 local folded_bg = cursorline_bg
-local folded_fg = M.saturate_and_lighten(folded_bg, 5, 35)
+local folded_fg = M.saturate_lighten(folded_bg, 5, 35)
 
 local comment_fg = hsluv.hsluv_to_hex { hue_base, 18, 48 }
 
-local matchparen_bg = M.saturate_and_lighten(normal_bg, 3, 20)
+local matchparen_bg = M.saturate_lighten(normal_bg, 3, 20)
 
 local linenr_fg = M.lighten(normal_bg, 20)
 
-local search_bg = M.saturate_and_lighten(M.palette.orange, 15, 4)
-local search_fg = M.saturate_and_lighten(M.palette.orange, 50, -50)
-local visual_bg = M.saturate_and_lighten(normal_bg, 5, 10)
+local search_bg = M.saturate_lighten(M.palette.orange, 15, 4)
+local search_fg = M.saturate_lighten(M.palette.orange, 50, -50)
+local visual_bg = M.saturate_lighten(normal_bg, 5, 10)
 
-local whitespace_fg = M.saturate_and_lighten(normal_bg, 8, 39)
+local whitespace_fg = M.saturate_lighten(normal_bg, 8, 39)
 local wildmenu_bg = M.lighten(statusline_bg, 5)
 local wildmenu_fg = statusline_fg
 
-local specialkey_fg = M.saturate_and_lighten(normal_bg, 10, 35)
+local specialkey_fg = M.saturate_lighten(normal_bg, 10, 35)
 
 local green_tint_bg = M.blend(M.palette.green, normal_bg, 0.7)
 local blue_tint_bg = M.blend(M.palette.blue, normal_bg, 0.7)
