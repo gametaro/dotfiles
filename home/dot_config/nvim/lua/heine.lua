@@ -324,10 +324,14 @@ M.highlight_groups = {
 
   -- markdown
   markdownCode = { link = 'String' },
+  -- markdownCodeBlock = { link = 'String' },
   markdownCodeDelimiter = { link = 'String' },
 
   -- typescript
   typescriptParens = { link = 'Delimiter' },
+
+  -- lua
+  luaParen = { link = 'Delimiter' },
 
   -- plugins
   -- telescope.nvim
@@ -369,33 +373,63 @@ M.highlight_groups = {
   CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
   CmpItemMenu = { link = 'Pmenu' },
 
-  CmpItemKindKeyword = { link = 'Identifier' },
+  -- CmpItemKindKeyword = { link = 'Identifier' },
 
-  CmpItemKindVariable = { link = 'TSVariable' },
-  CmpItemKindConstant = { link = 'TSConstant' },
-  CmpItemKindReference = { link = 'Keyword' },
-  CmpItemKindValue = { link = 'Keyword' },
+  -- CmpItemKindVariable = { link = 'TSVariable' },
+  -- CmpItemKindConstant = { link = 'TSConstant' },
+  -- CmpItemKindReference = { link = 'Keyword' },
+  -- CmpItemKindValue = { link = 'Keyword' },
 
-  CmpItemKindFunction = { link = 'Function' },
-  CmpItemKindMethod = { link = 'Function' },
-  CmpItemKindConstructor = { link = 'Function' },
+  -- CmpItemKindFunction = { link = 'Function' },
+  -- CmpItemKindMethod = { link = 'Function' },
+  -- CmpItemKindConstructor = { link = 'Function' },
 
-  CmpItemKindInterface = { link = 'Constant' },
-  CmpItemKindEvent = { link = 'Constant' },
-  CmpItemKindEnum = { link = 'Constant' },
-  CmpItemKindUnit = { link = 'Constant' },
+  -- CmpItemKindInterface = { link = 'Constant' },
+  -- CmpItemKindEvent = { link = 'Constant' },
+  -- CmpItemKindEnum = { link = 'Constant' },
+  -- CmpItemKindUnit = { link = 'Constant' },
 
-  CmpItemKindClass = { link = 'Type' },
-  CmpItemKindStruct = { link = 'Type' },
+  -- CmpItemKindClass = { link = 'Type' },
+  -- CmpItemKindStruct = { link = 'Type' },
 
-  CmpItemKindModule = { link = 'TSNamespace' },
+  -- CmpItemKindModule = { link = 'TSNamespace' },
 
-  CmpItemKindProperty = { link = 'TSProperty' },
-  CmpItemKindField = { link = 'TSField' },
-  CmpItemKindTypeParameter = { link = 'TSField' },
-  CmpItemKindEnumMember = { link = 'TSField' },
-  CmpItemKindOperator = { link = 'Operator' },
-  -- CmpItemKindSnippet       = {},
+  -- CmpItemKindProperty = { link = 'TSProperty' },
+  -- CmpItemKindField = { link = 'TSField' },
+  -- CmpItemKindTypeParameter = { link = 'TSField' },
+  -- CmpItemKindEnumMember = { link = 'TSField' },
+  -- CmpItemKindOperator = { link = 'Operator' },
+  -- -- CmpItemKindSnippet       = {},
+
+  CmpItemKindKeyword = { fg = normal_bg, bg = M.palette.cyan },
+
+  CmpItemKindVariable = { fg = normal_bg, bg = M.palette.lgreen },
+  CmpItemKindConstant = { fg = normal_bg, bg = M.palette.orange },
+  CmpItemKindReference = { fg = normal_bg, bg = M.palette.magenta },
+  CmpItemKindValue = { fg = normal_bg, bg = M.palette.magenta },
+
+  CmpItemKindFunction = { fg = normal_bg, bg = M.palette.blue },
+  CmpItemKindMethod = { fg = normal_bg, bg = M.palette.blue },
+  CmpItemKindConstructor = { fg = normal_bg, bg = M.palette.blue },
+
+  CmpItemKindInterface = { fg = normal_bg, bg = M.palette.orange },
+  CmpItemKindEvent = { fg = normal_bg, bg = M.palette.orange },
+  CmpItemKindEnum = { fg = normal_bg, bg = M.palette.orange },
+  CmpItemKindUnit = { fg = normal_bg, bg = M.palette.orange },
+
+  CmpItemKindClass = { fg = normal_bg, bg = M.palette.orange },
+  CmpItemKindStruct = { fg = normal_bg, bg = M.palette.orange },
+
+  CmpItemKindModule = { fg = normal_bg, bg = M.palette.magenta },
+
+  CmpItemKindProperty = { fg = normal_bg, bg = M.palette.cyan },
+  CmpItemKindField = { fg = normal_bg, bg = M.palette.cyan },
+  CmpItemKindTypeParameter = { fg = normal_bg, bg = M.palette.cyan },
+  CmpItemKindEnumMember = { fg = normal_bg, bg = M.palette.cyan },
+  CmpItemKindOperator = { fg = normal_bg, bg = M.palette.magenta },
+  CmpItemKindSnippet = { fg = normal_bg, bg = M.palette.orange },
+
+  CmpItemKindDefault = { fg = normal_bg, bg = M.palette.orange },
 
   -- nvim-bqf
   BqfPreviewBorder = { link = 'FloatBorder' },
