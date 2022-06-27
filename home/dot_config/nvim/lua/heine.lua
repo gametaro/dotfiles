@@ -35,8 +35,8 @@ M.saturate_and_lighten = function(hex, s, l)
 end
 
 M.blend = function(c1, c2, f)
-  local r1, g1, b1 = unpack(hsluv.hsluv_to_rgb(hsluv.hex_to_hsluv(c1)))
-  local r2, g2, b2 = unpack(hsluv.hsluv_to_rgb(hsluv.hex_to_hsluv(c2)))
+  local r1, g1, b1 = unpack(hsluv.hex_to_rgb(c1))
+  local r2, g2, b2 = unpack(hsluv.hex_to_rgb(c2))
   return hsluv.rgb_to_hex { (r2 - r1) * f + r1, (g2 - g1) * f + g1, (b2 - b1) * f + b1 }
 end
 
