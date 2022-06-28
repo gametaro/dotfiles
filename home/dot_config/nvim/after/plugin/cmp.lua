@@ -103,20 +103,6 @@ local config = {
     fields = { 'kind', 'abbr' },
     format = function(_, vim_item)
       vim_item.kind = string.format(' %s ', kind_icons[vim_item.kind]) or '   '
-
-      -- vim_item.menu = ({
-      --   path = '[Path]',
-      --   buffer = '[Buf]',
-      --   -- fuzzy_path = '[Path]',
-      --   -- fuzzy_buffer = '[Buffer]',
-      --   nvim_lsp = '[LSP]',
-      --   luasnip = '[Snip]',
-      --   nvim_lua = '[Lua]',
-      --   -- emoji = '[Emoji]',
-      --   cmp_git = '[Git]',
-      --   cmdline = '[Cmd]',
-      --   nvim_lsp_document_symbol = '[Symbol]',
-      -- })[entry.source.name]
       return vim_item
     end,
   },
