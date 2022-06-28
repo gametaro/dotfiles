@@ -52,7 +52,7 @@ ls.config.setup {
     },
   },
   snip_env = {
-    ls = require('luasnip'),
+    ls = ls,
     s = require('luasnip.nodes.snippet').S,
     sn = require('luasnip.nodes.snippet').SN,
     t = require('luasnip.nodes.textNode').T,
@@ -84,18 +84,18 @@ vim.api.nvim_create_user_command('LuaSnipEdit', function()
 end, { nargs = 0 })
 
 vim.keymap.set({ 'i', 's' }, '<C-j>', function()
-  if require('luasnip').expand_or_locally_jumpable() then
-    require('luasnip').expand_or_jump()
+  if ls.expand_or_locally_jumpable() then
+    ls.expand_or_jump()
   end
 end)
 vim.keymap.set({ 'i', 's' }, '<C-k>', function()
-  if require('luasnip').jumpable(-1) then
-    require('luasnip').jump(-1)
+  if ls.jumpable(-1) then
+    ls.jump(-1)
   end
 end)
 vim.keymap.set({ 'i', 's' }, '<C-l>', function()
-  if require('luasnip').choice_active() then
-    require('luasnip').change_choice(1)
+  if ls.choice_active() then
+    ls.change_choice(1)
   end
 end)
 
