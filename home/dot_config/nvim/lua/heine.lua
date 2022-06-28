@@ -518,7 +518,7 @@ M.compile = function()
     table.insert(lines, string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val)))
   end
   table.sort(lines)
-  local file, msg = io.open(M.compile_path, 'w')
+  local file, msg = io.open(compile_path, 'w')
   if file then
     file:write(table.concat(lines, '\n') .. '\n')
     file:close()
