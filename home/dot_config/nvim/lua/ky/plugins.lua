@@ -189,7 +189,13 @@ jetpack.startup(function(use)
   use('stevearc/dressing.nvim')
   use { 'norcalli/nvim-colorizer.lua', opt = true }
   use { 'tyru/capture.vim', on = ':Capture' }
-  use { 'tyru/open-browser.vim', on = '<Plug>(openbrowser-smart-search)' }
+  use {
+    'tyru/open-browser.vim',
+    on = {
+      '<Plug>(openbrowser-smart-search)',
+      ':OpenBrowserSmartSearch',
+    },
+  }
   use('antoinemadec/FixCursorHold.nvim')
   use('lambdalisue/suda.vim')
   use { 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' }
