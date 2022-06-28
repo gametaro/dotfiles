@@ -20,7 +20,7 @@ utils.toggle_options = function(name, values, opts)
       title = debug.getinfo(1, 'n').name,
       on_open = function(win)
         local buf = vim.api.nvim_win_get_buf(win)
-        vim.api.nvim_buf_set_option(buf, 'filetype', 'markdown')
+        vim.api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
       end,
     })
   end
