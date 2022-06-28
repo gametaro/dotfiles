@@ -79,11 +79,17 @@ if vim.env.XDG_DATA_HOME then
   })
 end
 
--- -- show cursor line only in active window
--- vim.cmd [[
--- autocmd mine InsertLeave,WinEnter * set cursorline
--- autocmd mine InsertEnter,WinLeave * set nocursorline
--- ]]
+autocmd({ 'InsertLeave', 'VimEnter', 'WinEnter', 'BufWinEnter' }, {
+  callback = function()
+    vim.wo.cursorline = true
+  end,
+})
+
+autocmd({ 'InsertEnter', 'WinLeave' }, {
+  callback = function()
+    vim.wo.cursorline = false
+  end,
+})
 
 autocmd('BufReadPost', {
   callback = function()
