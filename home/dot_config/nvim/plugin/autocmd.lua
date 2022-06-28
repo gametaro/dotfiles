@@ -235,20 +235,20 @@ autocmd('BufWritePre', {
 
 autocmd('ModeChanged', {
   pattern = '*:s',
-  callback = function()
+  callback = function(a)
     local ok, luasnip = prequire('luasnip')
     if ok and luasnip.in_snippet() then
-      return vim.diagnostic.disable()
+      return vim.diagnostic.disable(a.buf)
     end
   end,
 })
 
 autocmd('ModeChanged', {
   pattern = '[is]:n',
-  callback = function()
+  callback = function(a)
     local ok, luasnip = prequire('luasnip')
     if ok and luasnip.in_snippet() then
-      return vim.diagnostic.enable()
+      return vim.diagnostic.enable(a.buf)
     end
   end,
 })
