@@ -26,38 +26,39 @@ local jetpack = require('jetpack')
 jetpack.init { copy_method = 'symlink' }
 
 jetpack.startup(function(use)
+  -- Package manager
   use { 'tani/vim-jetpack', opt = true }
-  use { 'lewis6991/impatient.nvim', opt = true }
-  use('nvim-lua/plenary.nvim')
+
+  -- Icon
   use('kyazdani42/nvim-web-devicons')
-  use('machakann/vim-sandwich')
-  use { 'machakann/vim-swap', on = '<Plug>(swap-' }
-  use { 'junegunn/fzf', run = 'call fzf#install()' }
-  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
-  use('numToStr/Comment.nvim')
-  use('monaqa/dial.nvim')
 
-  use { 'tyru/capture.vim', on = ':Capture' }
-  use { 'tyru/open-browser.vim', on = '<Plug>(openbrowser-smart-search)' }
-  use { 'ruifm/gitlinker.nvim' }
-
-  use { 'hrsh7th/vim-eft', on = '<Plug>(eft-' }
-
+  -- Syntax
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use('nvim-treesitter/nvim-treesitter-textobjects')
-  use('JoosepAlviste/nvim-ts-context-commentstring')
   use('p00f/nvim-ts-rainbow')
-  use('windwp/nvim-ts-autotag')
   use {
     'nvim-treesitter/playground',
     on = { 'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor' },
   }
-  use('David-Kunz/treesitter-unit')
-  use('mfussenegger/nvim-ts-hint-textobject')
 
+  -- Editing support
   use('gbprod/substitute.nvim')
   use { 'kana/vim-niceblock', on = '<Plug>(niceblock-' }
+  use('gpanders/editorconfig.nvim')
+  use('andymass/vim-matchup')
+  use { 'machakann/vim-swap', on = '<Plug>(swap-' }
+  use('machakann/vim-sandwich')
+  use('monaqa/dial.nvim')
+  use('windwp/nvim-autopairs')
+  use('gbprod/yanky.nvim')
+  use('ojroques/vim-oscyank')
+  use('echasnovski/mini.nvim')
+  use('tpope/vim-repeat')
+  use('windwp/nvim-ts-autotag')
+  use('JoosepAlviste/nvim-ts-context-commentstring')
+  use('johmsalas/text-case.nvim')
+  use('AckslD/nvim-trevJ.lua')
 
+  -- LSP
   use('neovim/nvim-lspconfig')
   use('williamboman/nvim-lsp-installer')
   use('b0o/schemastore.nvim')
@@ -66,7 +67,9 @@ jetpack.startup(function(use)
   use('lukas-reineke/lsp-format.nvim')
   use('smjonas/inc-rename.nvim')
   use('jose-elias-alvarez/null-ls.nvim')
+  use('kosayoda/nvim-lightbulb')
 
+  -- Completion/Snippets
   use('hrsh7th/nvim-cmp')
   use('hrsh7th/cmp-nvim-lsp')
   use('hrsh7th/cmp-buffer')
@@ -79,8 +82,11 @@ jetpack.startup(function(use)
   use('L3MON4D3/LuaSnip')
   use('petertriho/cmp-git')
   use('rafamadriz/friendly-snippets')
-  use('windwp/nvim-autopairs')
 
+  -- Statusline
+  use('rebelot/heirline.nvim')
+
+  -- Colorscheme
   use('EdenEast/nightfox.nvim')
   use { 'rebelot/kanagawa.nvim', opt = true }
   use { 'Mofiqul/vscode.nvim', opt = true }
@@ -88,49 +94,29 @@ jetpack.startup(function(use)
   use { 'catppuccin/nvim', opt = true }
   use { 'folke/tokyonight.nvim', opt = true }
 
+  -- Keybinding
   use('folke/which-key.nvim')
+  use('anuvyklack/hydra.nvim')
+  use('anuvyklack/keymap-layer.nvim')
 
+  -- File explorer
   use('tamago324/lir.nvim')
   use('tamago324/lir-git-status.nvim')
 
+  -- Search
   use('haya14busa/vim-asterisk')
   use('kevinhwang91/nvim-hlslens')
+  use { 't9md/vim-quickhl', on = '<Plug>(quickhl-' }
 
+  -- Git/Diff
   use { 'TimUntersberger/neogit', on = ':Neogit' }
   use { 'sindrets/diffview.nvim', on = { ':DiffviewOpen', ':DiffviewFileHistory' } }
   use('lewis6991/gitsigns.nvim')
   use { 'rhysd/committia.vim', ft = { 'gitcommit' } }
   use { 'rhysd/git-messenger.vim', on = '<Plug>(git-messenger' }
-
-  use { 'haya14busa/vim-edgemotion', on = '<Plug>(edgemotion-' }
-
-  use('kana/vim-textobj-user')
-  use('kana/vim-textobj-entire')
-  use('kana/vim-textobj-line')
-  use('kana/vim-textobj-indent')
-  use('Julian/vim-textobj-variable-segment')
-
-  use('nvim-telescope/telescope.nvim')
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use('ahmedkhalf/project.nvim')
-  use('natecraddock/telescope-zf-native.nvim')
-  use('nvim-telescope/telescope-live-grep-args.nvim')
-  use { 'ilAYAli/scMRU.nvim' }
-
-  use('ojroques/vim-oscyank')
-
-  use { 'norcalli/nvim-colorizer.lua', opt = true }
-
-  use('folke/todo-comments.nvim')
-
-  use('rcarriga/nvim-notify')
-
-  use {
-    'iamcco/markdown-preview.nvim',
-    ft = 'markdown',
-    run = 'call mkdp#util#install()',
-  }
-
+  use('ruifm/gitlinker.nvim')
+  use('akinsho/git-conflict.nvim')
+  use('AndrewRadev/linediff.vim')
   -- use {
   --   'github/copilot.vim',
   --   setup = function()
@@ -143,11 +129,38 @@ jetpack.startup(function(use)
   --   end,
   -- }
 
-  use('stevearc/dressing.nvim')
-  use('rmagatti/auto-session')
-  use('andymass/vim-matchup')
-
+  -- Motion
+  use { 'haya14busa/vim-edgemotion', on = '<Plug>(edgemotion-' }
+  use('bkad/CamelCaseMotion')
+  use { 'kana/vim-smartword', on = 'VimEnter' }
   use { 'rlane/pounce.nvim', on = { ':Pounce', ':PounceRepeat' } }
+  use { 'hrsh7th/vim-eft', on = '<Plug>(eft-' }
+  use { 'rainbowhxch/accelerated-jk.nvim', on = '<Plug>(accelerated_jk_' }
+
+  -- Text object
+  use('nvim-treesitter/nvim-treesitter-textobjects')
+  use('mfussenegger/nvim-ts-hint-textobject')
+  use('David-Kunz/treesitter-unit')
+  use('kana/vim-textobj-user')
+  use('kana/vim-textobj-entire')
+  use('kana/vim-textobj-line')
+  use('kana/vim-textobj-indent')
+  use('Julian/vim-textobj-variable-segment')
+
+  -- Fuzzy Finder
+  use('nvim-telescope/telescope.nvim')
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use('natecraddock/telescope-zf-native.nvim')
+  use('nvim-telescope/telescope-live-grep-args.nvim')
+  use { 'ilAYAli/scMRU.nvim' }
+  use { 'junegunn/fzf', run = 'call fzf#install()' }
+
+  -- Comment
+  use('numToStr/Comment.nvim')
+  use('folke/todo-comments.nvim')
+
+  -- Project
+  use('ahmedkhalf/project.nvim')
   use('tpope/vim-projectionist')
   vim.g.projectionist_heuristics = {
     ['*.lua'] = {
@@ -173,6 +186,7 @@ jetpack.startup(function(use)
   vim.keymap.set('n', '<LocalLeader>Av', '<Cmd>AV<CR>')
   vim.keymap.set('n', '<LocalLeader>As', '<Cmd>AS<CR>')
 
+  -- Test
   use('vim-test/vim-test')
   vim.g['test#strategy'] = 'harpoon'
   vim.g['test#harpoon_term'] = 1
@@ -182,26 +196,33 @@ jetpack.startup(function(use)
   vim.keymap.set('n', '<LocalLeader>ts', '<Cmd>TestSuite<CR>')
   vim.keymap.set('n', '<LocalLeader>tv', '<Cmd>TestVisit<CR>')
 
-  use('gpanders/editorconfig.nvim')
+  -- Markdown
+  use {
+    'iamcco/markdown-preview.nvim',
+    ft = 'markdown',
+    run = 'call mkdp#util#install()',
+  }
+
+  -- Session
+  use('rmagatti/auto-session')
+
+  -- Marks
   use('ThePrimeagen/harpoon')
-  use('bkad/CamelCaseMotion')
-  use { 'kana/vim-smartword', on = 'VimEnter' }
+
+  -- Quickfix
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+
+  -- Utility
+  use('nvim-lua/plenary.nvim')
+  use('rcarriga/nvim-notify')
+  use { 'lewis6991/impatient.nvim', opt = true }
+  use('stevearc/dressing.nvim')
+  use { 'norcalli/nvim-colorizer.lua', opt = true }
+  use { 'tyru/capture.vim', on = ':Capture' }
+  use { 'tyru/open-browser.vim', on = '<Plug>(openbrowser-smart-search)' }
   use('antoinemadec/FixCursorHold.nvim')
-  use('kosayoda/nvim-lightbulb')
-  use('akinsho/git-conflict.nvim')
-  use('gbprod/yanky.nvim')
-  use('tpope/vim-repeat')
-  use('AckslD/nvim-trevJ.lua')
-  use { 'rainbowhxch/accelerated-jk.nvim', on = '<Plug>(accelerated_jk_' }
-  use { 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' }
-  use('rebelot/heirline.nvim')
   use('lambdalisue/suda.vim')
-  use('johmsalas/text-case.nvim')
-  use('anuvyklack/hydra.nvim')
-  use('anuvyklack/keymap-layer.nvim')
-  use { 't9md/vim-quickhl', on = '<Plug>(quickhl-' }
-  use('AndrewRadev/linediff.vim')
-  use('echasnovski/mini.nvim')
+  use { 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' }
 end)
 
 local sync = function()
