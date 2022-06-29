@@ -31,13 +31,19 @@ local function restore()
 end
 
 local function create()
-  local dir = lir.get_context().dir
-  vim.ui.input({ prompt = 'New File: ', default = dir, completion = 'file' }, function(input)
-    if not input or input == dir then
+  local cwd = vim.loop.cwd()
+  -- temporarily change cwd for filename completion
+  vim.cmd('noau :cd ' .. lir.get_context().dir)
+
+  vim.ui.input({ prompt = 'New File: ', completion = 'file' }, function(input)
+    -- restore original cwd
+    vim.cmd('noau :cd ' .. cwd)
+    if not input or input == '' or input == '.' or input == '..' then
       return
     end
 
-    local file = Path:new(input)
+    local dir = lir.get_context().dir
+    local file = Path:new(dir .. input)
     if file:exists() then
       vim.notify('file exists', vim.log.levels.INFO, { title = 'Lir' })
       return
