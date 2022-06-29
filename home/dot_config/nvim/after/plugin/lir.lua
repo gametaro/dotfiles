@@ -8,7 +8,27 @@ local config = require('lir.config')
 local actions = require('lir.actions')
 local mark_actions = require('lir.mark.actions')
 local clipboard_actions = require('lir.clipboard.actions')
+local history = require('lir.history')
 local Path = require('plenary.path')
+
+local cache_file = Path:new(vim.fn.stdpath('cache'), 'lir', 'history')
+
+local function save()
+  local dir = cache_file:parent()
+  if not dir:exists() then
+    dir:mkdir { parents = true }
+  end
+  cache_file:write(vim.mpack.encode(history.get_all()), 'w')
+end
+
+local function restore()
+  if cache_file:exists() then
+    local ok, histories = pcall(vim.mpack.decode, cache_file:read())
+    if ok then
+      history.replace_all(histories)
+    end
+  end
+end
 
 local function create()
   local dir = lir.get_context().dir
@@ -66,6 +86,13 @@ local delete = function()
     end
   end)
 end
+
+vim.api.nvim_create_autocmd('ExitPre', {
+  group = vim.api.nvim_create_augroup('lir-persistent-history', { clear = true }),
+  callback = save,
+})
+
+restore()
 
 require('lir').setup {
   hide_cursor = false,
