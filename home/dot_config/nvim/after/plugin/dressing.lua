@@ -5,7 +5,7 @@ end
 
 require('dressing').setup {
   input = {
-    border = require('ky.ui').border,
+    border = 'single',
   },
   select = {
     telescope = require('telescope.themes').get_cursor {
