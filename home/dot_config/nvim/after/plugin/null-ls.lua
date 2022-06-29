@@ -56,6 +56,9 @@ local sources = {
   d.vale.with {
     condition = executable('vale'),
   },
+  d.cfn_lint.with {
+    condition = executable('cfn-lint'),
+  },
   -- h.dictionary,
   ca.gitrebase,
 }
