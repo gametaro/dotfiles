@@ -10,7 +10,7 @@ notify.setup {
   timeout = 1000,
   on_open = function(win)
     if vim.api.nvim_win_is_valid(win) then
-      vim.api.nvim_win_set_config(win, { border = require('ky.ui').border })
+      vim.api.nvim_win_set_config(win, { border = 'single' })
     end
   end,
   render = function(bufnr, notif, highlights, config)
