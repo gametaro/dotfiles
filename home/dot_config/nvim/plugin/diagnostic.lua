@@ -22,8 +22,7 @@ vim.diagnostic.config {
       return string.format('%s %s(%s)', diag.message, diag.source, diag.code)
     end,
     prefix = function(diag, _, _)
-      local level = vim.diagnostic.severity[diag.severity]
-      vim.pretty_print(level)
+      local level = diagnostic.severity[diag.severity]
       local prefix = string.format(' %s ', icons[string.lower(level)])
       local hiname = 'Diagnostic' .. level:sub(1, 1) .. level:sub(2):lower()
       return prefix, hiname
