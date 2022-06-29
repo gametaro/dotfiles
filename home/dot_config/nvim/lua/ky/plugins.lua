@@ -186,7 +186,7 @@ jetpack.startup(function(use)
   use('nvim-lua/plenary.nvim')
   use('rcarriga/nvim-notify')
   use { 'lewis6991/impatient.nvim', opt = true }
-  use('stevearc/dressing.nvim')
+  -- use('stevearc/dressing.nvim')
   use { 'norcalli/nvim-colorizer.lua', opt = true }
   use { 'tyru/capture.vim', on = ':Capture' }
   use {
