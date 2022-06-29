@@ -22,12 +22,12 @@ end
 
 M.saturate = function(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
-  return hsluv.hsluv_to_hex { h, clamp(s + v, 0, 100), l }
+  return hsluv.hsluv_to_hex { h, clamp(s + v, -100, 100), l }
 end
 
 M.lighten = function(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
-  return hsluv.hsluv_to_hex { h, s, clamp(l + v, 0, 100) }
+  return hsluv.hsluv_to_hex { h, s, clamp(l + v, -100, 100) }
 end
 
 M.saturate_lighten = function(hex, s, l)
