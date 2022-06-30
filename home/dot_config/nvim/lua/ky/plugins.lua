@@ -228,3 +228,5 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = 'plugins.lua',
   callback = sync,
 })
+
+require('ky.abbrev').cabbrev('js', 'JetpackSync')
