@@ -187,7 +187,6 @@ map('n', leader('ud'), cmd('tcd .. | pwd'))
 
 -- tab
 -- I rarely use tagstack...
-cmd('pwd')
 local _tab = '<C-t>'
 map('n', _tab, '<Nop>')
 local tab = prefix(_tab)
