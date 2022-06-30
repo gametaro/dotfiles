@@ -122,7 +122,7 @@ local config = {
             local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
             return vim.api.nvim_buf_is_loaded(buf)
               and not vim.tbl_contains({
-                'help',
+                -- 'help',
                 'nofile',
                 'prompt',
                 'quickfix',
