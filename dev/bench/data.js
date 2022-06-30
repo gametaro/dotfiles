@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656518606158,
+  "lastUpdate": 1656557374835,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -10841,6 +10841,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.3106980085533334,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "d5041078ec1cd707decea7e293d97e62288a9061",
+          "message": "fix(mapping): wrap with function\n\nexpand() returns project directory without function() ... end,\nand I don't know why...",
+          "timestamp": "2022-06-30T11:05:36+09:00",
+          "tree_id": "095e9dfbb82b4015cc53b8e5b555d1dc48d4511e",
+          "url": "https://github.com/gametaro/dotfiles/commit/d5041078ec1cd707decea7e293d97e62288a9061"
+        },
+        "date": 1656557373434,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.3436134652,
             "unit": "Second"
           }
         ]
