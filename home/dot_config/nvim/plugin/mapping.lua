@@ -178,7 +178,9 @@ for _, v in ipairs { '"', "'", '`' } do
 end
 
 map('n', leader('.'), cmd('edit .'))
-map('n', '-', cmd('edit ' .. fn.expand('%:p:h')))
+map('n', '-', function()
+  vim.cmd('edit ' .. fn.expand('%:p:h'))
+end)
 
 map('n', leader('cd'), cmd('tcd %:p:h | pwd'))
 map('n', leader('ud'), cmd('tcd .. | pwd'))
