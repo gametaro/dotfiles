@@ -1,12 +1,18 @@
+local utils = require('ky.utils')
+
 local map = vim.keymap.set
 local api = vim.api
 local fn = vim.fn
-local cmd = vim.api.nvim_command
 local fmt = string.format
-local utils = require('ky.utils')
+
+local cmd = function(command)
+  return function()
+    api.nvim_command(command)
+  end
+end
 
 local pcmd = function(command)
-  return pcall(cmd, command)
+  return pcall(api.nvim_command, command)
 end
 
 local prefix = function(prefix)
@@ -41,7 +47,7 @@ end
 
 for _, v in ipairs { 'cc', 'dd', 'yy' } do
   map('n', v, function()
-    local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    local row, _ = unpack(api.nvim_win_get_cursor(0))
     local lines = api.nvim_buf_get_lines(0, row - 1, row - 1 + vim.v.count1, true)
     return string.len(vim.trim(table.concat(lines))) == 0 and fmt('"_%s', v) or v
   end, { expr = true, desc = 'does not store the blank line in register. see :help quote_' })
@@ -56,25 +62,15 @@ map('', ';', ':')
 -- map('', 'q;', 'q:')
 
 -- save and quit
-map('n', leader('w'), function()
-  cmd('update')
-end)
-map('n', leader('q'), function()
-  cmd('quit')
-end)
-map('n', leader('a'), function()
-  cmd('quitall')
-end)
+map('n', leader('w'), cmd('update'))
+map('n', leader('q'), cmd('quit'))
+map('n', leader('a'), cmd('quitall'))
 map('n', leader('e'), function()
-  cmd('update')
+  vim.cmd('write')
   if vim.bo.filetype == 'lua' then
-    cmd('luafile %')
+    vim.cmd('luafile %')
   end
 end, { desc = 'write and execute current lua file' })
-
--- for _, v in ipairs { '<C-u>', '<C-d>' } do
---   map('n', v, fmt('%szz', v), { desc = 'keep cursor centered after movement' })
--- end
 
 -- movement in insert/cmdline mode
 map('!', '<C-p>', '<Up>')
@@ -86,40 +82,18 @@ map('c', '<C-a>', '<Home>')
 map('!', '<C-e>', '<End>')
 map('i', '<C-]>', '<Esc><Right>')
 
-map('i', '<M-o>', '<C-o>o')
-map('i', '<M-O>', '<C-o>O')
-
 map('c', '<M-b>', '<S-Left>')
 map('c', '<M-f>', '<S-right>')
 
 -- map({ 'n', 'x' }, 'p', ']p')
 -- map({ 'n', 'x' }, 'P', '[p')
 
--- map('n', '/', '/\v', { noremap = true })
--- map('n', '?', '?\v', { noremap = true })
+-- map('n', '/', '/\v')
+-- map('n', '?', '?\v')
 
--- map('c', '%%', function()
---   return fn.getcmdtype() == ':' and fn.expand('%:h') .. '/' or '%%'
--- end, { expr = true })
--- map('c', '::', function()
---   return fn.getcmdtype() == ':' and fn.expand('%:p:h') .. '/' or '::'
--- end, { expr = true })
 map('c', '<C-x>', function()
   return fn.getcmdtype() == ':' and fn.expand('%:p') or ''
 end, { expr = true })
--- poor man's autopairs
--- map('c', '(', function()
---   return fn.getcmdtype() == ':' and '()<Left>' or '('
--- end, { expr = true })
--- map('c', '[', function()
---   return fn.getcmdtype() == ':' and '[]<Left>' or '['
--- end, { expr = true })
--- map('c', "'", function()
---   return fn.getcmdtype() == ':' and "''<Left>" or "'"
--- end, { expr = true })
--- map('c', '"', function()
---   return fn.getcmdtype() == ':' and '""<Left>' or '"'
--- end, { expr = true })
 
 for _, v in ipairs { '/', '?' } do
   map('c', v, function()
@@ -139,15 +113,9 @@ map('n', '<BS>', '<C-^>')
 -- map('n', 'gb', function()
 --   cmd('buffer #')
 -- end)
-map('t', [[<C-\>]], function()
-  cmd('buffer #')
-end)
-map('n', ']b', function()
-  cmd(vim.v.count1 .. 'bnext')
-end)
-map('n', '[b', function()
-  cmd(vim.v.count1 .. 'bprevious')
-end)
+map('t', [[<C-\>]], cmd('buffer #'))
+map('n', ']b', cmd(vim.v.count1 .. 'bnext'))
+map('n', '[b', cmd(vim.v.count1 .. 'bprevious'))
 
 -- changelist
 map('n', 'g;', function()
@@ -168,13 +136,13 @@ end, { desc = 'Go to [count] newer position in change list (wrapscan).' })
 
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local lines = vim.api.nvim_buf_get_lines(0, row - 1, row, true)[1]
+  local row, col = unpack(api.nvim_win_get_cursor(0))
+  local lines = api.nvim_buf_get_lines(0, row - 1, row, true)[1]
   return lines:sub(1, col):match('^%s+$') and '0' or '^'
 end, { expr = true, desc = 'toggle `0` and `^`' })
 map({ 'n', 'x', 'o' }, '$', function()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local lines = vim.api.nvim_buf_get_lines(0, row - 1, row, true)[1]
+  local row, col = unpack(api.nvim_win_get_cursor(0))
+  local lines = api.nvim_buf_get_lines(0, row - 1, row, true)[1]
   return lines:sub(col + 1 - lines:len()):match('^%s+$') and '$' or 'g_'
 end, { expr = true, desc = 'toggle `$` and `g_`' })
 
@@ -201,46 +169,42 @@ for _, v in ipairs { '"', "'", '`', '{', '(', '[' } do
 end
 
 for _, v in ipairs { '"', "'", '`' } do
-  map({ 'o', 'x' }, fmt('a%s', v), fmt('2i%s', v), { desc = 'do not select blanks' })
+  map(
+    { 'o', 'x' },
+    fmt('a%s', v),
+    fmt('2i%s', v),
+    { desc = 'do not select blanks. see :help iquote' }
+  )
 end
 
-map('n', leader('.'), function()
-  cmd('edit .')
-end)
-map('n', '-', function()
-  cmd('edit ' .. fn.expand('%:p:h'))
-end)
+map('n', leader('.'), cmd('edit .'))
+map('n', '-', cmd('edit ' .. fn.expand('%:p:h')))
 
-map('n', leader('cd'), function()
-  cmd('tcd %:p:h')
-  cmd('pwd')
-end)
-map('n', leader('ud'), function()
-  cmd('tcd ..')
-  cmd('pwd')
-end)
+map('n', leader('cd'), cmd('tcd %:p:h | pwd'))
+map('n', leader('ud'), cmd('tcd .. | pwd'))
 
 -- tab
--- I don't use tagstack...
+-- I rarely use tagstack...
+cmd('pwd')
 local _tab = '<C-t>'
 map('n', _tab, '<Nop>')
 local tab = prefix(_tab)
-map('n', tab('e'), '<Cmd>tabedit %<CR>')
+map('n', tab('e'), cmd('tabedit %'))
 map('n', tab('c'), function()
   local ok, msg = pcmd((vim.v.count == 0 and '' or vim.v.count) .. 'tabclose')
   if not ok then
     vim.notify(msg, vim.log.levels.INFO)
   end
 end)
-map('n', tab('C'), '<Cmd>tabclose!<CR>')
-map('n', tab('n'), '<Cmd>tabnext<CR>')
-map('n', tab('p'), '<Cmd>tabprevious<CR>')
-map('n', tab('o'), '<Cmd>tabonly<CR>')
-map('n', tab('i'), '<Cmd>tabs<CR>')
-map('n', tab('0'), '<Cmd>tabfirst<CR>')
-map('n', tab('$'), '<Cmd>tablast<CR>')
-map('n', tab('l'), '<Cmd>execute "tabmove +" . v:count1<CR>')
-map('n', tab('h'), '<Cmd>execute "tabmove -" . v:count1<CR>')
+map('n', tab('C'), cmd('tabclose!'))
+map('n', tab('n'), cmd('tabnext'))
+map('n', tab('p'), cmd('tabprevious'))
+map('n', tab('o'), cmd('tabonly'))
+map('n', tab('i'), cmd('tabs'))
+map('n', tab('0'), cmd('tabfirst'))
+map('n', tab('$'), cmd('tablast'))
+map('n', tab('l'), cmd('execute "tabmove +" . v:count1'))
+map('n', tab('h'), cmd('execute "tabmove -" . v:count1'))
 
 -- quickfix
 local _qf = 'q'
@@ -253,12 +217,8 @@ map('n', qf('q'), function()
     vim.notify(msg, vim.log.levels.WARN)
   end
 end, { desc = 'go to specific error' })
-map('n', qf('o'), function()
-  cmd('copen')
-end, { desc = 'open quickfix window' })
-map('n', qf('c'), function()
-  cmd('cclose')
-end, { desc = 'close quickfix window' })
+map('n', qf('o'), cmd('copen'))
+map('n', qf('c'), cmd('cclose'))
 map('n', qf('t'), function()
   if fn.getqflist({ winid = 0 }).winid == 0 then
     cmd('copen')
@@ -361,9 +321,7 @@ map('n', loc('o'), function()
     vim.notify(msg, vim.log.levels.INFO)
   end
 end)
-map('n', loc('c'), function()
-  cmd('lclose')
-end)
+map('n', loc('c'), cmd('lclose'))
 map('n', loc('t'), function()
   if fn.getloclist(0, { winid = 0 }).winid == 0 then
     cmd('lopen')
@@ -431,7 +389,7 @@ xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '
 ]])
 
 ---searches process tree for a process having a name in the `names` list
----@param rootpid number
+---@param rootpid integer
 ---@param names table
 ---@param acc? number
 ---@return boolean
@@ -460,7 +418,7 @@ map('t', '<Esc>', function()
 end, { expr = true, desc = [[toggle `<Esc>` and `<C-\><C-n>` based on current process tree]] })
 
 map('n', '<F1>', function()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local row, col = unpack(api.nvim_win_get_cursor(0))
   local items = fn.synstack(row, col + 1)
   if vim.tbl_isempty(items) then
     pcmd('TSHighlightCapturesUnderCursor')
