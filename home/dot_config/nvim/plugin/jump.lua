@@ -47,7 +47,7 @@ local jump = function(opts)
   for i = from, to, unit do
     prev_bufnr = target_bufnr
     target_bufnr = jumplist[i].bufnr
-    next_bufnr = jumplist[i + 1].bufnr
+    -- next_bufnr = jumplist[i + 1].bufnr
     if opts.is_local and (target_bufnr == current_bufnr) or (target_bufnr ~= current_bufnr) then
       if condition(target_bufnr, opts) then
         target_pos = i
