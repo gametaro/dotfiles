@@ -46,7 +46,7 @@ jetpack.startup(function(use)
   use('gpanders/editorconfig.nvim')
   use('andymass/vim-matchup')
   use { 'machakann/vim-swap', on = '<Plug>(swap-' }
-  use('machakann/vim-sandwich')
+  -- use('machakann/vim-sandwich')
   use('monaqa/dial.nvim')
   use('windwp/nvim-autopairs')
   use('gbprod/yanky.nvim')
@@ -134,7 +134,7 @@ jetpack.startup(function(use)
   use('bkad/CamelCaseMotion')
   use { 'kana/vim-smartword', on = 'VimEnter' }
   use { 'rlane/pounce.nvim', on = { ':Pounce', ':PounceRepeat' } }
-  use { 'hrsh7th/vim-eft', on = '<Plug>(eft-' }
+  -- use { 'hrsh7th/vim-eft', on = '<Plug>(eft-' }
   use { 'rainbowhxch/accelerated-jk.nvim', on = '<Plug>(accelerated_jk_' }
 
   -- Text object
@@ -144,7 +144,7 @@ jetpack.startup(function(use)
   use('kana/vim-textobj-user')
   use('kana/vim-textobj-entire')
   use('kana/vim-textobj-line')
-  use('kana/vim-textobj-indent')
+  -- use('kana/vim-textobj-indent')
   use('Julian/vim-textobj-variable-segment')
 
   -- Fuzzy Finder
@@ -174,7 +174,7 @@ jetpack.startup(function(use)
   }
 
   -- Session
-  use('rmagatti/auto-session')
+  -- use('rmagatti/auto-session')
 
   -- Marks
   use('ThePrimeagen/harpoon')
