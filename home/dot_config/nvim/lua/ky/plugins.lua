@@ -23,7 +23,7 @@ end
 
 vim.cmd('packadd vim-jetpack')
 local jetpack = require('jetpack')
-jetpack.init { copy_method = 'symlink' }
+vim.g.jetpack_copy_method = 'symlink'
 
 jetpack.startup(function(use)
   -- Package manager
