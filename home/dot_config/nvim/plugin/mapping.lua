@@ -108,6 +108,9 @@ for _, v in ipairs { 'h', 'j', 'k', 'l' } do
   map('t', lhs, fmt('<Cmd>wincmd %s<CR>', v))
 end
 
+map('s', '<BS>', '<BS>i')
+map('s', '<C-h>', '<C-h>i')
+
 -- buffer
 map('n', '<BS>', '<C-^>')
 -- map('n', 'gb', function()
