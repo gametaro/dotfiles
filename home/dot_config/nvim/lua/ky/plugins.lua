@@ -54,7 +54,6 @@ jetpack.startup(function(use)
   use('echasnovski/mini.nvim')
   use('tpope/vim-repeat')
   use('windwp/nvim-ts-autotag')
-  use('JoosepAlviste/nvim-ts-context-commentstring')
   use('johmsalas/text-case.nvim')
   use('AckslD/nvim-trevJ.lua')
 
@@ -156,8 +155,9 @@ jetpack.startup(function(use)
   use { 'junegunn/fzf', run = 'call fzf#install()' }
 
   -- Comment
-  use('numToStr/Comment.nvim')
+  -- use('numToStr/Comment.nvim')
   use('folke/todo-comments.nvim')
+  use('JoosepAlviste/nvim-ts-context-commentstring')
 
   -- Project
   use('ahmedkhalf/project.nvim')

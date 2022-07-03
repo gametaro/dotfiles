@@ -123,3 +123,14 @@ sessions.setup {
   verbose = { read = true, write = true, delete = true },
 }
 pcall(sessions.write, sessions.config.file, { force = false })
+
+require('mini.comment').setup {
+  hooks = {
+    pre = function()
+      if vim.bo.filetype == 'typescriptreact' then
+        require('ts_context_commentstring.internal').update_commentstring()
+      end
+    end,
+  },
+}
+require('mini.cursorword').setup {}
