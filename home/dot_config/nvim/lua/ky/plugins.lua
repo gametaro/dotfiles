@@ -78,8 +78,8 @@ jetpack.startup(function(use)
   use('saadparwaiz1/cmp_luasnip')
   use('f3fora/cmp-spell')
   use('hrsh7th/cmp-emoji')
-  use('L3MON4D3/LuaSnip')
   use('petertriho/cmp-git')
+  use('L3MON4D3/LuaSnip')
   use('rafamadriz/friendly-snippets')
 
   -- Statusline
