@@ -167,11 +167,7 @@ jetpack.startup(function(use)
   use('vim-test/vim-test')
 
   -- Markdown
-  use {
-    'iamcco/markdown-preview.nvim',
-    ft = 'markdown',
-    run = 'call mkdp#util#install()',
-  }
+  use { 'iamcco/markdown-preview.nvim', run = 'call mkdp#util#install()' }
 
   -- Session
   -- use('rmagatti/auto-session')
