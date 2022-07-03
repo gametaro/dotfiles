@@ -86,7 +86,7 @@ jetpack.startup(function(use)
   use('rebelot/heirline.nvim')
 
   -- Colorscheme
-  use('EdenEast/nightfox.nvim')
+  use { 'EdenEast/nightfox.nvim', opt = true }
   use { 'rebelot/kanagawa.nvim', opt = true }
   use { 'Mofiqul/vscode.nvim', opt = true }
   use { 'cocopon/iceberg.vim', opt = true }
