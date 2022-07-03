@@ -14,6 +14,7 @@ vim.keymap.set(
   { expr = true, desc = 'MiniPairs <BS>' }
 )
 
+vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
 require('mini.surround').setup {
   custom_surroundings = {
     [')'] = {
