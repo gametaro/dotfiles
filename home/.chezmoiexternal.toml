@@ -6,7 +6,7 @@
   type = "file"
   url = "https://raw.githubusercontent.com/github/hub/master/etc/hub.fish_completion"
   refreshPeriod = "168h"
-{{- if (and (not .headless) (ne .chezmoi.os "windows") ) }}
+{{- if (and (not .headless) (ne .chezmoi.os "windows")) }}
 {{-   $fontDir := "" }}
 {{-   if eq .chezmoi.os "darwin" }}
 {{-     $fontDir = "Library/Fonts" }}
