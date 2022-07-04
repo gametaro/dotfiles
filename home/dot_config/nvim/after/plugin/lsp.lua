@@ -218,7 +218,7 @@ local configs = {
               callSnippet = 'Replace',
             },
             format = {
-              enable = true,
+              enable = false,
             },
             hint = {
               setType = true,
