@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1656902907322,
+  "lastUpdate": 1656916557407,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -11073,6 +11073,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.3192252958466667,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "df9a1b27cb7d1378391cdb386de1e2f7b71db52b",
+          "message": "chore(git): change conflictstyle to `diff3`\n\n`zdiff3` option is not available on some tools.\n(e.g., git2)",
+          "timestamp": "2022-07-04T14:36:32+09:00",
+          "tree_id": "34a6e8a3f26708b34471a3ec6471296fbd14d8b8",
+          "url": "https://github.com/gametaro/dotfiles/commit/df9a1b27cb7d1378391cdb386de1e2f7b71db52b"
+        },
+        "date": 1656916556372,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.28440802334,
             "unit": "Second"
           }
         ]
