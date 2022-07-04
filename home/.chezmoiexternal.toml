@@ -42,3 +42,9 @@
     type = "file"
     url = "https://raw.githubusercontent.com/rebelot/kanagawa.nvim/master/extras/wezterm.lua"
     refreshPeriod = "168h"
+{{- if (and (not .headless) (eq .chezmoi.os "windows")) }}
+["AppData/Local/clink/fzf.lua"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/chrisant996/clink-fzf/main/fzf.lua"
+    refreshPeriod = "168h"
+{{- end }}
