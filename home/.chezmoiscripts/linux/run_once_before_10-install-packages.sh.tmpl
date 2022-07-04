@@ -5,7 +5,8 @@
   "git"
   "jq"
   "unzip"
-  "wget" -}}
+  "wget"
+  "zsh" -}}
 
 {{ if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
 {{ $packages = concat $packages (list

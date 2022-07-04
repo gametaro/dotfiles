@@ -86,16 +86,13 @@ lsp.handlers['$/progress'] = function(_, result, ctx)
 
   local notif_data = get_notif_data(client_id, result.token)
   if val.kind == 'begin' then
-    notif_data.notification = vim.notify(
-      format_message(val.message or 'Loading...', val.percentage),
-      'info',
-      {
+    notif_data.notification =
+      vim.notify(format_message(val.message or 'Loading...', val.percentage), 'info', {
         title = format_title(val.title, lsp.get_client_by_id(client_id)),
         icon = spinner_frames[1],
         timeout = false,
         hide_from_history = true,
-      }
-    )
+      })
     notif_data.spinner = 1
     update_spinner(client_id, result.token)
   elseif val.kind == 'report' and notif_data then
@@ -104,15 +101,12 @@ lsp.handlers['$/progress'] = function(_, result, ctx)
       hide_from_history = false,
     })
   elseif val.kind == 'end' and notif_data then
-    notif_data.notification = vim.notify(
-      val.message and format_message(val.message) or 'Complete',
-      'info',
-      {
+    notif_data.notification =
+      vim.notify(val.message and format_message(val.message) or 'Complete', 'info', {
         icon = '',
         replace = notif_data.notification,
         timeout = 1000,
-      }
-    )
+      })
     notif_data.spinner = nil
   end
 end

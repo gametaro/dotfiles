@@ -27,47 +27,43 @@ vim.fn['operator#sandwich#set']('delete', 'all', 'highlight', 0)
 vim.fn['textobj#sandwich#set']('all', 'skip_break', 1)
 
 vim.g['sandwich#recipes'] =
-  vim.tbl_extend(
-    'force',
-    vim.deepcopy(vim.g['sandwich#default_recipes']),
+  vim.tbl_extend('force', vim.deepcopy(vim.g['sandwich#default_recipes']), {
     {
-      {
-        buns = { '${', '}' },
-        filetype = {
-          'sh',
-          'javascript',
-          'typescript',
-          'javascriptreact',
-          'typescriptreact',
-        },
-        input = { '$' },
+      buns = { '${', '}' },
+      filetype = {
+        'sh',
+        'javascript',
+        'typescript',
+        'javascriptreact',
+        'typescriptreact',
       },
-      {
-        buns = { '**', '**' },
-        nesting = 0,
-        filetype = { 'markdown' },
-        input = { '2*' },
-      },
-      {
-        buns = { '***', '***' },
-        nesting = 0,
-        filetype = { 'markdown' },
-        input = { '3*' },
-      },
-      {
-        buns = { '"""', '"""' },
-        nesting = 0,
-        filetype = { 'python' },
-        input = { '3"' },
-      },
-      {
-        buns = { '$(', ')' },
-        nesting = 0,
-        filetype = { 'sh' },
-        input = { '$(' },
-      },
-    }
-  )
+      input = { '$' },
+    },
+    {
+      buns = { '**', '**' },
+      nesting = 0,
+      filetype = { 'markdown' },
+      input = { '2*' },
+    },
+    {
+      buns = { '***', '***' },
+      nesting = 0,
+      filetype = { 'markdown' },
+      input = { '3*' },
+    },
+    {
+      buns = { '"""', '"""' },
+      nesting = 0,
+      filetype = { 'python' },
+      input = { '3"' },
+    },
+    {
+      buns = { '$(', ')' },
+      nesting = 0,
+      filetype = { 'sh' },
+      input = { '$(' },
+    },
+  })
 
 local map = vim.keymap.set
 map({ 'n', 'x' }, 's', '<Nop>')

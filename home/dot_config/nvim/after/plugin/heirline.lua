@@ -170,11 +170,8 @@ local FileIcon = {
   init = function(self)
     local filename = vim.fn.fnamemodify(self.filename, ':t')
     local extension = vim.fn.fnamemodify(filename, ':e')
-    self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color(
-      filename,
-      extension,
-      { default = true }
-    )
+    self.icon, self.icon_color =
+      require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
   end,
   provider = function(self)
     return self.icon and (self.icon .. ' ')
@@ -482,10 +479,8 @@ local WorkDir = {
 
 local TerminalName = {
   init = function(self)
-    self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color_by_filetype(
-      'terminal',
-      { default = true }
-    )
+    self.icon, self.icon_color =
+      require('nvim-web-devicons').get_icon_color_by_filetype('terminal', { default = true })
     self.tname = vim.api.nvim_buf_get_name(0):gsub('.*:', '')
   end,
   provider = function(self)

@@ -114,8 +114,8 @@ opt.wildoptions = 'pum'
 opt.winblend = blend
 opt.wrap = false
 
-if fn.executable('fish') > 0 then
-  opt.shell = 'fish'
+if fn.executable('zsh') > 0 then
+  opt.shell = 'zsh'
 end
 
 if fn.executable('rg') > 0 then
