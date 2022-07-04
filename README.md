@@ -24,12 +24,6 @@ Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 bin/chezmoi.exe init --apply gametaro
 ```
 
-With chezmoi:
-
-```bash
-chezmoi init gametaro
-```
-
 With docker:
 
 ```bash
