@@ -1,7 +1,5 @@
 local ok = prequire('substitute')
-if not ok then
-  return
-end
+if not ok then return end
 
 vim.keymap.set('n', 'S', function()
   require('substitute').operator()

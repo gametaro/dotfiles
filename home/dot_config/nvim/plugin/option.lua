@@ -115,13 +115,9 @@ opt.wildoptions = 'pum'
 opt.winblend = blend
 opt.wrap = false
 
-if fn.executable('zsh') > 0 then
-  opt.shell = 'zsh'
-end
+if fn.executable('zsh') > 0 then opt.shell = 'zsh' end
 
-if fn.executable('rg') > 0 then
-  opt.grepprg = 'rg --vimgrep --smart-case --hidden'
-end
+if fn.executable('rg') > 0 then opt.grepprg = 'rg --vimgrep --smart-case --hidden' end
 
 -- neovide
 if fn.exists('g:neovide') > 0 then

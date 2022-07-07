@@ -1,7 +1,5 @@
 local ok = prequire('nvim-treesitter')
-if not ok then
-  return
-end
+if not ok then return end
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = require('ky.utils').headless and {} or 'all',

@@ -1,7 +1,5 @@
 local ok = prequire('luasnip')
-if not ok then
-  return
-end
+if not ok then return end
 
 local ls = require('luasnip')
 local types = require('luasnip.util.types')
@@ -84,19 +82,13 @@ vim.api.nvim_create_user_command('LuaSnipEdit', function()
 end, { nargs = 0 })
 
 vim.keymap.set({ 'i', 's' }, '<C-j>', function()
-  if ls.expand_or_locally_jumpable() then
-    ls.expand_or_jump()
-  end
+  if ls.expand_or_locally_jumpable() then ls.expand_or_jump() end
 end)
 vim.keymap.set({ 'i', 's' }, '<C-k>', function()
-  if ls.jumpable(-1) then
-    ls.jump(-1)
-  end
+  if ls.jumpable(-1) then ls.jump(-1) end
 end)
 vim.keymap.set({ 'i', 's' }, '<C-l>', function()
-  if ls.choice_active() then
-    ls.change_choice(1)
-  end
+  if ls.choice_active() then ls.change_choice(1) end
 end)
 
 require('luasnip.loaders.from_lua').lazy_load()

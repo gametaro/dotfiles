@@ -1,7 +1,5 @@
 local ok = prequire('gitsigns')
-if not ok then
-  return
-end
+if not ok then return end
 
 require('gitsigns').setup {
   -- signs = {

@@ -1,7 +1,5 @@
 local ok = prequire('cmp')
-if not ok then
-  return
-end
+if not ok then return end
 
 local cmp = require('cmp')
 local compare = require('cmp.config.compare')

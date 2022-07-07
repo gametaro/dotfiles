@@ -1,7 +1,5 @@
 local ok = prequire('nvim-lsp-installer')
-if not ok then
-  return
-end
+if not ok then return end
 
 require('nvim-lsp-installer').setup {
   ensure_installed = require('ky.utils').headless and {} or {

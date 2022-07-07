@@ -1,7 +1,5 @@
 local ok = prequire('neogit')
-if not ok then
-  return
-end
+if not ok then return end
 
 vim.keymap.set('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>')
 vim.keymap.set('n', '<LocalLeader>gG', '<Cmd>Neogit commit<CR>')

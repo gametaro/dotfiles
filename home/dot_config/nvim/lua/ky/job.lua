@@ -7,12 +7,8 @@ return function(cmd, args, callback)
   local stdout = vim.loop.new_pipe(false)
 
   local on_read = function(err, data)
-    if err then
-      vim.notify(err, vim.log.levels.WARN, { title = 'Job' })
-    end
-    if data then
-      results[#results + 1] = vim.trim(data)
-    end
+    if err then vim.notify(err, vim.log.levels.WARN, { title = 'Job' }) end
+    if data then results[#results + 1] = vim.trim(data) end
   end
 
   local on_exit = function(code, signal)

@@ -1,7 +1,5 @@
 local ok = prequire('bqf')
-if not ok then
-  return
-end
+if not ok then return end
 
 require('bqf').setup {
   preview = {

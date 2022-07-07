@@ -1,7 +1,5 @@
 local ok = prequire('gitlinker')
-if not ok then
-  return
-end
+if not ok then return end
 
 for _, v in ipairs { 'n', 'v' } do
   vim.keymap.set(v, 'gb', function()

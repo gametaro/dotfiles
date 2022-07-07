@@ -205,9 +205,7 @@ local sync = function()
     for _, name in ipairs(names) do
       if not jetpack.tap(name) then
         jetpack.sync()
-        if bootstrapping then
-          vim.cmd('quitall!')
-        end
+        if bootstrapping then vim.cmd('quitall!') end
         break
       end
     end

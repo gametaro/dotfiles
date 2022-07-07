@@ -47,9 +47,7 @@ if vim.env.XDG_DATA_HOME then
   autocmd('BufWritePost', {
     pattern = vim.fs.normalize(vim.env.XDG_DATA_HOME) .. '/chezmoi/*',
     callback = function(a)
-      if string.match(a.file, '%.git/') then
-        return
-      end
+      if string.match(a.file, '%.git/') then return end
       local output = ''
       local notification
       local command = { 'chezmoi', 'apply', '--source-path', a.match }
@@ -93,9 +91,7 @@ autocmd({ 'InsertEnter', 'WinLeave' }, {
 
 autocmd('BufReadPost', {
   callback = function()
-    if vim.tbl_contains({ 'nofile' }, vim.bo.buftype) then
-      return
-    end
+    if vim.tbl_contains({ 'nofile' }, vim.bo.buftype) then return end
     if vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo.filetype) then
       return
     end
@@ -134,9 +130,7 @@ autocmd('BufLeave', {
 
 autocmd('BufWritePost', {
   callback = function()
-    if vim.wo.diff then
-      cmd('diffupdate')
-    end
+    if vim.wo.diff then cmd('diffupdate') end
   end,
 })
 
@@ -203,9 +197,7 @@ autocmd({ 'TermEnter', 'TermLeave' }, {
 
 autocmd('TermClose', {
   callback = function(a)
-    if vim.v.event.status == 0 then
-      api.nvim_buf_delete(a.buf, { force = true })
-    end
+    if vim.v.event.status == 0 then api.nvim_buf_delete(a.buf, { force = true }) end
   end,
   desc = 'close terminal buffers if the job exited without error. see :help terminal-status',
 })
@@ -214,9 +206,7 @@ autocmd('BufEnter', {
   pattern = 'term://*',
   callback = function()
     local ok, term_mode = pcall(api.nvim_buf_get_var, 0, 'term_mode')
-    if ok and term_mode == 't' then
-      cmd('startinsert')
-    end
+    if ok and term_mode == 't' then cmd('startinsert') end
   end,
 })
 
@@ -233,9 +223,7 @@ autocmd('BufEnter', {
 autocmd('BufWritePre', {
   callback = function()
     local dir = fn.expand('<afile>:p:h')
-    if fn.isdirectory(dir) == 0 then
-      fn.mkdir(dir, 'p')
-    end
+    if fn.isdirectory(dir) == 0 then fn.mkdir(dir, 'p') end
   end,
 })
 
@@ -243,9 +231,7 @@ autocmd('ModeChanged', {
   pattern = '*:s',
   callback = function(a)
     local ok, luasnip = prequire('luasnip')
-    if ok and luasnip.in_snippet() then
-      return vim.diagnostic.disable(a.buf)
-    end
+    if ok and luasnip.in_snippet() then return vim.diagnostic.disable(a.buf) end
   end,
 })
 
@@ -253,9 +239,7 @@ autocmd('ModeChanged', {
   pattern = '[is]:n',
   callback = function(a)
     local ok, luasnip = prequire('luasnip')
-    if ok and luasnip.in_snippet() then
-      return vim.diagnostic.enable(a.buf)
-    end
+    if ok and luasnip.in_snippet() then return vim.diagnostic.enable(a.buf) end
   end,
 })
 

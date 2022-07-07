@@ -1,7 +1,5 @@
 local ok = prequire('dial.augend')
-if not ok then
-  return
-end
+if not ok then return end
 
 local augend = require('dial.augend')
 

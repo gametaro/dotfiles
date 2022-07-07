@@ -1,7 +1,5 @@
 local ok = prequire('notify')
-if not ok then
-  return
-end
+if not ok then return end
 
 local notify = require('notify')
 local render = require('notify.render')

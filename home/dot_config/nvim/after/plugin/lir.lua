@@ -1,7 +1,5 @@
 local ok = prequire('lir')
-if not ok then
-  return
-end
+if not ok then return end
 
 local lir = require('lir')
 local config = require('lir.config')
@@ -15,18 +13,14 @@ local cache_file = Path:new(vim.fn.stdpath('cache'), 'lir', 'history')
 
 local function save()
   local dir = cache_file:parent()
-  if not dir:exists() then
-    dir:mkdir { parents = true }
-  end
+  if not dir:exists() then dir:mkdir { parents = true } end
   cache_file:write(vim.mpack.encode(history.get_all()), 'w')
 end
 
 local function restore()
   if cache_file:exists() then
     local ok, histories = pcall(vim.mpack.decode, cache_file:read())
-    if ok then
-      history.replace_all(histories)
-    end
+    if ok then history.replace_all(histories) end
   end
 end
 
@@ -38,9 +32,7 @@ local function create()
   vim.ui.input({ prompt = 'New File: ', completion = 'file' }, function(input)
     -- restore original cwd
     vim.cmd('noau :cd ' .. cwd)
-    if not input or input == '' or input == '.' or input == '..' then
-      return
-    end
+    if not input or input == '' or input == '.' or input == '..' then return end
 
     local dir = lir.get_context().dir
     local file = Path:new(dir .. input)
@@ -67,9 +59,7 @@ local function create()
 
     -- Jump to a line in the parent directory of the file you created.
     local row = lir.get_context():indexof(filename:match('^[^/]+'))
-    if row then
-      vim.api.nvim_win_set_cursor(0, { row, 1 })
-    end
+    if row then vim.api.nvim_win_set_cursor(0, { row, 1 }) end
   end)
 end
 

@@ -44,9 +44,7 @@ end
 
 local modified = function(tab)
   local ignore = { 'TelescopePrompt' }
-  if vim.tbl_contains(ignore, vim.bo[(tab_buf(tab))].filetype) then
-    return ''
-  end
+  if vim.tbl_contains(ignore, vim.bo[(tab_buf(tab))].filetype) then return '' end
   return vim.api.nvim_buf_get_option(tab_buf(tab), 'modified') and '●' or '',
     { fg = vim.api.nvim_get_hl_by_name('diffChanged', true).foreground }
 end
@@ -70,9 +68,7 @@ local icon = function(tab)
   local filename = vim.api.nvim_buf_get_name(tab_buf(tab))
   local extension = vim.fn.fnamemodify(filename, ':e')
   local ok, devicons = prequire('nvim-web-devicons')
-  if not ok then
-    return ''
-  end
+  if not ok then return '' end
   local icon, color = devicons.get_icon_color(filename, extension, { default = true })
   return icon, { fg = color }
 end

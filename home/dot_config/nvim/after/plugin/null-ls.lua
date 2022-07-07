@@ -1,7 +1,5 @@
 local ok = prequire('null-ls')
-if not ok then
-  return
-end
+if not ok then return end
 
 local null_ls = require('null-ls')
 local f = null_ls.builtins.formatting

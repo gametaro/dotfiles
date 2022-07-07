@@ -1,7 +1,5 @@
 local ok = prequire('yanky')
-if not ok then
-  return
-end
+if not ok then return end
 
 local mapping = require('yanky.telescope.mapping')
 

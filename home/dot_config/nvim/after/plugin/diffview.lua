@@ -1,7 +1,5 @@
 local ok = prequire('diffview')
-if not ok then
-  return
-end
+if not ok then return end
 
 vim.keymap.set('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>')
 vim.keymap.set('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory<CR>')

@@ -1,7 +1,5 @@
 local ok = prequire('hlslens')
-if not ok then
-  return
-end
+if not ok then return end
 
 for _, v in ipairs { 'n', 'N' } do
   vim.keymap.set('n', v, function()

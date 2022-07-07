@@ -1,7 +1,5 @@
 local ok = prequire('telescope')
-if not ok then
-  return
-end
+if not ok then return end
 
 local telescope = require('telescope')
 local actions = require('telescope.actions')
@@ -24,9 +22,7 @@ local horizontal = {
 
 local yank = function(prompt_bufnr)
   local selection = action_state.get_selected_entry()
-  if selection == nil then
-    return
-  end
+  if selection == nil then return end
   actions.close(prompt_bufnr)
   vim.fn.setreg(vim.v.register, selection.value)
 end
@@ -175,9 +171,7 @@ local map = vim.keymap.set
 
 map('n', '<C-p>', function()
   local ok = pcall(builtin.git_files)
-  if not ok then
-    builtin.find_files()
-  end
+  if not ok then builtin.find_files() end
 end)
 map('n', '<C-b>', builtin.buffers)
 -- map('n', '<C-g>', builtin.live_grep)

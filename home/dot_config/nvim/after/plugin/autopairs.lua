@@ -1,7 +1,5 @@
 local ok = prequire('nvim-autopairs')
-if not ok then
-  return
-end
+if not ok then return end
 
 local npairs = require('nvim-autopairs')
 npairs.setup {

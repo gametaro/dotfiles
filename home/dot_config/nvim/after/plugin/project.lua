@@ -1,7 +1,5 @@
 local ok = prequire('project_nvim')
-if not ok then
-  return
-end
+if not ok then return end
 
 require('project_nvim').setup {
   manual_mode = true,
@@ -15,12 +13,8 @@ local group = vim.api.nvim_create_augroup('ProjectCd', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
   group = group,
   callback = function()
-    if vim.tbl_contains({ 'nofile', 'prompt' }, vim.bo.buftype) then
-      return
-    end
-    if vim.tbl_contains({ 'help', 'qf' }, vim.bo.filetype) then
-      return
-    end
+    if vim.tbl_contains({ 'nofile', 'prompt' }, vim.bo.buftype) then return end
+    if vim.tbl_contains({ 'help', 'qf' }, vim.bo.filetype) then return end
     local ok, project = prequire('project_nvim.project')
     if ok then
       local root = project.get_project_root()

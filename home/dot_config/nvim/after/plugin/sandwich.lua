@@ -1,6 +1,4 @@
-if vim.g.loaded_sandwich ~= 1 then
-  return
-end
+if vim.g.loaded_sandwich ~= 1 then return end
 
 local fmt = string.format
 

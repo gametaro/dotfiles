@@ -1,7 +1,5 @@
 local ok = prequire('hydra')
-if not ok then
-  return
-end
+if not ok then return end
 
 local Hydra = require('hydra')
 
@@ -67,9 +65,7 @@ Hydra {
     {
       'J',
       function()
-        if vim.wo.diff then
-          return ']c'
-        end
+        if vim.wo.diff then return ']c' end
         vim.schedule(function()
           gitsigns.next_hunk()
         end)
@@ -80,9 +76,7 @@ Hydra {
     {
       'K',
       function()
-        if vim.wo.diff then
-          return '[c'
-        end
+        if vim.wo.diff then return '[c' end
         vim.schedule(function()
           gitsigns.prev_hunk()
         end)

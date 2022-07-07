@@ -1,7 +1,5 @@
 local ok = prequire('lspconfig')
-if not ok then
-  return
-end
+if not ok then return end
 
 local lsp_config = require('lspconfig')
 local lsp_installer = require('nvim-lsp-installer')
@@ -42,9 +40,7 @@ local on_attach = function(client, bufnr)
   map('n', 'gr', vim.lsp.buf.references)
   map('n', '<LocalLeader>cl', vim.lsp.codelens.run)
 
-  if client.config.flags then
-    client.config.flags.allow_incremental_sync = true
-  end
+  if client.config.flags then client.config.flags.allow_incremental_sync = true end
 
   -- sometimes feel annoyed...
   -- if client.server_capabilities.documentHighlightProvider then
@@ -118,9 +114,7 @@ local custom_on_attach = {
 vim.api.nvim_create_autocmd('LspAttach', {
   group = 'mine',
   callback = function(a)
-    if not a.data.client_id then
-      return
-    end
+    if not a.data.client_id then return end
 
     local bufnr = a.buf
     local client = vim.lsp.get_client_by_id(a.data.client_id)
@@ -129,9 +123,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     require('lsp-format').on_attach(client)
 
-    if custom_on_attach[client.name] then
-      custom_on_attach[client.name](client)
-    end
+    if custom_on_attach[client.name] then custom_on_attach[client.name](client) end
   end,
 })
 

@@ -496,9 +496,7 @@ end
 
 M.reload = function()
   for k, _ in pairs(package.loaded) do
-    if string.match(k, '^heine') then
-      package.loaded[k] = nil
-    end
+    if string.match(k, '^heine') then package.loaded[k] = nil end
   end
 end
 

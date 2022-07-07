@@ -3,9 +3,7 @@ local fn = vim.fn
 
 local index_of = function(t, v)
   for i = 1, #t do
-    if t[i] == v then
-      return i
-    end
+    if t[i] == v then return i end
   end
   return nil
 end
@@ -21,9 +19,7 @@ end
 local list_files = function(path)
   local files = {}
   for name, type in vim.fs.dir(path) do
-    if type == 'file' then
-      table.insert(files, name)
-    end
+    if type == 'file' then table.insert(files, name) end
   end
   return files
 end
@@ -38,17 +34,13 @@ local walkthrough = function(opts)
   -- would be better if results were cached per directory?
   local files = list_files(dirname)
   local idx = index_of(files, filename)
-  if idx == nil then
-    return
-  end
+  if idx == nil then return end
   if opts.next then
     target_idx = next_index(idx, #files)
   else
     target_idx = prev_index(idx, #files)
   end
-  if target_idx == nil then
-    return
-  end
+  if target_idx == nil then return end
 
   vim.cmd('edit ' .. dirname .. '/' .. files[target_idx])
 end

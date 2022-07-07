@@ -62,9 +62,7 @@ hsluv.max_safe_chroma_for_l = function(l)
 
   for i = 1, 6 do
     local length = distance_line_from_origin(bounds[i])
-    if length >= 0 then
-      min = math.min(min, length)
-    end
+    if length >= 0 then min = math.min(min, length) end
   end
   return min
 end
@@ -77,9 +75,7 @@ hsluv.max_safe_chroma_for_lh = function(l, h)
   for i = 1, 6 do
     local bound = bounds[i]
     local length = length_of_ray_until_intersect(hrad, bound)
-    if length >= 0 then
-      min = math.min(min, length)
-    end
+    if length >= 0 then min = math.min(min, length) end
   end
   return min
 end
@@ -155,9 +151,7 @@ hsluv.xyz_to_luv = function(tuple)
     varV = 0
   end
   local L = hsluv.y_to_l(Y)
-  if L == 0 then
-    return { 0, 0, 0 }
-  end
+  if L == 0 then return { 0, 0, 0 } end
   return { L, 13 * L * (varU - hsluv.refU), 13 * L * (varV - hsluv.refV) }
 end
 
@@ -165,9 +159,7 @@ hsluv.luv_to_xyz = function(tuple)
   local L = tuple[1]
   local U = tuple[2]
   local V = tuple[3]
-  if L == 0 then
-    return { 0, 0, 0 }
-  end
+  if L == 0 then return { 0, 0, 0 } end
   local varU = U / (13 * L) + hsluv.refU
   local varV = V / (13 * L) + hsluv.refV
   local Y = hsluv.l_to_y(L)
@@ -185,9 +177,7 @@ hsluv.luv_to_lch = function(tuple)
     H = 0
   else
     H = math.atan2(V, U) * 180.0 / 3.1415926535897932
-    if H < 0 then
-      H = 360 + H
-    end
+    if H < 0 then H = 360 + H end
   end
   return { L, C, H }
 end
@@ -203,12 +193,8 @@ hsluv.hsluv_to_lch = function(tuple)
   local H = tuple[1]
   local S = tuple[2]
   local L = tuple[3]
-  if L > 99.9999999 then
-    return { 100, 0, H }
-  end
-  if L < 0.00000001 then
-    return { 0, 0, H }
-  end
+  if L > 99.9999999 then return { 100, 0, H } end
+  if L < 0.00000001 then return { 0, 0, H } end
   return { L, hsluv.max_safe_chroma_for_lh(L, H) / 100 * S, H }
 end
 
@@ -217,12 +203,8 @@ hsluv.lch_to_hsluv = function(tuple)
   local C = tuple[2]
   local H = tuple[3]
   local max_chroma = hsluv.max_safe_chroma_for_lh(L, H)
-  if L > 99.9999999 then
-    return { H, 0, 100 }
-  end
-  if L < 0.00000001 then
-    return { H, 0, 0 }
-  end
+  if L > 99.9999999 then return { H, 0, 100 } end
+  if L < 0.00000001 then return { H, 0, 0 } end
 
   return { H, C / max_chroma * 100, L }
 end
@@ -231,12 +213,8 @@ hsluv.hpluv_to_lch = function(tuple)
   local H = tuple[1]
   local S = tuple[2]
   local L = tuple[3]
-  if L > 99.9999999 then
-    return { 100, 0, H }
-  end
-  if L < 0.00000001 then
-    return { 0, 0, H }
-  end
+  if L > 99.9999999 then return { 100, 0, H } end
+  if L < 0.00000001 then return { 0, 0, H } end
   return { L, hsluv.max_safe_chroma_for_l(L) / 100 * S, H }
 end
 
@@ -244,12 +222,8 @@ hsluv.lch_to_hpluv = function(tuple)
   local L = tuple[1]
   local C = tuple[2]
   local H = tuple[3]
-  if L > 99.9999999 then
-    return { H, 0, 100 }
-  end
-  if L < 0.00000001 then
-    return { H, 0, 0 }
-  end
+  if L > 99.9999999 then return { H, 0, 100 } end
+  if L < 0.00000001 then return { H, 0, 0 } end
   return { H, C / hsluv.max_safe_chroma_for_l(L) * 100, L }
 end
 

@@ -1,7 +1,5 @@
 local ok = prequire('Comment')
-if not ok then
-  return
-end
+if not ok then return end
 
 require('Comment').setup {
   ignore = '^$',

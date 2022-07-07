@@ -1,7 +1,5 @@
 local ok = prequire('harpoon')
-if not ok then
-  return
-end
+if not ok then return end
 
 require('harpoon').setup {
   global_settings = {

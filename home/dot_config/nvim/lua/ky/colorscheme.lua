@@ -1,9 +1,7 @@
 local colorscheme = 'heine'
 
 local ok = prequire(colorscheme)
-if not ok then
-  return
-end
+if not ok then return end
 
 if colorscheme == 'nightfox' then
   require('nightfox').setup {

@@ -1,7 +1,5 @@
 local ok = prequire('heirline')
-if not ok then
-  return
-end
+if not ok then return end
 
 local heirline = require('heirline')
 local conditions = require('heirline.conditions')
@@ -74,9 +72,7 @@ vim.api.nvim_create_autocmd('User', {
     local buftype = vim.tbl_contains({ 'prompt', 'nofile' }, vim.bo[buf].buftype)
     local filetype = vim.tbl_contains({ 'gitcommit' }, vim.bo[buf].filetype)
 
-    if (buftype or filetype) and vim.bo[buf].filetype ~= 'lir' then
-      vim.opt_local.winbar = nil
-    end
+    if (buftype or filetype) and vim.bo[buf].filetype ~= 'lir' then vim.opt_local.winbar = nil end
   end,
 })
 
@@ -217,9 +213,7 @@ local FileFlags = {
 
 local FileNameModifer = {
   hl = function()
-    if vim.bo.modified then
-      return { italic = true, force = true }
-    end
+    if vim.bo.modified then return { italic = true, force = true } end
   end,
 }
 
@@ -269,9 +263,7 @@ local FileSize = {
     local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
     local stat = vim.loop.fs_stat(vim.api.nvim_buf_get_name(0))
     local fsize = stat and stat.size or 0
-    if fsize <= 0 then
-      return '0' .. suffix[1]
-    end
+    if fsize <= 0 then return '0' .. suffix[1] end
     local i = math.floor((math.log(fsize) / math.log(1024)))
     return string.format('%.3g%s', fsize / math.pow(1024, i), suffix[i + 1])
   end,
@@ -323,9 +315,7 @@ local LSPActive = {
       end, vim.lsp.get_active_clients { bufnr = 0 }),
       ' '
     )
-    if not conditions.width_percent_below(#clients, 0.25) then
-      return
-    end
+    if not conditions.width_percent_below(#clients, 0.25) then return end
     return clients
   end,
   hl = { fg = utils.get_highlight('Comment').fg },
@@ -468,9 +458,7 @@ local WorkDir = {
     )
     local icon = ''
     local cwd = vim.fn.fnamemodify(vim.loop.cwd(), ':~')
-    if not conditions.width_percent_below(#cwd, 0.25) then
-      cwd = vim.fn.pathshorten(cwd)
-    end
+    if not conditions.width_percent_below(#cwd, 0.25) then cwd = vim.fn.pathshorten(cwd) end
     local trail = cwd:sub(-1) == '/' and '' or '/'
     return flag .. ' ' .. icon .. ' ' .. cwd .. trail
   end,
