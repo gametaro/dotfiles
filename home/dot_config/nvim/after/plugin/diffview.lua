@@ -5,6 +5,7 @@ end
 
 vim.keymap.set('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>')
 vim.keymap.set('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory<CR>')
+vim.keymap.set('x', '<LocalLeader>gf', ":'<,'>DiffviewFileHistory<CR>")
 
 local win_config = {
   position = 'bottom',
