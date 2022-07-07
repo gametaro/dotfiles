@@ -70,6 +70,7 @@ opt.listchars = {
 -- opt.modeline = false
 opt.more = false
 opt.mouse = 'nvr'
+opt.mousescroll = { 'ver:1', 'hor:3' }
 opt.number = true
 opt.preserveindent = true
 opt.pumblend = blend
