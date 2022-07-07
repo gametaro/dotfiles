@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+(( $+commands[sheldon] )) && eval "$(sheldon source)"

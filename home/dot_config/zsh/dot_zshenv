@@ -1,0 +1,37 @@
+#!/usr/bin/env zsh
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+
+export EDITOR="nvim"
+export VISUAL="nvim"
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
+
+ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+HISTFILE="$XDG_CACHE_HOME/.zsh_history"
+HISTORY_IGNORE="(l[sal]|cd|pwd|v|zsh)"
+HISTSIZE=50000
+SAVEHIST=10000
+
+WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
+
+skip_global_compinit=1
+
+typeset -U path PATH
+typeset -U cdpath CDPATH
+
+path=(
+  $HOME/bin(N-/)
+  $HOME/.local/bin(N-/)
+  $path
+)
+
+cdpath=(
+  $HOME/*(N-/)
+  $cdpath
+)
+
+export GPG_TTY="$(tty)"

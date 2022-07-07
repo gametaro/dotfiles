@@ -1,0 +1,8 @@
+{{ if (and (eq .chezmoi.os "linux") (not .headless)) -}}
+#!/usr/bin/env sh
+set -eu
+
+chsh --shell "$(which zsh)"
+
+{{- end -}}
+{{/* vim: set filetype=sh: */}}

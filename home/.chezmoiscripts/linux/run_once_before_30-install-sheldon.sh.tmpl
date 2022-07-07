@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.os "linux" -}}
+
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+curl --proto '=https' -fLsS https://rossmacarthur.github.io/install/crate.sh \
+  | bash -s -- --force --repo rossmacarthur/sheldon --to ~/.local/bin
+
+{{ end -}}
+{{/* vim: set filetype=sh: */}}
