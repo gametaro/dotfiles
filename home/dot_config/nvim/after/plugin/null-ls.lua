@@ -59,6 +59,9 @@ local sources = {
   d.cfn_lint.with {
     condition = executable('cfn-lint'),
   },
+  d.zsh.with {
+    condition = executable('zsh'),
+  },
   -- h.dictionary,
   ca.gitrebase,
 }
