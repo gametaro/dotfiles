@@ -2,7 +2,6 @@ local ok = prequire('lspconfig')
 if not ok then return end
 
 local lsp_config = require('lspconfig')
-local lsp_installer = require('nvim-lsp-installer')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -127,6 +126,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+local servers = {
+  'bashls',
+  'cssls',
+  'dockerls',
+  'eslint',
+  'html',
+  'jsonls',
+  'marksman',
+  'sumneko_lua',
+  'tsserver',
+  'yamlls',
+}
+
 local configs = {
   eslint = function()
     return {
@@ -222,8 +234,8 @@ local configs = {
   end,
 }
 
-for _, server in ipairs(lsp_installer.get_installed_servers()) do
-  local config = configs[server.name] and configs[server.name]() or {}
+for _, server in ipairs(servers) do
+  local config = configs[server] and configs[server]() or {}
   config.capabilities = capabilities
-  lsp_config[server.name].setup(config)
+  lsp_config[server].setup(config)
 end
