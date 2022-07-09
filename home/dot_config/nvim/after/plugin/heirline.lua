@@ -330,10 +330,10 @@ local Diagnostics = {
     self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   end,
   static = {
-    error_icon = icons.error,
-    warn_icon = icons.warn,
-    info_icon = icons.info,
-    hint_icon = icons.hint,
+    error_icon = string.format('%s ', icons.error),
+    warn_icon = string.format('%s ', icons.warn),
+    info_icon = string.format('%s ', icons.info),
+    hint_icon = string.format('%s ', icons.hint),
   },
   -- update = { 'DiagnosticChanged', 'BufEnter' },
   on_click = {
