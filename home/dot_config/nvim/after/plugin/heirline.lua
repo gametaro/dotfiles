@@ -309,12 +309,9 @@ local LSPActive = {
     end,
   },
   provider = function()
-    local clients = table.concat(
-      vim.tbl_map(function(client)
-        return client and string.format('%.4s…', client.name) or ''
-      end, vim.lsp.get_active_clients { bufnr = 0 }),
-      ' '
-    )
+    local clients = table.concat(vim.tbl_map(function(client)
+      return client and string.format('%.4s…', client.name) or ''
+    end, vim.lsp.get_active_clients { bufnr = 0 }) or {}, ' ')
     if not conditions.width_percent_below(#clients, 0.25) then return end
     return clients
   end,
