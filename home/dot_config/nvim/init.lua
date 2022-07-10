@@ -7,10 +7,6 @@ _G.prequire = function(modname)
   return pcall(require, modname)
 end
 
-_G.P = function(...)
-  vim.pretty_print(...)
-end
-
 pcall(function()
   vim.cmd('packadd impatient.nvim')
   require('impatient').enable_profile()
