@@ -35,6 +35,8 @@ jetpack.startup(function(use)
   -- Syntax
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use('p00f/nvim-ts-rainbow')
+  use('m-demare/hlargs.nvim')
+  use('zbirenbaum/neodim')
   use {
     'nvim-treesitter/playground',
     on = { 'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor' },
