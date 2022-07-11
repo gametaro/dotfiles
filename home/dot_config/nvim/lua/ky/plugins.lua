@@ -200,6 +200,7 @@ jetpack.startup(function(use)
   vim.g.suda_smart_edit = 1
   use { 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' }
   use('mtdl9/vim-log-highlighting')
+  use('nacro90/numb.nvim')
 end)
 
 local sync = function()
