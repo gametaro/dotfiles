@@ -10,6 +10,8 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias rm='rm -i'
 
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
 # Git
 alias g='git'
 
