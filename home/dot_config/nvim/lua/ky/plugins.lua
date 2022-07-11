@@ -141,7 +141,7 @@ jetpack.startup(function(use)
 
   -- Text object
   use('nvim-treesitter/nvim-treesitter-textobjects')
-  use('mfussenegger/nvim-ts-hint-textobject')
+  use('mfussenegger/nvim-treehopper')
   use('David-Kunz/treesitter-unit')
   use('kana/vim-textobj-user')
   use('kana/vim-textobj-entire')
