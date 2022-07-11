@@ -201,6 +201,7 @@ jetpack.startup(function(use)
   use { 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' }
   use('mtdl9/vim-log-highlighting')
   use('nacro90/numb.nvim')
+  use('wsdjeg/vim-fetch')
 end)
 
 local sync = function()
