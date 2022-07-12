@@ -3,9 +3,10 @@ local utils = {}
 ---toggle vim options
 ---@param name string
 ---@param values table
----@param opts table
+---@param opts table|nil
 utils.toggle_options = function(name, values, opts)
-  opts = vim.tbl_extend('force', { silent = false }, opts or {})
+  local defaults = { silent = false }
+  opts = vim.tbl_extend('force', defaults, opts or {})
   values = values or vim.api.nvim_get_option_info(name).type == 'boolean' and { true, false }
   local value
   for i, v in ipairs(values) do
@@ -15,7 +16,7 @@ utils.toggle_options = function(name, values, opts)
       break
     end
   end
-  if not opts.silent then
+  if opts ~= nil and not opts.silent then
     vim.notify(string.format('set `%s` to `%s`', vim.inspect(name), vim.inspect(value)), 'info', {
       title = debug.getinfo(1, 'n').name,
       on_open = function(win)
@@ -27,6 +28,7 @@ utils.toggle_options = function(name, values, opts)
 end
 
 ---check nvim is running on headless mode
+---@return boolean
 utils.headless = #vim.api.nvim_list_uis() == 0
 
 return utils
