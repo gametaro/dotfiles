@@ -6,6 +6,18 @@
 local api = vim.api
 local fn = vim.fn
 
+---@class jump.Options
+---@field ignore_buftype string[]
+---@field ignore_filetype string[]
+---@field only_cwd boolean?
+---@field forward boolean?
+---@field is_local boolean?
+---@field on_success function
+---@field on_error function
+
+---@param bufnr integer
+---@param opts jump.Options
+---@return boolean
 local condition = function(bufnr, opts)
   if not api.nvim_buf_is_valid(bufnr) then return false end
   if
@@ -26,6 +38,7 @@ local condition = function(bufnr, opts)
   return true
 end
 
+---@param opts jump.Options
 local jump = function(opts)
   local jumplist, current_pos = unpack(fn.getjumplist())
   if vim.tbl_isempty(jumplist) then return end
@@ -104,6 +117,7 @@ local setloclist = function(open)
   setlist(false, open)
 end
 
+---@param opts jump.Options
 local forward = function(opts)
   opts = opts or {}
   opts.forward = true
@@ -111,6 +125,7 @@ local forward = function(opts)
   jump(opts)
 end
 
+---@param opts jump.Options
 local backward = function(opts)
   opts = opts or {}
   opts.forward = false
@@ -118,6 +133,7 @@ local backward = function(opts)
   jump(opts)
 end
 
+---@param opts jump.Options
 local forward_local = function(opts)
   opts = opts or {}
   opts.forward = true
@@ -125,6 +141,7 @@ local forward_local = function(opts)
   jump(opts)
 end
 
+---@param opts jump.Options
 local backward_local = function(opts)
   opts = opts or {}
   opts.forward = false
@@ -132,6 +149,7 @@ local backward_local = function(opts)
   jump(opts)
 end
 
+---@type jump.Options
 local default_opts = {
   ignore_filetype = { 'gitcommit', 'gitrebase' },
   ignore_buftype = { 'terminal', 'help', 'quickfix', 'nofile' },
