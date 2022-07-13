@@ -148,6 +148,7 @@ jetpack.startup(function(use)
   use('kana/vim-textobj-line')
   -- use('kana/vim-textobj-indent')
   -- use('Julian/vim-textobj-variable-segment')
+  use('andrewferrier/textobj-diagnostic.nvim')
 
   -- Fuzzy Finder
   use('nvim-telescope/telescope.nvim')
