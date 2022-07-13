@@ -41,12 +41,16 @@ local client_notifs = {}
 
 local spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' }
 
+---@param client_id integer
+---@param token integer
 local function get_notif_data(client_id, token)
   if not client_notifs[client_id] then client_notifs[client_id] = {} end
   if not client_notifs[client_id][token] then client_notifs[client_id][token] = {} end
   return client_notifs[client_id][token]
 end
 
+---@param client_id integer
+---@param token integer
 local function update_spinner(client_id, token)
   local notif_data = get_notif_data(client_id, token)
   if notif_data.spinner then
@@ -67,6 +71,9 @@ local function format_title(title, client)
   return client.name .. (#title > 0 and ': ' .. title or '')
 end
 
+---@param message string?
+---@param percentage integer?
+---@return string
 local function format_message(message, percentage)
   return (percentage and percentage .. '%\t' or '') .. (message or '')
 end
