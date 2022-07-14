@@ -7,7 +7,13 @@ local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
+---@param client table
+---@param bufnr integer
 local on_attach = function(client, bufnr)
+  ---@param mode string|string[]
+  ---@param lhs string
+  ---@param rhs function
+  ---@param opts table
   local function map(mode, lhs, rhs, opts)
     opts = opts or {}
     opts.buffer = bufnr
@@ -94,6 +100,7 @@ local on_attach = function(client, bufnr)
   -- })
 end
 
+---@type table<string, function>
 local custom_on_attach = {
   tsserver = function(client)
     local ts = require('nvim-lsp-ts-utils')
@@ -126,26 +133,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-local servers = {
-  'bashls',
-  'cssls',
-  'dockerls',
-  'eslint',
-  'html',
-  'jsonls',
-  'marksman',
-  'sumneko_lua',
-  'tsserver',
-  'yamlls',
-}
-
+---@type table<string, function>
 local configs = {
+  angularls = function()
+    return {}
+  end,
+  bashls = function()
+    return {}
+  end,
+  cssls = function()
+    return {}
+  end,
+  dockerls = function()
+    return {}
+  end,
   eslint = function()
     return {
       settings = {
         format = { enable = true },
       },
     }
+  end,
+  html = function()
+    return {}
   end,
   jsonls = function()
     return {
@@ -156,6 +166,9 @@ local configs = {
         },
       },
     }
+  end,
+  marksman = function()
+    return {}
   end,
   yamlls = function()
     return {
@@ -232,9 +245,12 @@ local configs = {
       },
     }
   end,
+  tsserver = function()
+    return {}
+  end,
 }
 
-for _, server in ipairs(servers) do
+for _, server in ipairs(vim.tbl_keys(configs)) do
   local config = configs[server] and configs[server]() or {}
   config.capabilities = capabilities
   lsp_config[server].setup(config)
