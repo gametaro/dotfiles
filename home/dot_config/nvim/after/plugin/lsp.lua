@@ -1,7 +1,7 @@
 local ok = prequire('lspconfig')
 if not ok then return end
 
-local lsp_config = require('lspconfig')
+local lspconfig = require('lspconfig')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -253,5 +253,5 @@ local configs = {
 for _, server in ipairs(vim.tbl_keys(configs)) do
   local config = configs[server] and configs[server]() or {}
   config.capabilities = capabilities
-  lsp_config[server].setup(config)
+  lspconfig[server].setup(config)
 end
