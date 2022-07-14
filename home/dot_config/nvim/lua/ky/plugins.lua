@@ -58,6 +58,7 @@ jetpack.startup(function(use)
   use('windwp/nvim-ts-autotag')
   use('johmsalas/text-case.nvim')
   use('AckslD/nvim-trevJ.lua')
+  use('kylechui/nvim-surround')
 
   -- LSP
   use('neovim/nvim-lspconfig')
