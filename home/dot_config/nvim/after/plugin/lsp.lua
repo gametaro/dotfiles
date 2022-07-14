@@ -250,8 +250,8 @@ local configs = {
   end,
 }
 
-for _, server in ipairs(vim.tbl_keys(configs)) do
-  local config = configs[server] and configs[server]() or {}
+for server, _config in pairs(configs) do
+  local config = _config()
   config.capabilities = capabilities
   lspconfig[server].setup(config)
 end
