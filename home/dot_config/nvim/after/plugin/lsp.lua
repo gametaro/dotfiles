@@ -4,7 +4,9 @@ if not ok then return end
 local lspconfig = require('lspconfig')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local lsp = vim.lsp
+
+local capabilities = lsp.protocol.make_client_capabilities()
 capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
 ---@param client table
@@ -20,30 +22,30 @@ local on_attach = function(client, bufnr)
     vim.keymap.set(mode, lhs, rhs, opts)
   end
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  map('n', 'gD', vim.lsp.buf.declaration)
-  map('n', 'gd', vim.lsp.buf.definition)
-  map('n', 'K', vim.lsp.buf.hover)
-  map('n', 'gi', vim.lsp.buf.implementation)
-  map('i', '<C-s>', vim.lsp.buf.signature_help)
-  map('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder)
-  map('n', '<LocalLeader>wr', vim.lsp.buf.remove_workspace_folder)
+  -- See `:help lsp.*` for documentation on any of the below functions
+  map('n', 'gD', lsp.buf.declaration)
+  map('n', 'gd', lsp.buf.definition)
+  map('n', 'K', lsp.buf.hover)
+  map('n', 'gi', lsp.buf.implementation)
+  map('i', '<C-s>', lsp.buf.signature_help)
+  map('n', '<LocalLeader>wa', lsp.buf.add_workspace_folder)
+  map('n', '<LocalLeader>wr', lsp.buf.remove_workspace_folder)
   map('n', '<LocalLeader>wl', function()
-    vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+    vim.pretty_print(lsp.buf.list_workspace_folders())
   end)
-  map('n', '<LocalLeader>D', vim.lsp.buf.type_definition)
-  map('n', '<LocalLeader>rN', vim.lsp.buf.rename)
+  map('n', '<LocalLeader>D', lsp.buf.type_definition)
+  map('n', '<LocalLeader>rN', lsp.buf.rename)
   map('n', '<LocalLeader>rn', function()
     return ':IncRename ' .. vim.fn.expand('<cword>')
   end, { expr = true })
   map('n', '<LocalLeader>ca', function()
-    vim.lsp.buf.code_action {
+    lsp.buf.code_action {
       apply = true,
     }
   end)
-  map('x', '<LocalLeader>ca', vim.lsp.buf.range_code_action)
-  map('n', 'gr', vim.lsp.buf.references)
-  map('n', '<LocalLeader>cl', vim.lsp.codelens.run)
+  map('x', '<LocalLeader>ca', lsp.buf.range_code_action)
+  map('n', 'gr', lsp.buf.references)
+  map('n', '<LocalLeader>cl', lsp.codelens.run)
 
   if client.config.flags then client.config.flags.allow_incremental_sync = true end
 
@@ -54,18 +56,18 @@ local on_attach = function(client, bufnr)
   --     group = group,
   --     buffer = bufnr,
   --     callback = function()
-  --       vim.lsp.buf.document_highlight()
+  --       lsp.buf.document_highlight()
   --     end,
   --   })
   --   vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
   --     group = group,
   --     buffer = bufnr,
   --     callback = function()
-  --       vim.lsp.buf.clear_references()
+  --       lsp.buf.clear_references()
   --     end, })
   -- end
   map('n', '<M-f>', function()
-    vim.lsp.buf.format {
+    lsp.buf.format {
       async = true,
       bufnr = bufnr,
       filter = function(c)
@@ -73,7 +75,7 @@ local on_attach = function(client, bufnr)
       end,
     }
   end)
-  -- map('n', '<M-f>f', vim.lsp.buf.range_formatting)
+  -- map('n', '<M-f>f', lsp.buf.range_formatting)
 
   -- local group = vim.api.nvim_create_augroup('lsp_format', { clear = false })
   -- vim.api.nvim_clear_autocmds { buffer = bufnr, group = group }
@@ -84,7 +86,7 @@ local on_attach = function(client, bufnr)
   --       return
   --     end
 
-  --     vim.lsp.buf.format {
+  --     lsp.buf.format {
   --       async = true,
   --       bufnr = a.buf,
   --       filter = function(c)
@@ -123,7 +125,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if not a.data.client_id then return end
 
     local bufnr = a.buf
-    local client = vim.lsp.get_client_by_id(a.data.client_id)
+    local client = lsp.get_client_by_id(a.data.client_id)
 
     on_attach(client, bufnr)
 
