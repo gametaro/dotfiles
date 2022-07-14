@@ -204,6 +204,7 @@ jetpack.startup(function(use)
   use('mtdl9/vim-log-highlighting')
   use('nacro90/numb.nvim')
   use('wsdjeg/vim-fetch')
+  use('justinmk/vim-gtfo')
 end)
 
 local sync = function()
