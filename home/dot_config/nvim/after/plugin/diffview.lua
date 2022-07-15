@@ -1,10 +1,6 @@
 local ok = prequire('diffview')
 if not ok then return end
 
-vim.keymap.set('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>')
-vim.keymap.set('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory<CR>')
-vim.keymap.set('x', '<LocalLeader>gf', ":'<,'>DiffviewFileHistory<CR>")
-
 local win_config = {
   position = 'bottom',
   width = 35,
@@ -39,3 +35,11 @@ require('diffview').setup {
     end,
   },
 }
+
+vim.keymap.set('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>')
+vim.keymap.set('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory %<CR>')
+vim.keymap.set('n', '<LocalLeader>gF', '<Cmd>DiffviewFileHistory<CR>')
+vim.keymap.set('x', '<LocalLeader>gf', ":'<,'>DiffviewFileHistory<CR>")
+
+require('ky.abbrev').cabbrev('dvo', 'DiffviewOpen')
+require('ky.abbrev').cabbrev('dvf', 'DiffviewFileHistory')
