@@ -12,6 +12,8 @@ alias rm='rm -i'
 
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 
+alias sudo='sudo '
+
 # Git
 alias g='git'
 
