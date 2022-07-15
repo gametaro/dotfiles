@@ -67,6 +67,10 @@ map('', ';', ':')
 -- map('', ':', ';')
 -- map('', 'q;', 'q:')
 
+-- swap ' for `
+map('n', "'", '`')
+map('n', '`', "'")
+
 -- save and quit
 map('n', leader('w'), cmd('update'))
 map('n', leader('q'), cmd('quit'))
