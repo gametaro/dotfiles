@@ -5,16 +5,22 @@ local api = vim.api
 local fn = vim.fn
 local fmt = string.format
 
+---@param command string
+---@return function
 local cmd = function(command)
   return function()
     api.nvim_command(command)
   end
 end
 
+---@param command string
+---@return boolean
 local pcmd = function(command)
   return pcall(api.nvim_command, command)
 end
 
+---@param prefix string
+---@return function
 local prefix = function(prefix)
   return function(s)
     return prefix .. s
