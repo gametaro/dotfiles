@@ -37,6 +37,8 @@ jetpack.startup(function(use)
   use('p00f/nvim-ts-rainbow')
   use('m-demare/hlargs.nvim')
   use('zbirenbaum/neodim')
+  use { 'norcalli/nvim-colorizer.lua', opt = true }
+  use('mtdl9/vim-log-highlighting')
   use {
     'nvim-treesitter/playground',
     on = { 'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor' },
@@ -184,12 +186,13 @@ jetpack.startup(function(use)
   -- Quickfix
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 
+  -- UI
+  use('rcarriga/nvim-notify')
+  -- use('stevearc/dressing.nvim')
+
   -- Utility
   use('nvim-lua/plenary.nvim')
-  use('rcarriga/nvim-notify')
   use { 'lewis6991/impatient.nvim', opt = true }
-  -- use('stevearc/dressing.nvim')
-  use { 'norcalli/nvim-colorizer.lua', opt = true }
   use { 'tyru/capture.vim', on = ':Capture' }
   use {
     'tyru/open-browser.vim',
@@ -202,7 +205,6 @@ jetpack.startup(function(use)
   use('lambdalisue/suda.vim')
   vim.g.suda_smart_edit = 1
   use { 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' }
-  use('mtdl9/vim-log-highlighting')
   use('nacro90/numb.nvim')
   use('wsdjeg/vim-fetch')
   use('justinmk/vim-gtfo')
