@@ -92,7 +92,7 @@ opt.shortmess:append {
 -- opt.showbreak = '↳ '
 -- opt.showcmd = false
 opt.showmode = false
-opt.signcolumn = 'yes'
+opt.signcolumn = 'yes:2'
 opt.smartcase = true
 opt.smartindent = true
 opt.spellcapcheck = ''
