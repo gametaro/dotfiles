@@ -21,7 +21,7 @@ diagnostic.config {
     -- source = 'always',
     header = { 'Diagnostic', 'Title' },
     format = function(diag)
-      return string.format('%s %s(%s)', diag.message, diag.source, diag.code)
+      return string.format('%s[%s](%s)', diag.message, diag.source, diag.code)
     end,
     prefix = function(diag, _, _)
       local level = diagnostic.severity[diag.severity]
