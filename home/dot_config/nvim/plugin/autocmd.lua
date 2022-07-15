@@ -90,9 +90,11 @@ autocmd({ 'InsertEnter', 'WinLeave' }, {
 })
 
 autocmd('BufReadPost', {
-  callback = function()
-    if vim.tbl_contains({ 'nofile' }, vim.bo.buftype) then return end
-    if vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo.filetype) then
+  callback = function(a)
+    if vim.tbl_contains({ 'nofile' }, vim.bo[a.buf].buftype) then return end
+    if
+      vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo[a.buf].filetype)
+    then
       return
     end
     local row, col = unpack(api.nvim_buf_get_mark(0, '"'))
@@ -115,8 +117,12 @@ autocmd('FocusLost', {
 })
 
 autocmd('BufLeave', {
-  callback = function()
-    if vim.bo.buftype == '' and vim.bo.filetype ~= '' and vim.bo.modifiable then
+  callback = function(a)
+    if
+      vim.bo[a.buf].buftype == ''
+      and vim.bo[a.buf].filetype ~= ''
+      and vim.bo[a.buf].modifiable
+    then
       cmd('silent! update')
     end
   end,
