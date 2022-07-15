@@ -482,6 +482,9 @@ M.highlight_groups = {
   -- vim-eft
   EftChar = { fg = search_bg, bold = true },
   EftSubChar = { fg = whitespace_fg, bold = true },
+
+  -- marks.nvim
+  MarkSignHL = { fg = M.palette.orange },
 }
 
 M.load = function()
