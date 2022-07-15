@@ -3,9 +3,7 @@ if not ok then return end
 
 require('which-key').setup {
   plugins = {
-    presets = {
-      operators = false,
-    },
+    marks = false,
     spelling = {
       enabled = true,
     },
