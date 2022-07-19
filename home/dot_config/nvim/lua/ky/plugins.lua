@@ -102,7 +102,6 @@ jetpack.startup(function(use)
   -- Keybinding
   use('folke/which-key.nvim')
   use('anuvyklack/hydra.nvim')
-  use('anuvyklack/keymap-layer.nvim')
 
   -- File explorer
   use('tamago324/lir.nvim')
