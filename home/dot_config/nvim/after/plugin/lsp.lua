@@ -247,9 +247,6 @@ local configs = {
       },
     }
   end,
-  tsserver = function()
-    return {}
-  end,
 }
 
 for server, _config in pairs(configs) do
@@ -257,3 +254,10 @@ for server, _config in pairs(configs) do
   config.capabilities = capabilities
   lspconfig[server].setup(config)
 end
+
+require('typescript').setup {
+  server = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  },
+}

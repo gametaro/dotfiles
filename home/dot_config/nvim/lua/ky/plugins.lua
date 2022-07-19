@@ -68,7 +68,7 @@ jetpack.startup(function(use)
   use { 'williamboman/mason.nvim', branch = 'alpha' }
   use('b0o/schemastore.nvim')
   use('folke/lua-dev.nvim')
-  use('jose-elias-alvarez/nvim-lsp-ts-utils')
+  use('jose-elias-alvarez/typescript.nvim')
   use('lukas-reineke/lsp-format.nvim')
   use('smjonas/inc-rename.nvim')
   use('jose-elias-alvarez/null-ls.nvim')
