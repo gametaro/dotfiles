@@ -418,10 +418,6 @@ map('n', '<Leader>S', function()
   utils.toggle_options('spell')
 end)
 
-map('n', '<Leader>m', function()
-  utils.toggle_options('mouse', { '', 'nvr' })
-end)
-
 map('n', '<F10>', function()
   utils.toggle_options('list')
   utils.toggle_options('number')
