@@ -89,13 +89,15 @@ local config = {
       require('luasnip').lsp_expand(args.body)
     end,
   },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm { select = true },
-    ['<C-y>'] = cmp.mapping.confirm { select = true, behavior = cmp.SelectBehavior.Insert },
+  mapping = {
+    ['<C-f>'] = { i = cmp.mapping.scroll_docs(4) },
+    ['<C-b>'] = { i = cmp.mapping.scroll_docs(-4) },
+    ['<C-n>'] = { i = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert } },
+    ['<C-p>'] = { i = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert } },
+    ['<C-Space>'] = { i = cmp.mapping.complete() },
+    ['<C-e>'] = { i = cmp.mapping.abort() },
+    ['<CR>'] = { i = cmp.mapping.confirm { select = true, behavior = cmp.SelectBehavior.Replace } },
+    ['<C-y>'] = { i = cmp.mapping.confirm { select = true, behavior = cmp.SelectBehavior.Insert } },
   },
   formatting = {
     deprecated = true,
