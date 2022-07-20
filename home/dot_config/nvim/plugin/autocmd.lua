@@ -51,8 +51,6 @@ if vim.env.XDG_DATA_HOME then
       local output = ''
       local notification
       local command = { 'chezmoi', 'apply', '--source-path', a.match }
-      local win, height
-      local length = 0
       local on_data = function(_, data)
         output = output .. table.concat(data, '\n')
         if #output ~= 0 then
@@ -60,12 +58,7 @@ if vim.env.XDG_DATA_HOME then
             title = table.concat(command, ' '),
             icon = '🏠',
             replace = notification,
-            on_open = function(win_)
-              win, height = win_, vim.api.nvim_win_get_height(win_)
-            end,
           })
-          vim.api.nvim_win_set_height(win, height + length)
-          length = length + 1
         end
       end
       fn.jobstart(command, {
