@@ -104,15 +104,6 @@ end
 
 ---@type table<string, function>
 local custom_on_attach = {
-  tsserver = function(client)
-    local ts = require('nvim-lsp-ts-utils')
-    ts.setup {
-      update_imports_on_move = true,
-      require_confirmation_on_move = true,
-      auto_inlay_hints = false,
-    }
-    ts.setup_client(client)
-  end,
   eslint = function(client)
     client.server_capabilities.documentFormattingProvider = true
     client.config.settings.format.enable = true
