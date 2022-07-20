@@ -89,7 +89,7 @@ map('i', '<C-a>', '<C-c>^')
 map('c', '<C-a>', '<Home>')
 map('!', '<C-e>', '<End>')
 map('i', '<C-]>', '<Esc><Right>')
-map('i', '<C-m>', '<C-g>u<C-m>')
+-- map('i', '<C-m>', '<C-g>u<C-m>')
 
 map('c', '<M-b>', '<S-Left>')
 map('c', '<M-f>', '<S-right>')
