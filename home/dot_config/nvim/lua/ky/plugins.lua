@@ -122,6 +122,7 @@ jetpack.startup(function(use)
   use { 'rhysd/git-messenger.vim', on = '<Plug>(git-messenger' }
   use('ruifm/gitlinker.nvim')
   use('akinsho/git-conflict.nvim')
+  use { 'hotwatermorning/auto-git-diff', ft = { 'gitrebase' } }
   use('AndrewRadev/linediff.vim')
   -- use {
   --   'github/copilot.vim',
