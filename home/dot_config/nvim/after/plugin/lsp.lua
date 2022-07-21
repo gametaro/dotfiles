@@ -240,8 +240,8 @@ local configs = {
   end,
 }
 
-for server, _config in pairs(configs) do
-  local config = _config()
+for server, config in pairs(configs) do
+  config = config()
   config.capabilities = capabilities
   lspconfig[server].setup(config)
 end
