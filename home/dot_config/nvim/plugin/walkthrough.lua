@@ -57,7 +57,7 @@ local walkthrough = function(opts)
   end
   if target_idx == nil then return end
 
-  vim.cmd('edit ' .. dirname .. '/' .. files[target_idx])
+  vim.cmd.edit(dirname .. '/' .. files[target_idx])
 end
 
 ---@param opts walkthrough.Options

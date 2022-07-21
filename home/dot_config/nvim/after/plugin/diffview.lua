@@ -31,7 +31,7 @@ require('diffview').setup {
       vim.opt_local.winbar = nil
     end,
     view_opened = function()
-      vim.cmd('wincmd p')
+      vim.cmd.wincmd('p')
     end,
   },
 }

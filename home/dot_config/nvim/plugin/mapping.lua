@@ -2,22 +2,9 @@ local utils = require('ky.utils')
 
 local map = vim.keymap.set
 local api = vim.api
+local cmd = vim.cmd
 local fn = vim.fn
 local fmt = string.format
-
----@param command string
----@return function
-local cmd = function(command)
-  return function()
-    api.nvim_command(command)
-  end
-end
-
----@param command string
----@return boolean
-local pcmd = function(command)
-  return pcall(api.nvim_command, command)
-end
 
 ---@param prefix string
 ---@return function
@@ -72,12 +59,12 @@ map('n', "'", '`')
 map('n', '`', "'")
 
 -- save and quit
-map('n', leader('w'), cmd('update'))
-map('n', leader('q'), cmd('quit'))
-map('n', leader('a'), cmd('quitall'))
+map('n', leader('w'), cmd.update)
+map('n', leader('q'), cmd.quit)
+map('n', leader('a'), cmd.quitall)
 map('n', leader('e'), function()
-  vim.cmd('write')
-  if vim.bo.filetype == 'lua' then vim.cmd('luafile %') end
+  cmd.write()
+  if vim.bo.filetype == 'lua' then cmd.luafile('%') end
 end, { desc = 'write and execute current lua file' })
 
 -- movement in insert/cmdline mode
@@ -125,18 +112,24 @@ map('n', '<BS>', '<C-^>')
 -- map('n', 'gb', function()
 --   cmd('buffer #')
 -- end)
-map('t', [[<C-\>]], cmd('buffer #'))
-map('n', ']b', cmd(vim.v.count1 .. 'bnext'))
-map('n', '[b', cmd(vim.v.count1 .. 'bprevious'))
+map('t', [[<C-\>]], function()
+  cmd.buffer('#')
+end)
+map('n', ']b', function()
+  cmd.bnext { count = vim.v.count1 }
+end)
+map('n', '[b', function()
+  cmd.bprevious { count = vim.v.count1 }
+end)
 
 -- changelist
 map('n', 'g;', function()
-  local ok = pcmd('normal! ' .. vim.v.count1 .. 'g;')
-  if not ok then pcmd('normal! 999g,') end
+  local ok = pcall(cmd.normal, { vim.v.count1 .. 'g;' })
+  if not ok then pcall(cmd.normal, { '999g,', bang = true }) end
 end, { desc = 'Go to [count] older position in change list (wrapscan).' })
 map('n', 'g,', function()
-  local ok = pcmd('normal! ' .. vim.v.count1 .. 'g,')
-  if not ok then pcmd('normal! 999g;') end
+  local ok = pcall(cmd.normal, { vim.v.count1 .. 'g,' })
+  if not ok then pcall(cmd.normal, '999g;') end
 end, { desc = 'Go to [count] newer position in change list (wrapscan).' })
 -- map('n', 'gl', function()
 --   cmd('changes')
@@ -185,33 +178,47 @@ for _, v in ipairs { '"', "'", '`' } do
   )
 end
 
-map('n', leader('.'), cmd('edit .'))
+map('n', leader('.'), function()
+  cmd.edit('.')
+end)
 map('n', '-', function()
-  vim.cmd('edit ' .. fn.expand('%:p:h'))
+  cmd.edit(fn.expand('%:p:h'))
 end)
 
-map('n', leader('cd'), cmd('tcd %:p:h | pwd'))
-map('n', leader('ud'), cmd('tcd .. | pwd'))
+map('n', leader('cd'), function()
+  cmd.tcd { '%:p:h', nextcmd = 'pwd' }
+end)
+map('n', leader('ud'), function()
+  cmd.tcd { '..', nextcmd = 'pwd' }
+end)
 
 -- tab
 -- I rarely use tagstack...
 local _tab = '<C-t>'
 map('n', _tab, '<Nop>')
 local tab = prefix(_tab)
-map('n', tab('e'), cmd('tabedit %'))
+map('n', tab('e'), function()
+  cmd.tabedit('%')
+end)
 map('n', tab('c'), function()
-  local ok, msg = pcmd((vim.v.count == 0 and '' or vim.v.count) .. 'tabclose')
+  local ok, msg = pcall(cmd.tabclose)
   if not ok then vim.notify(msg, vim.log.levels.INFO) end
 end)
-map('n', tab('C'), cmd('tabclose!'))
-map('n', tab('n'), cmd('tabnext'))
-map('n', tab('p'), cmd('tabprevious'))
-map('n', tab('o'), cmd('tabonly'))
-map('n', tab('i'), cmd('tabs'))
-map('n', tab('0'), cmd('tabfirst'))
-map('n', tab('$'), cmd('tablast'))
-map('n', tab('l'), cmd('execute "tabmove +" . v:count1'))
-map('n', tab('h'), cmd('execute "tabmove -" . v:count1'))
+map('n', tab('C'), function()
+  cmd.tabclose { bang = true }
+end)
+map('n', tab('n'), cmd.tabnext)
+map('n', tab('p'), cmd.tabprevious)
+map('n', tab('o'), cmd.tabonly)
+map('n', tab('i'), cmd.tabs)
+map('n', tab('0'), cmd.tabfirst)
+map('n', tab('$'), cmd.tablast)
+map('n', tab('l'), function()
+  cmd.tabmove { args = { '+' .. vim.v.count1 } }
+end)
+map('n', tab('h'), function()
+  cmd.tabmove { args = { '-' .. vim.v.count1 } }
+end)
 
 -- quickfix
 local _qf = 'q'
@@ -219,24 +226,24 @@ map('n', _qf, '<Nop>')
 map('n', 'Q', _qf)
 local qf = prefix(_qf)
 map('n', qf('q'), function()
-  local ok, msg = pcmd(vim.v.count1 .. 'cc')
+  local ok, msg = pcall(cmd.cc, { count = vim.v.count1 })
   if not ok then vim.notify(msg, vim.log.levels.WARN) end
 end, { desc = 'go to specific error' })
-map('n', qf('o'), cmd('copen'))
-map('n', qf('c'), cmd('cclose'))
+map('n', qf('o'), cmd.copen)
+map('n', qf('c'), cmd.cclose)
 map('n', qf('t'), function()
   if fn.getqflist({ winid = 0 }).winid == 0 then
-    cmd('copen')
+    cmd.copen()
   else
-    cmd('cclose')
+    cmd.cclose()
   end
 end, { desc = 'toggle quickfix window' })
 map('n', qf('l'), function()
-  local ok, msg = pcmd('clist')
+  local ok, msg = pcall(cmd.clist)
   if not ok then vim.notify(msg, vim.log.levels.INFO) end
 end)
 map('n', qf('h'), function()
-  local ok, msg = pcmd(vim.v.count1 .. 'chistory')
+  local ok, msg = pcall(cmd.chistory, { count = vim.v.count1 })
   if not ok then vim.notify(msg, vim.log.levels.INFO) end
 end)
 map('n', qf('f'), function()
@@ -251,85 +258,85 @@ map('n', qf('f'), function()
   end)
 end, { desc = 'free all the quickfix lists in the stack. see :help setqflist-examples' })
 map('n', ']Q', function()
-  local ok, _ = pcmd(vim.v.count1 .. 'cnewer')
-  if not ok then pcmd('1chistory') end
+  local ok, _ = pcall(cmd.cnewer, { count = vim.v.count1 })
+  if not ok then pcall(cmd.chistory) end
 end)
 map('n', '[Q', function()
-  local ok, _ = pcmd(vim.v.count1 .. 'colder')
-  if not ok then pcmd(fn.getqflist({ nr = '$' }).nr .. 'chistory') end
+  local ok, _ = pcall(cmd.colder, { count = vim.v.count1 })
+  if not ok then pcall(cmd.chistory, { count = fn.getqflist({ nr = '$' }).nr }) end
 end)
 map('n', ']q', function()
-  local ok, _ = pcmd(vim.v.count1 .. 'cnext')
-  if not ok then pcmd('cfirst') end
+  local ok, _ = pcall(cmd.cnext, { count = vim.v.count1 })
+  if not ok then pcall(cmd.cfirst) end
 end)
 map('n', '[q', function()
-  local ok, _ = pcmd(vim.v.count1 .. 'cprevious')
-  if not ok then pcmd('clast') end
+  local ok, _ = pcall(cmd.cprevious, { count = vim.v.count1 })
+  if not ok then pcall(cmd.clast) end
 end)
 map('n', 'gq', function()
   local winid = fn.getqflist({ winid = 0 }).winid
   if winid ~= 0 then
-    cmd('cwindow')
+    cmd.cwindow()
     fn.win_gotoid(winid)
   end
 end, { desc = 'go to quickfix window' })
 map('n', qf('0'), function()
-  pcmd('cfirst')
+  pcall(cmd.cfirst)
 end)
 map('n', qf('$'), function()
-  pcmd('clast')
+  pcall(cmd.clast)
 end)
 
 -- locationlist
 local loc = prefix('qw')
 map('n', ']l', function()
-  local ok = pcmd(vim.v.count1 .. 'lnext')
-  if not ok then pcmd('lfirst') end
+  local ok = pcall(cmd.lnext, { count = vim.v.count1 })
+  if not ok then pcall(cmd.lfirst) end
 end)
 map('n', '[l', function()
-  local ok = pcmd(vim.v.count1 .. 'lprevious')
-  if not ok then pcmd('llast') end
+  local ok = pcall(cmd.lprevious, { count = vim.v.count1 })
+  if not ok then pcall(cmd.llast) end
 end)
 map('n', ']L', function()
-  local ok = pcmd(vim.v.count1 .. 'lnewer')
-  if not ok then pcmd('1lhistory') end
+  local ok = pcall(cmd.lnewer, { count = vim.v.count1 })
+  if not ok then pcall(cmd.lhistory) end
 end)
 map('n', '[L', function()
-  local ok = pcmd(vim.v.count1 .. 'lolder')
-  if not ok then pcmd(fn.getloclist(0, { nr = 0 }).nr .. 'chistory') end
+  local ok = pcall(cmd.lolder, { count = vim.v.count1 })
+  if not ok then pcall(cmd.chistory, { count = fn.getloclist(0, { nr = 0 }).nr }) end
 end)
 map('n', loc('o'), function()
-  local ok, msg = pcmd('lopen')
+  local ok, msg = pcall(cmd.lopen)
   if not ok then vim.notify(msg, vim.log.levels.INFO) end
 end)
-map('n', loc('c'), cmd('lclose'))
+map('n', loc('c'), cmd.lclose)
 map('n', loc('t'), function()
   if fn.getloclist(0, { winid = 0 }).winid == 0 then
-    cmd('lopen')
+    cmd.lopen()
   else
-    cmd('lclose')
+    cmd.lclose()
   end
 end, { desc = 'toggle quickfix window' })
 map('n', loc('l'), function()
-  local ok, msg = pcmd('llist')
+  local ok, msg = pcall(cmd.llist, { count = vim.v.count1 })
   if not ok then vim.notify(msg, vim.log.levels.INFO) end
 end)
 map('n', loc('h'), function()
-  local ok, msg = pcmd(vim.v.count1 .. 'lhistory')
+  local ok, msg = pcall(cmd.lhistory)
   if not ok then vim.notify(msg, vim.log.levels.INFO) end
 end)
 map('n', 'gl', function()
   local winid = fn.getloclist(0, { winid = 0 }).winid
   if winid ~= 0 then
-    cmd('lwindow')
+    cmd.lwindow()
     fn.win_gotoid(winid)
   end
 end, { desc = 'go to location list window' })
 map('n', loc('0'), function()
-  pcmd('lfirst')
+  pcall(cmd.lfirst)
 end)
 map('n', loc('$'), function()
-  pcmd('llast')
+  pcall(cmd.llast)
 end)
 
 -- map('i', '<M-j>', '<Esc>:m .+1<CR>==gi')
@@ -392,7 +399,7 @@ map('n', '<F1>', function()
   local row, col = unpack(api.nvim_win_get_cursor(0))
   local items = fn.synstack(row, col + 1)
   if vim.tbl_isempty(items) then
-    pcmd('TSHighlightCapturesUnderCursor')
+    pcall(cmd.TSHighlightCapturesUnderCursor)
   else
     for _, i1 in ipairs(items) do
       local i2 = fn.synIDtrans(i1)

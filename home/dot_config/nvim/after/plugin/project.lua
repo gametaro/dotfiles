@@ -18,15 +18,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
     local ok, project = prequire('project_nvim.project')
     if ok then
       local root = project.get_project_root()
-      if root and vim.loop.cwd() ~= root then
-        vim.api.nvim_cmd({
-          cmd = 'tcd',
-          args = { root },
-          mods = {
-            silent = true,
-          },
-        }, {})
-      end
+      if root and vim.loop.cwd() ~= root then vim.cmd.tcd { root, mods = { silent = true } } end
     end
   end,
 })

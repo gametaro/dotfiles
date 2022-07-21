@@ -27,11 +27,11 @@ end
 local function create()
   local cwd = vim.loop.cwd()
   -- temporarily change cwd for filename completion
-  vim.cmd('noau :cd ' .. lir.get_context().dir)
+  vim.cmd.cd { lir.get_context().dir, mods = { noautocmd = true } }
 
   vim.ui.input({ prompt = 'New File: ', completion = 'file' }, function(input)
     -- restore original cwd
-    vim.cmd('noau :cd ' .. cwd)
+    vim.cmd.cd { cwd, mods = { noautocmd = true } }
     if not input or input == '' or input == '.' or input == '..' then return end
 
     local dir = lir.get_context().dir
@@ -114,7 +114,7 @@ require('lir').setup {
     ['@'] = function()
       local dir = lir.get_context().dir
       local cmd = vim.fn.haslocaldir() == 1 and 'lcd' or 'cd'
-      vim.api.nvim_cmd({ cmd = cmd, args = { dir }, mods = { silent = true } }, {})
+      vim.cmd[cmd] { dir, mods = { silent = true } }
       vim.notify(cmd .. ': ' .. dir, vim.log.levels.INFO, { title = 'lir' })
     end,
     ['y'] = function()
@@ -133,11 +133,11 @@ require('lir').setup {
 
     ['<Tab>'] = function()
       mark_actions.toggle_mark()
-      vim.cmd('normal! j')
+      vim.cmd.normal { 'j', bang = true }
     end,
     ['<S-Tab>'] = function()
       mark_actions.toggle_mark()
-      vim.cmd('normal! k')
+      vim.cmd.normal { 'k', bang = true }
     end,
     ['c'] = clipboard_actions.copy,
     ['x'] = clipboard_actions.cut,

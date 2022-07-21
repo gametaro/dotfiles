@@ -56,7 +56,7 @@ Hydra {
       gitsigns.toggle_signs(false)
       gitsigns.toggle_linehl(false)
       gitsigns.toggle_deleted(false)
-      vim.cmd('echo') -- clear the echo area
+      vim.cmd.echo() -- clear the echo area
     end,
   },
   mode = { 'n', 'x' },

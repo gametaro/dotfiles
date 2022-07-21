@@ -6,7 +6,7 @@ _G.prequire = function(modname)
 end
 
 pcall(function()
-  vim.cmd('packadd impatient.nvim')
+  vim.cmd.packadd('impatient.nvim')
   require('impatient').enable_profile()
 end)
 require('ky')

@@ -157,7 +157,7 @@ local FileNameBlock = {
   on_click = {
     name = 'heirline_filename',
     callback = function(self)
-      vim.cmd('edit ' .. vim.fs.dirname(self.filename))
+      vim.cmd.edit(vim.fs.dirname(self.filename))
     end,
   },
 }
@@ -304,7 +304,7 @@ local LSPActive = {
     callback = function()
       -- use vim.defer_fn() if the callback requires opening of a floating window
       vim.defer_fn(function()
-        vim.cmd('LspInfo')
+        vim.cmd.LspInfo()
       end, 100)
     end,
   },
@@ -338,7 +338,7 @@ local Diagnostics = {
     callback = function()
       local qf = vim.fn.getqflist { winid = 0, title = 0 }
       if qf.winid ~= 0 and qf.title == 'Diagnostics' then
-        vim.cmd('cclose')
+        vim.cmd.cclose()
       else
         vim.diagnostic.setqflist()
       end
@@ -391,7 +391,7 @@ local Git = {
   on_click = {
     name = 'heirline_Neogit',
     callback = function()
-      vim.cmd('Neogit')
+      vim.cmd.Neogit()
     end,
   },
 }
@@ -409,7 +409,7 @@ local GitStatus = {
     callback = function()
       local qf = vim.fn.getqflist { winid = 0, title = 0 }
       if qf.winid ~= 0 and qf.title == 'Hunks' then
-        vim.cmd('cclose')
+        vim.cmd.cclose()
       else
         require('gitsigns').setqflist()
       end
@@ -443,7 +443,7 @@ local WorkDir = {
     name = 'heirline_workdir',
     callback = function()
       vim.defer_fn(function()
-        vim.cmd('edit .')
+        vim.cmd.edit('.')
       end, 100)
     end,
   },

@@ -23,7 +23,7 @@ if not vim.loop.fs_stat(src_path) then
   bootstrapping = true
 end
 
-vim.cmd('packadd vim-jetpack')
+vim.cmd.packadd('vim-jetpack')
 local jetpack = require('jetpack')
 vim.g.jetpack_copy_method = 'symlink'
 
@@ -218,7 +218,7 @@ local sync = function()
     for _, name in ipairs(names) do
       if not jetpack.tap(name) then
         jetpack.sync()
-        if bootstrapping then vim.cmd('quitall!') end
+        if bootstrapping then vim.cmd.quitall { bang = true } end
         break
       end
     end

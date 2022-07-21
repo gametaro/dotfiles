@@ -35,4 +35,4 @@ elseif colorscheme == 'vscode' then
   vim.g.vscode_italic_comment = 0
 end
 
-vim.api.nvim_cmd({ cmd = 'colorscheme', args = { colorscheme } }, {})
+vim.cmd.colorscheme(colorscheme)

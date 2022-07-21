@@ -3,7 +3,7 @@ if not ok then return end
 
 for _, v in ipairs { 'n', 'N' } do
   vim.keymap.set('n', v, function()
-    local ok, msg = pcall(vim.cmd, 'normal! ' .. vim.v.count1 .. v)
+    local ok, msg = pcall(vim.cmd.normal, { vim.v.count1 .. v, bang = true })
     if ok then
       require('hlslens').start()
     else

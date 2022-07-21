@@ -65,7 +65,7 @@ vim.g['sandwich#recipes'] =
 
 local map = vim.keymap.set
 map({ 'n', 'x' }, 's', '<Nop>')
-vim.cmd('runtime autoload/repeat.vim')
+vim.cmd.runtime('autoload/repeat.vim')
 map('n', '.', '<Plug>(operator-sandwich-predot)<Plug>(RepeatDot)')
 
 for _, v in ipairs { '(', ')', '[', ']', '{', '}', "'", '"', '`', 'f' } do

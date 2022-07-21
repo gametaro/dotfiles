@@ -1,7 +1,7 @@
 local api = vim.api
+local cmd = vim.cmd
 local fn = vim.fn
 local augroup = api.nvim_create_augroup
-local cmd = api.nvim_command
 
 local group = augroup('mine', { clear = true })
 
@@ -13,18 +13,14 @@ end
 autocmd('QuickFixCmdPost', {
   pattern = '[^l]*',
   nested = true,
-  callback = function()
-    cmd('cwindow')
-  end,
+  callback = cmd.cwindow,
   desc = 'automatically open the quickfix window',
 })
 
 autocmd('QuickFixCmdPost', {
   pattern = 'l*',
   nested = true,
-  callback = function()
-    cmd('lwindow')
-  end,
+  callback = cmd.lwindow,
   desc = 'automatically open the location list window',
 })
 
@@ -105,7 +101,7 @@ autocmd('BufReadPost', {
 autocmd('FocusLost', {
   nested = true,
   callback = function()
-    cmd('silent! wall')
+    cmd.wall { mods = { emsg_silent = true, silent = true } }
   end,
 })
 
@@ -116,26 +112,26 @@ autocmd('BufLeave', {
       and vim.bo[a.buf].filetype ~= ''
       and vim.bo[a.buf].modifiable
     then
-      cmd('silent! update')
+      cmd.update { mods = { emsg_silent = true, silent = true } }
     end
   end,
 })
 
 -- autocmd({ 'FocusGained', 'WinEnter' }, {
 --   callback = function()
---     cmd('silent! checktime')
+--     cmd.checktime { mods = { emsg_silent = true, silent = true } }
 --   end,
 -- })
 
 autocmd('BufWritePost', {
   callback = function()
-    if vim.wo.diff then cmd('diffupdate') end
+    if vim.wo.diff then cmd.diffupdate() end
   end,
 })
 
 autocmd('VimResized', {
   callback = function()
-    cmd('wincmd =')
+    cmd.wincmd('=')
   end,
 })
 
@@ -184,7 +180,7 @@ autocmd('TermOpen', {
       return string.match(text, '❯%s+$') and [[<C-\><C-n>:]] or ':'
     end, { expr = true })
 
-    cmd('startinsert')
+    cmd.startinsert()
   end,
 })
 
@@ -205,7 +201,7 @@ autocmd('BufEnter', {
   pattern = 'term://*',
   callback = function()
     local ok, term_mode = pcall(api.nvim_buf_get_var, 0, 'term_mode')
-    if ok and term_mode == 't' then cmd('startinsert') end
+    if ok and term_mode == 't' then cmd.startinsert() end
   end,
 })
 

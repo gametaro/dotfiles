@@ -152,7 +152,7 @@ telescope.setup {
             local selection = require('telescope.actions.state').get_selected_entry()
             local dir = vim.fn.fnamemodify(selection.path, ':p:h')
             require('telescope.actions').close(prompt_bufnr)
-            vim.cmd(string.format('silent tcd %s', dir))
+            vim.cmd.tcd { dir, mods = { silent = true } }
           end,
         },
       },

@@ -489,7 +489,7 @@ M.highlight_groups = {
 
 M.load = function()
   if vim.loop.fs_stat(compile_path) then
-    vim.cmd('source ' .. compile_path)
+    vim.cmd.source(compile_path)
     return
   end
   for name, val in pairs(M.highlight_groups) do
