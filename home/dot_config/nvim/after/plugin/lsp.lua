@@ -6,8 +6,7 @@ local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
 local lsp = vim.lsp
 
-local capabilities = lsp.protocol.make_client_capabilities()
-capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+local capabilities = cmp_nvim_lsp.update_capabilities(lsp.protocol.make_client_capabilities())
 
 ---@param client table
 ---@param bufnr integer
