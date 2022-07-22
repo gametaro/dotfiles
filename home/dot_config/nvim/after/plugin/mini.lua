@@ -12,55 +12,55 @@ vim.keymap.set(
   { expr = true, desc = 'MiniPairs <BS>' }
 )
 
-vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
-require('mini.surround').setup {
-  custom_surroundings = {
-    [')'] = {
-      input = { find = '%(%s-.-%s-%)', extract = '^(.%s*).-(%s*.)$' },
-      output = { left = '( ', right = ' )' },
-    },
-    [']'] = {
-      input = { find = '%[%s-.-%s-%]', extract = '^(.%s*).-(%s*.)$' },
-      output = { left = '[ ', right = ' ]' },
-    },
-    ['}'] = {
-      input = { find = '{%s-.-%s-}', extract = '^(.%s*).-(%s*.)$' },
-      output = { left = '{ ', right = ' }' },
-    },
-    ['>'] = {
-      input = { find = '<%s-.-%s->', extract = '^(.%s*).-(%s*.)$' },
-      output = { left = '< ', right = ' >' },
-    },
-    ['$'] = {
-      input = { find = '%${.-}', extract = '^(..).*(.)$' },
-      output = { left = '${', right = '}' },
-    },
-    s = {
-      input = { find = '%[%[.-%]%]', extract = '^(..).*(..)$' },
-      output = { left = '[[', right = ']]' },
-    },
-    c = {
-      input = { find = '%"%"%".-%"%"%"', extract = '^(...).*(...)$' },
-      output = { left = '"""', right = '"""' },
-    },
-    ['*'] = {
-      input = function()
-        local n_star = MiniSurround.user_input('Number of * to find: ')
-        local many_star = string.rep('%*', tonumber(n_star) or 1)
-        local find = string.format('%s.-%s', many_star, many_star)
-        local extract = string.format('^(%s).*(%s)$', many_star, many_star)
-        return { find = find, extract = extract }
-      end,
-      output = function()
-        local n_star = MiniSurround.user_input('Number of * to output: ')
-        local many_star = string.rep('*', tonumber(n_star) or 1)
-        return { left = many_star, right = many_star }
-      end,
-    },
-  },
-  n_lines = 10,
-  search_method = 'cover_or_nearest',
-}
+-- vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
+-- require('mini.surround').setup {
+--   custom_surroundings = {
+--     [')'] = {
+--       input = { find = '%(%s-.-%s-%)', extract = '^(.%s*).-(%s*.)$' },
+--       output = { left = '( ', right = ' )' },
+--     },
+--     [']'] = {
+--       input = { find = '%[%s-.-%s-%]', extract = '^(.%s*).-(%s*.)$' },
+--       output = { left = '[ ', right = ' ]' },
+--     },
+--     ['}'] = {
+--       input = { find = '{%s-.-%s-}', extract = '^(.%s*).-(%s*.)$' },
+--       output = { left = '{ ', right = ' }' },
+--     },
+--     ['>'] = {
+--       input = { find = '<%s-.-%s->', extract = '^(.%s*).-(%s*.)$' },
+--       output = { left = '< ', right = ' >' },
+--     },
+--     ['$'] = {
+--       input = { find = '%${.-}', extract = '^(..).*(.)$' },
+--       output = { left = '${', right = '}' },
+--     },
+--     s = {
+--       input = { find = '%[%[.-%]%]', extract = '^(..).*(..)$' },
+--       output = { left = '[[', right = ']]' },
+--     },
+--     c = {
+--       input = { find = '%"%"%".-%"%"%"', extract = '^(...).*(...)$' },
+--       output = { left = '"""', right = '"""' },
+--     },
+--     ['*'] = {
+--       input = function()
+--         local n_star = MiniSurround.user_input('Number of * to find: ')
+--         local many_star = string.rep('%*', tonumber(n_star) or 1)
+--         local find = string.format('%s.-%s', many_star, many_star)
+--         local extract = string.format('^(%s).*(%s)$', many_star, many_star)
+--         return { find = find, extract = extract }
+--       end,
+--       output = function()
+--         local n_star = MiniSurround.user_input('Number of * to output: ')
+--         local many_star = string.rep('*', tonumber(n_star) or 1)
+--         return { left = many_star, right = many_star }
+--       end,
+--     },
+--   },
+--   n_lines = 10,
+--   search_method = 'cover_or_nearest',
+-- }
 
 require('mini.jump').setup {
   mappings = {
@@ -68,16 +68,16 @@ require('mini.jump').setup {
   },
 }
 
-require('mini.jump2d').setup {
-  labels = 'jfkdlsahgnuvrbytmiceoxwpqz',
-  allowed_lines = {
-    blank = false,
-    cursor_at = false,
-  },
-  allowed_windows = {
-    not_current = false,
-  },
-}
+-- require('mini.jump2d').setup {
+--   labels = 'jfkdlsahgnuvrbytmiceoxwpqz',
+--   allowed_lines = {
+--     blank = false,
+--     cursor_at = false,
+--   },
+--   allowed_windows = {
+--     not_current = false,
+--   },
+-- }
 
 require('mini.indentscope').setup {
   draw = {
