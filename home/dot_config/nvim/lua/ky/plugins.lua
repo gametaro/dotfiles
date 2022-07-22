@@ -68,6 +68,7 @@ jetpack.startup(function(use)
   use('neovim/nvim-lspconfig')
   -- use('williamboman/nvim-lsp-installer')
   use { 'williamboman/mason.nvim', branch = 'alpha' }
+  use { 'williamboman/mason-lspconfig.nvim' }
   use('b0o/schemastore.nvim')
   use('folke/lua-dev.nvim')
   use('jose-elias-alvarez/typescript.nvim')
