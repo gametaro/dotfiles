@@ -11,6 +11,9 @@ local M = {}
 
 local compile_path = vim.fs.normalize(vim.fn.stdpath('cache')) .. '/heine.lua'
 
+---@param value integer
+---@param min integer
+---@param max integer
 local clamp = function(value, min, max)
   if value < min then
     return min
@@ -20,26 +23,37 @@ local clamp = function(value, min, max)
   return value
 end
 
+---@param hex string
+---@param v integer
 M.saturate = function(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
   return hsluv.hsluv_to_hex { h, clamp(s + v, -100, 100), l }
 end
 
+---@param hex string
+---@param v integer
 M.lighten = function(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
   return hsluv.hsluv_to_hex { h, s, clamp(l + v, -100, 100) }
 end
 
+---@param hex string
+---@param s integer
+---@param l integer
 M.saturate_lighten = function(hex, s, l)
   return M.lighten(M.saturate(hex, s), l)
 end
 
+---@param c1 string
+---@param c2 string
+---@param f float
 M.blend = function(c1, c2, f)
   local r1, g1, b1 = unpack(hsluv.hex_to_rgb(c1))
   local r2, g2, b2 = unpack(hsluv.hex_to_rgb(c2))
   return hsluv.rgb_to_hex { (r2 - r1) * f + r1, (g2 - g1) * f + g1, (b2 - b1) * f + b1 }
 end
 
+---@type table<string, string>
 M.palette = {
   red = hsluv.hsluv_to_hex { 0, 65, 68 },
   orange = hsluv.hsluv_to_hex { 20, 51, 68 },
@@ -94,6 +108,7 @@ local orange_tint_fg = M.blend(M.palette.orange, normal_fg, 0.7)
 local red_tint_bg = M.blend(M.palette.red, normal_bg, 0.7)
 local lgreen_tint_bg = M.blend(M.palette.lgreen, normal_bg, 0.7)
 
+---@type table<string, table>
 M.highlight_groups = {
   -- :help highlight-groups
   ColorColumn = { fg = normal_fg, bg = normal_bg },
@@ -503,6 +518,7 @@ M.reload = function()
   end
 end
 
+---@param t table
 local inspect = function(t)
   local list = {}
   for k, v in pairs(t) do
