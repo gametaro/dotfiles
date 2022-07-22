@@ -60,7 +60,7 @@ local defaults = {
   layout_strategy = 'bottom_pane',
   layout_config = {
     bottom_pane = {
-      height = 0.5,
+      height = 0.4,
       preview_width = 0.55,
       preview_cutoff = 100,
     },
