@@ -15,6 +15,9 @@ require('nvim-surround').buffer_setup {
         local result = get_input('Enter the function name: ')
         if result then return { result .. '(', ')' } end
       end,
+      ['F'] = function()
+        return { 'function() ', ' end' }
+      end,
     },
   },
 }
