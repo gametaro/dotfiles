@@ -507,7 +507,7 @@ local inspect = function(t)
   local list = {}
   for k, v in pairs(t) do
     local quote = type(v) == 'string' and [[']] or ''
-    table.insert(list, string.format([[%s = %s%s%s]], k, quote, v, quote))
+    list[#list + 1] = string.format([[%s = %s%s%s]], k, quote, v, quote)
   end
   table.sort(list)
   return string.format([[{ %s }]], table.concat(list, ', '))
@@ -516,7 +516,7 @@ end
 M.compile = function()
   local lines = {}
   for name, val in pairs(M.highlight_groups) do
-    table.insert(lines, string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val)))
+    lines[#lines + 1] = string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val))
   end
   table.sort(lines)
   local file, msg = io.open(compile_path, 'w')
