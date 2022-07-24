@@ -149,7 +149,7 @@ telescope.setup {
       mappings = {
         n = {
           ['cd'] = function(prompt_bufnr)
-            local selection = require('telescope.actions.state').get_selected_entry()
+            local selection = action_state.get_selected_entry()
             local dir = vim.fn.fnamemodify(selection.path, ':p:h')
             require('telescope.actions').close(prompt_bufnr)
             vim.cmd.tcd { dir, mods = { silent = true } }
@@ -202,9 +202,9 @@ map('n', '<LocalLeader>ld', builtin.lsp_document_symbols)
 map('n', '<LocalLeader>lw', builtin.lsp_workspace_symbols)
 map('n', '<LocalLeader>ls', builtin.lsp_dynamic_workspace_symbols)
 
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('zf-native')
-require('telescope').load_extension('live_grep_args')
+telescope.load_extension('fzf')
+telescope.load_extension('zf-native')
+telescope.load_extension('live_grep_args')
 vim.keymap.set('n', '<C-g>', function()
   require('telescope').extensions.live_grep_args.live_grep_args()
 end)
