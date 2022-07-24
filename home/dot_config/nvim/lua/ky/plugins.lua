@@ -76,6 +76,7 @@ jetpack.startup(function(use)
   use('smjonas/inc-rename.nvim')
   use('jose-elias-alvarez/null-ls.nvim')
   use('kosayoda/nvim-lightbulb')
+  use('https://git.sr.ht/~whynothugo/lsp_lines.nvim')
 
   -- Completion/Snippets
   use('hrsh7th/nvim-cmp')
