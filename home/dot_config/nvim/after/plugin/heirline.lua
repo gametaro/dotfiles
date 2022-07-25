@@ -187,6 +187,7 @@ local FileName = {
 local FilePath = {
   provider = function(self)
     local filepath = vim.fn.fnamemodify(self.filename, ':.:h')
+    if not filepath then return end
     local trail = filepath:sub(-1) == '/' and '' or '/'
     if not conditions.width_percent_below(#filepath, 0.5) then
       filepath = vim.fn.pathshorten(filepath)
@@ -337,6 +338,8 @@ local Diagnostics = {
     name = 'heirline_diagnostics',
     callback = function()
       local qf = vim.fn.getqflist { winid = 0, title = 0 }
+      if not qf then return end
+
       if qf.winid ~= 0 and qf.title == 'Diagnostics' then
         vim.cmd.cclose()
       else
@@ -408,6 +411,8 @@ local GitStatus = {
     name = 'heirline_gitstatus',
     callback = function()
       local qf = vim.fn.getqflist { winid = 0, title = 0 }
+      if not qf then return end
+
       if qf.winid ~= 0 and qf.title == 'Hunks' then
         vim.cmd.cclose()
       else
