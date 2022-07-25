@@ -244,10 +244,11 @@ autocmd('DiagnosticChanged', {
       local qf = fn.getqflist { winid = 0, title = 0 }
       local loc = fn.getloclist(0, { winid = 0, title = 0 })
 
+      if not qf or not loc then return end
+
       if qf.winid ~= 0 and qf.title == 'Diagnostics' then
         vim.diagnostic.setqflist { open = false }
       end
-
       if loc.winid ~= 0 and loc.title == 'Diagnostics' then
         vim.diagnostic.setloclist { open = false }
       end
