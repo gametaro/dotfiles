@@ -103,7 +103,7 @@ autocmd('BufReadPost', {
 autocmd('FocusLost', {
   nested = true,
   callback = function()
-    cmd.wall { mods = { emsg_silent = true, silent = true } }
+    cmd.wall { mods = { emsg_silent = true } }
   end,
 })
 
@@ -114,14 +114,14 @@ autocmd('BufLeave', {
       and vim.bo[a.buf].filetype ~= ''
       and vim.bo[a.buf].modifiable
     then
-      cmd.update { mods = { emsg_silent = true, silent = true } }
+      cmd.update { mods = { emsg_silent = true } }
     end
   end,
 })
 
 -- autocmd({ 'FocusGained', 'WinEnter' }, {
 --   callback = function()
---     cmd.checktime { mods = { emsg_silent = true, silent = true } }
+--     cmd.checktime { mods = { emsg_silent = true } }
 --   end,
 -- })
 
