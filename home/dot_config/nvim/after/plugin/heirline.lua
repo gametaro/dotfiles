@@ -767,4 +767,4 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end,
 })
 
-heirline.setup(StatusLines, WinBars)
+heirline.setup(StatusLines)
