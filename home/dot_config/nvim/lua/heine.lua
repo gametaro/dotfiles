@@ -449,10 +449,12 @@ M.highlight_groups = {
   -- nvim-bqf
   BqfPreviewBorder = { link = 'FloatBorder' },
 
-  -- PounceAccept = {},
-  -- PounceAcceptBest = {},
-  -- PounceMatch = {},
-  -- PounceGap = {}
+  -- pounce.nvim
+  PounceAccept = { fg = M.saturate_lighten(M.palette.cyan, 50, -50), bg = M.palette.cyan },
+  PounceAcceptBest = { link = 'IncSearch' },
+  PounceMatch = { link = 'Search' },
+  PounceUnmatched = { link = 'Comment' },
+  PounceGap = { link = 'Comment' },
 
   -- ts-rainbow
   rainbowcol1 = { fg = M.palette.magenta },
