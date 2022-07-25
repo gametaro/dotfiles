@@ -152,8 +152,8 @@ local cmdline_config = {
   -- },
   sources = cmp.config.sources({
     {
-      ---@type cmp_buffer.Options
       name = 'buffer',
+      ---@type cmp_buffer.Options
       option = {
         keyword_pattern = [[\k\+]],
         get_bufnrs = function()
