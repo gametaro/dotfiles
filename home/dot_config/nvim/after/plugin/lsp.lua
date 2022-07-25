@@ -203,35 +203,32 @@ local configs = {
     }
   end,
   sumneko_lua = function()
-    return require('lua-dev').setup {
-      lspconfig = {
-        cmd = { 'lua-language-server' },
-        settings = {
-          Lua = {
-            runtime = {
-              version = 'LuaJIT',
+    return {
+      settings = {
+        Lua = {
+          runtime = {
+            version = 'LuaJIT',
+          },
+          diagnostics = {
+            globals = { 'vim' },
+            disable = { 'missing-parameter', 'redundant-parameter' },
+            neededFileStatus = {
+              -- ['codestyle-check'] = 'Any',
+              -- ['type-check'] = 'Any',
             },
-            diagnostics = {
-              globals = { 'vim' },
-              disable = { 'missing-parameter', 'redundant-parameter' },
-              neededFileStatus = {
-                -- ['codestyle-check'] = 'Any',
-                -- ['type-check'] = 'Any',
-              },
-            },
-            workspace = {
-              library = vim.api.nvim_get_runtime_file('', true),
-              -- preloadFileSize = 1000,
-            },
-            completion = {
-              callSnippet = 'Replace',
-            },
-            format = {
-              enable = false,
-            },
-            hint = {
-              setType = true,
-            },
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file('', true),
+            -- preloadFileSize = 1000,
+          },
+          completion = {
+            callSnippet = 'Replace',
+          },
+          format = {
+            enable = false,
+          },
+          hint = {
+            setType = true,
           },
         },
       },
