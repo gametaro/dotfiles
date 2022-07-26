@@ -24,6 +24,7 @@ export STARSHIP_CONFIG="$XDG_CONFIG_HOME"/starship/starship.toml
 
 ZDOTDIR="$XDG_CONFIG_HOME"/zsh
 
+mkdir -p "$XDG_STATE_HOME"/zsh
 HISTFILE="$XDG_STATE_HOME"/zsh/history
 HISTORY_IGNORE="(l[sal]|cd|pwd|v|zsh)"
 HISTSIZE=50000
