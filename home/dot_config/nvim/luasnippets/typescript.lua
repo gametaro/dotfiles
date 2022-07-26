@@ -8,7 +8,7 @@ local opts = {
 
 local quote = opts.single_quote and "'" or '"'
 local semi = opts.semi and ';' or ''
--- local indent = opts.tab_width or vim.opt.shiftwidth
+-- local indent = opts.tab_width or vim.o.shiftwidth
 
 local function rec_elseif()
   return sn(nil, {

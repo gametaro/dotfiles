@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd('FileType', {
   group = group,
   pattern = 'NeogitStatus',
   callback = function()
-    vim.opt_local.list = false
+    vim.wo.list = false
   end,
 })
 
@@ -18,9 +18,9 @@ vim.api.nvim_create_autocmd('FileType', {
   group = group,
   pattern = 'NeogitCommitMessage',
   callback = function()
-    vim.opt_local.spell = true
+    vim.wo.spell = true
     vim.opt_local.formatoptions:append { 't' }
-    vim.opt_local.textwidth = 72
+    vim.bo.textwidth = 72
   end,
 })
 

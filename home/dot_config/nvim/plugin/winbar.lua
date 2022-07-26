@@ -41,4 +41,4 @@
 --     .. '%*'
 -- end
 
--- vim.opt.winbar = '%!v:lua._G.winbar()'
+-- vim.o.winbar = '%!v:lua._G.winbar()'

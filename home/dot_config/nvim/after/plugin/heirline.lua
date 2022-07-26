@@ -72,7 +72,7 @@ vim.api.nvim_create_autocmd('User', {
     local buftype = vim.tbl_contains({ 'prompt', 'nofile' }, vim.bo[buf].buftype)
     local filetype = vim.tbl_contains({ 'gitcommit' }, vim.bo[buf].filetype)
 
-    if (buftype or filetype) and vim.bo[buf].filetype ~= 'lir' then vim.opt_local.winbar = nil end
+    if (buftype or filetype) and vim.bo[buf].filetype ~= 'lir' then vim.go.winbar = nil end
   end,
 })
 
@@ -630,7 +630,7 @@ local WinBars = {
       }
     end,
     init = function()
-      vim.opt_local.winbar = nil
+      vim.go.winbar = nil
     end,
   },
   QuickfixName,

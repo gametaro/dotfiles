@@ -1,4 +1,4 @@
-vim.opt_local.spell = true
-vim.opt_local.formatoptions:append { 't' }
-vim.opt_local.textwidth = 72
-vim.opt_local.bufhidden = 'wipe'
+vim.wo.spell = true
+vim.bo.formatoptions:append { 't' }
+vim.bo.textwidth = 72
+vim.bo.bufhidden = 'wipe'

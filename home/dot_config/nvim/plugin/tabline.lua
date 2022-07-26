@@ -99,4 +99,4 @@ _G.tabline = function()
   return table.concat(tabpages) .. h('TabLineFill') .. '%='
 end
 
-vim.opt.tabline = '%!v:lua._G.tabline()'
+vim.o.tabline = '%!v:lua._G.tabline()'

@@ -1,27 +1,29 @@
-local g, opt = vim.g, vim.opt
+local g = vim.g
+local o = vim.o
+local opt = vim.opt
 local fn = vim.fn
 
 local indent = 2
 local blend = 0
 
-opt.autowriteall = true
-opt.backup = true
+o.autowriteall = true
+o.backup = true
 opt.backupdir = { vim.fn.stdpath('state') .. '/backup//', '.' }
 vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
 opt.backupskip:append { '*/.git/*' }
 -- opt.clipboard = 'unnamedplus'
-opt.cmdheight = 1
+o.cmdheight = 1
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
-opt.confirm = true
-opt.copyindent = true
+o.confirm = true
+o.copyindent = true
 opt.diffopt:append {
   'algorithm:histogram',
   'indent-heuristic',
   'vertical',
 }
-opt.emoji = false
-opt.expandtab = true
-opt.fileformat = 'unix'
+o.emoji = false
+o.expandtab = true
+o.fileformat = 'unix'
 opt.fileformats = {
   'unix',
   'dos',
@@ -51,15 +53,15 @@ opt.formatoptions:remove {
   'o',
   'r',
 }
-opt.ignorecase = true
-opt.imsearch = 0
-opt.inccommand = 'split'
+o.ignorecase = true
+o.imsearch = 0
+o.inccommand = 'split'
 opt.isfname:remove { '=' }
-opt.jumpoptions = 'view'
-opt.laststatus = 3
-opt.lazyredraw = true
-opt.linebreak = true
-opt.list = true
+o.jumpoptions = 'view'
+o.laststatus = 3
+o.lazyredraw = true
+o.linebreak = true
+o.list = true
 opt.listchars = {
   -- eol = '↵',
   extends = '»',
@@ -68,20 +70,20 @@ opt.listchars = {
   trail = '·',
 }
 -- opt.modeline = false
-opt.more = false
+o.more = false
 opt.mousescroll = { 'ver:1', 'hor:3' }
-opt.number = true
-opt.preserveindent = true
-opt.pumblend = blend
-opt.pumheight = 10
-opt.relativenumber = true
+o.number = true
+o.preserveindent = true
+o.pumblend = blend
+o.pumheight = 10
+o.relativenumber = true
 -- opt.shada = { '!', "'0", 'f0', '<50', 's10', 'h' }
 -- opt.scrolloff = 5
 -- opt.sidescrolloff = 5
-opt.secure = true
+o.secure = true
 opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
-opt.shiftround = true
-opt.shiftwidth = indent
+o.shiftround = true
+o.shiftwidth = indent
 opt.shortmess:append {
   S = true,
   a = true,
@@ -90,29 +92,29 @@ opt.shortmess:append {
 }
 -- opt.showbreak = '↳ '
 -- opt.showcmd = false
-opt.showmode = false
-opt.signcolumn = 'yes:2'
-opt.smartcase = true
-opt.smartindent = true
-opt.spellcapcheck = ''
+o.showmode = false
+o.signcolumn = 'yes:2'
+o.smartcase = true
+o.smartindent = true
+o.spellcapcheck = ''
 opt.spelllang = { 'en', 'cjk', 'programming' }
-opt.spelloptions = 'camel'
-opt.splitbelow = true
-opt.splitright = true
-opt.swapfile = false
+o.spelloptions = 'camel'
+o.splitbelow = true
+o.splitright = true
+o.swapfile = false
 opt.switchbuf = { 'useopen', 'uselast' }
-opt.tabstop = indent
-opt.termguicolors = true
-opt.tildeop = true
-opt.timeoutlen = 500
-opt.ttimeoutlen = 10
-opt.undofile = true
-opt.updatetime = 250
-opt.virtualedit = 'block'
-opt.wildignorecase = true
-opt.wildoptions = 'pum'
-opt.winblend = blend
-opt.wrap = false
+o.tabstop = indent
+o.termguicolors = true
+o.tildeop = true
+o.timeoutlen = 500
+o.ttimeoutlen = 10
+o.undofile = true
+o.updatetime = 250
+o.virtualedit = 'block'
+o.wildignorecase = true
+o.wildoptions = 'pum'
+o.winblend = blend
+o.wrap = false
 
 if fn.executable('zsh') > 0 then opt.shell = 'zsh' end
 

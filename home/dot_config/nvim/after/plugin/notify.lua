@@ -36,12 +36,12 @@ notify.setup {
     function()
       return {
         opacity = { 100 },
-        col = { vim.opt.columns:get() },
+        col = { vim.o.columns },
       }
     end,
     function()
       return {
-        col = { vim.opt.columns:get() },
+        col = { vim.o.columns },
         time = true,
       }
     end,
@@ -54,7 +54,7 @@ notify.setup {
             return cur_opacity <= 4
           end,
         },
-        col = { vim.opt.columns:get() },
+        col = { vim.o.columns },
       }
     end,
   },
