@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658802963096,
+  "lastUpdate": 1658804442955,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -12146,6 +12146,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 1.37678986,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "d2c09ac6de8ae7e34c8d47b3fc71777aa6bcbb65",
+          "message": "refactor(option): prefer vim.o to vim.opt\n\n`vim.opt` will be deprecated in the future.",
+          "timestamp": "2022-07-26T11:57:21+09:00",
+          "tree_id": "9004698dfa0df9cc2745b0d7fa5bd1d6e4925277",
+          "url": "https://github.com/gametaro/dotfiles/commit/d2c09ac6de8ae7e34c8d47b3fc71777aa6bcbb65"
+        },
+        "date": 1658804440719,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 1.3215438272,
             "unit": "Second"
           }
         ]
