@@ -372,29 +372,6 @@ xnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
 xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
 ]])
 
----searches process tree for a process having a name in the `names` list
----@param rootpid integer
----@param names table
----@param acc? number
----@return boolean
----@see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
-local function find_proc_in_tree(rootpid, names, acc)
-  acc = acc or 0
-  if acc > 9 or not fn.exists('*nvim_get_proc') then return false end
-  local p = api.nvim_get_proc(rootpid)
-  if fn.empty(p) ~= 1 and vim.tbl_contains(names, p.name) then return true end
-  local ids = api.nvim_get_proc_children(rootpid)
-  for _, id in ipairs(ids) do
-    if find_proc_in_tree(id, names, 1 + acc) then return true end
-  end
-  return false
-end
-
-map('t', '<Esc>', function()
-  local names = { 'nvim', 'fzf' }
-  return find_proc_in_tree(vim.b.terminal_job_pid, names) and '<Esc>' or [[<C-\><C-n>]]
-end, { expr = true, desc = [[toggle `<Esc>` and `<C-\><C-n>` based on current process tree]] })
-
 map('n', '<F1>', function()
   local row, col = unpack(api.nvim_win_get_cursor(0))
   local items = fn.synstack(row, col + 1)
