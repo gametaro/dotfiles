@@ -185,7 +185,7 @@ autocmd('TermOpen', {
     map('t', '<Esc>', function()
       local names = { 'nvim', 'fzf' }
       return require('ky.utils').find_proc_in_tree(vim.b.terminal_job_pid, names) and '<Esc>'
-        or [[<C-\><C-n>]]
+        or escape
     end, {
       expr = true,
       desc = [[toggle `<Esc>` and `<C-\><C-n>` based on current process tree]],
