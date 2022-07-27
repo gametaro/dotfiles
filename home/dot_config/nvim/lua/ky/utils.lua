@@ -3,7 +3,7 @@ local utils = {}
 ---toggle vim options
 ---@param name string
 ---@param values table
----@param opts table|nil
+---@param opts? table
 utils.toggle_options = function(name, values, opts)
   local defaults = { silent = false }
   opts = vim.tbl_extend('force', defaults, opts or {})
@@ -16,7 +16,7 @@ utils.toggle_options = function(name, values, opts)
       break
     end
   end
-  if opts ~= nil and not opts.silent then
+  if opts and not opts.silent then
     vim.notify(string.format('set `%s` to `%s`', vim.inspect(name), vim.inspect(value)), 'info', {
       title = debug.getinfo(1, 'n').name,
       on_open = function(win)
