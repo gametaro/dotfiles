@@ -1,6 +1,8 @@
 local ok = prequire('hydra')
 if not ok then return end
 
+local cmd = vim.cmd
+
 local Hydra = require('hydra')
 
 Hydra {
@@ -25,6 +27,48 @@ Hydra {
     { '>', '2<C-w>>' },
     { '<', '2<C-w><', { desc = 'width +/-' } },
     { '<Esc>', nil, { exit = true } },
+  },
+}
+
+Hydra {
+  name = 'Tab',
+  mode = 'n',
+  body = '<C-t>',
+  heads = {
+    {
+      'e',
+      function()
+        cmd.tabnew { '%' }
+      end,
+      { desc = 'Open a new tab page with an current buffer' },
+    },
+    { 'c', cmd.tabclose, { desc = 'Close current tab page' } },
+    {
+      'C',
+      function()
+        cmd.tabclose { bang = true }
+      end,
+      { desc = 'Force close current tab page' },
+    },
+    { 'l', cmd.tabnext, { desc = 'Go to the next tab page' } },
+    { 'h', cmd.tabprevious, { desc = 'Go to the previous tab page' } },
+    { 'o', cmd.tabonly, { desc = 'Close all other tab pages' } },
+    { '0', cmd.tabfirst, { desc = 'Go to the first tab page' } },
+    { '$', cmd.tablast, { desc = 'Go to the last tab page' } },
+    {
+      'L',
+      function()
+        cmd.tabmove { '+' }
+      end,
+      { desc = 'Move the tab page to the right' },
+    },
+    {
+      'H',
+      function()
+        cmd.tabmove { '-' }
+      end,
+      { desc = 'Move the tab page to the left' },
+    },
   },
 }
 

@@ -192,34 +192,6 @@ map('n', leader('ud'), function()
   cmd.tcd { '..', nextcmd = 'pwd' }
 end)
 
--- tab
--- I rarely use tagstack...
-local _tab = '<C-t>'
-map('n', _tab, '<Nop>')
-local tab = prefix(_tab)
-map('n', tab('e'), function()
-  cmd.tabedit('%')
-end)
-map('n', tab('c'), function()
-  local ok, msg = pcall(cmd.tabclose)
-  if not ok then vim.notify(msg, vim.log.levels.INFO) end
-end)
-map('n', tab('C'), function()
-  cmd.tabclose { bang = true }
-end)
-map('n', tab('n'), cmd.tabnext)
-map('n', tab('p'), cmd.tabprevious)
-map('n', tab('o'), cmd.tabonly)
-map('n', tab('i'), cmd.tabs)
-map('n', tab('0'), cmd.tabfirst)
-map('n', tab('$'), cmd.tablast)
-map('n', tab('l'), function()
-  cmd.tabmove { args = { '+' .. vim.v.count1 } }
-end)
-map('n', tab('h'), function()
-  cmd.tabmove { args = { '-' .. vim.v.count1 } }
-end)
-
 -- quickfix
 local _qf = 'q'
 map('n', _qf, '<Nop>')
