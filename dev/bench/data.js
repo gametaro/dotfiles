@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1658804442955,
+  "lastUpdate": 1658904233116,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -12175,6 +12175,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 1.3215438272,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "1f5bea3b530e814688e0acd946f1cc80643adb19",
+          "message": "feat(hydra): add mappings for tabpages",
+          "timestamp": "2022-07-27T15:33:11+09:00",
+          "tree_id": "b1e5937a901ebc69dd0761855f02511bc7f2b2ba",
+          "url": "https://github.com/gametaro/dotfiles/commit/1f5bea3b530e814688e0acd946f1cc80643adb19"
+        },
+        "date": 1658904232283,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 1.30053621,
             "unit": "Second"
           }
         ]
