@@ -48,6 +48,8 @@ jetpack.startup(function(use)
 
   -- Editing support
   use('gbprod/substitute.nvim')
+  use('gbprod/yanky.nvim')
+  use('gbprod/stay-in-place.nvim')
   use { 'kana/vim-niceblock', on = '<Plug>(niceblock-' }
   use('gpanders/editorconfig.nvim')
   use('andymass/vim-matchup')
@@ -55,7 +57,6 @@ jetpack.startup(function(use)
   -- use('machakann/vim-sandwich')
   use('monaqa/dial.nvim')
   use('windwp/nvim-autopairs')
-  use('gbprod/yanky.nvim')
   use('ojroques/vim-oscyank')
   use('echasnovski/mini.nvim')
   use('tpope/vim-repeat')
