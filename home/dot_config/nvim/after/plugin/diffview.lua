@@ -27,7 +27,7 @@ require('diffview').setup {
   },
   hooks = {
     diff_buf_read = function()
-      vim.wo.list = false
+      vim.opt_local.list = false
       vim.go.winbar = nil
     end,
     view_opened = function()

@@ -150,7 +150,7 @@ require('lir').setup {
       ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
       { buffer = true }
     )
-    vim.wo.signcolumn = 'no'
+    vim.opt_local.signcolumn = 'no'
   end,
 }
 

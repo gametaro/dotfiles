@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd('FileType', {
   group = group,
   pattern = 'NeogitCommitMessage',
   callback = function()
-    vim.wo.spell = true
+    vim.opt_local.spell = true
     vim.opt_local.formatoptions:append { 't' }
     vim.bo.textwidth = 72
   end,
