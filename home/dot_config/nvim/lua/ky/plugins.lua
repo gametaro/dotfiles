@@ -64,6 +64,7 @@ jetpack.startup(function(use)
   use('johmsalas/text-case.nvim')
   use('AckslD/nvim-trevJ.lua')
   use('kylechui/nvim-surround')
+  use('smjonas/live-command.nvim')
 
   -- LSP
   use('neovim/nvim-lspconfig')
