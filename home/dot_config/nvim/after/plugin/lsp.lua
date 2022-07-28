@@ -203,6 +203,9 @@ local configs = {
     }
   end,
   sumneko_lua = function()
+    local library = vim.tbl_filter(function(file)
+      return not vim.startswith(file, vim.fn.stdpath('config'))
+    end, vim.api.nvim_get_runtime_file('', true))
     return {
       settings = {
         Lua = {
@@ -218,7 +221,7 @@ local configs = {
             },
           },
           workspace = {
-            library = vim.api.nvim_get_runtime_file('', true),
+            library = library,
             -- preloadFileSize = 1000,
           },
           completion = {
