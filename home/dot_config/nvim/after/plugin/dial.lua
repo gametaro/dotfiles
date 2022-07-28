@@ -79,10 +79,10 @@ for _, group_name in ipairs(group_names) do
   vim.api.nvim_create_autocmd('FileType', {
     group = group,
     pattern = group_name,
-    callback = function()
+    callback = function(a)
       local function map(mode, lhs, rhs, opts)
         opts = opts or {}
-        opts.buffer = true
+        opts.buffer = a.buf
         vim.keymap.set(mode, lhs, rhs, opts)
       end
 
