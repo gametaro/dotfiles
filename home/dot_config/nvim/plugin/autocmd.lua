@@ -148,9 +148,9 @@ end
 
 autocmd('TermOpen', {
   callback = function(a)
-    vim.wo.number = false
-    vim.wo.relativenumber = false
-    vim.wo.signcolumn = 'no'
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.signcolumn = 'no'
 
     local function map(mode, lhs, rhs, opts)
       opts = opts or {}
