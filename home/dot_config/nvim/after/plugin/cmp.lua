@@ -48,7 +48,7 @@ local window = {
   winhighlight = table.concat({
     'Normal:NormalFloat',
     'FloatBorder:FloatBorder',
-    'CursorLine:Visual',
+    'CursorLine:PmenuSel',
     'Search:None',
   }, ','),
   col_offset = -3,
