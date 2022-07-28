@@ -213,6 +213,7 @@ jetpack.startup(function(use)
   use('nacro90/numb.nvim')
   use('wsdjeg/vim-fetch')
   use('justinmk/vim-gtfo')
+  use { 'dstein64/vim-startuptime', on = ':StartupTime' }
 end)
 
 local sync = function()
