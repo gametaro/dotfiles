@@ -271,7 +271,7 @@ return {
       sn(nil, fmta('const { <> } = process.env;', r(1, 'name'))),
     })
   ),
-  s('import', {
+  s('im', {
     t('import '),
     c(2, {
       sn(nil, {
