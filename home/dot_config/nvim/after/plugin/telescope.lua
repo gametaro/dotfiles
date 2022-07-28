@@ -151,7 +151,7 @@ telescope.setup {
           ['cd'] = function(prompt_bufnr)
             local selection = action_state.get_selected_entry()
             local dir = vim.fn.fnamemodify(selection.path, ':p:h')
-            require('telescope.actions').close(prompt_bufnr)
+            actions.close(prompt_bufnr)
             vim.cmd.tcd { dir, mods = { silent = true } }
           end,
         },
@@ -206,5 +206,5 @@ telescope.load_extension('fzf')
 telescope.load_extension('zf-native')
 telescope.load_extension('live_grep_args')
 vim.keymap.set('n', '<C-g>', function()
-  require('telescope').extensions.live_grep_args.live_grep_args()
+  telescope.extensions.live_grep_args.live_grep_args()
 end)
