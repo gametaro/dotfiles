@@ -122,19 +122,6 @@ map('n', '[b', function()
   cmd.bprevious { count = vim.v.count1 }
 end)
 
--- changelist
-map('n', 'g;', function()
-  local ok = pcall(cmd.normal, { vim.v.count1 .. 'g;' })
-  if not ok then pcall(cmd.normal, { '999g,', bang = true }) end
-end, { desc = 'Go to [count] older position in change list (wrapscan).' })
-map('n', 'g,', function()
-  local ok = pcall(cmd.normal, { vim.v.count1 .. 'g,' })
-  if not ok then pcall(cmd.normal, '999g;') end
-end, { desc = 'Go to [count] newer position in change list (wrapscan).' })
--- map('n', 'gl', function()
---   cmd('changes')
--- end)
-
 -- see https://github.com/yuki-yano/zero.nvim
 map({ 'n', 'x', 'o' }, '0', function()
   local row, col = unpack(api.nvim_win_get_cursor(0))

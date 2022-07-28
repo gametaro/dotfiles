@@ -1,9 +1,9 @@
 local ok = prequire('hydra')
 if not ok then return end
 
-local cmd = vim.cmd
-
 local Hydra = require('hydra')
+
+local cmd = vim.cmd
 
 Hydra {
   name = 'Side scroll',
@@ -14,6 +14,19 @@ Hydra {
     { 'l', '5zl', { desc = '←/→' } },
     { 'H', 'zH' },
     { 'L', 'zL', { desc = 'half screen ←/→' } },
+  },
+}
+
+Hydra {
+  name = 'Changelist',
+  mode = 'n',
+  config = {
+    color = 'pink',
+  },
+  body = 'g',
+  heads = {
+    { ';', 'g;' },
+    { ',', 'g,' },
   },
 }
 
