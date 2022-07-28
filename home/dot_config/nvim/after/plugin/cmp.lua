@@ -4,6 +4,8 @@ if not ok then return end
 local cmp = require('cmp')
 local compare = require('cmp.config.compare')
 
+local api = vim.api
+
 ---@see https://github.com/lukas-reineke/cmp-under-comparator
 local compare_under_comparator = function(entry1, entry2)
   local _, entry1_under = entry1.completion_item.label:find('^_+')
@@ -119,8 +121,8 @@ local config = {
         keyword_pattern = [[\k\+]],
         get_bufnrs = function()
           return vim.tbl_filter(function(buf)
-            local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
-            return vim.api.nvim_buf_is_loaded(buf)
+            local buftype = api.nvim_buf_get_option(buf, 'buftype')
+            return api.nvim_buf_is_loaded(buf)
               and not vim.tbl_contains({
                 -- 'help',
                 'nofile',
@@ -128,7 +130,7 @@ local config = {
                 'quickfix',
                 'terminal',
               }, buftype)
-          end, vim.api.nvim_list_bufs())
+          end, api.nvim_list_bufs())
         end,
       },
     },
@@ -157,7 +159,7 @@ local cmdline_config = {
       option = {
         keyword_pattern = [[\k\+]],
         get_bufnrs = function()
-          return { vim.api.nvim_get_current_buf() }
+          return { api.nvim_get_current_buf() }
         end,
       },
     },
