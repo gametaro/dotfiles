@@ -332,18 +332,7 @@ xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '
 ]])
 
 map('n', '<F1>', function()
-  local row, col = unpack(api.nvim_win_get_cursor(0))
-  local items = fn.synstack(row, col + 1)
-  if vim.tbl_isempty(items) then
-    pcall(cmd.TSHighlightCapturesUnderCursor)
-  else
-    for _, i1 in ipairs(items) do
-      local i2 = fn.synIDtrans(i1)
-      local n1 = fn.synIDattr(i1, 'name')
-      local n2 = fn.synIDattr(i2, 'name')
-      print(fmt('%s -> %s', n1, n2))
-    end
-  end
+  require('ky.utils').synstack()
 end, { desc = 'show highlight-groups at the cursor' })
 
 map('n', '<F2>', function()

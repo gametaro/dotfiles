@@ -52,4 +52,26 @@ utils.find_proc_in_tree = function(rootpid, names, acc)
   return false
 end
 
+--- show highlight-groups at the cursor
+utils.synstack = function()
+  local row, col = unpack(api.nvim_win_get_cursor(0))
+  local items = fn.synstack(row, col + 1)
+  if vim.tbl_isempty(items) then
+    pcall(vim.cmd.TSHighlightCapturesUnderCursor)
+  else
+    for _, i1 in ipairs(items) do
+      local i2 = fn.synIDtrans(i1)
+      local n1 = fn.synIDattr(i1, 'name')
+      local n2 = fn.synIDattr(i2, 'name')
+      vim.notify(string.format('`%s` -> `%s`', n1, n2), vim.lsp.log_levels.INFO, {
+        title = debug.getinfo(1, 'n').name,
+        on_open = function(win)
+          local buf = api.nvim_win_get_buf(win)
+          api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
+        end,
+      })
+    end
+  end
+end
+
 return utils
