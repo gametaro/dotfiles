@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch
 local lsp = vim.lsp
 
 local float = {
