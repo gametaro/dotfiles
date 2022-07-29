@@ -24,15 +24,21 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-require('neogit').setup {
-  disable_builtin_notifications = true,
-  disable_commit_confirmation = true,
-  disable_hint = true,
-  disable_insert_on_commit = false,
-  integrations = { diffview = true },
-  sections = {
-    recent = {
-      folded = false,
-    },
-  },
-}
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'JetpackNeogitPost',
+  group = group,
+  callback = function()
+    require('neogit').setup {
+      disable_builtin_notifications = true,
+      disable_commit_confirmation = true,
+      disable_hint = true,
+      disable_insert_on_commit = false,
+      integrations = { diffview = true },
+      sections = {
+        recent = {
+          folded = false,
+        },
+      },
+    }
+  end,
+})
