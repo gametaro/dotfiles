@@ -70,13 +70,13 @@ end
 
 autocmd({ 'InsertLeave', 'VimEnter', 'WinEnter', 'BufWinEnter' }, {
   callback = function()
-    vim.wo.cursorline = true
+    vim.opt_local.cursorline = true
   end,
 })
 
 autocmd({ 'InsertEnter', 'WinLeave' }, {
   callback = function()
-    vim.wo.cursorline = false
+    vim.opt_local.cursorline = false
   end,
 })
 
