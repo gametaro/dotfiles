@@ -150,3 +150,28 @@ vim.api.nvim_create_autocmd('CursorMoved', {
   end,
 })
 require('mini.cursorword').setup {}
+
+require('mini.ai').setup {
+  custom_textobjects = {
+    -- textobj-entire
+    e = function()
+      local from = { line = 1, col = 1 }
+      local to = {
+        line = vim.fn.line('$'),
+        col = math.max(vim.fn.getline('$'):len(), 1),
+      }
+      return { from = from, to = to }
+    end,
+    -- textobj-line (i only)
+    l = function()
+      if vim.api.nvim_get_current_line() == '' then return end
+      vim.cmd.normal { '^', bang = true }
+      local from_line, from_col = unpack(vim.api.nvim_win_get_cursor(0))
+      local from = { line = from_line, col = from_col + 1 }
+      vim.cmd.normal { 'g_', bang = true }
+      local to_line, to_col = unpack(vim.api.nvim_win_get_cursor(0))
+      local to = { line = to_line, col = to_col + 1 }
+      return { from = from, to = to }
+    end,
+  },
+}

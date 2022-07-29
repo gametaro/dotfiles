@@ -156,14 +156,14 @@ for _, v in ipairs { '"', "'", '`', '{', '(', '[' } do
   map('o', v, fmt('i%s', v), { desc = 'text object shortcuts' })
 end
 
-for _, v in ipairs { '"', "'", '`' } do
-  map(
-    { 'o', 'x' },
-    fmt('a%s', v),
-    fmt('2i%s', v),
-    { desc = 'do not select blanks. see :help iquote' }
-  )
-end
+-- for _, v in ipairs { '"', "'", '`' } do
+--   map(
+--     { 'o', 'x' },
+--     fmt('a%s', v),
+--     fmt('2i%s', v),
+--     { desc = 'do not select blanks. see :help iquote' }
+--   )
+-- end
 
 map('n', leader('.'), function()
   cmd.edit('.')
