@@ -37,12 +37,11 @@ local on_attach = function(client, bufnr)
   map('n', '<LocalLeader>rn', function()
     return ':IncRename ' .. vim.fn.expand('<cword>')
   end, { expr = true })
-  map('n', '<LocalLeader>ca', function()
+  map({ 'n', 'x' }, '<LocalLeader>ca', function()
     lsp.buf.code_action {
       apply = true,
     }
   end)
-  map('x', '<LocalLeader>ca', lsp.buf.range_code_action)
   map('n', 'gr', lsp.buf.references)
   map('n', '<LocalLeader>cl', lsp.codelens.run)
 
