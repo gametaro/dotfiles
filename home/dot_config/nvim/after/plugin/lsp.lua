@@ -47,23 +47,23 @@ local on_attach = function(client, bufnr)
 
   if client.config.flags then client.config.flags.allow_incremental_sync = true end
 
-  -- sometimes feel annoyed...
-  -- if client.server_capabilities.documentHighlightProvider then
-  --   local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
-  --   vim.api.nvim_create_autocmd({ 'CursorHold' }, {
-  --     group = group,
-  --     buffer = bufnr,
-  --     callback = function()
-  --       lsp.buf.document_highlight()
-  --     end,
-  --   })
-  --   vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
-  --     group = group,
-  --     buffer = bufnr,
-  --     callback = function()
-  --       lsp.buf.clear_references()
-  --     end, })
-  -- end
+  if client.server_capabilities.documentHighlightProvider then
+    local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = false })
+    vim.api.nvim_clear_autocmds {
+      buffer = bufnr,
+      group = group,
+    }
+    vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+      group = group,
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
+      group = group,
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
   map('n', '<M-f>', function()
     lsp.buf.format {
       async = true,
