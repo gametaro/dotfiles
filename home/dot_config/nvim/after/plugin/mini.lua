@@ -174,4 +174,8 @@ require('mini.ai').setup {
       return { from = from, to = to }
     end,
   },
+  mappings = {
+    around_last = '',
+    inside_last = '',
+  },
 }
