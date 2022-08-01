@@ -132,23 +132,23 @@ require('mini.comment').setup {
   },
 }
 
-vim.api.nvim_create_autocmd('CursorMoved', {
-  group = group,
-  callback = function(a)
-    local curword = vim.fn.expand('<cword>')
-    local filetype = vim.bo[a.buf].filetype
-
-    local blocklist = {}
-    if filetype == 'lua' then
-      blocklist = { 'local', 'require' }
-    elseif filetype == 'javascript' then
-      blocklist = { 'import' }
-    end
-
-    vim.b.minicursorword_disable = string.len(curword) == 1 or vim.tbl_contains(blocklist, curword)
-  end,
-})
-require('mini.cursorword').setup {}
+-- vim.api.nvim_create_autocmd('CursorMoved', {
+--   group = group,
+--   callback = function(a)
+--     local curword = vim.fn.expand('<cword>')
+--     local filetype = vim.bo[a.buf].filetype
+--
+--     local blocklist = {}
+--     if filetype == 'lua' then
+--       blocklist = { 'local', 'require' }
+--     elseif filetype == 'javascript' then
+--       blocklist = { 'import' }
+--     end
+--
+--     vim.b.minicursorword_disable = string.len(curword) == 1 or vim.tbl_contains(blocklist, curword)
+--   end,
+-- })
+-- require('mini.cursorword').setup {}
 
 require('mini.ai').setup {
   custom_textobjects = {
