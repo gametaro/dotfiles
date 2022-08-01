@@ -207,6 +207,7 @@ jetpack.startup(function(use)
     },
   }
   use('antoinemadec/FixCursorHold.nvim')
+  vim.g.cursorhold_updatetime = 250
   use('lambdalisue/suda.vim')
   vim.g.suda_smart_edit = 1
   use { 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' }
