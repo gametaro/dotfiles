@@ -145,7 +145,6 @@ vim.api.nvim_create_autocmd('CursorMoved', {
       blocklist = { 'import' }
     end
 
-    ---@diagnostic disable-next-line: param-type-mismatch
     vim.b.minicursorword_disable = string.len(curword) == 1 or vim.tbl_contains(blocklist, curword)
   end,
 })
