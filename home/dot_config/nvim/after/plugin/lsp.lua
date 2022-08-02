@@ -133,122 +133,100 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
----@type table<string, function>
+---@type table<string, table>
 local configs = {
-  angularls = function()
-    return {}
-  end,
-  bashls = function()
-    return {}
-  end,
-  cssls = function()
-    return {}
-  end,
-  dockerls = function()
-    return {}
-  end,
-  eslint = function()
-    return {
-      settings = {
-        format = { enable = true },
+  angularls = {},
+  bashls = {},
+  cssls = {},
+  dockerls = {},
+  eslint = {
+    settings = {
+      format = { enable = true },
+    },
+  },
+  html = {},
+  jsonls = {
+    settings = {
+      json = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
       },
-    }
-  end,
-  html = function()
-    return {}
-  end,
-  jsonls = function()
-    return {
-      settings = {
-        json = {
-          schemas = require('schemastore').json.schemas(),
-          validate = { enable = true },
+    },
+  },
+  marksman = {},
+  yamlls = {
+    settings = {
+      yaml = {
+        schemas = require('schemastore').json.schemas(),
+        -- for cloudformation
+        -- see https://github.com/aws-cloudformation/cfn-lint-visual-studio-code/issues/69
+        customTags = {
+          '!And',
+          '!And sequence',
+          '!If',
+          '!If sequence',
+          '!Not',
+          '!Not sequence',
+          '!Equals',
+          '!Equals sequence',
+          '!Or',
+          '!Or sequence',
+          '!FindInMap',
+          '!FindInMap sequence',
+          '!Base64',
+          '!Join',
+          '!Join sequence',
+          '!Cidr',
+          '!Ref',
+          '!Sub',
+          '!Sub sequence',
+          '!GetAtt',
+          '!GetAZs',
+          '!ImportValue',
+          '!ImportValue sequence',
+          '!Select',
+          '!Select sequence',
+          '!Split',
+          '!Split sequence',
         },
       },
-    }
-  end,
-  marksman = function()
-    return {}
-  end,
-  yamlls = function()
-    return {
-      settings = {
-        yaml = {
-          schemas = require('schemastore').json.schemas(),
-          -- for cloudformation
-          -- see https://github.com/aws-cloudformation/cfn-lint-visual-studio-code/issues/69
-          customTags = {
-            '!And',
-            '!And sequence',
-            '!If',
-            '!If sequence',
-            '!Not',
-            '!Not sequence',
-            '!Equals',
-            '!Equals sequence',
-            '!Or',
-            '!Or sequence',
-            '!FindInMap',
-            '!FindInMap sequence',
-            '!Base64',
-            '!Join',
-            '!Join sequence',
-            '!Cidr',
-            '!Ref',
-            '!Sub',
-            '!Sub sequence',
-            '!GetAtt',
-            '!GetAZs',
-            '!ImportValue',
-            '!ImportValue sequence',
-            '!Select',
-            '!Select sequence',
-            '!Split',
-            '!Split sequence',
+    },
+  },
+  sumneko_lua = {
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          globals = { 'vim' },
+          disable = { 'missing-parameter', 'redundant-parameter' },
+          neededFileStatus = {
+            -- ['codestyle-check'] = 'Any',
+            -- ['type-check'] = 'Any',
           },
         },
-      },
-    }
-  end,
-  sumneko_lua = function()
-    local library = vim.tbl_filter(function(file)
-      return not vim.startswith(file, vim.fn.stdpath('config'))
-    end, vim.api.nvim_get_runtime_file('', true))
-    return {
-      settings = {
-        Lua = {
-          runtime = {
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            globals = { 'vim' },
-            disable = { 'missing-parameter', 'redundant-parameter' },
-            neededFileStatus = {
-              -- ['codestyle-check'] = 'Any',
-              -- ['type-check'] = 'Any',
-            },
-          },
-          workspace = {
-            library = library,
-            -- preloadFileSize = 1000,
-          },
-          completion = {
-            callSnippet = 'Replace',
-          },
-          format = {
-            enable = false,
-          },
-          hint = {
-            setType = true,
-          },
+        workspace = {
+          library = vim.tbl_filter(function(file)
+            return not vim.startswith(file, vim.fn.stdpath('config'))
+          end, vim.api.nvim_get_runtime_file('', true)),
+          -- preloadFileSize = 1000,
+        },
+        completion = {
+          callSnippet = 'Replace',
+        },
+        format = {
+          enable = false,
+        },
+        hint = {
+          setType = true,
         },
       },
-    }
-  end,
+    },
+  },
 }
 
 for server, config in pairs(configs) do
-  config = config()
   config.capabilities = capabilities
   lspconfig[server].setup(config)
 end
