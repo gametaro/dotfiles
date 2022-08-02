@@ -56,12 +56,21 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd({ 'CursorHold' }, {
       group = group,
       buffer = bufnr,
-      callback = vim.lsp.buf.document_highlight,
+      callback = function()
+        local cword = vim.fn.expand('<cword>')
+        if cword ~= vim.w.document_highlight_cword then
+          vim.w.document_highlight_cword = cword
+          lsp.buf.document_highlight()
+        end
+      end,
     })
     vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
       group = group,
       buffer = bufnr,
-      callback = vim.lsp.buf.clear_references,
+      callback = function()
+        local cword = vim.fn.expand('<cword>')
+        if cword ~= vim.w.document_highlight_cword then lsp.buf.clear_references() end
+      end,
     })
   end
   map('n', '<M-f>', function()
