@@ -269,18 +269,17 @@ autocmd('ModeChanged', {
   end,
 })
 
-autocmd('DiagnosticChanged', {
-  callback = function()
-    require('ky.defer').debounce_trailing(function()
-      local qf = fn.getqflist { winid = 0, title = 0 }
-      local loc = fn.getloclist(0, { winid = 0, title = 0 })
+local setlist = debounce_trailing(function()
+  local qf = fn.getqflist { winid = 0, title = 0 }
+  local loc = fn.getloclist(0, { winid = 0, title = 0 })
 
-      if qf and qf.winid ~= 0 and qf.title == 'Diagnostics' then
-        vim.diagnostic.setqflist { open = false }
-      end
-      if loc and loc.winid ~= 0 and loc.title == 'Diagnostics' then
-        vim.diagnostic.setloclist { open = false }
-      end
-    end, 1500)()
-  end,
+  if qf and qf.winid ~= 0 and qf.title == 'Diagnostics' then
+    vim.diagnostic.setqflist { open = false }
+  end
+  if loc and loc.winid ~= 0 and loc.title == 'Diagnostics' then
+    vim.diagnostic.setloclist { open = false }
+  end
+end, 500)
+autocmd('DiagnosticChanged', {
+  callback = setlist,
 })
