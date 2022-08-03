@@ -3,6 +3,9 @@ local cmd = vim.cmd
 local fn = vim.fn
 local augroup = api.nvim_create_augroup
 
+local debounce_trailing = require('ky.defer').debounce_trailing
+local debounce_leading = require('ky.defer').debounce_leading
+
 local group = augroup('mine', { clear = true })
 
 ---@param event string|string[]
