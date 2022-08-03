@@ -63,7 +63,7 @@ utils.synstack = function()
       local i2 = fn.synIDtrans(i1)
       local n1 = fn.synIDattr(i1, 'name')
       local n2 = fn.synIDattr(i2, 'name')
-      vim.notify(string.format('`%s` -> `%s`', n1, n2), vim.lsp.log_levels.INFO, {
+      vim.notify(string.format('`%s` -> `%s`', n1, n2), vim.log.levels.INFO, {
         title = debug.getinfo(1, 'n').name,
         on_open = function(win)
           local buf = api.nvim_win_get_buf(win)

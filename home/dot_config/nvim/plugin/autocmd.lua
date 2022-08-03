@@ -52,7 +52,7 @@ if vim.env.XDG_DATA_HOME then
       local on_data = function(_, data)
         output = output .. table.concat(data, '\n')
         if #output ~= 0 then
-          notification = vim.notify(output, 'info', {
+          notification = vim.notify(output, vim.log.levels.INFO, {
             title = table.concat(command, ' '),
             icon = '🏠',
             replace = notification,
