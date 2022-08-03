@@ -28,8 +28,8 @@ autocmd('QuickFixCmdPost', {
 
 autocmd('FileType', {
   pattern = { 'help', 'capture', 'lspinfo', 'null-ls-info', 'scratch' },
-  callback = function()
-    vim.keymap.set('n', 'q', '<C-w>c', { buffer = true, nowait = true })
+  callback = function(a)
+    vim.keymap.set('n', 'q', '<C-w>c', { buffer = a.buf, nowait = true })
   end,
   desc = 'close with `q`',
 })
@@ -188,7 +188,7 @@ autocmd('TermOpen', {
 
     map('t', '<Esc>', function()
       local names = { 'nvim', 'fzf' }
-      return require('ky.utils').find_proc_in_tree(vim.b.terminal_job_pid, names) and '<Esc>'
+      return require('ky.utils').find_proc_in_tree(vim.b[a.buf].terminal_job_pid, names) and '<Esc>'
         or escape
     end, {
       expr = true,
