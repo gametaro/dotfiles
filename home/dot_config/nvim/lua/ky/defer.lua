@@ -32,7 +32,7 @@ function M.throttle_leading(fn, ms)
   local function wrapped_fn(...)
     if not running then
       timer:start(ms, 0, function()
-        timer:close()
+        timer:stop()
         running = false
       end)
       running = true
@@ -63,7 +63,7 @@ function M.throttle_trailing(fn, ms, last)
         local argc = select('#', ...)
 
         timer:start(ms, 0, function()
-          timer:close()
+          timer:stop()
           running = false
           pcall(vim.schedule_wrap(fn), unpack(argv, 1, argc))
         end)
@@ -78,7 +78,7 @@ function M.throttle_trailing(fn, ms, last)
 
       if not running then
         timer:start(ms, 0, function()
-          timer:close()
+          timer:stop()
           running = false
           pcall(vim.schedule_wrap(fn), unpack(argv, 1, argc))
         end)
@@ -102,7 +102,7 @@ function M.debounce_leading(fn, ms)
 
   local function wrapped_fn(...)
     timer:start(ms, 0, function()
-      timer:close()
+      timer:stop()
       running = false
     end)
 
@@ -133,7 +133,7 @@ function M.debounce_trailing(fn, ms, first)
       local argc = select('#', ...)
 
       timer:start(ms, 0, function()
-        timer:close()
+        timer:stop()
         pcall(vim.schedule_wrap(fn), unpack(argv, 1, argc))
       end)
     end
@@ -144,7 +144,7 @@ function M.debounce_trailing(fn, ms, first)
       argc = argc or select('#', ...)
 
       timer:start(ms, 0, function()
-        timer:close()
+        timer:stop()
         pcall(vim.schedule_wrap(fn), unpack(argv, 1, argc))
       end)
     end
@@ -173,7 +173,7 @@ function M.test_defer(bouncer, ms, firstlast)
   for i, _ in ipairs { 1, 2, 3, 4, 5 } do
     bounced(i)
     vim.schedule(function()
-      vim.cmd.echom(i)
+      vim.cmd.echom(tostring(i))
     end)
     vim.fn.call('wait', { 1000, 'v:false' })
   end
