@@ -200,8 +200,16 @@ autocmd('TermOpen', {
 })
 
 autocmd({ 'TermEnter', 'TermLeave' }, {
-  callback = function()
-    api.nvim_buf_set_var(0, 'term_mode', api.nvim_get_mode().mode)
+  pattern = 'term://*',
+  callback = function(a)
+    vim.b[a.buf].term_mode = api.nvim_get_mode().mode
+  end,
+})
+
+autocmd('BufEnter', {
+  pattern = 'term://*',
+  callback = function(a)
+    if vim.b[a.buf].term_mode == 't' then cmd.startinsert() end
   end,
 })
 
@@ -210,14 +218,6 @@ autocmd('TermClose', {
     if vim.v.event.status == 0 then api.nvim_buf_delete(a.buf, { force = true }) end
   end,
   desc = 'close terminal buffers if the job exited without error. see :help terminal-status',
-})
-
-autocmd('BufEnter', {
-  pattern = 'term://*',
-  callback = function()
-    local ok, term_mode = pcall(api.nvim_buf_get_var, 0, 'term_mode')
-    if ok and term_mode == 't' then cmd.startinsert() end
-  end,
 })
 
 autocmd('BufEnter', {
