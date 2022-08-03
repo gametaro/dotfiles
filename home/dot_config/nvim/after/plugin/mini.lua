@@ -9,7 +9,7 @@ vim.keymap.set(
   { 'c', 't' },
   '<C-h>',
   'v:lua.MiniPairs.bs()',
-  { expr = true, desc = 'MiniPairs <BS>' }
+  { expr = true, replace_keycodes = false, desc = 'MiniPairs <BS>' }
 )
 
 -- vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
