@@ -152,6 +152,10 @@ autocmd('TermOpen', {
     vim.opt_local.relativenumber = false
     vim.opt_local.signcolumn = 'no'
 
+    ---@param mode string|string[]
+    ---@param lhs string
+    ---@param rhs string|function
+    ---@param opts? table
     local function map(mode, lhs, rhs, opts)
       opts = opts or {}
       opts.buffer = a.buf
