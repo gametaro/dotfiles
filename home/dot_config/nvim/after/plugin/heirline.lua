@@ -7,6 +7,11 @@ local utils = require('heirline.utils')
 local job = require('ky.job')
 local icons = require('ky.ui').icons
 
+local api = vim.api
+local cmd = vim.cmd
+local fn = vim.fn
+local diagnostic = vim.diagnostic
+
 local colors = {
   git = {
     add = utils.get_highlight('DiffAdd').fg,
@@ -46,7 +51,7 @@ local git_rev = function()
     },
     vim.schedule_wrap(function(data)
       local ahead, behind = unpack(vim.split(data or '', '\t'))
-      vim.api.nvim_set_var('git_rev', {
+      api.nvim_set_var('git_rev', {
         ahead = tonumber(ahead) or 0,
         behind = tonumber(behind) or 0,
       })
@@ -54,8 +59,8 @@ local git_rev = function()
   )
 end
 
-vim.api.nvim_create_autocmd('VimEnter', {
-  group = vim.api.nvim_create_augroup('GitRev', { clear = true }),
+api.nvim_create_autocmd('VimEnter', {
+  group = api.nvim_create_augroup('GitRev', { clear = true }),
   once = true,
   callback = function()
     local timer = vim.loop.new_timer()
@@ -65,7 +70,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end,
 })
 
-vim.api.nvim_create_autocmd('User', {
+api.nvim_create_autocmd('User', {
   pattern = 'HeirlineInitWinbar',
   callback = function(a)
     local buf = a.buf
@@ -78,9 +83,9 @@ vim.api.nvim_create_autocmd('User', {
 
 local ViMode = {
   init = function(self)
-    self.mode = vim.api.nvim_get_mode().mode
+    self.mode = api.nvim_get_mode().mode
     if not self.once then
-      vim.api.nvim_create_autocmd('ModeChanged', { command = 'redrawstatus' })
+      api.nvim_create_autocmd('ModeChanged', { command = 'redrawstatus' })
       self.once = true
     end
   end,
@@ -152,20 +157,20 @@ local ViMode = {
 
 local FileNameBlock = {
   init = function(self)
-    self.filename = vim.api.nvim_buf_get_name(0)
+    self.filename = api.nvim_buf_get_name(0)
   end,
   on_click = {
     name = 'heirline_filename',
     callback = function(self)
-      vim.cmd.edit(vim.fs.dirname(self.filename))
+      cmd.edit(vim.fs.dirname(self.filename))
     end,
   },
 }
 
 local FileIcon = {
   init = function(self)
-    local filename = vim.fn.fnamemodify(self.filename, ':t')
-    local extension = vim.fn.fnamemodify(filename, ':e')
+    local filename = fn.fnamemodify(self.filename, ':t')
+    local extension = fn.fnamemodify(filename, ':e')
     self.icon, self.icon_color =
       require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
   end,
@@ -179,18 +184,18 @@ local FileIcon = {
 
 local FileName = {
   provider = function(self)
-    local filename = vim.fn.fnamemodify(self.filename, ':t')
+    local filename = fn.fnamemodify(self.filename, ':t')
     return filename == '' and '[No Name]' or filename
   end,
 }
 
 local FilePath = {
   provider = function(self)
-    local filepath = vim.fn.fnamemodify(self.filename, ':.:h')
+    local filepath = fn.fnamemodify(self.filename, ':.:h')
     if not filepath then return end
     local trail = filepath:sub(-1) == '/' and '' or '/'
     if not conditions.width_percent_below(#filepath, 0.5) then
-      filepath = vim.fn.pathshorten(filepath)
+      filepath = fn.pathshorten(filepath)
     end
     return filepath .. trail
   end,
@@ -262,7 +267,7 @@ local FileFormat = {
 local FileSize = {
   provider = function()
     local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
-    local stat = vim.loop.fs_stat(vim.api.nvim_buf_get_name(0))
+    local stat = vim.loop.fs_stat(api.nvim_buf_get_name(0))
     local fsize = stat and stat.size or 0
     if fsize <= 0 then return '0' .. suffix[1] end
     local i = math.floor((math.log(fsize) / math.log(1024)))
@@ -273,7 +278,7 @@ local FileSize = {
 
 -- local FileLastModified = {
 --   provider = function()
---     local ftime = vim.fn.getftime(vim.api.nvim_buf_get_name(0))
+--     local ftime = fn.getftime(api.nvim_buf_get_name(0))
 --     return (ftime > 0) and os.date('%c', ftime)
 --   end,
 -- }
@@ -305,7 +310,7 @@ local LSPActive = {
     callback = function()
       -- use vim.defer_fn() if the callback requires opening of a floating window
       vim.defer_fn(function()
-        vim.cmd.LspInfo()
+        cmd.LspInfo()
       end, 100)
     end,
   },
@@ -322,10 +327,10 @@ local LSPActive = {
 local Diagnostics = {
   condition = conditions.has_diagnostics,
   init = function(self)
-    self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-    self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-    self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-    self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+    self.errors = #diagnostic.get(0, { severity = diagnostic.severity.ERROR })
+    self.warnings = #diagnostic.get(0, { severity = diagnostic.severity.WARN })
+    self.hints = #diagnostic.get(0, { severity = diagnostic.severity.HINT })
+    self.info = #diagnostic.get(0, { severity = diagnostic.severity.INFO })
   end,
   static = {
     error_icon = string.format('%s ', icons.error),
@@ -337,13 +342,13 @@ local Diagnostics = {
   on_click = {
     name = 'heirline_diagnostics',
     callback = function()
-      local qf = vim.fn.getqflist { winid = 0, title = 0 }
+      local qf = fn.getqflist { winid = 0, title = 0 }
       if not qf then return end
 
       if qf.winid ~= 0 and qf.title == 'Diagnostics' then
-        vim.cmd.cclose()
+        cmd.cclose()
       else
-        vim.diagnostic.setqflist()
+        diagnostic.setqflist()
       end
     end,
   },
@@ -383,7 +388,7 @@ local Git = {
   },
   {
     condition = function()
-      return pcall(vim.api.nvim_get_var, 'git_rev')
+      return pcall(api.nvim_get_var, 'git_rev')
     end,
     provider = function()
       return (vim.g.git_rev.ahead > 0 and ' ⇡' .. vim.g.git_rev.ahead or '')
@@ -394,7 +399,7 @@ local Git = {
   on_click = {
     name = 'heirline_Neogit',
     callback = function()
-      vim.cmd.Neogit()
+      cmd.Neogit()
     end,
   },
 }
@@ -410,11 +415,11 @@ local GitStatus = {
   on_click = {
     name = 'heirline_gitstatus',
     callback = function()
-      local qf = vim.fn.getqflist { winid = 0, title = 0 }
+      local qf = fn.getqflist { winid = 0, title = 0 }
       if not qf then return end
 
       if qf.winid ~= 0 and qf.title == 'Hunks' then
-        vim.cmd.cclose()
+        cmd.cclose()
       else
         require('gitsigns').setqflist()
       end
@@ -448,19 +453,15 @@ local WorkDir = {
     name = 'heirline_workdir',
     callback = function()
       vim.defer_fn(function()
-        vim.cmd.edit('.')
+        cmd.edit('.')
       end, 100)
     end,
   },
   provider = function()
-    local flag = (
-      vim.fn.haslocaldir() == 1 and 'L'
-      or vim.fn.haslocaldir(-1, 0) == 1 and 'T'
-      or 'G'
-    )
+    local flag = (fn.haslocaldir() == 1 and 'L' or fn.haslocaldir(-1, 0) == 1 and 'T' or 'G')
     local icon = ''
-    local cwd = vim.fn.fnamemodify(vim.loop.cwd(), ':~')
-    if not conditions.width_percent_below(#cwd, 0.25) then cwd = vim.fn.pathshorten(cwd) end
+    local cwd = fn.fnamemodify(vim.loop.cwd(), ':~')
+    if not conditions.width_percent_below(#cwd, 0.25) then cwd = fn.pathshorten(cwd) end
     local trail = cwd:sub(-1) == '/' and '' or '/'
     return flag .. ' ' .. icon .. ' ' .. cwd .. trail
   end,
@@ -471,7 +472,7 @@ local TerminalName = {
   init = function(self)
     self.icon, self.icon_color =
       require('nvim-web-devicons').get_icon_color_by_filetype('terminal', { default = true })
-    self.tname = vim.api.nvim_buf_get_name(0):gsub('.*:', '')
+    self.tname = api.nvim_buf_get_name(0):gsub('.*:', '')
   end,
   provider = function(self)
     return self.icon .. ' ' .. self.tname
@@ -496,8 +497,8 @@ local QuickfixName = {
     return vim.bo.filetype == 'qf'
   end,
   init = function(self)
-    self.qflist = vim.fn.getqflist { winid = 0, title = 0, size = 0, nr = 0, idx = 0 }
-    self.loclist = vim.fn.getloclist(0, { winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
+    self.qflist = fn.getqflist { winid = 0, title = 0, size = 0, nr = 0, idx = 0 }
+    self.loclist = fn.getloclist(0, { winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
     self.qf_open = self.qflist.winid ~= 0
     self.loc_open = self.loclist.winid ~= 0
   end,
@@ -528,8 +529,8 @@ local QuickfixName = {
   {
     provider = function(self)
       local nr = self.qf_open and self.qflist.nr or self.loc_open and self.loclist.nr or ''
-      local nrs = self.qf_open and vim.fn.getqflist({ nr = '$' }).nr
-        or self.loc_open and vim.fn.getloclist(0, { nr = '$' }).nr
+      local nrs = self.qf_open and fn.getqflist({ nr = '$' }).nr
+        or self.loc_open and fn.getloclist(0, { nr = '$' }).nr
         or ''
       return string.format('(%s of %s)', nr, nrs)
     end,
@@ -542,8 +543,8 @@ local HelpFileName = {
     return vim.bo.filetype == 'help'
   end,
   provider = function()
-    local filename = vim.api.nvim_buf_get_name(0)
-    return ' ' .. vim.fn.fnamemodify(filename, ':t')
+    local filename = api.nvim_buf_get_name(0)
+    return ' ' .. fn.fnamemodify(filename, ':t')
   end,
 }
 
@@ -553,7 +554,7 @@ local LirName = {
   end,
   init = function(self)
     local dir = require('lir').get_context().dir
-    self.dir = vim.fn.fnamemodify(dir, ':~:h')
+    self.dir = fn.fnamemodify(dir, ':~:h')
     self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color('lir_folder_icon')
     self.show_hidden_files = require('lir.config').values.show_hidden_files
   end,
@@ -589,7 +590,7 @@ local CloseButton = {
     hl = { fg = 'gray' },
     on_click = {
       callback = function(_, winid)
-        pcall(vim.api.nvim_win_close, winid, true)
+        pcall(api.nvim_win_close, winid, true)
       end,
       name = function(self)
         return 'heirline_close_button_' .. self.winnr
@@ -609,7 +610,7 @@ local Spell = {
 local Snippets = {
   condition = function()
     local has_luasnip = prequire('luasnip')
-    return vim.tbl_contains({ 's', 'i' }, vim.api.nvim_get_mode().mode) and has_luasnip
+    return vim.tbl_contains({ 's', 'i' }, api.nvim_get_mode().mode) and has_luasnip
   end,
   provider = function()
     local forward = (require('luasnip').expand_or_locally_jumpable()) and '' or ''
@@ -764,8 +765,8 @@ local StatusLines = {
   end,
 }
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = vim.api.nvim_create_augroup('heirline', { clear = true }),
+api.nvim_create_autocmd('ColorScheme', {
+  group = api.nvim_create_augroup('heirline', { clear = true }),
   callback = function()
     heirline.reset_highlights()
     heirline.load_colors(colors)
