@@ -6,7 +6,7 @@ local fn = vim.fn
 
 ---@param t table
 ---@param v any
----@return integer?
+---@return integer|nil
 local index_of = function(t, v)
   for i = 1, #t do
     if t[i] == v then return i end
@@ -16,14 +16,14 @@ end
 
 ---@param idx integer
 ---@param len integer
----@return integer
+---@return integer|nil
 local next_index = function(idx, len)
   return idx == len and 1 or idx + 1
 end
 
 ---@param idx integer
 ---@param len integer
----@return integer
+---@return integer|nil
 local prev_index = function(idx, len)
   return idx == 1 and len or idx - 1
 end

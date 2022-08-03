@@ -7,13 +7,13 @@ local api = vim.api
 local fn = vim.fn
 
 ---@class jump.Options
----@field ignore_buftype string[]
----@field ignore_filetype string[]
----@field only_cwd boolean?
----@field forward boolean?
----@field is_local boolean?
----@field on_success function
----@field on_error function
+---@field ignore_buftype? string[]
+---@field ignore_filetype? string[]
+---@field only_cwd? boolean
+---@field forward? boolean
+---@field is_local? boolean
+---@field on_success? function
+---@field on_error? function
 
 ---@param bufnr integer
 ---@param opts jump.Options
@@ -125,7 +125,7 @@ local forward = function(opts)
   jump(opts)
 end
 
----@param opts jump.Options
+---@param opts? jump.Options
 local backward = function(opts)
   opts = opts or {}
   opts.forward = false
@@ -133,7 +133,7 @@ local backward = function(opts)
   jump(opts)
 end
 
----@param opts jump.Options
+---@param opts? jump.Options
 local forward_local = function(opts)
   opts = opts or {}
   opts.forward = true
@@ -141,7 +141,7 @@ local forward_local = function(opts)
   jump(opts)
 end
 
----@param opts jump.Options
+---@param opts? jump.Options
 local backward_local = function(opts)
   opts = opts or {}
   opts.forward = false

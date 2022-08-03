@@ -14,7 +14,7 @@ local on_attach = function(client, bufnr)
   ---@param mode string|string[]
   ---@param lhs string
   ---@param rhs function
-  ---@param opts table
+  ---@param opts? table
   local function map(mode, lhs, rhs, opts)
     opts = opts or {}
     opts.buffer = bufnr
