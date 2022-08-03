@@ -68,7 +68,7 @@ if vim.env.XDG_DATA_HOME then
   })
 end
 
-autocmd({ 'InsertLeave', 'VimEnter', 'WinEnter', 'BufWinEnter' }, {
+autocmd('InsertLeave', {
   callback = function()
     vim.opt_local.cursorline = true
   end,
@@ -77,6 +77,22 @@ autocmd({ 'InsertLeave', 'VimEnter', 'WinEnter', 'BufWinEnter' }, {
 autocmd({ 'InsertEnter', 'WinLeave' }, {
   callback = function()
     vim.opt_local.cursorline = false
+  end,
+})
+
+local disable_cursorline = debounce_leading(function()
+  vim.opt_local.cursorline = false
+end, 200)
+
+autocmd('CursorMoved', {
+  callback = function()
+    disable_cursorline()
+  end,
+})
+
+autocmd('CursorHold', {
+  callback = function()
+    vim.opt_local.cursorline = true
   end,
 })
 
