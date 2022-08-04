@@ -38,3 +38,39 @@ vim.keymap.set('n', '[d', diagnostic.goto_prev)
 vim.keymap.set('n', ']d', diagnostic.goto_next)
 vim.keymap.set('n', '<LocalLeader>dq', diagnostic.setqflist)
 vim.keymap.set('n', '<LocalLeader>dl', diagnostic.setloclist)
+
+local setlist = require('ky.defer').debounce_trailing(function()
+  local qf = vim.fn.getqflist { winid = 0, title = 0 }
+  local loc = vim.fn.getloclist(0, { winid = 0, title = 0 })
+
+  if qf and qf.winid ~= 0 and qf.title == 'Diagnostics' then
+    diagnostic.setqflist { open = false }
+  end
+  if loc and loc.winid ~= 0 and loc.title == 'Diagnostics' then
+    diagnostic.setloclist { open = false }
+  end
+end, 500)
+
+local group = vim.api.nvim_create_augroup('mine__diagnostics', {})
+vim.api.nvim_create_autocmd('DiagnosticChanged', {
+  group = group,
+  callback = setlist,
+})
+
+vim.api.nvim_create_autocmd('ModeChanged', {
+  group = group,
+  pattern = '*:s',
+  callback = function(a)
+    local ok, luasnip = prequire('luasnip')
+    if ok and luasnip.in_snippet() then return diagnostic.disable(a.buf) end
+  end,
+})
+
+vim.api.nvim_create_autocmd('ModeChanged', {
+  group = group,
+  pattern = '[is]:n',
+  callback = function(a)
+    local ok, luasnip = prequire('luasnip')
+    if ok and luasnip.in_snippet() then return diagnostic.enable(a.buf) end
+  end,
+})

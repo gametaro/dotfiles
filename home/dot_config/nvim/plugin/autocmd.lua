@@ -226,34 +226,3 @@ autocmd('BufWritePre', {
     if fn.isdirectory(dir) == 0 then fn.mkdir(dir, 'p') end
   end,
 })
-
-autocmd('ModeChanged', {
-  pattern = '*:s',
-  callback = function(a)
-    local ok, luasnip = prequire('luasnip')
-    if ok and luasnip.in_snippet() then return vim.diagnostic.disable(a.buf) end
-  end,
-})
-
-autocmd('ModeChanged', {
-  pattern = '[is]:n',
-  callback = function(a)
-    local ok, luasnip = prequire('luasnip')
-    if ok and luasnip.in_snippet() then return vim.diagnostic.enable(a.buf) end
-  end,
-})
-
-local setlist = debounce_trailing(function()
-  local qf = fn.getqflist { winid = 0, title = 0 }
-  local loc = fn.getloclist(0, { winid = 0, title = 0 })
-
-  if qf and qf.winid ~= 0 and qf.title == 'Diagnostics' then
-    vim.diagnostic.setqflist { open = false }
-  end
-  if loc and loc.winid ~= 0 and loc.title == 'Diagnostics' then
-    vim.diagnostic.setloclist { open = false }
-  end
-end, 500)
-autocmd('DiagnosticChanged', {
-  callback = setlist,
-})
