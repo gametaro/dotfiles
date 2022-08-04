@@ -16,7 +16,7 @@ diagnostic.config {
   --   prefix = '●',
   --   severity = diagnostic.severity.ERROR,
   -- },
-  virtual_lines = { only_current_line = true },
+  -- virtual_lines = { only_current_line = true },
   float = {
     border = require('ky.ui').border,
     -- source = 'always',
