@@ -1,14 +1,19 @@
 local fn = vim.fn
 
+---@param info table
+---@return unknown
 local items = function(info)
   return info.quickfix == 1 and fn.getqflist({ id = info.id, items = 0 }).items
     or fn.getloclist(info.winid, { id = info.id, items = 0 }).items
 end
 
+---@param fname string
+---@param limit integer
+---@return string
 local format_fname = function(fname, limit)
   fname = fname == '' and '[No Name]' or fn.fnamemodify(fname, ':p:.')
   fname = fname:gsub('^' .. vim.env.HOME, '~')
-  limit = vim.F.if_nil(limit, 31)
+  limit = limit or 31
 
   local fname_fmt1 = '%-' .. limit .. 's'
   local fname_fmt2 = '…%.' .. (limit - 1) .. 's'
@@ -17,6 +22,8 @@ local format_fname = function(fname, limit)
   return #fname <= limit and fname_fmt1:format(fname) or fname_fmt2:format(fname:sub(1 - limit))
 end
 
+---@param info table
+---@return unknown
 function _G.qftf(info)
   return vim.tbl_map(function(item)
     return item.valid ~= 1 and item.text
