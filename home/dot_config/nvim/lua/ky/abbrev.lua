@@ -4,11 +4,9 @@ local M = {}
 ---@param rhs string
 function M.cabbrev(lhs, rhs)
   vim.cmd.cnoreabbrev {
-    args = {
-      '<expr>',
-      lhs,
-      string.format("v:lua.require'ky.abbrev'.command('%s', '%s')", lhs, rhs),
-    },
+    '<expr>',
+    lhs,
+    string.format("v:lua.require'ky.abbrev'.command('%s', '%s')", lhs, rhs),
   }
 end
 
