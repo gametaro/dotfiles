@@ -4,7 +4,6 @@ local fn = vim.fn
 local augroup = api.nvim_create_augroup
 
 local debounce_trailing = require('ky.defer').debounce_trailing
-local debounce_leading = require('ky.defer').debounce_leading
 
 local group = augroup('mine', { clear = true })
 
@@ -70,34 +69,6 @@ if vim.env.XDG_DATA_HOME then
     desc = 'run chezmoi apply whenever a dotfile is saved',
   })
 end
-
-autocmd('InsertLeave', {
-  callback = function()
-    vim.opt_local.cursorline = true
-  end,
-})
-
-autocmd({ 'InsertEnter', 'WinLeave' }, {
-  callback = function()
-    vim.opt_local.cursorline = false
-  end,
-})
-
-local disable_cursorline = debounce_leading(function()
-  vim.opt_local.cursorline = false
-end, 200)
-
-autocmd('CursorMoved', {
-  callback = function()
-    disable_cursorline()
-  end,
-})
-
-autocmd('CursorHold', {
-  callback = function()
-    vim.opt_local.cursorline = true
-  end,
-})
 
 autocmd('BufReadPost', {
   callback = function(a)
