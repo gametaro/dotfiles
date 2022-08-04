@@ -20,13 +20,17 @@ utils.toggle_options = function(name, values, opts)
     end
   end
   if opts and not opts.silent then
-    vim.notify(string.format('set `%s` to `%s`', vim.inspect(name), vim.inspect(value)), 'info', {
-      title = debug.getinfo(1, 'n').name,
-      on_open = function(win)
-        local buf = api.nvim_win_get_buf(win)
-        api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
-      end,
-    })
+    vim.notify(
+      string.format('set `%s` to `%s`', vim.inspect(name), vim.inspect(value)),
+      vim.log.levels.INFO,
+      {
+        title = debug.getinfo(1, 'n').name,
+        on_open = function(win)
+          local buf = api.nvim_win_get_buf(win)
+          api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
+        end,
+      }
+    )
   end
 end
 
