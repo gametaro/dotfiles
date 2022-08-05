@@ -180,6 +180,7 @@ jetpack.startup(function(use)
 
   -- Markdown
   use { 'iamcco/markdown-preview.nvim', run = 'call mkdp#util#install()' }
+  use('AckslD/nvim-FeMaco.lua')
 
   -- Session
   -- use('rmagatti/auto-session')
