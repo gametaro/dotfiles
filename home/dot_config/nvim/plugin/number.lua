@@ -14,8 +14,6 @@ local opts = {
   ignore_filetype = {},
 }
 
-local group = vim.api.nvim_create_augroup('mine__number', {})
-
 ---@param value boolean
 ---@return nil
 local number = function(value)
