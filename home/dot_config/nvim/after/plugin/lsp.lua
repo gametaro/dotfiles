@@ -47,32 +47,35 @@ local on_attach = function(client, bufnr)
 
   if client.config.flags then client.config.flags.allow_incremental_sync = true end
 
-  if client.server_capabilities.documentHighlightProvider then
-    local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = false })
-    vim.api.nvim_clear_autocmds {
-      buffer = bufnr,
-      group = group,
-    }
-    vim.api.nvim_create_autocmd({ 'CursorHold' }, {
-      group = group,
-      buffer = bufnr,
-      callback = function()
-        local cword = vim.fn.expand('<cword>')
-        if cword ~= vim.w.document_highlight_cword then
-          vim.w.document_highlight_cword = cword
-          lsp.buf.document_highlight()
-        end
-      end,
-    })
-    vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
-      group = group,
-      buffer = bufnr,
-      callback = function()
-        local cword = vim.fn.expand('<cword>')
-        if cword ~= vim.w.document_highlight_cword then lsp.buf.clear_references() end
-      end,
-    })
-  end
+  require('illuminate').on_attach(client)
+
+  -- if client.server_capabilities.documentHighlightProvider then
+  --   local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = false })
+  --   vim.api.nvim_clear_autocmds {
+  --     buffer = bufnr,
+  --     group = group,
+  --   }
+  --   vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+  --     group = group,
+  --     buffer = bufnr,
+  --     callback = function()
+  --       local cword = vim.fn.expand('<cword>')
+  --       if cword ~= vim.w.document_highlight_cword then
+  --         vim.w.document_highlight_cword = cword
+  --         lsp.buf.document_highlight()
+  --       end
+  --     end,
+  --   })
+  --   vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
+  --     group = group,
+  --     buffer = bufnr,
+  --     callback = function()
+  --       local cword = vim.fn.expand('<cword>')
+  --       if cword ~= vim.w.document_highlight_cword then lsp.buf.clear_references() end
+  --     end,
+  --   })
+  -- end
+
   map('n', '<M-f>', function()
     lsp.buf.format {
       async = true,

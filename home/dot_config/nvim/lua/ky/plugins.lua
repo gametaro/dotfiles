@@ -215,6 +215,7 @@ jetpack.startup(function(use)
   use('wsdjeg/vim-fetch')
   use('justinmk/vim-gtfo')
   use { 'dstein64/vim-startuptime', on = ':StartupTime' }
+  use('RRethy/vim-illuminate')
 end)
 
 local sync = function()
