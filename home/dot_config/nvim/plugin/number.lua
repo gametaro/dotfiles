@@ -14,6 +14,8 @@ local opts = {
   ignore_filetype = {},
 }
 
+local group = vim.api.nvim_create_augroup('mine__number', {})
+
 ---@param value boolean
 ---@return nil
 local number = function(value)
@@ -26,11 +28,15 @@ local relativenumber = function(value)
   return vim.api.nvim_set_option_value('relativenumber', value, { scope = 'local' })
 end
 
+local ignore = function(buf)
+  return vim.tbl_contains(opts.ignore_buftype, vim.bo[buf].buftype)
+    or vim.tbl_contains(opts.ignore_filetype, vim.bo[buf].filetype)
+end
+
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
   group = group,
   callback = function(a)
-    if vim.tbl_contains(opts.ignore_buftype, vim.bo[a.buf].buftype) then return end
-    if vim.tbl_contains(opts.ignore_filetype, vim.bo[a.buf].filetype) then return end
+    if ignore(a.buf) then return end
 
     number(true)
     relativenumber(false)
@@ -40,8 +46,7 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
 vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter' }, {
   group = group,
   callback = function(a)
-    if vim.tbl_contains(opts.ignore_buftype, vim.bo[a.buf].buftype) then return end
-    if vim.tbl_contains(opts.ignore_filetype, vim.bo[a.buf].filetype) then return end
+    if ignore(a.buf) then return end
 
     number(true)
     relativenumber(true)
