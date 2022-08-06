@@ -51,8 +51,6 @@ local window = {
     'CursorLine:PmenuSel',
     'Search:None',
   }, ','),
-  col_offset = -3,
-  side_padding = 0,
 }
 
 ---@type cmp.ConfigSchema
@@ -105,7 +103,7 @@ local config = {
     deprecated = true,
     fields = { 'kind', 'abbr' },
     format = function(_, vim_item)
-      vim_item.kind = string.format(' %s ', kind_icons[vim_item.kind]) or '   '
+      vim_item.kind = kind_icons[vim_item.kind] or ''
       return vim_item
     end,
   },
