@@ -69,7 +69,7 @@ local hue_base = 220
 local normal_bg = hsluv.hsluv_to_hex { hue_base, 25, 12 }
 local normal_fg = hsluv.hsluv_to_hex { hue_base, 10, 78 }
 
-local statusline_bg = hsluv.hsluv_to_hex { hue_base, 20, 22 }
+local statusline_bg = hsluv.hsluv_to_hex { hue_base, 20, 10 }
 local statusline_fg = hsluv.hsluv_to_hex { hue_base, 10, 70 }
 local statuslinenc_bg = M.lighten(statusline_bg, -3)
 local statuslinenc_fg = M.lighten(normal_fg, 10)
@@ -77,7 +77,7 @@ local statuslinenc_fg = M.lighten(normal_fg, 10)
 local cursorline_bg = M.saturate_lighten(normal_bg, 1, 5)
 -- local cursorline_fg = normal_fg:saturate(1):lighten(5)
 
-local pmenu_bg = cursorline_bg
+local pmenu_bg = hsluv.hsluv_to_hex { hue_base, 20, 20 }
 local pmenu_fg = normal_fg
 local pmenusel_bg = hsluv.hsluv_to_hex { hue_base, 20, 35 }
 local pmenusel_fg = hsluv.hsluv_to_hex { hue_base, 20, 95 }
@@ -150,7 +150,7 @@ M.highlight_groups = {
   NormalFloat = { link = 'Pmenu' },
   FloatBorder = { link = 'WinSeparator' },
   Pmenu = { fg = pmenu_fg, bg = pmenu_bg },
-  PmenuSel = { fg = pmenusel_fg, bg = visual_bg },
+  PmenuSel = { fg = pmenusel_fg, bg = pmenusel_bg },
   PmenuSbar = { bg = pmenu_bg },
   PmenuThumb = { bg = pmenusel_bg },
   Question = { link = 'Moremsg' },
@@ -354,7 +354,7 @@ M.highlight_groups = {
   TelescopePromptNormal = { link = 'Pmenu' },
   TelescopeBorder = { link = 'WinSeparator' },
   TelescopeMatching = { fg = M.palette.blue, bold = true },
-  TelescopeSelection = { link = 'Visual' },
+  TelescopeSelection = { link = 'PmenuSel' },
 
   -- nvim-notify
   NotifyERRORBorder = { fg = red_tint_bg, bg = pmenu_bg },
