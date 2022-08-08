@@ -48,6 +48,7 @@ local walkthrough = function(opts)
   local dirname = vim.fs.dirname(full_filename)
   -- would be better if results were cached per directory?
   local files = list_files(dirname)
+  if #files == 1 then return end
   local idx = index_of(files, filename)
   if idx == nil then return end
   if opts.next then
