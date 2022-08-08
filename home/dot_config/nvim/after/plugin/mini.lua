@@ -172,6 +172,18 @@ require('mini.ai').setup {
     --   local to = { line = to_line, col = to_col + 1 }
     --   return { from = from, to = to }
     -- end,
+    d = function()
+      return vim.tbl_map(function(diagnostic)
+        local from_line = diagnostic.lnum + 1
+        local from_col = diagnostic.col + 1
+        local to_line = diagnostic.end_lnum + 1
+        local to_col = diagnostic.end_col + 1
+        return {
+          from = { line = from_line, col = from_col },
+          to = { line = to_line, col = to_col },
+        }
+      end, vim.diagnostic.get(0))
+    end,
   },
   -- mappings = {
   --   around_last = '',
