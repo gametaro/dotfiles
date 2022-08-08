@@ -3,7 +3,7 @@ if not ok then return end
 
 require('nvim-treesitter.configs').setup {
   auto_install = true,
-  ignore_install = { 'comment' },
+  -- ignore_install = { 'comment' },
   highlight = {
     enable = true,
     disable = { 'html' },
