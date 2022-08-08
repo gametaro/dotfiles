@@ -75,6 +75,7 @@ opt.mousescroll = { 'ver:1', 'hor:3' }
 o.preserveindent = true
 o.pumblend = blend
 o.pumheight = 10
+o.ruler = false
 -- opt.shada = { '!', "'0", 'f0', '<50', 's10', 'h' }
 -- opt.scrolloff = 5
 -- opt.sidescrolloff = 5
@@ -89,7 +90,7 @@ opt.shortmess:append {
   s = true,
 }
 -- opt.showbreak = '↳ '
--- opt.showcmd = false
+o.showcmd = false
 o.showmode = false
 o.signcolumn = 'yes:2'
 o.smartcase = true
