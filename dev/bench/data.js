@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659945345320,
+  "lastUpdate": 1659948926369,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -12842,6 +12842,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.29467565523333333,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "cc497bf9a20455e2222da632c4d1c8f024fd97ec",
+          "message": "feat(mini.ai): define textobj-diagnostic myself",
+          "timestamp": "2022-08-08T17:38:40+09:00",
+          "tree_id": "700a0cf2de09a97b7535f69f1e5189a0b866d7fd",
+          "url": "https://github.com/gametaro/dotfiles/commit/cc497bf9a20455e2222da632c4d1c8f024fd97ec"
+        },
+        "date": 1659948924870,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.37310430421333335,
             "unit": "Second"
           }
         ]
