@@ -62,10 +62,3 @@ vim.api.nvim_create_autocmd('CursorMoved', {
     enable_cursorline()
   end,
 })
-
--- vim.api.nvim_create_autocmd('CursorHold', {
---   group = group,
---   callback = function()
---     cursorline(true)
---   end,
--- })
