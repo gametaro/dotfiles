@@ -14,5 +14,13 @@ require('nvim-surround').buffer_setup {
         return { { 'function() ' }, { ' end' } }
       end,
     },
+    ['p'] = {
+      add = { 'vim.pretty_print(', ')' },
+      find = 'vim%.pretty_print%b()',
+      delete = '^(vim%.pretty_print%()().-(%))()$',
+      change = {
+        target = '^(vim%.pretty_print%()().-(%))()$',
+      },
+    },
   },
 }

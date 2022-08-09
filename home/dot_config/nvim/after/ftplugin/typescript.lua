@@ -13,5 +13,13 @@ require('nvim-surround').buffer_setup {
         }
       end,
     },
+    ['p'] = {
+      add = { 'console.log(', ')' },
+      find = 'console%.log%b()',
+      delete = '^(console%.log%()().-(%))()$',
+      change = {
+        target = '^(console%.log%()().-(%))()$',
+      },
+    },
   },
 }
