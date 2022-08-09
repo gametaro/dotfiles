@@ -502,6 +502,9 @@ M.highlight_groups = {
 
   -- marks.nvim
   MarkSignHL = { fg = M.palette.orange },
+
+  --vim-illuminate
+  illuminatedWord = { link = 'MatchParen' },
 }
 
 M.load = function()

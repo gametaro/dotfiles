@@ -47,7 +47,7 @@ local on_attach = function(client, bufnr)
 
   if client.config.flags then client.config.flags.allow_incremental_sync = true end
 
-  require('illuminate').on_attach(client)
+  if not client.name == 'null-ls' then require('illuminate').on_attach(client) end
 
   -- if client.server_capabilities.documentHighlightProvider then
   --   local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = false })
