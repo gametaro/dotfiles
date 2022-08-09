@@ -143,7 +143,11 @@ jetpack.startup(function(use)
   use { 'haya14busa/vim-edgemotion', on = '<Plug>(edgemotion-' }
   use('bkad/CamelCaseMotion')
   use { 'kana/vim-smartword', on = 'VimEnter' }
-  use { 'rlane/pounce.nvim', on = { ':Pounce', ':PounceRepeat' } }
+  use {
+    'gametaro/pounce.nvim',
+    branch = 'cword',
+    on = { ':Pounce', ':PounceRepeat', ':PounceCword' },
+  }
   -- use { 'hrsh7th/vim-eft', on = '<Plug>(eft-' }
   use { 'rainbowhxch/accelerated-jk.nvim', on = '<Plug>(accelerated_jk_' }
 
