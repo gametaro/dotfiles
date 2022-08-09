@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659948926369,
+  "lastUpdate": 1660008822398,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -12871,6 +12871,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.37310430421333335,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "d60ee4746c3a3764746f84793b86db5d6f31793e",
+          "message": "feat(surround): add print statements for lua/typescript\n\nref: https://github.com/kylechui/nvim-surround/discussions/53#discussioncomment-3341113",
+          "timestamp": "2022-08-09T10:30:53+09:00",
+          "tree_id": "558870d69a5838c5f735a3483639d57175a66831",
+          "url": "https://github.com/gametaro/dotfiles/commit/d60ee4746c3a3764746f84793b86db5d6f31793e"
+        },
+        "date": 1660008821175,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.2927752591533333,
             "unit": "Second"
           }
         ]
