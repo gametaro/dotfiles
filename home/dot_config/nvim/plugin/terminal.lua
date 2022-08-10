@@ -45,7 +45,7 @@ api.nvim_create_autocmd('TermOpen', {
     map('n', '<C-n>', function()
       return 'i' .. string.rep('<Down>', vim.v.count1) .. escape
     end, { expr = true })
-    map('t', ':', function()
+    map('t', ';', function()
       local text = get_prompt_text()
       return string.match(text, '❯%s+$') and [[<C-\><C-n>:]] or ':'
     end, { expr = true })
