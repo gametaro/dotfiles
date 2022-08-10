@@ -32,10 +32,10 @@ return {
   selection_word_boundary = ' \t\n{}[]()"\'`.,;:',
   launch_menu = launch_menu,
   enable_tab_bar = true,
-  font = wezterm.font {
+  font = wezterm.font({
     family = 'FiraCode NF',
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
-  },
+  }),
   font_size = 8.0,
   color_scheme = 'nightfox',
   add_wsl_distributions_to_launch_menu = false,

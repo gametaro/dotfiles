@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd('User', {
   pattern = 'JetpackVimSmartwordPost',
   callback = function()
-    for _, v in ipairs { 'w', 'b', 'e', 'ge' } do
+    for _, v in ipairs({ 'w', 'b', 'e', 'ge' }) do
       vim.keymap.set(
         '',
         string.format('<Plug>(smartword-basic-%s)', v),

@@ -45,8 +45,12 @@ local spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' 
 ---@param client_id integer
 ---@param token integer
 local function get_notif_data(client_id, token)
-  if not client_notifs[client_id] then client_notifs[client_id] = {} end
-  if not client_notifs[client_id][token] then client_notifs[client_id][token] = {} end
+  if not client_notifs[client_id] then
+    client_notifs[client_id] = {}
+  end
+  if not client_notifs[client_id][token] then
+    client_notifs[client_id][token] = {}
+  end
   return client_notifs[client_id][token]
 end
 
@@ -84,7 +88,9 @@ lsp.handlers['$/progress'] = function(_, result, ctx)
   local client_name = lsp.get_client_by_id(client_id).name
   local val = result.value
   local ignore = { 'null-ls' }
-  if not val.kind or vim.tbl_contains(ignore, client_name) then return end
+  if not val.kind or vim.tbl_contains(ignore, client_name) then
+    return
+  end
 
   local notif_data = get_notif_data(client_id, result.token)
   if val.kind == 'begin' then

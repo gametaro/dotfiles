@@ -1,5 +1,7 @@
 local ok = prequire('telescope')
-if not ok then return end
+if not ok then
+  return
+end
 
 local telescope = require('telescope')
 local actions = require('telescope.actions')
@@ -22,7 +24,9 @@ local horizontal = {
 
 local yank = function(prompt_bufnr)
   local selection = action_state.get_selected_entry()
-  if selection == nil then return end
+  if selection == nil then
+    return
+  end
   actions.close(prompt_bufnr)
   vim.fn.setreg(vim.v.register, selection.value)
 end
@@ -96,7 +100,7 @@ local defaults = {
   },
 }
 
-telescope.setup {
+telescope.setup({
   defaults = defaults,
   extensions = {
     fzf = {
@@ -119,7 +123,7 @@ telescope.setup {
     },
   },
   pickers = {
-    buffers = themes.get_dropdown {
+    buffers = themes.get_dropdown({
       mappings = {
         i = {
           ['<C-x>'] = actions.delete_buffer,
@@ -134,12 +138,12 @@ telescope.setup {
       sort_mru = true,
       only_cwd = true,
       previewer = false,
-    },
-    oldfiles = themes.get_dropdown {
+    }),
+    oldfiles = themes.get_dropdown({
       borderchars = borderchars,
       only_cwd = true,
       previewer = false,
-    },
+    }),
     colorscheme = {
       enable_preview = true,
     },
@@ -152,7 +156,7 @@ telescope.setup {
             local selection = action_state.get_selected_entry()
             local dir = vim.fn.fnamemodify(selection.path, ':p:h')
             actions.close(prompt_bufnr)
-            vim.cmd.tcd { dir, mods = { silent = true } }
+            vim.cmd.tcd({ dir, mods = { silent = true } })
           end,
         },
       },
@@ -163,7 +167,7 @@ telescope.setup {
     git_stash = horizontal,
     help_tags = horizontal,
   },
-}
+})
 
 require('ky.abbrev').cabbrev('t', 'Telescope')
 
@@ -171,16 +175,18 @@ local map = vim.keymap.set
 
 map('n', '<C-p>', function()
   local ok = pcall(builtin.git_files)
-  if not ok then builtin.find_files() end
+  if not ok then
+    builtin.find_files()
+  end
 end)
 map('n', '<C-b>', builtin.buffers)
 -- map('n', '<C-g>', builtin.live_grep)
 map('n', '<C-s>', builtin.grep_string)
 map('n', '<LocalLeader>fd', function()
-  builtin.find_files {
+  builtin.find_files({
     prompt_title = 'Dot Files',
     cwd = '$XDG_DATA_HOME/chezmoi/',
-  }
+  })
 end)
 map('n', '<C-h>', builtin.help_tags)
 map('n', '<LocalLeader>fv', builtin.vim_options)
@@ -191,7 +197,7 @@ map('n', '<LocalLeader>fm', builtin.man_pages)
 map('n', '<LocalLeader>fh', builtin.highlights)
 map('n', '<C-n>', builtin.oldfiles)
 map('n', '<LocalLeader>fr', function()
-  builtin.resume { cache_index = vim.v.count1 }
+  builtin.resume({ cache_index = vim.v.count1 })
 end)
 map('n', '<LocalLeader>gb', builtin.git_branches)
 map('n', '<LocalLeader>gc', builtin.git_bcommits)

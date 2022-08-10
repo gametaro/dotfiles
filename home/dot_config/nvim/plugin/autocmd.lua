@@ -36,7 +36,7 @@ autocmd('FileType', {
 
 autocmd('TextYankPost', {
   callback = function()
-    vim.highlight.on_yank { higroup = 'Search', timeout = 200 }
+    vim.highlight.on_yank({ higroup = 'Search', timeout = 200 })
   end,
   desc = 'highlight on yank',
 })
@@ -45,7 +45,9 @@ if vim.env.XDG_DATA_HOME then
   autocmd('BufWritePost', {
     pattern = vim.fs.normalize(vim.env.XDG_DATA_HOME) .. '/chezmoi/*',
     callback = function(a)
-      if string.match(a.file, '%.git/') then return end
+      if string.match(a.file, '%.git/') then
+        return
+      end
       local output = ''
       local notification
       local command = { 'chezmoi', 'apply', '--source-path', a.match }
@@ -70,7 +72,9 @@ end
 
 autocmd('BufReadPost', {
   callback = function(a)
-    if vim.tbl_contains({ 'nofile' }, vim.bo[a.buf].buftype) then return end
+    if vim.tbl_contains({ 'nofile' }, vim.bo[a.buf].buftype) then
+      return
+    end
     if
       vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo[a.buf].filetype)
     then
@@ -91,7 +95,7 @@ autocmd('BufReadPost', {
 autocmd('FocusLost', {
   nested = true,
   callback = function()
-    cmd.wall { mods = { emsg_silent = true, silent = true } }
+    cmd.wall({ mods = { emsg_silent = true, silent = true } })
   end,
 })
 
@@ -102,7 +106,7 @@ autocmd('BufLeave', {
       and vim.bo[a.buf].filetype ~= ''
       and vim.bo[a.buf].modifiable
     then
-      cmd.update { mods = { emsg_silent = true, silent = true } }
+      cmd.update({ mods = { emsg_silent = true, silent = true } })
     end
   end,
 })
@@ -115,7 +119,9 @@ autocmd('BufLeave', {
 
 autocmd('BufWritePost', {
   callback = function()
-    if vim.wo.diff then cmd.diffupdate() end
+    if vim.wo.diff then
+      cmd.diffupdate()
+    end
   end,
 })
 
@@ -127,17 +133,19 @@ autocmd('VimResized', {
 
 autocmd('BufEnter', {
   callback = function()
-    vim.opt_local.formatoptions:remove {
+    vim.opt_local.formatoptions:remove({
       'c',
       'o',
       'r',
-    }
+    })
   end,
 })
 
 autocmd('BufWritePre', {
   callback = function()
     local dir = fn.expand('<afile>:p:h')
-    if fn.isdirectory(dir) == 0 then fn.mkdir(dir, 'p') end
+    if fn.isdirectory(dir) == 0 then
+      fn.mkdir(dir, 'p')
+    end
   end,
 })

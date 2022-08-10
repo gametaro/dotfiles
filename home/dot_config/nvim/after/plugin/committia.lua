@@ -1,6 +1,8 @@
 vim.g.committia_hooks = {
   edit_open = function(info)
-    if info.vcs == 'git' and vim.api.nvim_get_current_line() == '' then vim.cmd.startinsert() end
+    if info.vcs == 'git' and vim.api.nvim_get_current_line() == '' then
+      vim.cmd.startinsert()
+    end
     vim.keymap.set(
       'i',
       '<C-f>',

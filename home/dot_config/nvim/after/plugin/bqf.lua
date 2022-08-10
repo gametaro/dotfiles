@@ -1,7 +1,9 @@
 local ok = prequire('bqf')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('bqf').setup {
+require('bqf').setup({
   preview = {
     border_chars = { '│', '│', '─', '─', '┌', '┐', '└', '┘', '█' },
   },
@@ -10,4 +12,4 @@ require('bqf').setup {
       extra_opts = { '--bind', 'ctrl-o:toggle-all', '--delimiter', '│' },
     },
   },
-}
+})

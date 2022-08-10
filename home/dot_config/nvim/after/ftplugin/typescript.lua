@@ -1,9 +1,11 @@
 vim.opt_local.isfname:append('@-@')
 
 local ok = prequire('nvim-surround')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('nvim-surround').buffer_setup {
+require('nvim-surround').buffer_setup({
   surrounds = {
     ['$'] = {
       add = function()
@@ -22,4 +24,4 @@ require('nvim-surround').buffer_setup {
       },
     },
   },
-}
+})

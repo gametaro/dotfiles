@@ -1,7 +1,9 @@
 local ok = prequire('marks')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('marks').setup {
+require('marks').setup({
   default_mappings = false,
   -- builtin_marks = { '.', '^', "'", '"' },
   excluded_filetypes = {
@@ -11,4 +13,4 @@ require('marks').setup {
     'lspinfo',
     'null-ls-info',
   },
-}
+})

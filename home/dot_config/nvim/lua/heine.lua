@@ -27,14 +27,14 @@ end
 ---@param v integer
 M.saturate = function(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
-  return hsluv.hsluv_to_hex { h, clamp(s + v, -100, 100), l }
+  return hsluv.hsluv_to_hex({ h, clamp(s + v, -100, 100), l })
 end
 
 ---@param hex string
 ---@param v integer
 M.lighten = function(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
-  return hsluv.hsluv_to_hex { h, s, clamp(l + v, -100, 100) }
+  return hsluv.hsluv_to_hex({ h, s, clamp(l + v, -100, 100) })
 end
 
 ---@param hex string
@@ -50,42 +50,42 @@ end
 M.blend = function(c1, c2, f)
   local r1, g1, b1 = unpack(hsluv.hex_to_rgb(c1))
   local r2, g2, b2 = unpack(hsluv.hex_to_rgb(c2))
-  return hsluv.rgb_to_hex { (r2 - r1) * f + r1, (g2 - g1) * f + g1, (b2 - b1) * f + b1 }
+  return hsluv.rgb_to_hex({ (r2 - r1) * f + r1, (g2 - g1) * f + g1, (b2 - b1) * f + b1 })
 end
 
 ---@type table<string, string>
 M.palette = {
-  red = hsluv.hsluv_to_hex { 0, 65, 68 },
-  orange = hsluv.hsluv_to_hex { 20, 51, 68 },
-  green = hsluv.hsluv_to_hex { 90, 27, 70 },
-  lgreen = hsluv.hsluv_to_hex { 140, 27, 68 },
-  cyan = hsluv.hsluv_to_hex { 190, 38, 67 },
-  blue = hsluv.hsluv_to_hex { 220, 41, 68 },
-  magenta = hsluv.hsluv_to_hex { 260, 27, 70 },
+  red = hsluv.hsluv_to_hex({ 0, 65, 68 }),
+  orange = hsluv.hsluv_to_hex({ 20, 51, 68 }),
+  green = hsluv.hsluv_to_hex({ 90, 27, 70 }),
+  lgreen = hsluv.hsluv_to_hex({ 140, 27, 68 }),
+  cyan = hsluv.hsluv_to_hex({ 190, 38, 67 }),
+  blue = hsluv.hsluv_to_hex({ 220, 41, 68 }),
+  magenta = hsluv.hsluv_to_hex({ 260, 27, 70 }),
 }
 
 local hue_base = 220
 
-local normal_bg = hsluv.hsluv_to_hex { hue_base, 25, 12 }
-local normal_fg = hsluv.hsluv_to_hex { hue_base, 10, 78 }
+local normal_bg = hsluv.hsluv_to_hex({ hue_base, 25, 12 })
+local normal_fg = hsluv.hsluv_to_hex({ hue_base, 10, 78 })
 
-local statusline_bg = hsluv.hsluv_to_hex { hue_base, 20, 10 }
-local statusline_fg = hsluv.hsluv_to_hex { hue_base, 10, 70 }
+local statusline_bg = hsluv.hsluv_to_hex({ hue_base, 20, 10 })
+local statusline_fg = hsluv.hsluv_to_hex({ hue_base, 10, 70 })
 local statuslinenc_bg = M.lighten(statusline_bg, -3)
 local statuslinenc_fg = M.lighten(normal_fg, 10)
 
 local cursorline_bg = M.saturate_lighten(normal_bg, 1, 5)
 -- local cursorline_fg = normal_fg:saturate(1):lighten(5)
 
-local pmenu_bg = hsluv.hsluv_to_hex { hue_base, 20, 20 }
+local pmenu_bg = hsluv.hsluv_to_hex({ hue_base, 20, 20 })
 local pmenu_fg = normal_fg
-local pmenusel_bg = hsluv.hsluv_to_hex { hue_base, 20, 35 }
-local pmenusel_fg = hsluv.hsluv_to_hex { hue_base, 20, 95 }
+local pmenusel_bg = hsluv.hsluv_to_hex({ hue_base, 20, 35 })
+local pmenusel_fg = hsluv.hsluv_to_hex({ hue_base, 20, 95 })
 
 local folded_bg = cursorline_bg
 local folded_fg = M.saturate_lighten(folded_bg, 5, 35)
 
-local comment_fg = hsluv.hsluv_to_hex { hue_base, 18, 48 }
+local comment_fg = hsluv.hsluv_to_hex({ hue_base, 18, 48 })
 
 local matchparen_bg = M.saturate_lighten(normal_bg, 3, 20)
 
@@ -519,7 +519,9 @@ end
 
 M.reload = function()
   for k, _ in pairs(package.loaded) do
-    if string.match(k, '^heine') then package.loaded[k] = nil end
+    if string.match(k, '^heine') then
+      package.loaded[k] = nil
+    end
   end
 end
 

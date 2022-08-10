@@ -1,5 +1,7 @@
 local ok = prequire('cmp')
-if not ok then return end
+if not ok then
+  return
+end
 
 local cmp = require('cmp')
 local compare = require('cmp.config.compare')
@@ -92,12 +94,12 @@ local config = {
   mapping = {
     ['<C-f>'] = { i = cmp.mapping.scroll_docs(4) },
     ['<C-b>'] = { i = cmp.mapping.scroll_docs(-4) },
-    ['<C-n>'] = { i = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert } },
-    ['<C-p>'] = { i = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert } },
+    ['<C-n>'] = { i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) },
+    ['<C-p>'] = { i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) },
     ['<C-Space>'] = { i = cmp.mapping.complete() },
     ['<C-e>'] = { i = cmp.mapping.abort() },
-    ['<CR>'] = { i = cmp.mapping.confirm { select = true, behavior = cmp.SelectBehavior.Replace } },
-    ['<C-y>'] = { i = cmp.mapping.confirm { select = true, behavior = cmp.SelectBehavior.Insert } },
+    ['<CR>'] = { i = cmp.mapping.confirm({ select = true, behavior = cmp.SelectBehavior.Replace }) },
+    ['<C-y>'] = { i = cmp.mapping.confirm({ select = true, behavior = cmp.SelectBehavior.Insert }) },
   },
   formatting = {
     deprecated = true,
@@ -135,14 +137,14 @@ local config = {
   }),
 }
 
-local cmdline_mapping = cmp.mapping.preset.cmdline {
+local cmdline_mapping = cmp.mapping.preset.cmdline({
   ['<C-n>'] = {
-    c = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+    c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
   },
   ['<C-p>'] = {
-    c = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+    c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
   },
-}
+})
 
 ---@type cmp.ConfigSchema
 local cmdline_config = {
@@ -190,11 +192,11 @@ cmp.setup.filetype({ 'gitcommit', 'NeogitCommitMessage' }, {
   }),
 })
 cmp.setup.filetype({ 'markdown' }, {
-  sources = cmp.config.sources {
+  sources = cmp.config.sources({
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'spell' },
     { name = 'emoji' },
     { name = 'buffer' },
-  },
+  }),
 })

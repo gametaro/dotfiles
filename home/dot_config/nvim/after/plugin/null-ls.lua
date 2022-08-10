@@ -1,5 +1,7 @@
 local ok = prequire('null-ls')
-if not ok then return end
+if not ok then
+  return
+end
 
 local null_ls = require('null-ls')
 local f = null_ls.builtins.formatting
@@ -14,56 +16,56 @@ local function executable(cmd)
 end
 
 local sources = {
-  f.prettierd.with {
+  f.prettierd.with({
     condition = executable('prettierd'),
     filetypes = { 'html', 'yaml', 'markdown', 'javascript', 'typescript' },
-  },
-  f.shellharden.with {
+  }),
+  f.shellharden.with({
     condition = executable('shellharden'),
-  },
-  f.shfmt.with {
+  }),
+  f.shfmt.with({
     condition = executable('shfmt'),
     extra_args = { '-i', '2', '-bn', '-ci', '-kp' },
-  },
-  f.stylua.with {
+  }),
+  f.stylua.with({
     condition = executable('stylua'),
-  },
-  f.autopep8.with {
+  }),
+  f.autopep8.with({
     condition = executable('autopep8'),
-  },
-  f.fish_indent.with {
+  }),
+  f.fish_indent.with({
     condition = executable('fish_indent'),
-  },
-  d.markdownlint.with {
+  }),
+  d.markdownlint.with({
     condition = executable('markdownlint'),
-  },
-  d.shellcheck.with {
+  }),
+  d.shellcheck.with({
     condition = executable('shellcheck'),
-  },
-  d.flake8.with {
+  }),
+  d.flake8.with({
     condition = executable('flake8'),
-  },
-  d.pylint.with {
+  }),
+  d.pylint.with({
     condition = executable('pylint'),
-  },
-  d.codespell.with {
+  }),
+  d.codespell.with({
     disabled_filetypes = { 'NeogitCommitMessage' },
     condition = executable('codespell'),
     method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-  },
-  d.vale.with {
+  }),
+  d.vale.with({
     condition = executable('vale'),
-  },
-  d.cfn_lint.with {
+  }),
+  d.cfn_lint.with({
     condition = executable('cfn-lint'),
-  },
-  d.zsh.with {
+  }),
+  d.zsh.with({
     condition = executable('zsh'),
-  },
+  }),
   -- h.dictionary,
   ca.gitrebase,
 }
 
-null_ls.setup {
+null_ls.setup({
   sources = sources,
-}
+})

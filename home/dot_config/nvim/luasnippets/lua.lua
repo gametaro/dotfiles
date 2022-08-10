@@ -5,15 +5,15 @@ local format = string.format
 local function rec_elseif()
   return sn(nil, {
     c(1, {
-      t { '' },
+      t({ '' }),
       sn(nil, {
-        t { '', 'else', '\t' },
+        t({ '', 'else', '\t' }),
         i(1),
       }),
       sn(nil, {
-        t { '', 'elseif ' },
+        t({ '', 'elseif ' }),
         i(1),
-        t { ' then', '\t' },
+        t({ ' then', '\t' }),
         i(2),
         d(3, rec_elseif, {}),
       }),
@@ -64,18 +64,18 @@ return {
         r(1, 'name'),
         t('('),
         r(2, 'arg'),
-        t { ')', '\t' },
+        t({ ')', '\t' }),
         r(3, 'code'),
-        t { '', 'end' },
+        t({ '', 'end' }),
       }),
       sn(nil, {
         t('local '),
         r(1, 'name'),
         t(' = function('),
         r(2, 'arg'),
-        t { ')', '\t' },
+        t({ ')', '\t' }),
         r(3, 'code'),
-        t { '', 'end' },
+        t({ '', 'end' }),
       }),
     })
   ),
@@ -93,12 +93,12 @@ return {
     })
   ),
   s('if', {
-    t { 'if ' },
+    t({ 'if ' }),
     i(1),
-    t { ' then', '\t' },
+    t({ ' then', '\t' }),
     i(2),
     d(3, rec_elseif, {}),
-    t { '', 'end' },
+    t({ '', 'end' }),
   }),
   s('p', fmt('print({})', i(0))),
   s('pp', fmt('vim.pretty_print({})', i(0))),
@@ -117,16 +117,16 @@ return {
       }),
       sn(nil, { i(1, 'i'), t(' = '), i(2), t(', '), i(3) }),
     }),
-    t { ' do', '\t' },
+    t({ ' do', '\t' }),
     i(0),
-    t { '', 'end' },
+    t({ '', 'end' }),
   }),
   s('fa', {
     t('function('),
     i(1),
-    t { ')', '\t' },
+    t({ ')', '\t' }),
     i(2),
-    t { '', 'end' },
+    t({ '', 'end' }),
   }),
   s('f', {
     t('function '),
@@ -135,14 +135,14 @@ return {
     i(2),
     c(3, {
       sn(nil, {
-        t { ')', '\t' },
+        t({ ')', '\t' }),
         r(1, 'code'),
-        t { '', 'end' },
+        t({ '', 'end' }),
       }),
       sn(nil, {
-        t { ') ' },
+        t({ ') ' }),
         r(1, 'code'),
-        t { ' end' },
+        t({ ' end' }),
       }),
     }),
   }),
@@ -205,9 +205,9 @@ return {
         t(quote),
       }),
       sn(nil, {
-        t { 'function()', '\t' },
+        t({ 'function()', '\t' }),
         i(1),
-        t { '', 'end' },
+        t({ '', 'end' }),
       }),
     }),
     c(4, {
@@ -224,10 +224,10 @@ return {
   s('au', {
     t('vim.api.nvim_create_autocmd(' .. quote),
     i(1),
-    t { quote .. ', {', '\t' },
+    t({ quote .. ', {', '\t' }),
     t('pattern = '),
     i(2),
-    t { ',', '\t' },
+    t({ ',', '\t' }),
     c(3, {
       sn(nil, {
         t('callback = '),
@@ -239,7 +239,7 @@ return {
       }),
     }),
     i(0),
-    t { '', '})' },
+    t({ '', '})' }),
   }),
   s('aug', {
     t('vim.api.nvim_create_augroup(' .. quote),
@@ -263,9 +263,9 @@ return {
     i(1),
     t(quote .. ', function('),
     i(2),
-    t { ')', '\t' },
+    t({ ')', '\t' }),
     i(3),
-    t { '', 'end, {' },
+    t({ '', 'end, {' }),
     i(0),
     t('})'),
   }),

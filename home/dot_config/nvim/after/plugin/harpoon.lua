@@ -1,7 +1,9 @@
 local ok = prequire('harpoon')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('harpoon').setup {
+require('harpoon').setup({
   global_settings = {
     enter_on_sendcmd = true,
   },
@@ -16,14 +18,14 @@ require('harpoon').setup {
   --     },
   --   },
   -- },
-}
+})
 
 local map = vim.keymap.set
 
 map('n', [[<C-\>]], function()
-  require('harpoon.term').gotoTerminal {
+  require('harpoon.term').gotoTerminal({
     idx = vim.api.nvim_tabpage_get_number(vim.api.nvim_get_current_tabpage()),
-  }
+  })
 end, { desc = 'harpoon: create and go to terminal' })
 map('n', '<M-a>', function()
   require('harpoon.mark').add_file()

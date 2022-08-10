@@ -19,7 +19,9 @@ local fn = vim.fn
 ---@param opts jump.Options
 ---@return boolean
 local condition = function(bufnr, opts)
-  if not api.nvim_buf_is_valid(bufnr) then return false end
+  if not api.nvim_buf_is_valid(bufnr) then
+    return false
+  end
   if
     opts.ignore_buftype
     and vim.tbl_contains(opts.ignore_buftype, api.nvim_buf_get_option(bufnr, 'buftype'))
@@ -41,10 +43,14 @@ end
 ---@param opts jump.Options
 local jump = function(opts)
   local jumplist, current_pos = unpack(fn.getjumplist())
-  if vim.tbl_isempty(jumplist) then return end
+  if vim.tbl_isempty(jumplist) then
+    return
+  end
 
   current_pos = current_pos + 1
-  if current_pos == (opts.forward and #jumplist or 1) then return end
+  if current_pos == (opts.forward and #jumplist or 1) then
+    return
+  end
 
   local current_bufnr = api.nvim_get_current_buf()
   local prev_bufnr, next_bufnr, target_bufnr, target_pos
@@ -64,12 +70,12 @@ local jump = function(opts)
   end
 
   if target_pos == nil then
-    opts.on_error {
+    opts.on_error({
       prev_bufnr = prev_bufnr,
       next_bufnr = next_bufnr,
       target_bufnr = target_bufnr,
       target_pos = target_pos,
-    }
+    })
     return
   end
 
@@ -81,12 +87,12 @@ local jump = function(opts)
     )
   )
 
-  opts.on_success {
+  opts.on_success({
     prev_bufnr = prev_bufnr,
     next_bufnr = next_bufnr,
     target_bufnr = target_bufnr,
     target_pos = target_pos,
-  }
+  })
 end
 
 local toqflist = function(jumplist)
@@ -106,7 +112,9 @@ local setlist = function(qf, open)
   else
     fn.setloclist(0, {}, ' ', { title = 'Jumplist', items = items })
   end
-  if open then api.nvim_command(qf and 'botright copen' or 'lopen') end
+  if open then
+    api.nvim_command(qf and 'botright copen' or 'lopen')
+  end
 end
 
 local setqflist = function(open)

@@ -1,5 +1,7 @@
 local ok = prequire('lsp_lines')
-if not ok then return end
+if not ok then
+  return
+end
 
 require('lsp_lines').setup()
 

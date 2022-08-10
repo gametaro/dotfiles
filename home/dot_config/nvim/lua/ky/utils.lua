@@ -66,12 +66,18 @@ utils.headless = #api.nvim_list_uis() == 0
 ---@see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
 utils.find_proc_in_tree = function(rootpid, names, acc)
   acc = acc or 0
-  if acc > 9 then return false end
+  if acc > 9 then
+    return false
+  end
   local p = api.nvim_get_proc(rootpid)
-  if p and vim.tbl_contains(names, p.name) then return true end
+  if p and vim.tbl_contains(names, p.name) then
+    return true
+  end
   local ids = api.nvim_get_proc_children(rootpid)
   for _, id in ipairs(ids) do
-    if utils.find_proc_in_tree(id, names, 1 + acc) then return true end
+    if utils.find_proc_in_tree(id, names, 1 + acc) then
+      return true
+    end
   end
   return false
 end

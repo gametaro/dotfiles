@@ -7,9 +7,9 @@ end
 local function rec_dash()
   return sn(nil, {
     c(1, {
-      t { '' },
+      t({ '' }),
       sn(nil, {
-        t { '', '- ' },
+        t({ '', '- ' }),
         i(1),
         d(2, rec_dash, {}),
       }),
@@ -20,9 +20,9 @@ end
 local function rec_star()
   return sn(nil, {
     c(1, {
-      t { '' },
+      t({ '' }),
       sn(nil, {
-        t { '', '* ' },
+        t({ '', '* ' }),
         i(1),
         d(2, rec_star, {}),
       }),
@@ -52,13 +52,13 @@ local snippets = {
     )
   ),
   s('ul-', {
-    t { '- ' },
+    t({ '- ' }),
     i(1),
     d(2, rec_dash, {}),
     t(''),
   }),
   s('ul*', {
-    t { '* ' },
+    t({ '* ' }),
     i(1),
     d(2, rec_star, {}),
     t(''),
@@ -76,7 +76,7 @@ local snippets = {
   ),
 }
 
-for _, v in ipairs { 1, 2, 3, 4, 5, 6 } do
+for _, v in ipairs({ 1, 2, 3, 4, 5, 6 }) do
   table.insert(snippets, header_gen(v))
 end
 

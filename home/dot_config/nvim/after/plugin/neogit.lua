@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'NeogitCommitMessage',
   callback = function()
     vim.opt_local.spell = true
-    vim.opt_local.formatoptions:append { 't' }
+    vim.opt_local.formatoptions:append({ 't' })
     vim.bo.textwidth = 72
   end,
 })
@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd('User', {
   pattern = 'JetpackNeogitPost',
   group = group,
   callback = function()
-    require('neogit').setup {
+    require('neogit').setup({
       disable_builtin_notifications = true,
       disable_commit_confirmation = true,
       disable_hint = true,
@@ -36,6 +36,6 @@ vim.api.nvim_create_autocmd('User', {
           folded = false,
         },
       },
-    }
+    })
   end,
 })

@@ -34,7 +34,9 @@ end
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave' }, {
   group = group,
   callback = function(a)
-    if ignore(a.buf) then return end
+    if ignore(a.buf) then
+      return
+    end
 
     number(true)
     relativenumber(false)
@@ -44,7 +46,9 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave' }, {
 vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter', 'BufEnter' }, {
   group = group,
   callback = function(a)
-    if ignore(a.buf) then return end
+    if ignore(a.buf) then
+      return
+    end
 
     number(true)
     relativenumber(true)

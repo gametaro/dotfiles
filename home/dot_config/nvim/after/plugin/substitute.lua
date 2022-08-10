@@ -1,5 +1,7 @@
 local ok = prequire('substitute')
-if not ok then return end
+if not ok then
+  return
+end
 
 vim.keymap.set('n', 'S', function()
   require('substitute').operator()
@@ -17,8 +19,8 @@ vim.keymap.set('n', 'Xc', function()
   require('substitute.exchange').cancel()
 end)
 
-require('substitute').setup {
+require('substitute').setup({
   on_substitute = function(event)
     require('yanky').init_ring('p', event.register, event.count, event.vmode:match('[vV]'))
   end,
-}
+})

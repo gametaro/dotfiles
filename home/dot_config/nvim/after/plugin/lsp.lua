@@ -1,5 +1,7 @@
 local ok = prequire('lspconfig')
-if not ok then return end
+if not ok then
+  return
+end
 
 local lspconfig = require('lspconfig')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
@@ -38,16 +40,20 @@ local on_attach = function(client, bufnr)
     return ':IncRename ' .. vim.fn.expand('<cword>')
   end, { expr = true })
   map({ 'n', 'x' }, '<LocalLeader>ca', function()
-    lsp.buf.code_action {
+    lsp.buf.code_action({
       apply = true,
-    }
+    })
   end)
   map('n', 'gr', lsp.buf.references)
   map('n', '<LocalLeader>cl', lsp.codelens.run)
 
-  if client.config.flags then client.config.flags.allow_incremental_sync = true end
+  if client.config.flags then
+    client.config.flags.allow_incremental_sync = true
+  end
 
-  if not client.name == 'null-ls' then require('illuminate').on_attach(client) end
+  if not client.name == 'null-ls' then
+    require('illuminate').on_attach(client)
+  end
 
   -- if client.server_capabilities.documentHighlightProvider then
   --   local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = false })
@@ -77,13 +83,13 @@ local on_attach = function(client, bufnr)
   -- end
 
   map('n', '<M-f>', function()
-    lsp.buf.format {
+    lsp.buf.format({
       async = true,
       bufnr = bufnr,
       filter = function(c)
         return not vim.tbl_contains({ 'sumneko_lua' }, c.name)
       end,
-    }
+    })
   end)
   -- map('n', '<M-f>f', lsp.buf.range_formatting)
 
@@ -123,13 +129,17 @@ local custom_on_attach = {
 vim.api.nvim_create_autocmd('LspAttach', {
   group = 'mine',
   callback = function(a)
-    if not a.data.client_id then return end
+    if not a.data.client_id then
+      return
+    end
 
     local client = lsp.get_client_by_id(a.data.client_id)
     on_attach(client, a.buf)
     require('lsp-format').on_attach(client)
 
-    if custom_on_attach[client.name] then custom_on_attach[client.name](client) end
+    if custom_on_attach[client.name] then
+      custom_on_attach[client.name](client)
+    end
   end,
 })
 
@@ -231,9 +241,9 @@ for server, config in pairs(configs) do
   lspconfig[server].setup(config)
 end
 
-require('typescript').setup {
+require('typescript').setup({
   server = {
     on_attach = on_attach,
     capabilities = capabilities,
   },
-}
+})

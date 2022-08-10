@@ -1,11 +1,13 @@
 local ok = prequire('hydra')
-if not ok then return end
+if not ok then
+  return
+end
 
 local Hydra = require('hydra')
 
 local cmd = vim.cmd
 
-Hydra {
+Hydra({
   name = 'Side scroll',
   mode = 'n',
   body = 'z',
@@ -15,9 +17,9 @@ Hydra {
     { 'H', 'zH' },
     { 'L', 'zL', { desc = 'half screen ←/→' } },
   },
-}
+})
 
-Hydra {
+Hydra({
   name = 'Changelist',
   mode = 'n',
   config = {
@@ -28,9 +30,9 @@ Hydra {
     { ';', 'g;' },
     { ',', 'g,' },
   },
-}
+})
 
-Hydra {
+Hydra({
   name = 'Window size',
   mode = 'n',
   body = '<C-w>',
@@ -41,9 +43,9 @@ Hydra {
     { '<', '2<C-w><', { desc = 'width +/-' } },
     { '<Esc>', nil, { exit = true } },
   },
-}
+})
 
-Hydra {
+Hydra({
   name = 'Tab',
   mode = 'n',
   body = '<C-t>',
@@ -51,7 +53,7 @@ Hydra {
     {
       'e',
       function()
-        cmd.tabnew { '%' }
+        cmd.tabnew({ '%' })
       end,
       { desc = 'Open a new tab page with an current buffer' },
     },
@@ -59,7 +61,7 @@ Hydra {
     {
       'C',
       function()
-        cmd.tabclose { bang = true }
+        cmd.tabclose({ bang = true })
       end,
       { desc = 'Force close current tab page' },
     },
@@ -71,19 +73,19 @@ Hydra {
     {
       'L',
       function()
-        cmd.tabmove { '+' }
+        cmd.tabmove({ '+' })
       end,
       { desc = 'Move the tab page to the right' },
     },
     {
       'H',
       function()
-        cmd.tabmove { '-' }
+        cmd.tabmove({ '-' })
       end,
       { desc = 'Move the tab page to the left' },
     },
   },
-}
+})
 
 local gitsigns = require('gitsigns')
 
@@ -95,7 +97,7 @@ local hint = [[
   ^ ^              _<Enter>_: Neogit              _q_: exit
 ]]
 
-Hydra {
+Hydra({
   hint = hint,
   config = {
     color = 'pink',
@@ -122,7 +124,9 @@ Hydra {
     {
       'J',
       function()
-        if vim.wo.diff then return ']c' end
+        if vim.wo.diff then
+          return ']c'
+        end
         vim.schedule(function()
           gitsigns.next_hunk()
         end)
@@ -133,7 +137,9 @@ Hydra {
     {
       'K',
       function()
-        if vim.wo.diff then return '[c' end
+        if vim.wo.diff then
+          return '[c'
+        end
         vim.schedule(function()
           gitsigns.prev_hunk()
         end)
@@ -150,11 +156,11 @@ Hydra {
     {
       'B',
       function()
-        gitsigns.blame_line { full = true }
+        gitsigns.blame_line({ full = true })
       end,
     },
     { '/', gitsigns.show, { exit = true } }, -- show the base of the file
     { '<Enter>', '<cmd>Neogit<CR>', { exit = true } },
     { 'q', nil, { exit = true, nowait = true } },
   },
-}
+})

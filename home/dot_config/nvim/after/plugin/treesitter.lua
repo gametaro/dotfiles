@@ -1,7 +1,9 @@
 local ok = prequire('nvim-treesitter')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('nvim-treesitter.configs').setup {
+require('nvim-treesitter.configs').setup({
   auto_install = true,
   -- ignore_install = { 'comment' },
   highlight = {
@@ -96,4 +98,4 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
-}
+})

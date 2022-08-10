@@ -1,9 +1,11 @@
 local ok = prequire('mini.pairs')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('mini.pairs').setup {
+require('mini.pairs').setup({
   modes = { insert = false, command = true, terminal = true },
-}
+})
 
 vim.keymap.set(
   { 'c', 't' },
@@ -62,11 +64,11 @@ vim.keymap.set(
 --   search_method = 'cover_or_nearest',
 -- }
 
-require('mini.jump').setup {
+require('mini.jump').setup({
   mappings = {
     repeat_jump = '',
   },
-}
+})
 
 -- require('mini.jump2d').setup {
 --   labels = 'jfkdlsahgnuvrbytmiceoxwpqz',
@@ -79,7 +81,7 @@ require('mini.jump').setup {
 --   },
 -- }
 
-require('mini.indentscope').setup {
+require('mini.indentscope').setup({
   draw = {
     animation = require('mini.indentscope').gen_animation('none'),
   },
@@ -87,7 +89,7 @@ require('mini.indentscope').setup {
     try_as_border = true,
   },
   symbol = '|',
-}
+})
 
 local group = vim.api.nvim_create_augroup('mine__mini', {})
 vim.api.nvim_create_autocmd('FileType', {
@@ -107,22 +109,22 @@ vim.api.nvim_create_autocmd('BufEnter', {
 })
 
 local trailspace = require('mini.trailspace')
-trailspace.setup {}
+trailspace.setup({})
 vim.api.nvim_create_autocmd('BufWritePost', {
   group = group,
   callback = trailspace.trim,
 })
 
 local sessions = require('mini.sessions')
-sessions.setup {
+sessions.setup({
   autoread = true,
   autowrite = true,
   directory = '',
   verbose = { read = true, write = true, delete = true },
-}
+})
 pcall(sessions.write, sessions.config.file, { force = false })
 
-require('mini.comment').setup {
+require('mini.comment').setup({
   hooks = {
     pre = function()
       if vim.bo.filetype == 'typescriptreact' then
@@ -130,7 +132,7 @@ require('mini.comment').setup {
       end
     end,
   },
-}
+})
 
 -- vim.api.nvim_create_autocmd('CursorMoved', {
 --   group = group,
@@ -150,7 +152,7 @@ require('mini.comment').setup {
 -- })
 -- require('mini.cursorword').setup {}
 
-require('mini.ai').setup {
+require('mini.ai').setup({
   custom_textobjects = {
     -- textobj-entire
     e = function()
@@ -189,4 +191,4 @@ require('mini.ai').setup {
   --   around_last = '',
   --   inside_last = '',
   -- },
-}
+})

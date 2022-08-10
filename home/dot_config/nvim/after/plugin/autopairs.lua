@@ -1,21 +1,23 @@
 local ok = prequire('nvim-autopairs')
-if not ok then return end
+if not ok then
+  return
+end
 
 local npairs = require('nvim-autopairs')
-npairs.setup {
+npairs.setup({
   check_ts = true,
   enable_check_bracket_line = true,
   fast_wrap = {},
   map_c_h = true,
   map_c_w = true,
-}
+})
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
 local Rule = require('nvim-autopairs.rule')
 
-npairs.add_rules {
+npairs.add_rules({
   -- add spaces between parentheses
   -- https://github.com/windwp/nvim-autopairs/wiki/Custom-rules#add-spaces-between-parentheses
   Rule(' ', ' '):with_pair(function(opts)
@@ -46,4 +48,4 @@ npairs.add_rules {
       return opts.prev_char:match('.%]') ~= nil
     end)
     :use_key(']'),
-}
+})

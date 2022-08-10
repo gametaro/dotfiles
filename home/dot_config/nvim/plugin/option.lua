@@ -10,17 +10,17 @@ o.autowriteall = true
 o.backup = true
 opt.backupdir = { vim.fn.stdpath('state') .. '/backup//', '.' }
 vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
-opt.backupskip:append { '*/.git/*' }
+opt.backupskip:append({ '*/.git/*' })
 -- opt.clipboard = 'unnamedplus'
 o.cmdheight = 1
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
 o.confirm = true
 o.copyindent = true
-opt.diffopt:append {
+opt.diffopt:append({
   'algorithm:histogram',
   'indent-heuristic',
   'vertical',
-}
+})
 o.emoji = false
 o.expandtab = true
 o.fileformat = 'unix'
@@ -48,15 +48,15 @@ opt.fillchars = {
 -- opt.foldlevelstart = 1
 -- opt.foldmethod = 'expr'
 -- see :h fo-table
-opt.formatoptions:remove {
+opt.formatoptions:remove({
   'c',
   'o',
   'r',
-}
+})
 o.ignorecase = true
 o.imsearch = 0
 o.inccommand = 'split'
-opt.isfname:remove { '=' }
+opt.isfname:remove({ '=' })
 o.jumpoptions = 'view'
 o.laststatus = 3
 o.lazyredraw = true
@@ -83,12 +83,12 @@ o.secure = true
 opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
 o.shiftround = true
 o.shiftwidth = indent
-opt.shortmess:append {
+opt.shortmess:append({
   S = true,
   a = true,
   c = true,
   s = true,
-}
+})
 -- opt.showbreak = '↳ '
 o.showcmd = false
 o.showmode = false
@@ -115,9 +115,13 @@ o.wildoptions = 'pum'
 o.winblend = blend
 o.wrap = false
 
-if fn.executable('zsh') > 0 then opt.shell = 'zsh' end
+if fn.executable('zsh') > 0 then
+  opt.shell = 'zsh'
+end
 
-if fn.executable('rg') > 0 then opt.grepprg = 'rg --vimgrep --smart-case --hidden' end
+if fn.executable('rg') > 0 then
+  opt.grepprg = 'rg --vimgrep --smart-case --hidden'
+end
 
 -- neovide
 if fn.exists('g:neovide') > 0 then

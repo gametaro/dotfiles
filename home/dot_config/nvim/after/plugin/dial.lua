@@ -1,5 +1,7 @@
 local ok = prequire('dial.augend')
-if not ok then return end
+if not ok then
+  return
+end
 
 local augend = require('dial.augend')
 
@@ -11,13 +13,13 @@ local default = {
   augend.date.alias['%m/%d'],
   augend.date.alias['%H:%M'],
   augend.constant.alias.bool,
-  augend.constant.new {
+  augend.constant.new({
     elements = { 'TODO', 'WARN', 'NOTE', 'HACK' },
-  },
-  augend.paren.new {
+  }),
+  augend.paren.new({
     patterns = { { "'", "'" }, { '"', '"' }, { '`', '`' } },
     escape_char = [[\]],
-  },
+  }),
 }
 
 local with_default = function(group_name)
@@ -30,18 +32,18 @@ end
 
 local lua = {
   augend.paren.alias.lua_str_literal,
-  augend.constant.new {
+  augend.constant.new({
     elements = { 'and', 'or' },
-  },
-  augend.constant.new {
+  }),
+  augend.constant.new({
     elements = { 'pairs', 'ipairs' },
-  },
+  }),
 }
 
 local python = {
-  augend.constant.new {
+  augend.constant.new({
     elements = { 'True', 'False' },
-  },
+  }),
 }
 
 local markdown = {
@@ -49,24 +51,24 @@ local markdown = {
 }
 
 local typescript = {
-  augend.constant.new {
+  augend.constant.new({
     elements = { 'let', 'const' },
-  },
-  augend.constant.new {
+  }),
+  augend.constant.new({
     elements = { '&&', '||', '??' },
-  },
-  augend.constant.new {
+  }),
+  augend.constant.new({
     elements = { 'console.log', 'console.warn', 'console.error' },
-  },
+  }),
 }
 
-require('dial.config').augends:register_group {
+require('dial.config').augends:register_group({
   default = default,
   lua = with_default(lua),
   python = with_default(python),
   typescript = with_default(typescript),
   markdown = with_default(markdown),
-}
+})
 
 vim.keymap.set({ 'n', 'x' }, '<C-a>', '<Plug>(dial-increment)')
 vim.keymap.set({ 'n', 'x' }, '<C-x>', '<Plug>(dial-decrement)')

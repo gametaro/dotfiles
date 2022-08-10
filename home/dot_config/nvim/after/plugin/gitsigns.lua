@@ -1,5 +1,7 @@
 local ok = prequire('gitsigns')
-if not ok then return end
+if not ok then
+  return
+end
 
 local on_attach = function(bufnr)
   local gs = package.loaded.gitsigns
@@ -16,7 +18,7 @@ local on_attach = function(bufnr)
       return ']c'
     else
       vim.schedule(function()
-        gs.next_hunk { preview = true }
+        gs.next_hunk({ preview = true })
       end)
       return '<Ignore>'
     end
@@ -26,7 +28,7 @@ local on_attach = function(bufnr)
       return '[c'
     else
       vim.schedule(function()
-        gs.prev_hunk { preview = true }
+        gs.prev_hunk({ preview = true })
       end)
       return '<Ignore>'
     end
@@ -35,17 +37,17 @@ local on_attach = function(bufnr)
   map('n', '<LocalLeader>hs', gs.stage_hunk)
   map('n', '<LocalLeader>hr', gs.reset_hunk)
   map('x', '<LocalLeader>hs', function()
-    gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') }
+    gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
   end)
   map('x', '<LocalLeader>hr', function()
-    gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') }
+    gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
   end)
   map('n', '<LocalLeader>hS', gs.stage_buffer)
   map('n', '<LocalLeader>hu', gs.undo_stage_hunk)
   map('n', '<LocalLeader>hR', gs.reset_buffer)
   map('n', '<LocalLeader>hp', gs.preview_hunk)
   map('n', '<LocalLeader>hb', function()
-    gs.blame_line { full = true }
+    gs.blame_line({ full = true })
   end)
   map('n', '<LocalLeader>hd', gs.diffthis)
   map('n', '<LocalLeader>hD', function()
@@ -64,7 +66,7 @@ local on_attach = function(bufnr)
   map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 end
 
-require('gitsigns').setup {
+require('gitsigns').setup({
   signs = {
     add = { show_count = false },
     change = { show_count = false },
@@ -77,4 +79,4 @@ require('gitsigns').setup {
   },
   trouble = false,
   on_attach = on_attach,
-}
+})

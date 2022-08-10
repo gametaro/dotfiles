@@ -62,9 +62,9 @@ local snippets = {
   tag_gen_2('br'),
   tag_gen_2('hr'),
   s('html', {
-    t { '<html>', '\t' },
+    t({ '<html>', '\t' }),
     i(1),
-    t { '', '</html>' },
+    t({ '', '</html>' }),
   }),
   s('input', fmt('<input type="{}" name="{}" value="{}">', ins_generate())),
 }

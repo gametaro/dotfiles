@@ -1,9 +1,11 @@
 local ok = prequire('yanky')
-if not ok then return end
+if not ok then
+  return
+end
 
 local mapping = require('yanky.telescope.mapping')
 
-require('yanky').setup {
+require('yanky').setup({
   picker = {
     telescope = {
       mappings = {
@@ -28,7 +30,7 @@ require('yanky').setup {
     on_yank = false,
     timer = 200,
   },
-}
+})
 require('telescope').load_extension('yank_history')
 
 vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
@@ -39,7 +41,7 @@ vim.keymap.set('n', ']y', '<Plug>(YankyCycleForward)')
 vim.keymap.set('n', '[y', '<Plug>(YankyCycleBackward)')
 vim.keymap.set({ 'n', 'x' }, 'y', '<Plug>(YankyYank)')
 vim.keymap.set('n', '<LocalLeader>fy', function()
-  require('telescope').extensions.yank_history.yank_history {}
+  require('telescope').extensions.yank_history.yank_history({})
 end)
 vim.keymap.set({ 'n', 'x' }, ']p', '<Plug>(YankyPutIndentAfterLinewise)')
 vim.keymap.set({ 'n', 'x' }, '[p', '<Plug>(YankyPutIndentBeforeLinewise)')

@@ -29,7 +29,9 @@ end
 
 ---@param value boolean
 local cursorline = function(value)
-  if ignore(vim.api.nvim_get_current_buf()) then return end
+  if ignore(vim.api.nvim_get_current_buf()) then
+    return
+  end
   return vim.api.nvim_set_option_value('cursorline', value, { scope = 'local' })
 end
 

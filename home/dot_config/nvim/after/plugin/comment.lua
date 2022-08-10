@@ -1,7 +1,9 @@
 local ok = prequire('Comment')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('Comment').setup {
+require('Comment').setup({
   ignore = '^$',
   mappings = {
     basic = true,
@@ -24,10 +26,10 @@ require('Comment').setup {
         location = require('ts_context_commentstring.utils').get_visual_start_location()
       end
 
-      return require('ts_context_commentstring.internal').calculate_commentstring {
+      return require('ts_context_commentstring.internal').calculate_commentstring({
         key = type,
         location = location,
-      }
+      })
     end
   end,
-}
+})

@@ -1,6 +1,8 @@
 local ok = prequire('auto-session')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('auto-session').setup {
+require('auto-session').setup({
   log_level = 'error',
-}
+})

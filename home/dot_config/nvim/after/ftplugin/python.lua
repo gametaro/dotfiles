@@ -1,7 +1,9 @@
 local ok = prequire('nvim-surround')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('nvim-surround').buffer_setup {
+require('nvim-surround').buffer_setup({
   surrounds = {
     ['c'] = {
       add = function()
@@ -12,4 +14,4 @@ require('nvim-surround').buffer_setup {
       end,
     },
   },
-}
+})

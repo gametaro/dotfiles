@@ -1,5 +1,7 @@
 local ok = prequire('heirline')
-if not ok then return end
+if not ok then
+  return
+end
 
 local heirline = require('heirline')
 local conditions = require('heirline.conditions')
@@ -77,7 +79,9 @@ api.nvim_create_autocmd('User', {
     local buftype = vim.tbl_contains({ 'prompt', 'nofile' }, vim.bo[buf].buftype)
     local filetype = vim.tbl_contains({ 'gitcommit' }, vim.bo[buf].filetype)
 
-    if (buftype or filetype) and vim.bo[buf].filetype ~= 'lir' then vim.go.winbar = nil end
+    if (buftype or filetype) and vim.bo[buf].filetype ~= 'lir' then
+      vim.go.winbar = nil
+    end
   end,
 })
 
@@ -192,7 +196,9 @@ local FileName = {
 local FilePath = {
   provider = function(self)
     local filepath = fn.fnamemodify(self.filename, ':.:h')
-    if not filepath then return end
+    if not filepath then
+      return
+    end
     local trail = filepath:sub(-1) == '/' and '' or '/'
     if not conditions.width_percent_below(#filepath, 0.5) then
       filepath = fn.pathshorten(filepath)
@@ -219,7 +225,9 @@ local FileFlags = {
 
 local FileNameModifer = {
   hl = function()
-    if vim.bo.modified then return { italic = true, force = true } end
+    if vim.bo.modified then
+      return { italic = true, force = true }
+    end
   end,
 }
 
@@ -269,7 +277,9 @@ local FileSize = {
     local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
     local stat = vim.loop.fs_stat(api.nvim_buf_get_name(0))
     local fsize = stat and stat.size or 0
-    if fsize <= 0 then return '0' .. suffix[1] end
+    if fsize <= 0 then
+      return '0' .. suffix[1]
+    end
     local i = math.floor((math.log(fsize) / math.log(1024)))
     return string.format('%.3g%s', fsize / math.pow(1024, i), suffix[i + 1])
   end,
@@ -317,8 +327,10 @@ local LSPActive = {
   provider = function()
     local clients = table.concat(vim.tbl_map(function(client)
       return client and string.format('%.4s…', client.name) or ''
-    end, vim.lsp.get_active_clients { bufnr = 0 }) or {}, ' ')
-    if not conditions.width_percent_below(#clients, 0.25) then return end
+    end, vim.lsp.get_active_clients({ bufnr = 0 })) or {}, ' ')
+    if not conditions.width_percent_below(#clients, 0.25) then
+      return
+    end
     return clients
   end,
   hl = { fg = utils.get_highlight('Comment').fg },
@@ -342,8 +354,10 @@ local Diagnostics = {
   on_click = {
     name = 'heirline_diagnostics',
     callback = function()
-      local qf = fn.getqflist { winid = 0, title = 0 }
-      if not qf then return end
+      local qf = fn.getqflist({ winid = 0, title = 0 })
+      if not qf then
+        return
+      end
 
       if qf.winid ~= 0 and qf.title == 'Diagnostics' then
         cmd.cclose()
@@ -415,8 +429,10 @@ local GitStatus = {
   on_click = {
     name = 'heirline_gitstatus',
     callback = function()
-      local qf = fn.getqflist { winid = 0, title = 0 }
-      if not qf then return end
+      local qf = fn.getqflist({ winid = 0, title = 0 })
+      if not qf then
+        return
+      end
 
       if qf.winid ~= 0 and qf.title == 'Hunks' then
         cmd.cclose()
@@ -461,7 +477,9 @@ local WorkDir = {
     local flag = (fn.haslocaldir() == 1 and 'L' or fn.haslocaldir(-1, 0) == 1 and 'T' or 'G')
     local icon = ''
     local cwd = fn.fnamemodify(vim.loop.cwd(), ':~')
-    if not conditions.width_percent_below(#cwd, 0.25) then cwd = fn.pathshorten(cwd) end
+    if not conditions.width_percent_below(#cwd, 0.25) then
+      cwd = fn.pathshorten(cwd)
+    end
     local trail = cwd:sub(-1) == '/' and '' or '/'
     return flag .. ' ' .. icon .. ' ' .. cwd .. trail
   end,
@@ -497,7 +515,7 @@ local QuickfixName = {
     return vim.bo.filetype == 'qf'
   end,
   init = function(self)
-    self.qflist = fn.getqflist { winid = 0, title = 0, size = 0, nr = 0, idx = 0 }
+    self.qflist = fn.getqflist({ winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
     self.loclist = fn.getloclist(0, { winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
     self.qf_open = self.qflist.winid ~= 0
     self.loc_open = self.loclist.winid ~= 0
@@ -625,10 +643,10 @@ local WinBars = {
   LirName,
   {
     condition = function()
-      return conditions.buffer_matches {
+      return conditions.buffer_matches({
         buftype = { 'nofile', 'prompt' },
         filetype = { '^git.*' },
-      }
+      })
     end,
     init = function()
       vim.go.winbar = nil
@@ -638,7 +656,7 @@ local WinBars = {
   HelpFileName,
   {
     condition = function()
-      return conditions.buffer_matches { buftype = { 'terminal' } }
+      return conditions.buffer_matches({ buftype = { 'terminal' } })
     end,
     {
       Space,
@@ -720,10 +738,10 @@ local InactiveStatusLine = {
 
 local SpecialStatusLine = {
   condition = function()
-    return conditions.buffer_matches {
+    return conditions.buffer_matches({
       buftype = { 'nofile', 'prompt', 'help', 'quickfix' },
       filetype = { '^git.*' },
-    }
+    })
   end,
   ViMode,
   Align,
@@ -736,7 +754,7 @@ local SpecialStatusLine = {
 
 local TerminalStatusLine = {
   condition = function()
-    return conditions.buffer_matches { buftype = { 'terminal' } }
+    return conditions.buffer_matches({ buftype = { 'terminal' } })
   end,
   { condition = conditions.is_active, ViMode, Space },
   Align,

@@ -28,7 +28,7 @@ map('n', 'ZZ', '<Nop>')
 --   end, { expr = true })
 -- end
 
-for _, v in ipairs { 'c', 'C', 'd', 'D', 'x', 'X' } do
+for _, v in ipairs({ 'c', 'C', 'd', 'D', 'x', 'X' }) do
   local lhs = string.lower(v) == 'x' and v or leader(v)
   map(
     { 'n', 'x' },
@@ -38,7 +38,7 @@ for _, v in ipairs { 'c', 'C', 'd', 'D', 'x', 'X' } do
   )
 end
 
-for _, v in ipairs { 'cc', 'dd', 'yy' } do
+for _, v in ipairs({ 'cc', 'dd', 'yy' }) do
   map('n', v, function()
     local row, _ = unpack(api.nvim_win_get_cursor(0))
     local lines = api.nvim_buf_get_lines(0, row - 1, row - 1 + vim.v.count1, true)
@@ -64,7 +64,9 @@ map('n', leader('q'), cmd.quit)
 map('n', leader('a'), cmd.quitall)
 map('n', leader('e'), function()
   cmd.write()
-  if vim.bo.filetype == 'lua' then cmd.luafile('%') end
+  if vim.bo.filetype == 'lua' then
+    cmd.luafile('%')
+  end
 end, { desc = 'write and execute current lua file' })
 
 -- movement in insert/cmdline mode
@@ -91,13 +93,13 @@ map('c', '<C-x>', function()
   return fn.getcmdtype() == ':' and fn.expand('%:p') or ''
 end, { expr = true })
 
-for _, v in ipairs { '/', '?' } do
+for _, v in ipairs({ '/', '?' }) do
   map('c', v, function()
     return fn.getcmdtype() == v and fmt([[\%s]], v) or v
   end, { expr = true, desc = fmt('escape %s', v) })
 end
 
-for _, v in ipairs { 'h', 'j', 'k', 'l' } do
+for _, v in ipairs({ 'h', 'j', 'k', 'l' }) do
   local lhs = fmt('<M-%s>', v)
   map('n', lhs, fmt('<C-w>%s', v))
   map('i', lhs, fmt([[<C-\><C-n><C-w>%s]], v))
@@ -116,10 +118,10 @@ map('t', [[<C-\>]], function()
   cmd.buffer('#')
 end)
 map('n', ']b', function()
-  cmd.bnext { count = vim.v.count1 }
+  cmd.bnext({ count = vim.v.count1 })
 end)
 map('n', '[b', function()
-  cmd.bprevious { count = vim.v.count1 }
+  cmd.bprevious({ count = vim.v.count1 })
 end)
 
 -- see https://github.com/yuki-yano/zero.nvim
@@ -135,7 +137,7 @@ map({ 'n', 'x', 'o' }, '$', function()
 end, { expr = true, desc = 'toggle `$` and `g_`' })
 
 -- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
-for _, v in ipairs { 'i', 'A' } do
+for _, v in ipairs({ 'i', 'A' }) do
   map('n', v, function()
     return (not api.nvim_get_current_line():match('^%s*$') or vim.bo.buftype == 'terminal') and v
       or '"_cc'
@@ -152,7 +154,7 @@ map('c', '<M-/>', [[\v^(()@!.)*$<Left><Left><Left><Left><Left><Left><Left>]])
 map('n', 'gm', [[<Cmd>echo repeat("\n",&cmdheight)<Bar>40messages<CR>]])
 
 -- WARN: experimental
-for _, v in ipairs { '"', "'", '`', '{', '(', '[' } do
+for _, v in ipairs({ '"', "'", '`', '{', '(', '[' }) do
   map('o', v, fmt('i%s', v), { desc = 'text object shortcuts' })
 end
 
@@ -173,10 +175,10 @@ map('n', '-', function()
 end)
 
 map('n', leader('cd'), function()
-  cmd.tcd { '%:p:h', nextcmd = 'pwd' }
+  cmd.tcd({ '%:p:h', nextcmd = 'pwd' })
 end)
 map('n', leader('ud'), function()
-  cmd.tcd { '..', nextcmd = 'pwd' }
+  cmd.tcd({ '..', nextcmd = 'pwd' })
 end)
 
 -- quickfix
@@ -186,7 +188,9 @@ map('n', 'Q', _qf)
 local qf = prefix(_qf)
 map('n', qf('q'), function()
   local ok, msg = pcall(cmd.cc, { count = vim.v.count1 })
-  if not ok then vim.notify(msg, vim.log.levels.WARN) end
+  if not ok then
+    vim.notify(msg, vim.log.levels.WARN)
+  end
 end, { desc = 'go to specific error' })
 map('n', qf('o'), cmd.copen)
 map('n', qf('c'), cmd.cclose)
@@ -199,11 +203,15 @@ map('n', qf('t'), function()
 end, { desc = 'toggle quickfix window' })
 map('n', qf('l'), function()
   local ok, msg = pcall(cmd.clist)
-  if not ok then vim.notify(msg, vim.log.levels.INFO) end
+  if not ok then
+    vim.notify(msg, vim.log.levels.INFO)
+  end
 end)
 map('n', qf('h'), function()
   local ok, msg = pcall(cmd.chistory, { count = vim.v.count1 })
-  if not ok then vim.notify(msg, vim.log.levels.INFO) end
+  if not ok then
+    vim.notify(msg, vim.log.levels.INFO)
+  end
 end)
 map('n', qf('f'), function()
   vim.ui.select({
@@ -213,24 +221,34 @@ map('n', qf('f'), function()
     prompt = 'Free all the quickfix lists in the stack?:',
   }, function(choice)
     choice = choice or ''
-    if choice == 'Yes' then fn.setqflist({}, 'f') end
+    if choice == 'Yes' then
+      fn.setqflist({}, 'f')
+    end
   end)
 end, { desc = 'free all the quickfix lists in the stack. see :help setqflist-examples' })
 map('n', ']Q', function()
   local ok, _ = pcall(cmd.cnewer, { count = vim.v.count1 })
-  if not ok then pcall(cmd.chistory) end
+  if not ok then
+    pcall(cmd.chistory)
+  end
 end)
 map('n', '[Q', function()
   local ok, _ = pcall(cmd.colder, { count = vim.v.count1 })
-  if not ok then pcall(cmd.chistory, { count = fn.getqflist({ nr = '$' }).nr }) end
+  if not ok then
+    pcall(cmd.chistory, { count = fn.getqflist({ nr = '$' }).nr })
+  end
 end)
 map('n', ']q', function()
   local ok, _ = pcall(cmd.cnext, { count = vim.v.count1 })
-  if not ok then pcall(cmd.cfirst) end
+  if not ok then
+    pcall(cmd.cfirst)
+  end
 end)
 map('n', '[q', function()
   local ok, _ = pcall(cmd.cprevious, { count = vim.v.count1 })
-  if not ok then pcall(cmd.clast) end
+  if not ok then
+    pcall(cmd.clast)
+  end
 end)
 map('n', 'gq', function()
   local winid = fn.getqflist({ winid = 0 }).winid
@@ -250,23 +268,33 @@ end)
 local loc = prefix('qw')
 map('n', ']l', function()
   local ok = pcall(cmd.lnext, { count = vim.v.count1 })
-  if not ok then pcall(cmd.lfirst) end
+  if not ok then
+    pcall(cmd.lfirst)
+  end
 end)
 map('n', '[l', function()
   local ok = pcall(cmd.lprevious, { count = vim.v.count1 })
-  if not ok then pcall(cmd.llast) end
+  if not ok then
+    pcall(cmd.llast)
+  end
 end)
 map('n', ']L', function()
   local ok = pcall(cmd.lnewer, { count = vim.v.count1 })
-  if not ok then pcall(cmd.lhistory) end
+  if not ok then
+    pcall(cmd.lhistory)
+  end
 end)
 map('n', '[L', function()
   local ok = pcall(cmd.lolder, { count = vim.v.count1 })
-  if not ok then pcall(cmd.chistory, { count = fn.getloclist(0, { nr = 0 }).nr }) end
+  if not ok then
+    pcall(cmd.chistory, { count = fn.getloclist(0, { nr = 0 }).nr })
+  end
 end)
 map('n', loc('o'), function()
   local ok, msg = pcall(cmd.lopen)
-  if not ok then vim.notify(msg, vim.log.levels.INFO) end
+  if not ok then
+    vim.notify(msg, vim.log.levels.INFO)
+  end
 end)
 map('n', loc('c'), cmd.lclose)
 map('n', loc('t'), function()
@@ -278,11 +306,15 @@ map('n', loc('t'), function()
 end, { desc = 'toggle quickfix window' })
 map('n', loc('l'), function()
   local ok, msg = pcall(cmd.llist, { count = vim.v.count1 })
-  if not ok then vim.notify(msg, vim.log.levels.INFO) end
+  if not ok then
+    vim.notify(msg, vim.log.levels.INFO)
+  end
 end)
 map('n', loc('h'), function()
   local ok, msg = pcall(cmd.lhistory)
-  if not ok then vim.notify(msg, vim.log.levels.INFO) end
+  if not ok then
+    vim.notify(msg, vim.log.levels.INFO)
+  end
 end)
 map('n', 'gl', function()
   local winid = fn.getloclist(0, { winid = 0 }).winid

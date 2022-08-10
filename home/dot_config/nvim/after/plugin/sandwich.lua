@@ -1,4 +1,6 @@
-if vim.g.loaded_sandwich ~= 1 then return end
+if vim.g.loaded_sandwich ~= 1 then
+  return
+end
 
 local fmt = string.format
 
@@ -68,7 +70,7 @@ map({ 'n', 'x' }, 's', '<Nop>')
 vim.cmd.runtime('autoload/repeat.vim')
 map('n', '.', '<Plug>(operator-sandwich-predot)<Plug>(RepeatDot)')
 
-for _, v in ipairs { '(', ')', '[', ']', '{', '}', "'", '"', '`', 'f' } do
+for _, v in ipairs({ '(', ')', '[', ']', '{', '}', "'", '"', '`', 'f' }) do
   map('n', fmt('s%s', v), fmt('<Plug>(operator-sandwich-add-query1st)%s', v))
   map('x', fmt('s%s', v), fmt('<Plug>(operator-sandwich-add)%s', v))
 end

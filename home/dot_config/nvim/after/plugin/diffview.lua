@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd('User', {
       height = 12,
     }
 
-    require('diffview').setup {
+    require('diffview').setup({
       file_panel = {
         win_config = win_config,
       },
@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd('User', {
           vim.cmd.wincmd('p')
         end,
       },
-    }
+    })
   end,
 })
 

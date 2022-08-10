@@ -73,13 +73,17 @@ api.nvim_create_autocmd({ 'TermEnter', 'TermLeave' }, {
 api.nvim_create_autocmd('BufEnter', {
   pattern = 'term://*',
   callback = function(a)
-    if vim.b[a.buf].term_mode == 't' then cmd.startinsert() end
+    if vim.b[a.buf].term_mode == 't' then
+      cmd.startinsert()
+    end
   end,
 })
 
 api.nvim_create_autocmd('TermClose', {
   callback = function(a)
-    if vim.v.event.status == 0 then api.nvim_buf_delete(a.buf, { force = true }) end
+    if vim.v.event.status == 0 then
+      api.nvim_buf_delete(a.buf, { force = true })
+    end
   end,
   desc = 'close terminal buffers if the job exited without error. see :help terminal-status',
 })

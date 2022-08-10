@@ -1,11 +1,13 @@
 local ok = prequire('notify')
-if not ok then return end
+if not ok then
+  return
+end
 
 local notify = require('notify')
 local render = require('notify.render')
 local stages_util = require('notify.stages.util')
 
-notify.setup {
+notify.setup({
   timeout = 1000,
   render = function(bufnr, notif, highlights, config)
     local renderer = notif.title[1] == '' and 'minimal' or 'default'
@@ -20,7 +22,9 @@ notify.setup {
       local next_height = state.message.height + 2
       local next_row =
         stages_util.available_slot(state.open_windows, next_height, stages_util.DIRECTION.BOTTOM_UP)
-      if not next_row then return nil end
+      if not next_row then
+        return nil
+      end
       return {
         relative = 'editor',
         anchor = 'NE',
@@ -58,7 +62,7 @@ notify.setup {
       }
     end,
   },
-}
+})
 
 vim.notify = notify
 

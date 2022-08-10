@@ -1,5 +1,7 @@
 local ok = prequire('lir')
-if not ok then return end
+if not ok then
+  return
+end
 
 local lir = require('lir')
 local config = require('lir.config')
@@ -13,26 +15,32 @@ local cache_file = Path:new(vim.fn.stdpath('cache'), 'lir', 'history')
 
 local function save()
   local dir = cache_file:parent()
-  if not dir:exists() then dir:mkdir { parents = true } end
+  if not dir:exists() then
+    dir:mkdir({ parents = true })
+  end
   cache_file:write(vim.mpack.encode(history.get_all()), 'w')
 end
 
 local function restore()
   if cache_file:exists() then
     local ok, histories = pcall(vim.mpack.decode, cache_file:read())
-    if ok then history.replace_all(histories) end
+    if ok then
+      history.replace_all(histories)
+    end
   end
 end
 
 local function create()
   local cwd = vim.loop.cwd()
   -- temporarily change cwd for filename completion
-  vim.cmd.cd { lir.get_context().dir, mods = { noautocmd = true } }
+  vim.cmd.cd({ lir.get_context().dir, mods = { noautocmd = true } })
 
   vim.ui.input({ prompt = 'New File: ', completion = 'file' }, function(input)
     -- restore original cwd
-    vim.cmd.cd { cwd, mods = { noautocmd = true } }
-    if not input or input == '' or input == '.' or input == '..' then return end
+    vim.cmd.cd({ cwd, mods = { noautocmd = true } })
+    if not input or input == '' or input == '.' or input == '..' then
+      return
+    end
 
     local dir = lir.get_context().dir
     local file = Path:new(dir .. input)
@@ -41,11 +49,11 @@ local function create()
       return
     end
     if vim.endswith(file.filename, Path.path.sep) then
-      Path:new(file.filename:sub(1, -2)):mkdir { parents = true }
+      Path:new(file.filename:sub(1, -2)):mkdir({ parents = true })
     else
-      file:touch {
+      file:touch({
         parents = true,
-      }
+      })
     end
 
     local filename = file.filename:gsub(dir, '')
@@ -59,7 +67,9 @@ local function create()
 
     -- Jump to a line in the parent directory of the file you created.
     local row = lir.get_context():indexof(filename:match('^[^/]+'))
-    if row then vim.api.nvim_win_set_cursor(0, { row, 1 }) end
+    if row then
+      vim.api.nvim_win_set_cursor(0, { row, 1 })
+    end
   end)
 end
 
@@ -70,7 +80,7 @@ local delete = function()
 
   vim.ui.select({ 'Yes', 'No' }, { prompt = string.format('Delete %s ?', name) }, function(choice)
     if choice and choice == 'Yes' then
-      path:rm { recursive = path:is_dir() }
+      path:rm({ recursive = path:is_dir() })
       local bufs = vim.tbl_filter(function(buf)
         return vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) == path.filename
       end, vim.api.nvim_list_bufs())
@@ -90,7 +100,7 @@ vim.api.nvim_create_autocmd('ExitPre', {
 
 restore()
 
-require('lir').setup {
+require('lir').setup({
   hide_cursor = false,
   show_hidden_files = true,
   devicons_enable = true,
@@ -114,7 +124,7 @@ require('lir').setup {
     ['@'] = function()
       local dir = lir.get_context().dir
       local cmd = vim.fn.haslocaldir() == 1 and 'lcd' or 'cd'
-      vim.cmd[cmd] { dir, mods = { silent = true } }
+      vim.cmd[cmd]({ dir, mods = { silent = true } })
       vim.notify(cmd .. ': ' .. dir, vim.log.levels.INFO, { title = 'lir' })
     end,
     ['y'] = function()
@@ -133,11 +143,11 @@ require('lir').setup {
 
     ['<Tab>'] = function()
       mark_actions.toggle_mark()
-      vim.cmd.normal { 'j', bang = true }
+      vim.cmd.normal({ 'j', bang = true })
     end,
     ['<S-Tab>'] = function()
       mark_actions.toggle_mark()
-      vim.cmd.normal { 'k', bang = true }
+      vim.cmd.normal({ 'k', bang = true })
     end,
     ['c'] = clipboard_actions.copy,
     ['x'] = clipboard_actions.cut,
@@ -152,8 +162,8 @@ require('lir').setup {
     )
     vim.opt_local.signcolumn = 'no'
   end,
-}
+})
 
-require('lir.git_status').setup {
+require('lir.git_status').setup({
   show_ignored = false,
-}
+})

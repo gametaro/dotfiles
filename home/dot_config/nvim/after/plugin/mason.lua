@@ -1,8 +1,10 @@
 local ok = prequire('mason')
-if not ok then return end
+if not ok then
+  return
+end
 
-require('mason').setup {
+require('mason').setup({
   ui = {
     border = require('ky.ui').border,
   },
-}
+})
