@@ -1,4 +1,4 @@
-vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
+vim.keymap.set({ 'n', 'x' }, 's', '')
 vim.keymap.set({ 'n', 'x' }, 's', '<Cmd>Pounce<CR>')
 vim.keymap.set({ 'n', 'x' }, '<LocalLeader>s', '<Cmd>PounceCword<CR>')
 vim.keymap.set({ 'n', 'x', 'o' }, 'S', '<Cmd>PounceRepeat<CR>')

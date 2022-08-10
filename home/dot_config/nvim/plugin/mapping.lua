@@ -17,10 +17,10 @@ end
 local leader = prefix('<Leader>')
 
 -- Nop
-map('', '<Space>', '<Nop>')
-map('', ',', '<Nop>')
-map('n', 'ZQ', '<Nop>')
-map('n', 'ZZ', '<Nop>')
+map('', '<Space>', '')
+map('', ',', '')
+map('n', 'ZQ', '')
+map('n', 'ZZ', '')
 
 -- for _, v in ipairs { 'j', 'k' } do
 --   map('n', v, function()
@@ -183,7 +183,7 @@ end)
 
 -- quickfix
 local _qf = 'q'
-map('n', _qf, '<Nop>')
+map('n', _qf, '')
 map('n', 'Q', _qf)
 local qf = prefix(_qf)
 map('n', qf('q'), function()
