@@ -175,10 +175,12 @@ map('n', '-', function()
 end)
 
 map('n', leader('cd'), function()
-  cmd.tcd({ '%:p:h', nextcmd = 'pwd' })
+  cmd.tcd('%:p:h')
+  cmd.pwd()
 end)
 map('n', leader('ud'), function()
-  cmd.tcd({ '..', nextcmd = 'pwd' })
+  cmd.tcd('..')
+  cmd.pwd()
 end)
 
 -- quickfix
