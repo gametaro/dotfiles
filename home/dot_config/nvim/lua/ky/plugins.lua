@@ -237,7 +237,7 @@ local sync = function()
   end
 end
 
-local group = api.nvim_create_augroup('jetpack', { clear = true })
+local group = api.nvim_create_augroup('mine__jetpack', { clear = true })
 api.nvim_create_autocmd('VimEnter', {
   group = group,
   callback = sync,
