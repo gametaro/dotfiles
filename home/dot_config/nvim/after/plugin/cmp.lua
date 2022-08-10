@@ -98,8 +98,12 @@ local config = {
     ['<C-p>'] = { i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) },
     ['<C-Space>'] = { i = cmp.mapping.complete() },
     ['<C-e>'] = { i = cmp.mapping.abort() },
-    ['<CR>'] = { i = cmp.mapping.confirm({ select = true, behavior = cmp.SelectBehavior.Replace }) },
-    ['<C-y>'] = { i = cmp.mapping.confirm({ select = true, behavior = cmp.SelectBehavior.Insert }) },
+    ['<CR>'] = {
+      i = cmp.mapping.confirm({ select = true, behavior = cmp.SelectBehavior.Replace }),
+    },
+    ['<C-y>'] = {
+      i = cmp.mapping.confirm({ select = true, behavior = cmp.SelectBehavior.Insert }),
+    },
   },
   formatting = {
     deprecated = true,
