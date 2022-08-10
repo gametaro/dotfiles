@@ -697,7 +697,8 @@ local DisableStatusLine = {
     return vim.o.laststatus == 0
   end,
   provider = function()
-    return [[%{repeat('─',winwidth('.'))}]]
+    local winwidth = api.nvim_win_get_width(0)
+    return string.rep('─', winwidth)
   end,
   hl = { link = 'WinSeparator' },
 }
