@@ -65,6 +65,7 @@ jetpack.startup(function(use)
   use('AckslD/nvim-trevJ.lua')
   use('kylechui/nvim-surround')
   use('smjonas/live-command.nvim')
+  use('axelvc/template-string.nvim')
 
   -- LSP
   use('neovim/nvim-lspconfig')
