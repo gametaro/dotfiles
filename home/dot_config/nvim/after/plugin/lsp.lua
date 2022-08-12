@@ -217,9 +217,13 @@ local configs = {
           },
         },
         workspace = {
-          library = vim.tbl_filter(function(file)
-            return not vim.startswith(file, vim.fn.stdpath('config'))
-          end, vim.api.nvim_get_runtime_file('', true)),
+          library = {
+            vim.fn.expand('$VIMRUNTIME/lua'),
+            string.format(
+              '%s/site/pack/jetpack/src/github.com/ii14/emmylua-nvim',
+              vim.fn.stdpath('data')
+            ),
+          },
           -- preloadFileSize = 1000,
         },
         completion = {
