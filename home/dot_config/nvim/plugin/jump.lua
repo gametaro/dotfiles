@@ -102,27 +102,33 @@ local toqflist = function(jumplist)
   end, jumplist)
 end
 
-local setlist = function(qf, open)
+---@param opts { qf: boolean, open: boolean }
+local setlist = function(opts)
+  opts = opts or {}
   local jumplist = unpack(fn.getjumplist())
   local items = toqflist(vim.tbl_filter(function(j)
     return api.nvim_buf_is_loaded(j.bufnr)
   end, jumplist))
-  if qf then
+  if opts.qf then
     fn.setqflist({}, ' ', { title = 'Jumplist', items = items })
   else
     fn.setloclist(0, {}, ' ', { title = 'Jumplist', items = items })
   end
-  if open then
-    api.nvim_command(qf and 'botright copen' or 'lopen')
+  if opts.open then
+    if opts.qf then
+      vim.cmd.copen({ mods = { split = 'botright' } })
+    else
+      vim.cmd.lopen()
+    end
   end
 end
 
 local setqflist = function(open)
-  setlist(true, open)
+  setlist({ qf = true, open = open })
 end
 
 local setloclist = function(open)
-  setlist(false, open)
+  setlist({ qf = false, open = open })
 end
 
 ---@param opts jump.Options
