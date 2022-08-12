@@ -15,14 +15,18 @@ end
 autocmd('QuickFixCmdPost', {
   pattern = '[^l]*',
   nested = true,
-  callback = cmd.cwindow,
+  callback = function()
+    cmd.cwindow()
+  end,
   desc = 'automatically open the quickfix window',
 })
 
 autocmd('QuickFixCmdPost', {
   pattern = 'l*',
   nested = true,
-  callback = cmd.lwindow,
+  callback = function()
+    cmd.lwindow()
+  end,
   desc = 'automatically open the location list window',
 })
 
