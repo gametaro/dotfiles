@@ -8,7 +8,7 @@ local autocmd = function(event, opts)
   opts = opts or {}
   return api.nvim_create_autocmd(
     event,
-    vim.tbl_extend('force', { group = api.nvim_create_augroup('mine', { clear = true }) }, opts)
+    vim.tbl_extend('force', { group = api.nvim_create_augroup('mine', {}) }, opts)
   )
 end
 
