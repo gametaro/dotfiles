@@ -115,10 +115,6 @@ o.wildoptions = 'pum'
 o.winblend = blend
 o.wrap = false
 
-if fn.executable('zsh') > 0 then
-  opt.shell = 'zsh'
-end
-
 if fn.executable('rg') > 0 then
   opt.grepprg = 'rg --vimgrep --smart-case --hidden'
 end
