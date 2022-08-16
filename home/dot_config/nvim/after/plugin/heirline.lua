@@ -80,7 +80,7 @@ api.nvim_create_autocmd('User', {
     local filetype = vim.tbl_contains({ 'gitcommit' }, vim.bo[buf].filetype)
 
     if (buftype or filetype) and vim.bo[buf].filetype ~= 'lir' then
-      vim.go.winbar = nil
+      vim.opt_local.winbar = nil
     end
   end,
 })
@@ -649,7 +649,7 @@ local WinBars = {
       })
     end,
     init = function()
-      vim.go.winbar = nil
+      vim.opt_local.winbar = nil
     end,
   },
   QuickfixName,
