@@ -663,12 +663,6 @@ local WinBars = {
       TerminalName,
     },
   },
-  -- {
-  --   condition = function()
-  --     return not conditions.is_active()
-  --   end,
-  --   { hl = { fg = colors.gray, force = true }, Space, FileNameBlock },
-  -- },
   {
     Space,
     FileNameBlock,
@@ -785,11 +779,11 @@ local StatusLines = {
 }
 
 api.nvim_create_autocmd('ColorScheme', {
-  group = api.nvim_create_augroup('heirline', { clear = true }),
+  group = api.nvim_create_augroup('mine__heirline', { clear = true }),
   callback = function()
     heirline.reset_highlights()
     heirline.load_colors(colors)
   end,
 })
 
-heirline.setup(StatusLines)
+heirline.setup(StatusLines, WinBars)
