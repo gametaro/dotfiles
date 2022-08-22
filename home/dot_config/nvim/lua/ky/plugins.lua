@@ -207,10 +207,7 @@ jetpack.startup(function(use)
   use({ 'tyru/capture.vim', on = ':Capture' })
   use({
     'tyru/open-browser.vim',
-    on = {
-      '<Plug>(openbrowser-smart-search)',
-      ':OpenBrowserSmartSearch',
-    },
+    on = { '<Plug>(openbrowser-smart-search)', ':OpenBrowserSmartSearch' },
   })
   use('antoinemadec/FixCursorHold.nvim')
   vim.g.cursorhold_updatetime = 250
