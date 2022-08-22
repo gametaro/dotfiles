@@ -3,21 +3,11 @@ if not ok then
   return
 end
 
-vim.keymap.set('n', '_', function()
-  require('substitute').operator()
-end)
-vim.keymap.set('x', '_', function()
-  require('substitute').visual()
-end)
-vim.keymap.set('n', 'X', function()
-  require('substitute.exchange').operator()
-end)
-vim.keymap.set('x', 'X', function()
-  require('substitute.exchange').visual()
-end)
-vim.keymap.set('n', 'Xc', function()
-  require('substitute.exchange').cancel()
-end)
+vim.keymap.set('n', '_', require('substitute').operator)
+vim.keymap.set('x', '_', require('substitute').visual)
+vim.keymap.set('n', 'X', require('substitute.exchange').operator)
+vim.keymap.set('x', 'X', require('substitute.exchange').visual)
+vim.keymap.set('n', 'Xc', require('substitute.exchange').cancel)
 
 require('substitute').setup({
   on_substitute = function(event)
