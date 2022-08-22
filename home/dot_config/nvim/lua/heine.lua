@@ -548,6 +548,11 @@ M.compile = function()
   if file then
     file:write(table.concat(lines, '\n') .. '\n')
     file:close()
+    vim.notify(
+      string.format('compiled file was written to %s', compile_path),
+      vim.log.levels.INFO,
+      { title = 'heine' }
+    )
   else
     vim.notify(msg, vim.log.levels.ERROR, { title = 'heine' })
   end
