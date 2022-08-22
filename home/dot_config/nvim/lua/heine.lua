@@ -558,4 +558,11 @@ M.compile = function()
   end
 end
 
+M.clean = function()
+  local ok, msg = os.remove(compile_path)
+  if not ok then
+    vim.notify(msg, vim.log.levels.ERROR, { title = 'heine' })
+  end
+end
+
 return M
