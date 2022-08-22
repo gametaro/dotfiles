@@ -108,6 +108,7 @@ o.tildeop = true
 o.timeoutlen = 500
 o.ttimeoutlen = 10
 o.undofile = true
+o.undolevels = 10000
 o.updatetime = 250
 o.virtualedit = 'block'
 o.wildignorecase = true
