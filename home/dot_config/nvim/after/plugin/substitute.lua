@@ -3,10 +3,10 @@ if not ok then
   return
 end
 
-vim.keymap.set('n', 'S', function()
+vim.keymap.set('n', '_', function()
   require('substitute').operator()
 end)
-vim.keymap.set('x', 'S', function()
+vim.keymap.set('x', '_', function()
   require('substitute').visual()
 end)
 vim.keymap.set('n', 'X', function()
