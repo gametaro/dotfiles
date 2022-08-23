@@ -36,6 +36,9 @@ local sources = {
   f.fish_indent.with({
     condition = executable('fish_indent'),
   }),
+  f.yamlfmt.with({
+    condition = executable('yamlfmt'),
+  }),
   d.markdownlint.with({
     condition = executable('markdownlint'),
   }),
