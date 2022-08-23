@@ -1,4 +1,4 @@
-local ok = prequire('Comment')
+local ok = prequire('Comment') and prequire('ts_context_commentstring')
 if not ok then
   return
 end

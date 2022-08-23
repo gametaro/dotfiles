@@ -1,4 +1,4 @@
-local ok = prequire('lspconfig')
+local ok = prequire('lspconfig') and prequire('cmp_nvim_lsp')
 if not ok then
   return
 end

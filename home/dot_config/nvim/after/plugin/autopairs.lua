@@ -1,4 +1,4 @@
-local ok = prequire('nvim-autopairs')
+local ok = prequire('nvim-autopairs') and prequire('cmp')
 if not ok then
   return
 end

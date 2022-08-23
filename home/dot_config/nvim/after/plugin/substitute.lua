@@ -1,4 +1,4 @@
-local ok = prequire('substitute')
+local ok = prequire('substitute') and prequire('yanky')
 if not ok then
   return
 end

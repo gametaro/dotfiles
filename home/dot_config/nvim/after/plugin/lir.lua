@@ -1,4 +1,4 @@
-local ok = prequire('lir')
+local ok = prequire('lir') and prequire('plenary')
 if not ok then
   return
 end

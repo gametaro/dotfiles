@@ -1,4 +1,4 @@
-local ok = prequire('yanky')
+local ok = prequire('yanky') and prequire('telescope')
 if not ok then
   return
 end

@@ -1,4 +1,4 @@
-local ok = prequire('hydra')
+local ok = prequire('hydra') and prequire('gitsigns')
 if not ok then
   return
 end
