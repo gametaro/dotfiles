@@ -65,6 +65,9 @@ local sources = {
   d.zsh.with({
     condition = executable('zsh'),
   }),
+  d.actionlint.with({
+    condition = executable('actionlint'),
+  }),
   -- h.dictionary,
   ca.gitrebase,
 }
