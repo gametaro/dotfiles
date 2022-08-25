@@ -68,6 +68,9 @@ local sources = {
   d.actionlint.with({
     condition = executable('actionlint'),
   }),
+  d.gitlint.with({
+    condition = executable('gitlint'),
+  }),
   -- h.dictionary,
   ca.gitrebase,
 }
