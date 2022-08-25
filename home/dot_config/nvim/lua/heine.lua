@@ -538,21 +538,26 @@ local inspect = function(t)
   return string.format([[{ %s }]], table.concat(list, ', '))
 end
 
-M.compile = function()
-  local lines = {}
+---@param silent boolean
+M.compile = function(silent)
+  silent = silent or false
+
+  local lines = { 'local set_hl = vim.api.nvim_set_hl' }
   for name, val in pairs(M.highlight_groups) do
-    lines[#lines + 1] = string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val))
+    lines[#lines + 1] = string.format([[set_hl(0, '%s', %s)]], name, inspect(val))
   end
   table.sort(lines)
   local file, msg = io.open(compile_path, 'w')
   if file then
     file:write(table.concat(lines, '\n') .. '\n')
     file:close()
-    vim.notify(
-      string.format('compiled file was written to %s', compile_path),
-      vim.log.levels.INFO,
-      { title = 'heine' }
-    )
+    if not silent then
+      vim.notify(
+        string.format('compiled file was written to %s', compile_path),
+        vim.log.levels.INFO,
+        { title = 'heine' }
+      )
+    end
   else
     vim.notify(msg, vim.log.levels.ERROR, { title = 'heine' })
   end
