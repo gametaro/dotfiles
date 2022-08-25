@@ -73,6 +73,7 @@ local sources = {
   }),
   -- h.dictionary,
   ca.gitrebase,
+  ca.shellcheck,
 }
 
 null_ls.setup({
