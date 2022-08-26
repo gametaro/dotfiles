@@ -8,7 +8,7 @@ require('nvim-treesitter.configs').setup({
   -- ignore_install = { 'comment' },
   highlight = {
     enable = true,
-    disable = { 'html' },
+    -- disable = { 'html' },
   },
   incremental_selection = {
     enable = false,
