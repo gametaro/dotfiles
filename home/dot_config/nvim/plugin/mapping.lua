@@ -103,7 +103,9 @@ for _, v in ipairs({ 'h', 'j', 'k', 'l' }) do
   local lhs = fmt('<M-%s>', v)
   map('n', lhs, fmt('<C-w>%s', v))
   map('i', lhs, fmt([[<C-\><C-n><C-w>%s]], v))
-  map('t', lhs, fmt('<Cmd>wincmd %s<CR>', v))
+  map('t', lhs, function()
+    cmd.wincmd(v)
+  end)
 end
 
 map('s', '<BS>', '<BS>i')

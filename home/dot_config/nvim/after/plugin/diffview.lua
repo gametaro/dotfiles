@@ -14,15 +14,15 @@ vim.api.nvim_create_autocmd('User', {
       file_history_panel = {
         win_config = win_config,
       },
-      key_bindings = {
+      keymaps = {
         view = {
-          ['q'] = '<Cmd>DiffviewClose<CR>',
+          ['q'] = vim.cmd.DiffviewClose,
         },
         file_panel = {
-          ['q'] = '<Cmd>DiffviewClose<CR>',
+          ['q'] = vim.cmd.DiffviewClose,
         },
         file_history_panel = {
-          ['q'] = '<Cmd>DiffviewClose<CR>',
+          ['q'] = vim.cmd.DiffviewClose,
         },
       },
       hooks = {
@@ -38,9 +38,9 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
-vim.keymap.set('n', '<LocalLeader>gd', '<Cmd>DiffviewOpen<CR>')
-vim.keymap.set('n', '<LocalLeader>gf', '<Cmd>DiffviewFileHistory %<CR>')
-vim.keymap.set('n', '<LocalLeader>gF', '<Cmd>DiffviewFileHistory<CR>')
+vim.keymap.set('n', '<LocalLeader>gd', vim.cmd.DiffviewOpen)
+vim.keymap.set('n', '<LocalLeader>gf', vim.cmd.DiffviewFileHistory)
+vim.keymap.set('n', '<LocalLeader>gF', vim.cmd.DiffviewFileHistory)
 vim.keymap.set('x', '<LocalLeader>gf', ":'<,'>DiffviewFileHistory<CR>")
 
 require('ky.abbrev').cabbrev('dvo', 'DiffviewOpen')

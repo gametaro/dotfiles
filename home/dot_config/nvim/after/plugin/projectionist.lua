@@ -18,6 +18,6 @@ vim.g.projectionist_heuristics = {
     ['test_*.py'] = { alternate = { '{}.py' }, type = 'test' },
   },
 }
-vim.keymap.set('n', '<LocalLeader>a', '<Cmd>A<CR>')
-vim.keymap.set('n', '<LocalLeader>Av', '<Cmd>AV<CR>')
-vim.keymap.set('n', '<LocalLeader>As', '<Cmd>AS<CR>')
+vim.keymap.set('n', '<LocalLeader>a', vim.cmd.A)
+vim.keymap.set('n', '<LocalLeader>Av', vim.cmd.AV)
+vim.keymap.set('n', '<LocalLeader>As', vim.cmd.AS)

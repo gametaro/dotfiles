@@ -1,5 +1,4 @@
-vim.keymap.set('n', '<LocalLeader>gg', '<Cmd>Neogit<CR>')
-vim.keymap.set('n', '<LocalLeader>gG', '<Cmd>Neogit commit<CR>')
+vim.keymap.set('n', '<LocalLeader>gg', vim.cmd.Neogit)
 
 local group = vim.api.nvim_create_augroup('NeogitFileType', { clear = true })
 
