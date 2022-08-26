@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661331711462,
+  "lastUpdate": 1661488134403,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -13306,6 +13306,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.2973074066133334,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "1b5283ceffae8ce50c0c179aebf370f4b35bad50",
+          "message": "fix(chezmoi): install python3-venv",
+          "timestamp": "2022-08-26T13:25:26+09:00",
+          "tree_id": "c5f459fb906e0b4175b1af59d4c8f09595281196",
+          "url": "https://github.com/gametaro/dotfiles/commit/1b5283ceffae8ce50c0c179aebf370f4b35bad50"
+        },
+        "date": 1661488132058,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.31929117936000007,
             "unit": "Second"
           }
         ]
