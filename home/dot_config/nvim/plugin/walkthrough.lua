@@ -1,9 +1,10 @@
 local api = vim.api
-local fn = vim.fn
+local fs = vim.fs
 
 ---@class walkthrough.Options
 ---@field public next boolean
 ---@field public type 'file'|'directory'
+---@field public silent boolean
 
 ---@param t table
 ---@param v string
@@ -32,13 +33,13 @@ end
 ---@param type 'file'|'directory'
 ---@return table
 local list = function(path, type)
-  local fs = {}
-  for name, _type in vim.fs.dir(path) do
+  local f = {}
+  for name, _type in fs.dir(path) do
     if _type == type then
-      fs[#fs + 1] = name
+      f[#f + 1] = name
     end
   end
-  return fs
+  return f
 end
 
 ---@param opts walkthrough.Options
@@ -46,20 +47,23 @@ local walkthrough = function(opts)
   opts = opts or {}
 
   local full_filename = api.nvim_buf_get_name(0)
-  local filename = fn.fnamemodify(full_filename, ':t')
-  local dirname = vim.fs.dirname(full_filename)
+  local filename = fs.basename(full_filename)
+  local dirname = fs.dirname(full_filename)
   -- would be better if results were cached per directory?
-  local fs = list(dirname, opts.type)
-  if #fs <= 1 then
+  local f = list(dirname, opts.type)
+  if #f <= 1 then
     return
   end
-  local idx = index_of(fs, filename)
-  if idx == nil then
+  local idx = index_of(f, filename)
+  if not idx then
+    if not opts.silent then
+      vim.notify('Not found', vim.log.levels.WARN, { title = 'walkthrough.nvim' })
+    end
     return
   end
-  local target_idx = opts.next and next_index(idx, #fs) or prev_index(idx, #fs)
+  local target_idx = opts.next and next_index(idx, #f) or prev_index(idx, #f)
 
-  vim.cmd.edit(dirname .. '/' .. fs[target_idx])
+  vim.cmd.edit(dirname .. '/' .. f[target_idx])
 end
 
 ---Go to next file in current directory
@@ -98,12 +102,7 @@ local prev_dir = function(opts)
   walkthrough(opts)
 end
 
-vim.keymap.set('n', '<Leader>j', next_file, { desc = 'Go to next file in current directory' })
-vim.keymap.set('n', '<Leader>k', prev_file, { desc = 'Go to previous file in current directory' })
--- vim.keymap.set('n', '<Leader>J', next_dir, { desc = 'Go to next directory in current directory' })
--- vim.keymap.set(
---   'n',
---   '<Leader>K',
---   prev_dir,
---   { desc = 'Go to previous directory in current directory' }
--- )
+vim.keymap.set('n', ']w', next_file, { desc = 'Go to next file in current directory' })
+vim.keymap.set('n', '[w', prev_file, { desc = 'Go to previous file in current directory' })
+vim.keymap.set('n', ']W', next_dir, { desc = 'Go to next directory in current directory' })
+vim.keymap.set('n', '[W', prev_dir, { desc = 'Go to previous directory in current directory' })
