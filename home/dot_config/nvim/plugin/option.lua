@@ -117,7 +117,7 @@ o.winblend = blend
 o.wrap = false
 
 if fn.executable('rg') > 0 then
-  opt.grepprg = 'rg --vimgrep --smart-case --hidden'
+  o.grepprg = 'rg --vimgrep --smart-case --hidden'
 end
 
 -- neovide
@@ -126,5 +126,5 @@ if fn.exists('g:neovide') > 0 then
   g.neovide_cursor_trail_length = 0
   g.neovide_floating_blur_amount_x = 2.0
   g.neovide_floating_blur_amount_y = 2.0
-  opt.guifont = 'FiraCode NF:style=Regular:h12'
+  o.guifont = 'FiraCode NF:style=Regular:h12'
 end
