@@ -677,15 +677,11 @@ local WinBars = {
     CloseButton,
   },
   hl = function()
-    return conditions.is_active()
-        and {
-          -- fg = utils.get_highlight('WinBar').fg,
-          bg = utils.get_highlight('WinBar').bg,
-        }
-      or {
-        -- fg = utils.get_highlight('WinBarNC').fg,
-        bg = utils.get_highlight('WinBarNC').bg,
-      }
+    return conditions.is_active() and {
+      bg = utils.get_highlight('WinBar').bg,
+    } or {
+      bg = utils.get_highlight('WinBarNC').bg,
+    }
   end,
 }
 
