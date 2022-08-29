@@ -176,7 +176,7 @@ local FileNameBlock = {
 
 local FileIcon = {
   init = function(self)
-    local filename = fn.fnamemodify(self.filename, ':t')
+    local filename = vim.fs.basename(self.filename)
     local extension = fn.fnamemodify(filename, ':e')
     self.icon, self.icon_color =
       require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
@@ -191,7 +191,7 @@ local FileIcon = {
 
 local FileName = {
   provider = function(self)
-    local filename = fn.fnamemodify(self.filename, ':t')
+    local filename = vim.fs.basename(self.filename)
     return filename == '' and '[No Name]' or filename
   end,
 }
@@ -564,8 +564,7 @@ local HelpFileName = {
     return vim.bo.filetype == 'help'
   end,
   provider = function()
-    local filename = api.nvim_buf_get_name(0)
-    return ' ' .. fn.fnamemodify(filename, ':t')
+    return ' ' .. vim.fs.basename(api.nvim_buf_get_name(0))
   end,
 }
 
