@@ -89,7 +89,7 @@ local ViMode = {
   init = function(self)
     self.mode = api.nvim_get_mode().mode
     if not self.once then
-      vim.api.nvim_create_autocmd('ModeChanged', {
+      api.nvim_create_autocmd('ModeChanged', {
         pattern = '*:*o',
         command = 'redrawstatus',
       })
