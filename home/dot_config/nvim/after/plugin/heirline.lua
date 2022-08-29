@@ -689,6 +689,25 @@ local WinBars = {
   end,
 }
 
+local Tabpage = {
+  provider = function(self)
+    return '%' .. self.tabnr .. 'T' .. ' ' .. vim.fs.basename(vim.fn.getcwd(-1, self.tabnr)) .. ' '
+  end,
+  hl = function(self)
+    return self.is_active and 'TabLineSel' or 'TabLine'
+  end,
+}
+
+local TabPages = {
+  condition = function()
+    return #api.nvim_list_tabpages() >= 2
+  end,
+  utils.make_tablist(Tabpage),
+  Align,
+}
+
+local TabLine = { TabPages }
+
 local DisableStatusLine = {
   condition = function()
     return vim.o.laststatus == 0
@@ -789,4 +808,4 @@ api.nvim_create_autocmd('ColorScheme', {
   end,
 })
 
-heirline.setup(StatusLines, WinBars)
+heirline.setup(StatusLines, WinBars, TabLine)
