@@ -79,13 +79,12 @@ local jump = function(opts)
     return
   end
 
-  vim.cmd(
-    string.format(
-      'execute "normal! %s%s"',
-      tostring(target_pos - current_pos),
-      (opts.forward and [[\<C-i>]] or [[\<C-o>]])
-    )
-  )
+  vim.cmd.execute({
+    args = {
+      '"' .. 'normal!',
+      tostring(target_pos - current_pos) .. (opts.forward and [[\<C-i>]] or [[\<C-o>]]) .. '"',
+    },
+  })
 
   opts.on_success({
     prev_bufnr = prev_bufnr,
