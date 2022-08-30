@@ -39,7 +39,9 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 vim.keymap.set('n', '<LocalLeader>gd', vim.cmd.DiffviewOpen)
-vim.keymap.set('n', '<LocalLeader>gf', vim.cmd.DiffviewFileHistory)
+vim.keymap.set('n', '<LocalLeader>gf', function()
+  vim.cmd.DiffviewFileHistory('%')
+end)
 vim.keymap.set('n', '<LocalLeader>gF', vim.cmd.DiffviewFileHistory)
 vim.keymap.set('x', '<LocalLeader>gf', ":'<,'>DiffviewFileHistory<CR>")
 
