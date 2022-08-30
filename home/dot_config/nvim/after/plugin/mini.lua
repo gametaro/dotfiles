@@ -164,16 +164,18 @@ require('mini.ai').setup({
       return { from = from, to = to }
     end,
     -- textobj-line (i only)
-    -- l = function()
-    --   if vim.api.nvim_get_current_line() == '' then return end
-    --   vim.cmd.normal { '^', bang = true }
-    --   local from_line, from_col = unpack(vim.api.nvim_win_get_cursor(0))
-    --   local from = { line = from_line, col = from_col + 1 }
-    --   vim.cmd.normal { 'g_', bang = true }
-    --   local to_line, to_col = unpack(vim.api.nvim_win_get_cursor(0))
-    --   local to = { line = to_line, col = to_col + 1 }
-    --   return { from = from, to = to }
-    -- end,
+    l = function()
+      if vim.api.nvim_get_current_line() == '' then
+        return
+      end
+      vim.cmd.normal({ '^', bang = true })
+      local from_line, from_col = unpack(vim.api.nvim_win_get_cursor(0))
+      local from = { line = from_line, col = from_col + 1 }
+      vim.cmd.normal({ 'g_', bang = true })
+      local to_line, to_col = unpack(vim.api.nvim_win_get_cursor(0))
+      local to = { line = to_line, col = to_col + 1 }
+      return { from = from, to = to }
+    end,
     d = function()
       return vim.tbl_map(function(diagnostic)
         local from_line = diagnostic.lnum + 1
@@ -187,8 +189,8 @@ require('mini.ai').setup({
       end, vim.diagnostic.get(0))
     end,
   },
-  -- mappings = {
-  --   around_last = '',
-  --   inside_last = '',
-  -- },
+  mappings = {
+    around_last = '',
+    inside_last = '',
+  },
 })
