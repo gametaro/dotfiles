@@ -12,7 +12,7 @@ opt.backupdir = { vim.fn.stdpath('state') .. '/backup//', '.' }
 vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
 opt.backupskip:append({ '*/.git/*' })
 -- opt.clipboard = 'unnamedplus'
-o.cmdheight = 1
+o.cmdheight = 0
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
 o.confirm = true
 o.copyindent = true
