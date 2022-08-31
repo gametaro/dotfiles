@@ -515,6 +515,9 @@ M.highlight_groups = {
   -- nvim-treehopper
   TSNodeUnmatched = { link = 'Comment' },
   TSNodeKey = { fg = search_fg, bg = search_bg, bold = true },
+
+  -- hlargs.nvim
+  Hlargs = { fg = M.lighten(M.palette.orange, -6) },
 }
 
 M.load = function()
