@@ -450,9 +450,13 @@ M.highlight_groups = {
   BqfPreviewBorder = { link = 'FloatBorder' },
 
   -- pounce.nvim
-  PounceAccept = { fg = M.saturate_lighten(M.palette.cyan, 50, -50), bg = M.palette.cyan },
-  PounceAcceptBest = { link = 'IncSearch' },
-  PounceMatch = { link = 'Search' },
+  PounceAccept = {
+    fg = M.saturate_lighten(M.palette.cyan, 50, -50),
+    bg = M.palette.cyan,
+    bold = true,
+  },
+  PounceAcceptBest = { reverse = true, bold = true },
+  PounceMatch = { fg = search_fg, bg = search_bg },
   PounceUnmatched = { link = 'Comment' },
   PounceGap = { link = 'Comment' },
 
@@ -510,7 +514,7 @@ M.highlight_groups = {
 
   -- nvim-treehopper
   TSNodeUnmatched = { link = 'Comment' },
-  TSNodeKey = { link = 'Search' },
+  TSNodeKey = { fg = search_fg, bg = search_bg, bold = true },
 }
 
 M.load = function()
