@@ -503,10 +503,14 @@ M.highlight_groups = {
   -- marks.nvim
   MarkSignHL = { fg = M.palette.orange },
 
-  --vim-illuminate
+  -- vim-illuminate
   illuminatedWordText = { link = 'MatchParen' },
   illuminatedWordRead = { link = 'MatchParen' },
   illuminatedWordWrite = { link = 'MatchParen' },
+
+  -- nvim-treehopper
+  TSNodeUnmatched = { link = 'Comment' },
+  TSNodeKey = { link = 'Search' },
 }
 
 M.load = function()
