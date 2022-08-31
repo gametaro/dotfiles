@@ -161,6 +161,9 @@ telescope.setup({
         },
       },
     },
+    git_files = {
+      show_untracked = true,
+    },
     git_bcommits = horizontal,
     git_commits = horizontal,
     git_status = horizontal,
