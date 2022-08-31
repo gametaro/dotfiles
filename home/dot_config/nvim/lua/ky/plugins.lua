@@ -93,6 +93,7 @@ jetpack.startup(function(use)
   use('petertriho/cmp-git')
   use({ 'L3MON4D3/LuaSnip', run = 'make install_jsregexp' })
   use('rafamadriz/friendly-snippets')
+  use('danymat/neogen')
 
   -- Statusline
   use('rebelot/heirline.nvim')
