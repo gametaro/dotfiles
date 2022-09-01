@@ -10,10 +10,11 @@ require('project_nvim').setup({
 require('telescope').load_extension('projects')
 vim.keymap.set('n', '<LocalLeader>fp', '<Cmd>Telescope projects<CR>')
 
-local group = vim.api.nvim_create_augroup('ProjectCd', { clear = true })
+local group = vim.api.nvim_create_augroup('mine__project', { clear = true })
 
 vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
   group = group,
+  nested = true,
   callback = function()
     if vim.tbl_contains({ 'nofile', 'prompt' }, vim.bo.buftype) then
       return
@@ -21,12 +22,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
     if vim.tbl_contains({ 'help', 'qf' }, vim.bo.filetype) then
       return
     end
-    local ok, project = prequire('project_nvim.project')
-    if ok then
-      local root = project.get_project_root()
-      if root and vim.loop.cwd() ~= root then
-        vim.cmd.tcd({ root, mods = { silent = true } })
-      end
+    local root = require('project_nvim.project').get_project_root()
+    if root then
+      vim.cmd.tcd({ root, mods = { silent = true } })
     end
   end,
 })
