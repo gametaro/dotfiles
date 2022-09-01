@@ -687,7 +687,7 @@ local WinBars = {
 local Tabpage = {
   provider = function(self)
     local cwd = fn.pathshorten(fn.getcwd(-1, self.tabnr))
-    return '%' .. self.tabnr .. 'T' .. ' ' .. cwd .. ' '
+    return '%' .. self.tabnr .. 'T' .. '來 ' .. cwd .. ' '
   end,
   hl = function(self)
     return self.is_active and 'TabLineSel' or 'TabLine'
