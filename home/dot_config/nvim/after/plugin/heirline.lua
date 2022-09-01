@@ -686,7 +686,8 @@ local WinBars = {
 
 local Tabpage = {
   provider = function(self)
-    return '%' .. self.tabnr .. 'T' .. ' ' .. vim.fs.basename(vim.fn.getcwd(-1, self.tabnr)) .. ' '
+    local cwd = fn.pathshorten(fn.getcwd(-1, self.tabnr))
+    return '%' .. self.tabnr .. 'T' .. ' ' .. cwd .. ' '
   end,
   hl = function(self)
     return self.is_active and 'TabLineSel' or 'TabLine'
