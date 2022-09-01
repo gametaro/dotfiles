@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1661914911709,
+  "lastUpdate": 1661995754729,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -13596,6 +13596,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.28609791421333336,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "ed709fea4b81fca9fb38523afe99003041915390",
+          "message": "fix(project): always set pwd with tcd",
+          "timestamp": "2022-09-01T10:23:53+09:00",
+          "tree_id": "556a8255111c06536777fa46b62f143ad25e0362",
+          "url": "https://github.com/gametaro/dotfiles/commit/ed709fea4b81fca9fb38523afe99003041915390"
+        },
+        "date": 1661995752236,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.3413827168266667,
             "unit": "Second"
           }
         ]
