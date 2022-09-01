@@ -84,7 +84,7 @@ local prev_file = function(opts)
   walkthrough(opts)
 end
 
----Go to previous directory in current directory
+---Go to previous directory in parent directory
 ---@param opts walkthrough.Options
 local next_dir = function(opts)
   opts = opts or {}
@@ -93,7 +93,7 @@ local next_dir = function(opts)
   walkthrough(opts)
 end
 
----Go to previous directory in current directory
+---Go to previous directory in parent directory
 ---@param opts walkthrough.Options
 local prev_dir = function(opts)
   opts = opts or {}
@@ -104,5 +104,5 @@ end
 
 vim.keymap.set('n', ']w', next_file, { desc = 'Go to next file in current directory' })
 vim.keymap.set('n', '[w', prev_file, { desc = 'Go to previous file in current directory' })
-vim.keymap.set('n', ']W', next_dir, { desc = 'Go to next directory in current directory' })
-vim.keymap.set('n', '[W', prev_dir, { desc = 'Go to previous directory in current directory' })
+vim.keymap.set('n', ']W', next_dir, { desc = 'Go to next directory in parent directory' })
+vim.keymap.set('n', '[W', prev_dir, { desc = 'Go to previous directory in parent directory' })
