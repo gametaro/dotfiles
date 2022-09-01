@@ -1,4 +1,6 @@
-local group = vim.api.nvim_create_augroup('mine__number', {})
+local api = vim.api
+
+local group = api.nvim_create_augroup('mine__number', {})
 
 ---@class number.Options
 ---@field ignore_buftype string[]
@@ -15,15 +17,13 @@ local opts = {
 }
 
 ---@param value boolean
----@return nil
 local number = function(value)
-  return vim.api.nvim_set_option_value('number', value, { scope = 'local' })
+  return api.nvim_set_option_value('number', value, { scope = 'local' })
 end
 
 ---@param value boolean
----@return nil
 local relativenumber = function(value)
-  return vim.api.nvim_set_option_value('relativenumber', value, { scope = 'local' })
+  return api.nvim_set_option_value('relativenumber', value, { scope = 'local' })
 end
 
 local ignore = function(buf)
@@ -31,7 +31,7 @@ local ignore = function(buf)
     or vim.tbl_contains(opts.ignore_filetype, vim.bo[buf].filetype)
 end
 
-vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave' }, {
+api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave', 'CmdlineEnter' }, {
   group = group,
   callback = function(a)
     if ignore(a.buf) then
@@ -40,10 +40,11 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave' }, {
 
     number(true)
     relativenumber(false)
+    vim.cmd.redraw() -- required for `CmdlineEnter`
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter', 'BufEnter' }, {
+api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter', 'BufEnter', 'CmdlineLeave' }, {
   group = group,
   callback = function(a)
     if ignore(a.buf) then
