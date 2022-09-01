@@ -641,7 +641,7 @@ local Snippets = {
 }
 
 local WinBars = {
-  init = utils.pick_child_on_condition,
+  fallthrough = false,
   LirName,
   {
     condition = function()
@@ -776,7 +776,7 @@ local TerminalStatusLine = {
 }
 
 local StatusLines = {
-  init = utils.pick_child_on_condition,
+  fallthrough = false,
   DisableStatusLine,
   SpecialStatusLine,
   TerminalStatusLine,
