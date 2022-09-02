@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662012600524,
+  "lastUpdate": 1662102058961,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -13654,6 +13654,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.29060535536000004,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "cc3dd420f4a8eba70a32bb55e85c0522e9b214e8",
+          "message": "feat(word): add lua equivalent to vim-smartword (WIP)",
+          "timestamp": "2022-09-02T15:56:14+09:00",
+          "tree_id": "113dad0511456b6847f513717bcfa45335c046fe",
+          "url": "https://github.com/gametaro/dotfiles/commit/cc3dd420f4a8eba70a32bb55e85c0522e9b214e8"
+        },
+        "date": 1662102058020,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.31001197560666677,
             "unit": "Second"
           }
         ]
