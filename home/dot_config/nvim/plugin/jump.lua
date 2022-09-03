@@ -81,7 +81,7 @@ local jump = function(opts)
 
   vim.cmd.execute(
     string.format(
-      [["normal! %s %s"]],
+      [["normal! %s%s"]],
       tostring(target_pos - current_pos),
       opts.forward and [[\<C-i>]] or [[\<C-o>]]
     )
