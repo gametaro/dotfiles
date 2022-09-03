@@ -79,4 +79,6 @@ require('gitsigns').setup({
   },
   trouble = false,
   on_attach = on_attach,
+  _extmark_signs = true,
+  _threaded_diff = true,
 })
