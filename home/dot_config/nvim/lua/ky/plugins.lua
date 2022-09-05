@@ -107,7 +107,7 @@ jetpack.startup(function(use)
   use({ 'folke/tokyonight.nvim', opt = true })
 
   -- Keybinding
-  -- use('folke/which-key.nvim')
+  use('folke/which-key.nvim')
   use('anuvyklack/hydra.nvim')
 
   -- File explorer
