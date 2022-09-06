@@ -34,7 +34,7 @@ jetpack.startup(function(use)
   -- Icon
   use('kyazdani42/nvim-web-devicons')
 
-  -- Syntax
+  -- Syntax/Highlight
   use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
   use('p00f/nvim-ts-rainbow')
   use('m-demare/hlargs.nvim')
@@ -45,6 +45,7 @@ jetpack.startup(function(use)
     'nvim-treesitter/playground',
     on = { 'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor' },
   })
+  use('levouh/tint.nvim')
 
   -- Editing support
   use('gbprod/substitute.nvim')
