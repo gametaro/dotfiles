@@ -40,7 +40,9 @@ api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave', 'CmdlineEnter' 
 
     number(true)
     relativenumber(false)
-    vim.cmd.redraw() -- required for `CmdlineEnter`
+    if a.event == 'CmdlineEnter' then
+      vim.cmd.redraw()
+    end
   end,
 })
 
