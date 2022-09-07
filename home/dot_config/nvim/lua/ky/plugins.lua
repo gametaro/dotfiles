@@ -194,7 +194,7 @@ jetpack.startup(function(use)
 
   -- Marks
   use('ThePrimeagen/harpoon')
-  use('chentoast/marks.nvim')
+  -- use('chentoast/marks.nvim')
 
   -- Quickfix
   use({ 'kevinhwang91/nvim-bqf', ft = 'qf' })
