@@ -6,6 +6,6 @@ vim.keymap.set('n', '<LocalLeader>gm', '<Plug>(git-messenger)')
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'gitmessengerpopup',
   callback = function()
-    vim.go.winbar = nil
+    vim.opt_local.winbar = nil
   end,
 })
