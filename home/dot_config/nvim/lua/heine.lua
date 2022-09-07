@@ -570,14 +570,14 @@ M.compile = function(silent)
       )
     end
   else
-    vim.notify(msg, vim.log.levels.ERROR, { title = 'heine' })
+    vim.notify(msg or '', vim.log.levels.ERROR, { title = 'heine' })
   end
 end
 
 M.clean = function()
   local ok, msg = os.remove(compile_path)
   if not ok then
-    vim.notify(msg, vim.log.levels.ERROR, { title = 'heine' })
+    vim.notify(msg or '', vim.log.levels.ERROR, { title = 'heine' })
   end
 end
 
