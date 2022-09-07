@@ -46,6 +46,8 @@ jetpack.startup(function(use)
     on = { 'TSPlaygroundToggle', 'TSHighlightCapturesUnderCursor' },
   })
   use('levouh/tint.nvim')
+  use('RRethy/vim-illuminate')
+  use({ 't9md/vim-quickhl', on = '<Plug>(quickhl-' })
 
   -- Editing support
   use('gbprod/substitute.nvim')
@@ -118,7 +120,6 @@ jetpack.startup(function(use)
   -- Search
   use('haya14busa/vim-asterisk')
   use('kevinhwang91/nvim-hlslens')
-  use({ 't9md/vim-quickhl', on = '<Plug>(quickhl-' })
 
   -- Git/Diff
   use({ 'TimUntersberger/neogit', on = ':Neogit' })
@@ -220,7 +221,6 @@ jetpack.startup(function(use)
   use('wsdjeg/vim-fetch')
   use('justinmk/vim-gtfo')
   use({ 'dstein64/vim-startuptime', on = ':StartupTime' })
-  use('RRethy/vim-illuminate')
   use('nvim-treesitter/nvim-treesitter-context')
 end)
 
