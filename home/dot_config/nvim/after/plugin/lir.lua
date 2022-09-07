@@ -37,7 +37,7 @@ local function create()
 
   vim.ui.input({ prompt = 'New File: ', completion = 'file' }, function(input)
     -- restore original cwd
-    vim.cmd.cd({ cwd, mods = { noautocmd = true } })
+    vim.cmd.cd({ cwd, mods = { noautocmd = true, silent = true } })
     if not input or input == '' or input == '.' or input == '..' then
       return
     end
