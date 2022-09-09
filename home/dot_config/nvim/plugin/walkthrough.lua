@@ -5,6 +5,8 @@ local walkthrough = {}
 
 ---@alias walkthrough.List.Type 'file'|'directory'
 
+---@alias walkthrough.List.Item { name: string, type: walkthrough.List.Type }
+
 ---@class walkthrough.List.Options
 ---@field public type walkthrough.List.Type
 ---@field public ignore? function
@@ -17,7 +19,9 @@ local walkthrough = {}
 ---@field public ignore? function
 ---@field public sort? function
 
+---@type table<string, userdata>
 local watchers = {}
+---@type table<string, walkthrough.List.Item[]>
 local dirfs = {}
 
 ---@param t table
@@ -43,8 +47,8 @@ local prev_index = function(idx, len)
   return idx == 1 and len or idx - 1
 end
 
----@param a { name: string, type: walkthrough.List.Type }
----@param b { name: string, type: walkthrough.List.Type }
+---@param a walkthrough.List.Item
+---@param b walkthrough.List.Item
 ---@return boolean
 local sort = function(a, b)
   if a.type == 'directory' and b.type ~= 'directory' then
@@ -57,7 +61,7 @@ end
 
 ---@param path string
 ---@param opts walkthrough.List.Options
----@return table
+---@return walkthrough.List.Item[]
 local list = function(path, opts)
   opts = opts or {}
   local f = {}
@@ -108,7 +112,11 @@ local throttle_leading = function(fn, ms)
 end
 -- jscpd:ignore-end
 
-local on_change = function(path, err, filename, _)
+---@param path string
+---@param err any
+---@param filename string
+---@param events table
+local on_change = function(path, err, filename, events)
   if err then
     notify(err, vim.log.levels.ERROR)
     return
@@ -125,6 +133,7 @@ local throttle_on_change = throttle_leading(function(path, ...)
   on_change(path, ...)
 end, 1000)
 
+---@param path string
 local watch = function(path)
   if watchers[path] then
     return
