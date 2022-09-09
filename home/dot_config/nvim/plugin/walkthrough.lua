@@ -17,6 +17,9 @@ local walkthrough = {}
 ---@field public ignore? function
 ---@field public sort? function
 
+local watchers = {}
+local dirfs = {}
+
 ---@param t table
 ---@param v table
 local index_of = function(t, v)
@@ -83,6 +86,56 @@ local notify = function(msg, level, opts)
   vim.notify(msg, level, opts)
 end
 
+-- jscpd:ignore-start
+---@param fn function
+---@param ms integer
+---@return function
+local throttle_leading = function(fn, ms)
+  local timer = vim.loop.new_timer()
+  local running = false
+
+  return function(...)
+    if not running then
+      timer:start(ms, 0, function()
+        running = false
+        timer:stop()
+      end)
+      running = true
+      ---@diagnostic disable-next-line: param-type-mismatch
+      pcall(vim.schedule_wrap(fn), select(1, ...))
+    end
+  end
+end
+-- jscpd:ignore-end
+
+local on_change = function(path, err, filename, _)
+  if err then
+    notify(err, vim.log.levels.ERROR)
+    return
+  end
+  -- ignore :write, :saveas, and :update
+  -- see https://github.com/neovim/neovim/issues/3460
+  if filename and filename == '4913' then
+    return
+  end
+  dirfs[path] = list(path)
+end
+
+local throttle_on_change = throttle_leading(function(path, ...)
+  on_change(path, ...)
+end, 1000)
+
+local watch = function(path)
+  if watchers[path] then
+    return
+  end
+
+  watchers[path] = vim.loop.new_fs_event()
+  watchers[path]:start(path, {}, function(...)
+    throttle_on_change(path, ...)
+  end)
+end
+
 ---@param opts walkthrough.Options
 walkthrough.walkthrough = function(opts)
   opts = opts or {}
@@ -91,14 +144,19 @@ walkthrough.walkthrough = function(opts)
   local basename = fs.basename(fullname)
   local dirname = fs.dirname(fullname)
   local type = vim.fn.isdirectory(fullname) == 0 and 'file' or 'directory'
-  -- would be better if results were cached per directory?
-  local f = list(dirname, { type = opts.type, ignore = opts.ignore, sort = opts.sort })
+
+  local f = dirfs[dirname]
+  if not f then
+    watch(dirname)
+    f = list(dirname, { type = opts.type, ignore = opts.ignore, sort = opts.sort })
+  end
   if #f <= 1 then
     if not opts.silent then
       notify('Not found')
     end
     return
   end
+
   local idx = index_of(f, { name = basename, type = type })
   if not idx then
     if not opts.silent then
@@ -106,6 +164,7 @@ walkthrough.walkthrough = function(opts)
     end
     return
   end
+
   local count = vim.v.count1 - 1
   local target_idx = opts.next and (next_index(idx, #f) + count) or (prev_index(idx, #f) - count)
 
