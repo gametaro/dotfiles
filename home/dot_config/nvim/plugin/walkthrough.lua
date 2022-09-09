@@ -87,10 +87,10 @@ end
 walkthrough.walkthrough = function(opts)
   opts = opts or {}
 
-  local full_filename = api.nvim_buf_get_name(0)
-  local basename = fs.basename(full_filename)
-  local dirname = fs.dirname(full_filename)
-  local type = vim.fn.isdirectory(full_filename) == 0 and 'file' or 'directory'
+  local fullname = api.nvim_buf_get_name(0)
+  local basename = fs.basename(fullname)
+  local dirname = fs.dirname(fullname)
+  local type = vim.fn.isdirectory(fullname) == 0 and 'file' or 'directory'
   -- would be better if results were cached per directory?
   local f = list(dirname, { type = opts.type, ignore = opts.ignore, sort = opts.sort })
   if #f <= 1 then
