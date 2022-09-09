@@ -112,6 +112,22 @@ walkthrough.walkthrough = function(opts)
   vim.cmd.edit(dirname .. '/' .. f[target_idx].name)
 end
 
+---Go to next file/directory in current directory
+---@param opts walkthrough.Options
+walkthrough.next = function(opts)
+  opts = opts or {}
+  opts.next = true
+  walkthrough.walkthrough(opts)
+end
+
+---Go to previous file/directory in current directory
+---@param opts walkthrough.Options
+walkthrough.prev = function(opts)
+  opts = opts or {}
+  opts.next = false
+  walkthrough.walkthrough(opts)
+end
+
 ---Go to next file in current directory
 ---@param opts walkthrough.Options
 walkthrough.next_file = function(opts)
@@ -145,22 +161,6 @@ walkthrough.prev_dir = function(opts)
   opts = opts or {}
   opts.next = false
   opts.type = 'directory'
-  walkthrough.walkthrough(opts)
-end
-
----Go to next file/directory in current directory
----@param opts walkthrough.Options
-walkthrough.next = function(opts)
-  opts = opts or {}
-  opts.next = true
-  walkthrough.walkthrough(opts)
-end
-
----Go to previous file/directory in current directory
----@param opts walkthrough.Options
-walkthrough.prev = function(opts)
-  opts = opts or {}
-  opts.next = false
   walkthrough.walkthrough(opts)
 end
 
