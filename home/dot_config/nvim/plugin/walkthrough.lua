@@ -71,6 +71,7 @@ end
 ---@param level? integer
 ---@param opts? table
 local notify = function(msg, level, opts)
+  level = level or vim.log.levels.WARN
   opts = opts
     or {
       title = 'walkthrough.nvim',
@@ -79,7 +80,6 @@ local notify = function(msg, level, opts)
         api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
       end,
     }
-  level = level or vim.log.levels.WARN
   vim.notify(msg, level, opts)
 end
 
