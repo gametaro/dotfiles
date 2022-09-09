@@ -106,7 +106,8 @@ walkthrough.walkthrough = function(opts)
     end
     return
   end
-  local target_idx = opts.next and next_index(idx, #f) or prev_index(idx, #f)
+  local count = vim.v.count1 - 1
+  local target_idx = opts.next and (next_index(idx, #f) + count) or (prev_index(idx, #f) - count)
 
   vim.cmd.edit(dirname .. '/' .. f[target_idx].name)
 end
