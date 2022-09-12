@@ -54,7 +54,7 @@ local move = function(motion, mode, times)
       if vim.regex([[\k]]):match_str(current_char()) then
         break
       end
-      if lastpos == newpos then
+      if vim.inspect(lastpos) == vim.inspect(newpos) then
         return
       end
     end
