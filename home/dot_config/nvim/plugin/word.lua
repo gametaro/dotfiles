@@ -24,6 +24,7 @@
 
 local api = vim.api
 local cmd = vim.cmd
+local fn = vim.fn
 
 ---@return string
 local current_char = function()
@@ -62,9 +63,9 @@ local move = function(motion, mode, times)
 
   if motion == 'w' and mode == 'o' and lastiterpos[1] ~= newpos[1] then
     api.nvim_win_set_cursor(0, firstpos)
-    vim.cmd.normal({ 'v', bang = true })
+    cmd.normal({ 'v', bang = true })
     api.nvim_win_set_cursor(0, lastiterpos)
-    vim.cmd.normal({ '$h', bang = true })
+    cmd.normal({ '$h', bang = true })
   end
 
   if vim.o.selection == 'exclusive' and motion == 'e' and (mode == 'v' or mode == 'o') then
@@ -99,14 +100,14 @@ local word_move = function(motion, mode)
 
   if exclusive_adjustment then
     cmd.execute({ [["normal! \<Esc>"]] })
-    if vim.fn.getpos("'<") == vim.fn.getpos("'>") then
+    if fn.getpos("'<") == fn.getpos("'>") then
     else
       local original_whichwrap = vim.o.whichwrap
       vim.o.whichwrap = 'h'
       cmd.normal({ '`>', bang = true })
       cmd.normal({ 'h', bang = true })
 
-      if vim.fn.col('.') == vim.fn.col('$') then
+      if fn.col('.') == fn.col('$') then
         cmd.normal({ 'h', bang = true })
       end
       if motion == 'ge' then
