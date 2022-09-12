@@ -25,11 +25,15 @@
 local api = vim.api
 local cmd = vim.cmd
 
+---@return string
 local current_char = function()
   local _, col = unpack(api.nvim_win_get_cursor(0))
   return api.nvim_get_current_line():sub(col + 1, col + 1)
 end
 
+---@param motion string
+---@param mode string
+---@param times integer
 local move = function(motion, mode, times)
   local firstpos = api.nvim_win_get_cursor(0)
   local newpos = firstpos
@@ -71,7 +75,10 @@ local move = function(motion, mode, times)
   end
 end
 
+---@param motion string
+---@param mode string
 local word_move = function(motion, mode)
+  ---@type integer
   local count = vim.v.count1
 
   local exclusive_adjustment = false
