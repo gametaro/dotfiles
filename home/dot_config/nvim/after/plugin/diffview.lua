@@ -1,38 +1,38 @@
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'JetpackDiffviewNvimPost',
-  callback = function()
-    local win_config = {
-      position = 'bottom',
-      width = 35,
-      height = 12,
-    }
+local ok = prequire('diffview')
+if not ok then
+  return
+end
 
-    require('diffview').setup({
-      file_panel = {
-        win_config = win_config,
-      },
-      file_history_panel = {
-        win_config = win_config,
-      },
-      keymaps = {
-        view = {
-          ['q'] = vim.cmd.DiffviewClose,
-        },
-        file_panel = {
-          ['q'] = vim.cmd.DiffviewClose,
-        },
-        file_history_panel = {
-          ['q'] = vim.cmd.DiffviewClose,
-        },
-      },
-      hooks = {
-        view_opened = function()
-          vim.cmd.wincmd('p')
-          vim.cmd.wincmd('l')
-        end,
-      },
-    })
-  end,
+local win_config = {
+  position = 'bottom',
+  width = 35,
+  height = 12,
+}
+
+require('diffview').setup({
+  file_panel = {
+    win_config = win_config,
+  },
+  file_history_panel = {
+    win_config = win_config,
+  },
+  keymaps = {
+    view = {
+      ['q'] = vim.cmd.DiffviewClose,
+    },
+    file_panel = {
+      ['q'] = vim.cmd.DiffviewClose,
+    },
+    file_history_panel = {
+      ['q'] = vim.cmd.DiffviewClose,
+    },
+  },
+  hooks = {
+    view_opened = function()
+      vim.cmd.wincmd('p')
+      vim.cmd.wincmd('l')
+    end,
+  },
 })
 
 vim.keymap.set('n', '<LocalLeader>gd', vim.cmd.DiffviewOpen)
