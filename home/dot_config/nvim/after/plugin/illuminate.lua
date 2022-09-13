@@ -5,4 +5,5 @@ end
 
 require('illuminate').configure({
   modes_denylist = { 'i' },
+  filetypes_denylist = { 'qf' },
 })
