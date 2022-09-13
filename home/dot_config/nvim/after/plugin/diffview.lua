@@ -9,6 +9,8 @@ local win_config = {
   height = 12,
 }
 
+local actions = require('diffview.actions')
+
 require('diffview').setup({
   file_panel = {
     win_config = win_config,
@@ -18,13 +20,17 @@ require('diffview').setup({
   },
   keymaps = {
     view = {
-      ['q'] = vim.cmd.DiffviewClose,
+      ['q'] = actions.close,
+      ['co'] = actions.conflict_choose('ours'),
+      ['ct'] = actions.conflict_choose('theirs'),
+      ['cb'] = actions.conflict_choose('base'),
+      ['ca'] = actions.conflict_choose('all'),
     },
     file_panel = {
-      ['q'] = vim.cmd.DiffviewClose,
+      ['q'] = actions.close,
     },
     file_history_panel = {
-      ['q'] = vim.cmd.DiffviewClose,
+      ['q'] = actions.close,
     },
   },
   hooks = {
