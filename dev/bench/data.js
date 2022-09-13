@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1662970411680,
+  "lastUpdate": 1663042009055,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -14114,6 +14114,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.3746429269533333,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7002665f4cd3f3fdda6597fb7c26ac4738b02acc",
+          "message": "Merge pull request #5 from gametaro/dependabot/github_actions/JohnnyMorganz/stylua-action-1.1.0",
+          "timestamp": "2022-09-13T13:04:57+09:00",
+          "tree_id": "335f3cdd28d223200a7b1339fcb15454f7b59379",
+          "url": "https://github.com/gametaro/dotfiles/commit/7002665f4cd3f3fdda6597fb7c26ac4738b02acc"
+        },
+        "date": 1663042007777,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.34186333921999995,
             "unit": "Second"
           }
         ]
