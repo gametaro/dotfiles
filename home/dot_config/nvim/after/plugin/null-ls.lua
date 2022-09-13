@@ -73,7 +73,9 @@ local sources = {
   }),
   -- h.dictionary,
   ca.gitrebase,
-  ca.shellcheck,
+  ca.shellcheck.with({
+    condition = executable('shellcheck'),
+  }),
 }
 
 null_ls.setup({
