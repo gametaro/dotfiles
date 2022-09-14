@@ -1,6 +1,4 @@
 bindkey '^U' backward-kill-line
-bindkey '^P' up-line-or-search
-bindkey '^N' down-line-or-history
 bindkey '\0' list-expand
 bindkey '^P' up-line-or-search
 bindkey '^N' down-line-or-search
