@@ -210,7 +210,7 @@ packer.startup({
 
 vim.keymap.set('n', '<LocalLeader>pc', packer.compile)
 vim.keymap.set('n', '<LocalLeader>pC', packer.clean)
-vim.keymap.set('n', '<LocalLeader>pS', packer.sync)
+vim.keymap.set('n', '<LocalLeader>ps', packer.sync)
 vim.keymap.set('n', '<LocalLeader>pS', packer.status)
 vim.keymap.set('n', '<LocalLeader>pu', packer.update)
 vim.keymap.set('n', '<LocalLeader>pi', packer.install)
