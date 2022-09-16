@@ -578,15 +578,25 @@ local LirName = {
     self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color('lir_folder_icon')
     self.show_hidden_files = require('lir.config').values.show_hidden_files
   end,
-  Space,
+  Align,
   {
     provider = function(self)
-      return string.format('%s %s ', self.icon, self.dir)
+      return self.icon
     end,
     hl = function(self)
       return { fg = self.icon_color }
     end,
   },
+  Space,
+  {
+    provider = function(self)
+      return self.dir
+    end,
+    hl = function()
+      return { fg = utils.get_highlight('Comment').fg, bold = true }
+    end,
+  },
+  Space,
   {
     provider = function(self)
       return self.show_hidden_files and ' ' or ' '
@@ -595,6 +605,7 @@ local LirName = {
       return { fg = self.show_hidden_files and colors.diag.warn or colors.gray }
     end,
   },
+  Align,
 }
 
 local CloseButton = {
@@ -666,7 +677,7 @@ local WinBars = {
     },
   },
   {
-    Space,
+    Align,
     FileNameBlock,
     Align,
     Diagnostics,
