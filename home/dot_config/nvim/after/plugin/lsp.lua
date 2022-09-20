@@ -87,7 +87,6 @@ local on_attach = function(client, bufnr)
       end,
     })
   end)
-  -- map('n', '<M-f>f', lsp.buf.range_formatting)
 
   -- local group = vim.api.nvim_create_augroup('lsp_format', { clear = false })
   -- vim.api.nvim_clear_autocmds { buffer = bufnr, group = group }
