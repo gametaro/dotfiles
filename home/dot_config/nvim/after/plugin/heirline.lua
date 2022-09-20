@@ -723,7 +723,10 @@ local DisableStatusLine = {
     local winwidth = api.nvim_win_get_width(0)
     return string.rep('─', winwidth)
   end,
-  hl = { link = 'WinSeparator' },
+  hl = {
+    fg = utils.get_highlight('WinSeparator').fg,
+    bg = utils.get_highlight('WinSeparator').bg,
+  },
 }
 
 local DefaultStatusLine = {
