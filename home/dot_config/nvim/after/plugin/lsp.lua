@@ -1,10 +1,15 @@
-local ok = prequire('lspconfig') and prequire('cmp_nvim_lsp')
+local ok = prequire('lspconfig')
+  and prequire('cmp_nvim_lsp')
+  and prequire('lsp-format')
+  and prequire('schemastore')
 if not ok then
   return
 end
 
 local lspconfig = require('lspconfig')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
+local lsp_format = require('lsp-format')
+local schemastore = require('schemastore')
 
 local lsp = vim.lsp
 
@@ -130,7 +135,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     local client = lsp.get_client_by_id(a.data.client_id)
     on_attach(client, a.buf)
-    require('lsp-format').on_attach(client)
+    lsp_format.on_attach(client)
 
     if custom_on_attach[client.name] then
       custom_on_attach[client.name](client)
@@ -153,7 +158,7 @@ local configs = {
   jsonls = {
     settings = {
       json = {
-        schemas = require('schemastore').json.schemas(),
+        schemas = schemastore.json.schemas(),
         validate = { enable = true },
       },
     },
@@ -162,7 +167,7 @@ local configs = {
   yamlls = {
     settings = {
       yaml = {
-        schemas = require('schemastore').json.schemas(),
+        schemas = schemastore.json.schemas(),
         -- for cloudformation
         -- see https://github.com/aws-cloudformation/cfn-lint-visual-studio-code/issues/69
         customTags = {
