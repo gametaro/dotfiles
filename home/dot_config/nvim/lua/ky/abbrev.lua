@@ -33,6 +33,6 @@ M.cabbrev('lsi', 'LspInfo')
 M.cabbrev('lsr', 'LspRestart')
 
 -- capture.vim
-M.cabbrev('c', 'Capture')
+-- M.cabbrev('c', 'Capture')
 
 return M

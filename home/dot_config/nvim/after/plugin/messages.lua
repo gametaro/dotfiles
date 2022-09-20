@@ -14,3 +14,7 @@ require('messages').setup({
 Msg = function(...)
   require('messages.api').capture_thing(...)
 end
+
+local cabbrev = require('ky.abbrev').cabbrev
+cabbrev('m', 'Messages')
+cabbrev('lm', 'lua =Msg()<Left>')
