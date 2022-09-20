@@ -190,8 +190,6 @@ packer.startup({
     use({ 'lewis6991/impatient.nvim', opt = true })
     use({ 'tyru/capture.vim', cmd = 'Capture' })
     use({ 'tyru/open-browser.vim', keys = '<Plug>(openbrowser-smart-search)' })
-    use('antoinemadec/FixCursorHold.nvim')
-    vim.g.cursorhold_updatetime = 250
     use('lambdalisue/suda.vim')
     vim.g.suda_smart_edit = 1
     use({ 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' })
