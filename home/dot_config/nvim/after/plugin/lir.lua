@@ -161,6 +161,7 @@ require('lir').setup({
       { buffer = true }
     )
     vim.opt_local.signcolumn = 'no'
+    vim.opt_local.spell = false
   end,
 })
 

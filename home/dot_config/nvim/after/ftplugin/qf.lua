@@ -2,6 +2,7 @@ vim.bo.buflisted = false
 vim.opt_local.list = false
 vim.opt_local.number = true
 vim.opt_local.relativenumber = false
+vim.opt_local.spell = false
 
 vim.keymap.set('n', 'cc', function()
   vim.cmd.cexpr('[]')
