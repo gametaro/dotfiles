@@ -78,7 +78,7 @@ local on_attach = function(client, bufnr)
   --   })
   -- end
 
-  map('n', '<M-f>', function()
+  map({ 'n', 'x' }, '<M-f>', function()
     lsp.buf.format({
       async = true,
       bufnr = bufnr,
