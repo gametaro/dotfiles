@@ -115,14 +115,14 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   callback = trailspace.trim,
 })
 
-local sessions = require('mini.sessions')
-sessions.setup({
-  autoread = true,
-  autowrite = true,
-  directory = '',
-  verbose = { read = true, write = true, delete = true },
-})
-pcall(sessions.write, sessions.config.file, { force = false })
+-- local sessions = require('mini.sessions')
+-- sessions.setup({
+--   autoread = true,
+--   autowrite = true,
+--   directory = '',
+--   verbose = { read = true, write = true, delete = true },
+-- })
+-- pcall(sessions.write, sessions.config.file, { force = false })
 
 require('mini.comment').setup({
   hooks = {
