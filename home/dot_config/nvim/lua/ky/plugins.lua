@@ -116,17 +116,6 @@ packer.startup({
     -- use('akinsho/git-conflict.nvim')
     use('hotwatermorning/auto-git-diff')
     use('AndrewRadev/linediff.vim')
-    -- use {
-    --   'github/copilot.vim',
-    --   setup = function()
-    --     vim.g.copilot_no_tab_map = true
-    --     vim.api.nvim_set_keymap('i', '<C-m>', [[copilot#Accept("\<CR>")]], {
-    --       noremap = true,
-    --       script = true,
-    --       expr = true,
-    --     })
-    --   end,
-    -- }
 
     -- Motion
     use({ 'haya14busa/vim-edgemotion', keys = '<Plug>(edgemotion-' })
@@ -140,12 +129,6 @@ packer.startup({
     use('nvim-treesitter/nvim-treesitter-textobjects')
     use('mfussenegger/nvim-treehopper')
     use('David-Kunz/treesitter-unit')
-    -- use('kana/vim-textobj-user')
-    -- use('kana/vim-textobj-entire')
-    -- use('kana/vim-textobj-line')
-    -- use('kana/vim-textobj-indent')
-    -- use('Julian/vim-textobj-variable-segment')
-    -- use('andrewferrier/textobj-diagnostic.nvim')
 
     -- Fuzzy Finder
     use('nvim-telescope/telescope.nvim')
