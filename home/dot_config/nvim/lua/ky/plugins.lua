@@ -156,6 +156,7 @@ packer.startup({
 
     -- Session
     -- use('rmagatti/auto-session')
+    use('Shatur/neovim-session-manager')
 
     -- Marks
     use('ThePrimeagen/harpoon')
