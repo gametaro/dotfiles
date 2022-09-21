@@ -94,7 +94,7 @@ require('mini.indentscope').setup({
 local group = vim.api.nvim_create_augroup('mine__mini', {})
 vim.api.nvim_create_autocmd('FileType', {
   group = group,
-  pattern = { '', 'checkhealth', 'help', 'lspinfo', 'man' },
+  pattern = { '', 'checkhealth', 'help', 'lspinfo', 'man', 'packer'},
   callback = function()
     vim.b.miniindentscope_disable = true
   end,
