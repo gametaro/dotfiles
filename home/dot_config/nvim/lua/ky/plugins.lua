@@ -79,7 +79,7 @@ packer.startup({
     use('saadparwaiz1/cmp_luasnip')
     use('f3fora/cmp-spell')
     use('petertriho/cmp-git')
-    use({ 'L3MON4D3/LuaSnip', run = 'make install_jsregexp' })
+    use('L3MON4D3/LuaSnip')
     use('rafamadriz/friendly-snippets')
     use('danymat/neogen')
 
