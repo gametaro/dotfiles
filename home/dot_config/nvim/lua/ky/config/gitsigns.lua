@@ -1,8 +1,3 @@
-local ok = prequire('gitsigns')
-if not ok then
-  return
-end
-
 local on_attach = function(bufnr)
   local gs = package.loaded.gitsigns
 

@@ -109,7 +109,13 @@ packer.startup({
     -- Git/Diff
     use('TimUntersberger/neogit')
     use('sindrets/diffview.nvim')
-    use('lewis6991/gitsigns.nvim')
+    use({
+      'lewis6991/gitsigns.nvim',
+      event = 'BufRead',
+      config = function()
+        require('ky.config.gitsigns')
+      end,
+    })
     use('rhysd/committia.vim')
     use({ 'rhysd/git-messenger.vim', keys = '<Plug>(git-messenger' })
     use('ruifm/gitlinker.nvim')
