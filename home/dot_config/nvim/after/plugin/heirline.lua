@@ -713,7 +713,15 @@ local TabPages = {
   Align,
 }
 
-local TabLine = { TabPages }
+local TabLine = {
+  fallthrough = false,
+  TabPages,
+  {
+    init = function()
+      vim.o.showtabline = 1
+    end,
+  },
+}
 
 local DisableStatusLine = {
   condition = function()
