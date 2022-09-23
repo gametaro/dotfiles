@@ -687,10 +687,9 @@ local WinBars = {
     CloseButton,
   },
   hl = function()
-    return conditions.is_active() and {
-      bg = utils.get_highlight('WinBar').bg,
-    } or {
-      bg = utils.get_highlight('WinBarNC').bg,
+    return {
+      bg = conditions.is_active() and utils.get_highlight('WinBar').bg
+        or utils.get_highlight('WinBarNC').bg,
     }
   end,
 }
@@ -806,15 +805,12 @@ local StatusLines = {
   InactiveStatusLine,
   DefaultStatusLine,
   hl = function()
-    return conditions.is_active()
-        and {
-          fg = utils.get_highlight('StatusLine').fg,
-          bg = utils.get_highlight('StatusLine').bg,
-        }
-      or {
-        fg = utils.get_highlight('StatusLineNC').fg,
-        bg = utils.get_highlight('StatusLineNC').bg,
-      }
+    return {
+      fg = conditions.is_active() and utils.get_highlight('StatusLine').fg
+        or utils.get_highlight('StatusLineNC').fg,
+      bg = conditions.is_active() and utils.get_highlight('StatusLine').bg
+        or utils.get_highlight('StatusLineNC').bg,
+    }
   end,
 }
 
