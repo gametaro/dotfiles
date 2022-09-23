@@ -25,6 +25,11 @@ require('neogit').setup({
   disable_commit_confirmation = true,
   disable_hint = true,
   disable_insert_on_commit = false,
+  signs = {
+    section = { vim.opt.fillchars:get().foldclose, vim.opt.fillchars:get().foldopen },
+    item = { vim.opt.fillchars:get().foldclose, vim.opt.fillchars:get().foldopen },
+    hunk = { '', '' },
+  },
   integrations = { diffview = true },
   sections = {
     recent = {
