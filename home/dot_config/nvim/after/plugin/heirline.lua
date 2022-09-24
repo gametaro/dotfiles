@@ -353,6 +353,9 @@ local Diagnostics = {
     info_icon = string.format('%s ', icons.info),
     hint_icon = string.format('%s ', icons.hint),
   },
+  update = function()
+    return api.nvim_get_mode().mode:sub(1, 1) ~= 'i'
+  end,
   -- update = { 'DiagnosticChanged', 'BufEnter' },
   on_click = {
     name = 'heirline_diagnostics',
