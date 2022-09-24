@@ -1,5 +1,21 @@
 {{ if (eq .chezmoi.os "windows") }}
 
+$Winget_Packages = @(
+  "Git.GIt",
+  "gerardog.gsudo",
+  "chrisant996.Clink",
+  "Neovim.Neovim.Nightly"
+  "OpenJS.NodeJS.LTS",
+  "Starship.Starship",
+  "wez.wezterm",
+  "Microsoft.PowerShell"
+)
+
+foreach ( $package in $Winget_Packages )
+{
+  winget install -e --id $package
+}
+
 # install scoop
 if ( -not (Test-Path -Path $HOME\scoop) )
 {
@@ -7,35 +23,26 @@ if ( -not (Test-Path -Path $HOME\scoop) )
   .\install.ps1 -RunAsAdmin
 }
 
-scoop install git
-
 scoop bucket add versions
 scoop bucket add extras
 scoop bucket add nerd-fonts
 
-$Packages = @(
+$Scoop_Packages = @(
   "curl",
-  "sudo",
   "gcc",
   "make",
   "coreutils",
-  "clink",
   "clink-completions",
   "bat",
   "delta",
   "fd",
   "fzf",
-  "neovim-nightly",
-  "nodejs-lts",
   "ripgrep",
-  "starship",
-  "wezterm",
   "zoxide",
   "Firacode-NF",
-  "pwsh"
 )
 
-scoop install @Packages
+scoop install @Scoop_Packages
 
 {{ end }}
 {{/* vim: set filetype=ps1: */}}
