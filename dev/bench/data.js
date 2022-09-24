@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1663994417567,
+  "lastUpdate": 1663994461484,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -14516,6 +14516,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.37969280963999996,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "86b1f77131292dde6fa5d4f85544259473814633",
+          "message": "chore(chezmoi): install package via winget instead of scoop",
+          "timestamp": "2022-09-24T13:39:27+09:00",
+          "tree_id": "edec49b10f9bc52995761021890462a4f8fa87f5",
+          "url": "https://github.com/gametaro/dotfiles/commit/86b1f77131292dde6fa5d4f85544259473814633"
+        },
+        "date": 1663994460511,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.28506216072,
             "unit": "Second"
           }
         ]
