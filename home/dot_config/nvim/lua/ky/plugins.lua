@@ -32,6 +32,7 @@ packer.startup({
     use('levouh/tint.nvim')
     use('RRethy/vim-illuminate')
     use({ 't9md/vim-quickhl', keys = '<Plug>(quickhl-' })
+    use('itchyny/vim-highlighturl')
 
     -- Editing support
     use('gbprod/substitute.nvim')

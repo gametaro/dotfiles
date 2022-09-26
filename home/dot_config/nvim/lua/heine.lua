@@ -518,6 +518,9 @@ M.highlight_groups = {
 
   -- hlargs.nvim
   Hlargs = { fg = M.lighten(M.palette.orange, -6) },
+
+  -- vim-highlighturl
+  HighlightUrl = { fg = M.lighten(M.palette.blue, 5), underline = true },
 }
 
 M.load = function()
