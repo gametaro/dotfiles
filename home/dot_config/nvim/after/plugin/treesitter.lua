@@ -101,3 +101,7 @@ require('nvim-treesitter.configs').setup({
     },
   },
 })
+
+require('nvim-treesitter.highlight').set_custom_captures({
+  ['hlargs.namedparam'] = 'Hlargs',
+})
