@@ -44,7 +44,6 @@ local kind_icons = {
   TypeParameter = '',
 }
 
----@type cmp.WindowConfig
 local window = {
   border = require('ky.ui').border,
   winhighlight = table.concat({
@@ -55,7 +54,6 @@ local window = {
   }, ','),
 }
 
----@type cmp.ConfigSchema
 local config = {
   completion = {
     keyword_pattern = [[\k\+]],
@@ -120,7 +118,6 @@ local config = {
   }, {
     {
       name = 'buffer',
-      ---@type cmp_buffer.Options
       option = {
         keyword_pattern = [[\k\+]],
         get_bufnrs = function()
@@ -150,8 +147,8 @@ local cmdline_mapping = cmp.mapping.preset.cmdline({
   },
 })
 
----@type cmp.ConfigSchema
-local cmdline_config = {
+cmp.setup(config)
+cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmdline_mapping,
   -- view = {
   --   entries = { name = 'wildmenu', separator = '|' },
@@ -159,7 +156,6 @@ local cmdline_config = {
   sources = cmp.config.sources({
     {
       name = 'buffer',
-      ---@type cmp_buffer.Options
       option = {
         keyword_pattern = [[\k\+]],
         get_bufnrs = function()
@@ -170,11 +166,7 @@ local cmdline_config = {
   }, {
     { name = 'nvim_lsp_document_symbol' },
   }),
-}
-
-cmp.setup(config)
-cmp.setup.cmdline('/', cmdline_config)
-cmp.setup.cmdline('?', cmdline_config)
+})
 cmp.setup.cmdline(':', {
   mapping = cmdline_mapping,
   -- view = {
