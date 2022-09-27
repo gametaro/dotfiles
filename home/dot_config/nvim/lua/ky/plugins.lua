@@ -142,7 +142,7 @@ packer.startup({
     use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
     use('natecraddock/telescope-zf-native.nvim')
     use('nvim-telescope/telescope-live-grep-args.nvim')
-    use({ 'ilAYAli/scMRU.nvim' })
+    use('ilAYAli/scMRU.nvim')
     use({ 'junegunn/fzf', run = 'call fzf#install()' })
 
     -- Comment
