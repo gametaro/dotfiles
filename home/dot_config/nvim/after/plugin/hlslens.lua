@@ -9,7 +9,7 @@ for _, v in ipairs({ 'n', 'N' }) do
     if ok then
       require('hlslens').start()
     else
-      vim.notify(msg, vim.log.levels.INFO, { title = 'hlslens' })
+      vim.notify(msg, vim.log.levels.INFO, { title = 'nvim-hlslens' })
     end
   end)
 end
