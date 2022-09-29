@@ -16,7 +16,7 @@ require('tint').setup({
     if vim.bo[buf].buftype == 'terminal' then
       return true
     end
-    if vim.tbl_contains({ 'DiffviewFiles', 'DiffviewFileHistory' }, vim.bo[buf].filetype) then
+    if vim.tbl_contains({ 'qf', 'DiffviewFiles', 'DiffviewFileHistory' }, vim.bo[buf].filetype) then
       return true
     end
     if vim.wo[win].diff then
