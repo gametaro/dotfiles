@@ -91,9 +91,9 @@ local word_move = function(motion, mode)
       cmd.normal({ 'v', bang = true })
       exclusive_adjustment = true
     end
-    if mode == 'v' then
-      cmd.normal({ 'gv', bang = true })
-    end
+  end
+  if mode == 'v' then
+    cmd.normal({ 'gv', bang = true })
   end
 
   move(motion, mode, count)
