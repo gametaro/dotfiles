@@ -569,7 +569,7 @@ M.compile = function(silent)
       vim.notify(
         string.format('compiled file was written to %s', compile_path),
         vim.log.levels.INFO,
-        { title = 'heine' }
+        { title = 'heine.nvim' }
       )
     end
   else
@@ -580,7 +580,7 @@ end
 M.clean = function()
   local ok, msg = os.remove(compile_path)
   if not ok then
-    vim.notify(msg or '', vim.log.levels.ERROR, { title = 'heine' })
+    vim.notify(msg or '', vim.log.levels.ERROR, { title = 'heine.nvim' })
   end
 end
 
