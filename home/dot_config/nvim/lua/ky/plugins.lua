@@ -175,6 +175,14 @@ packer.startup({
     -- UI
     use('rcarriga/nvim-notify')
     -- use('stevearc/dressing.nvim')
+    use({
+      'folke/noice.nvim',
+      requires = 'MunifTanjim/nui.nvim',
+      event = 'VimEnter',
+      config = function()
+        require('noice').setup()
+      end,
+    })
 
     -- Utility
     use('nvim-lua/plenary.nvim')
