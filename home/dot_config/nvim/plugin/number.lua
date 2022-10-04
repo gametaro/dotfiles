@@ -31,7 +31,7 @@ local ignore = function(buf)
     or vim.tbl_contains(opts.ignore_filetype, vim.bo[buf].filetype)
 end
 
-api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave', 'CmdlineEnter' }, {
+api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave' }, {
   group = group,
   callback = function(a)
     if ignore(a.buf) then
@@ -46,7 +46,7 @@ api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave', 'CmdlineEnter' 
   end,
 })
 
-api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter', 'BufEnter', 'CmdlineLeave' }, {
+api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter', 'BufEnter' }, {
   group = group,
   callback = function(a)
     if ignore(a.buf) then
