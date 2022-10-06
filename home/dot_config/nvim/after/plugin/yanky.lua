@@ -6,6 +6,9 @@ end
 local mapping = require('yanky.telescope.mapping')
 
 require('yanky').setup({
+  ring = {
+    storage = 'sqlite',
+  },
   picker = {
     telescope = {
       mappings = {

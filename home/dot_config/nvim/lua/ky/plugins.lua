@@ -36,7 +36,7 @@ packer.startup({
 
     -- Editing support
     use('gbprod/substitute.nvim')
-    use('gbprod/yanky.nvim')
+    use({ 'gbprod/yanky.nvim', requires = 'kkharji/sqlite.lua' })
     use('gbprod/stay-in-place.nvim')
     use({ 'kana/vim-niceblock', keys = '<Plug>(niceblock-' })
     use('gpanders/editorconfig.nvim')
