@@ -1,9 +1,9 @@
-local ok = prequire('live_command')
+local ok = prequire('live-command')
 if not ok then
   return
 end
 
-require('live_command').setup({
+require('live-command').setup({
   commands = {
     Norm = { cmd = 'norm' },
   },
