@@ -253,7 +253,7 @@ local FileType = {
 local FileEncoding = {
   provider = function()
     local encoding = (vim.bo.fileencoding ~= '' and vim.bo.fileencoding) or vim.o.encoding
-    return encoding
+    return string.upper(encoding)
   end,
   hl = { fg = utils.get_highlight('Comment').fg },
 }
@@ -757,11 +757,11 @@ local DefaultStatusLine = {
   Space,
   -- FileSize,
   -- Space,
+  FileType,
+  Space,
   FileEncoding,
   Space,
   FileFormat,
-  Space,
-  FileType,
   Space,
   Ruler,
 }
