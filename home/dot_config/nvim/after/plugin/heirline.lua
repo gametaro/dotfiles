@@ -299,18 +299,18 @@ local FileSize = {
 local Ruler = {
   {
     provider = function()
-      return '%l'
+      return '%3l'
     end,
   },
   {
     provider = function()
-      return '/%2L:'
+      return '/%3L:'
     end,
     hl = { fg = utils.get_highlight('Comment').fg },
   },
   {
     provider = function()
-      return '%2c'
+      return '%3c'
     end,
   },
 }
