@@ -100,6 +100,7 @@ opt.spelllang = { 'en', 'cjk', 'programming' }
 opt.spelloptions = { 'camel', 'noplainbuffer' }
 o.splitbelow = true
 o.splitright = true
+o.splitkeep = 'screen'
 o.startofline = true
 o.swapfile = false
 opt.switchbuf = { 'useopen', 'uselast' }
