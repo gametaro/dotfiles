@@ -3,7 +3,7 @@ local debounce_trailing = require('ky.defer').debounce_trailing
 
 local group = vim.api.nvim_create_augroup('mine__cursorline', {})
 
----@class number.Options
+---@class cursorline.Options
 ---@field timeout table
 ---@field ignore_buftype string[]
 ---@field ignore_filetype string[]
