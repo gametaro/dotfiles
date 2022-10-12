@@ -64,11 +64,11 @@ vim.keymap.set(
 --   search_method = 'cover_or_nearest',
 -- }
 
-require('mini.jump').setup({
-  mappings = {
-    repeat_jump = '',
-  },
-})
+-- require('mini.jump').setup({
+--   mappings = {
+--     repeat_jump = '',
+--   },
+-- })
 
 -- require('mini.jump2d').setup {
 --   labels = 'jfkdlsahgnuvrbytmiceoxwpqz',

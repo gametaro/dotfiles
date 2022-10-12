@@ -129,7 +129,7 @@ packer.startup({
     use('bkad/CamelCaseMotion')
     use({ 'kana/vim-smartword', event = 'VimEnter' })
     use({ 'gametaro/pounce.nvim', branch = 'cword' })
-    -- use { 'hrsh7th/vim-eft', on = '<Plug>(eft-' }
+    use({ 'hrsh7th/vim-eft', keys = '<Plug>(eft-' })
     use({ 'rainbowhxch/accelerated-jk.nvim', keys = '<Plug>(accelerated_jk_' })
 
     -- Text object
