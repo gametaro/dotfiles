@@ -1,8 +1,14 @@
+local ok = prequire('mru') and prequire('telescope')
+if not ok then
+  return
+end
+
+local mru = require('mru')
 vim.keymap.set('n', '<LocalLeader><LocalLeader>', function()
-  require('mru').display_cache(require('telescope.themes').get_dropdown({ previewer = false }))
+  mru.display_cache(require('telescope.themes').get_dropdown({ previewer = false }))
 end)
 vim.keymap.set('n', '<LocalLeader>.', function()
-  require('mru').display_cache(
+  mru.display_cache(
     vim.tbl_extend(
       'keep',
       { algorithm = 'mfu' },
@@ -11,5 +17,5 @@ vim.keymap.set('n', '<LocalLeader>.', function()
   )
 end)
 vim.keymap.set('n', '<LocalLeader>/', function()
-  require('mru').display_repos(require('telescope.themes').get_dropdown({ previewer = false }))
+  mru.display_repos(require('telescope.themes').get_dropdown({ previewer = false }))
 end)
