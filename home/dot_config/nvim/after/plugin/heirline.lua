@@ -275,19 +275,19 @@ local FileFormat = {
   hl = { fg = utils.get_highlight('Comment').fg },
 }
 
-local FileSize = {
-  provider = function()
-    local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
-    local stat = vim.loop.fs_stat(api.nvim_buf_get_name(0))
-    local fsize = stat and stat.size or 0
-    if fsize <= 0 then
-      return '0' .. suffix[1]
-    end
-    local i = math.floor((math.log(fsize) / math.log(1024)))
-    return string.format('%.3g%s', fsize / math.pow(1024, i), suffix[i + 1])
-  end,
-  hl = { fg = utils.get_highlight('Comment').fg },
-}
+-- local FileSize = {
+--   provider = function()
+--     local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
+--     local stat = vim.loop.fs_stat(api.nvim_buf_get_name(0))
+--     local fsize = stat and stat.size or 0
+--     if fsize <= 0 then
+--       return '0' .. suffix[1]
+--     end
+--     local i = math.floor((math.log(fsize) / math.log(1024)))
+--     return string.format('%.3g%s', fsize / math.pow(1024, i), suffix[i + 1])
+--   end,
+--   hl = { fg = utils.get_highlight('Comment').fg },
+-- }
 
 -- local FileLastModified = {
 --   provider = function()
