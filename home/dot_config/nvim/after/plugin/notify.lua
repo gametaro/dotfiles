@@ -18,6 +18,6 @@ notify.setup({
   top_down = false,
 })
 
-vim.notify = notify
+-- vim.notify = notify
 
 vim.keymap.set('n', 'gn', '<Cmd>Notifications<CR>')
