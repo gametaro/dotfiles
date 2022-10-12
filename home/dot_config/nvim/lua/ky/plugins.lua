@@ -174,6 +174,7 @@ packer.startup({
 
     -- UI
     use('rcarriga/nvim-notify')
+    use('vigoux/notifier.nvim')
     -- use('stevearc/dressing.nvim')
     use({
       'folke/noice.nvim',
