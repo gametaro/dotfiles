@@ -90,6 +90,7 @@ local word_move = function(motion, mode)
     elseif _mode == 'nov' then
       cmd.normal({ 'v', bang = true })
       exclusive_adjustment = true
+    elseif mode == 'noV' or mode == [[no\<C-v>]] then
     end
   end
   if mode == 'v' then
