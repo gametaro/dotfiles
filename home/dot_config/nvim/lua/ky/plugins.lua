@@ -143,7 +143,7 @@ packer.startup({
     use('natecraddock/telescope-zf-native.nvim')
     use('nvim-telescope/telescope-live-grep-args.nvim')
     use('ilAYAli/scMRU.nvim')
-    use({ 'junegunn/fzf', run = 'call fzf#install()' })
+    use({ 'junegunn/fzf', run = vim.fn['fzf#install'] })
 
     -- Comment
     -- use('numToStr/Comment.nvim')
