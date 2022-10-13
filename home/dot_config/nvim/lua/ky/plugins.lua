@@ -191,6 +191,14 @@ packer.startup({
               },
               opts = { skip = true },
             },
+            {
+              filter = {
+                event = 'msg_show',
+                kind = '',
+                find = '^%s*[/?]',
+              },
+              opts = { skip = true },
+            },
           },
         })
       end,
