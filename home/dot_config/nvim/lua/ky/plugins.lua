@@ -181,7 +181,18 @@ packer.startup({
       requires = 'MunifTanjim/nui.nvim',
       event = 'VimEnter',
       config = function()
-        require('noice').setup()
+        require('noice').setup({
+          routes = {
+            {
+              filter = {
+                event = 'msg_show',
+                kind = '',
+                find = '[w]', -- 'written'
+              },
+              opts = { skip = true },
+            },
+          },
+        })
       end,
     })
 
