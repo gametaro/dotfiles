@@ -126,3 +126,5 @@ vim.api.nvim_create_autocmd('User', {
   group = group,
   callback = map.open,
 })
+
+vim.keymap.set('n', '<LocalLeader>z', require('mini.misc').zoom)
