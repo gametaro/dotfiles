@@ -11,11 +11,6 @@
 {{-   $email = promptString "email" $email -}}
 {{- end -}}
 
-{{- $osid := .chezmoi.os -}}
-{{- if hasKey .chezmoi.osRelease "id" -}}
-{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
-{{- end -}}
-
 [merge]
   command = "nvim"
   args = [ "-d", "-c", '"$wincmd w"', "-c", '"wincmd J"' ]
@@ -24,5 +19,4 @@
   headless = {{ $headless }}
   name = {{ $name | quote }}
   email = {{ $email | quote }}
-  osid = {{ $osid | quote }}
 {{/* vim: set filetype=toml: */}}
