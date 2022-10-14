@@ -10,17 +10,17 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 Unix:
 
 ```bash
-sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply gametaro
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply gametaro
 
 # for transitory environments
-sh -c "$(curl -fsLS chezmoi.io/get)" -- init --one-shot gametaro
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --one-shot gametaro
 ```
 
 Windows:
 
 ```powershell
 Set-ExecutionPolicy RemoteSigned -scope CurrentUser
-(irm -useb https://chezmoi.io/get.ps1) | powershell -c -
+(irm -useb https://get.chezmoi.io/ps1) | powershell -c -
 bin/chezmoi.exe init --apply gametaro
 ```
 

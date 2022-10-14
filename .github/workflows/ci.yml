@@ -27,13 +27,13 @@ jobs:
       - name: Chezmoi Init
         if: ${{ runner.os != 'Windows' }}
         run: |
-          sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply --branch "$BRANCH_NAME" gametaro
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --branch "$BRANCH_NAME" gametaro
 
       - name: Chezmoi Init (windows)
         if: ${{ runner.os == 'Windows' }}
         shell: pwsh
         run: |
-          (irm -useb https://chezmoi.io/get.ps1) | powershell -c -
+          (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
           bin/chezmoi.exe init --apply --branch "$BRANCH_NAME" gametaro
   # centos:
   #   runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
   #       run: dnf clean all && dnf install -y curl sudo
   #
   #     - name: Chezmoi Init
-  #       run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply gametaro
+  #       run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply gametaro
 
   fedora:
     runs-on: ubuntu-latest
@@ -61,4 +61,4 @@ jobs:
         run: dnf clean all && dnf install -y curl sudo
 
       - name: Chezmoi Init
-        run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply --branch "$BRANCH_NAME" gametaro
+        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --branch "$BRANCH_NAME" gametaro

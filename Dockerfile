@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/*
 
-RUN sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply gametaro
+RUN sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply gametaro
 
 RUN printf '#!/bin/bash\nexec /bin/bash -l -c "$*"' > /entrypoint.sh && \
   chmod +x /entrypoint.sh
