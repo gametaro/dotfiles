@@ -1,4 +1,4 @@
-local ok = prequire('mini.pairs')
+local ok = prequire('mini')
 if not ok then
   return
 end
