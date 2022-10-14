@@ -106,7 +106,12 @@ map.setup({
   integrations = {
     map.gen_integration.builtin_search(),
     map.gen_integration.gitsigns(),
-    map.gen_integration.diagnostic(),
+    map.gen_integration.diagnostic({
+      error = 'DiagnosticFloatingError',
+      warn = 'DiagnosticFloatingWarn',
+      info = 'DiagnosticFloatingInfo',
+      hint = 'DiagnosticFloatingHint',
+    }),
   },
   symbols = {
     encode = map.gen_encode_symbols.dot('4x2'),
