@@ -1,21 +1,27 @@
-local ok = prequire('hlslens')
+local ok = prequire('hlslens') and prequire('mini.map')
 if not ok then
   return
 end
 
-vim.keymap.set(
-  'n',
-  'n',
-  [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-)
-vim.keymap.set(
-  'n',
-  'N',
-  [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]]
-)
-vim.keymap.set('', '*', '<Plug>(asterisk-z*)<Cmd>lua require("hlslens").start()<CR>')
-vim.keymap.set('', '#', '<Plug>(asterisk-z#)<Cmd>lua require("hlslens").start()<CR>')
-vim.keymap.set('', 'g*', '<Plug>(asterisk-gz*)<Cmd>lua require("hlslens").start()<CR>')
-vim.keymap.set('', 'g#', '<Plug>(asterisk-gz#)<Cmd>lua require("hlslens").start()<CR>')
+local map = {
+  ['n'] = 'n',
+  ['N'] = 'N',
+  ['*'] = 'z*',
+  ['#'] = 'z#',
+  ['g*'] = 'gz*',
+  ['g#'] = 'gz#',
+}
+
+for k, v in pairs(map) do
+  vim.keymap.set('n', k, function()
+    if vim.tbl_contains({ 'n', 'N' }, k) then
+      vim.cmd.normal({ vim.v.count1 .. k, bang = true })
+    else
+      vim.cmd.execute(string.format([["normal \<Plug>(asterisk-%s)"]], v))
+    end
+    require('hlslens').start()
+    require('mini.map').refresh({}, { lines = false, scrollbar = false })
+  end)
+end
 
 require('hlslens').setup({ calm_down = true })

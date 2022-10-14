@@ -194,3 +194,19 @@ require('mini.ai').setup({
     inside_last = '',
   },
 })
+
+local map = require('mini.map')
+map.setup({
+  integrations = {
+    map.gen_integration.builtin_search(),
+    map.gen_integration.gitsigns(),
+    map.gen_integration.diagnostic(),
+  },
+})
+
+vim.keymap.set('n', '<LocalLeader>mc', map.close)
+vim.keymap.set('n', '<LocalLeader>mf', map.toggle_focus)
+vim.keymap.set('n', '<LocalLeader>mo', map.open)
+vim.keymap.set('n', '<LocalLeader>mr', map.refresh)
+vim.keymap.set('n', '<LocalLeader>ms', map.toggle_side)
+vim.keymap.set('n', '<LocalLeader>mt', map.toggle)
