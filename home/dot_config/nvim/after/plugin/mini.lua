@@ -202,8 +202,12 @@ map.setup({
     map.gen_integration.gitsigns(),
     map.gen_integration.diagnostic(),
   },
+  symbols = {
+    encode = map.gen_encode_symbols.dot('4x2'),
+    scroll_line = '█',
+    scroll_view = '▒',
+  },
 })
-
 vim.keymap.set('n', '<LocalLeader>mc', map.close)
 vim.keymap.set('n', '<LocalLeader>mf', map.toggle_focus)
 vim.keymap.set('n', '<LocalLeader>mo', map.open)
