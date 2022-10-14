@@ -69,7 +69,7 @@ local hue_base = 220
 local normal_bg = hsluv.hsluv_to_hex({ hue_base, 25, 12 })
 local normal_fg = hsluv.hsluv_to_hex({ hue_base, 10, 78 })
 
-local statusline_bg = hsluv.hsluv_to_hex({ hue_base, 20, 10 })
+local statusline_bg = M.saturate_lighten(M.palette.blue, 20, -45)
 local statusline_fg = hsluv.hsluv_to_hex({ hue_base, 10, 70 })
 local statuslinenc_bg = M.lighten(statusline_bg, -3)
 local statuslinenc_fg = M.lighten(normal_fg, 10)
