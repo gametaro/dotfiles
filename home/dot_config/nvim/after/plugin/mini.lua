@@ -14,73 +14,6 @@ vim.keymap.set(
   { expr = true, replace_keycodes = false, desc = 'MiniPairs <BS>' }
 )
 
--- vim.keymap.set({ 'n', 'x' }, 's', '')
--- require('mini.surround').setup {
---   custom_surroundings = {
---     [')'] = {
---       input = { find = '%(%s-.-%s-%)', extract = '^(.%s*).-(%s*.)$' },
---       output = { left = '( ', right = ' )' },
---     },
---     [']'] = {
---       input = { find = '%[%s-.-%s-%]', extract = '^(.%s*).-(%s*.)$' },
---       output = { left = '[ ', right = ' ]' },
---     },
---     ['}'] = {
---       input = { find = '{%s-.-%s-}', extract = '^(.%s*).-(%s*.)$' },
---       output = { left = '{ ', right = ' }' },
---     },
---     ['>'] = {
---       input = { find = '<%s-.-%s->', extract = '^(.%s*).-(%s*.)$' },
---       output = { left = '< ', right = ' >' },
---     },
---     ['$'] = {
---       input = { find = '%${.-}', extract = '^(..).*(.)$' },
---       output = { left = '${', right = '}' },
---     },
---     s = {
---       input = { find = '%[%[.-%]%]', extract = '^(..).*(..)$' },
---       output = { left = '[[', right = ']]' },
---     },
---     c = {
---       input = { find = '%"%"%".-%"%"%"', extract = '^(...).*(...)$' },
---       output = { left = '"""', right = '"""' },
---     },
---     ['*'] = {
---       input = function()
---         local n_star = MiniSurround.user_input('Number of * to find: ')
---         local many_star = string.rep('%*', tonumber(n_star) or 1)
---         local find = string.format('%s.-%s', many_star, many_star)
---         local extract = string.format('^(%s).*(%s)$', many_star, many_star)
---         return { find = find, extract = extract }
---       end,
---       output = function()
---         local n_star = MiniSurround.user_input('Number of * to output: ')
---         local many_star = string.rep('*', tonumber(n_star) or 1)
---         return { left = many_star, right = many_star }
---       end,
---     },
---   },
---   n_lines = 10,
---   search_method = 'cover_or_nearest',
--- }
-
--- require('mini.jump').setup({
---   mappings = {
---     repeat_jump = '',
---   },
--- })
-
--- require('mini.jump2d').setup {
---   labels = 'jfkdlsahgnuvrbytmiceoxwpqz',
---   allowed_lines = {
---     blank = false,
---     cursor_at = false,
---   },
---   allowed_windows = {
---     not_current = false,
---   },
--- }
-
 require('mini.indentscope').setup({
   draw = {
     animation = require('mini.indentscope').gen_animation('none'),
@@ -115,15 +48,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   callback = trailspace.trim,
 })
 
--- local sessions = require('mini.sessions')
--- sessions.setup({
---   autoread = true,
---   autowrite = true,
---   directory = '',
---   verbose = { read = true, write = true, delete = true },
--- })
--- pcall(sessions.write, sessions.config.file, { force = false })
-
 require('mini.comment').setup({
   hooks = {
     pre = function()
@@ -133,24 +57,6 @@ require('mini.comment').setup({
     end,
   },
 })
-
--- vim.api.nvim_create_autocmd('CursorMoved', {
---   group = group,
---   callback = function(a)
---     local curword = vim.fn.expand('<cword>')
---     local filetype = vim.bo[a.buf].filetype
---
---     local blocklist = {}
---     if filetype == 'lua' then
---       blocklist = { 'local', 'require' }
---     elseif filetype == 'javascript' then
---       blocklist = { 'import' }
---     end
---
---     vim.b.minicursorword_disable = string.len(curword) == 1 or vim.tbl_contains(blocklist, curword)
---   end,
--- })
--- require('mini.cursorword').setup {}
 
 require('mini.ai').setup({
   custom_textobjects = {
