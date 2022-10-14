@@ -214,3 +214,9 @@ vim.keymap.set('n', '<LocalLeader>mo', map.open)
 vim.keymap.set('n', '<LocalLeader>mr', map.refresh)
 vim.keymap.set('n', '<LocalLeader>ms', map.toggle_side)
 vim.keymap.set('n', '<LocalLeader>mt', map.toggle)
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'SessionLoadPost',
+  group = group,
+  callback = map.open,
+})
