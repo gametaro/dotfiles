@@ -118,6 +118,10 @@ map.setup({
     scroll_line = '█',
     scroll_view = '▒',
   },
+  window = {
+    focusable = true,
+    winblend = 50,
+  },
 })
 vim.keymap.set('n', '<LocalLeader>mc', map.close)
 vim.keymap.set('n', '<LocalLeader>mf', map.toggle_focus)
