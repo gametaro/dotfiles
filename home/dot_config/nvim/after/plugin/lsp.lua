@@ -13,7 +13,7 @@ local schemastore = require('schemastore')
 
 local lsp = vim.lsp
 
-local capabilities = cmp_nvim_lsp.update_capabilities(lsp.protocol.make_client_capabilities())
+local capabilities = cmp_nvim_lsp.default_capabilities()
 
 ---@param client table
 ---@param bufnr integer
