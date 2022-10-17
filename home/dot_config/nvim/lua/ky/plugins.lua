@@ -182,6 +182,9 @@ packer.startup({
       event = 'VimEnter',
       config = function()
         require('noice').setup({
+          lsp_progress = {
+            enabled = true,
+          },
           views = {
             cmdline_popup = {
               border = {
