@@ -214,6 +214,14 @@ packer.startup({
               },
               opts = { skip = true },
             },
+            {
+              view = 'split',
+              filter = {
+                event = 'msg_show',
+                min_height = 10,
+              },
+              opts = { enter = true },
+            },
           },
         })
       end,
