@@ -22,7 +22,9 @@ diagnostic.config({
     -- source = 'always',
     header = { 'Diagnostic', 'Title' },
     format = function(diag)
-      return string.format('%s[%s](%s)', diag.message, diag.source, diag.code)
+      local source = diag.source and string.format('[%s]', diag.source) or ''
+      local code = (diag.code and diag.code ~= vim.NIL) and string.format('(%s)', diag.code) or ''
+      return string.format('%s %s %s', diag.message, source, code)
     end,
     prefix = function(diag, _, _)
       local level = diagnostic.severity[diag.severity]
