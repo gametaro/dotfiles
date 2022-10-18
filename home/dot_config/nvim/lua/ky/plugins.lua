@@ -224,6 +224,7 @@ packer.startup({
             },
           },
         })
+        require('ky.abbrev').cabbrev('n', 'Noice')
       end,
     })
 
