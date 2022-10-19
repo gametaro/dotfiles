@@ -4,7 +4,7 @@ local opt = vim.opt
 local fn = vim.fn
 
 local indent = 2
-local blend = 0
+local blend = 10
 
 o.autowriteall = true
 o.backup = true
