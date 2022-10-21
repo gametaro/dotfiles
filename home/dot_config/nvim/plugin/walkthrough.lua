@@ -28,7 +28,7 @@ local dirfs = {}
 ---@param v table
 local index_of = function(t, v)
   for i = 1, #t do
-    if vim.inspect(t[i]) == vim.inspect(v) then
+    if vim.deep_equal(t[i], v) then
       return i
     end
   end
