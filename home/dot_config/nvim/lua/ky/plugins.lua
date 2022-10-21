@@ -182,18 +182,15 @@ packer.startup({
       event = 'VimEnter',
       config = function()
         require('noice').setup({
-          lsp_progress = {
-            enabled = true,
-          },
-          views = {
-            cmdline_popup = {
-              border = {
-                style = 'none',
-                padding = { 1, 2 },
-              },
-              filter_options = {},
-              win_options = {
-                winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
+          cmdline = {
+            format = {
+              IncRename = {
+                pattern = '^:%s*IncRename%s+',
+                icon = ' ',
+                conceal = true,
+                opts = {
+                  buf_options = { filetype = 'text' },
+                },
               },
             },
           },
