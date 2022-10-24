@@ -470,8 +470,8 @@ M.highlight_groups = {
 
   -- gitsigns.nvim
   GitSignsAdd = { fg = M.palette.green },
-  GItSignsChange = { fg = M.palette.orange },
-  GItSignsDelete = { fg = M.palette.red },
+  GitSignsChange = { fg = M.palette.orange },
+  GitSignsDelete = { fg = M.palette.red },
 
   -- GitSignsAddLn = {},
   -- GitSignsChangeLn = {},
