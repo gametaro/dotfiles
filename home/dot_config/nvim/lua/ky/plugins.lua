@@ -61,7 +61,7 @@ packer.startup({
     use('williamboman/mason.nvim')
     use('williamboman/mason-lspconfig.nvim')
     use('b0o/schemastore.nvim')
-    use('ii14/emmylua-nvim')
+    -- use('ii14/emmylua-nvim')
     use('jose-elias-alvarez/null-ls.nvim')
     use('jose-elias-alvarez/typescript.nvim')
     use('lukas-reineke/lsp-format.nvim')
