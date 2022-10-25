@@ -150,7 +150,7 @@ M.highlight_groups = {
   NormalFloat = { link = 'Pmenu' },
   FloatBorder = { link = 'WinSeparator' },
   Pmenu = { fg = pmenu_fg, bg = pmenu_bg },
-  PmenuSel = { fg = pmenusel_fg, bg = pmenusel_bg },
+  PmenuSel = { bg = pmenusel_bg },
   PmenuSbar = { bg = pmenu_bg },
   PmenuThumb = { bg = pmenusel_bg },
   Question = { link = 'Moremsg' },
