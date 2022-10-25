@@ -351,7 +351,7 @@ M.highlight_groups = {
   -- telescope.nvim
   TelescopeNormal = { link = 'Pmenu' },
   TelescopePromptNormal = { link = 'Pmenu' },
-  TelescopeBorder = { link = 'WinSeparator' },
+  TelescopeBorder = { link = 'FloatBorder' },
   TelescopeMatching = { fg = M.palette.blue, bold = true },
   TelescopeSelection = { link = 'PmenuSel' },
 
