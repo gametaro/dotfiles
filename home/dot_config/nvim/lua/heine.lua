@@ -154,7 +154,7 @@ M.highlight_groups = {
   PmenuSbar = { bg = pmenu_bg },
   PmenuThumb = { bg = pmenusel_bg },
   Question = { link = 'Moremsg' },
-  QuickFixLine = { fg = normal_fg, bg = visual_bg },
+  QuickFixLine = { bg = visual_bg },
   Search = { fg = search_fg, bg = search_bg },
   SpecialKey = { fg = specialkey_fg },
   SpellBad = { sp = M.palette.red, undercurl = true },
