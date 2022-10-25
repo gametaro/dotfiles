@@ -194,6 +194,7 @@ local FileName = {
     local filename = vim.fs.basename(self.filename)
     return filename == '' and '[No Name]' or filename
   end,
+  hl = { bold = false },
 }
 
 local FilePath = {
@@ -208,40 +209,53 @@ local FilePath = {
     end
     return filepath .. trail
   end,
-  hl = { fg = utils.get_highlight('Comment').fg, bold = true },
+  hl = { fg = utils.get_highlight('Comment').fg },
 }
 
 local FileFlags = {
   {
+    condition = function()
+      return not vim.bo.modified
+    end,
+    -- a small performance improvement:
+    -- re register the component callback only on layout/buffer changes.
+    update = { 'WinNew', 'WinClosed', 'BufEnter' },
+    { provider = ' ' },
+    {
+      provider = '',
+      hl = { fg = 'gray' },
+      on_click = {
+        callback = function(_, winid)
+          pcall(api.nvim_win_close, winid, true)
+        end,
+        name = function(self)
+          return 'heirline_close_button_' .. self.winnr
+        end,
+        update = true,
+      },
+    },
+  },
+  {
+    condition = function()
+      return vim.bo.modified
+    end,
     provider = function()
-      return vim.bo.modified and ' ●' -- '
+      return ' ●' -- '
     end,
     hl = { fg = colors.diff.change },
   },
   {
+    condition = function()
+      return not vim.bo.modifiable or vim.bo.readonly
+    end,
     provider = function()
-      return (not vim.bo.modifiable or vim.bo.readonly) and ' '
+      return ' '
     end,
     hl = { fg = colors.diag.warn },
   },
 }
 
-local FileNameModifer = {
-  hl = function()
-    if vim.bo.modified then
-      return { italic = true, force = true }
-    end
-  end,
-}
-
-FileNameBlock = utils.insert(
-  FileNameBlock,
-  FileIcon,
-  utils.insert(FileNameModifer, FileName),
-  unpack(FileFlags),
-  Space,
-  FilePath
-)
+FileNameBlock = utils.insert(FileNameBlock, FileIcon, FileName, FileFlags, Space, FilePath)
 
 local FileType = {
   provider = function()
@@ -596,7 +610,7 @@ local LirName = {
       return self.dir
     end,
     hl = function()
-      return { fg = utils.get_highlight('Comment').fg, bold = true }
+      return { fg = utils.get_highlight('Comment').fg }
     end,
   },
   Space,
@@ -609,29 +623,6 @@ local LirName = {
     end,
   },
   Align,
-}
-
-local CloseButton = {
-  condition = function()
-    return not vim.bo.modified
-  end,
-  -- a small performance improvement:
-  -- re register the component callback only on layout/buffer changes.
-  update = { 'WinNew', 'WinClosed', 'BufEnter' },
-  { provider = ' ' },
-  {
-    provider = '',
-    hl = { fg = 'gray' },
-    on_click = {
-      callback = function(_, winid)
-        pcall(api.nvim_win_close, winid, true)
-      end,
-      name = function(self)
-        return 'heirline_close_button_' .. self.winnr
-      end,
-      update = true,
-    },
-  },
 }
 
 local Spell = {
@@ -651,7 +642,7 @@ local Snippets = {
     local backward = (require('luasnip').jumpable(-1)) and ' ' or ''
     return backward .. forward
   end,
-  hl = { fg = colors.orange, bold = true },
+  hl = { fg = colors.orange },
 }
 
 local WinBars = {
@@ -680,14 +671,12 @@ local WinBars = {
     },
   },
   {
-    Align,
+    Space,
     FileNameBlock,
     Align,
     Diagnostics,
     Space,
     GitStatus,
-    Space,
-    CloseButton,
   },
   hl = function()
     return {
