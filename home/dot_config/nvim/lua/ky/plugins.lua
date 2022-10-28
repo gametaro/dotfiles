@@ -194,6 +194,10 @@ packer.startup({
               },
             },
           },
+          lsp = {
+            hover = { enabled = true },
+            signature = { enabled = true },
+          },
           routes = {
             {
               filter = {
