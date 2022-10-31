@@ -16,7 +16,9 @@ return function(cmd, args, callback)
   end
 
   local on_exit = function(code, signal)
-    stdout:close()
+    if stdout then
+      stdout:close()
+    end
     handle:close()
 
     callback(table.concat(results))
@@ -32,8 +34,12 @@ return function(cmd, args, callback)
   }, vim.schedule_wrap(on_exit))
 
   if handle then
-    stdout:read_start(on_read)
+    if stdout then
+      stdout:read_start(on_read)
+    end
   else
-    stdout:close()
+    if stdout then
+      stdout:close()
+    end
   end
 end
