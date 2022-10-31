@@ -13,7 +13,7 @@ local map = {
 }
 
 for k, v in pairs(map) do
-  vim.keymap.set('n', k, function()
+  vim.keymap.set({ 'n', 'x' }, k, function()
     if vim.tbl_contains({ 'n', 'N' }, k) then
       vim.cmd.normal({ vim.v.count1 .. k, bang = true })
     else
