@@ -2,6 +2,7 @@ local ok = prequire('lspconfig')
   and prequire('cmp_nvim_lsp')
   and prequire('lsp-format')
   and prequire('schemastore')
+  and prequire('neodev')
 if not ok then
   return
 end
@@ -12,6 +13,8 @@ local lsp_format = require('lsp-format')
 local schemastore = require('schemastore')
 
 local lsp = vim.lsp
+
+require('neodev').setup()
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
 

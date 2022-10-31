@@ -68,6 +68,7 @@ packer.startup({
     use('smjonas/inc-rename.nvim')
     use('kosayoda/nvim-lightbulb')
     -- use('https://git.sr.ht/~whynothugo/lsp_lines.nvim')
+    use('folke/neodev.nvim')
 
     -- Completion/Snippets
     use('hrsh7th/nvim-cmp')
