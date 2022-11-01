@@ -180,7 +180,6 @@ packer.startup({
     use({
       'folke/noice.nvim',
       requires = 'MunifTanjim/nui.nvim',
-      event = 'VimEnter',
       config = function()
         require('noice').setup({
           cmdline = {
