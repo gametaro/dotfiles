@@ -202,14 +202,14 @@ packer.startup({
             },
           },
           routes = {
-            {
-              filter = {
-                event = 'msg_show',
-                kind = '',
-                find = '[w]', -- 'written'
-              },
-              opts = { skip = true },
-            },
+            -- {
+            --   filter = {
+            --     event = 'msg_show',
+            --     kind = '',
+            --     find = '[w]', -- 'written'
+            --   },
+            --   opts = { skip = true },
+            -- },
             {
               filter = {
                 event = 'msg_show',
