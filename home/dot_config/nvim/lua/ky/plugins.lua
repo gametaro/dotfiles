@@ -195,6 +195,16 @@ packer.startup({
             long_message_to_split = true,
             inc_rename = true,
           },
+          routes = {
+            {
+              filter = {
+                event = 'msg_show',
+                kind = '',
+                find = 'written',
+              },
+              opts = { skip = true },
+            },
+          },
         })
         require('ky.abbrev').cabbrev('n', 'Noice')
       end,
