@@ -246,6 +246,12 @@ packer.startup({
     use('justinmk/vim-gtfo')
     use({ 'dstein64/vim-startuptime', cmd = 'StartupTime' })
     use('nvim-treesitter/nvim-treesitter-context')
+    use({
+      'samjwill/nvim-unception',
+      setup = function()
+        vim.g.unception_open_buffer_in_new_tab = true
+      end,
+    })
   end,
   config = {
     display = {
