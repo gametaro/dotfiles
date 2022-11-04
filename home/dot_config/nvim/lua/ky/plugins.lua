@@ -252,6 +252,14 @@ packer.startup({
         vim.g.unception_open_buffer_in_new_tab = true
       end,
     })
+    use({
+      'cbochs/portal.nvim',
+      config = function()
+        require('portal').setup({})
+        vim.keymap.set('n', '<LocalLeader>o', require('portal').jump_backward, {})
+        vim.keymap.set('n', '<LocalLeader>i', require('portal').jump_forward, {})
+      end,
+    })
   end,
   config = {
     display = {
