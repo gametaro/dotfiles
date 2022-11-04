@@ -182,18 +182,6 @@ packer.startup({
       requires = 'MunifTanjim/nui.nvim',
       config = function()
         require('noice').setup({
-          cmdline = {
-            format = {
-              IncRename = {
-                pattern = '^:%s*IncRename%s+',
-                icon = ' ',
-                conceal = true,
-                opts = {
-                  buf_options = { filetype = 'text' },
-                },
-              },
-            },
-          },
           lsp = {
             override = {
               ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
@@ -201,31 +189,11 @@ packer.startup({
               ['cmp.entry.get_documentation'] = true,
             },
           },
-          routes = {
-            -- {
-            --   filter = {
-            --     event = 'msg_show',
-            --     kind = '',
-            --     find = '[w]', -- 'written'
-            --   },
-            --   opts = { skip = true },
-            -- },
-            {
-              filter = {
-                event = 'msg_show',
-                kind = '',
-                find = '^%s*[/?]',
-              },
-              opts = { skip = true },
-            },
-            {
-              view = 'split',
-              filter = {
-                event = 'msg_show',
-                min_height = 10,
-              },
-              opts = { enter = true },
-            },
+          presets = {
+            bottom_search = true,
+            command_palette = true,
+            long_message_to_split = true,
+            inc_rename = true,
           },
         })
         require('ky.abbrev').cabbrev('n', 'Noice')
