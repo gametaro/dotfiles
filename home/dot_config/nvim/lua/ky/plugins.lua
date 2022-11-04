@@ -118,7 +118,7 @@ packer.startup({
         require('ky.config.gitsigns')
       end,
     })
-    use('rhysd/committia.vim')
+    -- use('rhysd/committia.vim')
     use({ 'rhysd/git-messenger.vim', keys = '<Plug>(git-messenger' })
     use('ruifm/gitlinker.nvim')
     -- use('akinsho/git-conflict.nvim')
