@@ -20,6 +20,7 @@ opt.diffopt:append({
   'algorithm:histogram',
   'indent-heuristic',
   'vertical',
+  'linematch:60',
 })
 o.emoji = false
 o.expandtab = true
