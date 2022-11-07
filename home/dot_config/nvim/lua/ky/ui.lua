@@ -1,10 +1,20 @@
 local M = {}
 
 M.icons = {
-  error = '',
-  warn = '',
-  hint = '',
-  info = '',
+  diagnostic = {
+    error = '',
+    warn = '',
+    hint = '',
+    info = '',
+  },
+  git = {
+    add = '',
+    change = '',
+    remove = '',
+    branch = '',
+    ahead = '⇡',
+    behind = '⇣',
+  },
 }
 
 M.border = 'none'

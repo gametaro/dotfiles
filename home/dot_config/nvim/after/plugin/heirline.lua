@@ -362,10 +362,10 @@ local Diagnostics = {
     self.info = #diagnostic.get(0, { severity = diagnostic.severity.INFO })
   end,
   static = {
-    error_icon = string.format('%s ', icons.error),
-    warn_icon = string.format('%s ', icons.warn),
-    info_icon = string.format('%s ', icons.info),
-    hint_icon = string.format('%s ', icons.hint),
+    error_icon = string.format('%s ', icons.diagnostic.error),
+    warn_icon = string.format('%s ', icons.diagnostic.warn),
+    info_icon = string.format('%s ', icons.diagnostic.info),
+    hint_icon = string.format('%s ', icons.diagnostic.hint),
   },
   update = function()
     return api.nvim_get_mode().mode:sub(1, 1) ~= 'i'
@@ -416,7 +416,7 @@ local Git = {
   condition = conditions.is_git_repo,
   {
     provider = function()
-      return ' ' .. vim.b.gitsigns_status_dict.head
+      return icons.git.branch .. ' ' .. vim.b.gitsigns_status_dict.head
     end,
     hl = { fg = colors.magenta },
   },
@@ -425,8 +425,8 @@ local Git = {
       return pcall(api.nvim_get_var, 'git_rev')
     end,
     provider = function()
-      return (vim.g.git_rev.ahead > 0 and ' ⇡' .. vim.g.git_rev.ahead or '')
-        .. (vim.g.git_rev.behind > 0 and ' ⇣' .. vim.g.git_rev.behind or '')
+      return (vim.g.git_rev.ahead > 0 and ' ' .. icons.git.ahead .. vim.g.git_rev.ahead or '')
+        .. (vim.g.git_rev.behind > 0 and ' ' .. icons.git.behind .. vim.g.git_rev.behind or '')
     end,
     hl = { fg = colors.orange },
   },
@@ -464,21 +464,21 @@ local GitStatus = {
   {
     provider = function(self)
       local count = self.status_dict.added or 0
-      return count > 0 and ' +' .. count
+      return count > 0 and ' ' .. icons.git.add .. ' ' .. count
     end,
     hl = { fg = colors.git.add },
   },
   {
     provider = function(self)
       local count = self.status_dict.removed or 0
-      return count > 0 and ' -' .. count
+      return count > 0 and ' ' .. icons.git.change .. ' ' .. count
     end,
     hl = { fg = colors.git.removed },
   },
   {
     provider = function(self)
       local count = self.status_dict.changed or 0
-      return count > 0 and ' ~' .. count
+      return count > 0 and ' ' .. icons.git.remove .. ' ' .. count
     end,
     hl = { fg = colors.git.changed },
   },

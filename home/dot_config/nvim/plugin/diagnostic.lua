@@ -2,7 +2,12 @@ local icons = require('ky.ui').icons
 
 local diagnostic = vim.diagnostic
 
-local signs = { Error = icons.error, Warn = icons.warn, Hint = icons.hint, Info = icons.info }
+local signs = {
+  Error = icons.diagnostic.error,
+  Warn = icons.diagnostic.warn,
+  Hint = icons.diagnostic.hint,
+  Info = icons.diagnostic.info,
+}
 for type, icon in pairs(signs) do
   local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
