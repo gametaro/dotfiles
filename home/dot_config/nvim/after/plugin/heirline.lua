@@ -559,7 +559,7 @@ local QuickfixName = {
     provider = function(self)
       local idx = self.qf_open and self.qflist.idx or self.loc_open and self.loclist.idx or ''
       local size = self.qf_open and self.qflist.size or self.loc_open and self.loclist.size or ''
-      return string.format('(%s / %s)', idx, size)
+      return string.format('[%s / %s]', idx, size)
     end,
     hl = { fg = colors.gray },
   },
