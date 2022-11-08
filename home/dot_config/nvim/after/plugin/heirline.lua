@@ -471,14 +471,14 @@ local GitStatus = {
   {
     provider = function(self)
       local count = self.status_dict.removed or 0
-      return count > 0 and ' ' .. icons.git.change .. ' ' .. count
+      return count > 0 and ' ' .. icons.git.remove .. ' ' .. count
     end,
     hl = { fg = colors.git.removed },
   },
   {
     provider = function(self)
       local count = self.status_dict.changed or 0
-      return count > 0 and ' ' .. icons.git.remove .. ' ' .. count
+      return count > 0 and ' ' .. icons.git.change .. ' ' .. count
     end,
     hl = { fg = colors.git.changed },
   },
