@@ -677,6 +677,7 @@ local WinBars = {
     Diagnostics,
     Space,
     GitStatus,
+    Space,
   },
   hl = function()
     return {
