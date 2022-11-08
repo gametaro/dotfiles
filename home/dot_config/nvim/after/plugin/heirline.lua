@@ -16,9 +16,9 @@ local diagnostic = vim.diagnostic
 
 local colors = {
   git = {
-    add = utils.get_highlight('DiffAdd').fg,
-    changed = utils.get_highlight('DiffChange').fg,
-    removed = utils.get_highlight('DiffDelete').fg,
+    add = utils.get_highlight('GitSignsAdd').fg,
+    changed = utils.get_highlight('GitSignsChange').fg,
+    removed = utils.get_highlight('GitSignsDelete').fg,
   },
   diff = {
     add = utils.get_highlight('DiffAdd').fg,
