@@ -204,6 +204,13 @@ packer.startup({
               },
               opts = { skip = true },
             },
+            {
+              filter = {
+                event = 'notify',
+                find = 'No information available',
+              },
+              opts = { skip = true },
+            },
           },
         })
         require('ky.abbrev').cabbrev('n', 'Noice')
