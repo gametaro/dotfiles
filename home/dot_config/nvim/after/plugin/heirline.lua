@@ -215,7 +215,7 @@ local FilePath = {
 local FileFlags = {
   {
     condition = function()
-      return not vim.bo.modified
+      return not vim.bo.modified or not vim.bo.readonly
     end,
     -- a small performance improvement:
     -- re register the component callback only on layout/buffer changes.
