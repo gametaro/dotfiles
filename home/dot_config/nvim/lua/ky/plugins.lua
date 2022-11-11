@@ -20,6 +20,25 @@ packer.startup({
 
     -- Icon
     use('kyazdani42/nvim-web-devicons')
+    use({
+      'DaikyXendo/nvim-material-icon',
+      config = function()
+        local web_devicons_ok, web_devicons = prequire('nvim-web-devicons')
+        if not web_devicons_ok then
+          return
+        end
+
+        local material_icon_ok, material_icon = prequire('nvim-material-icon')
+        if not material_icon_ok then
+          return
+        end
+
+        web_devicons.setup({
+          override = material_icon.get_icons(),
+        })
+        material_icon.setup()
+      end,
+    })
 
     -- Syntax/Highlight
     use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
