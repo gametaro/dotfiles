@@ -334,6 +334,8 @@ M.highlight_groups = {
   ['@text.note'] = { link = 'SpecialComment' },
   ['@text.warning'] = { link = 'WarningMsg' },
   ['@text.danger'] = { link = 'WarningMsg' },
+  ['@text.diff.add'] = { link = 'DiffAdd' },
+  ['@text.diff.delete'] = { link = 'DiffDelete' },
   -- ['@text.todo'] = {},
   -- ['@type'] = {},
   ['@type.bulitin'] = { link = 'Typedef' },
