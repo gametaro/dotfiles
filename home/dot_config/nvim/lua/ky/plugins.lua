@@ -279,6 +279,9 @@ vim.keymap.set('n', '<LocalLeader>ps', packer.sync)
 vim.keymap.set('n', '<LocalLeader>pS', packer.status)
 vim.keymap.set('n', '<LocalLeader>pu', packer.update)
 vim.keymap.set('n', '<LocalLeader>pi', packer.install)
+vim.keymap.set('n', '<LocalLeader>pe', function()
+  vim.cmd.tabedit(packer.config.compile_path)
+end)
 
 vim.api.nvim_create_autocmd('User', {
   group = vim.api.nvim_create_augroup('PackerCompileDone', { clear = true }),
