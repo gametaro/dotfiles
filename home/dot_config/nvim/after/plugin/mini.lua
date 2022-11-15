@@ -120,6 +120,7 @@ map.setup({
   },
   window = {
     focusable = true,
+    show_integration_count = false,
     winblend = 50,
   },
 })
