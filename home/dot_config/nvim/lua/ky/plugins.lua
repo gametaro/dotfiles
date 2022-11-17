@@ -69,7 +69,6 @@ packer.startup({
     use('tpope/vim-repeat')
     use('windwp/nvim-ts-autotag')
     use('johmsalas/text-case.nvim')
-    -- use('AckslD/nvim-trevJ.lua')
     use('aarondiel/spread.nvim')
     use('kylechui/nvim-surround')
     use('smjonas/live-command.nvim')
@@ -80,7 +79,6 @@ packer.startup({
     use('williamboman/mason.nvim')
     use('williamboman/mason-lspconfig.nvim')
     use('b0o/schemastore.nvim')
-    -- use('ii14/emmylua-nvim')
     use('jose-elias-alvarez/null-ls.nvim')
     use('jose-elias-alvarez/typescript.nvim')
     use('lukas-reineke/lsp-format.nvim')
@@ -239,9 +237,7 @@ packer.startup({
     -- Utility
     use('nvim-lua/plenary.nvim')
     use({ 'lewis6991/impatient.nvim', opt = true })
-    -- use({ 'tyru/capture.vim', cmd = 'Capture' })
     use({ 'tyru/open-browser.vim', keys = '<Plug>(openbrowser-smart-search)' })
-    -- use('AckslD/messages.nvim')
     use('lambdalisue/suda.vim')
     vim.g.suda_smart_edit = 1
     use({ 'psliwka/vim-dirtytalk', run = ':DirtytalkUpdate' })
