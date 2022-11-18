@@ -241,7 +241,7 @@ M.highlight_groups = {
 
   -- Ignore = {},
 
-  Error = { fg = M.palette.red },
+  Error = { fg = M.palette.red, underline = true },
 
   Todo = { fg = orange_tint_fg, bg = orange_tint_bg },
 
