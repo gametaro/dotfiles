@@ -41,8 +41,12 @@ diagnostic.config({
 })
 
 vim.keymap.set('n', '<LocalLeader>e', diagnostic.open_float)
-vim.keymap.set('n', '[d', diagnostic.goto_prev)
-vim.keymap.set('n', ']d', diagnostic.goto_next)
+vim.keymap.set('n', '[d', function()
+  diagnostic.goto_prev({ float = false })
+end)
+vim.keymap.set('n', ']d', function()
+  diagnostic.goto_next({ float = false })
+end)
 vim.keymap.set('n', '<LocalLeader>dq', diagnostic.setqflist)
 vim.keymap.set('n', '<LocalLeader>dl', diagnostic.setloclist)
 

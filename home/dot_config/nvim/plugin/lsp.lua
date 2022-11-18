@@ -1,42 +1,42 @@
 ---@diagnostic disable: param-type-mismatch
 local lsp = vim.lsp
 
-local float = {
-  border = require('ky.ui').border,
-}
+-- local float = {
+--   border = require('ky.ui').border,
+-- }
 
 lsp.set_log_level(vim.log.levels.ERROR)
 
 -- HACK: override builtin handler not to notify even if no information is available
-lsp.handlers['textDocument/hover'] = lsp.with(function(_, result, ctx, config)
-  config = config or {}
-  config.focus_id = ctx.method
-  if not (result and result.contents) then
-    -- vim.notify('No information available')
-    return
-  end
-  local markdown_lines = lsp.util.convert_input_to_markdown_lines(result.contents)
-  markdown_lines = lsp.util.trim_empty_lines(markdown_lines)
-  if vim.tbl_isempty(markdown_lines) then
-    -- vim.notify('No information available')
-    return
-  end
-  return lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
-end, float)
-lsp.handlers['textDocument/signatureHelp'] = lsp.with(lsp.handlers.signature_help, float)
--- https://github.com/neovim/nvim-lspconfig/wiki/User-contributed-tips#use-nvim-notify-to-display-lsp-messages
-lsp.handlers['window/showMessage'] = function(_, result, ctx)
-  local client = lsp.get_client_by_id(ctx.client_id)
-  local level = ({
-    'ERROR',
-    'WARN',
-    'INFO',
-    'DEBUG',
-  })[result.type]
-  vim.notify({ result.message }, level, {
-    title = 'LSP | ' .. client.name,
-  })
-end
+-- lsp.handlers['textDocument/hover'] = lsp.with(function(_, result, ctx, config)
+--   config = config or {}
+--   config.focus_id = ctx.method
+--   if not (result and result.contents) then
+--     -- vim.notify('No information available')
+--     return
+--   end
+--   local markdown_lines = lsp.util.convert_input_to_markdown_lines(result.contents)
+--   markdown_lines = lsp.util.trim_empty_lines(markdown_lines)
+--   if vim.tbl_isempty(markdown_lines) then
+--     -- vim.notify('No information available')
+--     return
+--   end
+--   return lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
+-- end, float)
+-- lsp.handlers['textDocument/signatureHelp'] = lsp.with(lsp.handlers.signature_help, float)
+-- -- https://github.com/neovim/nvim-lspconfig/wiki/User-contributed-tips#use-nvim-notify-to-display-lsp-messages
+-- lsp.handlers['window/showMessage'] = function(_, result, ctx)
+--   local client = lsp.get_client_by_id(ctx.client_id)
+--   local level = ({
+--     'ERROR',
+--     'WARN',
+--     'INFO',
+--     'DEBUG',
+--   })[result.type]
+--   vim.notify({ result.message }, level, {
+--     title = 'LSP | ' .. client.name,
+--   })
+-- end
 
 -- local client_notifs = {}
 --
