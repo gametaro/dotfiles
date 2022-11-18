@@ -345,15 +345,15 @@ M.highlight_groups = {
   ['@variable.builtin'] = { link = 'Special' },
 
   -- markdown
-  markdownCode = { link = 'String' },
+  -- markdownCode = { link = 'String' },
   -- markdownCodeBlock = { link = 'String' },
-  markdownCodeDelimiter = { link = 'String' },
+  -- markdownCodeDelimiter = { link = 'String' },
 
   -- typescript
-  typescriptParens = { link = 'Delimiter' },
+  -- typescriptParens = { link = 'Delimiter' },
 
   -- lua
-  luaParen = { link = 'Delimiter' },
+  -- luaParen = { link = 'Delimiter' },
 
   -- plugins
   -- telescope.nvim
