@@ -261,6 +261,25 @@ packer.startup({
         vim.keymap.set('n', '<LocalLeader>i', require('portal').jump_forward, {})
       end,
     })
+    use({
+      'kevinhwang91/nvim-fundo',
+      requires = 'kevinhwang91/promise-async',
+      run = function()
+        require('fundo').install()
+      end,
+      config = function()
+        require('fundo').setup()
+      end,
+    })
+    use({
+      'mbbill/undotree',
+      setup = function()
+        vim.g.undotree_SetFocusWhenToggle = 1
+        vim.g.undotree_SplitWidth = 40
+        vim.g.undotree_WindowLayout = 2
+        vim.keymap.set('n', '<LocalLeader>u', vim.cmd.UndotreeToggle)
+      end,
+    })
   end,
   config = {
     display = {
