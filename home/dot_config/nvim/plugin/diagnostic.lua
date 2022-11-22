@@ -24,18 +24,19 @@ diagnostic.config({
   -- virtual_lines = { only_current_line = true },
   float = {
     border = require('ky.ui').border,
-    -- source = 'always',
+    source = false,
     header = { 'Diagnostic', 'Title' },
-    format = function(diag)
-      local source = diag.source and string.format('[%s]', diag.source) or ''
-      local code = (diag.code and diag.code ~= vim.NIL) and string.format('(%s)', diag.code) or ''
-      return string.format('%s %s %s', diag.message, source, code)
-    end,
-    prefix = function(diag, _, _)
+    prefix = function(diag)
       local level = diagnostic.severity[diag.severity]
-      local prefix = string.format(' %s ', icons.diagnostic[string.lower(level)])
-      local hiname = 'Diagnostic' .. level:sub(1, 1) .. level:sub(2):lower()
-      return prefix, hiname
+      local prefix = string.format('  %s ', icons.diagnostic[string.lower(level)])
+      local hlname = 'Diagnostic' .. level:sub(1, 1) .. level:sub(2):lower()
+      return prefix, hlname
+    end,
+    suffix = function(diag)
+      local source = diag.source and string.format('%s', diag.source) or ''
+      local code = diag.code and string.format('[%s]', diag.code) or ''
+      local suffix = string.format(' %s %s', source, code)
+      return suffix, 'Comment'
     end,
   },
 })
