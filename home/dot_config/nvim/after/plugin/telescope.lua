@@ -46,6 +46,7 @@ local defaults = {
       ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
       ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
       ['<C-y>'] = yank,
+      ['<CR>'] = actions.select_drop,
     },
     n = {
       ['<C-s>'] = actions.select_horizontal,
@@ -53,6 +54,7 @@ local defaults = {
       ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
       ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
       ['y'] = yank,
+      ['<CR>'] = actions.select_drop,
     },
   },
   path_display = { truncate = 3 },
