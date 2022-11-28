@@ -69,7 +69,16 @@ packer.startup({
     use('tpope/vim-repeat')
     use('windwp/nvim-ts-autotag')
     use('johmsalas/text-case.nvim')
-    use('aarondiel/spread.nvim')
+    -- use('aarondiel/spread.nvim')
+    use({
+      'Wansmer/treesj',
+      config = function()
+        require('treesj').setup({
+          use_default_keymaps = false,
+        })
+        vim.keymap.set('n', '<LocalLeader>j', vim.cmd.TSJToggle)
+      end,
+    })
     use('kylechui/nvim-surround')
     use('smjonas/live-command.nvim')
     use('axelvc/template-string.nvim')
