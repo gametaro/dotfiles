@@ -179,8 +179,8 @@ require('ky.abbrev').cabbrev('t', 'Telescope')
 local map = vim.keymap.set
 
 map('n', '<C-p>', function()
-  local ok = pcall(builtin.git_files)
-  if not ok then
+  local git_ok = pcall(builtin.git_files)
+  if not git_ok then
     builtin.find_files()
   end
 end)
