@@ -291,6 +291,7 @@ packer.startup({
     })
   end,
   config = {
+    preview_updates = true,
     display = {
       prompt_border = require('ky.ui').border,
     },
