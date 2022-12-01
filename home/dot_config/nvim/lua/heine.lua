@@ -580,15 +580,15 @@ M.compile = function(silent)
         { title = 'heine.nvim' }
       )
     end
-  else
-    vim.notify(msg or '', vim.log.levels.ERROR, { title = 'heine' })
+  elseif msg then
+    vim.notify(msg, vim.log.levels.ERROR, { title = 'heine' })
   end
 end
 
 M.clean = function()
   local ok, msg = os.remove(compile_path)
-  if not ok then
-    vim.notify(msg or '', vim.log.levels.ERROR, { title = 'heine.nvim' })
+  if not ok and msg then
+    vim.notify(msg, vim.log.levels.ERROR, { title = 'heine.nvim' })
   end
 end
 
