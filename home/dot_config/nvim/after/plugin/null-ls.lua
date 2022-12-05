@@ -76,6 +76,7 @@ local sources = {
   ca.shellcheck.with({
     condition = executable('shellcheck'),
   }),
+  require('typescript.extensions.null-ls.code-actions'),
 }
 
 null_ls.setup({
