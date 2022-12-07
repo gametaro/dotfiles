@@ -310,8 +310,9 @@ vim.keymap.set('n', '<LocalLeader>pe', function()
   vim.bo.modifiable = false
 end)
 
+local group = vim.api.nvim_create_augroup('mine__packer', { clear = true })
 vim.api.nvim_create_autocmd('User', {
-  group = vim.api.nvim_create_augroup('PackerCompileDone', { clear = true }),
+  group = group,
   pattern = 'PackerCompileDone',
   callback = function()
     vim.notify('packer.compile: Complete', vim.log.levels.INFO, { title = 'packer.nvim' })
@@ -319,7 +320,7 @@ vim.api.nvim_create_autocmd('User', {
 })
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = 'plugins.lua',
-  group = vim.api.nvim_create_augroup('PackerCompileOnWrite', { clear = true }),
+  group = group,
   callback = function()
     vim.schedule(packer.compile)
   end,
