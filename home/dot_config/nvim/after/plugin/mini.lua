@@ -51,9 +51,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 require('mini.comment').setup({
   hooks = {
     pre = function()
-      if vim.bo.filetype == 'typescriptreact' then
-        require('ts_context_commentstring.internal').update_commentstring()
-      end
+      require('ts_context_commentstring.internal').update_commentstring()
     end,
   },
 })
