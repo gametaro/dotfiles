@@ -144,7 +144,7 @@ autocmd('BufEnter', {
   end,
 })
 
-autocmd('BufWritePre', {
+autocmd({ 'BufWritePre', 'FileWritePre' }, {
   callback = function()
     local dir = fn.expand('<afile>:p:h')
     if fn.isdirectory(dir) == 0 then
