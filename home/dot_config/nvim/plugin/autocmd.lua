@@ -73,27 +73,27 @@ if vim.env.XDG_DATA_HOME then
   })
 end
 
-autocmd('BufReadPost', {
-  callback = function(a)
-    if vim.tbl_contains({ 'nofile' }, vim.bo[a.buf].buftype) then
-      return
-    end
-    if
-      vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo[a.buf].filetype)
-    then
-      return
-    end
-    local row, col = unpack(api.nvim_buf_get_mark(0, '"'))
-    if
-      api.nvim_win_is_valid(0)
-      and { row, col } ~= { 1, 0 }
-      and row <= api.nvim_buf_line_count(0)
-    then
-      api.nvim_win_set_cursor(0, { row, col })
-    end
-  end,
-  desc = 'always jump to the last cursor position. see :help restore-cursor',
-})
+-- autocmd('BufReadPost', {
+--   callback = function(a)
+--     if vim.tbl_contains({ 'nofile' }, vim.bo[a.buf].buftype) then
+--       return
+--     end
+--     if
+--       vim.tbl_contains({ 'gitcommit', 'gitrebase', 'NeogitCommitMessage' }, vim.bo[a.buf].filetype)
+--     then
+--       return
+--     end
+--     local row, col = unpack(api.nvim_buf_get_mark(0, '"'))
+--     if
+--       api.nvim_win_is_valid(0)
+--       and { row, col } ~= { 1, 0 }
+--       and row <= api.nvim_buf_line_count(0)
+--     then
+--       api.nvim_win_set_cursor(0, { row, col })
+--     end
+--   end,
+--   desc = 'always jump to the last cursor position. see :help restore-cursor',
+-- })
 
 autocmd('FocusLost', {
   nested = true,
