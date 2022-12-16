@@ -342,7 +342,7 @@ M.highlight_groups = {
   ['@type.bulitin'] = { link = 'Typedef' },
   ['@type.qualifier'] = { link = 'Type' },
   -- ['@type.definition'] = {},
-  ['@variable'] = { fg = normal_fg },
+  ['@variable'] = {},
   ['@variable.builtin'] = { link = 'Special' },
 
   -- markdown
