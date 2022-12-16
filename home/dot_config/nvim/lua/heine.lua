@@ -521,14 +521,17 @@ M.highlight_groups = {
   illuminatedWordWrite = { link = 'MatchParen' },
 
   -- nvim-treehopper
-  TSNodeUnmatched = { link = 'Comment' },
-  TSNodeKey = { fg = search_fg, bg = search_bg, bold = true },
+  -- TSNodeUnmatched = { link = 'Comment' },
+  -- TSNodeKey = { fg = search_fg, bg = search_bg, bold = true },
 
   -- hlargs.nvim
   Hlargs = { fg = M.lighten(M.palette.orange, -6) },
 
   -- vim-highlighturl
-  HighlightUrl = { fg = M.lighten(M.palette.blue, 5), underline = true },
+  HighlightUrl = { underline = true },
+
+  -- nvim-bqf
+  BqfPreviewRange = { link = 'Search' },
 }
 
 M.load = function()
