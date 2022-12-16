@@ -152,3 +152,19 @@ autocmd({ 'BufWritePre', 'FileWritePre' }, {
     end
   end,
 })
+
+autocmd('ModeChanged', {
+  group = group,
+  pattern = '*:[vV\x16]',
+  callback = function()
+    vim.opt_local.listchars:append({ space = '·' })
+  end,
+})
+
+autocmd('ModeChanged', {
+  group = group,
+  pattern = '[vV\x16]*:*',
+  callback = function()
+    vim.opt_local.listchars:remove('space')
+  end,
+})
