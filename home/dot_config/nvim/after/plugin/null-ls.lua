@@ -51,11 +51,11 @@ local sources = {
   d.pylint.with({
     condition = executable('pylint'),
   }),
-  d.codespell.with({
-    disabled_filetypes = { 'NeogitCommitMessage' },
-    condition = executable('codespell'),
-    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-  }),
+  -- d.codespell.with({
+  --   disabled_filetypes = { 'NeogitCommitMessage' },
+  --   condition = executable('codespell'),
+  --   method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+  -- }),
   d.vale.with({
     condition = executable('vale'),
   }),
@@ -76,7 +76,7 @@ local sources = {
   ca.shellcheck.with({
     condition = executable('shellcheck'),
   }),
-  require('typescript.extensions.null-ls.code-actions'),
+  -- require('typescript.extensions.null-ls.code-actions'),
 }
 
 null_ls.setup({
