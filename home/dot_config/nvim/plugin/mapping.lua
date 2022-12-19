@@ -366,16 +366,9 @@ xnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
 xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
 ]])
 
-map('n', '<F1>', function()
-  require('ky.utils').synstack()
-end, { desc = 'show highlight-groups at the cursor' })
-
-map('n', '<F2>', function()
-  require('plenary.profile').start('profile.log', { flame = true })
-end, { desc = 'start profiling with plenary' })
-map('n', '<F3>', function()
-  require('plenary.profile').stop()
-end, { desc = 'stop profiling with plenary' })
+map('n', '<LocalLeader>i', function()
+  vim.cmd.Inspect()
+end)
 
 map('n', '<Leader>s', function()
   utils.toggle_options('laststatus', { 0, 3 })
