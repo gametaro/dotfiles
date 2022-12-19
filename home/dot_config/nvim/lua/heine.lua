@@ -238,7 +238,7 @@ M.highlight_groups = {
   SpecialComment = { link = 'Special' },
   Debug = { link = 'Special' },
 
-  Underlined = { fg = M.palette.blue, underline = true },
+  Underlined = { underline = true },
 
   -- Ignore = {},
 
@@ -528,7 +528,7 @@ M.highlight_groups = {
   Hlargs = { fg = M.lighten(M.palette.orange, -6) },
 
   -- vim-highlighturl
-  HighlightUrl = { underline = true },
+  HighlightUrl = { link = 'Underlined' },
 
   -- nvim-bqf
   BqfPreviewRange = { link = 'Search' },
