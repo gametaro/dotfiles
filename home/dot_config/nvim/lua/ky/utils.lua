@@ -1,56 +1,35 @@
 local utils = {}
 
 local api = vim.api
-local fn = vim.fn
 
-do
-  local notif_opts = {
-    title = debug.getinfo(1, 'n').name,
-    on_open = function(win)
-      local buf = api.nvim_win_get_buf(win)
-      api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
-    end,
-  }
-
-  ---toggle vim options
-  ---@param name string
-  ---@param values table
-  ---@param opts? table
-  utils.toggle_options = function(name, values, opts)
-    local defaults = { silent = false }
-    opts = vim.tbl_extend('force', defaults, opts or {})
-    values = values or api.nvim_get_option_info(name).type == 'boolean' and { true, false }
-    local value
-    for i, v in ipairs(values) do
-      if api.nvim_get_option_value(name, {}) == v then
-        value = values[i == #values and 1 or i + 1]
-        api.nvim_set_option_value(name, value, {})
-        break
-      end
-    end
-    if opts and not opts.silent then
-      vim.notify(
-        string.format('set `%s` to `%s`', vim.inspect(name), vim.inspect(value)),
-        vim.log.levels.INFO,
-        notif_opts
-      )
+---toggle vim options
+---@param name string
+---@param values table
+---@param opts? table
+utils.toggle_options = function(name, values, opts)
+  local defaults = { silent = false }
+  opts = vim.tbl_extend('force', defaults, opts or {})
+  values = values or api.nvim_get_option_info(name).type == 'boolean' and { true, false }
+  local value
+  for i, v in ipairs(values) do
+    if api.nvim_get_option_value(name, {}) == v then
+      value = values[i == #values and 1 or i + 1]
+      api.nvim_set_option_value(name, value, {})
+      break
     end
   end
-
-  --- show highlight-groups at the cursor
-  utils.synstack = function()
-    local row, col = unpack(api.nvim_win_get_cursor(0))
-    local items = fn.synstack(row, col + 1)
-    if vim.tbl_isempty(items) then
-      pcall(vim.cmd.TSHighlightCapturesUnderCursor)
-    else
-      for _, i1 in ipairs(items) do
-        local i2 = fn.synIDtrans(i1)
-        local n1 = fn.synIDattr(i1, 'name')
-        local n2 = fn.synIDattr(i2, 'name')
-        vim.notify(string.format('`%s` -> `%s`', n1, n2), vim.log.levels.INFO, notif_opts)
-      end
-    end
+  if opts and not opts.silent then
+    vim.notify(
+      string.format('set `%s` to `%s`', vim.inspect(name), vim.inspect(value)),
+      vim.log.levels.INFO,
+      {
+        title = debug.getinfo(1, 'n').name,
+        on_open = function(win)
+          local buf = api.nvim_win_get_buf(win)
+          api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
+        end,
+      }
+    )
   end
 end
 
