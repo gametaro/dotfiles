@@ -4,6 +4,6 @@ set -eu
 
 . "$HOME/.profile"
 
-nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"
+nvim --headless "+Lazy! sync" +qa
 {{- end -}}
 {{/* vim: set filetype=sh: */}}
