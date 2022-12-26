@@ -62,7 +62,7 @@ return {
       map('n', '<LocalLeader>tw', gs.toggle_word_diff)
 
       -- Text object
-      map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+      map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { silent = true })
     end
 
     require('gitsigns').setup({

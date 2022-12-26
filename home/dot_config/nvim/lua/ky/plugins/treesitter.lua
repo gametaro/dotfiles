@@ -11,8 +11,8 @@ return {
     {
       'mfussenegger/nvim-treehopper',
       init = function()
-        vim.keymap.set('o', 'm', ':<C-u>lua require("tsht").nodes()<CR>')
-        vim.keymap.set('x', 'm', ':lua require("tsht").nodes()<CR>')
+        vim.keymap.set('o', 'm', ':<C-u>lua require("tsht").nodes()<CR>', { silent = true })
+        vim.keymap.set('x', 'm', ':lua require("tsht").nodes()<CR>', { silent = true })
       end,
       config = function()
         require('tsht').config.hint_keys = { 'h', 'j', 'f', 'd', 'n', 'v', 's', 'l', 'a' }
@@ -21,10 +21,25 @@ return {
     {
       'David-Kunz/treesitter-unit',
       init = function()
-        vim.keymap.set('x', 'iu', ':lua require"treesitter-unit".select()<CR>')
-        vim.keymap.set('x', 'au', ':lua require"treesitter-unit".select(true)<CR>')
-        vim.keymap.set('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>')
-        vim.keymap.set('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>')
+        vim.keymap.set('x', 'iu', ':lua require"treesitter-unit".select()<CR>', { silent = true })
+        vim.keymap.set(
+          'x',
+          'au',
+          ':lua require"treesitter-unit".select(true)<CR>',
+          { silent = true }
+        )
+        vim.keymap.set(
+          'o',
+          'iu',
+          ':<c-u>lua require"treesitter-unit".select()<CR>',
+          { silent = true }
+        )
+        vim.keymap.set(
+          'o',
+          'au',
+          ':<c-u>lua require"treesitter-unit".select(true)<CR>',
+          { silent = true }
+        )
       end,
     },
   },
