@@ -18,6 +18,7 @@ require('lazy').setup('ky.plugins', {
   },
   performance = {
     rtp = {
+      paths = { vim.fn.stdpath('data') .. '/site' },
       disabled_plugins = {
         -- "gzip",
         'matchit',
