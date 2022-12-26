@@ -76,6 +76,7 @@ opt.mousescroll = { 'ver:1', 'hor:3' }
 o.preserveindent = true
 o.pumblend = blend
 o.pumheight = 10
+o.report = 99999
 -- o.ruler = false
 -- opt.shada = { '!', "'0", 'f0', '<50', 's10', 'h' }
 -- opt.scrolloff = 5
