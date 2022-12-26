@@ -2,7 +2,7 @@
 
 . $PROFILE
 
-~\scoop\shims\nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"
+~\scoop\shims\nvim --headless "+Lazy! sync" +qa
 
 {{ end }}
 {{/* vim: set filetype=ps1: */}}
