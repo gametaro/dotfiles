@@ -88,10 +88,7 @@ return {
     end,
   },
   'tpope/vim-repeat',
-  {
-    'johmsalas/text-case.nvim',
-    config = true,
-  },
+  { 'johmsalas/text-case.nvim', config = true },
   {
     'Wansmer/treesj',
     cmd = 'TSJToggle',
@@ -123,11 +120,7 @@ return {
       })
     end,
   },
-  {
-    'axelvc/template-string.nvim',
-    enabled = false,
-    config = true,
-  },
+  { 'axelvc/template-string.nvim', enabled = false, config = true },
   {
     'cshuaimin/ssr.nvim',
     enabled = false,
@@ -156,10 +149,7 @@ return {
       })
     end,
   },
-  {
-    'smjonas/inc-rename.nvim',
-    config = true,
-  },
+  { 'smjonas/inc-rename.nvim', config = true },
   {
     'kosayoda/nvim-lightbulb',
     event = 'LspAttach',
@@ -193,9 +183,7 @@ return {
     end,
   },
 
-  -- Statusline
-
-  -- Colorschem
+  -- ColorScheme
   'EdenEast/nightfox.nvim',
   'rebelot/kanagawa.nvim',
   'Mofiqul/vscode.nvim',
@@ -301,10 +289,7 @@ return {
       })
     end,
   },
-  {
-    'akinsho/git-conflict.nvim',
-    config = true,
-  },
+  { 'akinsho/git-conflict.nvim', config = true },
   {
     'hotwatermorning/auto-git-diff',
     config = function()
@@ -479,11 +464,7 @@ return {
     build = 'cd app && npm install',
     cmd = 'MarkdownPreview',
   },
-  {
-    'AckslD/nvim-FeMaco.lua',
-    cmd = 'FeMaco',
-    config = true,
-  },
+  { 'AckslD/nvim-FeMaco.lua', cmd = 'FeMaco', config = true },
 
   -- Session
   -- {
@@ -504,9 +485,6 @@ return {
     end,
   },
 
-  -- UI
-  'vigoux/notifier.nvim',
-
   -- Utility
   'nvim-lua/plenary.nvim',
   {
@@ -523,11 +501,7 @@ return {
     end,
   },
   { 'psliwka/vim-dirtytalk', build = ':DirtytalkUpdate' },
-  {
-    'nacro90/numb.nvim',
-    event = 'CmdlineEnter',
-    config = true,
-  },
+  { 'nacro90/numb.nvim', event = 'CmdlineEnter', config = true },
   { 'wsdjeg/vim-fetch', event = 'CmdlineEnter' },
   { 'justinmk/vim-gtfo', keys = { 'got', 'gof' } },
   {
