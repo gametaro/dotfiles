@@ -86,7 +86,9 @@ o.shiftround = true
 o.shiftwidth = indent
 opt.shortmess:append({
   C = true,
+  I = true,
   -- S = true,
+  W = true,
   -- a = true,
   c = true,
   s = true,
