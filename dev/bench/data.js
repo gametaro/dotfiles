@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1671419194980,
+  "lastUpdate": 1672033766595,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -15937,6 +15937,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.36360399260666665,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "266c554a767445f307083a09a0c3616dba06281c",
+          "message": "Merge pull request #10 from gametaro/lazy\n\nfeat(plugins)!: migrate from packer to lazy",
+          "timestamp": "2022-12-26T14:47:42+09:00",
+          "tree_id": "b23a31f3c5808ec8162522435486fa1d61b0a434",
+          "url": "https://github.com/gametaro/dotfiles/commit/266c554a767445f307083a09a0c3616dba06281c"
+        },
+        "date": 1672033765538,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.31936839091333336,
             "unit": "Second"
           }
         ]
