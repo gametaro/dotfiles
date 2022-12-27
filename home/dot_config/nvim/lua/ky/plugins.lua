@@ -24,9 +24,9 @@ return {
       })
     end,
   },
-  'norcalli/nvim-colorizer.lua',
-  'mtdl9/vim-log-highlighting',
-  'itchyny/vim-highlighturl',
+  { 'norcalli/nvim-colorizer.lua' },
+  { 'mtdl9/vim-log-highlighting' },
+  { 'itchyny/vim-highlighturl' },
   {
     'RRethy/vim-illuminate',
     config = function()
@@ -71,7 +71,7 @@ return {
       vim.keymap.set('x', 'I', '<Plug>(niceblock-I)')
     end,
   },
-  'gpanders/editorconfig.nvim',
+  { 'gpanders/editorconfig.nvim' },
   {
     'andymass/vim-matchup',
     init = function()
@@ -87,7 +87,7 @@ return {
       vim.keymap.set('x', '<LocalLeader>y', require('osc52').copy_visual)
     end,
   },
-  'tpope/vim-repeat',
+  { 'tpope/vim-repeat' },
   { 'johmsalas/text-case.nvim', config = true },
   {
     'Wansmer/treesj',
@@ -184,12 +184,12 @@ return {
   },
 
   -- ColorScheme
-  'EdenEast/nightfox.nvim',
-  'rebelot/kanagawa.nvim',
-  'Mofiqul/vscode.nvim',
-  'cocopon/iceberg.vim',
-  'catppuccin/nvim',
-  'folke/tokyonight.nvim',
+  { 'EdenEast/nightfox.nvim' },
+  { 'rebelot/kanagawa.nvim' },
+  { 'Mofiqul/vscode.nvim' },
+  { 'cocopon/iceberg.vim' },
+  { 'catppuccin/nvim' },
+  { 'folke/tokyonight.nvim' },
 
   -- Keybinding
   {
@@ -309,7 +309,7 @@ return {
       })
     end,
   },
-  'AndrewRadev/linediff.vim',
+  { 'AndrewRadev/linediff.vim' },
 
   -- Motion
   {
@@ -319,7 +319,7 @@ return {
       vim.keymap.set({ 'n', 'x' }, '<C-k>', "m'<Plug>(edgemotion-k)")
     end,
   },
-  'bkad/CamelCaseMotion',
+  { 'bkad/CamelCaseMotion' },
   {
     'gametaro/pounce.nvim',
     branch = 'cword',
@@ -488,7 +488,7 @@ return {
   },
 
   -- Utility
-  'nvim-lua/plenary.nvim',
+  { 'nvim-lua/plenary.nvim' },
   {
     'tyru/open-browser.vim',
     init = function()

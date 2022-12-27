@@ -2,11 +2,11 @@ return {
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    'JoosepAlviste/nvim-ts-context-commentstring',
-    'windwp/nvim-ts-autotag',
-    'nvim-treesitter/playground',
-    'p00f/nvim-ts-rainbow',
+    { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    { 'windwp/nvim-ts-autotag' },
+    { 'nvim-treesitter/playground' },
+    { 'p00f/nvim-ts-rainbow' },
     { 'nvim-treesitter/nvim-treesitter-context', config = true },
     {
       'mfussenegger/nvim-treehopper',

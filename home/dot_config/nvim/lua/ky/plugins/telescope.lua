@@ -2,10 +2,10 @@ return {
   'nvim-telescope/telescope.nvim',
   dependencies = {
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    { 'nvim-telescope/telescope-frecency.nvim', dependencies = { 'kkharji/sqlite.lua' } },
-    'natecraddock/telescope-zf-native.nvim',
-    'debugloop/telescope-undo.nvim',
-    'nvim-telescope/telescope-live-grep-args.nvim',
+    { 'nvim-telescope/telescope-frecency.nvim', dependencies = 'kkharji/sqlite.lua' },
+    { 'natecraddock/telescope-zf-native.nvim' },
+    { 'debugloop/telescope-undo.nvim' },
+    { 'nvim-telescope/telescope-live-grep-args.nvim' },
   },
   config = function()
     local telescope = require('telescope')

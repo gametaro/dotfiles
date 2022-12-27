@@ -1,10 +1,10 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    'jose-elias-alvarez/typescript.nvim',
-    'b0o/schemastore.nvim',
-    'lukas-reineke/lsp-format.nvim',
-    'folke/neodev.nvim',
+    { 'jose-elias-alvarez/typescript.nvim' },
+    { 'b0o/schemastore.nvim' },
+    { 'lukas-reineke/lsp-format.nvim' },
+    { 'folke/neodev.nvim' },
   },
   config = function()
     local lspconfig = require('lspconfig')
