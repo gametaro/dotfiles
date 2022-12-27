@@ -259,7 +259,7 @@ M.highlight_groups = {
   healthWarning = { fg = M.palette.orange },
   healthError = { fg = M.palette.red },
 
-  -- lsp
+  -- :help lsp-highlight
   LspReferenceRead = { bg = pmenusel_bg },
   LspReferenceText = { bg = pmenusel_bg },
   LspReferenceWrite = { bg = pmenusel_bg },
@@ -588,11 +588,21 @@ M.compile = function(silent)
   end
 end
 
-M.clean = function()
+---@param silent boolean
+M.clean = function(silent)
+  silent = silent or false
+
   local ok, msg = os.remove(compile_path)
-  if not ok and msg then
+  if not ok and msg and not silent then
     vim.notify(msg, vim.log.levels.ERROR, { title = 'heine.nvim' })
   end
 end
+
+vim.api.nvim_create_user_command('HeineCompile', function()
+  M.compile()
+end, { nargs = 0 })
+vim.api.nvim_create_user_command('HeineClean', function()
+  M.clean()
+end, { nargs = 0 })
 
 return M
