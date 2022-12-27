@@ -1,6 +1,8 @@
 local api = vim.api
 local cmd = vim.cmd
 
+local keep_mode = false
+
 local get_prompt_text = function()
   local count = api.nvim_buf_line_count(0)
   local lines = vim.tbl_filter(function(s)
@@ -36,8 +38,8 @@ api.nvim_create_autocmd('TermOpen', {
     map('n', 'dd', string.format('i<End><C-u>%s', escape))
     map('n', 'cw', 'i<End><C-w>')
     map('n', 'cc', 'i<End><C-u>')
-    map('n', 'p', string.format('i<End>%sp', escape))
-    map('n', 'P', string.format('i<Home>%sp', escape))
+    -- map('n', 'p', string.format('i<End>%sp', escape))
+    -- map('n', 'P', string.format('i<Home>%sp', escape))
     map('n', 'u', string.format('i<C-_>%s', escape))
     map('n', '<C-p>', function()
       return 'i' .. string.rep('<Up>', vim.v.count1) .. escape
@@ -47,7 +49,15 @@ api.nvim_create_autocmd('TermOpen', {
     end, { expr = true })
     map('t', ';', function()
       local text = get_prompt_text()
-      return string.match(text, '❯%s+$') and [[<C-\><C-n>:]] or ':'
+      return string.match(text, '❯%s+$') and string.format('%s:', escape) or ':'
+    end, { expr = true })
+    map('t', [[<C-\>]], function()
+      keep_mode = true
+      return string.format('%s<C-^>', escape)
+    end, { expr = true })
+    map('t', [[<C-o>]], function()
+      keep_mode = true
+      return string.format('%s<C-o>', escape)
     end, { expr = true })
 
     map('t', '<Esc>', function()
@@ -64,9 +74,14 @@ api.nvim_create_autocmd('TermOpen', {
 })
 
 api.nvim_create_autocmd({ 'TermEnter', 'TermLeave' }, {
-  pattern = 'term://*',
   callback = function(a)
-    vim.b[a.buf].term_mode = api.nvim_get_mode().mode
+    if a.event == 'TermEnter' then
+      keep_mode = false
+      vim.b[a.buf].term_mode = api.nvim_get_mode().mode
+    end
+    if a.event == 'TermLeave' and not keep_mode then
+      vim.b[a.buf].term_mode = api.nvim_get_mode().mode
+    end
   end,
 })
 
