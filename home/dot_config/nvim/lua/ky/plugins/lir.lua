@@ -1,6 +1,7 @@
 return {
   'tamago324/lir.nvim',
-  dependencies = 'tamago324/lir-git-status.nvim',
+  dependencies = { 'nvim-lua/plenary.nvim', 'tamago324/lir-git-status.nvim' },
+  event = 'VeryLazy',
   config = function()
     local lir = require('lir')
     local config = require('lir.config')
@@ -157,16 +158,6 @@ return {
         ['x'] = clipboard_actions.cut,
         ['p'] = clipboard_actions.paste,
       },
-      on_config = function()
-        vim.keymap.set(
-          'x',
-          '<Tab>',
-          ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
-          { buffer = true }
-        )
-        vim.opt_local.signcolumn = 'no'
-        vim.opt_local.spell = false
-      end,
     })
 
     require('lir.git_status').setup({

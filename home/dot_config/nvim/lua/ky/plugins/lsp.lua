@@ -5,17 +5,19 @@ return {
     { 'b0o/schemastore.nvim' },
     { 'lukas-reineke/lsp-format.nvim' },
     { 'folke/neodev.nvim' },
+    { 'williamboman/mason.nvim' },
+    { 'williamboman/mason-lspconfig.nvim', config = true },
   },
+  event = 'BufReadPre',
   config = function()
-    local lspconfig = require('lspconfig')
-    local cmp_nvim_lsp = require('cmp_nvim_lsp')
-    local lsp_format = require('lsp-format')
-    local schemastore = require('schemastore')
-
     local lsp = vim.lsp
-
+    require('mason').setup({
+      ui = {
+        border = require('ky.ui').border,
+      },
+    })
     require('neodev').setup()
-    lsp_format.setup({
+    require('lsp-format').setup({
       typescript = {
         exclude = { 'tsserver', 'eslint' },
       },
@@ -27,7 +29,7 @@ return {
       },
     })
 
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     ---@param client table
     ---@param bufnr integer
@@ -111,7 +113,7 @@ return {
 
         local client = lsp.get_client_by_id(a.data.client_id)
         on_attach(client, a.buf)
-        lsp_format.on_attach(client)
+        require('lsp-format').on_attach(client)
 
         if custom_on_attach[client.name] then
           custom_on_attach[client.name](client)
@@ -134,7 +136,7 @@ return {
       jsonls = {
         settings = {
           json = {
-            schemas = schemastore.json.schemas(),
+            schemas = require('schemastore').json.schemas(),
             validate = { enable = true },
           },
         },
@@ -144,7 +146,7 @@ return {
       yamlls = {
         settings = {
           yaml = {
-            schemas = schemastore.json.schemas(),
+            schemas = require('schemastore').json.schemas(),
             -- for cloudformation
             -- see https://github.com/aws-cloudformation/cfn-lint-visual-studio-code/issues/69
             customTags = {
@@ -215,7 +217,7 @@ return {
 
     for server, config in pairs(configs) do
       config.capabilities = capabilities
-      lspconfig[server].setup(config)
+      require('lspconfig')[server].setup(config)
     end
 
     require('typescript').setup({

@@ -7,6 +7,7 @@ return {
     { 'debugloop/telescope-undo.nvim' },
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
   },
+  event = 'VeryLazy',
   config = function()
     local telescope = require('telescope')
     local actions = require('telescope.actions')

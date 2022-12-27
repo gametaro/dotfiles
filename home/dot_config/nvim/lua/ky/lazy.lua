@@ -12,6 +12,9 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup('ky.plugins', {
+  defaults = {
+    lazy = true,
+  },
   lockfile = vim.fs.normalize('$XDG_DATA_HOME/chezmoi/home/dot_config/nvim/lazy-lock.json'),
   checker = {
     enabled = true,

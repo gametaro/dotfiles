@@ -26,9 +26,10 @@ return {
   },
   { 'norcalli/nvim-colorizer.lua' },
   { 'mtdl9/vim-log-highlighting' },
-  { 'itchyny/vim-highlighturl' },
+  { 'itchyny/vim-highlighturl', event = 'BufReadPost' },
   {
     'RRethy/vim-illuminate',
+    event = 'BufReadPost',
     config = function()
       require('illuminate').configure({
         modes_denylist = { 'i' },
@@ -38,7 +39,8 @@ return {
   },
   {
     't9md/vim-quickhl',
-    init = function()
+    keys = { '<LocalLeader>m', '<LocalLeader>M' },
+    config = function()
       vim.keymap.set({ 'n', 'x' }, '<LocalLeader>m', '<Plug>(quickhl-manual-this-whole-word)')
       vim.keymap.set({ 'n', 'x' }, '<LocalLeader>M', '<Plug>(quickhl-manual-reset)')
     end,
@@ -46,34 +48,13 @@ return {
 
   -- Editing support
   {
-    'gbprod/substitute.nvim',
-    config = function()
-      vim.keymap.set('n', '_', require('substitute').operator)
-      vim.keymap.set('x', '_', require('substitute').visual)
-      vim.keymap.set('n', 'X', require('substitute.exchange').operator)
-      vim.keymap.set('x', 'X', require('substitute.exchange').visual)
-      vim.keymap.set('n', 'Xc', require('substitute.exchange').cancel)
-
-      require('substitute').setup({
-        on_substitute = function(event)
-          require('yanky').init_ring('p', event.register, event.count, event.vmode:match('[vV]'))
-        end,
-      })
-    end,
-  },
-  { 'gbprod/stay-in-place.nvim', config = true },
-  {
     'kana/vim-niceblock',
-    init = function()
-      vim.g.niceblock_no_default_key_mappings = 1
-
-      vim.keymap.set('x', 'A', '<Plug>(niceblock-A)')
-      vim.keymap.set('x', 'I', '<Plug>(niceblock-I)')
-    end,
+    keys = { { 'A', mode = 'x' }, { 'I', mode = 'x' }, { 'gI', mode = 'x' } },
   },
   { 'gpanders/editorconfig.nvim' },
   {
     'andymass/vim-matchup',
+    event = 'BufReadPost',
     init = function()
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_deferred_hide_delay = 300
@@ -83,11 +64,14 @@ return {
   {
     'ojroques/nvim-osc52',
     init = function()
-      vim.keymap.set('n', '<LocalLeader>y', require('osc52').copy_operator, { expr = true })
-      vim.keymap.set('x', '<LocalLeader>y', require('osc52').copy_visual)
+      vim.keymap.set('n', '<LocalLeader>y', function()
+        return require('osc52').copy_operator()
+      end, { expr = true })
+      vim.keymap.set('x', '<LocalLeader>y', function()
+        require('osc52').copy_visual()
+      end)
     end,
   },
-  { 'tpope/vim-repeat' },
   { 'johmsalas/text-case.nvim', config = true },
   {
     'Wansmer/treesj',
@@ -139,17 +123,7 @@ return {
     end,
   },
 
-  {
-    'williamboman/mason.nvim',
-    config = function()
-      require('mason').setup({
-        ui = {
-          border = require('ky.ui').border,
-        },
-      })
-    end,
-  },
-  { 'smjonas/inc-rename.nvim', config = true },
+  { 'smjonas/inc-rename.nvim', cmd = 'IncRename', config = true },
   {
     'kosayoda/nvim-lightbulb',
     event = 'LspAttach',
@@ -194,6 +168,7 @@ return {
   -- Keybinding
   {
     'folke/which-key.nvim',
+    event = 'VeryLazy',
     config = function()
       require('which-key').setup({
         plugins = {
@@ -211,7 +186,13 @@ return {
   -- Search
   {
     'haya14busa/vim-asterisk',
-    init = function()
+    keys = {
+      { '*', mode = '' },
+      { '#', mode = '' },
+      { 'g*', mode = '' },
+      { 'g#', mode = '' },
+    },
+    config = function()
       vim.g['asterisk#keeppos'] = 1
       vim.keymap.set('', '*', '<Plug>(asterisk-z*)')
       vim.keymap.set('', '#', '<Plug>(asterisk-z#)')
@@ -247,7 +228,8 @@ return {
   -- },
   {
     'rhysd/git-messenger.vim',
-    init = function()
+    keys = { '<LocalLeader>gm' },
+    config = function()
       vim.g.git_messenger_floating_win_opts = { border = require('ky.ui').border }
       vim.g.git_messenger_include_diff = 'current'
       vim.g.git_messenger_popup_content_margins = false
@@ -261,35 +243,7 @@ return {
       })
     end,
   },
-  {
-    'ruifm/gitlinker.nvim',
-    config = function()
-      for _, v in ipairs({ 'n', 'v' }) do
-        vim.keymap.set(v, 'gb', function()
-          require('gitlinker').get_buf_range_url(
-            v,
-            { action_callback = vim.fn['openbrowser#open'] }
-          )
-        end)
-        vim.keymap.set(v, '<LocalLeader>gy', function()
-          require('gitlinker').get_buf_range_url(v)
-        end)
-      end
-      vim.keymap.set('n', 'gB', function()
-        require('gitlinker').get_repo_url({
-          action_callback = vim.fn['openbrowser#open'],
-        })
-      end)
-      vim.keymap.set('n', '<LocalLeader>gY', function()
-        require('gitlinker').get_repo_url()
-      end)
-
-      require('gitlinker').setup({
-        mappings = nil,
-      })
-    end,
-  },
-  { 'akinsho/git-conflict.nvim', config = true },
+  { 'akinsho/git-conflict.nvim', event = 'BufReadPost', config = true },
   {
     'hotwatermorning/auto-git-diff',
     config = function()
@@ -309,17 +263,18 @@ return {
       })
     end,
   },
-  { 'AndrewRadev/linediff.vim' },
+  { 'AndrewRadev/linediff.vim', cmd = { 'Linediff' } },
 
   -- Motion
   {
     'haya14busa/vim-edgemotion',
-    init = function()
+    keys = { { '<C-j>', mode = { 'n', 'x' } }, { '<C-k>', mode = { 'n', 'x' } } },
+    config = function()
       vim.keymap.set({ 'n', 'x' }, '<C-j>', "m'<Plug>(edgemotion-j)")
       vim.keymap.set({ 'n', 'x' }, '<C-k>', "m'<Plug>(edgemotion-k)")
     end,
   },
-  { 'bkad/CamelCaseMotion' },
+  { 'bkad/CamelCaseMotion', lazy = false },
   {
     'gametaro/pounce.nvim',
     branch = 'cword',
@@ -334,7 +289,13 @@ return {
   },
   {
     'hrsh7th/vim-eft',
-    init = function()
+    keys = {
+      { 'f', mode = { 'n', 'x', 'o' } },
+      { 't', mode = { 'n', 'x', 'o' } },
+      { 'F', mode = { 'n', 'x', 'o' } },
+      { 'T', mode = { 'n', 'x', 'o' } },
+    },
+    config = function()
       for _, v in ipairs({ 'f', 'F', 't', 'T' }) do
         vim.keymap.set({ 'n', 'x', 'o' }, v, string.format('<Plug>(eft-%s-repeatable)', v))
       end
@@ -342,7 +303,8 @@ return {
   },
   {
     'rainbowhxch/accelerated-jk.nvim',
-    init = function()
+    keys = { 'j', 'k' },
+    config = function()
       for _, v in ipairs({ 'j', 'k' }) do
         vim.keymap.set('n', v, function()
           return vim.v.count == 0 and string.format('<Plug>(accelerated_jk_g%s)', v)
@@ -464,7 +426,7 @@ return {
     build = function()
       vim.fn['mkdp#util#install']()
     end,
-    cmd = 'MarkdownPreview',
+    ft = 'markdown',
   },
   { 'AckslD/nvim-FeMaco.lua', cmd = 'FeMaco', config = true },
 
@@ -479,6 +441,7 @@ return {
   -- },
   {
     'Shatur/neovim-session-manager',
+    lazy = false,
     config = function()
       require('session_manager').setup({
         autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir,
@@ -491,13 +454,15 @@ return {
   { 'nvim-lua/plenary.nvim' },
   {
     'tyru/open-browser.vim',
-    init = function()
+    keys = { 'gx', mode = { 'n', 'x' } },
+    config = function()
       vim.keymap.set({ 'n', 'x' }, 'gx', '<Plug>(openbrowser-smart-search)')
       require('ky.abbrev').cabbrev('ob', 'OpenBrowserSmartSearch')
     end,
   },
   {
     'lambdalisue/suda.vim',
+    lazy = false,
     init = function()
       vim.g.suda_smart_edit = 1
     end,
@@ -513,19 +478,14 @@ return {
       vim.g.startuptime_exe_args = { '--cmd', 'let g:unception_disable=1' }
     end,
   },
-  {
-    'samjwill/nvim-unception',
-    -- init = function()
-    --   vim.g.unception_open_buffer_in_new_tab = true
-    --   vim.g.unception_enable_flavor_text = false
-    -- end,
-  },
+  { 'samjwill/nvim-unception', lazy = false },
   {
     'kevinhwang91/nvim-fundo',
     dependencies = 'kevinhwang91/promise-async',
     build = function()
       require('fundo').install()
     end,
+    lazy = false,
     config = true,
   },
   {
