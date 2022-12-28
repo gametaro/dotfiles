@@ -59,6 +59,10 @@ api.nvim_create_autocmd('TermOpen', {
       keep_mode = true
       return string.format('%s<C-o>', escape)
     end, { expr = true })
+    map('t', [[<C-^>]], function()
+      keep_mode = true
+      return string.format('%s<C-^>', escape)
+    end, { expr = true })
 
     map('t', '<Esc>', function()
       local names = { 'nvim', 'fzf' }
