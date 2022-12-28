@@ -11,32 +11,9 @@ return {
   },
 
   -- Syntax/Highlight
-  {
-    'zbirenbaum/neodim',
-    event = 'LspAttach',
-    config = function()
-      require('neodim').setup({
-        hide = {
-          virtual_text = false,
-          signs = false,
-          underline = false,
-        },
-      })
-    end,
-  },
   { 'norcalli/nvim-colorizer.lua' },
   { 'mtdl9/vim-log-highlighting' },
   { 'itchyny/vim-highlighturl', event = 'BufReadPost' },
-  {
-    'RRethy/vim-illuminate',
-    event = 'BufReadPost',
-    config = function()
-      require('illuminate').configure({
-        modes_denylist = { 'i' },
-        filetypes_denylist = { 'qf' },
-      })
-    end,
-  },
   {
     't9md/vim-quickhl',
     keys = { '<LocalLeader>m', '<LocalLeader>M' },
@@ -52,111 +29,10 @@ return {
     keys = { { 'A', mode = 'x' }, { 'I', mode = 'x' }, { 'gI', mode = 'x' } },
   },
   { 'gpanders/editorconfig.nvim' },
-  {
-    'andymass/vim-matchup',
-    event = 'BufReadPost',
-    init = function()
-      vim.g.matchup_matchparen_deferred = 1
-      vim.g.matchup_matchparen_deferred_hide_delay = 300
-      vim.g.matchup_matchparen_offscreen = { method = 'popup' }
-    end,
-  },
-  {
-    'ojroques/nvim-osc52',
-    init = function()
-      vim.keymap.set('n', '<LocalLeader>y', function()
-        return require('osc52').copy_operator()
-      end, { expr = true })
-      vim.keymap.set('x', '<LocalLeader>y', function()
-        require('osc52').copy_visual()
-      end)
-    end,
-  },
   { 'johmsalas/text-case.nvim', config = true },
-  {
-    'Wansmer/treesj',
-    cmd = 'TSJToggle',
-    init = function()
-      vim.keymap.set('n', '<LocalLeader>j', vim.cmd.TSJToggle)
-    end,
-    config = function()
-      require('treesj').setup({
-        use_default_keymaps = false,
-      })
-    end,
-  },
-  {
-    'kylechui/nvim-surround',
-    event = 'VeryLazy',
-    config = function()
-      require('nvim-surround').setup({
-        move_cursor = false,
-      })
-    end,
-  },
-  {
-    'smjonas/live-command.nvim',
-    event = 'CmdlineEnter',
-    config = function()
-      require('live-command').setup({
-        commands = {
-          Norm = { cmd = 'norm' },
-        },
-      })
-    end,
-  },
   { 'axelvc/template-string.nvim', enabled = false, config = true },
-  {
-    'cshuaimin/ssr.nvim',
-    enabled = false,
-    config = function()
-      require('ssr').setup({
-        min_width = 50,
-        min_height = 5,
-        keymaps = {
-          close = 'q',
-          next_match = 'n',
-          prev_match = 'N',
-          replace_all = '<LocalLeader><CR>',
-        },
-      })
-      vim.keymap.set('n', '<LocalLeader>rs', require('ssr').open)
-    end,
-  },
 
   { 'smjonas/inc-rename.nvim', cmd = 'IncRename', config = true },
-  {
-    'kosayoda/nvim-lightbulb',
-    event = 'LspAttach',
-    config = function()
-      require('nvim-lightbulb').setup({
-        autocmd = { enabled = true },
-      })
-    end,
-  },
-
-  -- Completion/Snippets
-  {
-    'danymat/neogen',
-    cmd = 'Neogen',
-    init = function()
-      vim.keymap.set('n', '<LocalLeader>nf', function()
-        require('neogen').generate()
-      end)
-      vim.keymap.set('n', '<LocalLeader>nt', function()
-        require('neogen').generate({ type = 'type' })
-      end)
-      vim.keymap.set('n', '<LocalLeader>nc', function()
-        require('neogen').generate({ type = 'class' })
-      end)
-      vim.keymap.set('n', '<LocalLeader>nF', function()
-        require('neogen').generate({ type = 'file' })
-      end)
-    end,
-    config = function()
-      require('neogen').setup({ snippet_engine = 'luasnip' })
-    end,
-  },
 
   -- ColorScheme
   { 'EdenEast/nightfox.nvim' },
@@ -165,42 +41,6 @@ return {
   { 'cocopon/iceberg.vim' },
   { 'catppuccin/nvim' },
   { 'folke/tokyonight.nvim' },
-
-  -- Keybinding
-  {
-    'folke/which-key.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('which-key').setup({
-        plugins = {
-          marks = false,
-          spelling = {
-            enabled = true,
-          },
-        },
-        show_help = false,
-        show_keys = false,
-      })
-    end,
-  },
-
-  -- Search
-  {
-    'haya14busa/vim-asterisk',
-    keys = {
-      { '*', mode = '' },
-      { '#', mode = '' },
-      { 'g*', mode = '' },
-      { 'g#', mode = '' },
-    },
-    config = function()
-      vim.g['asterisk#keeppos'] = 1
-      vim.keymap.set('', '*', '<Plug>(asterisk-z*)')
-      vim.keymap.set('', '#', '<Plug>(asterisk-z#)')
-      vim.keymap.set('', 'g*', '<Plug>(asterisk-gz*)')
-      vim.keymap.set('', 'g#', '<Plug>(asterisk-gz#)')
-    end,
-  },
 
   -- Git/Diff
   -- {
@@ -227,43 +67,7 @@ return {
   --     }
   --   end,
   -- },
-  {
-    'rhysd/git-messenger.vim',
-    keys = { '<LocalLeader>gm' },
-    config = function()
-      vim.g.git_messenger_floating_win_opts = { border = require('ky.ui').border }
-      vim.g.git_messenger_include_diff = 'current'
-      vim.g.git_messenger_popup_content_margins = false
-
-      vim.keymap.set('n', '<LocalLeader>gm', '<Plug>(git-messenger)')
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = 'gitmessengerpopup',
-        callback = function()
-          vim.opt_local.winbar = nil
-        end,
-      })
-    end,
-  },
   { 'akinsho/git-conflict.nvim', event = 'BufReadPost', config = true },
-  {
-    'hotwatermorning/auto-git-diff',
-    config = function()
-      vim.api.nvim_create_autocmd('FileType', {
-        group = vim.api.nvim_create_augroup('mine_auto_git_diff', {}),
-        pattern = 'gitrebase',
-        callback = function(a)
-          vim.keymap.set(
-            'n',
-            '<C-l>',
-            '<Plug>(auto_git_diff_scroll_manual_update)',
-            { buffer = a.buf }
-          )
-          vim.keymap.set('n', '<C-d>', '<Plug>(auto_git_diff_scroll_down_half)', { buffer = a.buf })
-          vim.keymap.set('n', '<C-u>', '<Plug>(auto_git_diff_scroll_up_half)', { buffer = a.buf })
-        end,
-      })
-    end,
-  },
   { 'AndrewRadev/linediff.vim', cmd = { 'Linediff' } },
 
   -- Motion
@@ -276,44 +80,6 @@ return {
     end,
   },
   { 'bkad/CamelCaseMotion', lazy = false },
-  {
-    'gametaro/pounce.nvim',
-    branch = 'cword',
-    cmd = 'Pounce',
-    init = function()
-      vim.keymap.set({ 'n', 'x' }, 's', '')
-      vim.keymap.set({ 'n', 'x' }, 's', vim.cmd.Pounce)
-      vim.keymap.set({ 'n', 'x' }, '<LocalLeader>s', vim.cmd.PounceCword)
-      vim.keymap.set({ 'n', 'x', 'o' }, 'S', vim.cmd.PounceRepeat)
-      vim.keymap.set('o', 'gs', vim.cmd.Pounce)
-    end,
-  },
-  {
-    'hrsh7th/vim-eft',
-    keys = {
-      { 'f', mode = { 'n', 'x', 'o' } },
-      { 't', mode = { 'n', 'x', 'o' } },
-      { 'F', mode = { 'n', 'x', 'o' } },
-      { 'T', mode = { 'n', 'x', 'o' } },
-    },
-    config = function()
-      for _, v in ipairs({ 'f', 'F', 't', 'T' }) do
-        vim.keymap.set({ 'n', 'x', 'o' }, v, string.format('<Plug>(eft-%s-repeatable)', v))
-      end
-    end,
-  },
-  {
-    'rainbowhxch/accelerated-jk.nvim',
-    keys = { 'j', 'k' },
-    config = function()
-      for _, v in ipairs({ 'j', 'k' }) do
-        vim.keymap.set('n', v, function()
-          return vim.v.count == 0 and string.format('<Plug>(accelerated_jk_g%s)', v)
-            or string.format('<Plug>(accelerated_jk_%s)', v)
-        end, { expr = true })
-      end
-    end,
-  },
 
   -- Comment
   -- {
@@ -323,89 +89,6 @@ return {
   --     pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
   --   }),
   -- },
-  {
-    'folke/todo-comments.nvim',
-    init = function()
-      vim.keymap.set('n', '<LocalLeader>tq', vim.cmd.TodoQuickFix)
-      vim.keymap.set('n', '<LocalLeader>tl', vim.cmd.TodoLocList)
-      vim.keymap.set('n', ']t', function()
-        require('todo-comments').jump_next()
-      end, { desc = 'Next todo comment' })
-
-      vim.keymap.set('n', '[t', function()
-        require('todo-comments').jump_prev()
-      end, { desc = 'Previous todo comment' })
-    end,
-    config = true,
-  },
-
-  -- Project
-  {
-    'ahmedkhalf/project.nvim',
-    enabled = false,
-    config = function()
-      require('project_nvim').setup({
-        manual_mode = true,
-        ignore_lsp = { 'null-ls' },
-      })
-      require('telescope').load_extension('projects')
-      vim.keymap.set('n', '<LocalLeader>fp', '<Cmd>Telescope projects<CR>')
-
-      local group = vim.api.nvim_create_augroup('mine__project', { clear = true })
-
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
-        group = group,
-        nested = true,
-        callback = function()
-          if vim.tbl_contains({ 'nofile', 'prompt' }, vim.bo.buftype) then
-            return
-          end
-          if vim.tbl_contains({ 'help', 'qf' }, vim.bo.filetype) then
-            return
-          end
-          local root = require('project_nvim.project').get_project_root()
-          if root then
-            vim.cmd.tcd({ root, mods = { silent = true } })
-          end
-        end,
-      })
-
-      vim.api.nvim_create_autocmd('VimLeavePre', {
-        group = group,
-        callback = function()
-          require('project_nvim.utils.history').write_projects_to_history()
-        end,
-      })
-    end,
-  },
-  {
-    'tpope/vim-projectionist',
-    init = function()
-      vim.g.projectionist_heuristics = {
-        ['*.lua'] = {
-          ['*.lua'] = { alternate = { '{}_spec.lua' }, type = 'source' },
-          ['*_spec.lua'] = { alternate = '{}.lua', type = 'test' },
-        },
-        ['*.ts'] = {
-          ['*.ts'] = { alternate = { '{}.test.ts', '{}.spec.ts' }, type = 'source' },
-          ['*.test.ts'] = { alternate = '{}.ts', type = 'test' },
-          ['*.spec.ts'] = { alternate = '{}.ts', type = 'test' },
-        },
-        ['*.tsx'] = {
-          ['*.tsx'] = { alternate = { '{}.test.tsx', '{}.spec.tsx' }, type = 'source' },
-          ['*.test.tsx'] = { alternate = '{}.tsx', type = 'test' },
-          ['*.spec.tsx'] = { alternate = '{}.tsx', type = 'test' },
-        },
-        ['*.py'] = {
-          ['*.py'] = { alternate = { 'test_{}.py' }, type = 'source' },
-          ['test_*.py'] = { alternate = { '{}.py' }, type = 'test' },
-        },
-      }
-      vim.keymap.set('n', '<LocalLeader>a', vim.cmd.A)
-      vim.keymap.set('n', '<LocalLeader>Av', vim.cmd.AV)
-      vim.keymap.set('n', '<LocalLeader>As', vim.cmd.AS)
-    end,
-  },
 
   -- Test
   {
@@ -480,15 +163,6 @@ return {
     end,
   },
   { 'samjwill/nvim-unception', lazy = false },
-  {
-    'kevinhwang91/nvim-fundo',
-    dependencies = 'kevinhwang91/promise-async',
-    build = function()
-      require('fundo').install()
-    end,
-    lazy = false,
-    config = true,
-  },
   {
     'mbbill/undotree',
     cmd = 'UndotreeToggle',
