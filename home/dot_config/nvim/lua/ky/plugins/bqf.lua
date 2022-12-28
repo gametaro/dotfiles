@@ -6,7 +6,7 @@ return {
       vim.fn['fzf#install']()
     end,
   },
-  event = 'VeryLazy',
+  ft = 'qf',
   config = function()
     require('bqf').setup({
       preview = {
