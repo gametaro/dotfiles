@@ -1,17 +1,48 @@
+local job = require('ky.job')
+local icons = require('ky.ui').icons
+
+local api = vim.api
+local cmd = vim.cmd
+local fn = vim.fn
+local diagnostic = vim.diagnostic
+
+local git_rev = function()
+  job(
+    'git',
+    {
+      'rev-list',
+      '--count',
+      '--left-right',
+      'HEAD...@{upstream}',
+    },
+    vim.schedule_wrap(function(data)
+      local ahead, behind = unpack(vim.split(data or '', '\t'))
+      api.nvim_set_var('git_rev', {
+        ahead = tonumber(ahead) or 0,
+        behind = tonumber(behind) or 0,
+      })
+    end)
+  )
+end
+
+api.nvim_create_autocmd('VimEnter', {
+  group = api.nvim_create_augroup('GitRev', { clear = true }),
+  once = true,
+  callback = function()
+    local timer = vim.loop.new_timer()
+    timer:start(0, 10000, function()
+      git_rev()
+    end)
+  end,
+})
+
 return {
   'rebelot/heirline.nvim',
-  event = 'VeryLazy',
+  event = 'UIEnter',
   config = function()
     local heirline = require('heirline')
     local conditions = require('heirline.conditions')
     local utils = require('heirline.utils')
-    local job = require('ky.job')
-    local icons = require('ky.ui').icons
-
-    local api = vim.api
-    local cmd = vim.cmd
-    local fn = vim.fn
-    local diagnostic = vim.diagnostic
 
     local setup_colors = function()
       return {
@@ -37,36 +68,6 @@ return {
 
     local Align = { provider = '%=' }
     local Space = { provider = ' ' }
-
-    local git_rev = function()
-      job(
-        'git',
-        {
-          'rev-list',
-          '--count',
-          '--left-right',
-          'HEAD...@{upstream}',
-        },
-        vim.schedule_wrap(function(data)
-          local ahead, behind = unpack(vim.split(data or '', '\t'))
-          api.nvim_set_var('git_rev', {
-            ahead = tonumber(ahead) or 0,
-            behind = tonumber(behind) or 0,
-          })
-        end)
-      )
-    end
-
-    api.nvim_create_autocmd('VimEnter', {
-      group = api.nvim_create_augroup('GitRev', { clear = true }),
-      once = true,
-      callback = function()
-        local timer = vim.loop.new_timer()
-        timer:start(0, 10000, function()
-          git_rev()
-        end)
-      end,
-    })
 
     api.nvim_create_autocmd('User', {
       pattern = 'HeirlineInitWinbar',
