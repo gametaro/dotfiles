@@ -24,10 +24,6 @@ return {
   },
 
   -- Editing support
-  {
-    'kana/vim-niceblock',
-    keys = { { 'A', mode = 'x' }, { 'I', mode = 'x' }, { 'gI', mode = 'x' } },
-  },
   { 'gpanders/editorconfig.nvim' },
   { 'johmsalas/text-case.nvim', config = true },
   { 'axelvc/template-string.nvim', enabled = false, config = true },
