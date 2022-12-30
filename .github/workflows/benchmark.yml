@@ -26,7 +26,7 @@ jobs:
           sudo dpkg -i hyperfine.deb
           # yamllint enable rule:line-length
       - name: Chezmoi Init
-        run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply --branch "$BRANCH_NAME" gametaro
+        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply --branch "$BRANCH_NAME" "$GITHUB_REPOSITORY_OWNER"
       - name: Run benchmark
         run: |
           TEMP_FILE=$(mktemp)

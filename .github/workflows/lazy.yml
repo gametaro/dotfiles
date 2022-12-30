@@ -6,16 +6,16 @@ on:
 jobs:
   lazy:
     runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     steps:
       - uses: actions/checkout@v3
       - name: Chezmoi Init
-        run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply --branch "$BRANCH_NAME" gametaro
-      - name: Git status
-        run: git status
+        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply --branch "$BRANCH_NAME" "$GITHUB_REPOSITORY_OWNER"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           delete-branch: true
-          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           title: "chore(lazy): bump plugins version"
           commit-message: "chore(lazy): bump plugins version"

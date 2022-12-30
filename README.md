@@ -10,10 +10,10 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 Unix:
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply gametaro
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply gametaro
 
 # for transitory environments
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --one-shot gametaro
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --one-shot gametaro
 ```
 
 Windows:
