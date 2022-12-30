@@ -286,27 +286,6 @@ return {
       hl = { fg = utils.get_highlight('Comment').fg },
     }
 
-    -- local FileSize = {
-    --   provider = function()
-    --     local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
-    --     local stat = vim.loop.fs_stat(api.nvim_buf_get_name(0))
-    --     local fsize = stat and stat.size or 0
-    --     if fsize <= 0 then
-    --       return '0' .. suffix[1]
-    --     end
-    --     local i = math.floor((math.log(fsize) / math.log(1024)))
-    --     return string.format('%.3g%s', fsize / math.pow(1024, i), suffix[i + 1])
-    --   end,
-    --   hl = { fg = utils.get_highlight('Comment').fg },
-    -- }
-
-    -- local FileLastModified = {
-    --   provider = function()
-    --     local ftime = fn.getftime(api.nvim_buf_get_name(0))
-    --     return (ftime > 0) and os.date('%c', ftime)
-    --   end,
-    -- }
-
     local Ruler = {
       {
         provider = function()
@@ -631,19 +610,6 @@ return {
       provider = '暈',
     }
 
-    local Snippets = {
-      condition = function()
-        local has_luasnip = prequire('luasnip')
-        return vim.tbl_contains({ 's', 'i' }, api.nvim_get_mode().mode) and has_luasnip
-      end,
-      provider = function()
-        local forward = (require('luasnip').expand_or_locally_jumpable()) and '' or ''
-        local backward = (require('luasnip').jumpable(-1)) and ' ' or ''
-        return backward .. forward
-      end,
-      hl = { fg = 'orange' },
-    }
-
     local WinBars = {
       fallthrough = false,
       LirName,
@@ -723,21 +689,14 @@ return {
     local DefaultStatusLine = {
       ViMode,
       Space,
-      -- FileNameBlock,
-      -- Space,
       Git,
-      -- Space,
-      -- Diagnostics,
       Align,
       WorkDir,
       Align,
-      Snippets,
       Spell,
       Space,
       LSPActive,
       Space,
-      -- FileSize,
-      -- Space,
       FileType,
       Space,
       FileEncoding,
