@@ -5,9 +5,27 @@
 
 My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 
+## OS
+
+* Linux
+* MacOS
+* Windows
+
+## Requisites
+
+### Linux/MacOS
+
+* `curl` or `wget`
+* `git`
+
+### Windows
+
+* `PowerShell`
+* `git`
+
 ## Installation
 
-Unix:
+### Linux/MacOS
 
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply gametaro
@@ -16,7 +34,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply gamet
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --one-shot gametaro
 ```
 
-Windows:
+### Windows
 
 ```powershell
 Set-ExecutionPolicy RemoteSigned -scope CurrentUser
@@ -24,7 +42,7 @@ Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 bin/chezmoi.exe init --apply gametaro
 ```
 
-With docker:
+### Docker
 
 ```bash
 git clone --depth 1 https://github.com/gametaro/dotfiles.git
