@@ -10,4 +10,4 @@ end
 
 require('ky')
 
-    vim.cmd.colorscheme('heine')
+vim.cmd.colorscheme('heine')
