@@ -12,6 +12,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Chezmoi Init
         run: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply --branch "$BRANCH_NAME" "$GITHUB_REPOSITORY_OWNER"
+      - name: Copy lazy-lock.json
+        shell: zsh {0}
+        run: |
+          lockfile_path=home/dot_config/nvim/lazy-lock.json
+          cp "$XDG_DATA_HOME/chezmoi/$lockfile_path" "$lockfile_path"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
