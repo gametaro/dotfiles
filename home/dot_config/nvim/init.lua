@@ -8,6 +8,6 @@ _G.prequire = function(modname)
   return pcall(require, modname)
 end
 
-require('ky')
+  require('ky')
 
 vim.cmd.colorscheme('heine')
