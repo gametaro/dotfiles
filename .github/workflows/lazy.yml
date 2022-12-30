@@ -1,0 +1,20 @@
+name: Lazy
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  stylua:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Chezmoi Init
+        run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply --branch "$BRANCH_NAME" gametaro
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: lazy
+          delete-branch: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          title: "chore(lazy): bump plugins version"
+          commit-message: "chore(lazy): bump plugins version"
