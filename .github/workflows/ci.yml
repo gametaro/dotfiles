@@ -48,17 +48,17 @@ jobs:
   #     - name: Chezmoi Init
   #       run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply gametaro
 
-  fedora:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    container: fedora:latest
-    env:
-      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install requisites (fedora)
-        run: dnf clean all && dnf install -y curl sudo
-
-      - name: Chezmoi Init
-        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --branch "$BRANCH_NAME" gametaro
+  # fedora:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   container: fedora:latest
+  #   env:
+  #     BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #
+  #     - name: Install requisites (fedora)
+  #       run: dnf clean all && dnf install -y curl sudo
+  #
+  #     - name: Chezmoi Init
+  #       run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --branch "$BRANCH_NAME" gametaro
