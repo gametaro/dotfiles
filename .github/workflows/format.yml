@@ -1,4 +1,3 @@
----
 name: Format
 on:
   push:
@@ -7,19 +6,16 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   stylua:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Run stylua
         uses: JohnnyMorganz/stylua-action@v2.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --glob "*.lua" -- .
-
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
@@ -27,27 +23,20 @@ jobs:
           branch: ${{ github.head_ref }}
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
-
-
   shfmt:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
           go-version: 1.16
-
       - name: Install shfmt
         run: GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@v3.3.0
-
       - name: List files to shfmt
         run: shfmt -f .
-
       - name: Run shfmt
         run: shfmt -w -i 2 -bn -ci -kp .
-
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
@@ -55,25 +44,20 @@ jobs:
           branch: ${{ github.head_ref }}
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
-
   yamlfmt:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.PAT }}
-
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
           go-version: 1.16
-
       - name: Install yamlfmt
         run: go install github.com/google/yamlfmt/cmd/yamlfmt@latest
-
       - name: Run yamlfmt
         run: yamlfmt
-
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:

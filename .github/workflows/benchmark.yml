@@ -1,16 +1,13 @@
----
 name: Benchmark
 on:
   push:
     branches:
       - main
-
 permissions:
   # deployments permission to deploy GitHub pages website
   deployments: write
   # contents permission to update benchmark contents in gh-pages branch
   contents: write
-
 jobs:
   benchmark:
     runs-on: ubuntu-latest
@@ -20,7 +17,6 @@ jobs:
       BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     steps:
       - uses: actions/checkout@v3
-
       - name: Install hyperfine
         run: |
           # yamllint disable rule:line-length
@@ -29,10 +25,8 @@ jobs:
           | wget -qi - -O hyperfine.deb
           sudo dpkg -i hyperfine.deb
           # yamllint enable rule:line-length
-
       - name: Chezmoi Init
         run: sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply --branch "$BRANCH_NAME" gametaro
-
       - name: Run benchmark
         run: |
           TEMP_FILE=$(mktemp)
@@ -54,7 +48,6 @@ jobs:
               }
           ]
           EOF
-
       - name: Upload benchmark
         uses: benchmark-action/github-action-benchmark@v1
         with:
