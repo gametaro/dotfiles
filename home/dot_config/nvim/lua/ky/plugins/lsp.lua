@@ -11,6 +11,8 @@ return {
   event = 'BufReadPre',
   config = function()
     local lsp = vim.lsp
+    lsp.set_log_level(vim.log.levels.ERROR)
+
     require('mason').setup({
       ui = {
         border = require('ky.ui').border,
