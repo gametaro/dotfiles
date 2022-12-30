@@ -15,8 +15,8 @@ shell = "zsh"
 # apply = ["defer"]
 
 [templates]
-defer = { value = 'zsh-defer source "{{ file }}"', each = true }
-symlink = { value = 'ln -sf "{{ file }}" "{{ dir }}/_{{ name }}"', each = true }
+defer = "{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}"
+symlink = "ln -sf {{ files.0 }} {{ dir }}/_{{ name }}" # only uses first matched file
 
 [plugins]
 
