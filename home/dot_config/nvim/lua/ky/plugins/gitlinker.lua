@@ -1,6 +1,6 @@
 return {
   'ruifm/gitlinker.nvim',
-  config = function()
+  init = function()
     for _, v in ipairs({ 'n', 'v' }) do
       vim.keymap.set(v, 'gb', function()
         require('gitlinker').get_buf_range_url(v, { action_callback = vim.fn['openbrowser#open'] })
@@ -17,7 +17,8 @@ return {
     vim.keymap.set('n', '<LocalLeader>gY', function()
       require('gitlinker').get_repo_url()
     end)
-
+  end,
+  config = function()
     require('gitlinker').setup({
       mappings = nil,
     })

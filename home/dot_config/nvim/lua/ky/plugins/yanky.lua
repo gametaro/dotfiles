@@ -1,7 +1,25 @@
 return {
   'gbprod/yanky.nvim',
   dependencies = 'kkharji/sqlite.lua',
-  event = 'VeryLazy',
+  keys = {
+    { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' } },
+    { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' } },
+    { 'gp', '<Plug>(YankyGPutAfter)', mode = { 'n', 'x' } },
+    { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' } },
+    { ']y', '<Plug>(YankyCycleForward)' },
+    { '[y', '<Plug>(YankyCycleBackward)' },
+    { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' } },
+    { ']p', '<Plug>(YankyPutIndentAfterLinewise)', mode = { 'n', 'x' } },
+    { '[p', '<Plug>(YankyPutIndentBeforeLinewise)', mode = { 'n', 'x' } },
+    { ']P', '<Plug>(YankyPutIndentAfterLinewise)', mode = { 'n', 'x' } },
+    { '[P', '<Plug>(YankyPutIndentBeforeLinewise)', mode = { 'n', 'x' } },
+    { '>p', '<Plug>(YankyPutIndentAfterShiftRight)', mode = { 'n', 'x' } },
+    { '<p', '<Plug>(YankyPutIndentAfterShiftLeft)', mode = { 'n', 'x' } },
+    { '>P', '<Plug>(YankyPutIndentBeforeShiftRight)', mode = { 'n', 'x' } },
+    { '<P', '<Plug>(YankyPutIndentBeforeShiftLeft)', mode = { 'n', 'x' } },
+    { '=p', '<Plug>(YankyPutAfterFilter)', mode = { 'n', 'x' } },
+    { '=P', '<Plug>(YankyPutBeforeFilter)', mode = { 'n', 'x' } },
+  },
   config = function()
     require('yanky').setup({
       ring = {
@@ -16,23 +34,5 @@ return {
         timer = 200,
       },
     })
-
-    vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
-    vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
-    vim.keymap.set({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)')
-    vim.keymap.set({ 'n', 'x' }, 'gP', '<Plug>(YankyGPutBefore)')
-    vim.keymap.set('n', ']y', '<Plug>(YankyCycleForward)')
-    vim.keymap.set('n', '[y', '<Plug>(YankyCycleBackward)')
-    vim.keymap.set({ 'n', 'x' }, 'y', '<Plug>(YankyYank)')
-    vim.keymap.set({ 'n', 'x' }, ']p', '<Plug>(YankyPutIndentAfterLinewise)')
-    vim.keymap.set({ 'n', 'x' }, '[p', '<Plug>(YankyPutIndentBeforeLinewise)')
-    vim.keymap.set({ 'n', 'x' }, ']P', '<Plug>(YankyPutIndentAfterLinewise)')
-    vim.keymap.set({ 'n', 'x' }, '[P', '<Plug>(YankyPutIndentBeforeLinewise)')
-    vim.keymap.set({ 'n', 'x' }, '>p', '<Plug>(YankyPutIndentAfterShiftRight)')
-    vim.keymap.set({ 'n', 'x' }, '<p', '<Plug>(YankyPutIndentAfterShiftLeft)')
-    vim.keymap.set({ 'n', 'x' }, '>P', '<Plug>(YankyPutIndentBeforeShiftRight)')
-    vim.keymap.set({ 'n', 'x' }, '<P', '<Plug>(YankyPutIndentBeforeShiftLeft)')
-    vim.keymap.set({ 'n', 'x' }, '=p', '<Plug>(YankyPutAfterFilter)')
-    vim.keymap.set({ 'n', 'x' }, '=P', '<Plug>(YankyPutBeforeFilter)')
   end,
 }

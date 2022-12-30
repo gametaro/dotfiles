@@ -1,9 +1,9 @@
 return {
   'TimUntersberger/neogit',
   cmd = 'Neogit',
-  init = function()
-    vim.keymap.set('n', '<LocalLeader>gg', vim.cmd.Neogit)
-  end,
+  keys = {
+    { '<LocalLeader>gg', vim.cmd.Neogit },
+  },
   config = function()
     local group = vim.api.nvim_create_augroup('NeogitFileType', { clear = true })
 

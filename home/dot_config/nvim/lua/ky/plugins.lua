@@ -16,11 +16,10 @@ return {
   { 'itchyny/vim-highlighturl', event = 'BufReadPost' },
   {
     't9md/vim-quickhl',
-    keys = { '<LocalLeader>m', '<LocalLeader>M' },
-    config = function()
-      vim.keymap.set({ 'n', 'x' }, '<LocalLeader>m', '<Plug>(quickhl-manual-this-whole-word)')
-      vim.keymap.set({ 'n', 'x' }, '<LocalLeader>M', '<Plug>(quickhl-manual-reset)')
-    end,
+    keys = {
+      { '<LocalLeader>m', '<Plug>(quickhl-manual-this-whole-word)', mode = { 'n', 'x' } },
+      { '<LocalLeader>M', '<Plug>(quickhl-manual-reset)', mode = { 'n', 'x' } },
+    },
   },
 
   -- Editing support
@@ -89,14 +88,15 @@ return {
   -- Test
   {
     'vim-test/vim-test',
+    keys = {
+      { '<LocalLeader>tn', vim.cmd.TestNearest },
+      { '<LocalLeader>tf', vim.cmd.TestFile },
+      { '<LocalLeader>ts', vim.cmd.TestSuite },
+      { '<LocalLeader>tv', vim.cmd.TestVisit },
+    },
     init = function()
       vim.g['test#strategy'] = 'harpoon'
       vim.g['test#harpoon_term'] = 1
-
-      vim.keymap.set('n', '<LocalLeader>tn', vim.cmd.TestNearest)
-      vim.keymap.set('n', '<LocalLeader>tf', vim.cmd.TestFile)
-      vim.keymap.set('n', '<LocalLeader>ts', vim.cmd.TestSuite)
-      vim.keymap.set('n', '<LocalLeader>tv', vim.cmd.TestVisit)
     end,
   },
 
@@ -134,9 +134,10 @@ return {
   { 'nvim-lua/plenary.nvim' },
   {
     'tyru/open-browser.vim',
-    keys = { 'gx', mode = { 'n', 'x' } },
+    keys = {
+      { 'gx', '<Plug>(openbrowser-smart-search)', mode = { 'n', 'x' } },
+    },
     config = function()
-      vim.keymap.set({ 'n', 'x' }, 'gx', '<Plug>(openbrowser-smart-search)')
       require('ky.abbrev').cabbrev('ob', 'OpenBrowserSmartSearch')
     end,
   },
@@ -162,11 +163,13 @@ return {
   {
     'mbbill/undotree',
     cmd = 'UndotreeToggle',
+    keys = {
+      { '<LocalLeader>u', vim.cmd.UndotreeToggle },
+    },
     init = function()
       vim.g.undotree_SetFocusWhenToggle = 1
       vim.g.undotree_SplitWidth = 40
       vim.g.undotree_WindowLayout = 2
-      vim.keymap.set('n', '<LocalLeader>u', vim.cmd.UndotreeToggle)
     end,
   },
 }

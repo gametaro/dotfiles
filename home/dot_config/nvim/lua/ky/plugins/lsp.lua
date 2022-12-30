@@ -16,6 +16,9 @@ return {
         border = require('ky.ui').border,
       },
     })
+    require('mason-lspconfig').setup({
+      automatic_installation = true,
+    })
     require('neodev').setup()
     require('lsp-format').setup({
       typescript = {
