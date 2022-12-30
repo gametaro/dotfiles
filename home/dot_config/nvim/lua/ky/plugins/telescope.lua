@@ -6,6 +6,7 @@ return {
     { 'natecraddock/telescope-zf-native.nvim' },
     { 'debugloop/telescope-undo.nvim' },
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
+    { 'marcuscaisey/olddirs.nvim' },
   },
   event = 'VeryLazy',
   config = function()
@@ -230,5 +231,7 @@ return {
       })
     end)
     require('telescope').load_extension('undo')
+    require('telescope').load_extension('olddirs')
+    vim.keymap.set('n', '<LocalLeader>od', telescope.extensions.olddirs.picker)
   end,
 }
