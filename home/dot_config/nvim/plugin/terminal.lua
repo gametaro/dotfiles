@@ -66,7 +66,7 @@ api.nvim_create_autocmd('TermOpen', {
 
     map('t', '<Esc>', function()
       local names = { 'nvim', 'fzf' }
-      return require('ky.utils').find_proc_in_tree(vim.b[a.buf].terminal_job_pid, names) and '<Esc>'
+      return require('ky.util').find_proc_in_tree(vim.b[a.buf].terminal_job_pid, names) and '<Esc>'
         or escape
     end, {
       expr = true,

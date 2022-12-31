@@ -2,8 +2,6 @@ return {
   'rcarriga/nvim-notify',
   event = 'VeryLazy',
   config = function()
-    vim.o.termguicolors = true
-
     require('notify').setup({
       timeout = 1000,
       render = function(bufnr, notif, highlights, config)

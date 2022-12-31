@@ -1,4 +1,4 @@
-local utils = {}
+local util = {}
 
 local api = vim.api
 
@@ -6,7 +6,7 @@ local api = vim.api
 ---@param name string
 ---@param values table
 ---@param opts? table
-utils.toggle_options = function(name, values, opts)
+util.toggle_options = function(name, values, opts)
   local defaults = { silent = false }
   opts = vim.tbl_extend('force', defaults, opts or {})
   values = values or api.nvim_get_option_info(name).type == 'boolean' and { true, false }
@@ -35,7 +35,12 @@ end
 
 ---check nvim is running on headless mode
 ---@return boolean
-utils.headless = #api.nvim_list_uis() == 0
+util.headless = #api.nvim_list_uis() == 0
+
+---@return boolean
+util.is_win = function()
+  return vim.loop.os_uname().sysname:find('Windows') and true or false
+end
 
 ---searches process tree for a process having a name in the `names` list
 ---@param rootpid integer
@@ -43,7 +48,7 @@ utils.headless = #api.nvim_list_uis() == 0
 ---@param acc? integer
 ---@return boolean
 ---@see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
-utils.find_proc_in_tree = function(rootpid, names, acc)
+util.find_proc_in_tree = function(rootpid, names, acc)
   acc = acc or 0
   if acc > 9 then
     return false
@@ -54,7 +59,7 @@ utils.find_proc_in_tree = function(rootpid, names, acc)
   end
   local ids = api.nvim_get_proc_children(rootpid)
   for _, id in ipairs(ids) do
-    if utils.find_proc_in_tree(id, names, 1 + acc) then
+    if util.find_proc_in_tree(id, names, 1 + acc) then
       return true
     end
   end
@@ -64,7 +69,7 @@ end
 ---@param cmd string
 ---@param args table
 ---@param callback function
-utils.job = function(cmd, args, callback)
+util.job = function(cmd, args, callback)
   local results = {}
   local handle
   local stdout = vim.loop.new_pipe(false)
@@ -107,4 +112,4 @@ utils.job = function(cmd, args, callback)
   end
 end
 
-return utils
+return util

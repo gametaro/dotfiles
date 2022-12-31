@@ -1,4 +1,4 @@
-local utils = require('ky.utils')
+local util = require('ky.util')
 
 local map = vim.keymap.set
 local api = vim.api
@@ -371,16 +371,16 @@ map('n', '<LocalLeader>i', function()
 end)
 
 map('n', '<Leader>s', function()
-  utils.toggle_options('laststatus', { 0, 3 })
+  util.toggle_options('laststatus', { 0, 3 })
 end, { desc = 'toggle laststatus' })
 
 map('n', '<Leader>S', function()
-  utils.toggle_options('spell')
+  util.toggle_options('spell')
 end)
 
 map('n', '<F10>', function()
-  utils.toggle_options('list')
-  utils.toggle_options('number')
-  utils.toggle_options('relativenumber')
-  utils.toggle_options('signcolumn', { 'yes', 'no' })
+  util.toggle_options('list')
+  util.toggle_options('number')
+  util.toggle_options('relativenumber')
+  util.toggle_options('signcolumn', { 'yes', 'no' })
 end, { desc = 'toggle options for easier copy' })
