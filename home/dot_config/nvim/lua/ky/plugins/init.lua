@@ -12,7 +12,6 @@ return {
   { 'bkad/CamelCaseMotion', lazy = false },
   { 'AckslD/nvim-FeMaco.lua', cmd = 'FeMaco', config = true },
   { 'nvim-lua/plenary.nvim' },
-  { 'psliwka/vim-dirtytalk', build = ':DirtytalkUpdate' },
   { 'nacro90/numb.nvim', event = 'CmdlineEnter', config = true },
   { 'wsdjeg/vim-fetch', event = 'CmdlineEnter' },
   { 'justinmk/vim-gtfo', keys = { 'got', 'gof' } },
