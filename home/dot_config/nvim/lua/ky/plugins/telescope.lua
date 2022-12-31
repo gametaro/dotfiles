@@ -7,6 +7,7 @@ return {
     { 'debugloop/telescope-undo.nvim' },
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
     { 'marcuscaisey/olddirs.nvim' },
+    { 'tsakirist/telescope-lazy.nvim' },
   },
   event = 'VeryLazy',
   config = function()
@@ -128,6 +129,9 @@ return {
             match_filename = false,
           },
         },
+        olddirs = {
+          path_callback = vim.cmd.tcd,
+        },
       },
       pickers = {
         buffers = themes.get_dropdown({
@@ -230,8 +234,10 @@ return {
         path_display = { truncate = 3 },
       })
     end)
+
     require('telescope').load_extension('undo')
     require('telescope').load_extension('olddirs')
     vim.keymap.set('n', '<LocalLeader>od', telescope.extensions.olddirs.picker)
+    require('telescope').load_extension('lazy')
   end,
 }
