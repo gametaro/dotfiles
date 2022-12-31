@@ -53,6 +53,9 @@ if vim.env.XDG_DATA_HOME then
       end
       require('ky.util').job('chezmoi', { 'apply' }, function(output)
         if output ~= '' then
+          if output:find('has changed since chezmoi last wrote it?') then
+
+          end
           vim.notify(output, vim.log.levels.INFO, { title = 'chezmoi' })
         end
       end)

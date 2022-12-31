@@ -9,14 +9,14 @@ local walkthrough = {}
 
 ---@class walkthrough.List.Options
 ---@field public type walkthrough.List.Type
----@field public ignore? function
+---@field public skip? function
 ---@field public sort? function
 
 ---@class walkthrough.Options
 ---@field public next boolean
 ---@field public type walkthrough.List.Type
 ---@field public silent? boolean
----@field public ignore? function
+---@field public skip? function
 ---@field public sort? function
 
 ---@type table<string, userdata>
@@ -63,14 +63,14 @@ end
 ---@param opts walkthrough.List.Options
 ---@return walkthrough.List.Item[]
 local list = function(path, opts)
-  opts = opts or {}
+  opts = vim.tbl_extend('force', { sort = sort }, opts or {})
   local f = {}
-  for name, type in fs.dir(path) do
+  for name, type in fs.dir(path, { skip = opts.skip }) do
     if not opts.type or type == opts.type then
       f[#f + 1] = { name = name, type = type }
     end
   end
-  table.sort(f, opts.sort and opts.sort or sort)
+  table.sort(f, opts.sort)
   return f
 end
 
@@ -157,7 +157,7 @@ walkthrough.walkthrough = function(opts)
   local f = dirfs[dirname]
   if not f then
     watch(dirname)
-    f = list(dirname, { type = opts.type, ignore = opts.ignore, sort = opts.sort })
+    f = list(dirname, { type = opts.type, skip = opts.skip, sort = opts.sort })
   end
   if #f <= 1 then
     if not opts.silent then

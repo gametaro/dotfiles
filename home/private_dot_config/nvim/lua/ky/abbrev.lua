@@ -31,5 +31,6 @@ M.cabbrev('lr', "lua =require''''<Left>")
 -- lsp
 M.cabbrev('lsi', 'LspInfo')
 M.cabbrev('lsr', 'LspRestart')
+M.cabbrev('lsl', 'LspLog')
 
 return M

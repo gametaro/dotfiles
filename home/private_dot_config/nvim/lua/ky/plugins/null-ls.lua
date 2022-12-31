@@ -72,9 +72,9 @@ return {
       }),
       -- h.dictionary,
       ca.gitrebase,
-      ca.shellcheck.with({
-        condition = executable('shellcheck'),
-      }),
+      -- ca.shellcheck.with({
+      --   condition = executable('shellcheck'),
+      -- }),
       -- require('typescript.extensions.null-ls.code-actions'),
     }
 
