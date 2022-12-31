@@ -1,5 +1,4 @@
--- require('ky.disable')
 require('ky.option')
 require('ky.lazy')
--- require('ky.plugins')
--- require('ky.colorscheme')
+
+vim.cmd.colorscheme('heine')

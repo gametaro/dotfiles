@@ -68,25 +68,3 @@ vim.api.nvim_create_autocmd('DiagnosticChanged', {
   group = group,
   callback = setlist,
 })
-
-vim.api.nvim_create_autocmd('ModeChanged', {
-  group = group,
-  pattern = '*:s',
-  callback = function(a)
-    local ok, luasnip = prequire('luasnip')
-    if ok and luasnip.in_snippet() then
-      return diagnostic.disable(a.buf)
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd('ModeChanged', {
-  group = group,
-  pattern = '[is]:n',
-  callback = function(a)
-    local ok, luasnip = prequire('luasnip')
-    if ok and luasnip.in_snippet() then
-      return diagnostic.enable(a.buf)
-    end
-  end,
-})
