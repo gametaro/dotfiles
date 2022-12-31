@@ -46,28 +46,16 @@ autocmd('TextYankPost', {
 
 if vim.env.XDG_DATA_HOME then
   autocmd('BufWritePost', {
-    pattern = vim.fs.normalize(vim.env.XDG_DATA_HOME) .. '/chezmoi/*',
+    pattern = vim.fs.normalize(vim.env.XDG_DATA_HOME .. '/chezmoi/*'),
     callback = function(a)
       if string.match(a.file, '%.git/') then
         return
       end
-      local output = ''
-      local notification
-      local command = { 'chezmoi', 'apply', '--source-path', a.match }
-      local on_data = function(_, data)
-        output = output .. table.concat(data, '\n')
-        if #output ~= 0 then
-          notification = vim.notify(output, vim.log.levels.INFO, {
-            title = table.concat(command, ' '),
-            icon = '🏠',
-            replace = notification,
-          })
+      require('ky.util').job('chezmoi', { 'apply' }, function(output)
+        if output ~= '' then
+          vim.notify(output, vim.log.levels.INFO, { title = 'chezmoi' })
         end
-      end
-      fn.jobstart(command, {
-        on_stdout = on_data,
-        on_stderr = on_data,
-      })
+      end)
     end,
     desc = 'run chezmoi apply whenever a dotfile is saved',
   })
