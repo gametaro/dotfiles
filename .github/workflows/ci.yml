@@ -14,7 +14,7 @@ jobs:
         os:
           - macos-latest
           - ubuntu-latest
-          - windows-latest
+          # - windows-latest
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     env:
@@ -25,12 +25,12 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: |
           sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply --branch "$BRANCH_NAME" "$GITHUB_REPOSITORY_OWNER"
-      - name: Chezmoi Init (windows)
-        if: ${{ runner.os == 'Windows' }}
-        shell: pwsh
-        run: |
-          (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
-          bin/chezmoi.exe init --apply --branch $Env:BRANCH_NAME $Env:GITHUB_REPOSITORY_OWNER
+        # - name: Chezmoi Init (windows)
+        #   if: ${{ runner.os == 'Windows' }}
+        #   shell: pwsh
+        #   run: |
+        #     (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
+        #     bin/chezmoi.exe init --apply --branch $Env:BRANCH_NAME $Env:GITHUB_REPOSITORY_OWNER
   # centos:
   #   runs-on: ubuntu-latest
   #   timeout-minutes: 10
