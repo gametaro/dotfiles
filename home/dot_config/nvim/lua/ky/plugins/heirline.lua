@@ -1,4 +1,4 @@
-local job = require('ky.job')
+local job = require('ky.utils').job
 local icons = require('ky.ui').icons
 
 local api = vim.api
