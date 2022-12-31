@@ -132,6 +132,11 @@ return {
         olddirs = {
           path_callback = vim.cmd.tcd,
         },
+        frecency = {
+          -- ignore_patterns = { '*.git/*', '*/tmp/*' },
+          default_workspace = 'LSP',
+          show_filter_column = false,
+        },
       },
       pickers = {
         buffers = themes.get_dropdown({
