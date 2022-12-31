@@ -6,6 +6,10 @@ local fn = vim.fn
 local indent = 2
 local blend = 10
 
+g.mapleader = ' '
+g.maplocalleader = ','
+g.ts_highlight_lua = true
+
 o.autowriteall = true
 o.backup = true
 opt.backupdir = { vim.fn.stdpath('state') .. '/backup//', '.' }
