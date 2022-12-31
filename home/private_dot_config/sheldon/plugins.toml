@@ -16,7 +16,7 @@ shell = "zsh"
 
 [templates]
 defer = "{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}"
-symlink = "ln -sf {{ files.0 }} {{ dir }}/_{{ name }}" # only uses first matched file
+symlink = "ln -sf {{ files.0 }} $ZSH_CACHE_DIR/completions/_{{ name }}" # only uses first matched file
 
 [plugins]
 
@@ -44,6 +44,10 @@ github = "zsh-users/zsh-completions"
 [plugins.zsh-auto-notify]
 github = "MichaelAquilina/zsh-auto-notify"
 
+[plugins.ohmyzsh]
+github = "ohmyzsh/ohmyzsh"
+use = ["oh-my-zsh.sh"]
+
 [plugins.ohmyzsh-lib]
 github = "ohmyzsh/ohmyzsh"
 dir = "lib"
@@ -60,29 +64,27 @@ inline = 'FZF_BASE="$(asdf where fzf)"'
 [plugins.ohmyzsh-plugins]
 github = "ohmyzsh/ohmyzsh"
 dir = "plugins"
-use = ["{aws,direnv,docker,fzf,globalias,npm}/*.zsh"]
-
-[plugins.ohmyzsh-plugins-fd]
-github = "ohmyzsh/ohmyzsh"
-dir = "plugins/fd"
-apply = ["fpath"]
-
-[plugins.ohmyzsh-plugins-ripgrep]
-github = "ohmyzsh/ohmyzsh"
-dir = "plugins/ripgrep"
-apply = ["fpath"]
+use = ["{aws,direnv,docker,fzf,gh,globalias,npm}/*.zsh"]
 
 [plugins.chezmoi]
 remote = "https://raw.githubusercontent.com/twpayne/chezmoi/master/completions/chezmoi.zsh"
-apply = ["symlink", "fpath"]
+apply = ["symlink"]
 
 [plugins.sheldon]
 remote = "https://raw.githubusercontent.com/rossmacarthur/sheldon/trunk/completions/sheldon.zsh"
-apply = ["symlink", "fpath"]
+apply = ["symlink"]
 
 [plugins.zoxide]
 remote = "https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/completions/_zoxide"
-apply = ["fpath"]
+apply = ["symlink"]
+
+[plugins.rg]
+remote = "https://raw.githubusercontent.com/BurntSushi/ripgrep/master/complete/_rg"
+apply = ["symlink"]
+
+[plugins.fd]
+remote = "https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd"
+apply = ["symlink"]
 
 [plugins.init]
 inline = '''
