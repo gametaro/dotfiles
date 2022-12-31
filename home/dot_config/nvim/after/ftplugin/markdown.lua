@@ -15,5 +15,3 @@ require('nvim-surround').buffer_setup({
     },
   },
 })
-
-vim.keymap.set('n', '<LocalLeader>p', vim.cmd.MarkdownPreviewToggle, { buffer = true })
