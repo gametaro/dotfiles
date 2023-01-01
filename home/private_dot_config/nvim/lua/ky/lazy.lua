@@ -4,7 +4,6 @@ if not vim.loop.fs_stat(lazypath) then
     'git',
     'clone',
     '--filter=blob:none',
-    '--single-branch',
     'https://github.com/folke/lazy.nvim.git',
     lazypath,
   }))
@@ -15,7 +14,7 @@ require('lazy').setup('ky.plugins', {
   defaults = {
     lazy = true,
   },
-  lockfile = vim.fs.normalize('$XDG_DATA_HOME/chezmoi/home/dot_config/nvim/lazy-lock.json'),
+  lockfile = vim.fs.normalize('$XDG_DATA_HOME/chezmoi/home/private_dot_config/nvim/lazy-lock.json'),
   checker = {
     enabled = true,
   },
