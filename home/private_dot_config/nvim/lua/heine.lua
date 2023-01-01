@@ -582,6 +582,9 @@ M.highlight_groups = {
 
   -- nvim-bqf
   BqfPreviewRange = { link = 'Search' },
+
+  -- nvim-surround
+  NvimSurroundHighlight = { link = 'IncSearch' },
 }
 
 M.load = function()
