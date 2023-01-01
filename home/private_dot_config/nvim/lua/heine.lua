@@ -101,30 +101,20 @@ local wildmenu_fg = statusline_fg
 
 local specialkey_fg = M.saturate_lighten(normal_bg, 10, 35)
 
-M.palette = {
-  red = hsluv.hsluv_to_hex({ 0, 65, 68 }),
-  orange = hsluv.hsluv_to_hex({ 20, 51, 68 }),
-  green = hsluv.hsluv_to_hex({ 90, 27, 70 }),
-  lgreen = hsluv.hsluv_to_hex({ 140, 27, 68 }),
-  cyan = hsluv.hsluv_to_hex({ 190, 38, 67 }),
-  blue = hsluv.hsluv_to_hex({ 220, 41, 68 }),
-  magenta = hsluv.hsluv_to_hex({ 260, 27, 70 }),
-}
-
-local red_tint_fg = M.blend(M.palette.red, normal_fg, 0.9)
+-- local red_tint_fg = M.blend(M.palette.red, normal_fg, 0.9)
 local red_tint_bg = M.blend(M.palette.red, normal_bg, 0.7)
 local orange_tint_fg = M.blend(M.palette.orange, normal_fg, 0.9)
 local orange_tint_bg = M.blend(M.palette.orange, normal_bg, 0.7)
-local green_tint_fg = M.blend(M.palette.green, normal_fg, 0.9)
+-- local green_tint_fg = M.blend(M.palette.green, normal_fg, 0.9)
 local green_tint_bg = M.blend(M.palette.green, normal_bg, 0.7)
-local lgreen_tint_fg = M.blend(M.palette.lgreen, normal_fg, 0.9)
+-- local lgreen_tint_fg = M.blend(M.palette.lgreen, normal_fg, 0.9)
 local lgreen_tint_bg = M.blend(M.palette.lgreen, normal_bg, 0.7)
-local cyan_tint_fg = M.blend(M.palette.cyan, normal_fg, 0.9)
-local cyan_tint_bg = M.blend(M.palette.cyan, normal_bg, 0.7)
-local blue_tint_fg = M.blend(M.palette.blue, normal_fg, 0.9)
+-- local cyan_tint_fg = M.blend(M.palette.cyan, normal_fg, 0.9)
+-- local cyan_tint_bg = M.blend(M.palette.cyan, normal_bg, 0.7)
+-- local blue_tint_fg = M.blend(M.palette.blue, normal_fg, 0.9)
 local blue_tint_bg = M.blend(M.palette.blue, normal_bg, 0.7)
-local magenta_tint_fg = M.blend(M.palette.magenta, normal_fg, 0.9)
-local magenta_tint_bg = M.blend(M.palette.magenta, normal_bg, 0.7)
+-- local magenta_tint_fg = M.blend(M.palette.magenta, normal_fg, 0.9)
+-- local magenta_tint_bg = M.blend(M.palette.magenta, normal_bg, 0.7)
 
 M.spec = {
   normal_bg = normal_bg,
