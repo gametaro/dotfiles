@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1672564311080,
+  "lastUpdate": 1672564312196,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -16691,6 +16691,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.14273597828,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "799d901972c0d3c306789e62ec62cb044dac2cfe",
+          "message": "feat(command): add command to enable/disable diagnostics",
+          "timestamp": "2023-01-01T18:10:14+09:00",
+          "tree_id": "0bc41020ef6d5633993e61b204f55956d15eeb63",
+          "url": "https://github.com/gametaro/dotfiles/commit/799d901972c0d3c306789e62ec62cb044dac2cfe"
+        },
+        "date": 1672564311009,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.14929107542000003,
             "unit": "Second"
           }
         ]
