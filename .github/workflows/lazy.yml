@@ -16,7 +16,11 @@ jobs:
         shell: zsh {0}
         run: |
           lockfile_path=home/private_dot_config/nvim/lazy-lock.json
+          cat "$XDG_DATA_HOME/chezmoi/$lockfile_path"
+          cat "$lockfile_path"
           cp "$XDG_DATA_HOME/chezmoi/$lockfile_path" "$lockfile_path"
+      - name: Git diff
+        run: git diff
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
