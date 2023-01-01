@@ -23,3 +23,4 @@ jobs:
           LINTER_RULES_PATH: /
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LOG_LEVEL: WARN
