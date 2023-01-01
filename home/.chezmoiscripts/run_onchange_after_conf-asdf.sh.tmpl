@@ -1,6 +1,6 @@
 {{- if (eq .chezmoi.os "linux" "darwin") -}}
-#!/usr/bin/env sh
-set -eu
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
 plugin_add() {
   # don't exit with exit code 2
@@ -8,17 +8,16 @@ plugin_add() {
 }
 
 if [ ! -e "$HOME/.asdf" ]; then
-  git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.10.0
+  git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.10.2
 fi
 
-. "$HOME/.profile"
+. "$HOME/.asdf/asdf.sh"
 
 while read -r plugin _; do
   plugin_add "$plugin"
 done <"$HOME/.tool-versions"
 
+asdf direnv setup --shell zsh --version 2.32.2
 asdf install
-
-asdf direnv setup --shell zsh --version latest
 {{- end -}}
 {{/* vim: set filetype=sh: */}}

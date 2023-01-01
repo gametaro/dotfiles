@@ -1,13 +1,31 @@
+{{ if ne .chezmoi.os "darwin" }}
+.chezmoiscripts/darwin/**
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+.chezmoiscripts/linux/**
+{{ end }}
+
 {{ if ne .chezmoi.os "windows" }}
+.chezmoiscripts/windows/**
 AppData
 Documents
-{{ else }}
-.bashrc
+{{ end }}
+
+{{ if eq .chezmoi.os "windows" }}
+.chezmoiscripts/run_onchange_after_90-conf-asdf.sh.tmpl
+.chezmoiscripts/run_onchange_after_90-conf-fish.sh.tmpl
+
 .bash_aliases
 .bash_profile
-.profile
-.tool-versions
+.bashrc
 .config/asdf
 .config/direnv
 .config/fish
+.config/readline
+.config/sheldon
+.config/zsh
+.profile
+.tool-versions
+.zshenv
 {{ end }}

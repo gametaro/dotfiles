@@ -1,9 +1,10 @@
 {{- if (eq .chezmoi.os "linux") -}}
-#!/usr/bin/env sh
-set -eu
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
-. "$HOME/.profile"
+. "$HOME/.asdf/asdf.sh"
 
 nvim --headless "+Lazy! sync" +qa
+
 {{- end -}}
 {{/* vim: set filetype=sh: */}}
