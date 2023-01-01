@@ -4,24 +4,16 @@ return {
     { 'jose-elias-alvarez/typescript.nvim' },
     { 'b0o/schemastore.nvim' },
     { 'lukas-reineke/lsp-format.nvim' },
-    { 'folke/neodev.nvim' },
-    { 'williamboman/mason.nvim' },
-    { 'williamboman/mason-lspconfig.nvim', config = true },
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'folke/neodev.nvim', config = true },
+    { 'williamboman/mason.nvim', config = true, cmd = 'Mason' },
+    { 'williamboman/mason-lspconfig.nvim', config = { automatic_installation = true } },
   },
   event = 'BufReadPre',
   config = function()
     local lsp = vim.lsp
     lsp.set_log_level(vim.log.levels.ERROR)
 
-    require('mason').setup({
-      ui = {
-        border = require('ky.ui').border,
-      },
-    })
-    require('mason-lspconfig').setup({
-      automatic_installation = true,
-    })
-    require('neodev').setup()
     require('lsp-format').setup({
       typescript = {
         exclude = { 'tsserver', 'eslint' },
