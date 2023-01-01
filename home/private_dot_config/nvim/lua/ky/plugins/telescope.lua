@@ -130,7 +130,7 @@ return {
           },
         },
         olddirs = {
-          path_callback = vim.cmd.tcd,
+          selected_dir_callback = vim.cmd.tcd,
         },
         frecency = {
           -- ignore_patterns = { '*.git/*', '*/tmp/*' },
@@ -243,6 +243,26 @@ return {
     require('telescope').load_extension('undo')
     require('telescope').load_extension('olddirs')
     vim.keymap.set('n', '<LocalLeader>od', telescope.extensions.olddirs.picker)
+    vim.keymap.set('n', '<LocalLeader>ofd', function()
+      telescope.extensions.olddirs.picker({
+        selected_dir_callback = function(dir)
+          builtin.find_files({
+            prompt_title = 'Find Files in ' .. dir,
+            cwd = dir,
+          })
+        end,
+      })
+    end)
+    vim.keymap.set('n', '<LocalLeader>ogd', function()
+      telescope.extensions.olddirs.picker({
+        selected_dir_callback = function(dir)
+          builtin.live_grep({
+            prompt_title = 'Live Grep in ' .. dir,
+            search_dirs = { dir },
+          })
+        end,
+      })
+    end)
     require('telescope').load_extension('lazy')
   end,
 }
