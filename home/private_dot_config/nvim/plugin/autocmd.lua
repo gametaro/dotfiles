@@ -46,7 +46,7 @@ autocmd('TextYankPost', {
 
 if vim.env.XDG_DATA_HOME then
   autocmd('BufWritePost', {
-    pattern = vim.fs.normalize(vim.env.XDG_DATA_HOME .. '/chezmoi/*'),
+    pattern = vim.fs.normalize(vim.env.XDG_DATA_HOME .. '/chezmoi/home/*'),
     callback = function(a)
       if string.match(a.file, '%.git/') then
         return
