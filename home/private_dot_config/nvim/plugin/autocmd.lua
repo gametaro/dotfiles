@@ -51,13 +51,10 @@ if vim.env.XDG_DATA_HOME then
       if string.match(a.file, '%.git/') then
         return
       end
-      require('ky.util').job('chezmoi', { 'apply' }, function(output)
-        if output ~= '' then
-          if output:find('has changed since chezmoi last wrote it?') then
-          end
-          vim.notify(output, vim.log.levels.INFO, { title = 'chezmoi' })
-        end
-      end)
+      local output = vim.fn.system({ 'chezmoi', 'apply', '--no-tty', '--source-path', a.match })
+      if #output ~= 0 then
+        vim.notify(output, vim.log.levels.INFO, { title = 'chezmoi' })
+      end
     end,
     desc = 'run chezmoi apply whenever a dotfile is saved',
   })
