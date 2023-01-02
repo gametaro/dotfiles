@@ -11,7 +11,8 @@
   verbose = true
 [core]
   editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
-  pager = delta
+[color]
+  ui = false
 [fetch]
   prune = true
   writeCommitGraph = true
@@ -28,10 +29,6 @@
   enabled = true
 [status]
   showUntrackedFiles = all
-[interactive]
-  diffFilter = delta --color-only
-[delta]
-  navigate = true
 [merge]
   tool = nvimdiff
   conflictstyle = diff3 ; zdiff3
@@ -46,4 +43,3 @@
   column = true
   extendRegexp = true
   fallbackToNoIndex = true
-{{/* vim: set filetype=gitconfig: */}}

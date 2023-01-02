@@ -34,7 +34,7 @@ jobs:
       - name: List files to shfmt
         run: shfmt -f .
       - name: Run shfmt
-        run: shfmt -w -i 2 -bn -ci -kp .
+        run: shfmt -w .
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:

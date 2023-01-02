@@ -1,8 +1,20 @@
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = {
-    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    { 'nvim-telescope/telescope-frecency.nvim', dependencies = 'kkharji/sqlite.lua' },
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'make',
+      cond = not require('ky.util').is_win,
+    },
+    {
+      'nvim-telescope/telescope-fzy-native.nvim',
+      cond = require('ky.util').is_win,
+    },
+    {
+      'nvim-telescope/telescope-frecency.nvim',
+      dependencies = 'kkharji/sqlite.lua',
+      cond = not require('ky.util').is_win,
+    },
     { 'natecraddock/telescope-zf-native.nvim' },
     { 'debugloop/telescope-undo.nvim' },
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
@@ -126,6 +138,10 @@ return {
           override_file_sorter = false,
           case_mode = 'smart_case',
         },
+        fzy_native = {
+          override_generic_sorter = true,
+          override_file_sorter = false,
+        },
         ['zf-native'] = {
           file = {
             enable = true,
@@ -139,7 +155,7 @@ return {
           },
         },
         olddirs = {
-          selected_dir_callback = vim.cmd.tcd,
+          selected_dir_callback = vim.cmd.edit,
         },
         frecency = {
           -- ignore_patterns = { '*.git/*', '*/tmp/*' },
@@ -173,7 +189,6 @@ return {
           enable_preview = true,
         },
         find_files = {
-          find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
           hidden = true,
           mappings = {
             n = {

@@ -13,14 +13,14 @@ zstyle ':autocomplete:*' ignored-input '..##' # extended glob pattern
 # '..##': Don't show completions for the current word, if it consists of two
 #         or more dots.
 
-zstyle ':autocomplete:*' list-lines 16  # int
+zstyle ':autocomplete:*' list-lines 10  # int
 # If there are fewer than this many lines below the prompt, move the prompt up
 # to make room for showing this many lines of completions (approximately).
 
-zstyle ':autocomplete:history-search:*' list-lines 16  # int
+zstyle ':autocomplete:history-search:*' list-lines 10  # int
 # Show this many history lines when pressing ↑.
 
-zstyle ':autocomplete:history-incremental-search-*:*' list-lines 16  # int
+zstyle ':autocomplete:history-incremental-search-*:*' list-lines 10  # int
 # Show this many history lines when pressing ⌃R or ⌃S.
 
 zstyle ':autocomplete:*' insert-unambiguous no
@@ -57,3 +57,6 @@ zstyle ':autocomplete:*' widget-style menu-select
 # menu-complete: Press again to cycle to next (previous) completion.
 # menu-select:   Same as `menu-complete`, but updates selection in menu.
 # ⚠️ NOTE: This setting can NOT be changed at runtime.
+
+# zstyle ':completion:*' list-colors '=*=90'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"

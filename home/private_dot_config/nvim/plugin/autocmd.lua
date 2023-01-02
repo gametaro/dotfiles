@@ -44,20 +44,21 @@ autocmd('TextYankPost', {
   desc = 'highlight on yank',
 })
 
-if vim.env.XDG_DATA_HOME then
-  autocmd('BufWritePost', {
-    pattern = vim.fs.normalize(vim.env.XDG_DATA_HOME .. '/chezmoi/home/*'),
-    callback = function(a)
-      if string.match(a.file, '%.git/') then
-        return
-      end
-      local output = vim.fn.system({ 'chezmoi', 'apply', '--no-tty', '--source-path', a.match })
-      if #output ~= 0 then
-        vim.notify(output, vim.log.levels.INFO, { title = 'chezmoi' })
-      end
-    end,
-    desc = 'run chezmoi apply whenever a dotfile is saved',
-  })
+if vim.fn.executable('chezmoi') == 1 then
+  local source_dir = vim.json.decode(vim.fn.system({ 'chezmoi', 'data' })).chezmoi.sourceDir
+  if source_dir then
+    autocmd('BufWritePost', {
+      pattern = source_dir .. '/*',
+      callback = function(a)
+        -- FIXME: synchronous is bad:\
+        local output = vim.fn.system({ 'chezmoi', 'apply', '--no-tty', '--source-path', a.match })
+        if #output ~= 0 then
+          vim.notify(output, vim.log.levels.INFO, { title = 'chezmoi' })
+        end
+      end,
+      desc = 'run chezmoi apply whenever a dotfile is saved',
+    })
+  end
 end
 
 autocmd('FocusLost', {

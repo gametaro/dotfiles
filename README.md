@@ -19,34 +19,34 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 
 ### Windows
 
-* `PowerShell`
+* `PowerShell` or `pwsh`
 
 ## Installation
 
 * Linux/macOS
 
-```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply gametaro
+  ```bash
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply gametaro
 
-# for transitory environments
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --one-shot gametaro
-```
+  # for transitory environments
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --one-shot gametaro
+  ```
 
 * Windows
 
-```powershell
-Set-ExecutionPolicy RemoteSigned -scope CurrentUser
-(irm -useb https://get.chezmoi.io/ps1) | powershell -c -
-bin/chezmoi.exe init --apply gametaro
-```
+  ```powershell
+  Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+  (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
+  bin/chezmoi.exe init --apply gametaro
+  ```
 
 * Docker
 
-```bash
-git clone --depth 1 https://github.com/gametaro/dotfiles.git
-cd dotfiles/
-docker run --rm -it $(docker build -q .)
-```
+  ```bash
+  git clone --depth 1 https://github.com/gametaro/dotfiles.git
+  cd dotfiles/
+  docker run --rm -it $(docker build -q .)
+  ```
 
 ## Benchmark
 

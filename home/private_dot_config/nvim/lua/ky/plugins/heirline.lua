@@ -763,6 +763,10 @@ return {
       end,
     })
 
-    heirline.setup(StatusLines, WinBars, TabLine)
+    heirline.setup({
+      statusline = StatusLines,
+      winbar = WinBars,
+      tabline = TabLine,
+    })
   end,
 }

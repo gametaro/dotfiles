@@ -2,10 +2,6 @@
   type = "file"
   url = "https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt"
   refreshPeriod = "168h"
-[".config/fish/completions/hub.fish"]
-  type = "file"
-  url = "https://raw.githubusercontent.com/github/hub/master/etc/hub.fish_completion"
-  refreshPeriod = "168h"
 {{- if (and (not .headless) (ne .chezmoi.os "windows")) }}
 {{-   $fontDir := "" }}
 {{-   if eq .chezmoi.os "darwin" }}
@@ -42,9 +38,3 @@
     type = "file"
     url = "https://raw.githubusercontent.com/rebelot/kanagawa.nvim/master/extras/wezterm.lua"
     refreshPeriod = "168h"
-{{- if (and (not .headless) (eq .chezmoi.os "windows")) }}
-["AppData/Local/clink/fzf.lua"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/chrisant996/clink-fzf/main/fzf.lua"
-    refreshPeriod = "168h"
-{{- end }}
