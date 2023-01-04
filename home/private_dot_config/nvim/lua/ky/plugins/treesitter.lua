@@ -6,7 +6,7 @@ return {
     { 'JoosepAlviste/nvim-ts-context-commentstring' },
     { 'windwp/nvim-ts-autotag' },
     { 'p00f/nvim-ts-rainbow' },
-    { 'nvim-treesitter/nvim-treesitter-context', config = true },
+    { 'nvim-treesitter/nvim-treesitter-context', enabled = false, config = true },
     {
       'mfussenegger/nvim-treehopper',
       init = function()
