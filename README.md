@@ -11,7 +11,7 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 * macOS
 * Windows
 
-## Requisites
+## Prerequisites
 
 ### Linux/macOS
 
