@@ -3,15 +3,6 @@ local cmd = vim.cmd
 
 local keep_mode = false
 
-local get_prompt_text = function()
-  local count = api.nvim_buf_line_count(0)
-  local lines = vim.tbl_filter(function(s)
-    return s ~= ''
-  end, api.nvim_buf_get_lines(0, 0, count, true))
-
-  return lines[#lines]
-end
-
 api.nvim_create_autocmd('TermOpen', {
   callback = function(a)
     vim.opt_local.number = false
@@ -28,38 +19,16 @@ api.nvim_create_autocmd('TermOpen', {
       vim.keymap.set(mode, lhs, rhs, opts)
     end
 
-    -- WARN: experimental
     local escape = [[<C-\><C-n>]]
-    map('n', '<CR>', string.format('i<CR>%s', escape))
-    map('n', 'I', 'i<Home>')
-    map('n', 'A', 'i<End>')
-    map('n', 'x', string.format('i<End><BS>%s', escape))
-    map('n', 'dw', string.format('i<End><C-w>%s', escape))
-    map('n', 'dd', string.format('i<End><C-u>%s', escape))
-    map('n', 'cw', 'i<End><C-w>')
-    map('n', 'cc', 'i<End><C-u>')
-    -- map('n', 'p', string.format('i<End>%sp', escape))
-    -- map('n', 'P', string.format('i<Home>%sp', escape))
-    map('n', 'u', string.format('i<C-_>%s', escape))
-    map('n', '<C-p>', function()
-      return 'i' .. string.rep('<Up>', vim.v.count1) .. escape
-    end, { expr = true })
-    map('n', '<C-n>', function()
-      return 'i' .. string.rep('<Down>', vim.v.count1) .. escape
-    end, { expr = true })
     map('t', ';', function()
-      local text = get_prompt_text()
-      return string.match(text, '❯%s+$') and string.format('%s:', escape) or ':'
-    end, { expr = true })
-    map('t', [[<C-\>]], function()
-      keep_mode = true
-      return string.format('%s<C-^>', escape)
+      local line = api.nvim_get_current_line()
+      return string.match(line, '❯%s+$') and string.format('%s:', escape) or ':'
     end, { expr = true })
     map('t', [[<C-o>]], function()
       keep_mode = true
       return string.format('%s<C-o>', escape)
     end, { expr = true })
-    map('t', [[<C-^>]], function()
+    map('t', [[<BS>]], function()
       keep_mode = true
       return string.format('%s<C-^>', escape)
     end, { expr = true })
@@ -96,13 +65,4 @@ api.nvim_create_autocmd('BufEnter', {
       cmd.startinsert()
     end
   end,
-})
-
-api.nvim_create_autocmd('TermClose', {
-  callback = function(a)
-    if vim.v.event.status == 0 then
-      api.nvim_buf_delete(a.buf, { force = true })
-    end
-  end,
-  desc = 'close terminal buffers if the job exited without error. see :help terminal-status',
 })
