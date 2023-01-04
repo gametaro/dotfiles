@@ -40,13 +40,6 @@ return {
       end,
     })
 
-    local trailspace = require('mini.trailspace')
-    trailspace.setup({})
-    vim.api.nvim_create_autocmd('BufWritePost', {
-      group = group,
-      callback = trailspace.trim,
-    })
-
     require('mini.comment').setup({
       hooks = {
         pre = function()
