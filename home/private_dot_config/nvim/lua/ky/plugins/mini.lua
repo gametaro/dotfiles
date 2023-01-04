@@ -13,32 +13,26 @@ return {
       { expr = true, replace_keycodes = false, desc = 'MiniPairs <BS>' }
     )
 
-    require('mini.indentscope').setup({
-      draw = {
-        animation = require('mini.indentscope').gen_animation.none(),
-      },
-      options = {
-        try_as_border = true,
-      },
-      symbol = '|',
-    })
+    vim.keymap.set('n', '[i', function()
+      require('mini.indentscope').operator('top', true)
+    end, { desc = 'Top indent scope' })
+    vim.keymap.set('n', ']i', function()
+      require('mini.indentscope').operator('bottom', true)
+    end, { desc = 'Bottom indent scope' })
+    vim.keymap.set({ 'x', 'o' }, '[i', function()
+      require('mini.indentscope').operator('top')
+    end, { desc = 'Top indent scope' })
+    vim.keymap.set({ 'x', 'o' }, ']i', function()
+      require('mini.indentscope').operator('bottom')
+    end, { desc = 'Bottom indent scope' })
+    vim.keymap.set({ 'x', 'o' }, 'ii', function()
+      require('mini.indentscope').textobject(false)
+    end, { desc = 'Object scope' })
+    vim.keymap.set({ 'x', 'o' }, 'ai', function()
+      require('mini.indentscope').textobject(true)
+    end, { desc = 'Object scope with border' })
 
     local group = vim.api.nvim_create_augroup('mine__mini', {})
-    vim.api.nvim_create_autocmd('FileType', {
-      group = group,
-      pattern = { '', 'checkhealth', 'help', 'lspinfo', 'man', 'packer' },
-      callback = function()
-        vim.b.miniindentscope_disable = true
-      end,
-    })
-    vim.api.nvim_create_autocmd('BufEnter', {
-      group = group,
-      callback = function()
-        if vim.tbl_contains({ 'nofile', 'quickfix', 'terminal' }, vim.bo.buftype) then
-          vim.b.miniindentscope_disable = true
-        end
-      end,
-    })
 
     require('mini.comment').setup({
       hooks = {
