@@ -2,7 +2,6 @@ return {
   { 'norcalli/nvim-colorizer.lua' },
   { 'mtdl9/vim-log-highlighting' },
   { 'itchyny/vim-highlighturl', event = 'BufReadPost' },
-  { 'gpanders/editorconfig.nvim' },
   { 'johmsalas/text-case.nvim', config = true },
   { 'axelvc/template-string.nvim', enabled = false, config = true },
   { 'smjonas/inc-rename.nvim', cmd = 'IncRename', config = true },
