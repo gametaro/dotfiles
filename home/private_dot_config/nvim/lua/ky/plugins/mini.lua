@@ -120,7 +120,5 @@ return {
       group = group,
       callback = map.open,
     })
-
-    vim.keymap.set('n', '<LocalLeader>z', require('mini.misc').zoom)
   end,
 }
