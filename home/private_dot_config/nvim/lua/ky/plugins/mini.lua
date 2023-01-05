@@ -53,15 +53,15 @@ return {
           }
           return { from = from, to = to }
         end,
-        -- textobj-line (i only)
-        l = function()
+        -- textobj-line
+        l = function(type)
           if vim.api.nvim_get_current_line() == '' then
             return
           end
-          vim.cmd.normal({ '^', bang = true })
+          vim.cmd.normal({ type == 'i' and '^' or '0', bang = true })
           local from_line, from_col = unpack(vim.api.nvim_win_get_cursor(0))
           local from = { line = from_line, col = from_col + 1 }
-          vim.cmd.normal({ 'g_', bang = true })
+          vim.cmd.normal({ type == 'i' and 'g_' or '$', bang = true })
           local to_line, to_col = unpack(vim.api.nvim_win_get_cursor(0))
           local to = { line = to_line, col = to_col + 1 }
           return { from = from, to = to }
