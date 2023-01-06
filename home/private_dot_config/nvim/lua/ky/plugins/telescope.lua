@@ -93,7 +93,7 @@ return {
       set_env = {
         ['COLORTERM'] = 'truecolor',
       },
-      vimgrep_arguments = {
+      vimgrep_arguments = vim.fn.executable('rg') == 1 and {
         'rg',
         '--color=never',
         '--no-heading',
@@ -102,6 +102,12 @@ return {
         '--column',
         '--smart-case',
         '--trim',
+      } or {
+        'git',
+        'grep',
+        '--no-color',
+        '--line-number',
+        '--column',
       },
       cache_picker = {
         num_pickers = 3,

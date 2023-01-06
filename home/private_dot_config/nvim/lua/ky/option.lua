@@ -129,6 +129,8 @@ o.wrap = false
 
 if fn.executable('rg') > 0 then
   o.grepprg = 'rg --vimgrep --smart-case --hidden'
+elseif fn.executable('git') then
+  o.grepprg = 'git grep -I --line-number'
 end
 
 -- neovide
