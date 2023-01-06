@@ -9,6 +9,7 @@ return {
   ft = 'qf',
   config = function()
     require('bqf').setup({
+      auto_resize_height = true,
       preview = {
         border_chars = { '│', '│', '─', '─', '┌', '┐', '└', '┘', '█' },
       },
