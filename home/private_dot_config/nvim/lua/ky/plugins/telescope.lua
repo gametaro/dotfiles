@@ -104,7 +104,9 @@ return {
         '--trim',
       } or {
         'git',
+        '--no-pager',
         'grep',
+        '-I',
         '--no-color',
         '--line-number',
         '--column',
