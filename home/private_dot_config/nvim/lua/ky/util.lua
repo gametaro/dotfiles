@@ -110,4 +110,16 @@ util.job = function(cmd, args, callback)
   end
 end
 
+---@return boolean
+util.is_git_repo = function()
+  local root_dir
+  for dir in vim.fs.parents(vim.api.nvim_buf_get_name(0)) do
+    if vim.fn.isdirectory(dir .. '/.git') == 1 then
+      root_dir = dir
+      break
+    end
+  end
+  return root_dir ~= nil
+end
+
 return util

@@ -127,10 +127,11 @@ o.wildoptions = 'pum'
 o.winblend = blend
 o.wrap = false
 
-if fn.executable('rg') > 0 then
+if fn.executable('git') == 1 and require('ky.util').is_git_repo() then
+  o.grepprg = 'git --no-pager grep -I -E --no-color --line-number --column'
+  o.grepformat = '%f:%l:%m,%f:%l:%c:%m'
+elseif fn.executable('rg') == 1 then
   o.grepprg = 'rg --vimgrep --smart-case --hidden'
-elseif fn.executable('git') then
-  o.grepprg = 'git --no-pager grep -I --no-color --line-number'
 end
 
 -- neovide

@@ -93,7 +93,16 @@ return {
       set_env = {
         ['COLORTERM'] = 'truecolor',
       },
-      vimgrep_arguments = vim.fn.executable('rg') == 1 and {
+      vimgrep_arguments = vim.fn.executable('git') == 1 and require('ky.util').is_git_repo() and {
+        'git',
+        '--no-pager',
+        'grep',
+        '-I',
+        '-E',
+        '--no-color',
+        '--line-number',
+        '--column',
+      } or {
         'rg',
         '--color=never',
         '--no-heading',
@@ -102,14 +111,6 @@ return {
         '--column',
         '--smart-case',
         '--trim',
-      } or {
-        'git',
-        '--no-pager',
-        'grep',
-        '-I',
-        '--no-color',
-        '--line-number',
-        '--column',
       },
       cache_picker = {
         num_pickers = 3,
