@@ -60,7 +60,13 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
 vim.api.nvim_create_autocmd('CursorMoved', {
   group = group,
   callback = function()
-    disable_cursorline()
-    enable_cursorline()
+    if not vim.b.cursorline then
+      vim.b.cursorline = vim.fn.line('.')
+    end
+    if vim.b.cursorline ~= vim.fn.line('.') then
+      vim.b.cursorline = vim.fn.line('.')
+      disable_cursorline()
+      enable_cursorline()
+    end
   end,
 })
