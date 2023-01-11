@@ -16,7 +16,10 @@ require('lazy').setup('ky.plugins', {
   },
   lockfile = vim.fs.normalize('$XDG_DATA_HOME/chezmoi/home/private_dot_config/nvim/lazy-lock.json'),
   checker = {
-    enabled = true,
+    enabled = false,
+  },
+  change_detection = {
+    notify = false,
   },
   performance = {
     rtp = {
