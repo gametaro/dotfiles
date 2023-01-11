@@ -5,7 +5,6 @@ return {
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'JoosepAlviste/nvim-ts-context-commentstring' },
     { 'windwp/nvim-ts-autotag' },
-    { 'p00f/nvim-ts-rainbow' },
     { 'nvim-treesitter/nvim-treesitter-context', enabled = false, config = true },
     {
       'mfussenegger/nvim-treehopper',
@@ -59,12 +58,6 @@ return {
       context_commentstring = {
         enable = true,
         enable_autocmd = false,
-      },
-      rainbow = {
-        enable = true,
-        disable = { 'html' },
-        extended_mode = true,
-        max_file_length = 1000,
       },
       matchup = {
         enable = true,
