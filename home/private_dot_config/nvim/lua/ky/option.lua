@@ -38,9 +38,9 @@ opt.fillchars = {
   diff = '╱', -- '/',
   eob = ' ',
   fold = ' ',
-  foldopen = '',
+  foldopen = '',
   foldsep = ' ',
-  foldclose = '',
+  foldclose = '',
   -- horiz = '━',
   -- horizup = '┻',
   -- horizdown = '┳',
@@ -101,7 +101,7 @@ opt.shortmess:append({
 -- opt.showbreak = '↳ '
 -- o.showcmd = false
 -- o.showmode = false
-o.signcolumn = 'yes:2'
+o.signcolumn = 'yes'
 o.smartcase = true
 o.smartindent = true
 o.spellcapcheck = ''
@@ -126,6 +126,8 @@ o.wildignorecase = true
 o.wildoptions = 'pum'
 o.winblend = blend
 o.wrap = false
+vim.o.statuscolumn =
+  '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? " " : " ") : "  " }'
 
 if fn.executable('git') == 1 and require('ky.util').is_git_repo() then
   o.grepprg = 'git --no-pager grep -I -E --no-color --line-number --column'
