@@ -127,7 +127,7 @@ o.wildoptions = 'pum'
 o.winblend = blend
 o.wrap = false
 vim.o.statuscolumn =
-  '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? " " : " ") : "  " }'
+  '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " " } '
 
 if fn.executable('git') == 1 and require('ky.util').is_git_repo() then
   o.grepprg = 'git --no-pager grep -I -E --no-color --line-number --column'
