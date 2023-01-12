@@ -110,6 +110,7 @@ return {
       show_hidden_files = false,
       devicons = {
         enable = true,
+        highlight_dirname = true,
       },
       mappings = {
         ['l'] = actions.edit,
