@@ -108,7 +108,9 @@ return {
     require('lir').setup({
       -- ignore = { 'node_modules' },
       show_hidden_files = false,
-      devicons_enable = true,
+      devicons = {
+        enable = true,
+      },
       mappings = {
         ['l'] = actions.edit,
         ['o'] = actions.edit,
