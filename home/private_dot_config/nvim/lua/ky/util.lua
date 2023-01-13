@@ -39,7 +39,7 @@ util.headless = #api.nvim_list_uis() == 0
 
 ---@return boolean
 util.is_win = function()
-  return vim.loop.os_uname().sysname:find('Windows') and true or false
+  return vim.loop.os_uname().sysname:find('Windows') ~= nil
 end
 
 ---searches process tree for a process having a name in the `names` list
