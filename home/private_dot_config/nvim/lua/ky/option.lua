@@ -82,7 +82,7 @@ o.pumblend = blend
 o.pumheight = 10
 o.report = 99999
 -- o.ruler = false
--- opt.shada = { '!', "'0", 'f0', '<50', 's10', 'h' }
+opt.shada:append({ 'r/tmp', 'rterm', 'rhealth' })
 -- opt.scrolloff = 5
 -- opt.sidescrolloff = 5
 o.secure = true
