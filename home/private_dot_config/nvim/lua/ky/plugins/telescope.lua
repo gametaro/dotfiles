@@ -10,11 +10,6 @@ return {
       'nvim-telescope/telescope-fzy-native.nvim',
       cond = require('ky.util').is_win,
     },
-    {
-      'nvim-telescope/telescope-frecency.nvim',
-      dependencies = 'kkharji/sqlite.lua',
-      cond = not require('ky.util').is_win,
-    },
     { 'natecraddock/telescope-zf-native.nvim' },
     { 'debugloop/telescope-undo.nvim' },
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
@@ -157,11 +152,6 @@ return {
         olddirs = {
           selected_dir_callback = vim.cmd.edit,
         },
-        frecency = {
-          -- ignore_patterns = { '*.git/*', '*/tmp/*' },
-          default_workspace = 'LSP',
-          show_filter_column = false,
-        },
       },
       pickers = {
         buffers = themes.get_dropdown({
@@ -256,12 +246,6 @@ return {
     require('telescope').load_extension('live_grep_args')
     vim.keymap.set('n', '<C-g>', function()
       require('telescope').extensions.live_grep_args.live_grep_args()
-    end)
-    require('telescope').load_extension('frecency')
-    vim.keymap.set('n', '<LocalLeader><LocalLeader>', function()
-      require('telescope').extensions.frecency.frecency({
-        path_display = { truncate = 3 },
-      })
     end)
 
     require('telescope').load_extension('undo')

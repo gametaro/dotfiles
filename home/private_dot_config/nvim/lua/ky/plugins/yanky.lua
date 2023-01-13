@@ -1,6 +1,5 @@
 return {
   'gbprod/yanky.nvim',
-  dependencies = 'kkharji/sqlite.lua',
   keys = {
     { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' } },
     { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' } },
@@ -22,9 +21,6 @@ return {
   },
   config = function()
     require('yanky').setup({
-      ring = {
-        storage = require('ky.util').is_win() and 'shada' or 'sqlite',
-      },
       system_clipboard = {
         sync_with_ring = false,
       },

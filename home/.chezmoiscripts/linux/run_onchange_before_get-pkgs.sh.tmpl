@@ -11,18 +11,15 @@
 {{ if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
   {{ $packages = concat $packages (list
     "build-essential"
-    "libsqlite3-dev"
     "procps"
-    "python3-venv"
-    "sqlite3") -}}
+    "python3-venv") -}}
 {{ end -}}
 
 {{ if eq .chezmoi.osRelease.id "amzn" "centos" "fedora" "rhel" -}}
   {{ $packages = concat $packages (list
     "bc"
     "gcc-c++"
-    "procps-ng"
-    "sqlite-devel") -}}
+    "procps-ng") -}}
 {{ end -}}
 
 {{ $sudo := "sudo -E " -}}
