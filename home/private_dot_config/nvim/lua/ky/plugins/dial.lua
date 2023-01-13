@@ -15,10 +15,10 @@ return {
       augend.constant.new({
         elements = { 'TODO', 'WARN', 'NOTE', 'HACK' },
       }),
-      augend.paren.new({
-        patterns = { { "'", "'" }, { '"', '"' }, { '`', '`' } },
-        escape_char = [[\]],
-      }),
+      -- augend.paren.new({
+      --   patterns = { { "'", "'" }, { '"', '"' }, { '`', '`' } },
+      --   escape_char = [[\]],
+      -- }),
     }
 
     local with_default = function(group_name)
