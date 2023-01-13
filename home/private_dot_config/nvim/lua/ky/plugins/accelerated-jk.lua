@@ -1,12 +1,14 @@
 return {
   'rainbowhxch/accelerated-jk.nvim',
-  keys = { 'j', 'k' },
-  config = function()
+  init = function()
     for _, v in ipairs({ 'j', 'k' }) do
       vim.keymap.set('n', v, function()
-        return vim.v.count == 0 and string.format('<Plug>(accelerated_jk_g%s)', v)
-          or string.format('<Plug>(accelerated_jk_%s)', v)
-      end, { expr = true })
+        if vim.v.count == 0 then
+          require('accelerated-jk').move_to('g' .. v)
+        else
+          require('accelerated-jk').move_to(v)
+        end
+      end)
     end
   end,
 }
