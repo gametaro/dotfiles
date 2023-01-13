@@ -5,8 +5,6 @@ return {
     local null_ls = require('null-ls')
     local f = null_ls.builtins.formatting
     local d = null_ls.builtins.diagnostics
-    -- local h = null_ls.builtins.hover
-    local ca = null_ls.builtins.code_actions
 
     local function executable(cmd)
       return function()
@@ -50,11 +48,6 @@ return {
       d.pylint.with({
         condition = executable('pylint'),
       }),
-      -- d.codespell.with({
-      --   disabled_filetypes = { 'NeogitCommitMessage' },
-      --   condition = executable('codespell'),
-      --   method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-      -- }),
       d.vale.with({
         condition = executable('vale'),
       }),
@@ -70,12 +63,6 @@ return {
       d.gitlint.with({
         condition = executable('gitlint'),
       }),
-      -- h.dictionary,
-      ca.gitrebase,
-      -- ca.shellcheck.with({
-      --   condition = executable('shellcheck'),
-      -- }),
-      -- require('typescript.extensions.null-ls.code-actions'),
     }
 
     null_ls.setup({
