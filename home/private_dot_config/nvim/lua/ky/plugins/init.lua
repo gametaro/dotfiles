@@ -34,7 +34,7 @@ return {
   { 'nacro90/numb.nvim', event = 'CmdlineEnter', config = true },
   { 'wsdjeg/vim-fetch', event = 'CmdlineEnter' },
   { 'justinmk/vim-gtfo', keys = { 'got', 'gof' } },
-  { 'samjwill/nvim-unception', lazy = false },
+  { 'samjwill/nvim-unception', enabled = false, lazy = false },
   {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',

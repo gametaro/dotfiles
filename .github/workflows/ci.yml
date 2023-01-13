@@ -7,54 +7,47 @@ on:
     branches:
       - main
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - macos-latest
-          - ubuntu-latest
-          # - windows-latest
-    runs-on: ${{ matrix.os }}
+  ubuntu:
+    runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     steps:
       - uses: actions/checkout@v3
-      - name: Chezmoi Init
-        if: ${{ runner.os != 'Windows' }}
+      - name: Chezmoi init & apply
+        run: ./install.sh
+  macos:
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v3
+      - name: Chezmoi init & apply
+        run: ./install.sh
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v3
+      - name: Chezmoi init & apply
+        shell: pwsh
         run: |
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply --branch "$BRANCH_NAME" "$GITHUB_REPOSITORY_OWNER"
-        # - name: Chezmoi Init (windows)
-        #   if: ${{ runner.os == 'Windows' }}
-        #   shell: pwsh
-        #   run: |
-        #     (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
-        #     bin/chezmoi.exe init --apply --branch $Env:BRANCH_NAME $Env:GITHUB_REPOSITORY_OWNER
-  # centos:
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 10
-  #   container: centos:latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #
-  #     - name: Install requisites (centos)
-  #       run: dnf clean all && dnf install -y curl sudo
-  #
-  #     - name: Chezmoi Init
-  #       run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "$GITHUB_REPOSITORY_OWNER"
-
-# fedora:
-#   runs-on: ubuntu-latest
-#   timeout-minutes: 15
-#   container: fedora:latest
-#   env:
-#     BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-#   steps:
-#     - uses: actions/checkout@v3
-#
-#     - name: Install requisites (fedora)
-#       run: dnf clean all && dnf install -y curl sudo
-#
-#     - name: Chezmoi Init
-#       run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --branch "$BRANCH_NAME" "$GITHUB_REPOSITORY_OWNER"
+          (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
+          bin/chezmoi.exe init --apply --source $Env:GITHUB_WORKSPACE
+  centos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container: quay.io/centos/centos:stream
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install requisites
+        run: dnf clean all && dnf install -y curl sudo
+      - name: Chezmoi init & apply
+        run: ./install.sh
+  fedora:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container: fedora:latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install requisites
+        run: dnf clean all && dnf install -y curl sudo
+      - name: Chezmoi init & apply
+        run: ./install.sh

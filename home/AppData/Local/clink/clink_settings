@@ -1,9 +1,0 @@
-# name: Enable automatic suggestions
-# type: boolean
-autosuggest.enable = True
-
-# name: Controls what startup logo to show
-# type: enum
-# options: none,full,short
-clink.logo = none
-

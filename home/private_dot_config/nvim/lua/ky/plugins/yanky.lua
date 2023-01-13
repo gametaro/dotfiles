@@ -22,9 +22,9 @@ return {
   },
   config = function()
     require('yanky').setup({
-      -- ring = {
-      --   storage = 'sqlite',
-      -- },
+      ring = {
+        storage = require('ky.util').is_win() and 'shada' or 'sqlite',
+      },
       system_clipboard = {
         sync_with_ring = false,
       },

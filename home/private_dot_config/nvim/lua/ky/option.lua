@@ -136,6 +136,10 @@ elseif fn.executable('rg') == 1 then
   o.grepprg = 'rg --vimgrep --smart-case --hidden'
 end
 
+if fn.executable('zsh') == 1 then
+  o.shell = 'zsh'
+end
+
 -- neovide
 if fn.exists('g:neovide') > 0 then
   g.neovide_cursor_animation_length = 0

@@ -11,6 +11,9 @@
 {{-   $email = promptString "email" $email -}}
 {{- end -}}
 
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+progress = {{ not $headless }}
+
 [merge]
   command = "nvim"
   args = [ "-d", "-c", '"$wincmd w"', "-c", '"wincmd J"' ]

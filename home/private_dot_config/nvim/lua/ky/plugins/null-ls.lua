@@ -24,7 +24,7 @@ return {
       }),
       f.shfmt.with({
         condition = executable('shfmt'),
-        extra_args = { '-i', '2', '-bn', '-ci', '-kp' },
+        -- extra_args = { '-i', '2', '-bn', '-ci', '-kp' },
       }),
       f.stylua.with({
         condition = executable('stylua'),

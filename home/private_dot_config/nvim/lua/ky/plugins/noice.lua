@@ -2,6 +2,7 @@ return {
   'folke/noice.nvim',
   dependencies = 'MunifTanjim/nui.nvim',
   event = 'VeryLazy',
+  enabled = false,
   config = function()
     require('noice').setup({
       lsp = {

@@ -1,3 +1,4 @@
+bindkey -e
 bindkey '^U' backward-kill-line
 bindkey '\0' list-expand
 bindkey '^P' up-line-or-search

@@ -12,27 +12,17 @@
 
 shell = "zsh"
 
-# apply = ["defer"]
-
-[templates]
-defer = "{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}"
-symlink = "ln -sf {{ files.0 }} $ZSH_CACHE_DIR/completions/_{{ name }}" # only uses first matched file
-
 [plugins]
 
-[plugins.zsh-defer]
-github = "romkatv/zsh-defer"
-apply = ["source"]
-
-[plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
-
-[plugins.zsh-autocomplete-local]
+[plugins.autocomplete]
 local = "~/.config/zsh"
 use = ["autocomplete.zsh"]
 
 [plugins.zsh-autocomplete]
 github = "marlonrichert/zsh-autocomplete"
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
@@ -41,57 +31,13 @@ use = ["{{ name }}.zsh"]
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
 
-[plugins.zsh-auto-notify]
-github = "MichaelAquilina/zsh-auto-notify"
-
-[plugins.ohmyzsh]
-github = "ohmyzsh/ohmyzsh"
-use = ["oh-my-zsh.sh"]
-
-[plugins.ohmyzsh-lib]
-github = "ohmyzsh/ohmyzsh"
-dir = "lib"
-use = ["{directories,key-bindings}.zsh"]
-
-[plugins.ohmyzsh-plugins-asdf]
-github = "ohmyzsh/ohmyzsh"
-dir = "plugins"
-use = ["asdf/*.zsh"]
-
-[plugins.fzf]
-inline = 'FZF_BASE="$(asdf where fzf)"'
-
-[plugins.ohmyzsh-plugins]
-github = "ohmyzsh/ohmyzsh"
-dir = "plugins"
-use = ["{aws,direnv,docker,fzf,gh,globalias,npm}/*.zsh"]
-
-[plugins.chezmoi]
-remote = "https://raw.githubusercontent.com/twpayne/chezmoi/master/completions/chezmoi.zsh"
-apply = ["symlink"]
-
-[plugins.sheldon]
-remote = "https://raw.githubusercontent.com/rossmacarthur/sheldon/trunk/completions/sheldon.zsh"
-apply = ["symlink"]
-
-[plugins.zoxide]
-remote = "https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/completions/_zoxide"
-apply = ["symlink"]
-
-[plugins.rg]
-remote = "https://raw.githubusercontent.com/BurntSushi/ripgrep/master/complete/_rg"
-apply = ["symlink"]
-
-[plugins.fd]
-remote = "https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd"
-apply = ["symlink"]
-
-[plugins.init]
-inline = '''
-(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
-(( $+commands[starship] )) && eval "$(starship init zsh)"
-'''
-
 [plugins.local]
 local = "~/.config/zsh"
 use = ["*.zsh", "!autocomplete.zsh"]
+
+[plugins.zsh-abbr]
+github = "olets/zsh-abbr"
+use = ["{{ name }}.zsh"]
+
+[plugins.powerlevel10k]
+github = "romkatv/powerlevel10k"
