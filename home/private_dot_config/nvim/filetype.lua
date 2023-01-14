@@ -1,6 +1,7 @@
 vim.filetype.add({
   extension = {
     ['code-workspace'] = 'jsonc',
+    ['tmpl'] = 'gotmpl',
   },
   filename = {
     ['.ecrc'] = 'json',
@@ -9,6 +10,7 @@ vim.filetype.add({
   pattern = {
     ['Jenkinsfile.*'] = 'groovy',
     ['tsconfig.*%.json'] = 'jsonc',
+    ['.*/containers/.*%.conf'] = 'toml',
     ['.*/containers.conf.d/.*%.conf'] = 'toml',
     ['.*/git/config.*'] = 'gitconfig',
     ['.*/readline/.*inputrc.*'] = 'readline',

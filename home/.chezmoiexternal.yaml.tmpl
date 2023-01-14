@@ -1,0 +1,40 @@
+.config/git/alias:
+  type: "file"
+  url: "https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt"
+  refreshPeriod: "168h"
+{{- if (and (not .headless) (ne .chezmoi.os "windows")) }}
+{{-   $fontDir := "" }}
+{{-   if eq .chezmoi.os "darwin" }}
+{{-     $fontDir = "Library/Fonts" }}
+{{-   else if eq .chezmoi.os "linux" }}
+{{-     $fontDir = ".local/share/fonts" }}
+{{-   end }}
+{{ $fontDir }}/Fira Code Bold Nerd Font Complete Windows Compatible.ttf":
+  type: "file"
+  url: "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Bold/complete/Fira%20Code%20Bold%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf"
+  refreshPeriod: "168h"
+{{ $fontDir }}/Fira Code Medium Nerd Font Complete Windows Compatible.ttf":
+  type: "file"
+  url: "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Medium/complete/Fira%20Code%20Medium%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf"
+  refreshPeriod: "168h"
+{{ $fontDir }}/Fira Code Regular Nerd Font Complete Windows Compatible.ttf":
+  type: "file"
+  url: "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf"
+  refreshPeriod: "168h"
+{{ $fontDir }}/Fira Code Retina Nerd Font Complete Windows Compatible.ttf":
+  type: "file"
+  url: "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Retina/complete/Fira%20Code%20Retina%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf"
+  refreshPeriod: "168h"
+{{- end }}
+.config/wezterm/colors/nightfox.toml:
+  type: "file"
+  url: "https://raw.githubusercontent.com/EdenEast/nightfox.nvim/main/extra/nightfox/nightfox_wezterm.toml"
+  refreshPeriod: "168h"
+.config/wezterm/colors/duskfox.toml:
+  type: "file"
+  url: "https://raw.githubusercontent.com/EdenEast/nightfox.nvim/main/extra/duskfox/nightfox_wezterm.toml"
+  refreshPeriod: "168h"
+.config/wezterm/colors/kanagawa.lua:
+  type: "file"
+  url: "https://raw.githubusercontent.com/rebelot/kanagawa.nvim/master/extras/wezterm.lua"
+  refreshPeriod: "168h"

@@ -11,19 +11,18 @@
 {{-   $email = promptString "email" $email -}}
 {{- end -}}
 
-sourceDir = {{ .chezmoi.sourceDir | quote }}
-progress = {{ not $headless }}
+sourceDir: {{ .chezmoi.sourceDir | quote }}
+progress: {{ not $headless }}
 
-[merge]
-  command = "nvim"
-  args = [ "-d", "-c", '"$wincmd w"', "-c", '"wincmd J"' ]
+merge:
+  command: "nvim"
+  args: [ "-d", "-c", '"$wincmd w"', "-c", '"wincmd J"' ]
 
-[diff]
-  command = "nvim"
-  args = [ "-d", "-c", '"$wincmd w"', "-c", '"wincmd J"' ]
+diff:
+  command: "nvim"
+  args: [ "-d", "-c", '"$wincmd w"', "-c", '"wincmd J"' ]
 
-[data]
-  headless = {{ $headless }}
-  name = {{ $name | quote }}
-  email = {{ $email | quote }}
-{{/* vim: set filetype=toml: */}}
+data:
+  headless: {{ $headless }}
+  name: {{ $name | quote }}
+  email: {{ $email | quote }}

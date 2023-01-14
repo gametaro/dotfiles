@@ -74,7 +74,7 @@ opt.listchars = {
   tab = '>-',
   trail = '·',
 }
--- opt.modeline = false
+opt.modeline = false
 -- o.more = false
 opt.mousescroll = { 'ver:1', 'hor:3' }
 o.preserveindent = true

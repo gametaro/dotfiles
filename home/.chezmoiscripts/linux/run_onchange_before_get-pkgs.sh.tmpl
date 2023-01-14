@@ -37,5 +37,3 @@ set -eu
   {{ $sudo }}dnf install -y -q {{ $packages | join " " }}
   {{ $sudo }}dnf group install -y -q "Development Tools"
 {{ end -}}
-
-{{/* vim: set filetype=sh: */}}
