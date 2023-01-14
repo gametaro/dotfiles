@@ -22,7 +22,7 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export MANPAGER="nvim +Man! --cmd 'let g:unception_disable=1'"
 export MANWIDTH=999
-export PAGER="nvim -d -R"
+export PAGER="nvim -R"
 
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 if [[ -z "$LS_COLORS" ]]; then
