@@ -8,7 +8,7 @@ return {
     { 'folke/neodev.nvim', config = true },
     { 'williamboman/mason.nvim', config = true, cmd = 'Mason' },
     { 'williamboman/mason-lspconfig.nvim', opts = { automatic_installation = false } },
-    { 'williamboman/mason-lspconfig.nvim', opts = { automatic_installation = true } },
+    { 'folke/neoconf.nvim', config = true },
   },
   event = 'BufReadPre',
   config = function()
@@ -183,38 +183,7 @@ return {
           },
         },
       },
-      sumneko_lua = {
-        settings = {
-          Lua = {
-            runtime = {
-              version = 'LuaJIT',
-            },
-            diagnostics = {
-              globals = { 'vim' },
-              disable = {
-                'missing-parameter',
-                'redundant-parameter',
-              },
-            },
-            workspace = {
-              library = {
-                vim.fn.expand('$VIMRUNTIME/lua'),
-                string.format(
-                  '%s/site/pack/jetpack/src/github.com/ii14/emmylua-nvim',
-                  vim.fn.stdpath('data')
-                ),
-              },
-              -- preloadFileSize = 1000,
-            },
-            completion = {
-              callSnippet = 'Replace',
-            },
-            format = {
-              enable = false,
-            },
-          },
-        },
-      },
+      sumneko_lua = {},
     }
 
     for server, config in pairs(configs) do
