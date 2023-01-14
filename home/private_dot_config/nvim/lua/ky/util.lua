@@ -4,12 +4,16 @@ local api = vim.api
 
 ---toggle vim options
 ---@param name string
----@param values table
----@param opts? table
+---@param values table|nil
+---@param opts table|nil
 util.toggle_options = function(name, values, opts)
   local defaults = { silent = false }
   opts = vim.tbl_extend('force', defaults, opts or {})
-  values = values or api.nvim_get_option_info(name).type == 'boolean' and { true, false }
+  values = values or (api.nvim_get_option_info(name).type == 'boolean' and { true, false } or nil)
+  if not values then
+    vim.notify('No values specified', vim.log.levels.WARN, { title = 'toggle' })
+    return
+  end
   local value
   for i, v in ipairs(values) do
     if api.nvim_get_option_value(name, {}) == v then
@@ -23,7 +27,7 @@ util.toggle_options = function(name, values, opts)
       string.format('set `%s` to `%s`', vim.inspect(name), vim.inspect(value)),
       vim.log.levels.INFO,
       {
-        title = debug.getinfo(1, 'n').name,
+        title = { title = 'toggle' },
         on_open = function(win)
           local buf = api.nvim_win_get_buf(win)
           api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
