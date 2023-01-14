@@ -50,9 +50,9 @@ if vim.fn.executable('chezmoi') == 1 then
     autocmd('BufWritePost', {
       pattern = source_dir .. '/*',
       callback = function(a)
-        -- FIXME: synchronous is bad:\
+        -- FIXME: synchronous is bad:(
         local output = vim.fn.system({ 'chezmoi', 'apply', '--no-tty', '--source-path', a.match })
-        if #output ~= 0 then
+        if #output ~= 0 and vim.v.shell_error ~= 0 then
           vim.notify(output, vim.log.levels.INFO, { title = 'chezmoi' })
         end
       end,
