@@ -31,8 +31,6 @@ jobs:
           go-version: 'stable'
       - name: Install shfmt
         run: GO111MODULE=on go install mvdan.cc/sh/v3/cmd/shfmt@latest
-      - name: List files to shfmt
-        run: shfmt -f .
       - name: Run shfmt
         run: shfmt -w .
       - name: Commit changes
