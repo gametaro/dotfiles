@@ -18,14 +18,19 @@ jobs:
       matrix:
         include:
           - os: ubuntu:latest
+            run: apt-get update -q && apt-get install -y -q curl sudo
           - os: debian:latest
+            run: apt-get update -q && apt-get install -y -q curl sudo
           # - os: quay.io/centos/centos:stream
           - os: fedora:latest
+            run: dnf clean all && dnf install -y -q curl sudo
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
+      - name: Install prerequisites
+        run: ${{ matrix.run }}
       - name: Chezmoi init & apply
         run: ./install.sh
   macos:
