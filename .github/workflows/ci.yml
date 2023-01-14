@@ -64,7 +64,7 @@ jobs:
         id: release
         with:
           release-type: simple
-          package-name: dotfiles
+          package-name: release-please-action
           command: github-release
       - uses: actions/checkout@v3
       - name: tag stable versions
