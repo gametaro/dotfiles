@@ -7,6 +7,7 @@ return {
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'folke/neodev.nvim', config = true },
     { 'williamboman/mason.nvim', config = true, cmd = 'Mason' },
+    { 'williamboman/mason-lspconfig.nvim', opts = { automatic_installation = false } },
     { 'williamboman/mason-lspconfig.nvim', opts = { automatic_installation = true } },
   },
   event = 'BufReadPre',
