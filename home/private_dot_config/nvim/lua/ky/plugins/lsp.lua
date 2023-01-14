@@ -73,18 +73,18 @@ return {
         client.config.flags.allow_incremental_sync = true
       end
 
-      vim.api.nvim_create_autocmd('CursorHold', {
-        buffer = bufnr,
-        callback = function()
-          local opts = {
-            focusable = false,
-            close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
-            border = require('ky.ui').border,
-            scope = 'cursor',
-          }
-          vim.diagnostic.open_float(nil, opts)
-        end,
-      })
+      -- vim.api.nvim_create_autocmd('CursorHold', {
+      --   buffer = bufnr,
+      --   callback = function()
+      --     local opts = {
+      --       focusable = false,
+      --       close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+      --       border = require('ky.ui').border,
+      --       scope = 'cursor',
+      --     }
+      --     vim.diagnostic.open_float(nil, opts)
+      --   end,
+      -- })
 
       map({ 'n', 'x' }, '<M-f>', function()
         lsp.buf.format({
