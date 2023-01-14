@@ -1,8 +1,7 @@
 name: Lint
 on: workflow_call
 jobs:
-  build:
-    name: Lint Code Base
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
