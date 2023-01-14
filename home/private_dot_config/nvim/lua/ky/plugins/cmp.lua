@@ -9,7 +9,7 @@ return {
     { 'hrsh7th/cmp-emoji' },
     { 'saadparwaiz1/cmp_luasnip' },
     { 'f3fora/cmp-spell' },
-    { 'windwp/nvim-autopairs' },
+    { 'windwp/nvim-autopairs', cond = false },
     {
       'petertriho/cmp-git',
       config = function()
@@ -215,15 +215,15 @@ return {
       }),
     })
 
-    require('nvim-autopairs').setup({
-      check_ts = true,
-      enable_check_bracket_line = true,
-      fast_wrap = {},
-      map_c_h = true,
-      map_c_w = true,
-    })
-
-    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-    cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+    -- require('nvim-autopairs').setup({
+    --   check_ts = true,
+    --   enable_check_bracket_line = true,
+    --   fast_wrap = {},
+    --   map_c_h = true,
+    --   map_c_w = true,
+    -- })
+    --
+    -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+    -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
   end,
 }
