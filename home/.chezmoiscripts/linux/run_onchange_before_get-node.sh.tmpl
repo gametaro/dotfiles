@@ -1,6 +1,6 @@
 {{ $sudo := "sudo -E " -}}
 {{ if eq .chezmoi.username "root" -}}
-  {{ $sudo = "" -}}
+{{ $sudo = "" -}}
 {{ end -}}
 
 #!/usr/bin/env sh
@@ -10,14 +10,14 @@ set -eu
 
 if ! command -v node >/dev/null; then
 
-{{ if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
-  curl -fsSL https://deb.nodesource.com/setup_lts.x | {{ $sudo }}bash - &&\
-  {{ $sudo }}apt-get install -y nodejs
-{{ end -}}
+  {{ if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
+  curl -fsSL https://deb.nodesource.com/setup_lts.x | {{ $sudo }}bash - &&
+    {{ $sudo }}apt-get install -y -q nodejs
+  {{ end -}}
 
-{{ if eq .chezmoi.osRelease.id "amzn" "centos" "fedora" "rhel" -}}
+  {{ if eq .chezmoi.osRelease.id "amzn" "centos" "fedora" "rhel" -}}
   curl -fsSL https://rpm.nodesource.com/setup_lts.x | {{ $sudo }}bash -
-{{ end -}}
+  {{ end -}}
 
 fi
 {{/* vim: set filetype=sh: */}}

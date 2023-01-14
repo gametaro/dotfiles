@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install requisites
-        run: dnf clean all && dnf install -y curl sudo
+        run: dnf clean all && dnf install -y -q curl sudo
       - name: Chezmoi init & apply
         run: ./install.sh
   fedora:
@@ -48,6 +48,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install requisites
-        run: dnf clean all && dnf install -y curl sudo
+        run: dnf clean all && dnf install -y -q curl sudo
       - name: Chezmoi init & apply
         run: ./install.sh

@@ -1,6 +1,6 @@
 {{ $sudo := "sudo -E " -}}
-  {{ if eq .chezmoi.username "root" -}}
-  {{ $sudo = "" -}}
+{{ if eq .chezmoi.username "root" -}}
+{{ $sudo = "" -}}
 {{ end -}}
 
 #!/usr/bin/env sh
@@ -10,25 +10,24 @@ set -eu
 
 if ! command -v gh >/dev/null; then
 
-{{ if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
-  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-    | {{ $sudo }}dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-  && {{ $sudo }}chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-  && {{ $sudo }}apt update \
-  && {{ $sudo }}apt install gh -y
-{{ end -}}
+  {{ if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
+  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg |
+    {{ $sudo }}dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg &&
+    {{ $sudo }}chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg &&
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null &&
+    {{ $sudo }}apt-get update -q && {{ $sudo }}apt-get install gh -y -q
+  {{ end -}}
 
-{{ if eq .chezmoi.osRelease.id "centos" "fedora" "rhel" -}}
-  {{ $sudo }}dnf install -y 'dnf-command(config-manager)'
+  {{ if eq .chezmoi.osRelease.id "centos" "fedora" "rhel" -}}
+  {{ $sudo }}dnf install -y -q 'dnf-command(config-manager)'
   {{ $sudo }}dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-  {{ $sudo }}dnf install -y gh
-{{ end -}}
+  {{ $sudo }}dnf install -y -q gh
+  {{ end -}}
 
-{{ if eq .chezmoi.osRelease.id "amzn" -}}
+  {{ if eq .chezmoi.osRelease.id "amzn" -}}
   {{ $sudo }}yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-  {{ $sudo }}yum install gh
-{{ end -}}
+  {{ $sudo }}yum install -y -q gh
+  {{ end -}}
 
 fi
 {{/* vim: set filetype=sh: */}}
