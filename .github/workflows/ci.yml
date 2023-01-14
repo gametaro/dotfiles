@@ -7,9 +7,23 @@ on:
     branches:
       - main
 jobs:
-  ubuntu:
+  format:
+    uses: ./.github/workflows/format.yml
+  lint:
+    uses: ./.github/workflows/lint.yml
+  linux:
+    name: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu:latest
+          - os: debian:latest
+          # - os: quay.io/centos/centos:stream
+          - os: fedora:latest
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    container: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - name: Chezmoi init & apply
@@ -31,23 +45,29 @@ jobs:
         run: |
           (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
           bin/chezmoi.exe init --apply --source $Env:GITHUB_WORKSPACE
-  centos:
+  release:
+    needs:
+      - format
+      - lint
+      - linux
+      - macos
+      - windows
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    container: quay.io/centos/centos:stream
     steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: simple
+          package-name: dotfiles
+          command: github-release
       - uses: actions/checkout@v3
-      - name: Install requisites
-        run: dnf clean all && dnf install -y -q curl sudo
-      - name: Chezmoi init & apply
-        run: ./install.sh
-  fedora:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    container: fedora:latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install requisites
-        run: dnf clean all && dnf install -y -q curl sudo
-      - name: Chezmoi init & apply
-        run: ./install.sh
+      - name: tag stable versions
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git remote add gh-token "https://${{ secrets.GITHUB_TOKEN }}@github.com/google-github-actions/release-please-action.git"
+          git tag -d stable || true
+          git push origin :stable || true
+          git tag -a stable -m "Latest Stable Release"
+          git push origin stable

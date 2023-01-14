@@ -1,11 +1,5 @@
 name: Lint
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: workflow_call
 jobs:
   build:
     name: Lint Code Base
