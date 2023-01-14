@@ -1,11 +1,27 @@
+---@class treemotion.Option
+---@field public key string a key of motion (e.g., `w`, `e`, `b`...)
+
+---@class treemotion.Config
+---@field public skip_captures string[] a list of captures to skip
+---@field public disable_captures string[] a list of captures to disable
+---@field public skip_same_captures boolean should skip continuous captures?
+---@field public skip_non_keyword boolean should skip not `iskeyword` char?
+---@field public skip_non_keyword_captures string[] a list of captures to skip non `iskeyword`
+
+---@type treemotion.Config
 local config = {
-  skip_captures = { 'punctuation', 'conceal' },
+  -- pass to string.find
+  skip_captures = { 'punctuation', 'conceal', 'operator' },
+  disable_captures = { 'comment' },
   skip_same_captures = false,
   skip_non_keyword = true,
   skip_non_keyword_captures = { 'label', 'string', 'comment', 'variable', 'text' },
-  disable_captures = { 'comment' },
 }
 
+---@return number
+---@return number
+---@return table
+---@return string
 local function inspect()
   local items = vim.inspect_pos(nil, nil, nil, {
     syntax = true,
@@ -21,42 +37,36 @@ local function inspect()
   return row, col, captures, char
 end
 
----@param captures table
----@param skip_captures table
+---@param captures string[]
+---@param skip_captures string[]
 ---@return boolean
 local function has_skip_capture(captures, skip_captures)
-  local was_found = false
+  local found = false
   for _, capture in ipairs(captures) do
     for _, skip_capture in ipairs(skip_captures) do
       if string.find(capture, skip_capture) then
-        was_found = true
+        found = true
       end
     end
   end
-  return was_found
+  return found
 end
 
----@param opts table
+---@param opts treemotion.Option
 local function motion(opts)
   opts = opts or {}
   local key = opts.key
-
-  local whichwrap = vim.o.whichwrap
-  if
-    vim.tbl_contains(
-      { 'h', 'l' },
-      key and not vim.tbl_contains(vim.tbl_keys(vim.opt.whichwrap:get()), key)
-    )
-  then
-    vim.opt.whichwrap:append(key)
-  end
 
   for _ = 1, vim.v.count1 do
     while true do
       local pre_row, pre_col, pre_captures = inspect()
 
       vim.cmd.normal({ key, bang = true })
-      -- vim.cmd.execute(string.format([["normal %s"]], key))
+      -- vim.api.nvim_exec(string.format([["normal! $s"]], key), true)
+
+      if config.disable_captures and has_skip_capture(pre_captures, config.disable_captures) then
+        goto theend
+      end
 
       local post_row, post_col, post_captures, post_char = inspect()
 
@@ -92,10 +102,6 @@ local function motion(opts)
     end
 
     ::theend::
-  end
-
-  if vim.o.whichwrap ~= whichwrap then
-    vim.o.whichwrap = whichwrap
   end
 end
 
