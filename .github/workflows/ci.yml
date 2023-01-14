@@ -9,6 +9,7 @@ on:
 jobs:
   format:
     uses: ./.github/workflows/format.yml
+    secrets: inherit
   lint:
     uses: ./.github/workflows/lint.yml
   linux:
