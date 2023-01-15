@@ -11,6 +11,7 @@ jobs:
       - uses: nick-fields/retry@v2
         name: Chezmoi init & apply
         with:
+          timeout_minutes: 10
           max_attempts: 3
           retry_on: error
           command: ./install.sh

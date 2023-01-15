@@ -11,7 +11,6 @@ permissions:
 jobs:
   benchmark:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     env:
       OUTPUT_FILE: output.txt
     steps:
@@ -19,6 +18,7 @@ jobs:
       - uses: nick-fields/retry@v2
         name: Install hyperfine
         with:
+          timeout_minutes: 10
           max_attempts: 3
           retry_on: error
           # yamllint disable rule:line-length
@@ -31,6 +31,7 @@ jobs:
       - uses: nick-fields/retry@v2
         name: Chezmoi init & apply
         with:
+          timeout_minutes: 10
           max_attempts: 3
           retry_on: error
           command: ./install.sh

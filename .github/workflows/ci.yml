@@ -26,7 +26,6 @@ jobs:
           - os: fedora:latest
             run: dnf clean all && dnf install -y -q curl sudo
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     container: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -35,12 +34,12 @@ jobs:
       - uses: nick-fields/retry@v2
         name: Chezmoi init & apply
         with:
+          timeout_minutes: 10
           max_attempts: 3
           retry_on: error
           command: ./install.sh
   macos:
     runs-on: macos-latest
-    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
       - uses: nick-fields/retry@v2
@@ -51,13 +50,13 @@ jobs:
           command: ./install.sh
   windows:
     runs-on: windows-latest
-    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
       - uses: nick-fields/retry@v2
         name: Chezmoi init & apply
         with:
           shell: pwsh
+          timeout_minutes: 10
           max_attempts: 3
           retry_on: error
           command: |
