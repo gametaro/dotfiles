@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/gametaro/dotfiles/compare/v1.0.0...v1.1.0) (2023-01-15)
+
+
+### Features
+
+* **command:** create scratch-buffer ([9c518cd](https://github.com/gametaro/dotfiles/commit/9c518cd440c06abfbb43153101c4bd78f93a18a0))
+
+
+### Bug Fixes
+
+* **zsh:** remove -d arguments ([660faba](https://github.com/gametaro/dotfiles/commit/660fabad2352121ecbe8ba2cedbda1dd5ee49a85))
+
 ## 1.0.0 (2023-01-14)
 
 
