@@ -16,16 +16,24 @@ jobs:
       OUTPUT_FILE: output.txt
     steps:
       - uses: actions/checkout@v3
-      - name: Install hyperfine
-        run: |
+      - uses: nick-fields/retry@v2
+        name: Install hyperfine
+        with:
+          max_attempts: 3
+          retry_on: error
           # yamllint disable rule:line-length
-          curl -s https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
-          | jq -r '.assets[] | select(.name? | match("hyperfine-musl_.*_amd64.deb")) | .browser_download_url' \
-          | wget -qi - -O hyperfine.deb
-          sudo dpkg -i hyperfine.deb
+          command: |
+            curl -s https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
+            | jq -r '.assets[] | select(.name? | match("hyperfine-musl_.*_amd64.deb")) | .browser_download_url' \
+            | wget -qi - -O hyperfine.deb
+            sudo dpkg -i hyperfine.deb
           # yamllint enable rule:line-length
-      - name: Chezmoi Init
-        run: ./install.sh
+      - uses: nick-fields/retry@v2
+        name: Chezmoi init & apply
+        with:
+          max_attempts: 3
+          retry_on: error
+          command: ./install.sh
       - name: Run benchmark
         run: |
           TEMP_FILE=$(mktemp)
