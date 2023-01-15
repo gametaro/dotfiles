@@ -32,25 +32,37 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install prerequisites
         run: ${{ matrix.run }}
-      - name: Chezmoi init & apply
-        run: ./install.sh
+      - uses: nick-fields/retry@v2
+        name: Chezmoi init & apply
+        with:
+          max_attempts: 3
+          retry_on: error
+          command: ./install.sh
   macos:
     runs-on: macos-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
-      - name: Chezmoi init & apply
-        run: ./install.sh
+      - uses: nick-fields/retry@v2
+        name: Chezmoi init & apply
+        with:
+          max_attempts: 3
+          retry_on: error
+          command: ./install.sh
   windows:
     runs-on: windows-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
-      - name: Chezmoi init & apply
-        shell: pwsh
-        run: |
-          (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
-          bin/chezmoi.exe init --apply --source $Env:GITHUB_WORKSPACE
+      - uses: nick-fields/retry@v2
+        name: Chezmoi init & apply
+        with:
+          shell: pwsh
+          max_attempts: 3
+          retry_on: error
+          command: |
+            (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
+            bin/chezmoi.exe init --apply --source $Env:GITHUB_WORKSPACE
   release:
     needs:
       - format
