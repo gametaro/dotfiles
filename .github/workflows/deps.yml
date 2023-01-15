@@ -15,7 +15,9 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
+          token: ${{ secrets.PAT }}
           delete-branch: true
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           title: "chore(deps): bump nvim plugins"
           commit-message: "chore(deps): bump nvim plugins"
+          labels: dependencies
