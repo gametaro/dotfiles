@@ -168,9 +168,9 @@ return {
     cmp.setup(config)
     cmp.setup.cmdline({ '/', '?' }, {
       mapping = cmdline_mapping,
-      -- view = {
-      --   entries = { name = 'wildmenu', separator = '|' },
-      -- },
+      view = {
+        entries = { name = 'wildmenu', separator = '|' },
+      },
       sources = cmp.config.sources({
         {
           name = 'buffer',
@@ -187,9 +187,9 @@ return {
     })
     cmp.setup.cmdline(':', {
       mapping = cmdline_mapping,
-      -- view = {
-      --   entries = { name = 'wildmenu', separator = '|' },
-      -- },
+      view = {
+        entries = { name = 'wildmenu', separator = '|' },
+      },
       sources = cmp.config.sources({
         { name = 'path' },
       }, {
