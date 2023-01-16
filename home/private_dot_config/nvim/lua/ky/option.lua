@@ -1,40 +1,35 @@
-local g = vim.g
-local o = vim.o
-local opt = vim.opt
-local fn = vim.fn
-
 local indent = 2
 local blend = 0
 
-g.mapleader = ' '
-g.maplocalleader = ','
-g.ts_highlight_lua = true
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
+vim.g.ts_highlight_lua = true
 
-o.autowriteall = true
-o.backup = true
-opt.backupdir = { vim.fn.stdpath('state') .. '/backup//', '.' }
+vim.o.autowriteall = true
+vim.o.backup = true
+vim.opt.backupdir = { vim.fn.stdpath('state') .. '/backup//', '.' }
 vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
-opt.backupskip:append({ '*/.git/*' })
+vim.opt.backupskip:append({ '*/.git/*' })
 -- opt.clipboard = 'unnamedplus'
-o.cmdheight = 0
-opt.completeopt = { 'menu', 'menuone', 'noselect' }
-o.confirm = true
-o.copyindent = true
-opt.diffopt:append({
+vim.o.cmdheight = 0
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.o.confirm = true
+vim.o.copyindent = true
+vim.opt.diffopt:append({
   'algorithm:histogram',
   'indent-heuristic',
   'vertical',
   'linematch:60',
 })
-o.emoji = false
-o.expandtab = true
-o.fileformat = 'unix'
-opt.fileformats = {
+vim.o.emoji = false
+vim.o.expandtab = true
+vim.o.fileformat = 'unix'
+vim.opt.fileformats = {
   'unix',
   'dos',
   'mac',
 }
-opt.fillchars = {
+vim.opt.fillchars = {
   diff = '╱', -- '/',
   eob = ' ',
   fold = ' ',
@@ -53,28 +48,28 @@ opt.fillchars = {
 -- opt.foldlevelstart = 1
 -- opt.foldmethod = 'expr'
 -- see :h fo-table
-opt.formatoptions:remove({
+vim.opt.formatoptions:remove({
   'c',
   'o',
   'r',
 })
-o.ignorecase = true
-o.imsearch = 0
-o.inccommand = 'split'
-opt.isfname:remove({ '=' })
-o.jumpoptions = 'view'
-o.laststatus = 3
+vim.o.ignorecase = true
+vim.o.imsearch = 0
+vim.o.inccommand = 'split'
+vim.opt.isfname:remove({ '=' })
+vim.o.jumpoptions = 'view'
+vim.o.laststatus = 3
 -- o.lazyredraw = true
-o.linebreak = true
-o.list = true
-opt.listchars = {
+vim.o.linebreak = true
+vim.o.list = true
+vim.opt.listchars = {
   -- eol = '↵',
   extends = '»',
   precedes = '«',
   tab = '>-',
   trail = '·',
 }
-opt.modeline = false
+vim.opt.modeline = false
 -- o.more = false
 opt.mousescroll = { 'ver:1', 'hor:3' }
 o.preserveindent = true
@@ -85,11 +80,11 @@ o.ruler = false
 opt.shada:append({ 'r/tmp', 'rterm', 'rhealth' })
 -- opt.scrolloff = 5
 -- opt.sidescrolloff = 5
-o.secure = true
-opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
-o.shiftround = true
-o.shiftwidth = indent
-opt.shortmess:append({
+vim.o.secure = true
+vim.opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
+vim.o.shiftround = true
+vim.o.shiftwidth = indent
+vim.opt.shortmess:append({
   C = true,
   I = true,
   -- S = true,
@@ -129,22 +124,22 @@ o.wrap = false
 vim.o.statuscolumn =
   '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " " } '
 
-if fn.executable('git') == 1 and require('ky.util').is_git_repo() then
-  o.grepprg = 'git --no-pager grep -I -E --no-color --line-number --column'
-  o.grepformat = '%f:%l:%m,%f:%l:%c:%m'
-elseif fn.executable('rg') == 1 then
-  o.grepprg = 'rg --vimgrep --smart-case --hidden'
+if vim.fn.executable('git') == 1 and require('ky.util').is_git_repo() then
+  vim.o.grepprg = 'git --no-pager grep -I -E --no-color --line-number --column'
+  vim.o.grepformat = '%f:%l:%m,%f:%l:%c:%m'
+elseif vim.fn.executable('rg') == 1 then
+  vim.o.grepprg = 'rg --vimgrep --smart-case --hidden'
 end
 
-if fn.executable('zsh') == 1 then
-  o.shell = 'zsh'
+if vim.fn.executable('zsh') == 1 then
+  vim.o.shell = 'zsh'
 end
 
 -- neovide
-if fn.exists('g:neovide') > 0 then
-  g.neovide_cursor_animation_length = 0
-  g.neovide_cursor_trail_length = 0
-  g.neovide_floating_blur_amount_x = 2.0
-  g.neovide_floating_blur_amount_y = 2.0
-  o.guifont = 'FiraCode NF:style=Regular:h12'
+if vim.fn.exists('g:neovide') > 0 then
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_cursor_trail_length = 0
+  vim.g.neovide_floating_blur_amount_x = 2.0
+  vim.g.neovide_floating_blur_amount_y = 2.0
+  vim.o.guifont = 'FiraCode NF:style=Regular:h12'
 end
