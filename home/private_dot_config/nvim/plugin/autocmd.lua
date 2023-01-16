@@ -135,3 +135,14 @@ autocmd('ModeChanged', {
     vim.opt_local.listchars:remove('space')
   end,
 })
+
+autocmd({ 'BufEnter', 'VimEnter' }, {
+  callback = function(a)
+    if vim.bo[a.buf].buftype ~= '' then
+      return
+    end
+    local root = require('ky.util').get_root_by_patterns()
+      or require('ky.util').get_root_by_lsp({ buffer = a.buf })
+    vim.cmd.tcd(root or vim.fs.dirname(vim.api.nvim_buf_get_name(a.buf)))
+  end,
+})
