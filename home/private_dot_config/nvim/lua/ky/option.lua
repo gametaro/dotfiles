@@ -4,7 +4,7 @@ local opt = vim.opt
 local fn = vim.fn
 
 local indent = 2
-local blend = 10
+local blend = 0
 
 g.mapleader = ' '
 g.maplocalleader = ','
@@ -81,7 +81,7 @@ o.preserveindent = true
 o.pumblend = blend
 o.pumheight = 10
 o.report = 99999
--- o.ruler = false
+o.ruler = false
 opt.shada:append({ 'r/tmp', 'rterm', 'rhealth' })
 -- opt.scrolloff = 5
 -- opt.sidescrolloff = 5
@@ -99,8 +99,8 @@ opt.shortmess:append({
   s = true,
 })
 -- opt.showbreak = '↳ '
--- o.showcmd = false
--- o.showmode = false
+o.showcmd = false
+o.showmode = false
 o.signcolumn = 'yes'
 o.smartcase = true
 o.smartindent = true
