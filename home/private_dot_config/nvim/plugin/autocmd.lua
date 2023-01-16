@@ -96,8 +96,9 @@ autocmd('BufWritePost', {
 
 autocmd('VimResized', {
   callback = function()
-    cmd.wincmd('=')
+    vim.cmd.tabdo({ 'wincmd', '=' })
   end,
+  desc = 'Resize window',
 })
 
 autocmd('BufEnter', {
