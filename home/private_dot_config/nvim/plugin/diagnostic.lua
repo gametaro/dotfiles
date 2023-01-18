@@ -28,7 +28,7 @@ diagnostic.config({
     header = { 'Diagnostic', 'Title' },
     prefix = function(diag)
       local level = diagnostic.severity[diag.severity]
-      local prefix = string.format('  %s ', icons.diagnostic[string.lower(level)])
+      local prefix = string.format('%s ', icons.diagnostic[string.lower(level)])
       local hlname = 'Diagnostic' .. level:sub(1, 1) .. level:sub(2):lower()
       return prefix, hlname
     end,
