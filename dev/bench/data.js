@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1673917231768,
+  "lastUpdate": 1674003846423,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -17474,6 +17474,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.11103335021499999,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "fd385e37b11a289306aa403362de2cc3950bc242",
+          "message": "Merge pull request #29 from gametaro/create-pull-request/patch",
+          "timestamp": "2023-01-18T10:03:12+09:00",
+          "tree_id": "952520a0e7da9cacc527be675a77b809b44567b7",
+          "url": "https://github.com/gametaro/dotfiles/commit/fd385e37b11a289306aa403362de2cc3950bc242"
+        },
+        "date": 1674003844585,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.08090241411111114,
             "unit": "Second"
           }
         ]
