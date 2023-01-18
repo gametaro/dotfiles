@@ -12,32 +12,46 @@ return {
   config = function()
     local win_config = {
       position = 'bottom',
-      width = 35,
       height = 12,
     }
 
     local actions = require('diffview.actions')
 
     require('diffview').setup({
+      show_help_hints = false,
+      view = {
+        default = {
+          winbar_info = true,
+        },
+        file_history = {
+          winbar_info = true,
+        },
+      },
       file_panel = {
+        listing_style = 'list',
         win_config = win_config,
       },
       file_history_panel = {
+        listing_style = 'list',
         win_config = win_config,
+      },
+      default_args = {
+        DiffviewOpen = { '--untracked-files=no', '--imply-local' },
+        DiffviewFileHistory = { '--base=LOCAL' },
       },
       keymaps = {
         view = {
-          ['q'] = actions.close,
+          ['q'] = vim.cmd.DiffviewClose,
           ['co'] = actions.conflict_choose('ours'),
           ['ct'] = actions.conflict_choose('theirs'),
           ['cb'] = actions.conflict_choose('base'),
           ['ca'] = actions.conflict_choose('all'),
         },
         file_panel = {
-          ['q'] = actions.close,
+          ['q'] = vim.cmd.DiffviewClose,
         },
         file_history_panel = {
-          ['q'] = actions.close,
+          ['q'] = vim.cmd.DiffviewClose,
         },
       },
       hooks = {
