@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.1](https://github.com/gametaro/dotfiles/compare/v1.1.0...v1.1.1) (2023-01-18)
+
+
+### Bug Fixes
+
+* **command:** accept ? nargs ([fd3556b](https://github.com/gametaro/dotfiles/commit/fd3556b562dfd0cf861dcb2208b990130d1a202a))
+* **option:** restore accidentally removed code ([4d68f89](https://github.com/gametaro/dotfiles/commit/4d68f8968fa5dd3d240610d474cdb60987333977))
+* **ufo:** use treesitter as provider on diff-mode ([535baa9](https://github.com/gametaro/dotfiles/commit/535baa9d278945792bbf533d433c0dc2da33a2d4))
+
 ## [1.1.0](https://github.com/gametaro/dotfiles/compare/v1.0.0...v1.1.0) (2023-01-15)
 
 
