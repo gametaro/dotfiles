@@ -22,6 +22,6 @@ end, { desc = 'Disable diagnostics in all buffers' })
 
 vim.api.nvim_create_user_command('Scrach', function(opts)
   local buf = vim.api.nvim_create_buf(false, true)
-  vim.bo[buf].filetype = opts.args
+  vim.bo[buf].filetype = opts.args or ''
   vim.cmd.buffer(buf)
-end, { nargs = 1, complete = 'filetype', desc = 'Create |scratch-buffer|' })
+end, { nargs = '?', complete = 'filetype', desc = 'Create |scratch-buffer|' })
