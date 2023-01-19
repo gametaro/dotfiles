@@ -9,6 +9,7 @@ return {
   { 'AndrewRadev/linediff.vim', cmd = { 'Linediff' } },
   {
     dir = '~/projects/edgemotion.nvim',
+    enabled = false,
     keys = {
       {
         mode = { 'n', 'x' },
