@@ -27,7 +27,7 @@ util.toggle_options = function(name, values, opts)
       string.format('set `%s` to `%s`', vim.inspect(name), vim.inspect(value)),
       vim.log.levels.INFO,
       {
-        title = { title = 'toggle' },
+        title = 'toggle',
         on_open = function(win)
           local buf = api.nvim_win_get_buf(win)
           api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
