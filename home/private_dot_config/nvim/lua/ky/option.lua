@@ -71,7 +71,7 @@ vim.opt.listchars = {
 }
 vim.opt.modeline = false
 -- o.more = false
-vim.opt.mousescroll = { 'ver:1', 'hor:3' }
+-- vim.opt.mousescroll = { 'ver:1', 'hor:3' }
 vim.o.preserveindent = true
 vim.o.pumblend = blend
 vim.o.pumheight = 10
