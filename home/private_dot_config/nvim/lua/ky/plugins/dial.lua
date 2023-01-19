@@ -29,7 +29,8 @@ return {
       return group_name
     end
 
-    local lua = {
+    local group_names = {}
+    group_names.lua = {
       augend.paren.alias.lua_str_literal,
       augend.constant.new({
         elements = { 'and', 'or' },
@@ -39,17 +40,17 @@ return {
       }),
     }
 
-    local python = {
+    group_names.python = {
       augend.constant.new({
         elements = { 'True', 'False' },
       }),
     }
 
-    local markdown = {
+    group_names.markdown = {
       augend.misc.alias.markdown_header,
     }
 
-    local typescript = {
+    group_names.typescript = {
       augend.constant.new({
         elements = { 'let', 'const' },
       }),
@@ -61,12 +62,26 @@ return {
       }),
     }
 
+    group_names.gitcommit = {
+      augend.constant.new({
+        elements = { 'fix', 'feat', 'chore', 'refactor', 'ci' },
+      }),
+    }
+
+    group_names.gitrebase = {
+      augend.constant.new({
+        elements = { 'pick', 'squash', 'edit', 'reword', 'fixup', 'drop' },
+      }),
+    }
+
     require('dial.config').augends:register_group({
       default = default,
-      lua = with_default(lua),
-      python = with_default(python),
-      typescript = with_default(typescript),
-      markdown = with_default(markdown),
+      lua = with_default(group_names.lua),
+      python = with_default(group_names.python),
+      typescript = with_default(group_names.typescript),
+      markdown = with_default(group_names.markdown),
+      gitcommit = with_default(group_names.gitcommit),
+      gitrebase = with_default(group_names.gitrebase),
     })
 
     vim.keymap.set({ 'n', 'x' }, '<C-a>', '<Plug>(dial-increment)')
@@ -75,8 +90,7 @@ return {
     vim.keymap.set('x', 'g<C-x>', 'g<Plug>(dial-decrement)')
 
     local group = vim.api.nvim_create_augroup('DialMapping', { clear = true })
-    local group_names = { 'lua', 'python', 'typescript', 'markdown' }
-    for _, group_name in ipairs(group_names) do
+    for group_name, _ in pairs(group_names) do
       vim.api.nvim_create_autocmd('FileType', {
         group = group,
         pattern = group_name,
