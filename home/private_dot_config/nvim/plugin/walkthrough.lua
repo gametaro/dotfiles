@@ -1,6 +1,3 @@
-local api = vim.api
-local fs = vim.fs
-
 local walkthrough = {}
 
 ---@alias walkthrough.List.Type 'file'|'directory'
@@ -60,12 +57,12 @@ local sort = function(a, b)
 end
 
 ---@param path string
----@param opts walkthrough.List.Options
+---@param opts? walkthrough.List.Options
 ---@return walkthrough.List.Item[]
 local list = function(path, opts)
   opts = vim.tbl_extend('force', { sort = sort }, opts or {})
   local f = {}
-  for name, type in fs.dir(path, { skip = opts.skip }) do
+  for name, type in vim.fs.dir(path, { skip = opts.skip }) do
     if not opts.type or type == opts.type then
       f[#f + 1] = { name = name, type = type }
     end
@@ -83,8 +80,8 @@ local notify = function(msg, level, opts)
     or {
       title = 'walkthrough.nvim',
       on_open = function(win)
-        local buf = api.nvim_win_get_buf(win)
-        api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
+        local buf = vim.api.nvim_win_get_buf(win)
+        vim.api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
       end,
     }
   vim.notify(msg, level, opts)
@@ -105,7 +102,6 @@ local throttle_leading = function(fn, ms)
         timer:stop()
       end)
       running = true
-      ---@diagnostic disable-next-line: param-type-mismatch
       pcall(vim.schedule_wrap(fn), select(1, ...))
     end
   end
@@ -149,35 +145,35 @@ end
 walkthrough.walkthrough = function(opts)
   opts = opts or {}
 
-  local fullname = api.nvim_buf_get_name(0)
-  local basename = fs.basename(fullname)
-  local dirname = fs.dirname(fullname)
+  local fullname = vim.api.nvim_buf_get_name(0)
+  local basename = vim.fs.basename(fullname)
+  local dirname = vim.fs.dirname(fullname)
   local type = vim.fn.isdirectory(fullname) == 0 and 'file' or 'directory'
 
-  local f = dirfs[dirname]
-  if not f then
+  local fs = dirfs[dirname]
+  if not fs then
     watch(dirname)
-    f = list(dirname, { type = opts.type, skip = opts.skip, sort = opts.sort })
+    fs = list(dirname, { type = opts.type, skip = opts.skip, sort = opts.sort })
   end
-  if #f <= 1 then
+  if #fs <= 1 then
     if not opts.silent then
       notify('Not found')
     end
     return
   end
 
-  local idx = index_of(f, { name = basename, type = type })
+  local idx = index_of(fs, { name = basename, type = type })
   if not idx then
     if not opts.silent then
-      notify(string.format('Not found `%s` in `%s`', basename, vim.inspect(f)))
+      notify(string.format('Not found `%s` in `%s`', basename, vim.inspect(fs)))
     end
     return
   end
 
   local count = vim.v.count1 - 1
-  local target_idx = opts.next and (next_index(idx, #f) + count) or (prev_index(idx, #f) - count)
+  local target_idx = opts.next and (next_index(idx, #fs) + count) or (prev_index(idx, #fs) - count)
 
-  vim.cmd.edit(dirname .. '/' .. f[target_idx].name)
+  vim.cmd.edit(dirname .. '/' .. fs[target_idx].name)
 end
 
 ---Go to next file/directory in current directory
@@ -232,17 +228,12 @@ walkthrough.prev_dir = function(opts)
   walkthrough.walkthrough(opts)
 end
 
-vim.keymap.set(
-  'n',
-  ']w',
-  walkthrough.next,
-  { desc = 'Go to next file/directory in current directory' }
-)
+vim.keymap.set('n', ']w', walkthrough.next, { desc = 'Next file/directory in current directory' })
 vim.keymap.set(
   'n',
   '[w',
   walkthrough.prev,
-  { desc = 'Go to previous file/directory in current directory' }
+  { desc = 'Previous file/directory in current directory' }
 )
 
 return walkthrough
