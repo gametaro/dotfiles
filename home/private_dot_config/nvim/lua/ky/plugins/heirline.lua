@@ -189,10 +189,7 @@ return {
     }
 
     local FileName = {
-      provider = function(self)
-        local filename = vim.fs.basename(self.filename)
-        return filename == '' and '[No Name]' or filename
-      end,
+      provider = '%t',
       hl = { bold = false },
     }
 
@@ -202,11 +199,10 @@ return {
         if not filepath then
           return
         end
-        local trail = filepath:sub(-1) == '/' and '' or '/'
         if not conditions.width_percent_below(#filepath, 0.5) then
           filepath = fn.pathshorten(filepath)
         end
-        return filepath .. trail
+        return filepath
       end,
       hl = { fg = utils.get_highlight('Comment').fg },
     }
@@ -219,7 +215,7 @@ return {
         -- a small performance improvement:
         -- re register the component callback only on layout/buffer changes.
         update = { 'WinNew', 'WinClosed', 'BufEnter' },
-        { provider = ' ' },
+        Space,
         {
           provider = '',
           hl = { fg = 'gray' },
@@ -238,18 +234,14 @@ return {
         condition = function()
           return vim.bo.modified
         end,
-        provider = function()
-          return ' ●' -- '
-        end,
-        hl = { fg = 'diff_change' },
+        provider = ' ●', -- '
+        hl = { fg = 'cyan' },
       },
       {
         condition = function()
           return not vim.bo.modifiable or vim.bo.readonly
         end,
-        provider = function()
-          return ' '
-        end,
+        provider = ' ',
         hl = { fg = 'diag_warn' },
       },
     }
@@ -272,18 +264,8 @@ return {
     }
 
     local FileFormat = {
-      init = function(self)
-        self.fileformat = vim.bo.fileformat
-      end,
-      static = {
-        fileformat_icon = {
-          unix = '',
-          mac = '',
-          windows = '',
-        },
-      },
-      provider = function(self)
-        return self.fileformat_icon[self.fileformat]
+      provider = function()
+        return vim.bo.fileformat
       end,
       hl = { fg = utils.get_highlight('Comment').fg },
     }
@@ -332,7 +314,7 @@ return {
     }
 
     local Diagnostics = {
-      condition = conditions.has_diagnostics,
+      condition = not vim.diagnostic.is_disabled,
       init = function(self)
         self.errors = #diagnostic.get(0, { severity = diagnostic.severity.ERROR })
         self.warnings = #diagnostic.get(0, { severity = diagnostic.severity.WARN })
@@ -442,21 +424,21 @@ return {
       {
         provider = function(self)
           local count = self.status_dict.added or 0
-          return count > 0 and ' ' .. icons.git.add .. ' ' .. count
+          return ' ' .. icons.git.add .. count
         end,
         hl = { fg = 'git_add' },
       },
       {
         provider = function(self)
           local count = self.status_dict.removed or 0
-          return count > 0 and ' ' .. icons.git.remove .. ' ' .. count
+          return ' ' .. icons.git.remove .. count
         end,
         hl = { fg = 'git_removed' },
       },
       {
         provider = function(self)
           local count = self.status_dict.changed or 0
-          return count > 0 and ' ' .. icons.git.change .. ' ' .. count
+          return ' ' .. icons.git.change .. count
         end,
         hl = { fg = 'git_changed' },
       },
@@ -471,40 +453,30 @@ return {
           end, 100)
         end,
       },
-      provider = function()
-        local flag = (fn.haslocaldir() == 1 and 'L' or fn.haslocaldir(-1, 0) == 1 and 'T' or 'G')
-        local icon = ''
-        local cwd = fn.fnamemodify(vim.loop.cwd(), ':~')
-        if not conditions.width_percent_below(#cwd, 0.25) then
-          cwd = fn.pathshorten(cwd)
-        end
-        local trail = cwd:sub(-1) == '/' and '' or '/'
-        return flag .. ' ' .. icon .. ' ' .. cwd .. trail
-      end,
-      hl = { fg = utils.get_highlight('Directory').fg },
-    }
-
-    local TerminalName = {
-      init = function(self)
-        self.icon, self.icon_color =
-          require('nvim-web-devicons').get_icon_color_by_filetype('terminal', { default = true })
-        self.tname = api.nvim_buf_get_name(0):gsub('.*:', '')
-      end,
-      provider = function(self)
-        return self.icon .. ' ' .. self.tname
-      end,
-      hl = function(self)
-        return { fg = self.icon_color }
-      end,
+      {
+        provider = function()
+          return (fn.haslocaldir() == 1 and 'L' or fn.haslocaldir(-1, 0) == 1 and 'T' or 'G')
+        end,
+        hl = { fg = utils.get_highlight('Comment').fg },
+      },
+      Space,
+      {
+        provider = function()
+          local cwd = fn.fnamemodify(vim.fn.getcwd(), ':~')
+          if not conditions.width_percent_below(#cwd, 0.25) then
+            cwd = fn.pathshorten(cwd)
+          end
+          return cwd
+        end,
+        hl = { fg = utils.get_highlight('Directory').fg },
+      },
     }
 
     local TerminalTitle = {
       provider = function()
         return vim.b.term_title
       end,
-      hl = {
-        fg = utils.get_highlight('Directory').fg,
-      },
+      hl = { fg = utils.get_highlight('Directory').fg },
     }
 
     local QuickfixName = {
@@ -570,19 +542,9 @@ return {
       end,
       init = function(self)
         local dir = require('lir').get_context().dir
-        self.dir = fn.fnamemodify(dir, ':~:h')
-        self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color('lir_folder_icon')
+        self.dir = fn.fnamemodify(dir, ':.:h')
         self.show_hidden_files = require('lir.config').values.show_hidden_files
       end,
-      Align,
-      {
-        provider = function(self)
-          return self.icon
-        end,
-        hl = function(self)
-          return { fg = self.icon_color }
-        end,
-      },
       Space,
       {
         provider = function(self)
@@ -601,7 +563,6 @@ return {
           return { fg = self.show_hidden_files and 'diag_warn' or 'gray' }
         end,
       },
-      Align,
     }
 
     local Spell = {
@@ -627,15 +588,6 @@ return {
       },
       QuickfixName,
       HelpFileName,
-      {
-        condition = function()
-          return conditions.buffer_matches({ buftype = { 'terminal' } })
-        end,
-        {
-          Space,
-          TerminalName,
-        },
-      },
       {
         Space,
         FileNameBlock,
