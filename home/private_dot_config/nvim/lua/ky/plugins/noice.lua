@@ -59,6 +59,13 @@ return {
           },
           opts = { skip = true },
         },
+        {
+          filter = {
+            event = 'lsp',
+            find = 'formatting',
+          },
+          opts = { skip = true },
+        },
       },
     })
     require('ky.abbrev').cabbrev('n', 'Noice')
