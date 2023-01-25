@@ -1,7 +1,5 @@
 local icons = require('ky.ui').icons
 
-local diagnostic = vim.diagnostic
-
 local signs = {
   Error = icons.diagnostic.error,
   Warn = icons.diagnostic.warn,
@@ -13,21 +11,15 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-diagnostic.config({
+vim.diagnostic.config({
   severity_sort = true,
   virtual_text = false,
-  -- virtual_text = {
-  --   source = 'always',
-  --   prefix = '●',
-  --   severity = diagnostic.severity.ERROR,
-  -- },
-  -- virtual_lines = { only_current_line = true },
   float = {
     border = require('ky.ui').border,
     source = false,
     header = { 'Diagnostic', 'Title' },
     prefix = function(diag)
-      local level = diagnostic.severity[diag.severity]
+      local level = vim.diagnostic.severity[diag.severity]
       local prefix = string.format('%s ', icons.diagnostic[string.lower(level)])
       local hlname = 'Diagnostic' .. level:sub(1, 1) .. level:sub(2):lower()
       return prefix, hlname
@@ -41,25 +33,21 @@ diagnostic.config({
   },
 })
 
-vim.keymap.set('n', '<LocalLeader>e', diagnostic.open_float)
-vim.keymap.set('n', '[d', function()
-  diagnostic.goto_prev({ float = true })
-end)
-vim.keymap.set('n', ']d', function()
-  diagnostic.goto_next({ float = true })
-end)
-vim.keymap.set('n', '<LocalLeader>dq', diagnostic.setqflist)
-vim.keymap.set('n', '<LocalLeader>dl', diagnostic.setloclist)
+vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<LocalLeader>dq', vim.diagnostic.setqflist)
+vim.keymap.set('n', '<LocalLeader>dl', vim.diagnostic.setloclist)
 
 local setlist = require('ky.defer').debounce_trailing(function()
   local qf = vim.fn.getqflist({ winid = 0, title = 0 })
   local loc = vim.fn.getloclist(0, { winid = 0, title = 0 })
 
   if qf and qf.winid ~= 0 and qf.title == 'Diagnostics' then
-    diagnostic.setqflist({ open = false })
+    vim.diagnostic.setqflist({ open = false })
   end
   if loc and loc.winid ~= 0 and loc.title == 'Diagnostics' then
-    diagnostic.setloclist({ open = false })
+    vim.diagnostic.setloclist({ open = false })
   end
 end, 500)
 
