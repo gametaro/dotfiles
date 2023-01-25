@@ -69,5 +69,9 @@ return {
       },
     })
     require('ky.abbrev').cabbrev('n', 'Noice')
+
+    vim.keymap.set('c', '<M-CR>', function()
+      require('noice').redirect(vim.fn.getcmdline())
+    end, { desc = 'Redirect Cmdline' })
   end,
 }
