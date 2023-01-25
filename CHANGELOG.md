@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/gametaro/dotfiles/compare/v1.1.1...v1.2.0) (2023-01-25)
+
+
+### Features
+
+* **noice:** add mapping to redirect cmdline ouptput ([edf6611](https://github.com/gametaro/dotfiles/commit/edf6611d6d78e8a5736b6b07b71193a296d83017))
+
+
+### Bug Fixes
+
+* **heirline:** create autocmd only in git repository ([4621af9](https://github.com/gametaro/dotfiles/commit/4621af9935ad17ddea8a98b3df6c26097e7fab89))
+* **util:** correct title of notification ([c9e2e1e](https://github.com/gametaro/dotfiles/commit/c9e2e1e376189dcec0fdf4c6b704b7c12993cbad))
+
 ## [1.1.1](https://github.com/gametaro/dotfiles/compare/v1.1.0...v1.1.1) (2023-01-18)
 
 
