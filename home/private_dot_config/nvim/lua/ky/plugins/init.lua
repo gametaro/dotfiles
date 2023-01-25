@@ -6,7 +6,7 @@ return {
   { 'axelvc/template-string.nvim', enabled = false, config = true },
   { 'smjonas/inc-rename.nvim', cmd = 'IncRename', config = true },
   { 'akinsho/git-conflict.nvim', event = 'BufReadPost', config = true },
-  { 'AndrewRadev/linediff.vim', cmd = { 'Linediff' } },
+  { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
   {
     dir = '~/projects/edgemotion.nvim',
     enabled = false,
