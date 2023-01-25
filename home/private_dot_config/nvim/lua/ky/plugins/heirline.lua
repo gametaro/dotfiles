@@ -1,4 +1,4 @@
-local job = require('ky.util').job
+local util = require('ky.util')
 local icons = require('ky.ui').icons
 
 local api = vim.api
@@ -7,7 +7,7 @@ local fn = vim.fn
 local diagnostic = vim.diagnostic
 
 local git_rev = function()
-  job(
+  util.job(
     'git',
     {
       'rev-list',
@@ -25,16 +25,18 @@ local git_rev = function()
   )
 end
 
-api.nvim_create_autocmd('VimEnter', {
-  group = api.nvim_create_augroup('GitRev', { clear = true }),
-  once = true,
-  callback = function()
-    local timer = vim.loop.new_timer()
-    timer:start(0, 10000, function()
-      git_rev()
-    end)
-  end,
-})
+if vim.fn.executable('git') == 1 and util.is_git_repo() then
+  api.nvim_create_autocmd('VimEnter', {
+    group = api.nvim_create_augroup('GitRev', { clear = true }),
+    once = true,
+    callback = function()
+      local timer = vim.loop.new_timer()
+      timer:start(0, 10000, function()
+        git_rev()
+      end)
+    end,
+  })
+end
 
 return {
   'rebelot/heirline.nvim',
