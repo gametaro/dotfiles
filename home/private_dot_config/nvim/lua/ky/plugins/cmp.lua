@@ -34,34 +34,6 @@ return {
       return (entry1_under or 0) < (entry2_under or 0)
     end
 
-    local kind_icons = {
-      Text = '',
-      Method = '',
-      Function = '',
-      Constructor = '',
-      Field = '',
-      Variable = '',
-      Class = 'ﴯ',
-      Interface = '',
-      Module = '',
-      Property = 'ﰠ',
-      Unit = '',
-      Value = '',
-      Enum = '',
-      Keyword = '',
-      Snippet = '',
-      Color = '',
-      File = '',
-      Reference = '',
-      Folder = '',
-      EnumMember = '',
-      Constant = '',
-      Struct = '',
-      Event = '',
-      Operator = '',
-      TypeParameter = '',
-    }
-
     local window = {
       border = require('ky.ui').border,
       winhighlight = table.concat({
@@ -125,7 +97,7 @@ return {
         deprecated = true,
         fields = { 'kind', 'abbr' },
         format = function(_, vim_item)
-          vim_item.kind = kind_icons[vim_item.kind] or ''
+          vim_item.kind = require('ky.ui').icons.kind[vim_item.kind] or ''
           return vim_item
         end,
       },
