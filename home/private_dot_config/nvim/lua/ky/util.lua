@@ -39,7 +39,9 @@ end
 
 ---check nvim is running on headless mode
 ---@return boolean
-util.headless = #api.nvim_list_uis() == 0
+util.headless = function()
+  return #api.nvim_list_uis() == 0
+end
 
 ---@return boolean
 util.is_win = function()
