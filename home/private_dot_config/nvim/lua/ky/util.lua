@@ -1,24 +1,23 @@
-local util = {}
-
-local api = vim.api
+local M = {}
 
 ---toggle vim options
 ---@param name string
 ---@param values table|nil
 ---@param opts table|nil
-util.toggle_options = function(name, values, opts)
+function M.toggle_options(name, values, opts)
   local defaults = { silent = false }
   opts = vim.tbl_extend('force', defaults, opts or {})
-  values = values or (api.nvim_get_option_info(name).type == 'boolean' and { true, false } or nil)
+  values = values
+    or (vim.api.nvim_get_option_info(name).type == 'boolean' and { true, false } or nil)
   if not values then
     vim.notify('No values specified', vim.log.levels.WARN, { title = 'toggle' })
     return
   end
   local value
   for i, v in ipairs(values) do
-    if api.nvim_get_option_value(name, {}) == v then
+    if vim.api.nvim_get_option_value(name, {}) == v then
       value = values[i == #values and 1 or i + 1]
-      api.nvim_set_option_value(name, value, {})
+      vim.api.nvim_set_option_value(name, value, {})
       break
     end
   end
@@ -29,8 +28,8 @@ util.toggle_options = function(name, values, opts)
       {
         title = 'toggle',
         on_open = function(win)
-          local buf = api.nvim_win_get_buf(win)
-          api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
+          local buf = vim.api.nvim_win_get_buf(win)
+          vim.api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
         end,
       }
     )
@@ -39,12 +38,12 @@ end
 
 ---check nvim is running on headless mode
 ---@return boolean
-util.headless = function()
-  return #api.nvim_list_uis() == 0
+function M.headless()
+  return #vim.api.nvim_list_uis() == 0
 end
 
 ---@return boolean
-util.is_win = function()
+function M.is_win()
   return vim.loop.os_uname().sysname:find('Windows') ~= nil
 end
 
@@ -54,18 +53,18 @@ end
 ---@param acc? integer
 ---@return boolean
 ---@see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
-util.find_proc_in_tree = function(rootpid, names, acc)
+function M.find_proc_in_tree(rootpid, names, acc)
   acc = acc or 0
   if acc > 9 then
     return false
   end
-  local p = api.nvim_get_proc(rootpid)
+  local p = vim.api.nvim_get_proc(rootpid)
   if p and vim.tbl_contains(names, p.name) then
     return true
   end
-  local ids = api.nvim_get_proc_children(rootpid)
+  local ids = vim.api.nvim_get_proc_children(rootpid)
   for _, id in ipairs(ids) do
-    if util.find_proc_in_tree(id, names, 1 + acc) then
+    if M.find_proc_in_tree(id, names, 1 + acc) then
       return true
     end
   end
@@ -75,7 +74,7 @@ end
 ---@param cmd string
 ---@param args table
 ---@param callback function
-util.job = function(cmd, args, callback)
+function M.job(cmd, args, callback)
   local results = {}
   local handle
   local stdout = vim.loop.new_pipe(false)
@@ -117,7 +116,7 @@ util.job = function(cmd, args, callback)
 end
 
 ---@return boolean
-util.is_git_repo = function()
+function M.is_git_repo()
   local root_dir
   for dir in vim.fs.parents(vim.api.nvim_buf_get_name(0)) do
     if vim.fn.isdirectory(dir .. '/.git') == 1 then
@@ -128,4 +127,4 @@ util.is_git_repo = function()
   return root_dir ~= nil
 end
 
-return util
+return M
