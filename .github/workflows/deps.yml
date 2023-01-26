@@ -39,10 +39,9 @@ jobs:
           command: ./install.sh
       - name: Chezmoi upgrade
         run: |
-          OLD_VERSION=$(chezmoi data | jq .chezmoi.version.version --raw-output)
-          chezmoi upgrade
+          CURRENT_VERSION=$(cat .chezmoiversion)
           NEW_VERSION=$(chezmoi data | jq .chezmoi.version.version --raw-output)
-          if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
+          if [ "$CURRENT_VERSION" != "$NEW_VERSION" ]; then
             echo "$NEW_VERSION" > .chezmoiversion
           fi
       - name: Create Pull Request
