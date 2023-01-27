@@ -1,10 +1,7 @@
 local util = require('ky.util')
 local icons = require('ky.ui').icons
 
-local api = vim.api
-local cmd = vim.cmd
 local fn = vim.fn
-local diagnostic = vim.diagnostic
 
 local git_rev = function()
   util.job(
@@ -17,7 +14,7 @@ local git_rev = function()
     },
     vim.schedule_wrap(function(data)
       local ahead, behind = unpack(vim.split(data or '', '\t'))
-      api.nvim_set_var('git_rev', {
+      vim.api.nvim_set_var('git_rev', {
         ahead = tonumber(ahead) or 0,
         behind = tonumber(behind) or 0,
       })
@@ -26,8 +23,8 @@ local git_rev = function()
 end
 
 if vim.fn.executable('git') == 1 and util.is_git_repo() then
-  api.nvim_create_autocmd('VimEnter', {
-    group = api.nvim_create_augroup('GitRev', { clear = true }),
+  vim.api.nvim_create_autocmd('VimEnter', {
+    group = vim.api.nvim_create_augroup('GitRev', { clear = true }),
     once = true,
     callback = function()
       local timer = vim.loop.new_timer()
@@ -71,7 +68,7 @@ return {
     local Align = { provider = '%=' }
     local Space = { provider = ' ' }
 
-    api.nvim_create_autocmd('User', {
+    vim.api.nvim_create_autocmd('User', {
       pattern = 'HeirlineInitWinbar',
       callback = function(a)
         local buf = a.buf
@@ -86,9 +83,9 @@ return {
 
     local ViMode = {
       init = function(self)
-        self.mode = api.nvim_get_mode().mode
+        self.mode = vim.api.nvim_get_mode().mode
         if not self.once then
-          api.nvim_create_autocmd('ModeChanged', {
+          vim.api.nvim_create_autocmd('ModeChanged', {
             pattern = '*:*o',
             command = 'redrawstatus',
           })
@@ -163,12 +160,12 @@ return {
 
     local FileNameBlock = {
       init = function(self)
-        self.filename = api.nvim_buf_get_name(0)
+        self.filename = vim.api.nvim_buf_get_name(0)
       end,
       on_click = {
         name = 'heirline_filename',
         callback = function(self)
-          cmd.edit(vim.fs.dirname(self.filename))
+          vim.cmd.edit(vim.fs.dirname(self.filename))
         end,
       },
     }
@@ -221,7 +218,7 @@ return {
           hl = { fg = 'gray' },
           on_click = {
             callback = function(_, winid)
-              pcall(api.nvim_win_close, winid, true)
+              pcall(vim.api.nvim_win_close, winid, true)
             end,
             name = function(self)
               return 'heirline_close_button_' .. self.winnr
@@ -265,7 +262,7 @@ return {
 
     local FileFormat = {
       provider = function()
-        return vim.bo.fileformat
+        return vim.bo.fileformat:upper()
       end,
       hl = { fg = utils.get_highlight('Comment').fg },
     }
@@ -297,7 +294,7 @@ return {
         callback = function()
           -- use vim.defer_fn() if the callback requires opening of a floating window
           vim.defer_fn(function()
-            cmd.LspInfo()
+            vim.cmd.LspInfo()
           end, 100)
         end,
       },
@@ -316,10 +313,10 @@ return {
     local Diagnostics = {
       condition = not vim.diagnostic.is_disabled,
       init = function(self)
-        self.errors = #diagnostic.get(0, { severity = diagnostic.severity.ERROR })
-        self.warnings = #diagnostic.get(0, { severity = diagnostic.severity.WARN })
-        self.hints = #diagnostic.get(0, { severity = diagnostic.severity.HINT })
-        self.info = #diagnostic.get(0, { severity = diagnostic.severity.INFO })
+        self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+        self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+        self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+        self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
       end,
       static = {
         error_icon = string.format('%s ', icons.diagnostic.error),
@@ -328,7 +325,7 @@ return {
         hint_icon = string.format('%s ', icons.diagnostic.hint),
       },
       update = function()
-        return api.nvim_get_mode().mode:sub(1, 1) ~= 'i'
+        return vim.api.nvim_get_mode().mode:sub(1, 1) ~= 'i'
       end,
       -- update = { 'DiagnosticChanged', 'BufEnter' },
       on_click = {
@@ -340,9 +337,9 @@ return {
           end
 
           if qf.winid ~= 0 and qf.title == 'Diagnostics' then
-            cmd.cclose()
+            vim.cmd.cclose()
           else
-            diagnostic.setqflist()
+            vim.diagnostic.setqflist()
           end
         end,
       },
@@ -368,7 +365,7 @@ return {
         provider = function(self)
           return self.hints > 0 and self.hint_icon .. self.hints
         end,
-        hl = { fg = 'diag_error' },
+        hl = { fg = 'diag_hint' },
       },
     }
 
@@ -382,7 +379,7 @@ return {
       },
       {
         condition = function()
-          return pcall(api.nvim_get_var, 'git_rev')
+          return pcall(vim.api.nvim_get_var, 'git_rev')
         end,
         provider = function()
           return (vim.g.git_rev.ahead > 0 and ' ' .. icons.git.ahead .. vim.g.git_rev.ahead or '')
@@ -393,7 +390,7 @@ return {
       on_click = {
         name = 'heirline_Neogit',
         callback = function()
-          cmd.Neogit()
+          vim.cmd.Neogit()
         end,
       },
     }
@@ -415,7 +412,7 @@ return {
           end
 
           if qf.winid ~= 0 and qf.title == 'Hunks' then
-            cmd.cclose()
+            vim.cmd.cclose()
           else
             require('gitsigns').setqflist()
           end
@@ -424,21 +421,21 @@ return {
       {
         provider = function(self)
           local count = self.status_dict.added or 0
-          return ' ' .. icons.git.add .. count
+          return count > 0 and icons.git.add .. ' ' .. count .. ' '
         end,
         hl = { fg = 'git_add' },
       },
       {
         provider = function(self)
           local count = self.status_dict.removed or 0
-          return ' ' .. icons.git.remove .. count
+          return count > 0 and icons.git.remove .. ' ' .. count .. ' '
         end,
         hl = { fg = 'git_removed' },
       },
       {
         provider = function(self)
           local count = self.status_dict.changed or 0
-          return ' ' .. icons.git.change .. count
+          return count > 0 and icons.git.change .. ' ' .. count
         end,
         hl = { fg = 'git_changed' },
       },
@@ -449,7 +446,7 @@ return {
         name = 'heirline_workdir',
         callback = function()
           vim.defer_fn(function()
-            cmd.edit('.')
+            vim.cmd.edit('.')
           end, 100)
         end,
       },
@@ -532,7 +529,7 @@ return {
         return vim.bo.filetype == 'help'
       end,
       provider = function()
-        return ' ' .. vim.fs.basename(api.nvim_buf_get_name(0))
+        return ' ' .. '%t'
       end,
     }
 
@@ -617,7 +614,7 @@ return {
 
     local TabPages = {
       condition = function()
-        return #api.nvim_list_tabpages() >= 2
+        return #vim.api.nvim_list_tabpages() >= 2
       end,
       utils.make_tablist(Tabpage),
       Align,
@@ -630,7 +627,7 @@ return {
         return vim.o.laststatus == 0
       end,
       provider = function()
-        local winwidth = api.nvim_win_get_width(0)
+        local winwidth = vim.api.nvim_win_get_width(0)
         return string.rep('─', winwidth)
       end,
       hl = {
@@ -710,8 +707,8 @@ return {
       end,
     }
 
-    api.nvim_create_autocmd('ColorScheme', {
-      group = api.nvim_create_augroup('mine__heirline', {}),
+    vim.api.nvim_create_autocmd('ColorScheme', {
+      group = vim.api.nvim_create_augroup('mine__heirline', {}),
       callback = function()
         utils.on_colorscheme(setup_colors())
       end,
