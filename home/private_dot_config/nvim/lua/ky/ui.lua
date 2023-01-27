@@ -2,16 +2,18 @@ local M = {}
 
 M.icons = {
   diagnostic = {
-    error = '',
-    warn = '',
-    hint = '',
-    info = '',
+    error = '',
+    warn = '',
+    hint = '',
+    info = '',
   },
   git = {
-    add = '',
-    change = '',
-    remove = '',
-    branch = '',
+    add = '',
+    change = '',
+    remove = '',
+    ignore = '',
+    rename = '',
+    branch = '󰘬',
     ahead = '⇡',
     behind = '⇣',
   },
@@ -41,6 +43,12 @@ M.icons = {
     Event = '',
     Operator = '',
     TypeParameter = '',
+  },
+  chevron = {
+    down = '',
+    right = '',
+    left = '',
+    up = '',
   },
 }
 
