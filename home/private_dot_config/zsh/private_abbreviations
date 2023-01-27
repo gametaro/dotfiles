@@ -8,6 +8,7 @@ abbr -S chs="chezmoi status"
 abbr -S che="chezmoi execute-template"
 abbr -S chd="chezmoi data"
 abbr -S chc="chezmoi cd"
+abbr -S chu="chezmoi update"
 
 # npm
 abbr -S np="npm"
