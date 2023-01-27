@@ -2,7 +2,7 @@ name: Deps
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: 0 0 * * *
 jobs:
   lazy:
     runs-on: ubuntu-latest
@@ -21,6 +21,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.PAT }}
+          branch: create-pull-request/bump-nvim-plugins
           delete-branch: true
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           title: "chore(deps): bump nvim plugins"
@@ -48,6 +49,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.PAT }}
+          branch: create-pull-request/bump-chezmoi
           delete-branch: true
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           title: "chore(deps): bump chezmoi"
