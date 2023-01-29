@@ -14,7 +14,7 @@ local compile_path = vim.fs.normalize(vim.fn.stdpath('cache') .. '/heine.lua')
 ---@param value integer
 ---@param min integer
 ---@param max integer
-local clamp = function(value, min, max)
+local function clamp(value, min, max)
   if value < min then
     return min
   elseif value > max then
@@ -25,14 +25,14 @@ end
 
 ---@param hex string
 ---@param v integer
-M.saturate = function(hex, v)
+function M.saturate(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
   return hsluv.hsluv_to_hex({ h, clamp(s + v, -100, 100), l })
 end
 
 ---@param hex string
 ---@param v integer
-M.lighten = function(hex, v)
+function M.lighten(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
   return hsluv.hsluv_to_hex({ h, s, clamp(l + v, -100, 100) })
 end
@@ -40,14 +40,14 @@ end
 ---@param hex string
 ---@param s integer
 ---@param l integer
-M.saturate_lighten = function(hex, s, l)
+function M.saturate_lighten(hex, s, l)
   return M.lighten(M.saturate(hex, s), l)
 end
 
 ---@param c1 string
 ---@param c2 string
 ---@param f number
-M.blend = function(c1, c2, f)
+function M.blend(c1, c2, f)
   local r1, g1, b1 = unpack(hsluv.hex_to_rgb(c1))
   local r2, g2, b2 = unpack(hsluv.hex_to_rgb(c2))
   return hsluv.rgb_to_hex({ (r2 - r1) * f + r1, (g2 - g1) * f + g1, (b2 - b1) * f + b1 })
@@ -577,7 +577,7 @@ M.highlight_groups = {
   NvimSurroundHighlight = { link = 'IncSearch' },
 }
 
-M.load = function()
+function M.load()
   if vim.loop.fs_stat(compile_path) then
     vim.cmd.source(compile_path)
     return
@@ -587,7 +587,7 @@ M.load = function()
   end
 end
 
-M.reload = function()
+function M.reload()
   for k, _ in pairs(package.loaded) do
     if string.match(k, '^heine') then
       package.loaded[k] = nil
@@ -596,7 +596,7 @@ M.reload = function()
 end
 
 ---@param t table
-local inspect = function(t)
+local function inspect(t)
   local list = {}
   for k, v in pairs(t) do
     local quote = type(v) == 'string' and [[']] or ''
@@ -607,7 +607,7 @@ local inspect = function(t)
 end
 
 ---@param silent? boolean
-M.compile = function(silent)
+function M.compile(silent)
   silent = silent or false
 
   local lines = { 'local set_hl = vim.api.nvim_set_hl' }
@@ -632,7 +632,7 @@ M.compile = function(silent)
 end
 
 ---@param silent? boolean
-M.clean = function(silent)
+function M.clean(silent)
   silent = silent or false
 
   local ok, msg = os.remove(compile_path)
