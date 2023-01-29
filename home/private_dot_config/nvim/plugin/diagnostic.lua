@@ -25,8 +25,8 @@ vim.diagnostic.config({
       return prefix, hlname
     end,
     suffix = function(diag)
-      local source = diag.source and string.format('%s', diag.source) or ''
-      local code = diag.code and string.format('[%s]', diag.code) or ''
+      local source = diag.source or ''
+      local code = diag.code and string.format('(%s)', diag.code) or ''
       local suffix = string.format(' %s %s', source, code)
       return suffix, 'Comment'
     end,
