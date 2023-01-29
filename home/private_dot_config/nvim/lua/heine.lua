@@ -349,7 +349,7 @@ M.highlight_groups = {
   -- ['@punctuation'] = {},
   -- ['@punctuation.delimiter'] = {},
   -- ['@punctuation.bracket'] = {},
-  -- ['@punctuation.special'] = {},
+  ['@punctuation.special'] = { link = 'SpecialChar' },
   -- ['@repeat'] = {},
   -- ['@storageclass'] = {},
   -- ['@string'] = {},
