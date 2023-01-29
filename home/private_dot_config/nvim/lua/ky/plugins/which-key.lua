@@ -4,13 +4,14 @@ return {
   config = function()
     require('which-key').setup({
       plugins = {
-        marks = false,
         spelling = {
           enabled = true,
         },
       },
-      show_help = false,
-      show_keys = false,
     })
+    -- HACK: remove `*` and `+`
+    require('which-key.plugins').plugins.registers.registers =
+      '"-:.%/#=_abcdefghijklmnopqrstuvwxyz0123456789'
+    -- '*+"-:.%/#=_abcdefghijklmnopqrstuvwxyz0123456789'
   end,
 }
