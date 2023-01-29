@@ -606,7 +606,7 @@ local inspect = function(t)
   return string.format([[{ %s }]], table.concat(list, ', '))
 end
 
----@param silent boolean
+---@param silent? boolean
 M.compile = function(silent)
   silent = silent or false
 
@@ -631,7 +631,7 @@ M.compile = function(silent)
   end
 end
 
----@param silent boolean
+---@param silent? boolean
 M.clean = function(silent)
   silent = silent or false
 
