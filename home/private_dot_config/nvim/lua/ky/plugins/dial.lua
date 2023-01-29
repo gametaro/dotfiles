@@ -1,6 +1,6 @@
 return {
   'monaqa/dial.nvim',
-  keys = { '<C-a>', '<C-x>' },
+  event = 'BufReadPost',
   config = function()
     local augend = require('dial.augend')
 
