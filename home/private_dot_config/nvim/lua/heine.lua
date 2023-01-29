@@ -57,11 +57,11 @@ end
 M.palette = {
   red = hsluv.hsluv_to_hex({ 0, 65, 68 }),
   orange = hsluv.hsluv_to_hex({ 20, 51, 68 }),
-  green = hsluv.hsluv_to_hex({ 90, 27, 70 }),
-  lgreen = hsluv.hsluv_to_hex({ 140, 27, 68 }),
-  cyan = hsluv.hsluv_to_hex({ 190, 38, 67 }),
+  green = hsluv.hsluv_to_hex({ 90, 33, 70 }),
+  lgreen = hsluv.hsluv_to_hex({ 140, 34, 68 }),
+  cyan = hsluv.hsluv_to_hex({ 180, 38, 67 }),
   blue = hsluv.hsluv_to_hex({ 220, 41, 68 }),
-  magenta = hsluv.hsluv_to_hex({ 260, 27, 70 }),
+  magenta = hsluv.hsluv_to_hex({ 260, 38, 70 }),
 }
 
 local hue_base = 220
