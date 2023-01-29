@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.0](https://github.com/gametaro/dotfiles/compare/v1.2.0...v1.3.0) (2023-01-29)
+
+
+### Features
+
+* **dial:** add special mappings for gitcommit and gitrebase ([6747f6f](https://github.com/gametaro/dotfiles/commit/6747f6fe062e189bed076d39506a2c5340a5b980))
+
+
+### Bug Fixes
+
+* **cursorline:** enable cursorline on BufEnter ([ca58e2b](https://github.com/gametaro/dotfiles/commit/ca58e2b567253659a0d3967f9288f6bce2b44a34))
+* **dial:** load on event instead of keys ([f4efa12](https://github.com/gametaro/dotfiles/commit/f4efa128eb8e83d796128204ca04b5136c11eaf7))
+* **util:** check if on headless mode each time ([a768b3d](https://github.com/gametaro/dotfiles/commit/a768b3d8cfb23c9f2f3d04d33726a406176099e4))
+* **which-key:** suppress error messages about clipboard ([623cb3b](https://github.com/gametaro/dotfiles/commit/623cb3b9e0134ecb5cf70513a37970cb62041c7c))
+
 ## [1.2.0](https://github.com/gametaro/dotfiles/compare/v1.1.1...v1.2.0) (2023-01-25)
 
 
