@@ -6,7 +6,15 @@ return {
     { 'lukas-reineke/lsp-format.nvim' },
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'folke/neodev.nvim', config = true },
-    { 'williamboman/mason.nvim', config = true, cmd = 'Mason' },
+    {
+      'williamboman/mason.nvim',
+      opts = {
+        ui = {
+          border = require('ky.ui').border,
+        },
+      },
+      cmd = 'Mason',
+    },
     { 'williamboman/mason-lspconfig.nvim', opts = { automatic_installation = false } },
     { 'folke/neoconf.nvim', config = true },
   },

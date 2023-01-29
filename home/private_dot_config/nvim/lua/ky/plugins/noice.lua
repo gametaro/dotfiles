@@ -23,6 +23,14 @@ return {
       --     enter = true,
       --   },
       -- },
+      views = {
+        hover = {
+          border = {
+            style = require('ky.ui').border,
+          },
+          position = { row = 2, col = 2 },
+        },
+      },
       routes = {
         {
           filter = {

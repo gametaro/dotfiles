@@ -14,6 +14,9 @@ require('lazy').setup('ky.plugins', {
   defaults = {
     lazy = true,
   },
+  ui = {
+    border = require('ky.ui').border,
+  },
   checker = {
     enabled = false,
   },
