@@ -43,7 +43,7 @@ local disable_cursorline = debounce_leading(function()
   cursorline(false)
 end, opts.timeout.disable)
 
-vim.api.nvim_create_autocmd({ 'InsertLeave' }, {
+vim.api.nvim_create_autocmd({ 'InsertLeave', 'BufEnter' }, {
   group = group,
   callback = function()
     cursorline(true)
