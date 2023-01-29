@@ -207,7 +207,7 @@ M.highlight_groups = {
   Tabline = { fg = normal_fg, bg = M.lighten(normal_bg, 10) },
   TablineFill = { bg = M.lighten(normal_bg, 5) },
   TablineSel = { fg = pmenusel_fg, bg = normal_bg },
-  Title = { fg = M.palette.cyan, bold = true },
+  Title = { fg = M.palette.blue, bold = true },
   Visual = { bg = visual_bg },
   VisualNOS = { bg = visual_bg },
   WarningMsg = { fg = M.palette.orange },
