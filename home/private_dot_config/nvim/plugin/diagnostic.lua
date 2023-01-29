@@ -17,7 +17,9 @@ vim.diagnostic.config({
   float = {
     border = require('ky.ui').border,
     source = false,
-    header = { 'Diagnostic', 'Title' },
+    title = 'Diagnostic',
+    title_pos = 'center',
+    header = require('ky.ui').border == 'none' and { 'Diagnostic', 'Title' } or '',
     prefix = function(diag)
       local level = vim.diagnostic.severity[diag.severity]
       local prefix = string.format('%s ', icons.diagnostic[string.lower(level)])
