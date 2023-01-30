@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/gametaro/dotfiles/compare/v1.3.0...v1.4.0) (2023-01-30)
+
+
+### Features
+
+* **colorscheme:** add colors for terminal ([8b69004](https://github.com/gametaro/dotfiles/commit/8b690044a76b3d56662827d205b2c973ff1c364a))
+
+
+### Bug Fixes
+
+* **colorscheme:** lint errors ([ae0698c](https://github.com/gametaro/dotfiles/commit/ae0698cec085e4a60e36d1d60420ac983b80f82f))
+* **colorscheme:** set terminal color on compile ([515c4c2](https://github.com/gametaro/dotfiles/commit/515c4c2378794f81d358a46568006ceccecea293))
+
 ## [1.3.0](https://github.com/gametaro/dotfiles/compare/v1.2.0...v1.3.0) (2023-01-29)
 
 
