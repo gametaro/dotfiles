@@ -642,9 +642,12 @@ end
 function M.compile(silent)
   silent = silent or false
 
-  local lines = { 'local set_hl = vim.api.nvim_set_hl' }
+  local lines = {}
   for name, val in pairs(M.highlight_groups) do
-    lines[#lines + 1] = string.format([[set_hl(0, '%s', %s)]], name, inspect(val))
+    lines[#lines + 1] = string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val))
+  end
+  for name, val in pairs(M.terminal) do
+    lines[#lines + 1] = string.format([[vim.g.%s = '%s']], name, val)
   end
   table.sort(lines)
   local file, msg = io.open(compile_path, 'w')
