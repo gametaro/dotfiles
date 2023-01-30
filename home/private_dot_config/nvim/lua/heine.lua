@@ -116,6 +116,7 @@ local blue_tint_bg = M.blend(M.palette.blue, normal_bg, 0.7)
 -- local magenta_tint_fg = M.blend(M.palette.magenta, normal_fg, 0.9)
 -- local magenta_tint_bg = M.blend(M.palette.magenta, normal_bg, 0.7)
 
+---@type table<string, string>
 M.spec = {
   normal_bg = normal_bg,
   normal_fg = normal_fg,
@@ -146,6 +147,33 @@ M.spec = {
   orange_tint_fg = orange_tint_fg,
   red_tint_bg = red_tint_bg,
   lgreen_tint_bg = lgreen_tint_bg,
+}
+
+---@type table<string, string>
+M.terminal = {
+  terminal_color_0 = M.spec.normal_bg,
+  terminal_color_8 = M.spec.comment_fg,
+
+  terminal_color_7 = M.spec.normal_fg,
+  terminal_color_15 = M.spec.normal_fg,
+
+  terminal_color_1 = M.palette.red,
+  terminal_color_9 = M.palette.red,
+
+  terminal_color_2 = M.palette.green,
+  terminal_color_10 = M.palette.green,
+
+  terminal_color_3 = M.palette.orange,
+  terminal_color_11 = M.palette.orange,
+
+  terminal_color_4 = M.palette.blue,
+  terminal_color_12 = M.palette.blue,
+
+  terminal_color_5 = M.palette.magenta,
+  terminal_color_13 = M.palette.magenta,
+
+  terminal_color_6 = M.palette.cyan,
+  terminal_color_14 = M.palette.cyan,
 }
 
 ---@type table<string, table>
@@ -585,6 +613,9 @@ function M.load()
   end
   for name, val in pairs(M.highlight_groups) do
     vim.api.nvim_set_hl(0, name, val)
+  end
+  for name, val in pairs(M.terminal) do
+    vim.g[name] = val
   end
 end
 
