@@ -189,6 +189,7 @@ M.highlight_groups = {
   Normal = { fg = normal_fg, bg = normal_bg },
   NormalFloat = { link = 'Pmenu' },
   -- NormalNC = {},
+  FloatTitle = { fg = M.palette.blue, bg = pmenu_bg, bold = true },
   FloatBorder = { link = 'WinSeparator' },
   Pmenu = { fg = pmenu_fg, bg = pmenu_bg },
   PmenuSel = { bg = pmenusel_bg },
