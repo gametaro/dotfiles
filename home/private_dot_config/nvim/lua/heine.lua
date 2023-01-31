@@ -308,6 +308,8 @@ M.highlight_groups = {
   Debug = { link = 'Special' },
 
   Underlined = { underline = true },
+  Bold = { bold = true },
+  Italic = { italic = true },
 
   -- Ignore = {},
 
