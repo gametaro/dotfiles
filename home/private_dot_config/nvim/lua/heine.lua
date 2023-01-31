@@ -533,7 +533,7 @@ M.highlight_groups = {
     bold = true,
   },
   PounceAcceptBest = { reverse = true, bold = true },
-  PounceMatch = { fg = search_fg, bg = search_bg },
+  PounceMatch = { link = 'Search' },
   PounceUnmatched = { link = 'Comment' },
   PounceGap = { link = 'Comment' },
 
