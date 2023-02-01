@@ -606,6 +606,10 @@ M.highlight_groups = {
 
   -- nvim-surround
   NvimSurroundHighlight = { link = 'IncSearch' },
+
+  -- noice.nvim
+  NoiceCmdlinePopup = { link = 'NormalFloat' },
+  NoiceConfirm = { link = 'NormalFloat' },
 }
 
 function M.load()
