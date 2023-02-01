@@ -196,7 +196,7 @@ M.highlight_groups = {
   -- TermCursor = {},
   -- TermCursorNC = {},
   ErrorMsg = { fg = M.palette.red },
-  WinSeparator = { fg = comment_fg, bg = pmenu_bg },
+  WinSeparator = { fg = M.palette.blue, bg = pmenu_bg },
   Folded = { fg = folded_fg, bg = folded_bg },
   FoldColumn = { fg = folded_fg, bg = normal_bg },
   SignColumn = { fg = normal_fg, bg = normal_bg },
@@ -300,10 +300,10 @@ M.highlight_groups = {
   Structure = { link = 'Type' },
   Typedef = { link = 'Type' },
 
-  Special = { fg = M.palette.orange },
+  Special = { fg = M.palette.green },
   SpecialChar = { link = 'Special' },
   Tag = { link = 'Special' },
-  Delimiter = { fg = whitespace_fg },
+  Delimiter = { link = 'Special' },
   SpecialComment = { link = 'Special' },
   Debug = { link = 'Special' },
 
