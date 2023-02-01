@@ -1,3 +1,5 @@
+local icons = require('ky.ui').icons
+
 local indent = 2
 local blend = 0
 
@@ -33,9 +35,9 @@ vim.opt.fillchars = {
   diff = '╱', -- '/',
   eob = ' ',
   fold = ' ',
-  foldopen = '',
+  foldopen = icons.chevron.down,
   foldsep = ' ',
-  foldclose = '',
+  foldclose = icons.chevron.right,
   -- horiz = '━',
   -- horizup = '┻',
   -- horizdown = '┳',
@@ -69,7 +71,7 @@ vim.opt.listchars = {
   tab = '>-',
   trail = '·',
 }
-vim.opt.modeline = false
+vim.o.modeline = false
 -- o.more = false
 -- vim.opt.mousescroll = { 'ver:1', 'hor:3' }
 vim.o.preserveindent = true
@@ -80,7 +82,6 @@ vim.o.ruler = false
 vim.opt.shada:append({ 'r/tmp', 'rterm', 'rhealth' })
 -- opt.scrolloff = 5
 -- opt.sidescrolloff = 5
-vim.o.secure = true
 vim.opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
 vim.o.shiftround = true
 vim.o.shiftwidth = indent
@@ -105,7 +106,6 @@ vim.opt.spelloptions = { 'camel', 'noplainbuffer' }
 vim.o.splitbelow = true
 vim.o.splitkeep = 'screen'
 vim.o.splitright = true
-vim.o.startofline = true
 vim.o.swapfile = false
 vim.opt.switchbuf = { 'useopen', 'uselast' }
 vim.o.tabstop = indent
