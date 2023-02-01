@@ -196,7 +196,7 @@ M.highlight_groups = {
   -- TermCursor = {},
   -- TermCursorNC = {},
   ErrorMsg = { fg = M.palette.red },
-  WinSeparator = { fg = M.palette.blue, bg = pmenu_bg },
+  WinSeparator = { fg = M.palette.blue, bg = normal_bg },
   Folded = { fg = folded_fg, bg = folded_bg },
   FoldColumn = { fg = folded_fg, bg = normal_bg },
   SignColumn = { fg = normal_fg, bg = normal_bg },
@@ -218,7 +218,7 @@ M.highlight_groups = {
   NormalFloat = { link = 'Pmenu' },
   -- NormalNC = {},
   FloatTitle = { fg = M.palette.blue, bg = pmenu_bg, bold = true },
-  FloatBorder = { link = 'WinSeparator' },
+  FloatBorder = { fg = M.palette.blue, bg = pmenu_bg },
   Pmenu = { fg = pmenu_fg, bg = pmenu_bg },
   PmenuSel = { bg = pmenusel_bg },
   PmenuSbar = { bg = pmenu_bg },
@@ -430,7 +430,7 @@ M.highlight_groups = {
   -- plugins
   -- telescope.nvim
   TelescopeNormal = { link = 'Pmenu' },
-  TelescopePromptNormal = { link = 'Pmenu' },
+  -- TelescopePromptNormal = { link = 'Pmenu' },
   TelescopeBorder = { link = 'FloatBorder' },
   TelescopeMatching = { fg = M.palette.blue, bold = true },
   TelescopeSelection = { link = 'PmenuSel' },
