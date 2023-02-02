@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675298590349,
+  "lastUpdate": 1675345704751,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -18460,6 +18460,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.08157806802,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "f77fa5a9ef7bb76a79e479f0f413ec1c41de35a0",
+          "message": "chore(ui): add vscode's codicons",
+          "timestamp": "2023-02-02T22:43:48+09:00",
+          "tree_id": "3a210b406cf02e0b382b569e4e745a3beeef3df0",
+          "url": "https://github.com/gametaro/dotfiles/commit/f77fa5a9ef7bb76a79e479f0f413ec1c41de35a0"
+        },
+        "date": 1675345703432,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.08203795207058823,
             "unit": "Second"
           }
         ]
