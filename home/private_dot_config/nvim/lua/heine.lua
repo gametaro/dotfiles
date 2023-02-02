@@ -248,26 +248,36 @@ M.highlight_groups = {
   Scrollbar = { fg = statusline_fg, bg = statusline_bg },
   -- Tooltip = {},
 
-  -- diagnostic
+  -- |diagnostic-highlights|
   DiagnosticError = { fg = M.palette.red },
   DiagnosticWarn = { fg = M.palette.orange },
   DiagnosticInfo = { fg = M.palette.blue },
   DiagnosticHint = { fg = M.palette.green },
-
-  DiagnosticSignError = { link = 'DiagnosticError' },
-  DiagnosticSignWarn = { link = 'DiagnosticWarn' },
-  DiagnosticSignInfo = { link = 'DiagnosticInfo' },
-  DiagnosticSignHint = { link = 'DiagnosticHint' },
+  DiagnosticOk = { fg = M.palette.lgreen },
 
   DiagnosticVirtualTextError = { link = 'DiagnosticError' },
   DiagnosticVirtualTextWarn = { link = 'DiagnosticWarn' },
   DiagnosticVirtualTextInfo = { link = 'DiagnosticInfo' },
   DiagnosticVirtualTextHint = { link = 'DiagnosticHint' },
+  DiagnosticVirtualTextOk = { link = 'DiagnosticOk' },
 
   DiagnosticUnderlineError = { undercurl = true, sp = M.palette.red },
   DiagnosticUnderlineWarn = { undercurl = true, sp = M.palette.orange },
   DiagnosticUnderlineInfo = { undercurl = true, sp = M.palette.green },
   DiagnosticUnderlineHint = { undercurl = true, sp = M.palette.blue },
+  DiagnosticUnderlineOk = { undercurl = true, sp = M.palette.lgreen },
+
+  DiagnosticFloatingError = { link = 'DiagnosticError' },
+  DiagnosticFloatingWarn = { link = 'DiagnosticWarn' },
+  DiagnosticFloatingInfo = { link = 'DiagnosticInfo' },
+  DiagnosticFloatingHint = { link = 'DiagnosticHint' },
+  DiagnosticFloatingOk = { link = 'DiagnosticOk' },
+
+  DiagnosticSignError = { link = 'DiagnosticError' },
+  DiagnosticSignWarn = { link = 'DiagnosticWarn' },
+  DiagnosticSignInfo = { link = 'DiagnosticInfo' },
+  DiagnosticSignHint = { link = 'DiagnosticHint' },
+  DiagnosticSignOk = { link = 'DiagnosticOk' },
 
   -- :help group-name
   Comment = { fg = comment_fg },
