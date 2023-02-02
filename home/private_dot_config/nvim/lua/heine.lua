@@ -9,7 +9,11 @@ local hsluv = require('ky.hsluv')
 
 local M = {}
 
-local compile_path = vim.fs.normalize(vim.fn.stdpath('cache') .. '/heine.lua')
+M.config = {
+  debug = true,
+  compile_path = vim.fs.normalize(vim.fn.stdpath('cache') .. '/heine.lua'),
+  non_current_hl = true,
+}
 
 ---@param value integer
 ---@param min integer
@@ -55,7 +59,7 @@ end
 
 ---@type table<string, string>
 M.palette = {
-  red = hsluv.hsluv_to_hex({ 0, 65, 68 }),
+  red = hsluv.hsluv_to_hex({ 0, 55, 70 }),
   orange = hsluv.hsluv_to_hex({ 20, 51, 68 }),
   green = hsluv.hsluv_to_hex({ 90, 33, 70 }),
   lgreen = hsluv.hsluv_to_hex({ 140, 34, 68 }),
@@ -66,96 +70,49 @@ M.palette = {
 
 local hue_base = 220
 
-local normal_bg = hsluv.hsluv_to_hex({ hue_base, 25, 12 })
-local normal_fg = hsluv.hsluv_to_hex({ hue_base, 10, 78 })
+-- Normal
+local bg1 = hsluv.hsluv_to_hex({ hue_base, 25, 12 })
+-- Statusline
+local bg2 = M.saturate_lighten(bg1, -5, -2)
+-- Pmenu
+local bg3 = M.saturate_lighten(bg1, 0, 6)
+-- CursorLine
+local bg4 = M.saturate_lighten(bg1, 15, 5)
+-- MatchParen
+local bg5 = M.saturate_lighten(bg1, 8, 13)
+-- PmenuSel
+local bg6 = M.saturate_lighten(bg1, 5, 22)
 
-local statusline_bg = M.saturate_lighten(M.palette.blue, 20, -45)
-local statusline_fg = hsluv.hsluv_to_hex({ hue_base, 10, 70 })
-local statuslinenc_bg = M.lighten(statusline_bg, -3)
-local statuslinenc_fg = M.lighten(normal_fg, 10)
+-- Normal
+local fg1 = hsluv.hsluv_to_hex({ hue_base, 10, 75 })
+-- Statusline
+local fg2 = M.saturate_lighten(fg1, 2, -15)
+-- PmenuSel
+local fg3 = M.saturate_lighten(fg1, 10, 20)
+-- Folded
+local fg4 = M.saturate_lighten(bg4, 5, 35)
+-- Comment
+local fg5 = M.saturate_lighten(fg1, 8, -25)
+-- NonText, WhiteSpace, SpecialKey
+local fg6 = M.saturate_lighten(bg1, 8, 39)
 
-local cursorline_bg = M.saturate_lighten(normal_bg, 1, 5)
--- local cursorline_fg = normal_fg:saturate(1):lighten(5)
-
-local pmenu_bg = hsluv.hsluv_to_hex({ hue_base, 20, 20 })
-local pmenu_fg = normal_fg
-local pmenusel_bg = hsluv.hsluv_to_hex({ hue_base, 20, 35 })
-local pmenusel_fg = hsluv.hsluv_to_hex({ hue_base, 20, 95 })
-
-local folded_bg = cursorline_bg
-local folded_fg = M.saturate_lighten(folded_bg, 5, 35)
-
-local comment_fg = hsluv.hsluv_to_hex({ hue_base, 18, 48 })
-
-local matchparen_bg = M.saturate_lighten(normal_bg, 3, 20)
-
-local linenr_fg = M.lighten(normal_bg, 20)
-
-local search_bg = M.saturate_lighten(M.palette.orange, 15, 4)
-local search_fg = M.saturate_lighten(M.palette.orange, 50, -50)
-local visual_bg = M.saturate_lighten(normal_bg, 5, 10)
-
-local whitespace_fg = M.saturate_lighten(normal_bg, 8, 39)
-local wildmenu_bg = M.lighten(statusline_bg, 5)
-local wildmenu_fg = statusline_fg
-
-local specialkey_fg = M.saturate_lighten(normal_bg, 10, 35)
-
--- local red_tint_fg = M.blend(M.palette.red, normal_fg, 0.9)
-local red_tint_bg = M.blend(M.palette.red, normal_bg, 0.7)
-local orange_tint_fg = M.blend(M.palette.orange, normal_fg, 0.9)
-local orange_tint_bg = M.blend(M.palette.orange, normal_bg, 0.7)
--- local green_tint_fg = M.blend(M.palette.green, normal_fg, 0.9)
-local green_tint_bg = M.blend(M.palette.green, normal_bg, 0.7)
--- local lgreen_tint_fg = M.blend(M.palette.lgreen, normal_fg, 0.9)
-local lgreen_tint_bg = M.blend(M.palette.lgreen, normal_bg, 0.7)
--- local cyan_tint_fg = M.blend(M.palette.cyan, normal_fg, 0.9)
--- local cyan_tint_bg = M.blend(M.palette.cyan, normal_bg, 0.7)
--- local blue_tint_fg = M.blend(M.palette.blue, normal_fg, 0.9)
-local blue_tint_bg = M.blend(M.palette.blue, normal_bg, 0.7)
--- local magenta_tint_fg = M.blend(M.palette.magenta, normal_fg, 0.9)
--- local magenta_tint_bg = M.blend(M.palette.magenta, normal_bg, 0.7)
-
----@type table<string, string>
-M.spec = {
-  normal_bg = normal_bg,
-  normal_fg = normal_fg,
-  statusline_bg = statusline_bg,
-  statusline_fg = statusline_fg,
-  statuslinenc_bg = statuslinenc_bg,
-  statuslinenc_fg = statuslinenc_fg,
-  cursorline_bg = cursorline_bg,
-  pmenu_bg = pmenu_bg,
-  pmenu_fg = pmenu_fg,
-  pmenusel_bg = pmenusel_bg,
-  pmenusel_fg = pmenusel_fg,
-  folded_bg = folded_bg,
-  folded_fg = folded_fg,
-  comment_fg = comment_fg,
-  matchparen_bg = matchparen_bg,
-  linenr_fg = linenr_fg,
-  search_bg = search_bg,
-  search_fg = search_fg,
-  visual_bg = visual_bg,
-  whitespace_fg = whitespace_fg,
-  wildmenu_bg = wildmenu_bg,
-  wildmenu_fg = statusline_fg,
-  specialkey_fg = specialkey_fg,
-  green_tint_bg = green_tint_bg,
-  blue_tint_bg = blue_tint_bg,
-  orange_tint_bg = orange_tint_bg,
-  orange_tint_fg = orange_tint_fg,
-  red_tint_bg = red_tint_bg,
-  lgreen_tint_bg = lgreen_tint_bg,
+M.tint = {
+  red = { bg = M.blend(M.palette.red, bg1, 0.8) },
+  orange = { bg = M.blend(M.palette.orange, bg1, 0.7), fg = M.blend(M.palette.orange, fg1, 0.9) },
+  green = { bg = M.blend(M.palette.green, bg1, 0.7) },
+  lgreen = { bg = M.blend(M.palette.lgreen, bg1, 0.7) },
+  cyan = { bg = M.blend(M.palette.cyan, bg1, 0.7) },
+  blue = { bg = M.blend(M.palette.blue, bg1, 0.8) },
+  magenta = { bg = M.blend(M.palette.magenta, bg1, 0.7) },
 }
 
 ---@type table<string, string>
 M.terminal = {
-  terminal_color_0 = M.spec.normal_bg,
-  terminal_color_8 = M.spec.comment_fg,
+  terminal_color_0 = bg1,
+  terminal_color_8 = fg5,
 
-  terminal_color_7 = M.spec.normal_fg,
-  terminal_color_15 = M.spec.normal_fg,
+  terminal_color_7 = fg1,
+  terminal_color_15 = fg1,
 
   terminal_color_1 = M.palette.red,
   terminal_color_9 = M.palette.red,
@@ -176,76 +133,113 @@ M.terminal = {
   terminal_color_14 = M.palette.cyan,
 }
 
----@type table<string, table>
+M.colors = {
+  fg1 = fg1,
+  fg2 = fg2,
+  fg3 = fg3,
+  fg4 = fg4,
+  fg5 = fg5,
+  fg6 = fg6,
+  bg1 = bg1,
+  bg2 = bg2,
+  bg3 = bg3,
+  bg4 = bg4,
+  bg5 = bg5,
+  bg6 = bg6,
+  palette = M.palette,
+  tint = M.tint,
+  terminal = M.terminal,
+}
+
+---@class HighlightDefinition
+---@field fg? string
+---@field bg? string
+---@field sp? string
+---@field blend? integer
+---@field bold? boolean
+---@field standout? boolean
+---@field underline? boolean
+---@field undercurl? boolean
+---@field underdouble? boolean
+---@field underdotted? boolean
+---@field underdashed? boolean
+---@field strikethrough? boolean
+---@field italic? boolean
+---@field reverse? boolean
+---@field nocombine? boolean
+---@field link? string
+---@field default? boolean
+
+---@type table<string, HighlightDefinition>
 M.highlight_groups = {
-  -- :help highlight-groups
-  ColorColumn = { fg = normal_fg, bg = normal_bg },
+  -- |highlight-groups|
+  ColorColumn = { fg = fg1, bg = bg1 },
   Conceal = { link = 'Comment' },
   CurSearch = { link = 'IncSearch' },
-  Cursor = { fg = normal_bg, bg = normal_fg },
+  Cursor = { fg = bg1, bg = fg1 },
   lCursor = { link = 'Cursor' },
   CursorIM = { link = 'Cursor' },
   CursorColumn = { link = 'CursorLine' },
-  Cursorline = { bg = cursorline_bg },
+  CursorLine = { bg = bg4 },
   Directory = { fg = M.palette.blue },
-  DiffAdd = { bg = green_tint_bg },
-  DiffChange = { bg = lgreen_tint_bg },
-  DiffDelete = { bg = red_tint_bg },
-  DiffText = { bg = M.lighten(lgreen_tint_bg, 10) },
-  EndOfBuffer = { fg = normal_bg, bg = normal_bg },
+  DiffAdd = { bg = M.tint.blue.bg },
+  DiffChange = { bg = M.tint.blue.bg },
+  DiffDelete = { bg = M.tint.red.bg },
+  DiffText = { bg = M.lighten(M.tint.blue.bg, 8) },
+  EndOfBuffer = { link = 'NonText' },
   -- TermCursor = {},
   -- TermCursorNC = {},
   ErrorMsg = { fg = M.palette.red },
-  WinSeparator = { fg = M.palette.blue, bg = normal_bg },
-  Folded = { fg = folded_fg, bg = folded_bg },
-  FoldColumn = { fg = folded_fg, bg = normal_bg },
-  SignColumn = { fg = normal_fg, bg = normal_bg },
-  IncSearch = { reverse = true },
-  -- Substitute = {},
-  LineNr = { fg = linenr_fg },
-  -- LineNrAbove = { fg = linenr_fg },
-  -- LineNrBelow = { fg = linenr_fg },
-  CursorlineNr = { bold = true },
-  -- CursorlineSign = { fg = palette.green },
-  -- CursorlineFold = { fg = palette.green },
-  MatchParen = { bg = matchparen_bg },
-  Modemsg = { fg = comment_fg },
-  -- MsgArea = {},
-  -- MsgSeparator = {},
+  WinSeparator = { fg = M.palette.blue },
+  Folded = { fg = fg4, bg = M.tint.blue.bg },
+  FoldColumn = { fg = fg4, bg = bg1 },
+  SignColumn = { fg = fg1, bg = bg1 },
+  IncSearch = { fg = fg3, bg = M.lighten(M.tint.orange.bg, 12) },
+  Substitute = { link = 'IncSearch' },
+  LineNr = { fg = M.lighten(bg1, 20) },
+  LineNrAbove = { link = 'LineNr' },
+  LineNrBelow = { link = 'LineNr' },
+  CursorLineNr = {},
+  CursorLineSign = { link = 'SignColumn' },
+  CursorLineFold = { link = 'FoldColumn' },
+  MatchParen = { bg = bg5 },
+  Modemsg = { fg = fg5 },
+  MsgArea = { link = 'Pmenu' },
+  MsgSeparator = { link = 'WinSeparator' },
   Moremsg = { fg = M.palette.green },
-  NonText = { fg = whitespace_fg },
-  Normal = { fg = normal_fg, bg = normal_bg },
+  NonText = { fg = fg6 },
+  Normal = { fg = fg1, bg = bg1 },
   NormalFloat = { link = 'Pmenu' },
-  -- NormalNC = {},
-  FloatTitle = { fg = M.palette.blue, bg = pmenu_bg, bold = true },
-  FloatBorder = { fg = M.palette.blue, bg = pmenu_bg },
-  Pmenu = { fg = pmenu_fg, bg = pmenu_bg },
-  PmenuSel = { bg = pmenusel_bg },
-  PmenuSbar = { bg = pmenu_bg },
-  PmenuThumb = { bg = pmenusel_bg },
+  NormalNC = { bg = M.config.non_current_hl and M.lighten(bg1, -3) or bg1 },
+  FloatTitle = { fg = M.palette.blue, bg = bg3, bold = true },
+  FloatBorder = { fg = M.palette.blue, bg = bg3 },
+  Pmenu = { fg = fg1, bg = bg3 },
+  PmenuSel = { bg = bg6 },
+  PmenuSbar = { bg = bg3 },
+  PmenuThumb = { bg = bg6 },
   Question = { link = 'Moremsg' },
-  QuickFixLine = { bg = visual_bg },
-  Search = { fg = search_fg, bg = search_bg },
-  SpecialKey = { fg = specialkey_fg },
+  QuickFixLine = { bg = bg6 },
+  Search = { bg = M.lighten(M.tint.orange.bg, -5) },
+  SpecialKey = { fg = fg6 },
   SpellBad = { sp = M.palette.red, undercurl = true },
   SpellCap = { sp = M.palette.orange, undercurl = true },
   SpellLocal = { sp = M.palette.green, undercurl = true },
-  SpellRare = { sp = M.palette.green, undercurl = true },
-  Statusline = { fg = statusline_fg, bg = statusline_bg },
-  StatuslineNC = { fg = statuslinenc_fg, bg = statuslinenc_bg },
-  Tabline = { fg = normal_fg, bg = M.lighten(normal_bg, 10) },
-  TablineFill = { bg = M.lighten(normal_bg, 5) },
-  TablineSel = { fg = pmenusel_fg, bg = normal_bg },
+  SpellRare = { sp = M.palette.lgreen, undercurl = true },
+  Statusline = { fg = fg2, bg = bg2 },
+  StatuslineNC = { fg = M.lighten(fg1, -10), bg = M.lighten(bg2, -3) },
+  Tabline = { fg = fg1, bg = M.lighten(bg1, 10) },
+  TablineFill = { bg = M.lighten(bg1, 5) },
+  TablineSel = { fg = fg3, bg = bg1 },
   Title = { fg = M.palette.blue, bold = true },
-  Visual = { bg = visual_bg },
-  VisualNOS = { bg = visual_bg },
+  Visual = { bg = M.tint.blue.bg },
+  -- VisualNOS = { bg = M.blend(M.palette.blue, bg1, 0.3) },
   WarningMsg = { fg = M.palette.orange },
-  WhiteSpace = { fg = whitespace_fg },
-  WildMenu = { fg = wildmenu_fg, bg = wildmenu_bg },
-  -- Winbar = {},
-  -- WinbarNC = {},
+  WhiteSpace = { fg = fg6 },
+  WildMenu = { fg = fg2, bg = M.lighten(bg2, 5) },
+  Winbar = { link = 'Statusline' },
+  WinbarNC = { link = 'StatuslineNC' },
   -- Menu = {},
-  Scrollbar = { fg = statusline_fg, bg = statusline_bg },
+  Scrollbar = { fg = fg2, bg = bg2 },
   -- Tooltip = {},
 
   -- |diagnostic-highlights|
@@ -255,17 +249,17 @@ M.highlight_groups = {
   DiagnosticHint = { fg = M.palette.green },
   DiagnosticOk = { fg = M.palette.lgreen },
 
-  DiagnosticVirtualTextError = { link = 'DiagnosticError' },
-  DiagnosticVirtualTextWarn = { link = 'DiagnosticWarn' },
-  DiagnosticVirtualTextInfo = { link = 'DiagnosticInfo' },
-  DiagnosticVirtualTextHint = { link = 'DiagnosticHint' },
-  DiagnosticVirtualTextOk = { link = 'DiagnosticOk' },
+  DiagnosticVirtualTextError = { fg = M.palette.red, bg = M.tint.red.bg },
+  DiagnosticVirtualTextWarn = { fg = M.palette.orange, bg = M.tint.orange.bg },
+  DiagnosticVirtualTextInfo = { fg = M.palette.blue, bg = M.tint.blue.bg },
+  DiagnosticVirtualTextHint = { fg = M.palette.green, bg = M.tint.green.bg },
+  DiagnosticVirtualTextOk = { fg = M.palette.lgreen, bg = M.tint.lgreen.bg },
 
-  DiagnosticUnderlineError = { undercurl = true, sp = M.palette.red },
-  DiagnosticUnderlineWarn = { undercurl = true, sp = M.palette.orange },
-  DiagnosticUnderlineInfo = { undercurl = true, sp = M.palette.green },
-  DiagnosticUnderlineHint = { undercurl = true, sp = M.palette.blue },
-  DiagnosticUnderlineOk = { undercurl = true, sp = M.palette.lgreen },
+  DiagnosticUnderlineError = { sp = M.palette.red, undercurl = true },
+  DiagnosticUnderlineWarn = { sp = M.palette.orange, undercurl = true },
+  DiagnosticUnderlineInfo = { sp = M.palette.green, undercurl = true },
+  DiagnosticUnderlineHint = { sp = M.palette.blue, undercurl = true },
+  DiagnosticUnderlineOk = { sp = M.palette.lgreen, undercurl = true },
 
   DiagnosticFloatingError = { link = 'DiagnosticError' },
   DiagnosticFloatingWarn = { link = 'DiagnosticWarn' },
@@ -279,8 +273,8 @@ M.highlight_groups = {
   DiagnosticSignHint = { link = 'DiagnosticHint' },
   DiagnosticSignOk = { link = 'DiagnosticOk' },
 
-  -- :help group-name
-  Comment = { fg = comment_fg },
+  -- |group-name|
+  Comment = { fg = fg5 },
   Constant = { fg = M.palette.orange },
   String = { fg = M.palette.lgreen },
   Character = { link = 'String' },
@@ -325,7 +319,7 @@ M.highlight_groups = {
 
   Error = { fg = M.palette.red, underline = true },
 
-  Todo = { fg = orange_tint_fg, bg = orange_tint_bg },
+  Todo = { fg = M.tint.orange.fg, bg = M.tint.orange.bg },
 
   diffAdded = { link = 'DiffAdd' },
   diffRemoved = { link = 'DiffDelete' },
@@ -336,95 +330,101 @@ M.highlight_groups = {
   -- diffFile = {},
 
   -- health
-  healthSuccess = { fg = M.palette.green },
-  healthWarning = { fg = M.palette.orange },
-  healthError = { fg = M.palette.red },
+  healthSuccess = { link = 'DiagnosticOk' },
+  healthWarning = { link = 'DiagnosticWarn' },
+  healthError = { link = 'DiagnosticError' },
 
-  -- :help lsp-highlight
-  LspReferenceRead = { bg = pmenusel_bg },
-  LspReferenceText = { bg = pmenusel_bg },
-  LspReferenceWrite = { bg = pmenusel_bg },
-  LspCodeLens = { fg = comment_fg },
+  -- |lsp-highlight|
+  LspReferenceRead = { bg = bg5 },
+  LspReferenceText = { bg = bg5 },
+  LspReferenceWrite = { bg = bg5 },
+  LspCodeLens = { fg = fg5 },
   -- LspCodeLensSeparator = {},
   -- LspSignatureActiveParameter = {},
   -- LspDiagnosticsDefaultInformation = {},
 
-  -- :help treesitter-highlight-groups
+  -- |treesitter-highlight-groups|
   ['@annotation'] = { link = 'PreProc' },
   ['@attribute'] = { link = 'PreProc' },
-  -- ['@boolean'] = {},
-  -- ['@character'] = {},
-  -- ['@character.special'] = {},
-  -- ['@comment'] = {},
-  -- ['@conditional'] = {},
-  -- ['@constant'] = {},
-  -- ['@constant.builtin'] = {},
-  -- ['@constant.macro'] = {},
-  -- ['@constructor'] = {},
-  -- ['@debug'] = {},
-  -- ['@define'] = {},
+  ['@boolean'] = { link = 'Boolean' },
+  ['@character'] = { link = 'Character' },
+  ['@character.special'] = { link = 'SpecialChar' },
+  ['@comment'] = { link = 'Comment' },
+  ['@conditional'] = { link = 'Conditional' },
+  ['@constant'] = { link = 'Constant' },
+  ['@constant.builtin'] = { link = 'Special' },
+  ['@constant.macro'] = { link = 'Define' },
+  ['@constructor'] = { link = 'Special' },
+  ['@debug'] = { link = 'Debug' },
+  ['@define'] = { link = 'Define' },
+  ['@documentation'] = { fg = M.palette.blue },
   -- ['@error'] = {},
-  -- ['@exception'] = {},
-  -- ['@field'] = {},
-  -- ['@float'] = {},
-  -- ['@function'] = {},
-  -- ['@function.call'] = {},
-  -- ['@function.builtin'] = {},
-  -- ['@function.macro'] = {},
-  -- ['@include'] = {},
-  -- ['@keyword'] = {},
-  -- ['@keyword.function'] = {},
+  ['@exception'] = { link = 'Exception' },
+  ['@field'] = { link = 'Identifier' },
+  ['@float'] = { link = 'Float' },
+  ['@function'] = { link = 'Function' },
+  ['@function.builtin'] = { link = 'Special' },
+  ['@function.call'] = { link = '@function' },
+  ['@function.macro'] = { link = 'Macro' },
+  ['@include'] = { link = 'Include' },
+  ['@keyword'] = { link = 'Keyword' },
+  ['@keyword.function'] = { link = 'Keyword' },
   ['@keyword.operator'] = { link = '@operator' },
-  -- ['@keyword.return'] = {},
-  -- ['@label'] = {},
-  -- ['@method'] = {},
-  -- ['@method.call'] = {},
-  -- ['@namespace'] = {},
-  -- ['@none'] = {},
-  -- ['@number'] = {},
-  -- ['@operator'] = {},
-  -- ['@parameter'] = {},
-  -- ['@parameter.reference'] = {},
-  -- ['@preproc'] = {},
-  -- ['@property'] = {},
-  -- ['@punctuation'] = {},
-  -- ['@punctuation.delimiter'] = {},
-  -- ['@punctuation.bracket'] = {},
-  ['@punctuation.special'] = { link = 'SpecialChar' },
-  -- ['@repeat'] = {},
-  -- ['@storageclass'] = {},
-  -- ['@string'] = {},
+  ['@keyword.return'] = { link = '@keyword' },
+  ['@label'] = { link = 'Label' },
+  ['@method'] = { link = 'Function' },
+  ['@method.call'] = { link = '@method' },
+  ['@namespace'] = { link = 'Include' },
+  ['@none'] = {},
+  ['@number'] = { link = 'Number' },
+  ['@operator'] = { link = 'Operator' },
+  ['@parameter'] = { link = 'Identifier' },
+  ['@parameter.reference'] = { link = '@parameter' },
+  ['@preproc'] = { link = 'PreProc' },
+  ['@property'] = { link = 'Identifier' },
+  ['@punctuation'] = { link = 'Delimiter' },
+  ['@punctuation.bracket'] = { link = 'Delimiter' },
+  ['@punctuation.delimiter'] = { link = 'Delimiter' },
+  ['@punctuation.special'] = { link = 'Delimiter' },
+  ['@repeat'] = { link = 'Repeat' },
+  ['@storageclass'] = { link = 'StorageClass' },
+  ['@string'] = { link = 'String' },
+  ['@string.escape'] = { link = 'SpecialChar' },
   ['@string.regex'] = { link = 'SpecialChar' },
-  -- ['@string.escape'] = {},
-  -- ['@string.special'] = {},
+  ['@string.special'] = { link = 'SpecialChar' },
   ['@symbol'] = { link = 'Identifier' },
-  -- ['@tag'] = {},
+  ['@tag'] = { link = 'Tag' },
   ['@tag.attribute'] = { link = '@property' },
   ['@tag.delimiter'] = { link = 'Delimiter' },
-  -- ['@text'] = {},
-  ['@text.strong'] = { bold = true },
-  ['@text.emphasis'] = { italic = true },
-  -- ['@text.underline'] = {},
-  ['@text.strike'] = { strikethrough = true },
-  -- ['@text.title'] = {},
-  ['@text.literal'] = { link = 'String' },
-  -- ['@text.uri'] = {},
-  ['@text.math'] = { link = 'Special' },
-  -- ['@text.reference'] = {},
-  ['@text.environment'] = { link = 'Macro' },
-  ['@text.environment.name'] = { link = 'Type' },
-  ['@text.note'] = { link = 'SpecialComment' },
-  ['@text.warning'] = { link = 'WarningMsg' },
+  ['@text'] = { link = '@none' },
   ['@text.danger'] = { link = 'WarningMsg' },
   ['@text.diff.add'] = { link = 'DiffAdd' },
   ['@text.diff.delete'] = { link = 'DiffDelete' },
-  -- ['@text.todo'] = {},
-  -- ['@type'] = {},
+  ['@text.emphasis'] = { italic = true },
+  ['@text.environment'] = { link = 'Macro' },
+  ['@text.environment.name'] = { link = 'Type' },
+  ['@text.literal'] = { link = 'String' },
+  ['@text.math'] = { link = 'Special' },
+  ['@text.note'] = { link = 'SpecialComment' },
+  ['@text.reference'] = { link = 'Identifier' },
+  ['@text.strike'] = { strikethrough = true },
+  ['@text.strong'] = { bold = true },
+  ['@text.title'] = { link = 'Title' },
+  ['@text.todo'] = { link = 'Todo' },
+  ['@text.todo.checked'] = { link = 'DiagnosticOk' },
+  ['@text.todo.unchecked'] = { link = 'DiagnosticWarn' },
+  ['@text.underline'] = { underline = true },
+  ['@text.uri'] = { link = 'Underlined' },
+  ['@text.warning'] = { link = 'WarningMsg' },
+  ['@type'] = { link = 'Type' },
   ['@type.bulitin'] = { link = 'Typedef' },
+  ['@type.definition'] = { link = 'Typedef' },
   ['@type.qualifier'] = { link = 'Type' },
-  -- ['@type.definition'] = {},
   ['@variable'] = {},
   ['@variable.builtin'] = { link = 'Special' },
+
+  ['@text.literal.markdown_inline'] = { link = 'MatchParen' },
+  -- ['@text.literal.markdown'] = { link = 'Normal' },
 
   -- markdown
   -- markdownCode = { link = 'String' },
@@ -442,21 +442,21 @@ M.highlight_groups = {
   TelescopeNormal = { link = 'Pmenu' },
   -- TelescopePromptNormal = { link = 'Pmenu' },
   TelescopeBorder = { link = 'FloatBorder' },
-  TelescopeMatching = { fg = M.palette.blue, bold = true },
+  -- TelescopeMatching = { link = 'Special' },
   TelescopeSelection = { link = 'PmenuSel' },
 
   -- nvim-notify
-  NotifyERRORBorder = { fg = red_tint_bg, bg = pmenu_bg },
-  NotifyWARNBorder = { fg = orange_tint_bg, bg = pmenu_bg },
-  NotifyINFOBorder = { fg = blue_tint_bg, bg = pmenu_bg },
-  NotifyDEBUGBorder = { fg = green_tint_bg, bg = pmenu_bg },
-  NotifyTRACEBorder = { fg = comment_fg, bg = pmenu_bg },
+  NotifyERRORBorder = { fg = M.tint.red.bg, bg = bg3 },
+  NotifyWARNBorder = { fg = M.tint.orange.bg, bg = bg3 },
+  NotifyINFOBorder = { fg = M.tint.blue.bg, bg = bg3 },
+  NotifyDEBUGBorder = { fg = M.tint.green.bg, bg = bg3 },
+  NotifyTRACEBorder = { fg = fg5, bg = bg3 },
 
   NotifyERRORTitle = { fg = M.palette.red },
   NotifyWARNTitle = { fg = M.palette.orange },
   NotifyINFOTitle = { fg = M.palette.blue },
   NotifyDEBUGTitle = { fg = M.palette.green },
-  NotifyTRACETitle = { fg = comment_fg },
+  NotifyTRACETitle = { fg = fg5 },
 
   NotifyERRORIcon = { link = 'NotifyERRORTitle' },
   NotifyWARNIcon = { link = 'NotifyWARNTitle' },
@@ -464,86 +464,53 @@ M.highlight_groups = {
   NotifyDEBUGIcon = { link = 'NotifyDEBUGTitle' },
   NotifyTRACEIcon = { link = 'NotifyTRACETitle' },
 
-  NotifyERRORBody = { bg = pmenu_bg },
-  NotifyWARNBody = { bg = pmenu_bg },
-  NotifyINFOBody = { bg = pmenu_bg },
-  NotifyDEBUGBody = { bg = pmenu_bg },
-  NotifyTRACEBody = { bg = pmenu_bg },
+  NotifyERRORBody = { bg = bg3 },
+  NotifyWARNBody = { bg = bg3 },
+  NotifyINFOBody = { bg = bg3 },
+  NotifyDEBUGBody = { bg = bg3 },
+  NotifyTRACEBody = { bg = bg3 },
 
-  -- :help cmp-highlight
-  -- CmpItemAbbr = {},
-  CmpItemAbbrDeprecated = { fg = comment_fg, strikethrough = true },
-  CmpItemAbbrMatch = { fg = M.palette.blue, bold = true },
+  -- |cmp-highlight|
+  CmpItemAbbr = { fg = fg1, bg = 'NONE' },
+  CmpItemAbbrDeprecated = { fg = fg5, strikethrough = true },
+  CmpItemAbbrMatch = { link = 'Special' },
   CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
-  CmpItemMenu = { link = 'Pmenu' },
+  CmpItemMenu = { fg = fg1 },
 
-  CmpItemKindKeyword = { link = 'Identifier' },
+  CmpItemKindKeyword = { link = '@keyword' },
 
-  CmpItemKindVariable = { link = 'TSVariable' },
-  CmpItemKindConstant = { link = 'TSConstant' },
-  CmpItemKindReference = { link = 'Keyword' },
-  CmpItemKindValue = { link = 'Keyword' },
+  CmpItemKindVariable = { link = '@variable' },
+  CmpItemKindConstant = { link = '@constant' },
+  CmpItemKindReference = { link = '@text.reference' },
+  CmpItemKindValue = { link = '@keyword' },
 
-  CmpItemKindFunction = { link = 'Function' },
-  CmpItemKindMethod = { link = 'Function' },
-  CmpItemKindConstructor = { link = 'Function' },
+  CmpItemKindFunction = { link = '@function' },
+  CmpItemKindMethod = { link = '@method' },
+  CmpItemKindConstructor = { link = '@constructor' },
 
-  CmpItemKindInterface = { link = 'Constant' },
-  CmpItemKindEvent = { link = 'Constant' },
-  CmpItemKindEnum = { link = 'Constant' },
-  CmpItemKindUnit = { link = 'Constant' },
+  CmpItemKindInterface = { link = '@constant' },
+  CmpItemKindEvent = { link = '@constant' },
+  CmpItemKindEnum = { link = '@constant' },
+  CmpItemKindUnit = { link = '@constant' },
 
-  CmpItemKindClass = { link = 'Type' },
-  CmpItemKindStruct = { link = 'Type' },
+  CmpItemKindClass = { link = '@type' },
+  CmpItemKindStruct = { link = '@type' },
 
-  CmpItemKindModule = { link = 'TSNamespace' },
+  CmpItemKindModule = { link = '@namespace' },
 
-  CmpItemKindProperty = { link = 'TSProperty' },
-  CmpItemKindField = { link = 'TSField' },
-  CmpItemKindTypeParameter = { link = 'TSField' },
-  CmpItemKindEnumMember = { link = 'TSField' },
-  CmpItemKindOperator = { link = 'Operator' },
-  -- CmpItemKindSnippet       = {},
+  CmpItemKindProperty = { link = '@property' },
+  CmpItemKindField = { link = '@field' },
+  CmpItemKindTypeParameter = { link = '@field' },
+  CmpItemKindEnumMember = { link = '@field' },
+  CmpItemKindOperator = { link = '@operator' },
+  CmpItemKindSnippet = { link = '@type' },
 
-  -- CmpItemKindKeyword = { fg = normal_bg, bg = M.palette.cyan },
-  --
-  -- CmpItemKindVariable = { fg = normal_bg, bg = M.palette.lgreen },
-  -- CmpItemKindConstant = { fg = normal_bg, bg = M.palette.orange },
-  -- CmpItemKindReference = { fg = normal_bg, bg = M.palette.magenta },
-  -- CmpItemKindValue = { fg = normal_bg, bg = M.palette.magenta },
-  --
-  -- CmpItemKindFunction = { fg = normal_bg, bg = M.palette.blue },
-  -- CmpItemKindMethod = { fg = normal_bg, bg = M.palette.blue },
-  -- CmpItemKindConstructor = { fg = normal_bg, bg = M.palette.blue },
-  --
-  -- CmpItemKindInterface = { fg = normal_bg, bg = M.palette.orange },
-  -- CmpItemKindEvent = { fg = normal_bg, bg = M.palette.orange },
-  -- CmpItemKindEnum = { fg = normal_bg, bg = M.palette.orange },
-  -- CmpItemKindUnit = { fg = normal_bg, bg = M.palette.orange },
-  --
-  -- CmpItemKindClass = { fg = normal_bg, bg = M.palette.orange },
-  -- CmpItemKindStruct = { fg = normal_bg, bg = M.palette.orange },
-  --
-  -- CmpItemKindModule = { fg = normal_bg, bg = M.palette.magenta },
-  --
-  -- CmpItemKindProperty = { fg = normal_bg, bg = M.palette.cyan },
-  -- CmpItemKindField = { fg = normal_bg, bg = M.palette.cyan },
-  -- CmpItemKindTypeParameter = { fg = normal_bg, bg = M.palette.cyan },
-  -- CmpItemKindEnumMember = { fg = normal_bg, bg = M.palette.cyan },
-  -- CmpItemKindOperator = { fg = normal_bg, bg = M.palette.magenta },
-  -- CmpItemKindSnippet = { fg = normal_bg, bg = M.palette.orange },
-  --
-  -- CmpItemKindDefault = { fg = normal_bg, bg = M.palette.orange },
-
-  -- nvim-bqf
+  -- |nvim-bqf|
   BqfPreviewBorder = { link = 'FloatBorder' },
+  -- BqfPreviewRange = { link = 'Search' },
 
-  -- pounce.nvim
-  PounceAccept = {
-    fg = M.saturate_lighten(M.palette.cyan, 50, -50),
-    bg = M.palette.cyan,
-    bold = true,
-  },
+  -- |pounce|
+  PounceAccept = { bg = M.blend(M.palette.blue, bg1, 0.5), bold = true },
   PounceAcceptBest = { reverse = true, bold = true },
   PounceMatch = { link = 'Search' },
   PounceUnmatched = { link = 'Comment' },
@@ -558,8 +525,8 @@ M.highlight_groups = {
   rainbowcol6 = { fg = M.palette.orange },
   rainbowcol7 = { fg = M.palette.red },
 
-  -- gitsigns.nvim
-  GitSignsAdd = { fg = M.palette.green },
+  -- |gitsigns-highlight-groups|
+  GitSignsAdd = { fg = M.palette.blue },
   GitSignsChange = { fg = M.palette.orange },
   GitSignsDelete = { fg = M.palette.red },
 
@@ -567,9 +534,9 @@ M.highlight_groups = {
   -- GitSignsChangeLn = {},
   GitSignsDeleteLn = { link = 'DiffDelete' },
 
-  -- GitSignsAddInline = {},
-  -- GitSignsChangeInline = {},
-  -- GitSignsDeleteInline = {},
+  GitSignsAddInline = { bg = M.lighten(M.tint.blue.bg, 12) },
+  GitSignsChangeInline = { bg = M.lighten(M.tint.blue.bg, 12) },
+  GitSignsDeleteInline = { bg = M.lighten(M.tint.red.bg, 12) },
 
   -- GitSignsAddNr = {},
   -- GitSignsChangeNr = {},
@@ -589,17 +556,17 @@ M.highlight_groups = {
 
   -- GitSignsCurrenLineBlame
 
-  -- vim-eft
-  EftChar = { fg = search_bg, bold = true },
-  EftSubChar = { fg = whitespace_fg, bold = true },
+  -- |vim-eft|
+  EftChar = { fg = M.palette.orange, bold = true },
+  EftSubChar = { fg = fg5, bold = true },
 
   -- marks.nvim
   MarkSignHL = { fg = M.palette.orange },
 
-  -- vim-illuminate
-  illuminatedWordText = { link = 'MatchParen' },
-  illuminatedWordRead = { link = 'MatchParen' },
-  illuminatedWordWrite = { link = 'MatchParen' },
+  -- |illuminate-highlight-groups|
+  illuminatedWordText = { link = 'LspReferenceText' },
+  illuminatedWordRead = { link = 'LspReferenceRead' },
+  illuminatedWordWrite = { link = 'LspReferenceWrite' },
 
   -- nvim-treehopper
   -- TSNodeUnmatched = { link = 'Comment' },
@@ -608,23 +575,20 @@ M.highlight_groups = {
   -- hlargs.nvim
   Hlargs = { fg = M.lighten(M.palette.orange, -6) },
 
-  -- vim-highlighturl
+  -- |highlighturl|
   HighlightUrl = { link = 'Underlined' },
 
-  -- nvim-bqf
-  BqfPreviewRange = { link = 'Search' },
-
-  -- nvim-surround
+  -- |nvim-surround.config.highlight|
   NvimSurroundHighlight = { link = 'IncSearch' },
 
-  -- noice.nvim
+  -- |noice.nvim-highlight-groups|
   NoiceCmdlinePopup = { link = 'NormalFloat' },
   NoiceConfirm = { link = 'NormalFloat' },
 }
 
 function M.load()
-  if vim.loop.fs_stat(compile_path) then
-    vim.cmd.source(compile_path)
+  if vim.loop.fs_stat(M.config.compile_path) then
+    vim.cmd.source(M.config.compile_path)
     return
   end
   for name, val in pairs(M.highlight_groups) do
@@ -635,7 +599,7 @@ function M.load()
   end
 end
 
-function M.reload()
+function M.clear()
   for k, _ in pairs(package.loaded) do
     if string.match(k, '^heine') then
       package.loaded[k] = nil
@@ -666,13 +630,13 @@ function M.compile(silent)
     lines[#lines + 1] = string.format([[vim.g.%s = '%s']], name, val)
   end
   table.sort(lines)
-  local file, msg = io.open(compile_path, 'w')
+  local file, msg = io.open(M.config.compile_path, 'w')
   if file then
     file:write(table.concat(lines, '\n') .. '\n')
     file:close()
     if not silent then
       vim.notify(
-        string.format('compiled file was written to %s', compile_path),
+        string.format('compiled file was written to %s', M.config.compile_path),
         vim.log.levels.INFO,
         { title = 'heine.nvim' }
       )
@@ -686,7 +650,7 @@ end
 function M.clean(silent)
   silent = silent or false
 
-  local ok, msg = os.remove(compile_path)
+  local ok, msg = os.remove(M.config.compile_path)
   if not ok and msg and not silent then
     vim.notify(msg, vim.log.levels.ERROR, { title = 'heine.nvim' })
   end
@@ -698,5 +662,28 @@ end, { nargs = 0 })
 vim.api.nvim_create_user_command('HeineClean', function()
   M.clean()
 end, { nargs = 0 })
+vim.api.nvim_create_user_command('HeineReload', function()
+  M.clear()
+  M.load()
+  vim.cmd.colorscheme('heine')
+end, { nargs = 0 })
+
+if M.config.debug then
+  vim.api.nvim_create_user_command('HeineDebugEnable', function()
+    vim.api.nvim_create_autocmd('BufWritePost', {
+      group = vim.api.nvim_create_augroup('HeineDebug', {}),
+      pattern = 'heine.lua',
+      callback = function()
+        vim.cmd.HeineReload()
+      end,
+    })
+  end, { nargs = 0 })
+
+  vim.api.nvim_create_user_command('HeineDebugDisable', function()
+    vim.api.nvim_del_augroup_by_name('HeineDebug')
+  end, { nargs = 0 })
+
+  vim.cmd.HeineDebugEnable()
+end
 
 return M
