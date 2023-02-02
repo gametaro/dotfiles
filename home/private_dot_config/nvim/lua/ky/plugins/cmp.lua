@@ -96,7 +96,16 @@ return {
       formatting = {
         deprecated = true,
         fields = { 'kind', 'abbr' },
-        format = function(_, vim_item)
+        format = function(entry, vim_item)
+          if vim.tbl_contains({ 'path' }, entry.source.name) then
+            local icon, hl_group =
+              require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+            if icon then
+              vim_item.kind = icon
+              vim_item.kind_hl_group = hl_group
+              return vim_item
+            end
+          end
           vim_item.kind = require('ky.ui').icons.kind[vim_item.kind] or ''
           return vim_item
         end,
