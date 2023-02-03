@@ -57,7 +57,35 @@ return {
       -- See `:help lsp.*` for documentation on any of the below functions
       map('n', 'gD', lsp.buf.declaration)
       map('n', 'gd', lsp.buf.definition)
-      map('n', 'K', lsp.buf.hover)
+      map('n', 'K', function()
+        ---@param subject string
+        local function help(subject)
+          -- close a window if it's floating
+          local win = vim.api.nvim_get_current_win()
+          if vim.api.nvim_win_get_config(win).relative ~= '' then
+            vim.api.nvim_win_close(win, true)
+          end
+
+          vim.cmd.help(subject)
+        end
+
+        ---@param cword string
+        ---@return string?
+        local function get_subject(cword)
+          return string.match(cword, '^|(%S-)|$')
+            or string.match(cword, "^'(%S-)'$")
+            or string.match(cword, '^`:(%S-)`$')
+        end
+
+        local cword = vim.fn.expand('<cWORD>')
+        local subject = get_subject(cword)
+        if subject then
+          help(subject)
+          return
+        end
+
+        lsp.buf.hover()
+      end)
       map('n', 'gI', lsp.buf.implementation)
       map('i', '<C-s>', lsp.buf.signature_help)
       map('n', '<LocalLeader>wa', lsp.buf.add_workspace_folder)
