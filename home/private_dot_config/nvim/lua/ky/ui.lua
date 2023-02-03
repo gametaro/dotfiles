@@ -79,6 +79,6 @@ M.icons = {
   },
 }
 
-M.border = 'none'
+M.border = 'rounded'
 
 return M
