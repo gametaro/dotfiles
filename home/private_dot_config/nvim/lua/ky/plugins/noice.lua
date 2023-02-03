@@ -4,12 +4,28 @@ return {
   event = 'VeryLazy',
   enabled = true,
   config = function()
+    local function help(subject)
+      local win = vim.api.nvim_get_current_win()
+      if vim.api.nvim_win_get_config(win).relative ~= '' then
+        vim.api.nvim_win_close(win, true)
+      end
+
+      vim.cmd.help(subject)
+    end
+
     require('noice').setup({
       lsp = {
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
           ['vim.lsp.util.stylize_markdown'] = true,
           ['cmp.entry.get_documentation'] = true,
+        },
+      },
+      markdown = {
+        hover = {
+          ['|(%S-)|'] = help,
+          ['`:(%S-)`'] = help,
+          ["'(%S-)'"] = help,
         },
       },
       presets = {
