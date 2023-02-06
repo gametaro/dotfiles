@@ -39,9 +39,9 @@ autocmd('FileType', {
 
 autocmd('TextYankPost', {
   callback = function()
-    vim.highlight.on_yank({ higroup = 'Search', timeout = 200 })
+    vim.highlight.on_yank()
   end,
-  desc = 'highlight on yank',
+  desc = 'Highlight the yanked region',
 })
 
 if vim.fn.executable('chezmoi') == 1 then
