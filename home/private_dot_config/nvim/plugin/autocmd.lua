@@ -50,13 +50,17 @@ if vim.fn.executable('chezmoi') == 1 then
     autocmd('BufWritePost', {
       pattern = source_dir .. '/*',
       callback = function(a)
-        -- FIXME: synchronous is bad:(
-        local output = vim.fn.system({ 'chezmoi', 'apply', '--no-tty', '--source-path', a.match })
-        if #output ~= 0 and vim.v.shell_error ~= 0 then
-          vim.notify(output, vim.log.levels.INFO, { title = 'chezmoi' })
-        end
+        require('ky.util').job(
+          'chezmoi',
+          { 'apply', '--no-tty', '--source-path', a.match },
+          function(code, data)
+            if code ~= 0 then
+              vim.notify(data, vim.log.levels.WARN)
+            end
+          end
+        )
       end,
-      desc = 'run chezmoi apply whenever a dotfile is saved',
+      desc = 'Run chezmoi apply whenever dotfiles were saved',
     })
   end
 end

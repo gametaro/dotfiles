@@ -12,7 +12,7 @@ local git_rev = function()
       '--left-right',
       'HEAD...@{upstream}',
     },
-    vim.schedule_wrap(function(data)
+    vim.schedule_wrap(function(_, data)
       local ahead, behind = unpack(vim.split(data or '', '\t'))
       vim.api.nvim_set_var('git_rev', {
         ahead = tonumber(ahead) or 0,

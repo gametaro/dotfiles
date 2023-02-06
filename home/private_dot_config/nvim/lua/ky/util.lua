@@ -73,7 +73,7 @@ end
 
 ---@param cmd string
 ---@param args table
----@param callback function
+---@param callback fun(code: string, data: string)
 function M.job(cmd, args, callback)
   local results = {}
   local handle
@@ -91,7 +91,7 @@ function M.job(cmd, args, callback)
     stderr:close()
     handle:close()
 
-    callback(table.concat(results))
+    callback(code, table.concat(results))
   end
 
   handle = vim.loop.spawn(cmd, {
@@ -107,12 +107,17 @@ function M.job(cmd, args, callback)
     if stdout then
       stdout:read_start(on_read)
     end
+    if stderr then
+      stderr:read_start(on_read)
+    end
   else
     if stdout then
       stdout:close()
       stderr:close()
     end
   end
+
+  return handle
 end
 
 ---@return boolean
