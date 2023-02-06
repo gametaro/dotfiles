@@ -35,7 +35,7 @@ return {
     end
 
     local window = {
-      border = require('ky.ui').border,
+      border = vim.g.border,
       winhighlight = table.concat({
         'Normal:NormalFloat',
         'FloatBorder:FloatBorder',

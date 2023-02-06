@@ -15,7 +15,7 @@ require('lazy').setup('ky.plugins', {
     lazy = true,
   },
   ui = {
-    border = require('ky.ui').border,
+    border = vim.g.border,
   },
   checker = {
     enabled = false,

@@ -119,7 +119,7 @@ return {
         },
         lsp_interop = {
           enable = false,
-          border = require('ky.ui').border,
+          border = vim.g.border,
           peek_definition_code = {
             ['df'] = '@function.outer',
           },

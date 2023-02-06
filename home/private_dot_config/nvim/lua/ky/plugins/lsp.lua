@@ -10,7 +10,7 @@ return {
       'williamboman/mason.nvim',
       opts = {
         ui = {
-          border = require('ky.ui').border,
+          border = vim.g.border,
         },
       },
       cmd = 'Mason',

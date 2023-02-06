@@ -79,6 +79,24 @@ M.icons = {
   },
 }
 
-M.border = 'rounded'
+M.border = {
+  none = 'none',
+  single = 'single',
+  double = 'double',
+  rounded = 'rounded',
+  solid = 'solid',
+  shadow = 'shadow',
+  emoji = {
+    { '🭽', 'FloatBorder' },
+    { '▔', 'FloatBorder' },
+    { '🭾', 'FloatBorder' },
+    { '▕', 'FloatBorder' },
+    { '🭿', 'FloatBorder' },
+    { '▁', 'FloatBorder' },
+    { '🭼', 'FloatBorder' },
+    { '▏', 'FloatBorder' },
+  },
+}
+vim.g.border = M.border.rounded
 
 return M

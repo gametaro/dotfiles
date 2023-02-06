@@ -42,7 +42,7 @@ return {
       views = {
         hover = {
           border = {
-            style = require('ky.ui').border,
+            style = vim.g.border,
           },
           position = { row = 2, col = 2 },
         },

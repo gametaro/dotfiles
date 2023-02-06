@@ -15,7 +15,7 @@ vim.diagnostic.config({
   severity_sort = true,
   virtual_text = false,
   float = {
-    border = require('ky.ui').border,
+    border = vim.g.border,
     source = false,
     title = 'Diagnostic',
     title_pos = 'center',

@@ -75,7 +75,7 @@ return {
         changedelete = { show_count = true },
       },
       preview_config = {
-        border = require('ky.ui').border,
+        border = vim.g.border,
       },
       trouble = false,
       on_attach = on_attach,
