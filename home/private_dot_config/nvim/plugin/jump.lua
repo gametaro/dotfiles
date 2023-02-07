@@ -174,7 +174,7 @@ local default_opts = {
   end,
 }
 
-vim.keymap.set('n', '<Leader><C-i>', function()
+vim.keymap.set('n', '<M-i>', function()
   local opts = vim.tbl_extend('force', default_opts, {
     on_error = function()
       setqflist(true)
@@ -182,7 +182,7 @@ vim.keymap.set('n', '<Leader><C-i>', function()
   })
   forward(opts)
 end)
-vim.keymap.set('n', '<Leader><C-o>', function()
+vim.keymap.set('n', '<M-o>', function()
   local opts = vim.tbl_extend('force', default_opts, {
     on_error = function()
       setqflist(true)
