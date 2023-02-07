@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1675730198202,
+  "lastUpdate": 1675760376319,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -18692,6 +18692,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.08499263136857144,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "cb2b3b3ee132cd5e724c425f600e4d806bb6ecd7",
+          "message": "chore(jump): change mappings",
+          "timestamp": "2023-02-07T17:57:22+09:00",
+          "tree_id": "00c7681062fe15a73eddb8fd21adca99c3acb3ae",
+          "url": "https://github.com/gametaro/dotfiles/commit/cb2b3b3ee132cd5e724c425f600e4d806bb6ecd7"
+        },
+        "date": 1675760374112,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.10556558636714289,
             "unit": "Second"
           }
         ]
