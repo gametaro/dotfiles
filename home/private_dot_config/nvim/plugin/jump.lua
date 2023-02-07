@@ -15,6 +15,13 @@ local fn = vim.fn
 ---@field on_success? function
 ---@field on_error? function
 
+---@class jumplist.Item
+---@field bufnr integer
+---@field col integer
+---@field coladd integer
+---@field filename string|nil
+---@field lnum integer
+
 ---@param bufnr integer
 ---@param opts jump.Options
 ---@return boolean
@@ -34,7 +41,7 @@ local condition = function(bufnr, opts)
   then
     return false
   end
-  if opts.only_cwd and not string.find(api.nvim_buf_get_name(bufnr), vim.loop.cwd(), 1, true) then
+  if opts.only_cwd and not string.find(api.nvim_buf_get_name(bufnr), vim.fn.getcwd(), 1, true) then
     return false
   end
   return true
@@ -42,6 +49,7 @@ end
 
 ---@param opts jump.Options
 local jump = function(opts)
+  ---@type jumplist.Item[], integer
   local jumplist, current_pos = unpack(fn.getjumplist())
   if vim.tbl_isempty(jumplist) then
     return
@@ -53,6 +61,7 @@ local jump = function(opts)
   end
 
   local current_bufnr = api.nvim_get_current_buf()
+  ---@type integer|nil, integer|nil, integer|nil, integer|nil
   local prev_bufnr, next_bufnr, target_bufnr, target_pos
   local from = opts.forward and (current_pos + 1) or (current_pos - 1)
   local to = opts.forward and #jumplist or 1
@@ -95,6 +104,8 @@ local jump = function(opts)
   })
 end
 
+---@param jumplist jumplist.Item[]
+---@return table
 local toqflist = function(jumplist)
   return vim.tbl_map(function(j)
     local text = unpack(api.nvim_buf_get_lines(j.bufnr, j.lnum - 1, j.lnum, true))
@@ -105,6 +116,7 @@ end
 ---@param opts { qf: boolean, open: boolean }
 local setlist = function(opts)
   opts = opts or {}
+  ---@type jumplist.Item[]
   local jumplist = unpack(fn.getjumplist())
   local items = toqflist(vim.tbl_filter(function(j)
     return api.nvim_buf_is_loaded(j.bufnr)
