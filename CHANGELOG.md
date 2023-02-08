@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.5.0](https://github.com/gametaro/dotfiles/compare/v1.4.0...v1.5.0) (2023-02-08)
+
+
+### Features
+
+* **cmp:** add icons to items from path ([1492a54](https://github.com/gametaro/dotfiles/commit/1492a54509795ffaf3b4d834b8e7a0d745246fde))
+* **colorscheme:** add ok and floating highlights ([b8e4dfe](https://github.com/gametaro/dotfiles/commit/b8e4dfedaff47a6af2e64a59ff7805c54e7f374d))
+* **plugins:** add `term-edit.nvim` ([c444297](https://github.com/gametaro/dotfiles/commit/c444297c5f30175a961c79d949b15ddbafca3d18))
+
+
+### Bug Fixes
+
+* **noice:** close floating-window when opening help ([766ffcc](https://github.com/gametaro/dotfiles/commit/766ffcc7958e84cf279e5cbfafe33616158d8e8d))
+
+
+### Performance Improvements
+
+* **autocmd:** use `vim.loop.spawn` instead of `system` ([59a30b2](https://github.com/gametaro/dotfiles/commit/59a30b270dc2d3ea0d2b2211f9853aceb360b320))
+
 ## [1.4.0](https://github.com/gametaro/dotfiles/compare/v1.3.0...v1.4.0) (2023-01-30)
 
 
