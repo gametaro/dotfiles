@@ -94,9 +94,12 @@ return {
         vim.pretty_print(lsp.buf.list_workspace_folders())
       end)
       map('n', '<LocalLeader>D', lsp.buf.type_definition)
-      map('n', '<LocalLeader>rN', lsp.buf.rename)
       map('n', '<LocalLeader>rn', function()
-        return ':IncRename ' .. vim.fn.expand('<cword>')
+        if pcall(require, 'inc_rename') then
+          return ':IncRename ' .. vim.fn.expand('<cword>')
+        else
+          lsp.buf.rename()
+        end
       end, { expr = true })
       map({ 'n', 'x' }, '<LocalLeader>ca', function()
         lsp.buf.code_action({
