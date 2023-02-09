@@ -3,6 +3,6 @@ return {
   { 'rebelot/kanagawa.nvim' },
   { 'Mofiqul/vscode.nvim' },
   { 'cocopon/iceberg.vim' },
-  { 'catppuccin/nvim' },
+  { 'catppuccin/nvim', name = 'catppuccin' },
   { 'folke/tokyonight.nvim' },
 }
