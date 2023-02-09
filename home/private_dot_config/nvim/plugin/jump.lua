@@ -47,8 +47,20 @@ local condition = function(bufnr, opts)
   return true
 end
 
+---@type jump.Options
+local defaults = {
+  ignore_filetype = { 'gitcommit', 'gitrebase' },
+  ignore_buftype = { 'terminal', 'help', 'quickfix', 'nofile' },
+  only_cwd = false,
+  on_success = function() end,
+  on_error = function()
+    vim.notify('No destination found')
+  end,
+}
+
 ---@param opts jump.Options
 local jump = function(opts)
+  opts = vim.tbl_extend('force', defaults, opts or {})
   ---@type jumplist.Item[], integer
   local jumplist, current_pos = unpack(fn.getjumplist())
   if vim.tbl_isempty(jumplist) then
@@ -143,7 +155,7 @@ local setloclist = function(open)
   setlist({ qf = false, open = open })
 end
 
----@param opts jump.Options
+---@param opts? jump.Options
 local forward = function(opts)
   opts = opts or {}
   opts.forward = true
@@ -175,38 +187,17 @@ local backward_local = function(opts)
   jump(opts)
 end
 
----@type jump.Options
-local default_opts = {
-  ignore_filetype = { 'gitcommit', 'gitrebase' },
-  ignore_buftype = { 'terminal', 'help', 'quickfix', 'nofile' },
-  only_cwd = false,
-  on_success = function() end,
-  on_error = function()
-    vim.notify('No destination found')
-  end,
-}
-
 vim.keymap.set('n', '<M-i>', function()
-  local opts = vim.tbl_extend('force', default_opts, {
-    on_error = function()
-      setqflist(true)
-    end,
-  })
-  forward(opts)
+  forward()
 end)
 vim.keymap.set('n', '<M-o>', function()
-  local opts = vim.tbl_extend('force', default_opts, {
-    on_error = function()
-      setqflist(true)
-    end,
-  })
-  backward(opts)
+  backward()
 end)
 vim.keymap.set('n', 'g<C-i>', function()
-  forward_local(default_opts)
+  forward_local()
 end)
 vim.keymap.set('n', 'g<C-o>', function()
-  backward_local(default_opts)
+  backward_local()
 end)
 vim.keymap.set('n', '<Leader>jq', function()
   setqflist(true)
