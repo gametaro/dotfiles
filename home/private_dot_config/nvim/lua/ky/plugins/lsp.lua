@@ -18,7 +18,7 @@ return {
     { 'williamboman/mason-lspconfig.nvim', opts = { automatic_installation = false } },
     { 'folke/neoconf.nvim', config = true },
   },
-  event = 'BufReadPre',
+  event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     local lsp = vim.lsp
     lsp.set_log_level(vim.log.levels.ERROR)

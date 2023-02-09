@@ -1,6 +1,6 @@
 return {
   'RRethy/vim-illuminate',
-  event = 'BufReadPost',
+  event = { 'BufReadPost', 'BufNewFile' },
   config = function()
     require('illuminate').configure({
       modes_denylist = { 'i' },

@@ -1,7 +1,7 @@
 return {
   'lewis6991/gitsigns.nvim',
   dependencies = 'tpope/vim-repeat',
-  event = 'BufReadPre',
+  event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     local on_attach = function(bufnr)
       local gs = package.loaded.gitsigns
