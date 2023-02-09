@@ -37,4 +37,4 @@ function _G.qftf(info)
   end, items(info))
 end
 
-vim.o.quickfixtextfunc = '{info -> v:lua._G.qftf(info)}'
+vim.o.quickfixtextfunc = 'v:lua._G.qftf'
