@@ -3,12 +3,12 @@ return {
   dependencies = 'tpope/vim-repeat',
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
-    local on_attach = function(bufnr)
+    local on_attach = function(buffer)
       local gs = package.loaded.gitsigns
 
       local function map(mode, lhs, rhs, opts)
         opts = opts or {}
-        opts.buffer = bufnr
+        opts.buffer = buffer
         vim.keymap.set(mode, lhs, rhs, opts)
       end
 
