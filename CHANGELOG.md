@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.5.1](https://github.com/gametaro/dotfiles/compare/v1.5.0...v1.5.1) (2023-02-09)
+
+
+### Bug Fixes
+
+* **colorscheme:** set name of catppuccin ([944ef7e](https://github.com/gametaro/dotfiles/commit/944ef7ecc0801ccdef6094e7dd3b6b36d6d13ec7))
+* **jump:** set default config ([6f40926](https://github.com/gametaro/dotfiles/commit/6f40926267ef4e0507cdb78974456a354e585def))
+* **plugins:** load on `BufNewFile` ([7b2f9b8](https://github.com/gametaro/dotfiles/commit/7b2f9b8cb2cf88f1a501aa98d30c2df64989ac7a))
+
 ## [1.5.0](https://github.com/gametaro/dotfiles/compare/v1.4.0...v1.5.0) (2023-02-08)
 
 
