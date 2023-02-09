@@ -125,29 +125,6 @@ map('n', '[b', function()
   cmd.bprevious({ count = vim.v.count1 })
 end)
 
--- see https://github.com/yuki-yano/zero.nvim
-map({ 'n', 'x', 'o' }, '0', function()
-  local row, col = unpack(api.nvim_win_get_cursor(0))
-  local lines = api.nvim_buf_get_lines(0, row - 1, row, true)[1]
-  return lines:sub(1, col):match('^%s+$') and '0' or '^'
-end, { expr = true, desc = 'toggle `0` and `^`' })
-map({ 'n', 'x', 'o' }, '$', function()
-  local row, col = unpack(api.nvim_win_get_cursor(0))
-  local lines = api.nvim_buf_get_lines(0, row - 1, row, true)[1]
-  return lines:sub(col + 1 - lines:len()):match('^%s+$') and '$' or 'g_'
-end, { expr = true, desc = 'toggle `$` and `g_`' })
-
--- see https://github.com/yuki-yano/dotfiles/blob/main/.vimrc
-for _, v in ipairs({ 'i', 'A' }) do
-  map('n', v, function()
-    return (not api.nvim_get_current_line():match('^%s*$') or vim.bo.buftype == 'terminal') and v
-      or '"_cc'
-  end, {
-    expr = true,
-    desc = fmt('toggle `%s` and `"_cc` based on the current line', v),
-  })
-end
-
 -- see https://github.com/justinmk/config/blob/master/.config/nvim/init.vim
 map('c', '<M-e>', "<C-r>=fnameescape('')<Left><Left>")
 -- map('c', '<M-f>', "<C-r>=fnamemodify(@%, ':t')<CR>")
