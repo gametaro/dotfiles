@@ -1,4 +1,74 @@
-local fn = vim.fn
+local function is_open()
+  if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
+    return true
+  end
+  if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
+    return true
+  end
+  return false
+end
+
+local function open(keep_cursor)
+  keep_cursor = keep_cursor or true
+  -- pcall(vim.cmd.copen)
+  pcall(vim.cmd.lopen)
+  if keep_cursor then
+    vim.cmd.wincmd('p')
+  end
+end
+
+local function close()
+  pcall(vim.cmd.cclose)
+  pcall(vim.cmd.lclose)
+end
+
+local function toggle()
+  if is_open() then
+    close()
+  else
+    open()
+  end
+end
+
+local function next()
+  local ok1 = pcall(vim.cmd.cnext, { count = vim.v.count1 })
+  if not ok1 then
+    pcall(vim.cmd.cfirst)
+  end
+  local ok2 = pcall(vim.cmd.lnext, { count = vim.v.count1 })
+  if not ok2 then
+    pcall(vim.cmd.lfirst)
+  end
+end
+
+local function prev()
+  local ok1 = pcall(vim.cmd.cprevious, { count = vim.v.count1 })
+  if not ok1 then
+    pcall(vim.cmd.clast)
+  end
+  local ok2 = pcall(vim.cmd.lprevious, { count = vim.v.count1 })
+  if not ok2 then
+    pcall(vim.cmd.llast)
+  end
+end
+
+local function first()
+  pcall(vim.cmd.cfirst)
+  pcall(vim.cmd.lfirst)
+end
+
+local function last()
+  pcall(vim.cmd.clast)
+  pcall(vim.cmd.llast)
+end
+
+vim.keymap.set('n', 'qq', toggle)
+vim.keymap.set('n', 'qo', open)
+vim.keymap.set('n', 'qc', close)
+vim.keymap.set('n', 'q0', first)
+vim.keymap.set('n', 'q$', last)
+vim.keymap.set('n', ']q', next)
+vim.keymap.set('n', '[q', prev)
 
 -- |quickfix-window-function|
 ---@class Info
