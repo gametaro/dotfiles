@@ -2,7 +2,7 @@ return {
   'Wansmer/treesj',
   cmd = 'TSJToggle',
   keys = {
-    { '<LocalLeader>j', vim.cmd.TSJToggle },
+    { '<Leader>j', vim.cmd.TSJToggle },
   },
   config = function()
     require('treesj').setup({

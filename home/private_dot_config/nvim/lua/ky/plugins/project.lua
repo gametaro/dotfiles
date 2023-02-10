@@ -7,7 +7,7 @@ return {
       ignore_lsp = { 'null-ls' },
     })
     require('telescope').load_extension('projects')
-    vim.keymap.set('n', '<LocalLeader>fp', '<Cmd>Telescope projects<CR>')
+    vim.keymap.set('n', '<Leader>fp', '<Cmd>Telescope projects<CR>')
 
     local group = vim.api.nvim_create_augroup('mine__project', { clear = true })
 

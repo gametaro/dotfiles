@@ -29,11 +29,11 @@ vim.diagnostic.config({
   },
 })
 
-vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<LocalLeader>dq', vim.diagnostic.setqflist)
-vim.keymap.set('n', '<LocalLeader>dl', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<Leader>dk', vim.diagnostic.open_float)
+vim.keymap.set('n', '<Leader>dq', vim.diagnostic.setqflist)
+vim.keymap.set('n', '<Leader>dl', vim.diagnostic.setloclist)
 
 local setlist = require('ky.defer').debounce_trailing(function()
   local qf = vim.fn.getqflist({ winid = 0, title = 0 })

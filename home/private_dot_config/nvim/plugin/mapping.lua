@@ -194,7 +194,7 @@ xnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
 xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
 ]])
 
-map('n', '<LocalLeader>i', function()
+map('n', '<Leader>i', function()
   vim.cmd.Inspect()
 end)
 

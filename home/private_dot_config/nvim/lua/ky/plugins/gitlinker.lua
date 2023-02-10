@@ -5,7 +5,7 @@ return {
       vim.keymap.set(v, 'gb', function()
         require('gitlinker').get_buf_range_url(v, { action_callback = vim.fn['openbrowser#open'] })
       end)
-      vim.keymap.set(v, '<LocalLeader>gy', function()
+      vim.keymap.set(v, '<Leader>gy', function()
         require('gitlinker').get_buf_range_url(v)
       end)
     end
@@ -14,7 +14,7 @@ return {
         action_callback = vim.fn['openbrowser#open'],
       })
     end)
-    vim.keymap.set('n', '<LocalLeader>gY', function()
+    vim.keymap.set('n', '<Leader>gY', function()
       require('gitlinker').get_repo_url()
     end)
   end,

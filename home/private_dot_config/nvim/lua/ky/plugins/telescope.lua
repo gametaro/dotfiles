@@ -215,31 +215,31 @@ return {
     map('n', '<C-b>', builtin.buffers)
     -- map('n', '<C-g>', builtin.live_grep)
     map('n', '<C-s>', builtin.grep_string)
-    map('n', '<LocalLeader>fd', function()
+    map('n', '<Leader>fd', function()
       builtin.find_files({
         prompt_title = 'Dot Files',
         cwd = '$XDG_DATA_HOME/chezmoi/',
       })
     end)
     map('n', '<C-h>', builtin.help_tags)
-    map('n', '<LocalLeader>fv', builtin.vim_options)
-    map('n', '<LocalLeader>fc', builtin.commands)
-    map('n', '<LocalLeader>fj', builtin.jumplist)
-    -- map('n', '<LocalLeader>fm', builtin.marks)
-    map('n', '<LocalLeader>fm', builtin.man_pages)
-    map('n', '<LocalLeader>fh', builtin.highlights)
+    map('n', '<Leader>fv', builtin.vim_options)
+    map('n', '<Leader>fc', builtin.commands)
+    map('n', '<Leader>fj', builtin.jumplist)
+    -- map('n', '<Leader>fm', builtin.marks)
+    map('n', '<Leader>fm', builtin.man_pages)
+    map('n', '<Leader>fh', builtin.highlights)
     map('n', '<C-n>', builtin.oldfiles)
-    map('n', '<LocalLeader>fr', function()
+    map('n', '<Leader>fr', function()
       builtin.resume({ cache_index = vim.v.count1 })
     end)
-    map('n', '<LocalLeader>gb', builtin.git_branches)
-    map('n', '<LocalLeader>gc', builtin.git_bcommits)
-    map('n', '<LocalLeader>gC', builtin.git_commits)
-    map('n', '<LocalLeader>gs', builtin.git_status)
-    map('n', '<LocalLeader>gS', builtin.git_stash)
-    map('n', '<LocalLeader>ld', builtin.lsp_document_symbols)
-    map('n', '<LocalLeader>lw', builtin.lsp_workspace_symbols)
-    map('n', '<LocalLeader>ls', builtin.lsp_dynamic_workspace_symbols)
+    map('n', '<Leader>gb', builtin.git_branches)
+    map('n', '<Leader>gc', builtin.git_bcommits)
+    map('n', '<Leader>gC', builtin.git_commits)
+    map('n', '<Leader>gs', builtin.git_status)
+    map('n', '<Leader>gS', builtin.git_stash)
+    map('n', '<Leader>ld', builtin.lsp_document_symbols)
+    map('n', '<Leader>lw', builtin.lsp_workspace_symbols)
+    map('n', '<Leader>ls', builtin.lsp_dynamic_workspace_symbols)
 
     require('telescope').load_extension('fzf')
     require('telescope').load_extension('zf-native')
@@ -250,8 +250,8 @@ return {
 
     require('telescope').load_extension('undo')
     require('telescope').load_extension('olddirs')
-    vim.keymap.set('n', '<LocalLeader>od', telescope.extensions.olddirs.picker)
-    vim.keymap.set('n', '<LocalLeader>ofd', function()
+    vim.keymap.set('n', '<Leader>od', telescope.extensions.olddirs.picker)
+    vim.keymap.set('n', '<Leader>ofd', function()
       telescope.extensions.olddirs.picker({
         selected_dir_callback = function(dir)
           builtin.find_files({
@@ -261,7 +261,7 @@ return {
         end,
       })
     end)
-    vim.keymap.set('n', '<LocalLeader>ogd', function()
+    vim.keymap.set('n', '<Leader>ogd', function()
       telescope.extensions.olddirs.picker({
         selected_dir_callback = function(dir)
           builtin.live_grep({

@@ -88,26 +88,26 @@ return {
       end)
       map('n', 'gI', lsp.buf.implementation)
       map('i', '<C-s>', lsp.buf.signature_help)
-      map('n', '<LocalLeader>wa', lsp.buf.add_workspace_folder)
-      map('n', '<LocalLeader>wr', lsp.buf.remove_workspace_folder)
-      map('n', '<LocalLeader>wl', function()
+      map('n', '<Leader>wa', lsp.buf.add_workspace_folder)
+      map('n', '<Leader>wr', lsp.buf.remove_workspace_folder)
+      map('n', '<Leader>wl', function()
         vim.pretty_print(lsp.buf.list_workspace_folders())
       end)
-      map('n', '<LocalLeader>D', lsp.buf.type_definition)
-      map('n', '<LocalLeader>rn', function()
+      map('n', '<Leader>D', lsp.buf.type_definition)
+      map('n', '<Leader>rn', function()
         if pcall(require, 'inc_rename') then
           return ':IncRename ' .. vim.fn.expand('<cword>')
         else
           lsp.buf.rename()
         end
       end, { expr = true })
-      map({ 'n', 'x' }, '<LocalLeader>ca', function()
+      map({ 'n', 'x' }, '<Leader>ca', function()
         lsp.buf.code_action({
           apply = true,
         })
       end)
       map('n', 'gr', lsp.buf.references)
-      map('n', '<LocalLeader>cl', lsp.codelens.run)
+      map('n', '<Leader>cl', lsp.codelens.run)
 
       if client.config.flags then
         client.config.flags.allow_incremental_sync = true
@@ -184,6 +184,7 @@ return {
       },
       marksman = {},
       pylsp = {},
+      sqlls = {},
       yamlls = {
         settings = {
           yaml = {
