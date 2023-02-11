@@ -21,8 +21,8 @@ return {
         ['test_*.py'] = { alternate = { '{}.py' }, type = 'test' },
       },
     }
-    vim.keymap.set('n', '<Leader>a', vim.cmd.A)
-    vim.keymap.set('n', '<Leader>Av', vim.cmd.AV)
-    vim.keymap.set('n', '<Leader>As', vim.cmd.AS)
+    vim.keymap.set('n', '<Leader>a', '<Cmd>A<CR>')
+    vim.keymap.set('n', '<Leader>Av', '<Cmd>AV<CR>')
+    vim.keymap.set('n', '<Leader>As', '<Cmd>AS<CR>')
   end,
 }

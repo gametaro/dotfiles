@@ -12,6 +12,6 @@ return {
         replace_all = '<Leader><CR>',
       },
     })
-    vim.keymap.set('n', '<Leader>rs', require('ssr').open)
+    vim.keymap.set('n', '<Leader>rs', require('ssr').open, { desc = 'Ssr' })
   end,
 }

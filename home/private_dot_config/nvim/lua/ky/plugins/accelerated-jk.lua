@@ -8,7 +8,7 @@ return {
         else
           require('accelerated-jk').move_to(v)
         end
-      end)
+      end, { desc = 'Accelerated ' .. v })
     end
   end,
 }

@@ -229,7 +229,7 @@ function M.prev_dir(opts)
   M.walkthrough(opts)
 end
 
-vim.keymap.set('n', ']w', M.next, { desc = 'Next file/directory in current directory' })
-vim.keymap.set('n', '[w', M.prev, { desc = 'Previous file/directory in current directory' })
+vim.keymap.set('n', ']w', M.next, { desc = 'Next file or directory' })
+vim.keymap.set('n', '[w', M.prev, { desc = 'Previous file or directory' })
 
 return M

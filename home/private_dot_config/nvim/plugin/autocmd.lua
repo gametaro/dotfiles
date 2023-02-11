@@ -34,7 +34,7 @@ autocmd('FileType', {
   callback = function(a)
     vim.keymap.set('n', 'q', '<C-w>c', { buffer = a.buf, nowait = true })
   end,
-  desc = 'close with `q`',
+  desc = 'Close current window',
 })
 
 autocmd('TextYankPost', {

@@ -2,12 +2,15 @@ return {
   'sindrets/diffview.nvim',
   cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
   init = function()
-    vim.keymap.set('n', '<Leader>gd', vim.cmd.DiffviewOpen)
-    vim.keymap.set('n', '<Leader>gf', function()
-      vim.cmd.DiffviewFileHistory('%')
-    end)
-    vim.keymap.set('n', '<Leader>gF', vim.cmd.DiffviewFileHistory)
-    vim.keymap.set('x', '<Leader>gf', ":'<,'>DiffviewFileHistory<CR>")
+    vim.keymap.set('n', '<Leader>gd', '<Cmd>DiffviewOpen<CR>', { desc = 'File history' })
+    vim.keymap.set(
+      'n',
+      '<Leader>gf',
+      '<Cmd>DiffviewFileHistory %<CR>',
+      { desc = 'Current file history' }
+    )
+    vim.keymap.set('n', '<Leader>gF', '<Cmd>DiffviewFileHistory<CR>', { desc = 'File history' })
+    vim.keymap.set('x', '<Leader>gf', ":'<,'>DiffviewFileHistory<CR>", { desc = 'File history' })
   end,
   config = function()
     local win_config = {
