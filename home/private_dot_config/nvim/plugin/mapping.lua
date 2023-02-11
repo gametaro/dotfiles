@@ -44,22 +44,27 @@ vim.keymap.set('s', '<C-h>', '<C-h>i')
 
 vim.keymap.set('n', '<Leader>.', function()
   vim.cmd.edit('.')
-end)
+end, { desc = 'Open cwd' })
 vim.keymap.set('n', '-', function()
   vim.cmd.edit(vim.fn.expand('%:p:h'))
-end)
+end, { desc = 'Open current directory' })
 vim.keymap.set('n', '<Leader>cd', function()
   vim.cmd.tcd('%:p:h')
-end)
+end, { desc = 'Change directory' })
 vim.keymap.set('n', '<Leader>ud', function()
   vim.cmd.tcd('..')
-end)
+end, { desc = 'Up directory' })
 
 vim.keymap.set('n', '<Leader>i', '<Cmd>Inspect<CR>')
 vim.keymap.set('n', '<Leader>I', '<Cmd>Inspect!<CR>')
 
-vim.keymap.set('n', 'gm', [[<Cmd>echo repeat("\n",&cmdheight)<Bar>40messages<CR>]])
-vim.keymap.set('n', 'gs', [[:%s/\<<C-R><C-W>\>\C//g<left><left>]])
+vim.keymap.set(
+  'n',
+  'gm',
+  [[<Cmd>echo repeat("\n",&cmdheight)<Bar>40messages<CR>]],
+  { desc = 'Messages' }
+)
+vim.keymap.set('n', 'gs', [[:%s/\<<C-R><C-W>\>\C//g<left><left>]], { desc = 'Substitute word' })
 
 vim.keymap.set({ 'n', 'x' }, 'J', 'mzJ`z', { desc = 'Join lines' })
 

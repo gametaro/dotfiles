@@ -54,11 +54,11 @@ return {
       end
 
       -- See `:help vim.lsp.*` for documentation on any of the below functions
-      map('n', 'gd', vim.lsp.buf.definition, { desc = 'Goto Definition' })
-      map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Goto Declaration' })
+      map('n', 'gd', vim.lsp.buf.definition, { desc = 'Goto definition' })
+      map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Goto declaration' })
       map('n', 'gr', vim.lsp.buf.references, { desc = 'References' })
-      map('n', 'gI', vim.lsp.buf.implementation, { desc = 'Goto Implementation' })
-      map('n', '<Leader>D', vim.lsp.buf.type_definition, { desc = 'Goto Type Definition' })
+      map('n', 'gI', vim.lsp.buf.implementation, { desc = 'Goto implementation' })
+      map('n', '<Leader>D', vim.lsp.buf.type_definition, { desc = 'Goto type definition' })
       map('n', 'K', function()
         ---@param subject string
         local function help(subject)
@@ -88,7 +88,7 @@ return {
 
         vim.lsp.buf.hover()
       end, { desc = 'Hover' })
-      map('i', '<C-s>', vim.lsp.buf.signature_help, { desc = 'Signature Help' })
+      map('i', '<C-s>', vim.lsp.buf.signature_help, { desc = 'Signature help' })
       -- map('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder)
       -- map('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder)
       -- map('n', '<Leader>wl', function()
@@ -105,8 +105,8 @@ return {
         vim.lsp.buf.code_action({
           apply = true,
         })
-      end, { desc = 'Code Action' })
-      map('n', '<Leader>cl', vim.lsp.codelens.run, { desc = 'Code Lens' })
+      end, { desc = 'Code action' })
+      map('n', '<Leader>cl', vim.lsp.codelens.run, { desc = 'Codelens' })
       map({ 'n', 'x' }, '<M-f>', function()
         vim.lsp.buf.format({
           async = true,
