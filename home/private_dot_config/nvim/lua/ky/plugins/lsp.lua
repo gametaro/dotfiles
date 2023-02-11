@@ -58,7 +58,7 @@ return {
       map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Goto declaration' })
       map('n', 'gr', vim.lsp.buf.references, { desc = 'References' })
       map('n', 'gI', vim.lsp.buf.implementation, { desc = 'Goto implementation' })
-      map('n', '<Leader>D', vim.lsp.buf.type_definition, { desc = 'Goto type definition' })
+      map('n', 'gt', vim.lsp.buf.type_definition, { desc = 'Goto type definition' })
       map('n', 'K', function()
         ---@param subject string
         local function help(subject)
@@ -94,7 +94,7 @@ return {
       -- map('n', '<Leader>wl', function()
       --   vim.pretty_print(vim.lsp.buf.list_workspace_folders())
       -- end)
-      map('n', '<Leader>rn', function()
+      map('n', '<Leader>cr', function()
         if pcall(require, 'inc_rename') then
           return ':IncRename ' .. vim.fn.expand('<cword>')
         else
