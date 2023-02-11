@@ -171,29 +171,6 @@ map({ 'n', 'x' }, 'J', 'mzJ`z', { desc = 'keep curosor position after joining' }
 
 map('x', 'gs', ':sort<CR>')
 
--- Multiple Cursors
--- TODO: convert to lua
--- @see: http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
-cmd([[
-let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
-
-nnoremap cn *``cgn
-nnoremap cN *``cgN
-
-xnoremap <expr> cn g:mc . "``cgn"
-xnoremap <expr> cN g:mc . "``cgN"
-
-function! SetupCR()
-  nnoremap <Enter> :nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z
-endfunction
-
-nnoremap cq :call SetupCR()<CR>*``qz
-nnoremap cQ :call SetupCR()<CR>#``qz
-
-xnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
-xnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
-]])
-
 map('n', '<Leader>i', function()
   vim.cmd.Inspect()
 end)
