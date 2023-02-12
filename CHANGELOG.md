@@ -1,5 +1,26 @@
 # Changelog
 
+## [2.0.0](https://github.com/gametaro/dotfiles/compare/v1.5.1...v2.0.0) (2023-02-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **mapping:** replace `<LocalLeader>` with `<Leader>`
+
+### Features
+
+* **gitsigns:** update qf/locationlist when opening window ([4b5df90](https://github.com/gametaro/dotfiles/commit/4b5df90bc2860d3a5a2e98eb0082e8ac9279d867))
+
+
+### Bug Fixes
+
+* **smart-insert:** work on empty line ([c69d2ff](https://github.com/gametaro/dotfiles/commit/c69d2ff3482649c16e7a892e7ace5ce8ed35dbd3))
+
+
+### Code Refactoring
+
+* **mapping:** replace `&lt;LocalLeader&gt;` with `<Leader>` ([995b911](https://github.com/gametaro/dotfiles/commit/995b9116add7206f06a4b9b505060be159476966))
+
 ## [1.5.1](https://github.com/gametaro/dotfiles/compare/v1.5.0...v1.5.1) (2023-02-09)
 
 
