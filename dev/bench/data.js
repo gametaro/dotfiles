@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1676172547058,
+  "lastUpdate": 1676209775397,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -19011,6 +19011,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.08144233725058825,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b708d1fe5948f7dfc9cc987c19549b39e3cdac1b",
+          "message": "Merge pull request #47 from gametaro/colorscheme",
+          "timestamp": "2023-02-12T22:48:24+09:00",
+          "tree_id": "caedd3846c87a88e03f50efa244c310346b8cc37",
+          "url": "https://github.com/gametaro/dotfiles/commit/b708d1fe5948f7dfc9cc987c19549b39e3cdac1b"
+        },
+        "date": 1676209772629,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.0842861138811111,
             "unit": "Second"
           }
         ]
