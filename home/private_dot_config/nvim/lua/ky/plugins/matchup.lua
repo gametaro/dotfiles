@@ -1,7 +1,7 @@
 return {
   'andymass/vim-matchup',
   enabled = false,
-  event = 'BufReadPost',
+  event = { 'BufReadPost', 'BufNewFile' },
   init = function()
     vim.g.matchup_matchparen_deferred = 1
     vim.g.matchup_matchparen_deferred_hide_delay = 300

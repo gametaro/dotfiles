@@ -9,9 +9,9 @@ return {
         close = 'q',
         next_match = 'n',
         prev_match = 'N',
-        replace_all = '<LocalLeader><CR>',
+        replace_all = '<Leader><CR>',
       },
     })
-    vim.keymap.set('n', '<LocalLeader>rs', require('ssr').open)
+    vim.keymap.set('n', '<Leader>rs', require('ssr').open, { desc = 'Ssr' })
   end,
 }

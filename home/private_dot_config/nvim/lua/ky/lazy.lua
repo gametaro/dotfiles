@@ -41,7 +41,7 @@ require('lazy').setup('ky.plugins', {
   },
 })
 
-vim.keymap.set('n', '<LocalLeader>p', vim.cmd.Lazy)
+vim.keymap.set('n', '<Leader>p', vim.cmd.Lazy)
 vim.api.nvim_create_autocmd('User', {
   pattern = { 'LazySync' },
   callback = function()

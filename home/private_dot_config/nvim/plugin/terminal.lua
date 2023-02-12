@@ -24,24 +24,21 @@ api.nvim_create_autocmd('TermOpen', {
     map('t', ';', function()
       local line = api.nvim_get_current_line()
       return string.match(line, '❯%s+$') and string.format('%s:', escape) or ':'
-    end, { expr = true })
+    end, { expr = true, desc = 'Cmdline' })
     map('t', [[<C-o>]], function()
       keep_mode = true
       return string.format('%s<C-o>', escape)
-    end, { expr = true })
+    end, { expr = true, desc = 'Goto older position' })
     map('t', [[<BS>]], function()
       keep_mode = true
       return string.format('%s<C-^>', escape)
-    end, { expr = true })
+    end, { expr = true, desc = 'Edit alternate file' })
 
     map('t', '<Esc>', function()
       local names = { 'nvim', 'fzf' }
       return require('ky.util').find_proc_in_tree(vim.b[a.buf].terminal_job_pid, names) and '<Esc>'
         or escape
-    end, {
-      expr = true,
-      desc = [[toggle `<Esc>` and `<C-\><C-n>` based on current process tree]],
-    })
+    end, { expr = true })
 
     cmd.startinsert()
   end,

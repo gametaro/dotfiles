@@ -39,7 +39,7 @@ return {
           end)
           return '<Ignore>'
         end
-      end, { expr = true })
+      end, { expr = true, desc = 'Next hunk' })
       map('n', '[c', function()
         if vim.wo.diff then
           return '[c'
@@ -49,38 +49,38 @@ return {
           end)
           return '<Ignore>'
         end
-      end, { expr = true })
+      end, { expr = true, desc = 'Previous hunk' })
       -- Actions
-      map('n', '<LocalLeader>hs', gs.stage_hunk)
-      map('n', '<LocalLeader>hr', gs.reset_hunk)
-      map('x', '<LocalLeader>hs', function()
+      map('n', '<Leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
+      map('n', '<Leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
+      map('x', '<Leader>hs', function()
         gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-      end)
-      map('x', '<LocalLeader>hr', function()
+      end, { desc = 'Stage hunk' })
+      map('x', '<Leader>hr', function()
         gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-      end)
-      map('n', '<LocalLeader>hS', gs.stage_buffer)
-      map('n', '<LocalLeader>hu', gs.undo_stage_hunk)
-      map('n', '<LocalLeader>hR', gs.reset_buffer)
-      map('n', '<LocalLeader>hp', gs.preview_hunk)
-      map('n', '<LocalLeader>hb', function()
+      end, { desc = 'Reset hunk' })
+      map('n', '<Leader>hS', gs.stage_buffer, { desc = 'Stage buffer' })
+      map('n', '<Leader>hu', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
+      map('n', '<Leader>hR', gs.reset_buffer, { desc = 'Reset buffer' })
+      map('n', '<Leader>hp', gs.preview_hunk, { desc = 'Preview hunk' })
+      map('n', '<Leader>hb', function()
         gs.blame_line({ full = true })
-      end)
-      map('n', '<LocalLeader>hd', gs.diffthis)
-      map('n', '<LocalLeader>hD', function()
+      end, { desc = 'Blame line' })
+      map('n', '<Leader>hd', gs.diffthis, { desc = 'Diffthis' })
+      map('n', '<Leader>hD', function()
         gs.diffthis('~')
-      end)
-      map('n', '<LocalLeader>hq', gs.setqflist)
-      map('n', '<LocalLeader>hQ', function()
+      end, { desc = 'Diffthis' })
+      map('n', '<Leader>hq', gs.setqflist, { desc = 'Quickfix' })
+      map('n', '<Leader>hQ', function()
         gs.setqflist('all')
-      end)
-      map('n', '<LocalLeader>hl', gs.setloclist)
-      map('n', '<LocalLeader>tb', gs.toggle_current_line_blame)
-      map('n', '<LocalLeader>td', gs.toggle_deleted)
-      map('n', '<LocalLeader>tw', gs.toggle_word_diff)
+      end, { desc = 'Quickfix' })
+      map('n', '<Leader>hl', gs.setloclist, { desc = 'Location List' })
+      map('n', '<Leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
+      map('n', '<Leader>td', gs.toggle_deleted, { desc = 'Toggle deleted' })
+      map('n', '<Leader>tw', gs.toggle_word_diff, { desc = 'Toggle word diff' })
 
       -- Text object
-      map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { silent = true })
+      map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { silent = true, desc = 'Hunk' })
     end
 
     require('gitsigns').setup({

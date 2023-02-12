@@ -20,8 +20,7 @@ return {
   },
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
-    local lsp = vim.lsp
-    lsp.set_log_level(vim.log.levels.ERROR)
+    vim.lsp.set_log_level(vim.log.levels.ERROR)
 
     require('lsp-format').setup({
       typescript = {
@@ -54,9 +53,12 @@ return {
         vim.keymap.set(mode, lhs, rhs, opts)
       end
 
-      -- See `:help lsp.*` for documentation on any of the below functions
-      map('n', 'gD', lsp.buf.declaration)
-      map('n', 'gd', lsp.buf.definition)
+      -- See `:help vim.lsp.*` for documentation on any of the below functions
+      map('n', 'gd', vim.lsp.buf.definition, { desc = 'Goto definition' })
+      map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Goto declaration' })
+      map('n', 'gr', vim.lsp.buf.references, { desc = 'References' })
+      map('n', 'gI', vim.lsp.buf.implementation, { desc = 'Goto implementation' })
+      map('n', 'gt', vim.lsp.buf.type_definition, { desc = 'Goto type definition' })
       map('n', 'K', function()
         ---@param subject string
         local function help(subject)
@@ -84,30 +86,36 @@ return {
           return
         end
 
-        lsp.buf.hover()
-      end)
-      map('n', 'gI', lsp.buf.implementation)
-      map('i', '<C-s>', lsp.buf.signature_help)
-      map('n', '<LocalLeader>wa', lsp.buf.add_workspace_folder)
-      map('n', '<LocalLeader>wr', lsp.buf.remove_workspace_folder)
-      map('n', '<LocalLeader>wl', function()
-        vim.pretty_print(lsp.buf.list_workspace_folders())
-      end)
-      map('n', '<LocalLeader>D', lsp.buf.type_definition)
-      map('n', '<LocalLeader>rn', function()
+        vim.lsp.buf.hover()
+      end, { desc = 'Hover' })
+      map('i', '<C-s>', vim.lsp.buf.signature_help, { desc = 'Signature help' })
+      -- map('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder)
+      -- map('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder)
+      -- map('n', '<Leader>wl', function()
+      --   vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+      -- end)
+      map('n', '<Leader>cr', function()
         if pcall(require, 'inc_rename') then
           return ':IncRename ' .. vim.fn.expand('<cword>')
         else
-          lsp.buf.rename()
+          vim.lsp.buf.rename()
         end
-      end, { expr = true })
-      map({ 'n', 'x' }, '<LocalLeader>ca', function()
-        lsp.buf.code_action({
+      end, { expr = true, desc = 'Rename' })
+      map({ 'n', 'x' }, '<Leader>ca', function()
+        vim.lsp.buf.code_action({
           apply = true,
         })
-      end)
-      map('n', 'gr', lsp.buf.references)
-      map('n', '<LocalLeader>cl', lsp.codelens.run)
+      end, { desc = 'Code action' })
+      map('n', '<Leader>cl', vim.lsp.codelens.run, { desc = 'Codelens' })
+      map({ 'n', 'x' }, '<M-f>', function()
+        vim.lsp.buf.format({
+          async = true,
+          bufnr = bufnr,
+          filter = function(c)
+            return not vim.tbl_contains({ 'sumneko_lua' }, c.name)
+          end,
+        })
+      end, { desc = 'Format' })
 
       if client.config.flags then
         client.config.flags.allow_incremental_sync = true
@@ -125,16 +133,6 @@ return {
       --     vim.diagnostic.open_float(nil, opts)
       --   end,
       -- })
-
-      map({ 'n', 'x' }, '<M-f>', function()
-        lsp.buf.format({
-          async = true,
-          bufnr = bufnr,
-          filter = function(c)
-            return not vim.tbl_contains({ 'sumneko_lua' }, c.name)
-          end,
-        })
-      end)
     end
 
     ---@type table<string, function>
@@ -152,7 +150,7 @@ return {
           return
         end
 
-        local client = lsp.get_client_by_id(a.data.client_id)
+        local client = vim.lsp.get_client_by_id(a.data.client_id)
         on_attach(client, a.buf)
         require('lsp-format').on_attach(client)
 
@@ -184,6 +182,7 @@ return {
       },
       marksman = {},
       pylsp = {},
+      sqlls = {},
       yamlls = {
         settings = {
           yaml = {

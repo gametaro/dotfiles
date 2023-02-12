@@ -211,47 +211,53 @@ return {
       if not git_ok then
         builtin.find_files()
       end
-    end)
-    map('n', '<C-b>', builtin.buffers)
+    end, { desc = 'Find files' })
+    map('n', '<C-b>', builtin.buffers, { desc = 'Buffers' })
     -- map('n', '<C-g>', builtin.live_grep)
-    map('n', '<C-s>', builtin.grep_string)
-    map('n', '<LocalLeader>fd', function()
+    map('n', '<C-s>', builtin.grep_string, { desc = 'Search cursor word' })
+    map('n', '<Leader>fd', function()
       builtin.find_files({
         prompt_title = 'Dot Files',
         cwd = '$XDG_DATA_HOME/chezmoi/',
       })
-    end)
-    map('n', '<C-h>', builtin.help_tags)
-    map('n', '<LocalLeader>fv', builtin.vim_options)
-    map('n', '<LocalLeader>fc', builtin.commands)
-    map('n', '<LocalLeader>fj', builtin.jumplist)
-    -- map('n', '<LocalLeader>fm', builtin.marks)
-    map('n', '<LocalLeader>fm', builtin.man_pages)
-    map('n', '<LocalLeader>fh', builtin.highlights)
-    map('n', '<C-n>', builtin.oldfiles)
-    map('n', '<LocalLeader>fr', function()
+    end, { desc = 'Find in Dotfiles' })
+    map('n', '<C-h>', builtin.help_tags, { desc = 'Help' })
+    map('n', '<Leader>fv', builtin.vim_options, { desc = 'Options' })
+    map('n', '<Leader>fc', builtin.commands, { desc = 'Commands' })
+    map('n', '<Leader>fj', builtin.jumplist, { desc = 'Jumplist' })
+    -- map('n', '<Leader>fm', builtin.marks)
+    map('n', '<Leader>fm', builtin.man_pages, { desc = 'Man pages' })
+    map('n', '<Leader>fh', builtin.highlights, { desc = 'Highlights' })
+    map('n', '<C-n>', builtin.oldfiles, { desc = 'Oldfiles' })
+    map('n', '<Leader>fr', function()
       builtin.resume({ cache_index = vim.v.count1 })
-    end)
-    map('n', '<LocalLeader>gb', builtin.git_branches)
-    map('n', '<LocalLeader>gc', builtin.git_bcommits)
-    map('n', '<LocalLeader>gC', builtin.git_commits)
-    map('n', '<LocalLeader>gs', builtin.git_status)
-    map('n', '<LocalLeader>gS', builtin.git_stash)
-    map('n', '<LocalLeader>ld', builtin.lsp_document_symbols)
-    map('n', '<LocalLeader>lw', builtin.lsp_workspace_symbols)
-    map('n', '<LocalLeader>ls', builtin.lsp_dynamic_workspace_symbols)
+    end, { desc = 'Resume picker' })
+    map('n', '<Leader>gb', builtin.git_branches, { desc = 'Branches' })
+    map('n', '<Leader>gc', builtin.git_bcommits, { desc = 'Bcommits' })
+    map('n', '<Leader>gC', builtin.git_commits, { desc = 'Commits' })
+    map('n', '<Leader>gs', builtin.git_status, { desc = 'Status' })
+    map('n', '<Leader>gS', builtin.git_stash, { desc = 'Stash' })
+    map('n', '<Leader>ld', builtin.lsp_document_symbols, { desc = 'Document symbols' })
+    map('n', '<Leader>lw', builtin.lsp_workspace_symbols, { desc = 'Workspace symbols' })
+    map(
+      'n',
+      '<Leader>ls',
+      builtin.lsp_dynamic_workspace_symbols,
+      { desc = 'Dynamic Workspace symbols' }
+    )
 
     require('telescope').load_extension('fzf')
     require('telescope').load_extension('zf-native')
     require('telescope').load_extension('live_grep_args')
     vim.keymap.set('n', '<C-g>', function()
       require('telescope').extensions.live_grep_args.live_grep_args()
-    end)
+    end, { desc = 'Search' })
 
     require('telescope').load_extension('undo')
+    vim.keymap.set('n', '<Leader>fu', telescope.extensions.undo.undo, { desc = 'Undo' })
     require('telescope').load_extension('olddirs')
-    vim.keymap.set('n', '<LocalLeader>od', telescope.extensions.olddirs.picker)
-    vim.keymap.set('n', '<LocalLeader>ofd', function()
+    vim.keymap.set('n', '<Leader>od', telescope.extensions.olddirs.picker, { desc = 'Olddirs' })
+    vim.keymap.set('n', '<Leader>ofd', function()
       telescope.extensions.olddirs.picker({
         selected_dir_callback = function(dir)
           builtin.find_files({
@@ -260,8 +266,8 @@ return {
           })
         end,
       })
-    end)
-    vim.keymap.set('n', '<LocalLeader>ogd', function()
+    end, { desc = 'Find in Olddirs' })
+    vim.keymap.set('n', '<Leader>ogd', function()
       telescope.extensions.olddirs.picker({
         selected_dir_callback = function(dir)
           builtin.live_grep({
@@ -270,7 +276,7 @@ return {
           })
         end,
       })
-    end)
+    end, { desc = 'Search in Olddirs' })
     require('telescope').load_extension('lazy')
   end,
 }

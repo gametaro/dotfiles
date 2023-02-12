@@ -87,17 +87,17 @@ return {
       if ls.expand_or_locally_jumpable() then
         ls.expand_or_jump()
       end
-    end)
+    end, { desc = 'Expand or Goto Next Snippet' })
     vim.keymap.set({ 'i', 's' }, '<C-k>', function()
       if ls.jumpable(-1) then
         ls.jump(-1)
       end
-    end)
+    end, { desc = 'Expand or Goto Previous Snippet' })
     vim.keymap.set({ 'i', 's' }, '<C-l>', function()
       if ls.choice_active() then
         ls.change_choice(1)
       end
-    end)
+    end, { desc = 'Change Choice' })
 
     local group = vim.api.nvim_create_augroup('mine__luasnip', {})
     vim.api.nvim_create_autocmd('ModeChanged', {

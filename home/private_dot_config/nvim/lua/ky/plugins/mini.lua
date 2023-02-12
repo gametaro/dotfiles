@@ -15,22 +15,22 @@ return {
 
     vim.keymap.set('n', '[i', function()
       require('mini.indentscope').operator('top', true)
-    end, { desc = 'Top indent scope' })
+    end, { desc = 'Top Indent Scope' })
     vim.keymap.set('n', ']i', function()
       require('mini.indentscope').operator('bottom', true)
-    end, { desc = 'Bottom indent scope' })
+    end, { desc = 'Bottom Indent Scope' })
     vim.keymap.set({ 'x', 'o' }, '[i', function()
       require('mini.indentscope').operator('top')
-    end, { desc = 'Top indent scope' })
+    end, { desc = 'Top Indent Scope' })
     vim.keymap.set({ 'x', 'o' }, ']i', function()
       require('mini.indentscope').operator('bottom')
-    end, { desc = 'Bottom indent scope' })
+    end, { desc = 'Bottom Indent Scope' })
     vim.keymap.set({ 'x', 'o' }, 'ii', function()
       require('mini.indentscope').textobject(false)
-    end, { desc = 'Object scope' })
+    end, { desc = 'Object Scope' })
     vim.keymap.set({ 'x', 'o' }, 'ai', function()
       require('mini.indentscope').textobject(true)
-    end, { desc = 'Object scope with border' })
+    end, { desc = 'Object Scope With Border' })
 
     local group = vim.api.nvim_create_augroup('mine__mini', {})
 
@@ -108,12 +108,12 @@ return {
         winblend = 50,
       },
     })
-    vim.keymap.set('n', '<LocalLeader>mc', map.close)
-    vim.keymap.set('n', '<LocalLeader>mf', map.toggle_focus)
-    vim.keymap.set('n', '<LocalLeader>mo', map.open)
-    vim.keymap.set('n', '<LocalLeader>mr', map.refresh)
-    vim.keymap.set('n', '<LocalLeader>ms', map.toggle_side)
-    vim.keymap.set('n', '<LocalLeader>mt', map.toggle)
+    vim.keymap.set('n', '<Leader>mc', map.close)
+    vim.keymap.set('n', '<Leader>mf', map.toggle_focus)
+    vim.keymap.set('n', '<Leader>mo', map.open)
+    vim.keymap.set('n', '<Leader>mr', map.refresh)
+    vim.keymap.set('n', '<Leader>ms', map.toggle_side)
+    vim.keymap.set('n', '<Leader>mt', map.toggle)
 
     vim.api.nvim_create_autocmd('User', {
       pattern = 'SessionLoadPost',

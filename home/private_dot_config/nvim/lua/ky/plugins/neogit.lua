@@ -2,7 +2,7 @@ return {
   'TimUntersberger/neogit',
   cmd = 'Neogit',
   keys = {
-    { '<LocalLeader>gg', vim.cmd.Neogit },
+    { '<Leader>gg', '<Cmd>Neogit<CR>' },
   },
   config = function()
     local group = vim.api.nvim_create_augroup('NeogitFileType', { clear = true })

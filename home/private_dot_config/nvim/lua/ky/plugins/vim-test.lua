@@ -1,10 +1,10 @@
 return {
   'vim-test/vim-test',
   keys = {
-    { '<LocalLeader>tn', vim.cmd.TestNearest },
-    { '<LocalLeader>tf', vim.cmd.TestFile },
-    { '<LocalLeader>ts', vim.cmd.TestSuite },
-    { '<LocalLeader>tv', vim.cmd.TestVisit },
+    { '<Leader>tn', '<Cmd>TestNearest<CR>' },
+    { '<Leader>tf', '<Cmd>TestFile<CR>' },
+    { '<Leader>ts', '<Cmd>TestSuite<CR>' },
+    { '<Leader>tv', '<Cmd>TestVisit<CR>' },
   },
   init = function()
     vim.g['test#strategy'] = 'harpoon'

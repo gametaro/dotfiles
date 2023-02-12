@@ -15,6 +15,12 @@ return {
 
     require('noice').setup({
       lsp = {
+        -- documentation = {
+        --   opts = {
+        --     border = { style = vim.g.border, padding = { row = 0 } },
+        --     position = { row = 2 },
+        --   },
+        -- },
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
           ['vim.lsp.util.stylize_markdown'] = true,
@@ -33,20 +39,22 @@ return {
         command_palette = true,
         -- long_message_to_split = true,
         inc_rename = true,
+        lsp_doc_border = false,
       },
       -- views = {
       --   split = {
       --     enter = true,
       --   },
       -- },
-      views = {
-        hover = {
-          border = {
-            style = vim.g.border,
-          },
-          position = { row = 2, col = 2 },
-        },
-      },
+      -- views = {
+      --   hover = {
+      --     border = {
+      --       style = vim.g.border,
+      --       padding = { col = 3 },
+      --     },
+      --     position = { row = 2, col = 1 },
+      --   },
+      -- },
       routes = {
         {
           filter = {
@@ -92,7 +100,7 @@ return {
         },
       },
     })
-    require('ky.abbrev').cabbrev('n', 'Noice')
+    -- require('ky.abbrev').cabbrev('n', 'Noice')
 
     vim.keymap.set('c', '<M-CR>', function()
       require('noice').redirect(vim.fn.getcmdline())

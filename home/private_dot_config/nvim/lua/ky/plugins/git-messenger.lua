@@ -1,7 +1,7 @@
 return {
   'rhysd/git-messenger.vim',
   keys = {
-    { '<LocalLeader>gm', '<Plug>(git-messenger)' },
+    { '<Leader>gm', '<Plug>(git-messenger)', desc = 'Messenger' },
   },
   init = function()
     vim.g.git_messenger_floating_win_opts = { border = vim.g.border }
