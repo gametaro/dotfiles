@@ -35,7 +35,7 @@ return {
           return ']c'
         else
           vim.schedule(function()
-            gs.next_hunk({ navigation_message = false, preview = true })
+            gs.next_hunk({ navigation_message = false, preview = true, greedy = false })
           end)
           return '<Ignore>'
         end
@@ -45,7 +45,7 @@ return {
           return '[c'
         else
           vim.schedule(function()
-            gs.prev_hunk({ navigation_message = false, preview = true })
+            gs.prev_hunk({ navigation_message = false, preview = true, greedy = false })
           end)
           return '<Ignore>'
         end
