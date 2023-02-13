@@ -221,7 +221,7 @@ return {
           },
         },
       },
-      sumneko_lua = {},
+      lua_ls = {},
     }
 
     for server, config in pairs(configs) do
