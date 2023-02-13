@@ -1,21 +1,17 @@
-local api = vim.api
-local cmd = vim.cmd
-local fn = vim.fn
-
-local group = api.nvim_create_augroup('mine', {})
+local group = vim.api.nvim_create_augroup('mine', {})
 
 ---@param event string|string[]
 ---@param opts { pattern: string|table, buffer: integer, desc: string, callback: function, command: string, once: boolean, nested: boolean  }
 local autocmd = function(event, opts)
   opts = opts or {}
-  return api.nvim_create_autocmd(event, vim.tbl_extend('force', { group = group }, opts))
+  return vim.api.nvim_create_autocmd(event, vim.tbl_extend('force', { group = group }, opts))
 end
 
 autocmd('QuickFixCmdPost', {
   pattern = '[^l]*',
   nested = true,
   callback = function()
-    cmd.cwindow()
+    vim.cmd.cwindow()
   end,
   desc = 'automatically open the quickfix window',
 })
@@ -24,7 +20,7 @@ autocmd('QuickFixCmdPost', {
   pattern = 'l*',
   nested = true,
   callback = function()
-    cmd.lwindow()
+    vim.cmd.lwindow()
   end,
   desc = 'automatically open the location list window',
 })
@@ -68,7 +64,7 @@ end
 autocmd('FocusLost', {
   nested = true,
   callback = function()
-    cmd.wall({ mods = { emsg_silent = true, silent = true } })
+    vim.cmd.wall({ mods = { emsg_silent = true, silent = true } })
   end,
 })
 
@@ -79,7 +75,7 @@ autocmd('BufLeave', {
       and vim.bo[a.buf].filetype ~= ''
       and vim.bo[a.buf].modifiable
     then
-      cmd.update({ mods = { emsg_silent = true, silent = true } })
+      vim.cmd.update({ mods = { emsg_silent = true, silent = true } })
     end
   end,
 })
@@ -93,7 +89,7 @@ autocmd('BufLeave', {
 autocmd('BufWritePost', {
   callback = function()
     if vim.wo.diff then
-      cmd.diffupdate()
+      vim.cmd.diffupdate()
     end
   end,
 })
@@ -117,9 +113,9 @@ autocmd('BufEnter', {
 
 autocmd({ 'BufWritePre', 'FileWritePre' }, {
   callback = function()
-    local dir = fn.expand('<afile>:p:h')
-    if fn.isdirectory(dir) == 0 then
-      fn.mkdir(dir, 'p')
+    local dir = vim.fn.expand('<afile>:p:h')
+    if vim.fn.isdirectory(dir) == 0 then
+      vim.fn.mkdir(dir, 'p')
     end
   end,
 })
