@@ -1,11 +1,11 @@
-local keep_mode = false
-
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function(a)
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
     vim.opt_local.signcolumn = 'no'
     vim.opt_local.statuscolumn = ''
+
+    vim.b[a.buf].keep_mode = false
 
     ---@param mode string|string[]
     ---@param lhs string
@@ -23,11 +23,11 @@ vim.api.nvim_create_autocmd('TermOpen', {
       return string.match(line, '❯%s+$') and string.format('%s:', escape) or ':'
     end, { expr = true, desc = 'Cmdline' })
     map('t', [[<C-o>]], function()
-      keep_mode = true
+      vim.b[a.buf].keep_mode = true
       return string.format('%s<C-o>', escape)
     end, { expr = true, desc = 'Goto older position' })
     map('t', [[<BS>]], function()
-      keep_mode = true
+      vim.b[a.buf].keep_mode = true
       return string.format('%s<C-^>', escape)
     end, { expr = true, desc = 'Edit alternate file' })
 
@@ -44,10 +44,10 @@ vim.api.nvim_create_autocmd('TermOpen', {
 vim.api.nvim_create_autocmd({ 'TermEnter', 'TermLeave' }, {
   callback = function(a)
     if a.event == 'TermEnter' then
-      keep_mode = false
+      vim.b[a.buf].keep_mode = false
       vim.b[a.buf].term_mode = vim.api.nvim_get_mode().mode
     end
-    if a.event == 'TermLeave' and not keep_mode then
+    if a.event == 'TermLeave' and not vim.b[a.buf].keep_mode then
       vim.b[a.buf].term_mode = vim.api.nvim_get_mode().mode
     end
   end,
