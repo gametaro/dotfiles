@@ -1,9 +1,6 @@
-local api = vim.api
-local cmd = vim.cmd
-
 local keep_mode = false
 
-api.nvim_create_autocmd('TermOpen', {
+vim.api.nvim_create_autocmd('TermOpen', {
   callback = function(a)
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
@@ -22,7 +19,7 @@ api.nvim_create_autocmd('TermOpen', {
 
     local escape = [[<C-\><C-n>]]
     map('t', ';', function()
-      local line = api.nvim_get_current_line()
+      local line = vim.api.nvim_get_current_line()
       return string.match(line, '❯%s+$') and string.format('%s:', escape) or ':'
     end, { expr = true, desc = 'Cmdline' })
     map('t', [[<C-o>]], function()
@@ -40,27 +37,27 @@ api.nvim_create_autocmd('TermOpen', {
         or escape
     end, { expr = true })
 
-    cmd.startinsert()
+    vim.cmd.startinsert()
   end,
 })
 
-api.nvim_create_autocmd({ 'TermEnter', 'TermLeave' }, {
+vim.api.nvim_create_autocmd({ 'TermEnter', 'TermLeave' }, {
   callback = function(a)
     if a.event == 'TermEnter' then
       keep_mode = false
-      vim.b[a.buf].term_mode = api.nvim_get_mode().mode
+      vim.b[a.buf].term_mode = vim.api.nvim_get_mode().mode
     end
     if a.event == 'TermLeave' and not keep_mode then
-      vim.b[a.buf].term_mode = api.nvim_get_mode().mode
+      vim.b[a.buf].term_mode = vim.api.nvim_get_mode().mode
     end
   end,
 })
 
-api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd('BufEnter', {
   pattern = 'term://*',
   callback = function(a)
     if vim.b[a.buf].term_mode == 't' then
-      cmd.startinsert()
+      vim.cmd.startinsert()
     end
   end,
 })
