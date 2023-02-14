@@ -58,7 +58,7 @@ return {
       map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Goto declaration' })
       map('n', 'gr', vim.lsp.buf.references, { desc = 'References' })
       map('n', 'gI', vim.lsp.buf.implementation, { desc = 'Goto implementation' })
-      map('n', 'gt', vim.lsp.buf.type_definition, { desc = 'Goto type definition' })
+      -- map('n', 'gt', vim.lsp.buf.type_definition, { desc = 'Goto type definition' })
       map('n', 'K', function()
         ---@param subject string
         local function help(subject)
