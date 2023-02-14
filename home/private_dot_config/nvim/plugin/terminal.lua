@@ -26,10 +26,6 @@ vim.api.nvim_create_autocmd('TermOpen', {
       vim.b[a.buf].keep_mode = true
       return string.format('%s<C-o>', escape)
     end, { expr = true, desc = 'Goto older position' })
-    map('t', [[<BS>]], function()
-      vim.b[a.buf].keep_mode = true
-      return string.format('%s<C-^>', escape)
-    end, { expr = true, desc = 'Edit alternate file' })
 
     map('t', '<Esc>', function()
       local names = { 'nvim', 'fzf' }
