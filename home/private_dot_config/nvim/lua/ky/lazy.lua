@@ -17,13 +17,6 @@ require('lazy').setup('ky.plugins', {
   ui = {
     border = vim.g.border,
   },
-  checker = {
-    enabled = false,
-  },
-  change_detection = {
-    notify = false,
-    enabled = false,
-  },
   performance = {
     rtp = {
       disabled_plugins = {
