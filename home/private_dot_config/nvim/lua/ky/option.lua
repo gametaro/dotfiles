@@ -12,7 +12,6 @@ vim.o.backup = true
 vim.opt.backupdir = { vim.fn.stdpath('state') .. '/backup//', '.' }
 vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
 vim.opt.backupskip:append({ '*/.git/*' })
--- opt.clipboard = 'unnamedplus'
 vim.o.cmdheight = 0
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 vim.o.confirm = true
@@ -25,12 +24,7 @@ vim.opt.diffopt:append({
 })
 vim.o.emoji = false
 vim.o.expandtab = true
-vim.o.fileformat = 'unix'
-vim.opt.fileformats = {
-  'unix',
-  'dos',
-  'mac',
-}
+vim.opt.fileformats = { 'unix', 'dos' }
 vim.opt.fillchars = {
   diff = '╱', -- '/',
   eob = ' ',
@@ -46,23 +40,17 @@ vim.opt.fillchars = {
   -- vertright = '┣',
   -- verthoriz = '╋',
 }
--- opt.foldexpr = [[nvim_treesitter#foldexpr()]]
--- opt.foldlevelstart = 1
--- opt.foldmethod = 'expr'
--- see :h fo-table
+-- |fo-table|
 vim.opt.formatoptions:remove({
   'c',
   'o',
   'r',
 })
 vim.o.ignorecase = true
-vim.o.imsearch = 0
 vim.o.inccommand = 'split'
 vim.opt.isfname:remove({ '=' })
 vim.o.jumpoptions = 'view'
 vim.o.laststatus = 3
--- o.lazyredraw = true
-vim.o.linebreak = true
 vim.o.list = true
 vim.opt.listchars = {
   -- eol = '↵',
@@ -72,16 +60,14 @@ vim.opt.listchars = {
   trail = '·',
 }
 vim.o.modeline = false
--- o.more = false
--- vim.opt.mousescroll = { 'ver:1', 'hor:3' }
 vim.o.preserveindent = true
 vim.o.pumblend = blend
 vim.o.pumheight = 10
 vim.o.report = 99999
 vim.o.ruler = false
 vim.opt.shada:append({ 'r/tmp', 'rterm', 'rhealth' })
--- opt.scrolloff = 5
--- opt.sidescrolloff = 5
+vim.o.scrolloff = 4
+vim.o.sidescrolloff = 8
 vim.opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
 vim.o.shiftround = true
 vim.o.shiftwidth = indent
@@ -120,6 +106,7 @@ vim.o.virtualedit = 'block'
 vim.o.wildignorecase = true
 vim.o.wildoptions = 'fuzzy'
 vim.o.winblend = blend
+vim.o.winminwidth = 6
 vim.o.wrap = false
 vim.o.statuscolumn =
   '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " " } '
