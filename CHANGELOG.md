@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.1.0](https://github.com/gametaro/dotfiles/compare/v2.0.0...v2.1.0) (2023-02-14)
+
+
+### Features
+
+* **colorscheme:** re-invent ([10bcf02](https://github.com/gametaro/dotfiles/commit/10bcf0275f2cd3af4eedce2e05c7dcc6b3c4f4df))
+* **plugins:** add `replacer.nvim` ([c35242c](https://github.com/gametaro/dotfiles/commit/c35242cc808e8a41ef8119c868a3e3c933bbf30a))
+
+
+### Bug Fixes
+
+* **lsp:** disable mapping as it conflicts with tab's one ([229bb92](https://github.com/gametaro/dotfiles/commit/229bb92bba436e52992a00595bc81b47cbf11009))
+* **lsp:** rename lua-language-server ([8c8ff8a](https://github.com/gametaro/dotfiles/commit/8c8ff8a036bc6347a6bcfb32a80f540893a86ab5))
+* **qf:** prefer lwindow to cwindow ([2f9e3a6](https://github.com/gametaro/dotfiles/commit/2f9e3a659c6a7bb93469a153e6d7af1fd99955a9))
+* **telescope:** correct `file_ignore_patterns` ([5483aa5](https://github.com/gametaro/dotfiles/commit/5483aa5810f0931b1e5c6873956ea348d0946fe1))
+
 ## [2.0.0](https://github.com/gametaro/dotfiles/compare/v1.5.1...v2.0.0) (2023-02-12)
 
 
