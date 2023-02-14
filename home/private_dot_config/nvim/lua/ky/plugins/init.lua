@@ -7,28 +7,6 @@ return {
   { 'smjonas/inc-rename.nvim', cmd = 'IncRename', config = true },
   { 'akinsho/git-conflict.nvim', event = 'BufReadPost', config = true },
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
-  {
-    dir = '~/projects/edgemotion.nvim',
-    enabled = false,
-    keys = {
-      {
-        mode = { 'n', 'x' },
-        '<C-j>',
-        function()
-          return require('edgemotion').move(1)
-        end,
-        expr = true,
-      },
-      {
-        mode = { 'n', 'x' },
-        '<C-k>',
-        function()
-          return require('edgemotion').move(0)
-        end,
-        expr = true,
-      },
-    },
-  },
   { 'bkad/CamelCaseMotion', lazy = false },
   { 'AckslD/nvim-FeMaco.lua', cmd = 'FeMaco', config = true },
   { 'nvim-lua/plenary.nvim' },
