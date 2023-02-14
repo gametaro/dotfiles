@@ -96,7 +96,7 @@ return {
         results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
         preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
       },
-      file_ignore_patterns = { '%.git$', 'node_modules' },
+      file_ignore_patterns = { '%.git/', 'node_modules/' },
       set_env = {
         ['COLORTERM'] = 'truecolor',
       },
