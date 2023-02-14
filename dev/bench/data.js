@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1676379133624,
+  "lastUpdate": 1676380130475,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -19243,6 +19243,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.07413204276146343,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "309e8a6ff3f7c2b9fd7e82b7a775fe4090740d66",
+          "message": "feat(plugin): add `edgemotion.lua`",
+          "timestamp": "2023-02-14T21:59:27+09:00",
+          "tree_id": "00dcaff6e17e636cc6652cd3fa1686daa4b87c8d",
+          "url": "https://github.com/gametaro/dotfiles/commit/309e8a6ff3f7c2b9fd7e82b7a775fe4090740d66"
+        },
+        "date": 1676380128458,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.07557704753428574,
             "unit": "Second"
           }
         ]
