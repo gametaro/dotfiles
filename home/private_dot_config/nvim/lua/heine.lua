@@ -357,7 +357,6 @@ M.highlight_groups = {
   ['@constructor'] = { link = 'Special' },
   ['@debug'] = { link = 'Debug' },
   ['@define'] = { link = 'Define' },
-  ['@documentation'] = { fg = M.palette.blue },
   -- ['@error'] = {},
   ['@exception'] = { link = 'Exception' },
   ['@field'] = { link = 'Identifier' },
@@ -425,6 +424,10 @@ M.highlight_groups = {
 
   ['@text.literal.markdown_inline'] = { link = 'MatchParen' },
   -- ['@text.literal.markdown'] = { link = 'Normal' },
+
+  -- semantic_tokens
+  ['@defaultLibrary'] = { link = '@function.builtin' },
+  ['@documentation'] = { fg = M.palette.blue },
 
   -- markdown
   -- markdownCode = { link = 'String' },
