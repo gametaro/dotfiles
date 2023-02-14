@@ -8,13 +8,11 @@ local function is_open()
   return false
 end
 
-local function open(type, keep_cursor)
-  type = type or 'l'
+local function open(keep_cursor)
   keep_cursor = keep_cursor or true
 
-  if type == 'l' then
-    pcall(vim.cmd.lwindow)
-  else
+  local ok = pcall(vim.cmd.lwindow)
+  if not ok then
     vim.cmd.cwindow()
   end
   if keep_cursor then
