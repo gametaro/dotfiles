@@ -30,8 +30,6 @@
 
 local M = {}
 
-local DIRECTION = { FORWARD = 1, BACKWARD = 0 }
-
 ---@param s string
 ---@return boolean
 local function iswhite(s)
@@ -66,10 +64,11 @@ local function island(lnum, vcol)
   return not iswhite(chars[1]) and not iswhite(chars[3])
 end
 
----@param dir integer
+---@param opts table
 ---@return string
-function M.move(dir)
-  local delta = dir == DIRECTION.FORWARD and 1 or -1
+function M.move(opts)
+  opts = opts or {}
+  local delta = opts.forward and 1 or -1
   local curswant = vim.fn.getcurpos()[4]
   if curswant > 100000 then
     vim.fn.winrestview({ curswant = vim.fn.getline('.'):len() - 1 })
@@ -102,16 +101,27 @@ function M.move(dir)
     return '<Ignore>'
   end
 
-  local move_cmd = dir == DIRECTION.FORWARD and 'j' or 'k'
-  return vim.fn.abs(lnum - orig_lnum) .. move_cmd
+  return vim.fn.abs(lnum - orig_lnum) .. opts.forward and 'j' or 'k'
+end
+
+function M.forward(opts)
+  opts = opts or {}
+  opts.forward = true
+  return M.move(opts)
+end
+
+function M.backward(opts)
+  opts = opts or {}
+  opts.forward = false
+  return M.move(opts)
 end
 
 vim.keymap.set({ 'n', 'x' }, '<C-j>', function()
-  return M.move(1)
+  return M.forward()
 end, { expr = true })
 
 vim.keymap.set({ 'n', 'x' }, '<C-k>', function()
-  return M.move(0)
+  return M.backward()
 end, { expr = true })
 
 return M
