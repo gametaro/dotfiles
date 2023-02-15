@@ -5,7 +5,6 @@ local blend = 0
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
-vim.g.ts_highlight_lua = true
 
 vim.o.autowriteall = true
 vim.o.backup = true
