@@ -1,58 +1,61 @@
-vim.g.lsp_start({
-  name = 'es',
-  cmd = { 'vscode-eslint-language-server', '--stdio' },
-  root_patterns = {
-    -- https://eslint.org/docs/user-guide/configuring/configuration-files#configuration-file-formats
-    '.eslintrc',
-    '.eslintrc.js',
-    '.eslintrc.cjs',
-    '.eslintrc.yaml',
-    '.eslintrc.yml',
-    '.eslintrc.json',
-  },
-  init_options = {
-    provideFormatter = true,
-  },
-  -- https://raw.githubusercontent.com/microsoft/vscode-eslint/main/%24shared/settings.ts
-  -- https://raw.githubusercontent.com/microsoft/vscode-eslint/main/client/src/client.ts
-  settings = {
-    validate = 'on',
-    packageManager = 'npm',
-    useESLintClass = false,
-    experimental = {
-      useFlatConfig = false,
+-- https://eslint.org/docs/user-guide/configuring/configuration-files#configuration-file-formats
+local root_patterns = {
+  '.eslintrc',
+  '.eslintrc.js',
+  '.eslintrc.cjs',
+  '.eslintrc.yaml',
+  '.eslintrc.yml',
+  '.eslintrc.json',
+}
+
+if require('ky.util').get_root_by_patterns(root_patterns) then
+  vim.g.lsp_start({
+    cmd = { 'vscode-eslint-language-server', '--stdio' },
+    root_patterns = root_patterns,
+    init_options = {
+      provideFormatter = true,
     },
-    codeActionOnSave = {
-      enable = false,
-      mode = 'all',
-    },
-    format = true,
-    quiet = false,
-    onIgnoredFiles = 'off',
-    rulesCustomizations = {},
-    run = 'onType',
-    problems = {
-      shortenToSingleLine = false,
-    },
-    -- should not be nil!
-    nodePath = '',
-    -- workspaceFolder = {},
-    -- not `workingDirectories` and needs double brackets!
-    workingDirectory = { { mode = 'auto' } }, -- 'location'
-    codeAction = {
-      disableRuleComment = {
-        enable = true,
-        location = 'separateLine',
+    -- https://raw.githubusercontent.com/microsoft/vscode-eslint/main/%24shared/settings.ts
+    -- https://raw.githubusercontent.com/microsoft/vscode-eslint/main/client/src/client.ts
+    settings = {
+      validate = 'on',
+      packageManager = 'npm',
+      useESLintClass = false,
+      experimental = {
+        useFlatConfig = false,
       },
-      showDocumentation = {
-        enable = true,
+      codeActionOnSave = {
+        enable = false,
+        mode = 'all',
+      },
+      format = true,
+      quiet = false,
+      onIgnoredFiles = 'off',
+      rulesCustomizations = {},
+      run = 'onType',
+      problems = {
+        shortenToSingleLine = false,
+      },
+      -- should not be nil!
+      nodePath = '',
+      -- workspaceFolder = {},
+      -- not `workingDirectories` and needs double brackets!
+      workingDirectory = { { mode = 'auto' } }, -- 'location'
+      codeAction = {
+        disableRuleComment = {
+          enable = true,
+          location = 'separateLine',
+        },
+        showDocumentation = {
+          enable = true,
+        },
       },
     },
-  },
-  on_new_config = function(config, new_root_dir)
-    config.settings.workspaceFolder = {
-      uri = new_root_dir,
-      name = vim.fs.basename(new_root_dir),
-    }
-  end,
-})
+    on_new_config = function(config, new_root_dir)
+      config.settings.workspaceFolder = {
+        uri = new_root_dir,
+        name = vim.fs.basename(new_root_dir),
+      }
+    end,
+  })
+end

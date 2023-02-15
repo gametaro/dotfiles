@@ -1,5 +1,4 @@
 vim.g.lsp_start({
-  name = 'lua',
   cmd = { 'lua-language-server' },
   root_patterns = { '.luarc.json' },
   before_init = require('neodev.lsp').before_init,
