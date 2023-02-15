@@ -44,17 +44,17 @@ return {
       },
       keymaps = {
         view = {
-          ['q'] = vim.cmd.DiffviewClose,
+          ['q'] = '<Cmd>DiffviewClose<CR>',
           ['co'] = actions.conflict_choose('ours'),
           ['ct'] = actions.conflict_choose('theirs'),
           ['cb'] = actions.conflict_choose('base'),
           ['ca'] = actions.conflict_choose('all'),
         },
         file_panel = {
-          ['q'] = vim.cmd.DiffviewClose,
+          ['q'] = '<Cmd>DiffviewClose<CR>',
         },
         file_history_panel = {
-          ['q'] = vim.cmd.DiffviewClose,
+          ['q'] = '<Cmd>DiffviewClose<CR>',
         },
       },
       hooks = {
