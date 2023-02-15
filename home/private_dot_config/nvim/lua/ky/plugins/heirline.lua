@@ -28,9 +28,11 @@ if vim.fn.executable('git') == 1 and util.is_git_repo() then
     once = true,
     callback = function()
       local timer = vim.loop.new_timer()
-      timer:start(0, 10000, function()
-        git_rev()
-      end)
+      if timer then
+        timer:start(0, 10000, function()
+          git_rev()
+        end)
+      end
     end,
   })
 end
