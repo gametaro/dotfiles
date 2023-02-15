@@ -64,8 +64,5 @@ return {
         end,
       },
     })
-
-    require('ky.abbrev').cabbrev('dvo', 'DiffviewOpen')
-    require('ky.abbrev').cabbrev('dvf', 'DiffviewFileHistory')
   end,
 }
