@@ -13,19 +13,34 @@ local types = {
   { 'te', 'test' },
 }
 
-return vim.tbl_map(function(type)
-  return s(
-    type[1],
-    fmt(
-      string.format(
-        [[
-        %s({}): {}
-
-        {}
-        ]],
-        type[2]
-      ),
-      ins_generate()
-    )
-  )
+local snippets = vim.tbl_map(function(type)
+  return s({
+    trig = type[1],
+    dscr = 'Conventional Commits',
+    snippetType = 'autosnippet',
+  }, {
+    t(type[2]),
+    c(1, {
+      sn(nil, {
+        t(': '),
+        r(1, 'subject', i(1)),
+      }),
+      sn(nil, {
+        t('('),
+        r(1, 'type'),
+        t('): '),
+        r(2, 'subject'),
+      }),
+      sn(nil, {
+        t('('),
+        r(1, 'type'),
+        t(')!: '),
+        r(2, 'subject'),
+      }),
+    }),
+    t({ '', '', '' }),
+    i(0),
+  }, { condition = conds.line_begin })
 end, types)
+
+return snippets
