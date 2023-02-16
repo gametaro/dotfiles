@@ -99,26 +99,6 @@ return {
       end
     end, { desc = 'Change Choice' })
 
-    local group = vim.api.nvim_create_augroup('mine__luasnip', {})
-    vim.api.nvim_create_autocmd('ModeChanged', {
-      group = group,
-      pattern = '*:s',
-      callback = function(a)
-        if ls.in_snippet() then
-          vim.diagnostic.disable(a.buf)
-        end
-      end,
-    })
-    vim.api.nvim_create_autocmd('ModeChanged', {
-      group = group,
-      pattern = '[is]:n',
-      callback = function(a)
-        if ls.in_snippet() then
-          vim.diagnostic.enable(a.buf)
-        end
-      end,
-    })
-
     require('luasnip.loaders.from_lua').lazy_load()
   end,
 }
