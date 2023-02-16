@@ -1,3 +1,9 @@
+vim.g.lsp_start({
+  cmd = { 'lua-language-server' },
+  root_patterns = { '.luarc.json' },
+  before_init = require('neodev.lsp').before_init,
+})
+
 require('nvim-surround').buffer_setup({
   surrounds = {
     ['f'] = {

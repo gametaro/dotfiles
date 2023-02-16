@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "diagnostics.disable": [
+    "duplicate-set-field",
+    "param-type-mismatch"
+  ],
+  "format": {
+    "enable": false
+  }
+}

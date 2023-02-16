@@ -132,4 +132,37 @@ function M.is_git_repo()
   return root_dir ~= nil
 end
 
+---@param names? string|string[]
+---@return string?
+function M.get_root_by_patterns(names)
+  names = names or { '.git', '.svn' }
+  return vim.fs.dirname(vim.fs.find(names, {
+    path = vim.api.nvim_buf_get_name(0),
+    upward = true,
+  })[1])
+end
+
+---@param opts? { buffer?: integer, id?: integer, name?: string, ignore?: string[] }
+---@return string?
+function M.get_root_by_lsp(opts)
+  opts = opts or {}
+  local buffer = opts.buffer or vim.api.nvim_get_current_buf()
+  local ignore = { 'null-ls' }
+
+  local root_dir
+  for _, client in
+    ipairs(vim.lsp.get_active_clients({ id = opts.id, name = opts.name, bufnr = buffer }))
+  do
+    if
+      -- vim.tbl_contains(client.config.filetypes or {}, vim.bo[buffer].filetype)
+      not vim.tbl_contains(ignore, client.name)
+    then
+      root_dir = client.config.root_dir
+      break
+    end
+  end
+
+  return root_dir
+end
+
 return M
