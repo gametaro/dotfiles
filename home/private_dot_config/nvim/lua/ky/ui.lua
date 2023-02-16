@@ -97,6 +97,5 @@ M.border = {
     { '▏', 'FloatBorder' },
   },
 }
-vim.g.border = M.border.rounded
 
 return M

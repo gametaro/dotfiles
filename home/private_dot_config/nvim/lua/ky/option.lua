@@ -1,10 +1,12 @@
-local icons = require('ky.ui').icons
+local ui = require('ky.ui')
 
 local indent = 2
 local blend = 0
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
+
+vim.g.border = ui.border.single
 
 vim.o.autowriteall = true
 vim.o.backup = true
@@ -28,9 +30,9 @@ vim.opt.fillchars = {
   diff = '╱', -- '/',
   eob = ' ',
   fold = ' ',
-  foldopen = icons.chevron.down,
+  foldopen = ui.icons.chevron.down,
   foldsep = ' ',
-  foldclose = icons.chevron.right,
+  foldclose = ui.icons.chevron.right,
   -- horiz = '━',
   -- horizup = '┻',
   -- horizdown = '┳',
