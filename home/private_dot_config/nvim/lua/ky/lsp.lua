@@ -92,34 +92,32 @@ end
 ---@param client table
 ---@param buffer integer
 local function on_attach(client, buffer)
-  ---@param mode string|string[]
-  ---@param lhs string
-  ---@param rhs function
-  ---@param opts? table
-  local function map(mode, lhs, rhs, opts)
-    opts = opts or {}
-    opts.buffer = buffer
-    vim.keymap.set(mode, lhs, rhs, opts)
-  end
-
-  map('n', 'gd', vim.lsp.buf.definition, { desc = 'Goto definition' })
-  map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Goto declaration' })
-  map('n', 'gr', vim.lsp.buf.references, { desc = 'References' })
-  map('n', 'gI', vim.lsp.buf.implementation, { desc = 'Goto implementation' })
-  -- map('n', 'gt', vim.lsp.buf.type_definition, { desc = 'Goto type definition' })
-  map('n', 'K', hover, { desc = 'Hover' })
-  map('i', '<C-s>', vim.lsp.buf.signature_help, { desc = 'Signature help' })
-  map('n', '<Leader>cr', function()
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = buffer, desc = 'Goto definition' })
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = buffer, desc = 'Goto declaration' })
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, { buffer = buffer, desc = 'References' })
+  vim.keymap.set(
+    'n',
+    'gI',
+    vim.lsp.buf.implementation,
+    { buffer = buffer, desc = 'Goto implementation' }
+  )
+  -- vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { buffer = buffer , desc = 'Goto type definition' })
+  vim.keymap.set('n', 'K', hover, { buffer = buffer, desc = 'Hover' })
+  vim.keymap.set(
+    'i',
+    '<C-s>',
+    vim.lsp.buf.signature_help,
+    { buffer = buffer, desc = 'Signature help' }
+  )
+  vim.keymap.set('n', '<Leader>cr', function()
     require('inc_rename')
     return ':IncRename ' .. vim.fn.expand('<cword>')
-  end, { expr = true, desc = 'Rename' })
-  map({ 'n', 'x' }, '<Leader>ca', function()
-    vim.lsp.buf.code_action({
-      apply = true,
-    })
-  end, { desc = 'Code action' })
-  map('n', '<Leader>cl', vim.lsp.codelens.run, { desc = 'Codelens' })
-  map({ 'n', 'x' }, '<M-f>', format, { desc = 'Format' })
+  end, { expr = true, buffer = buffer, desc = 'Rename' })
+  vim.keymap.set({ 'n', 'x' }, '<Leader>ca', function()
+    vim.lsp.buf.code_action({ apply = true })
+  end, { buffer = buffer, desc = 'Code action' })
+  vim.keymap.set('n', '<Leader>cl', vim.lsp.codelens.run, { buffer = buffer, desc = 'Codelens' })
+  vim.keymap.set({ 'n', 'x' }, '<M-f>', format, { buffer = buffer, desc = 'Format' })
 
   if client.name == 'yaml' then
     client.server_capabilities.documentFormattingProvider = true
