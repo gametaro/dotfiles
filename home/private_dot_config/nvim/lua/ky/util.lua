@@ -134,7 +134,7 @@ end
 
 ---@param names? string|string[]
 ---@return string?
-M.get_root_by_patterns = function(names)
+function M.get_root_by_patterns(names)
   names = names or { '.git', '.svn' }
   return vim.fs.dirname(vim.fs.find(names, {
     path = vim.api.nvim_buf_get_name(0),
@@ -144,7 +144,7 @@ end
 
 ---@param opts? { buffer?: integer, id?: integer, name?: string, ignore?: string[] }
 ---@return string?
-M.get_root_by_lsp = function(opts)
+function M.get_root_by_lsp(opts)
   opts = opts or {}
   local buffer = opts.buffer or vim.api.nvim_get_current_buf()
   local ignore = { 'null-ls' }
