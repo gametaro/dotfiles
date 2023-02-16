@@ -65,7 +65,6 @@ local function island(lnum, vcol)
 end
 
 ---@param opts table
----@return string
 function M.move(opts)
   opts = opts or {}
   local delta = opts.forward and 1 or -1
@@ -101,27 +100,22 @@ function M.move(opts)
     return '<Ignore>'
   end
 
-  return vim.fn.abs(lnum - orig_lnum) .. opts.forward and 'j' or 'k'
+  vim.cmd.normal({ vim.fn.abs(lnum - orig_lnum) .. (opts.forward and 'j' or 'k'), bang = true })
 end
 
 function M.forward(opts)
   opts = opts or {}
   opts.forward = true
-  return M.move(opts)
+  M.move(opts)
 end
 
 function M.backward(opts)
   opts = opts or {}
   opts.forward = false
-  return M.move(opts)
+  M.move(opts)
 end
 
-vim.keymap.set({ 'n', 'x' }, '<C-j>', function()
-  return M.forward()
-end, { expr = true })
-
-vim.keymap.set({ 'n', 'x' }, '<C-k>', function()
-  return M.backward()
-end, { expr = true })
+vim.keymap.set({ 'n', 'x' }, '<C-j>', M.forward)
+vim.keymap.set({ 'n', 'x' }, '<C-k>', M.backward)
 
 return M
