@@ -612,7 +612,7 @@ return {
 
     local Tabpage = {
       provider = function(self)
-        local cwd = fn.pathshorten(fn.getcwd(-1, self.tabnr))
+        local cwd = vim.fn.fnamemodify(vim.fn.getcwd(-1, self.tabnr), ':~')
         return '%' .. self.tabnr .. 'T' .. ' ' .. cwd .. ' '
       end,
       hl = function(self)
