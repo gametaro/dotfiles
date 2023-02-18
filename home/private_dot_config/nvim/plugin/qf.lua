@@ -65,13 +65,13 @@ local function last()
   pcall(vim.cmd.llast)
 end
 
-vim.keymap.set('n', 'qq', toggle)
-vim.keymap.set('n', 'qo', open)
-vim.keymap.set('n', 'qc', close)
-vim.keymap.set('n', 'q0', first)
-vim.keymap.set('n', 'q$', last)
-vim.keymap.set('n', ']q', next)
-vim.keymap.set('n', '[q', prev)
+vim.keymap.set('n', 'qq', toggle, { desc = 'Toggle' })
+vim.keymap.set('n', 'qo', open, { desc = 'Open' })
+vim.keymap.set('n', 'qc', close, { desc = 'Close' })
+vim.keymap.set('n', 'q0', first, { desc = 'Goto first' })
+vim.keymap.set('n', 'q$', last, { desc = 'Goto last' })
+vim.keymap.set('n', ']q', next, { desc = 'Goto next' })
+vim.keymap.set('n', '[q', prev, { desc = 'Goto previous' })
 
 -- |quickfix-window-function|
 ---@class Info
