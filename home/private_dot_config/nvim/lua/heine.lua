@@ -419,13 +419,13 @@ M.highlight_groups = {
   ['@type.bulitin'] = { link = 'Typedef' },
   ['@type.definition'] = { link = 'Typedef' },
   ['@type.qualifier'] = { link = 'Type' },
-  ['@variable'] = {},
+  ['@variable'] = { link = '@none' },
   ['@variable.builtin'] = { link = 'Special' },
 
   ['@text.literal.markdown_inline'] = { link = 'MatchParen' },
   -- ['@text.literal.markdown'] = { link = 'Normal' },
 
-  -- semantic_tokens
+  -- semantic tokens
   ['@defaultLibrary'] = { link = '@function.builtin' },
   ['@documentation'] = { fg = M.palette.blue },
 
