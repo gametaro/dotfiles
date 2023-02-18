@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1676593594762,
+  "lastUpdate": 1676686159202,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -19533,6 +19533,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.08960887532823528,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "e0a252bbebe972b275fd4f60d33c93067567a671",
+          "message": "Merge pull request #68 from gametaro/create-pull-request/bump-chezmoi",
+          "timestamp": "2023-02-18T11:08:29+09:00",
+          "tree_id": "9b02e8d9bbc39573280fc5e714116877ebdbc6ef",
+          "url": "https://github.com/gametaro/dotfiles/commit/e0a252bbebe972b275fd4f60d33c93067567a671"
+        },
+        "date": 1676686157745,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.08033138593243243,
             "unit": "Second"
           }
         ]
