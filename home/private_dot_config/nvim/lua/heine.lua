@@ -1,10 +1,3 @@
--- Inspired by
--- iceberg.vim
--- nightfox.nvim
--- catppuccin
--- tokyonight.nvim
--- and more!
-
 local hsluv = require('ky.hsluv')
 
 local M = {}
@@ -73,20 +66,20 @@ local hue_base = 220
 -- Normal
 local bg1 = hsluv.hsluv_to_hex({ hue_base, 25, 12 })
 -- Statusline
-local bg2 = M.saturate_lighten(bg1, -5, -2)
+local bg2 = M.saturate_lighten(bg1, 0, -5)
 -- Pmenu
 local bg3 = M.saturate_lighten(bg1, 0, 6)
 -- CursorLine
-local bg4 = M.saturate_lighten(bg1, 15, 5)
+local bg4 = M.saturate_lighten(bg1, 15, 3)
 -- MatchParen
 local bg5 = M.saturate_lighten(bg1, 8, 13)
 -- PmenuSel
-local bg6 = M.saturate_lighten(bg1, 5, 22)
+local bg6 = M.saturate_lighten(bg1, 5, 17)
 
 -- Normal
 local fg1 = hsluv.hsluv_to_hex({ hue_base, 10, 75 })
 -- Statusline
-local fg2 = M.saturate_lighten(fg1, 2, -15)
+local fg2 = M.saturate_lighten(fg1, 2, -11)
 -- PmenuSel
 local fg3 = M.saturate_lighten(fg1, 10, 20)
 -- Folded
@@ -151,7 +144,8 @@ M.colors = {
   terminal = M.terminal,
 }
 
----@class HighlightDefinition
+-- |highlight-args|
+---@class Highlight
 ---@field fg? string
 ---@field bg? string
 ---@field sp? string
@@ -170,9 +164,9 @@ M.colors = {
 ---@field link? string
 ---@field default? boolean
 
----@type table<string, HighlightDefinition>
-M.highlight_groups = {
-  -- |highlight-groups|
+-- |highlight-groups|
+---@type table<string, Highlight>
+M.groups = {
   ColorColumn = { fg = fg1, bg = bg1 },
   Conceal = { link = 'Comment' },
   CurSearch = { link = 'IncSearch' },
@@ -227,17 +221,17 @@ M.highlight_groups = {
   SpellRare = { sp = M.palette.lgreen, undercurl = true },
   Statusline = { fg = fg2, bg = bg2 },
   StatuslineNC = { fg = M.lighten(fg1, -10), bg = M.lighten(bg2, -3) },
-  Tabline = { fg = fg1, bg = M.lighten(bg1, 10) },
-  TablineFill = { bg = M.lighten(bg1, 5) },
-  TablineSel = { fg = fg3, bg = bg1 },
+  Tabline = { fg = fg2, bg = bg2 },
+  TablineFill = { bg = bg2 },
+  TablineSel = { link = 'Normal' },
   Title = { fg = M.palette.blue, bold = true },
   Visual = { bg = M.tint.blue.bg },
   -- VisualNOS = { bg = M.blend(M.palette.blue, bg1, 0.3) },
   WarningMsg = { fg = M.palette.orange },
   WhiteSpace = { fg = fg6 },
   WildMenu = { fg = fg2, bg = M.lighten(bg2, 5) },
-  Winbar = { link = 'Statusline' },
-  WinbarNC = { link = 'StatuslineNC' },
+  Winbar = { link = 'Normal' },
+  WinbarNC = { link = 'NormalNC' },
   -- Menu = {},
   Scrollbar = { fg = fg2, bg = bg2 },
   -- Tooltip = {},
@@ -333,6 +327,7 @@ M.highlight_groups = {
   healthSuccess = { link = 'DiagnosticOk' },
   healthWarning = { link = 'DiagnosticWarn' },
   healthError = { link = 'DiagnosticError' },
+  helpCommand = { link = 'MatchParen' },
 
   -- |lsp-highlight|
   LspReferenceRead = { bg = bg5 },
@@ -594,7 +589,7 @@ function M.load()
     vim.cmd.source(M.config.compile_path)
     return
   end
-  for name, val in pairs(M.highlight_groups) do
+  for name, val in pairs(M.groups) do
     vim.api.nvim_set_hl(0, name, val)
   end
   for name, val in pairs(M.terminal) do
@@ -626,7 +621,7 @@ function M.compile(silent)
   silent = silent or false
 
   local lines = {}
-  for name, val in pairs(M.highlight_groups) do
+  for name, val in pairs(M.groups) do
     lines[#lines + 1] = string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val))
   end
   for name, val in pairs(M.terminal) do
