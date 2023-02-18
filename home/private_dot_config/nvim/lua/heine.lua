@@ -392,7 +392,7 @@ M.highlight_groups = {
   ['@string.regex'] = { link = 'SpecialChar' },
   ['@string.special'] = { link = 'SpecialChar' },
   ['@symbol'] = { link = 'Identifier' },
-  ['@tag'] = { link = 'Tag' },
+  ['@tag'] = { link = 'Label' },
   ['@tag.attribute'] = { link = '@property' },
   ['@tag.delimiter'] = { link = 'Delimiter' },
   ['@text'] = { link = '@none' },
