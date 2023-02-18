@@ -87,7 +87,7 @@ local fg4 = M.saturate_lighten(bg4, 5, 35)
 -- Comment
 local fg5 = M.saturate_lighten(fg1, 8, -25)
 -- NonText, WhiteSpace, SpecialKey
-local fg6 = M.saturate_lighten(bg1, 8, 39)
+local fg6 = M.saturate_lighten(bg1, 8, 18)
 
 M.tint = {
   red = { bg = M.blend(M.palette.red, bg1, 0.8) },
@@ -99,6 +99,7 @@ M.tint = {
   magenta = { bg = M.blend(M.palette.magenta, bg1, 0.7) },
 }
 
+--- |terminal-config|
 ---@type table<string, string>
 M.terminal = {
   terminal_color_0 = bg1,
@@ -144,7 +145,7 @@ M.colors = {
   terminal = M.terminal,
 }
 
--- |highlight-args|
+--- |highlight-args|
 ---@class Highlight
 ---@field fg? string
 ---@field bg? string
@@ -164,9 +165,9 @@ M.colors = {
 ---@field link? string
 ---@field default? boolean
 
--- |highlight-groups|
 ---@type table<string, Highlight>
 M.groups = {
+  --- |highlight-groups|
   ColorColumn = { fg = fg1, bg = bg1 },
   Conceal = { link = 'Comment' },
   CurSearch = { link = 'IncSearch' },
@@ -190,7 +191,7 @@ M.groups = {
   SignColumn = { fg = fg1, bg = bg1 },
   IncSearch = { fg = fg3, bg = M.lighten(M.tint.orange.bg, 12) },
   Substitute = { link = 'IncSearch' },
-  LineNr = { fg = M.lighten(bg1, 20) },
+  LineNr = { fg = fg6 },
   LineNrAbove = { link = 'LineNr' },
   LineNrBelow = { link = 'LineNr' },
   CursorLineNr = {},
@@ -213,7 +214,7 @@ M.groups = {
   PmenuThumb = { bg = bg6 },
   Question = { link = 'Moremsg' },
   QuickFixLine = { bg = bg6 },
-  Search = { bg = M.lighten(M.tint.orange.bg, -5) },
+  Search = { bg = M.lighten(M.tint.orange.bg, 3) },
   SpecialKey = { fg = fg6 },
   SpellBad = { sp = M.palette.red, undercurl = true },
   SpellCap = { sp = M.palette.orange, undercurl = true },
@@ -236,7 +237,7 @@ M.groups = {
   Scrollbar = { fg = fg2, bg = bg2 },
   -- Tooltip = {},
 
-  -- |diagnostic-highlights|
+  --- |diagnostic-highlights|
   DiagnosticError = { fg = M.palette.red },
   DiagnosticWarn = { fg = M.palette.orange },
   DiagnosticInfo = { fg = M.palette.blue },
@@ -267,7 +268,7 @@ M.groups = {
   DiagnosticSignHint = { link = 'DiagnosticHint' },
   DiagnosticSignOk = { link = 'DiagnosticOk' },
 
-  -- |group-name|
+  --- |group-name|
   Comment = { fg = fg5 },
   Constant = { fg = M.palette.orange },
   String = { fg = M.palette.lgreen },
@@ -323,13 +324,13 @@ M.groups = {
   diffNewFile = { fg = M.palette.green },
   -- diffFile = {},
 
-  -- health
+  --- |health|
   healthSuccess = { link = 'DiagnosticOk' },
   healthWarning = { link = 'DiagnosticWarn' },
   healthError = { link = 'DiagnosticError' },
   helpCommand = { link = 'MatchParen' },
 
-  -- |lsp-highlight|
+  --- |lsp-highlight|
   LspReferenceRead = { bg = bg5 },
   LspReferenceText = { bg = bg5 },
   LspReferenceWrite = { bg = bg5 },
@@ -338,7 +339,7 @@ M.groups = {
   -- LspSignatureActiveParameter = {},
   -- LspDiagnosticsDefaultInformation = {},
 
-  -- |treesitter-highlight-groups|
+  --- |treesitter-highlight-groups|
   ['@annotation'] = { link = 'PreProc' },
   ['@attribute'] = { link = 'PreProc' },
   ['@boolean'] = { link = 'Boolean' },
@@ -436,14 +437,14 @@ M.groups = {
   -- luaParen = { link = 'Delimiter' },
 
   -- plugins
-  -- telescope.nvim
+  --- |telescope.nvim|
   TelescopeNormal = { link = 'Pmenu' },
   -- TelescopePromptNormal = { link = 'Pmenu' },
   TelescopeBorder = { link = 'FloatBorder' },
   -- TelescopeMatching = { link = 'Special' },
   TelescopeSelection = { link = 'PmenuSel' },
 
-  -- nvim-notify
+  --- |nvim-notify|
   NotifyERRORBorder = { fg = M.tint.red.bg, bg = bg3 },
   NotifyWARNBorder = { fg = M.tint.orange.bg, bg = bg3 },
   NotifyINFOBorder = { fg = M.tint.blue.bg, bg = bg3 },
@@ -468,7 +469,7 @@ M.groups = {
   NotifyDEBUGBody = { bg = bg3 },
   NotifyTRACEBody = { bg = bg3 },
 
-  -- |cmp-highlight|
+  --- |cmp-highlight|
   CmpItemAbbr = { fg = fg1, bg = 'NONE' },
   CmpItemAbbrDeprecated = { fg = fg5, strikethrough = true },
   CmpItemAbbrMatch = { link = 'Special' },
@@ -503,11 +504,11 @@ M.groups = {
   CmpItemKindOperator = { link = '@operator' },
   CmpItemKindSnippet = { link = '@type' },
 
-  -- |nvim-bqf|
+  --- |nvim-bqf|
   BqfPreviewBorder = { link = 'FloatBorder' },
   -- BqfPreviewRange = { link = 'Search' },
 
-  -- |pounce|
+  --- |pounce|
   PounceAccept = { bg = M.blend(M.palette.blue, bg1, 0.5), bold = true },
   PounceAcceptBest = { reverse = true, bold = true },
   PounceMatch = { link = 'Search' },
@@ -523,7 +524,7 @@ M.groups = {
   rainbowcol6 = { fg = M.palette.orange },
   rainbowcol7 = { fg = M.palette.red },
 
-  -- |gitsigns-highlight-groups|
+  --- |gitsigns-highlight-groups|
   GitSignsAdd = { fg = M.palette.blue },
   GitSignsChange = { fg = M.palette.orange },
   GitSignsDelete = { fg = M.palette.red },
@@ -554,37 +555,35 @@ M.groups = {
 
   -- GitSignsCurrenLineBlame
 
-  -- |vim-eft|
+  --- |vim-eft|
   EftChar = { fg = M.palette.orange, bold = true },
   EftSubChar = { fg = fg5, bold = true },
 
   -- marks.nvim
   MarkSignHL = { fg = M.palette.orange },
 
-  -- |illuminate-highlight-groups|
+  --- |illuminate-highlight-groups|
   illuminatedWordText = { link = 'LspReferenceText' },
   illuminatedWordRead = { link = 'LspReferenceRead' },
   illuminatedWordWrite = { link = 'LspReferenceWrite' },
 
-  -- nvim-treehopper
-  -- TSNodeUnmatched = { link = 'Comment' },
-  -- TSNodeKey = { fg = search_fg, bg = search_bg, bold = true },
-
   -- hlargs.nvim
   Hlargs = { fg = M.lighten(M.palette.orange, -6) },
 
-  -- |highlighturl|
+  --- |highlighturl|
   HighlightUrl = { link = 'Underlined' },
 
-  -- |nvim-surround.config.highlight|
+  --- |nvim-surround.config.highlight|
   NvimSurroundHighlight = { link = 'IncSearch' },
 
-  -- |noice.nvim-highlight-groups|
+  --- |noice.nvim-highlight-groups|
   NoiceCmdlinePopup = { link = 'NormalFloat' },
   NoiceConfirm = { link = 'NormalFloat' },
 }
 
 function M.load()
+  vim.g.colors_name = 'heine'
+
   if vim.loop.fs_stat(M.config.compile_path) then
     vim.cmd.source(M.config.compile_path)
     return
@@ -642,17 +641,15 @@ function M.clean()
   end
 end
 
-vim.api.nvim_create_user_command('HeineCompile', function()
-  M.compile()
-end, { nargs = 0 })
-vim.api.nvim_create_user_command('HeineClean', function()
-  M.clean()
-end, { nargs = 0 })
-vim.api.nvim_create_user_command('HeineReload', function()
+function M.reload()
   M.clear()
-  M.load()
   vim.cmd.colorscheme('heine')
-end, { nargs = 0 })
+  vim.cmd.doautoall('ColorScheme')
+end
+
+vim.api.nvim_create_user_command('HeineCompile', M.compile, {})
+vim.api.nvim_create_user_command('HeineClean', M.clean, {})
+vim.api.nvim_create_user_command('HeineReload', M.reload, {})
 
 if M.config.debug then
   vim.api.nvim_create_user_command('HeineDebugEnable', function()
@@ -660,14 +657,14 @@ if M.config.debug then
       group = vim.api.nvim_create_augroup('HeineDebug', {}),
       pattern = 'heine.lua',
       callback = function()
-        vim.cmd.HeineReload()
+        vim.defer_fn(M.reload, 150)
       end,
     })
-  end, { nargs = 0 })
+  end, {})
 
   vim.api.nvim_create_user_command('HeineDebugDisable', function()
     vim.api.nvim_del_augroup_by_name('HeineDebug')
-  end, { nargs = 0 })
+  end, {})
 
   vim.cmd.HeineDebugEnable()
 end
