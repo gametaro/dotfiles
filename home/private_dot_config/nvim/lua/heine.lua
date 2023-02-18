@@ -616,10 +616,7 @@ local function inspect(t)
   return string.format([[{ %s }]], table.concat(list, ', '))
 end
 
----@param silent? boolean
-function M.compile(silent)
-  silent = silent or false
-
+function M.compile()
   local lines = {}
   for name, val in pairs(M.groups) do
     lines[#lines + 1] = string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val))
@@ -632,24 +629,15 @@ function M.compile(silent)
   if file then
     file:write(table.concat(lines, '\n') .. '\n')
     file:close()
-    if not silent then
-      vim.notify(
-        string.format('compiled file was written to %s', M.config.compile_path),
-        vim.log.levels.INFO,
-        { title = 'heine.nvim' }
-      )
-    end
-  elseif msg then
-    vim.notify(msg, vim.log.levels.ERROR, { title = 'heine' })
+  end
+  if msg then
+    vim.notify(msg, vim.log.levels.ERROR, { title = 'heine.nvim' })
   end
 end
 
----@param silent? boolean
-function M.clean(silent)
-  silent = silent or false
-
-  local ok, msg = os.remove(M.config.compile_path)
-  if not ok and msg and not silent then
+function M.clean()
+  local _, msg = os.remove(M.config.compile_path)
+  if msg then
     vim.notify(msg, vim.log.levels.ERROR, { title = 'heine.nvim' })
   end
 end
