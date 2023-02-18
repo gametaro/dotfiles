@@ -26,7 +26,7 @@ autocmd('QuickFixCmdPost', {
 })
 
 autocmd('FileType', {
-  pattern = { 'help', 'capture', 'lspinfo', 'null-ls-info', 'scratch' },
+  pattern = { 'help', 'null-ls-info', 'scratch' },
   callback = function(a)
     vim.keymap.set('n', 'q', '<C-w>c', { buffer = a.buf, nowait = true })
   end,
