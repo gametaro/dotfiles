@@ -15,7 +15,7 @@ local function open(keep_cursor)
   if not ok then
     vim.cmd.cwindow()
   end
-  if keep_cursor then
+  if ok and keep_cursor then
     vim.cmd.wincmd('p')
   end
 end
