@@ -15,6 +15,7 @@ require('lazy').setup('ky.plugins', {
     lazy = true,
   },
   ui = {
+    size = { width = 0.9, height = 0.9 },
     border = vim.g.border,
   },
   performance = {
