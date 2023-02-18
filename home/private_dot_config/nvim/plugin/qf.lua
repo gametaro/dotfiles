@@ -8,14 +8,12 @@ local function is_open()
   return false
 end
 
-local function open(keep_cursor)
-  keep_cursor = keep_cursor or true
-
+local function open()
   local ok = pcall(vim.cmd.lwindow)
   if not ok then
     vim.cmd.cwindow()
   end
-  if ok and keep_cursor then
+  if is_open() then
     vim.cmd.wincmd('p')
   end
 end
