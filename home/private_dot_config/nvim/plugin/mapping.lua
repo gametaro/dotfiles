@@ -2,6 +2,9 @@ vim.keymap.set('', '<Space>', '')
 vim.keymap.set('', ',', '')
 vim.keymap.set('n', 'ZQ', '')
 vim.keymap.set('n', 'ZZ', '')
+vim.keymap.set('n', 'q', '')
+
+vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro' })
 
 vim.keymap.set('', ';', ':', { desc = 'Cmdline' })
 
