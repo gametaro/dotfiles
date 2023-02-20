@@ -69,8 +69,6 @@ local function hover()
   if vim.bo.filetype == 'lua' then
     local cword = vim.fn.expand('<cWORD>')
     local subject = string.match(cword, '|(%S-)|')
-      or string.match(cword, "'(%S-)'")
-      or string.match(cword, '`:(%S-)`')
     if subject then
       vim.cmd.help(subject)
       return
