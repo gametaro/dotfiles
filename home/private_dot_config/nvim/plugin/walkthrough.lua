@@ -16,7 +16,7 @@ local M = {}
 ---@field public skip? fun(dir_name: string): boolean
 ---@field public sort? fun(a: walkthrough.List.Item, a: walkthrough.List.Item): boolean
 
----@type table<string, userdata>
+---@type table<string, uv.uv_fs_event_t>
 local watchers = {}
 ---@type table<string, walkthrough.List.Item[]>
 local files_per_dir = {}
@@ -97,10 +97,12 @@ local function throttle_leading(fn, ms)
 
   return function(...)
     if not running then
-      timer:start(ms, 0, function()
-        running = false
-        timer:stop()
-      end)
+      if timer then
+        timer:start(ms, 0, function()
+          running = false
+          timer:stop()
+        end)
+      end
       running = true
       pcall(vim.schedule_wrap(fn), select(1, ...))
     end
