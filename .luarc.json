@@ -4,6 +4,9 @@
     "duplicate-set-field",
     "param-type-mismatch"
   ],
+  "diagnostics.globals": [
+    "vim"
+  ],
   "format": {
     "enable": false
   }
