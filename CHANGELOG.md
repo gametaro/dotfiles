@@ -1,5 +1,28 @@
 # Changelog
 
+## [2.2.0](https://github.com/gametaro/dotfiles/compare/v2.1.0...v2.2.0) (2023-02-20)
+
+
+### Features
+
+* **cursorline:** add supports for `cursorcolumn` ([7fc517e](https://github.com/gametaro/dotfiles/commit/7fc517e7f00dfe1bbcaf23ae7aec7419e5505d92))
+* **ftplugin:** add treesitter highlighting ([93e056c](https://github.com/gametaro/dotfiles/commit/93e056cfbee02dee6648a3d1592b3b50c91d9a7a))
+* **lsp:** eliminate lspconfig ([ccc141c](https://github.com/gametaro/dotfiles/commit/ccc141ce2f2fa92c022cd902298cb15a6bf2ba91))
+* **luasnippets:** various improvements ([5dccbf9](https://github.com/gametaro/dotfiles/commit/5dccbf90dbe5bc4d33a5743a2306fcb27e1883c8))
+* **plugin:** add `edgemotion.lua` ([309e8a6](https://github.com/gametaro/dotfiles/commit/309e8a6ff3f7c2b9fd7e82b7a775fe4090740d66))
+
+
+### Bug Fixes
+
+* **autocmd:** preserve current tabpage ([750cbed](https://github.com/gametaro/dotfiles/commit/750cbed5232bad1baa295e89fa4fb329ce585ec2))
+* **cursorline:** fast activate on `WinEnter` ([99cf2cd](https://github.com/gametaro/dotfiles/commit/99cf2cd5f4c9a6764e3ebef52bdf96b636e9b4ed))
+* **heirline:** check nil ([42c3532](https://github.com/gametaro/dotfiles/commit/42c3532760be5a45fea1e58d87cfc8c9a0b3300b))
+* **lsp:** correct pattern of match ([9b809e4](https://github.com/gametaro/dotfiles/commit/9b809e437812a14ef1bb8b86ed518d24c360616c))
+* **lsp:** remove unneeded matching ([8e33507](https://github.com/gametaro/dotfiles/commit/8e33507e72b6c3af6f217cf90db3dfa4cef26fa3))
+* **qf:** do not open when failed ([11486fe](https://github.com/gametaro/dotfiles/commit/11486fe96aa85fc4659ac21848beeddd099c7833))
+* **qf:** preserve current window ([d91cf61](https://github.com/gametaro/dotfiles/commit/d91cf61871946a3110b62a4756fe7a45d8256b3f))
+* **walkthrough:** lint errors ([dda7680](https://github.com/gametaro/dotfiles/commit/dda768028ce0f9795688c588ae83ef021a09c424))
+
 ## [2.1.0](https://github.com/gametaro/dotfiles/compare/v2.0.0...v2.1.0) (2023-02-14)
 
 
