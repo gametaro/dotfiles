@@ -176,8 +176,11 @@ return {
       init = function(self)
         local filename = vim.fs.basename(self.filename)
         local extension = fn.fnamemodify(filename, ':e')
-        self.icon, self.icon_color =
-          require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
+        local ok, devicons = pcall(require, 'nvim-web-devicons')
+        if ok then
+          self.icon, self.icon_color =
+            devicons.get_icon_color(filename, extension, { default = true })
+        end
       end,
       provider = function(self)
         return self.icon and (self.icon .. ' ')
