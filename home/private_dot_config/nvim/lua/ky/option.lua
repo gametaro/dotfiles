@@ -25,6 +25,7 @@ vim.opt.diffopt:append({
 })
 vim.o.emoji = false
 vim.o.expandtab = true
+vim.o.exrc = true
 vim.opt.fileformats = { 'unix', 'dos' }
 vim.opt.fillchars = {
   diff = '╱', -- '/',
