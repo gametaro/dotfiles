@@ -25,15 +25,10 @@ local opts = {
   },
 }
 
+---@param option string
+---@param value boolean
 local function set(option, value)
-  local buf = vim.api.nvim_get_current_buf()
   local win = vim.api.nvim_get_current_win()
-  if
-    vim.tbl_contains(opts.ignore_buftype, vim.bo[buf].buftype)
-    or vim.tbl_contains(opts.ignore_filetype, vim.bo[buf].filetype)
-  then
-    return
-  end
   vim.api.nvim_set_option_value(option, value, { scope = 'local', win = win })
 end
 
@@ -63,7 +58,19 @@ local disable_cursorcolumn = debounce_leading(function()
   cursorcolumn(false)
 end, opts.timeout.disable)
 
-local function on_cursor_moved()
+---@param buf? integer
+---@return boolean
+local function ignore(buf)
+  buf = buf or vim.api.nvim_get_current_buf()
+  return vim.tbl_contains(opts.ignore_buftype, vim.bo[buf].buftype)
+    or vim.tbl_contains(opts.ignore_filetype, vim.bo[buf].filetype)
+end
+
+local function on_cursor_moved(a)
+  if ignore(a.buf) then
+    return
+  end
+
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   vim.b.cursor_pos = vim.b.cursor_pos or {}
   vim.b.cursor_pos = { vim.b.cursor_pos[1] or row, vim.b.cursor_pos[2] or col }
@@ -90,13 +97,16 @@ end
 
 vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter' }, {
   group = group,
-  callback = function()
+  callback = function(a)
+    if ignore(a.buf) then
+      return
+    end
     if opts.cursorline then
-      cursorline(opts.cursorline)
+      cursorline(true)
       vim.b.cursorline_disable_defer = true
     end
     if opts.cursorcolumn then
-      cursorcolumn(opts.cursorcolumn)
+      cursorcolumn(true)
       vim.b.cursorcolumn_disable_defer = true
     end
   end,
@@ -104,7 +114,10 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter' }, {
 
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave' }, {
   group = group,
-  callback = function()
+  callback = function(a)
+    if ignore(a.buf) then
+      return
+    end
     if opts.cursorline then
       cursorline(false)
     end
