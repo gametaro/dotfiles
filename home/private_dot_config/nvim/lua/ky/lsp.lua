@@ -79,12 +79,7 @@ local function hover()
 end
 
 local function format()
-  vim.lsp.buf.format({
-    async = true,
-    filter = function(client)
-      return not vim.tbl_contains({ 'sumneko_lua' }, client.name)
-    end,
-  })
+  vim.lsp.buf.format({ async = true })
 end
 
 ---@param client table
