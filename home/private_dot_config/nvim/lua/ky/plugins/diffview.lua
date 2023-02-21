@@ -21,6 +21,7 @@ return {
     local actions = require('diffview.actions')
 
     require('diffview').setup({
+      use_icons = vim.g.devicons,
       show_help_hints = false,
       view = {
         default = {

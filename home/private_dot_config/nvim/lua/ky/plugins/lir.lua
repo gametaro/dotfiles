@@ -109,7 +109,7 @@ return {
       -- ignore = { 'node_modules' },
       show_hidden_files = false,
       devicons = {
-        enable = true,
+        enable = vim.g.devicons,
         highlight_dirname = true,
       },
       mappings = {
