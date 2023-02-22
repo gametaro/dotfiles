@@ -72,15 +72,6 @@ return {
         end, { desc = 'Search in Olddirs' })
       end,
     },
-    {
-      'tsakirist/telescope-lazy.nvim',
-      config = function()
-        require('telescope').load_extension('lazy')
-        vim.keymap.set('n', '<Leader>fp', function()
-          require('telescope').extensions.lazy.lazy()
-        end, { desc = 'Lazy' })
-      end,
-    },
   },
   event = 'VeryLazy',
   config = function()
