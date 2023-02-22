@@ -14,6 +14,19 @@ return {
     end
 
     require('noice').setup({
+      cmdline = {
+        enabled = true,
+        view = 'cmdline',
+        opts = {},
+        format = {
+          cmdline = false,
+          search_down = false,
+          search_up = false,
+          filter = false,
+          lua = false,
+          help = false,
+        },
+      },
       lsp = {
         -- documentation = {
         --   opts = {
