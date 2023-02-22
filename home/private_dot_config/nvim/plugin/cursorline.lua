@@ -19,11 +19,18 @@ local opts = {
   ignore_buftype = {
     'nofile',
     'prompt',
+    'terminal',
   },
-  ignore_filetype = {
-    'TelescopePrompt',
-  },
+  ignore_filetype = {},
 }
+
+---@param buf? integer
+---@return boolean
+local function ignore(buf)
+  buf = buf or vim.api.nvim_get_current_buf()
+  return vim.tbl_contains(opts.ignore_buftype, vim.bo[buf].buftype)
+    or vim.tbl_contains(opts.ignore_filetype, vim.bo[buf].filetype)
+end
 
 ---@param option string
 ---@param value boolean
@@ -34,11 +41,17 @@ end
 
 ---@param value boolean
 local function cursorline(value)
+  if ignore() then
+    return
+  end
   set('cursorline', value)
 end
 
 ---@param value boolean
 local function cursorcolumn(value)
+  if ignore() then
+    return
+  end
   set('cursorcolumn', value)
 end
 
@@ -57,14 +70,6 @@ end, opts.timeout.enable)
 local disable_cursorcolumn = debounce_leading(function()
   cursorcolumn(false)
 end, opts.timeout.disable)
-
----@param buf? integer
----@return boolean
-local function ignore(buf)
-  buf = buf or vim.api.nvim_get_current_buf()
-  return vim.tbl_contains(opts.ignore_buftype, vim.bo[buf].buftype)
-    or vim.tbl_contains(opts.ignore_filetype, vim.bo[buf].filetype)
-end
 
 local function on_cursor_moved(a)
   if ignore(a.buf) then
