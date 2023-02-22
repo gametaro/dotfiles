@@ -68,7 +68,7 @@ autocmd('FocusLost', {
   end,
 })
 
-autocmd('BufLeave', {
+autocmd({ 'BufLeave', 'WinLeave' }, {
   callback = function(a)
     if
       vim.bo[a.buf].buftype == ''
