@@ -1,6 +1,5 @@
 local ui = require('ky.ui')
 
-local indent = 2
 local blend = 0
 
 vim.g.mapleader = ' '
@@ -73,7 +72,6 @@ vim.o.scrolloff = 4
 vim.o.sidescrolloff = 8
 vim.opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
 vim.o.shiftround = true
-vim.o.shiftwidth = indent
 vim.opt.shortmess:append({
   C = true,
   I = true,
@@ -97,7 +95,6 @@ vim.o.splitkeep = 'screen'
 vim.o.splitright = true
 vim.o.swapfile = false
 vim.opt.switchbuf = { 'useopen', 'uselast' }
-vim.o.tabstop = indent
 vim.o.termguicolors = true
 vim.o.tildeop = true
 vim.o.timeoutlen = 500
