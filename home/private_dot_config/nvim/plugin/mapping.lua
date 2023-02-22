@@ -13,6 +13,9 @@ vim.keymap.set('n', '<Leader>W', '<Cmd>wall<CR>', { desc = 'Write all' })
 vim.keymap.set('n', '<Leader>q', '<Cmd>quit<CR>', { desc = 'Quit' })
 vim.keymap.set('n', '<Leader>Q', '<Cmd>qall<CR>', { desc = 'Quit all' })
 
+vim.keymap.set('n', '<Leader>i', '<Cmd>Inspect<CR>')
+vim.keymap.set('n', '<Leader>I', '<Cmd>Inspect!<CR>')
+
 vim.keymap.set('c', '<C-a>', '<Home>')
 vim.keymap.set('c', '<C-b>', '<Left>')
 vim.keymap.set('c', '<C-e>', '<End>')
@@ -51,16 +54,13 @@ vim.keymap.set('n', '<Leader>.', function()
 end, { desc = 'Open cwd' })
 vim.keymap.set('n', '-', function()
   vim.cmd.edit(vim.fn.expand('%:p:h'))
-end, { desc = 'Open current directory' })
+end, { desc = 'Open parent directory' })
 vim.keymap.set('n', '<Leader>cd', function()
   vim.cmd.tcd('%:p:h')
 end, { desc = 'Change directory' })
 vim.keymap.set('n', '<Leader>ud', function()
   vim.cmd.tcd('..')
 end, { desc = 'Up directory' })
-
-vim.keymap.set('n', '<Leader>i', '<Cmd>Inspect<CR>')
-vim.keymap.set('n', '<Leader>I', '<Cmd>Inspect!<CR>')
 
 vim.keymap.set(
   'n',
