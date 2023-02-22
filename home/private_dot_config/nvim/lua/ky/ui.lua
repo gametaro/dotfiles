@@ -79,13 +79,12 @@ local icons = {
   },
 }
 
-if not vim.g.nerd then
-  for k, v in pairs(icons) do
-    for _k, _v in pairs(v) do
-      if not icons[k] then
-        icons[k] = v
-      end
-      icons[k][_k] = _v[2] or ' '
+for k, v in pairs(icons) do
+  for _k, _v in pairs(v) do
+    if type(_v) == 'table' then
+      icons[k][_k] = vim.g.nerd and _v[1] or _v[2]
+    else
+      icons[k][_k] = vim.g.nerd and _v or ''
     end
   end
 end

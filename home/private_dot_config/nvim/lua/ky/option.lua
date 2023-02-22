@@ -1,12 +1,11 @@
-local ui = require('ky.ui')
-
 local blend = 0
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
-
-vim.g.border = ui.border.single
 vim.g.nerd = false
+
+local ui = require('ky.ui')
+vim.g.border = ui.border.single
 
 vim.o.autowriteall = true
 vim.o.backup = true
