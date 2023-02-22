@@ -23,7 +23,6 @@ vim.opt.diffopt:append({
   'linematch:60',
 })
 vim.o.emoji = false
-vim.o.expandtab = true
 vim.o.exrc = true
 vim.opt.fileformats = { 'unix', 'dos' }
 vim.opt.fillchars = {
