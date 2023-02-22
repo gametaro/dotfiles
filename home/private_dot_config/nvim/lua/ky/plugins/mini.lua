@@ -84,41 +84,5 @@ return {
         inside_last = '',
       },
     })
-
-    local map = require('mini.map')
-    map.setup({
-      integrations = {
-        map.gen_integration.builtin_search(),
-        map.gen_integration.gitsigns(),
-        map.gen_integration.diagnostic({
-          error = 'DiagnosticFloatingError',
-          warn = 'DiagnosticFloatingWarn',
-          info = 'DiagnosticFloatingInfo',
-          hint = 'DiagnosticFloatingHint',
-        }),
-      },
-      symbols = {
-        encode = map.gen_encode_symbols.dot('4x2'),
-        scroll_line = '█',
-        scroll_view = '▒',
-      },
-      window = {
-        focusable = true,
-        show_integration_count = false,
-        winblend = 50,
-      },
-    })
-    vim.keymap.set('n', '<Leader>mc', map.close)
-    vim.keymap.set('n', '<Leader>mf', map.toggle_focus)
-    vim.keymap.set('n', '<Leader>mo', map.open)
-    vim.keymap.set('n', '<Leader>mr', map.refresh)
-    vim.keymap.set('n', '<Leader>ms', map.toggle_side)
-    vim.keymap.set('n', '<Leader>mt', map.toggle)
-
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'SessionLoadPost',
-      group = group,
-      callback = map.open,
-    })
   end,
 }
