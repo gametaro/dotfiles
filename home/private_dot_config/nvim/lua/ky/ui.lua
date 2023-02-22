@@ -1,21 +1,21 @@
 local M = {}
 
-M.icons = {
+local icons = {
   diagnostic = {
-    error = '',
-    warn = '',
-    hint = '',
-    info = '',
+    error = { '', 'E' },
+    warn = { '', 'W' },
+    hint = { '', 'H' },
+    info = { '', 'I' },
   },
   git = {
-    add = '',
-    change = '',
-    remove = '',
-    ignore = '',
-    rename = '',
-    branch = '󰘬',
-    ahead = '⇡',
-    behind = '⇣',
+    add = { '', '+' },
+    change = { '', '~' },
+    remove = { '', '-' },
+    ignore = { '', '??' },
+    rename = { '', '->' },
+    branch = { '󰘬', '*' },
+    ahead = { '⇡', '⇡' },
+    behind = { '⇣', '⇣' },
   },
   vscode_kind = {
     Text = '',
@@ -72,12 +72,25 @@ M.icons = {
     TypeParameter = '',
   },
   chevron = {
-    down = '',
-    right = '',
-    left = '',
-    up = '',
+    down = { '', '˅' },
+    right = { '', '>' },
+    left = { '', '<' },
+    up = { '', '˄' },
   },
 }
+
+if not vim.g.nerd then
+  for k, v in pairs(icons) do
+    for _k, _v in pairs(v) do
+      if not icons[k] then
+        icons[k] = v
+      end
+      icons[k][_k] = _v[2] or ' '
+    end
+  end
+end
+
+M.icons = icons
 
 M.border = {
   none = 'none',

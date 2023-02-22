@@ -7,7 +7,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 
 vim.g.border = ui.border.single
-vim.g.devicons = false
+vim.g.nerd = false
 
 vim.o.autowriteall = true
 vim.o.backup = true

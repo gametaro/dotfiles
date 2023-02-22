@@ -17,6 +17,29 @@ require('lazy').setup('ky.plugins', {
   ui = {
     size = { width = 0.9, height = 0.9 },
     border = vim.g.border,
+    icons = {
+      cmd = '',
+      config = '',
+      event = '',
+      ft = '',
+      init = '',
+      import = '',
+      keys = '',
+      lazy = '',
+      loaded = '*',
+      not_loaded = '-',
+      plugin = '',
+      runtime = '',
+      source = '',
+      start = '',
+      task = '',
+      list = {
+        '',
+        '',
+        '',
+        '',
+      },
+    },
   },
   performance = {
     rtp = {
