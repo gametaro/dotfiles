@@ -22,10 +22,6 @@ local snippets = vim.tbl_map(function(type)
     t(type[2]),
     c(1, {
       sn(nil, {
-        t(': '),
-        r(1, 'subject', i(1)),
-      }),
-      sn(nil, {
         t('('),
         r(1, 'type'),
         t('): '),
@@ -36,6 +32,10 @@ local snippets = vim.tbl_map(function(type)
         r(1, 'type'),
         t(')!: '),
         r(2, 'subject'),
+      }),
+      sn(nil, {
+        t(': '),
+        r(1, 'subject', i(1)),
       }),
     }),
     t({ '', '', '' }),
