@@ -5,16 +5,82 @@ return {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'make',
       cond = not require('ky.util').is_win,
+      config = function()
+        require('telescope').load_extension('fzf')
+      end,
     },
     {
       'nvim-telescope/telescope-fzy-native.nvim',
       cond = require('ky.util').is_win,
     },
-    { 'natecraddock/telescope-zf-native.nvim' },
-    { 'debugloop/telescope-undo.nvim' },
-    { 'nvim-telescope/telescope-live-grep-args.nvim' },
-    { 'marcuscaisey/olddirs.nvim' },
-    { 'tsakirist/telescope-lazy.nvim' },
+    {
+      'natecraddock/telescope-zf-native.nvim',
+      config = function()
+        require('telescope').load_extension('zf-native')
+      end,
+    },
+    {
+      'debugloop/telescope-undo.nvim',
+      config = function()
+        require('telescope').load_extension('undo')
+        vim.keymap.set(
+          'n',
+          '<Leader>fu',
+          require('telescope').extensions.undo.undo,
+          { desc = 'Undo' }
+        )
+      end,
+    },
+    {
+      'nvim-telescope/telescope-live-grep-args.nvim',
+      config = function()
+        require('telescope').load_extension('live_grep_args')
+        vim.keymap.set('n', '<C-g>', function()
+          require('telescope').extensions.live_grep_args.live_grep_args()
+        end, { desc = 'Search' })
+      end,
+    },
+    {
+      'marcuscaisey/olddirs.nvim',
+      config = function()
+        require('telescope').load_extension('olddirs')
+        vim.keymap.set(
+          'n',
+          '<Leader>od',
+          require('telescope').extensions.olddirs.picker,
+          { desc = 'Olddirs' }
+        )
+        vim.keymap.set('n', '<Leader>ofd', function()
+          require('telescope').extensions.olddirs.picker({
+            selected_dir_callback = function(dir)
+              require('telescope.builtin').find_files({
+                prompt_title = 'Find Files in ' .. dir,
+                cwd = dir,
+              })
+            end,
+          })
+        end, { desc = 'Find in Olddirs' })
+        vim.keymap.set('n', '<Leader>ogd', function()
+          require('telescope').extensions.olddirs.picker({
+            selected_dir_callback = function(dir)
+              require('telescope.builtin').live_grep({
+                prompt_title = 'Live Grep in ' .. dir,
+                search_dirs = { dir },
+              })
+            end,
+          })
+        end, { desc = 'Search in Olddirs' })
+      end,
+    },
+    {
+      'tsakirist/telescope-lazy.nvim',
+      config = function()
+        require('telescope').load_extension('lazy')
+        vim.keymap.set('n', '<Leader>fp', function()
+          require('telescope').extensions.lazy.lazy()
+        end, { desc = 'Lazy' })
+      end,
+    },
   },
   event = 'VeryLazy',
   config = function()
@@ -251,38 +317,5 @@ return {
       builtin.lsp_dynamic_workspace_symbols,
       { desc = 'Dynamic Workspace symbols' }
     )
-
-    require('telescope').load_extension('fzf')
-    require('telescope').load_extension('zf-native')
-    require('telescope').load_extension('live_grep_args')
-    vim.keymap.set('n', '<C-g>', function()
-      require('telescope').extensions.live_grep_args.live_grep_args()
-    end, { desc = 'Search' })
-
-    require('telescope').load_extension('undo')
-    vim.keymap.set('n', '<Leader>fu', telescope.extensions.undo.undo, { desc = 'Undo' })
-    require('telescope').load_extension('olddirs')
-    vim.keymap.set('n', '<Leader>od', telescope.extensions.olddirs.picker, { desc = 'Olddirs' })
-    vim.keymap.set('n', '<Leader>ofd', function()
-      telescope.extensions.olddirs.picker({
-        selected_dir_callback = function(dir)
-          builtin.find_files({
-            prompt_title = 'Find Files in ' .. dir,
-            cwd = dir,
-          })
-        end,
-      })
-    end, { desc = 'Find in Olddirs' })
-    vim.keymap.set('n', '<Leader>ogd', function()
-      telescope.extensions.olddirs.picker({
-        selected_dir_callback = function(dir)
-          builtin.live_grep({
-            prompt_title = 'Live Grep in ' .. dir,
-            search_dirs = { dir },
-          })
-        end,
-      })
-    end, { desc = 'Search in Olddirs' })
-    require('telescope').load_extension('lazy')
   end,
 }
