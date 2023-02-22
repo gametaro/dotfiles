@@ -9,8 +9,9 @@ vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro' })
 vim.keymap.set('', ';', ':', { desc = 'Cmdline' })
 
 vim.keymap.set('n', '<Leader>w', '<Cmd>write<CR>', { desc = 'Write' })
+vim.keymap.set('n', '<Leader>W', '<Cmd>wall<CR>', { desc = 'Write all' })
 vim.keymap.set('n', '<Leader>q', '<Cmd>quit<CR>', { desc = 'Quit' })
-vim.keymap.set('n', '<Leader>Q', '<Cmd>quitall<CR>', { desc = 'Quitall' })
+vim.keymap.set('n', '<Leader>Q', '<Cmd>qall<CR>', { desc = 'Quit all' })
 
 vim.keymap.set('c', '<C-a>', '<Home>')
 vim.keymap.set('c', '<C-b>', '<Left>')
