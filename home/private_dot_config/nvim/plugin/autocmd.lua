@@ -13,7 +13,7 @@ autocmd('QuickFixCmdPost', {
   callback = function()
     vim.cmd.cwindow()
   end,
-  desc = 'automatically open the quickfix window',
+  desc = 'Automatically open quickfix window',
 })
 
 autocmd('QuickFixCmdPost', {
@@ -22,7 +22,7 @@ autocmd('QuickFixCmdPost', {
   callback = function()
     vim.cmd.lwindow()
   end,
-  desc = 'automatically open the location list window',
+  desc = 'Automatically open location list window',
 })
 
 autocmd('FileType', {
@@ -37,7 +37,7 @@ autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
-  desc = 'Highlight the yanked region',
+  desc = 'Highlight yanked region',
 })
 
 if vim.fn.executable('chezmoi') == 1 then
@@ -92,6 +92,7 @@ autocmd('BufWritePost', {
       vim.cmd.diffupdate()
     end
   end,
+  desc = 'Update diff',
 })
 
 autocmd('VimResized', {
