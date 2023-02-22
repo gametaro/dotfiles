@@ -110,7 +110,7 @@ return {
               end
             end
           end
-          vim_item.kind = vim.g.nerd and require('ky.ui').icons.kind[vim_item.kind] or ''
+          vim_item.kind = require('ky.ui').icons.kind[vim_item.kind]
           return vim_item
         end,
       },

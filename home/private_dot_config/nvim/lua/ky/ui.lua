@@ -84,7 +84,7 @@ for k, v in pairs(icons) do
     if type(_v) == 'table' then
       icons[k][_k] = vim.g.nerd and _v[1] or _v[2]
     else
-      icons[k][_k] = vim.g.nerd and _v or ''
+      icons[k][_k] = vim.g.nerd and _v or _k
     end
   end
 end
