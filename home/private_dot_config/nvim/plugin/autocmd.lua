@@ -61,14 +61,7 @@ if vim.fn.executable('chezmoi') == 1 then
   end
 end
 
-autocmd('FocusLost', {
-  nested = true,
-  callback = function()
-    vim.cmd.wall({ mods = { emsg_silent = true, silent = true } })
-  end,
-})
-
-autocmd({ 'BufLeave', 'WinLeave' }, {
+autocmd({ 'BufLeave', 'WinLeave', 'FocusLost' }, {
   callback = function(a)
     if
       vim.bo[a.buf].buftype == ''
