@@ -31,8 +31,8 @@ return {
       preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
     }
 
-    local horizontal = {
-      layout_strategy = 'horizontal',
+    local flex = {
+      layout_strategy = 'flex',
       borderchars = borderchars.preview,
       preview_title = false,
     }
@@ -88,6 +88,12 @@ return {
           width = 0.99,
           preview_width = 0.55,
           prompt_position = 'top',
+        },
+        vertical = {
+          height = 0.95,
+          preview_cutoff = 20,
+          prompt_position = 'top',
+          width = 0.95,
         },
       },
       winblend = vim.o.winblend,
@@ -194,11 +200,11 @@ return {
         git_files = {
           show_untracked = true,
         },
-        git_bcommits = horizontal,
-        git_commits = horizontal,
-        git_status = horizontal,
-        git_stash = horizontal,
-        help_tags = horizontal,
+        git_bcommits = flex,
+        git_commits = flex,
+        git_status = flex,
+        git_stash = flex,
+        help_tags = flex,
       },
     })
 
