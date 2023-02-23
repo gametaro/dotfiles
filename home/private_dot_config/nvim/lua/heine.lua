@@ -90,16 +90,19 @@ local fg5 = M.saturate_lighten(fg1, 8, -25)
 local fg6 = M.saturate_lighten(bg1, 8, 18)
 
 M.tint = {
-  red = { bg = M.blend(M.palette.red, bg1, 0.8) },
-  orange = { bg = M.blend(M.palette.orange, bg1, 0.7), fg = M.blend(M.palette.orange, fg1, 0.9) },
-  green = { bg = M.blend(M.palette.green, bg1, 0.7) },
-  lgreen = { bg = M.blend(M.palette.lgreen, bg1, 0.7) },
-  cyan = { bg = M.blend(M.palette.cyan, bg1, 0.7) },
-  blue = { bg = M.blend(M.palette.blue, bg1, 0.8) },
-  magenta = { bg = M.blend(M.palette.magenta, bg1, 0.7) },
+  red = { bg = M.saturate(M.blend(M.palette.red, bg1, 0.8), 15) },
+  orange = {
+    bg = M.saturate(M.blend(M.palette.orange, bg1, 0.8), 15),
+    fg = M.blend(M.palette.orange, fg1, 0.9),
+  },
+  green = { bg = M.saturate(M.blend(M.palette.green, bg1, 0.8), 15) },
+  lgreen = { bg = M.saturate(M.blend(M.palette.lgreen, bg1, 0.8), 15) },
+  cyan = { bg = M.saturate(M.blend(M.palette.cyan, bg1, 0.8), 15) },
+  blue = { bg = M.saturate(M.blend(M.palette.blue, bg1, 0.8), 15) },
+  magenta = { bg = M.saturate(M.blend(M.palette.magenta, bg1, 0.8), 15) },
 }
 
---- |terminal-config|
+---|terminal-config|
 ---@type table<string, string>
 M.terminal = {
   terminal_color_0 = bg1,
@@ -145,7 +148,7 @@ M.colors = {
   terminal = M.terminal,
 }
 
---- |highlight-args|
+---|attr-list|
 ---@class Highlight
 ---@field fg? string
 ---@field bg? string
@@ -180,15 +183,16 @@ M.groups = {
   DiffAdd = { bg = M.tint.blue.bg },
   DiffChange = { bg = M.tint.blue.bg },
   DiffDelete = { bg = M.tint.red.bg },
-  DiffText = { bg = M.lighten(M.tint.blue.bg, 8) },
+  DiffText = { bg = M.lighten(M.tint.blue.bg, 10) },
   EndOfBuffer = { link = 'NonText' },
   -- TermCursor = {},
   -- TermCursorNC = {},
   ErrorMsg = { fg = M.palette.red },
-  WinSeparator = { fg = M.palette.blue },
+  WinSeparator = { fg = M.palette.blue, bg = bg1 },
   Folded = { fg = fg4, bg = M.tint.blue.bg },
   FoldColumn = { fg = fg4, bg = bg1 },
-  SignColumn = { fg = fg1, bg = bg1 },
+  SignColumn = { fg = fg1 },
+  SignColumnSB = { link = 'SignColumn' },
   IncSearch = { fg = fg3, bg = M.lighten(M.tint.orange.bg, 12) },
   Substitute = { link = 'IncSearch' },
   LineNr = { fg = fg6 },
@@ -205,7 +209,7 @@ M.groups = {
   NonText = { fg = fg6 },
   Normal = { fg = fg1, bg = bg1 },
   NormalFloat = { link = 'Pmenu' },
-  NormalNC = { bg = M.config.non_current_hl and M.lighten(bg1, -3) or bg1 },
+  NormalNC = { bg = M.config.non_current_hl and M.lighten(bg1, -4) or bg1 },
   FloatTitle = { fg = M.palette.blue, bg = bg3, bold = true },
   FloatBorder = { fg = M.palette.blue, bg = bg3 },
   Pmenu = { fg = fg1, bg = bg3 },
@@ -227,7 +231,7 @@ M.groups = {
   TablineSel = { link = 'Normal' },
   Title = { fg = M.palette.blue, bold = true },
   Visual = { bg = M.tint.blue.bg },
-  -- VisualNOS = { bg = M.blend(M.palette.blue, bg1, 0.3) },
+  VisualNOS = { bg = M.blend(M.palette.blue, bg1, 0.5) },
   WarningMsg = { fg = M.palette.orange },
   WhiteSpace = { fg = fg6 },
   WildMenu = { fg = fg2, bg = M.lighten(bg2, 5) },
@@ -237,24 +241,24 @@ M.groups = {
   Scrollbar = { fg = fg2, bg = bg2 },
   -- Tooltip = {},
 
-  --- |diagnostic-highlights|
+  ---|diagnostic-highlights|
   DiagnosticError = { fg = M.palette.red },
   DiagnosticWarn = { fg = M.palette.orange },
-  DiagnosticInfo = { fg = M.palette.blue },
-  DiagnosticHint = { fg = M.palette.green },
-  DiagnosticOk = { fg = M.palette.lgreen },
+  DiagnosticInfo = { fg = M.palette.green },
+  DiagnosticHint = { fg = M.palette.lgreen },
+  DiagnosticOk = { fg = M.palette.cyan },
 
   DiagnosticVirtualTextError = { fg = M.palette.red, bg = M.tint.red.bg },
   DiagnosticVirtualTextWarn = { fg = M.palette.orange, bg = M.tint.orange.bg },
-  DiagnosticVirtualTextInfo = { fg = M.palette.blue, bg = M.tint.blue.bg },
-  DiagnosticVirtualTextHint = { fg = M.palette.green, bg = M.tint.green.bg },
-  DiagnosticVirtualTextOk = { fg = M.palette.lgreen, bg = M.tint.lgreen.bg },
+  DiagnosticVirtualTextInfo = { fg = M.palette.green, bg = M.tint.blue.bg },
+  DiagnosticVirtualTextHint = { fg = M.palette.lgreen, bg = M.tint.green.bg },
+  DiagnosticVirtualTextOk = { fg = M.palette.cyan, bg = M.tint.lgreen.bg },
 
   DiagnosticUnderlineError = { sp = M.palette.red, undercurl = true },
   DiagnosticUnderlineWarn = { sp = M.palette.orange, undercurl = true },
   DiagnosticUnderlineInfo = { sp = M.palette.green, undercurl = true },
-  DiagnosticUnderlineHint = { sp = M.palette.blue, undercurl = true },
-  DiagnosticUnderlineOk = { sp = M.palette.lgreen, undercurl = true },
+  DiagnosticUnderlineHint = { sp = M.palette.lgreen, undercurl = true },
+  DiagnosticUnderlineOk = { sp = M.palette.cyan, undercurl = true },
 
   DiagnosticFloatingError = { link = 'DiagnosticError' },
   DiagnosticFloatingWarn = { link = 'DiagnosticWarn' },
@@ -268,7 +272,7 @@ M.groups = {
   DiagnosticSignHint = { link = 'DiagnosticHint' },
   DiagnosticSignOk = { link = 'DiagnosticOk' },
 
-  --- |group-name|
+  ---|group-name|
   Comment = { fg = fg5 },
   Constant = { fg = M.palette.orange },
   String = { fg = M.palette.lgreen },
@@ -324,13 +328,13 @@ M.groups = {
   diffNewFile = { fg = M.palette.green },
   -- diffFile = {},
 
-  --- |health|
+  ---|health|
   healthSuccess = { link = 'DiagnosticOk' },
   healthWarning = { link = 'DiagnosticWarn' },
   healthError = { link = 'DiagnosticError' },
   helpCommand = { link = 'MatchParen' },
 
-  --- |lsp-highlight|
+  ---|lsp-highlight|
   LspReferenceRead = { bg = bg5 },
   LspReferenceText = { bg = bg5 },
   LspReferenceWrite = { bg = bg5 },
@@ -339,7 +343,7 @@ M.groups = {
   -- LspSignatureActiveParameter = {},
   -- LspDiagnosticsDefaultInformation = {},
 
-  --- |treesitter-highlight-groups|
+  ---|treesitter-highlight-groups|
   ['@annotation'] = { link = 'PreProc' },
   ['@attribute'] = { link = 'PreProc' },
   ['@boolean'] = { link = 'Boolean' },
@@ -418,33 +422,22 @@ M.groups = {
   ['@variable'] = { link = '@none' },
   ['@variable.builtin'] = { link = 'Special' },
 
-  ['@text.literal.markdown_inline'] = { link = 'MatchParen' },
+  -- ['@text.literal.markdown_inline'] = { link = 'MatchParen' },
   -- ['@text.literal.markdown'] = { link = 'Normal' },
 
   -- semantic tokens
   ['@defaultLibrary'] = { link = '@function.builtin' },
   ['@documentation'] = { fg = M.palette.blue },
 
-  -- markdown
-  -- markdownCode = { link = 'String' },
-  -- markdownCodeBlock = { link = 'String' },
-  -- markdownCodeDelimiter = { link = 'String' },
-
-  -- typescript
-  -- typescriptParens = { link = 'Delimiter' },
-
-  -- lua
-  -- luaParen = { link = 'Delimiter' },
-
   -- plugins
-  --- |telescope.nvim|
+  ---|telescope.nvim|
   TelescopeNormal = { link = 'Pmenu' },
   -- TelescopePromptNormal = { link = 'Pmenu' },
   TelescopeBorder = { link = 'FloatBorder' },
   -- TelescopeMatching = { link = 'Special' },
   TelescopeSelection = { link = 'PmenuSel' },
 
-  --- |nvim-notify|
+  ---|nvim-notify|
   NotifyERRORBorder = { fg = M.tint.red.bg, bg = bg3 },
   NotifyWARNBorder = { fg = M.tint.orange.bg, bg = bg3 },
   NotifyINFOBorder = { fg = M.tint.blue.bg, bg = bg3 },
@@ -469,7 +462,7 @@ M.groups = {
   NotifyDEBUGBody = { bg = bg3 },
   NotifyTRACEBody = { bg = bg3 },
 
-  --- |cmp-highlight|
+  ---|cmp-highlight|
   CmpItemAbbr = { fg = fg1, bg = 'NONE' },
   CmpItemAbbrDeprecated = { fg = fg5, strikethrough = true },
   CmpItemAbbrMatch = { link = 'Special' },
@@ -504,11 +497,11 @@ M.groups = {
   CmpItemKindOperator = { link = '@operator' },
   CmpItemKindSnippet = { link = '@type' },
 
-  --- |nvim-bqf|
+  ---|nvim-bqf|
   BqfPreviewBorder = { link = 'FloatBorder' },
   -- BqfPreviewRange = { link = 'Search' },
 
-  --- |pounce|
+  ---|pounce|
   PounceAccept = { bg = M.blend(M.palette.blue, bg1, 0.5), bold = true },
   PounceAcceptBest = { reverse = true, bold = true },
   PounceMatch = { link = 'Search' },
@@ -524,18 +517,18 @@ M.groups = {
   rainbowcol6 = { fg = M.palette.orange },
   rainbowcol7 = { fg = M.palette.red },
 
-  --- |gitsigns-highlight-groups|
+  ---|gitsigns-highlight-groups|
   GitSignsAdd = { fg = M.palette.blue },
   GitSignsChange = { fg = M.palette.orange },
   GitSignsDelete = { fg = M.palette.red },
 
   -- GitSignsAddLn = {},
   -- GitSignsChangeLn = {},
-  GitSignsDeleteLn = { link = 'DiffDelete' },
+  -- GitSignsDeleteLn = {},
 
-  GitSignsAddInline = { bg = M.lighten(M.tint.blue.bg, 12) },
-  GitSignsChangeInline = { bg = M.lighten(M.tint.blue.bg, 12) },
-  GitSignsDeleteInline = { bg = M.lighten(M.tint.red.bg, 12) },
+  GitSignsAddInline = { bg = M.lighten(M.tint.blue.bg, 10) },
+  GitSignsChangeInline = { bg = M.lighten(M.tint.orange.bg, 10) },
+  GitSignsDeleteInline = { bg = M.lighten(M.tint.red.bg, 10) },
 
   -- GitSignsAddNr = {},
   -- GitSignsChangeNr = {},
@@ -555,14 +548,14 @@ M.groups = {
 
   -- GitSignsCurrenLineBlame
 
-  --- |vim-eft|
+  ---|vim-eft|
   EftChar = { fg = M.palette.orange, bold = true },
   EftSubChar = { fg = fg5, bold = true },
 
   -- marks.nvim
   MarkSignHL = { fg = M.palette.orange },
 
-  --- |illuminate-highlight-groups|
+  ---|illuminate-highlight-groups|
   illuminatedWordText = { link = 'LspReferenceText' },
   illuminatedWordRead = { link = 'LspReferenceRead' },
   illuminatedWordWrite = { link = 'LspReferenceWrite' },
@@ -570,13 +563,13 @@ M.groups = {
   -- hlargs.nvim
   Hlargs = { fg = M.lighten(M.palette.orange, -6) },
 
-  --- |highlighturl|
+  ---|highlighturl|
   HighlightUrl = { link = 'Underlined' },
 
-  --- |nvim-surround.config.highlight|
+  ---|nvim-surround.config.highlight|
   NvimSurroundHighlight = { link = 'IncSearch' },
 
-  --- |noice.nvim-highlight-groups|
+  ---|noice.nvim-highlight-groups|
   NoiceCmdlinePopup = { link = 'NormalFloat' },
   NoiceConfirm = { link = 'NormalFloat' },
 }
@@ -596,7 +589,7 @@ function M.load()
   end
 end
 
-function M.clear()
+function M.invalidate()
   for k, _ in pairs(package.loaded) do
     if string.match(k, '^heine') then
       package.loaded[k] = nil
@@ -642,7 +635,7 @@ function M.clean()
 end
 
 function M.reload()
-  M.clear()
+  M.invalidate()
   vim.cmd.colorscheme('heine')
   vim.cmd.doautoall('ColorScheme')
 end
