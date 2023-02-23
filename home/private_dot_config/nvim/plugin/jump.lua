@@ -1,11 +1,3 @@
--- Inspired by
--- 1. vim-exjumplist
--- 2. vim-EnhancedJumps
--- 3. bufjump.nvim
-
-local api = vim.api
-local fn = vim.fn
-
 ---@class jump.Options
 ---@field ignore_buftype? string[]
 ---@field ignore_filetype? string[]
@@ -22,26 +14,25 @@ local fn = vim.fn
 ---@field filename string|nil
 ---@field lnum integer
 
----@param bufnr integer
+---@param buf integer
 ---@param opts jump.Options
 ---@return boolean
-local condition = function(bufnr, opts)
-  if not api.nvim_buf_is_valid(bufnr) then
+local function condition(buf, opts)
+  if not vim.api.nvim_buf_is_valid(buf) then
+    return false
+  end
+  if not vim.api.nvim_buf_is_loaded(buf) then
+    vim.fn.bufload(buf)
+  end
+  if opts.ignore_buftype and vim.tbl_contains(opts.ignore_buftype, vim.bo[buf].buftype) then
+    return false
+  end
+  if opts.ignore_filetype and vim.tbl_contains(opts.ignore_filetype, vim.bo[buf].filetype) then
     return false
   end
   if
-    opts.ignore_buftype
-    and vim.tbl_contains(opts.ignore_buftype, api.nvim_buf_get_option(bufnr, 'buftype'))
+    opts.only_cwd and not string.find(vim.api.nvim_buf_get_name(buf), vim.fn.getcwd(), 1, true)
   then
-    return false
-  end
-  if
-    opts.ignore_filetype
-    and vim.tbl_contains(opts.ignore_filetype, api.nvim_buf_get_option(bufnr, 'filetype'))
-  then
-    return false
-  end
-  if opts.only_cwd and not string.find(api.nvim_buf_get_name(bufnr), vim.fn.getcwd(), 1, true) then
     return false
   end
   return true
@@ -59,10 +50,10 @@ local defaults = {
 }
 
 ---@param opts jump.Options
-local jump = function(opts)
+local function jump(opts)
   opts = vim.tbl_extend('force', defaults, opts or {})
   ---@type jumplist.Item[], integer
-  local jumplist, current_pos = unpack(fn.getjumplist())
+  local jumplist, current_pos = unpack(vim.fn.getjumplist())
   if vim.tbl_isempty(jumplist) then
     return
   end
@@ -72,18 +63,18 @@ local jump = function(opts)
     return
   end
 
-  local current_bufnr = api.nvim_get_current_buf()
-  ---@type integer|nil, integer|nil, integer|nil, integer|nil
-  local prev_bufnr, next_bufnr, target_bufnr, target_pos
+  local current_buf = vim.api.nvim_get_current_buf()
+  ---@type integer?, integer?, integer?, integer?
+  local prev_buf, next_buf, target_buf, target_pos
   local from = opts.forward and (current_pos + 1) or (current_pos - 1)
   local to = opts.forward and #jumplist or 1
   local unit = opts.forward and 1 or -1
   for i = from, to, unit do
-    prev_bufnr = target_bufnr
-    target_bufnr = jumplist[i].bufnr
-    -- next_bufnr = jumplist[i + 1].bufnr
-    if opts.is_local and (target_bufnr == current_bufnr) or (target_bufnr ~= current_bufnr) then
-      if condition(target_bufnr, opts) then
+    prev_buf = target_buf
+    target_buf = jumplist[i].bufnr
+    -- next_buf = jumplist[i + 1].bufnr
+    if opts.is_local and (target_buf == current_buf) or (target_buf ~= current_buf) then
+      if condition(target_buf, opts) then
         target_pos = i
         break
       end
@@ -92,9 +83,9 @@ local jump = function(opts)
 
   if target_pos == nil then
     opts.on_error({
-      prev_bufnr = prev_bufnr,
-      next_bufnr = next_bufnr,
-      target_bufnr = target_bufnr,
+      prev_buf = prev_buf,
+      next_buf = next_buf,
+      target_buf = target_buf,
       target_pos = target_pos,
     })
     return
@@ -109,34 +100,34 @@ local jump = function(opts)
   )
 
   opts.on_success({
-    prev_bufnr = prev_bufnr,
-    next_bufnr = next_bufnr,
-    target_bufnr = target_bufnr,
+    prev_buf = prev_buf,
+    next_buf = next_buf,
+    target_buf = target_buf,
     target_pos = target_pos,
   })
 end
 
 ---@param jumplist jumplist.Item[]
 ---@return table
-local toqflist = function(jumplist)
+local function toqflist(jumplist)
   return vim.tbl_map(function(j)
-    local text = unpack(api.nvim_buf_get_lines(j.bufnr, j.lnum - 1, j.lnum, true))
+    local text = unpack(vim.api.nvim_buf_get_lines(j.bufnr, j.lnum - 1, j.lnum, true))
     return { bufnr = j.bufnr, col = j.col, lnum = j.lnum, text = text }
   end, jumplist)
 end
 
 ---@param opts { qf: boolean, open: boolean }
-local setlist = function(opts)
+local function setlist(opts)
   opts = opts or {}
   ---@type jumplist.Item[]
-  local jumplist = unpack(fn.getjumplist())
+  local jumplist = unpack(vim.fn.getjumplist())
   local items = toqflist(vim.tbl_filter(function(j)
-    return api.nvim_buf_is_loaded(j.bufnr)
+    return vim.api.nvim_buf_is_loaded(j.bufnr)
   end, jumplist))
   if opts.qf then
-    fn.setqflist({}, ' ', { title = 'Jumplist', items = items })
+    vim.fn.setqflist({}, ' ', { title = 'Jumplist', items = items })
   else
-    fn.setloclist(0, {}, ' ', { title = 'Jumplist', items = items })
+    vim.fn.setloclist(0, {}, ' ', { title = 'Jumplist', items = items })
   end
   if opts.open then
     if opts.qf then
@@ -147,11 +138,11 @@ local setlist = function(opts)
   end
 end
 
-local setqflist = function(open)
+local function setqflist(open)
   setlist({ qf = true, open = open })
 end
 
-local setloclist = function(open)
+local function setloclist(open)
   setlist({ qf = false, open = open })
 end
 
@@ -187,18 +178,10 @@ local backward_local = function(opts)
   jump(opts)
 end
 
-vim.keymap.set('n', '<M-i>', function()
-  forward()
-end, { desc = 'Goto newer file' })
-vim.keymap.set('n', '<M-o>', function()
-  backward()
-end, { desc = 'Goto older file' })
-vim.keymap.set('n', 'g<C-i>', function()
-  forward_local()
-end, { desc = 'Goto newer position' })
-vim.keymap.set('n', 'g<C-o>', function()
-  backward_local()
-end, { desc = 'Goto older position' })
+vim.keymap.set('n', '<M-i>', forward, { desc = 'Goto newer file' })
+vim.keymap.set('n', '<M-o>', backward, { desc = 'Goto older file' })
+vim.keymap.set('n', 'g<C-i>', forward_local, { desc = 'Goto newer position' })
+vim.keymap.set('n', 'g<C-o>', backward_local, { desc = 'Goto older position' })
 -- vim.keymap.set('n', '<Leader>jq', function()
 --   setqflist(true)
 -- end)
