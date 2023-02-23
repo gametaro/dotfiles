@@ -38,6 +38,12 @@ local function condition(buf, opts)
   return true
 end
 
+---@param key string
+local function feed_keys(key)
+  local t = vim.api.nvim_replace_termcodes(key, true, true, true)
+  vim.api.nvim_feedkeys(t, 'n', false)
+end
+
 ---@type jump.Options
 local defaults = {
   ignore_filetype = { 'gitcommit', 'gitrebase' },
@@ -91,13 +97,7 @@ local function jump(opts)
     return
   end
 
-  vim.cmd.execute(
-    string.format(
-      [["normal! %s%s"]],
-      tostring(target_pos - current_pos),
-      opts.forward and [[\<C-i>]] or [[\<C-o>]]
-    )
-  )
+  feed_keys(string.format('%s%s', target_pos - current_pos, opts.forward and '<C-i>' or '<C-o>'))
 
   opts.on_success({
     prev_buf = prev_buf,
