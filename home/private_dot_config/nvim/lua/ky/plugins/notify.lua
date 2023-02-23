@@ -6,6 +6,7 @@ return {
       timeout = 1000,
       render = 'compact',
       on_open = function(win)
+        vim.api.nvim_win_set_config(win, { zindex = 100 })
         vim.api.nvim_win_set_option(win, 'wrap', true)
       end,
       stages = 'fade',
