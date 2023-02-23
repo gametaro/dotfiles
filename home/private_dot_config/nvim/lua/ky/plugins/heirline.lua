@@ -1,42 +1,6 @@
 local util = require('ky.util')
 local icons = require('ky.ui').icons
 
-local fn = vim.fn
-
-local git_rev = function()
-  util.job(
-    'git',
-    {
-      'rev-list',
-      '--count',
-      '--left-right',
-      'HEAD...@{upstream}',
-    },
-    vim.schedule_wrap(function(_, data)
-      local ahead, behind = unpack(vim.split(data or '', '\t'))
-      vim.api.nvim_set_var('git_rev', {
-        ahead = tonumber(ahead) or 0,
-        behind = tonumber(behind) or 0,
-      })
-    end)
-  )
-end
-
-if vim.fn.executable('git') == 1 and util.is_git_repo() then
-  vim.api.nvim_create_autocmd('VimEnter', {
-    group = vim.api.nvim_create_augroup('GitRev', { clear = true }),
-    once = true,
-    callback = function()
-      local timer = vim.loop.new_timer()
-      if timer then
-        timer:start(0, 10000, function()
-          git_rev()
-        end)
-      end
-    end,
-  })
-end
-
 return {
   'rebelot/heirline.nvim',
   event = 'UIEnter',
@@ -47,22 +11,11 @@ return {
 
     local setup_colors = function()
       return {
-        git_add = utils.get_highlight('DiagnosticHint').fg,
-        git_changed = utils.get_highlight('DiagnosticWarn').fg,
-        git_removed = utils.get_highlight('DiagnosticError').fg,
-        diff_add = utils.get_highlight('DiffAdd').bg,
-        diff_change = utils.get_highlight('DiffChange').bg,
-        diff_delete = utils.get_highlight('DiffDelete').bg,
-        diag_error = utils.get_highlight('DiagnosticError').fg,
-        diag_warn = utils.get_highlight('DiagnosticWarn').fg,
-        diag_info = utils.get_highlight('DiagnosticInfo').fg,
-        diag_hint = utils.get_highlight('DiagnosticHint').fg,
-        cyan = utils.get_highlight('Title').fg,
-        green = utils.get_highlight('DiagnosticInfo').fg,
-        magenta = utils.get_highlight('DiagnosticHint').fg,
-        orange = utils.get_highlight('DiagnosticWarn').fg,
+        cyan = utils.get_highlight('Identifier').fg,
+        green = utils.get_highlight('String').fg,
+        magenta = utils.get_highlight('Statement').fg,
+        orange = utils.get_highlight('Constant').fg,
         red = utils.get_highlight('DiagnosticError').fg,
-        gray = utils.get_highlight('NonText').fg,
       }
     end
     heirline.load_colors(setup_colors())
@@ -70,18 +23,46 @@ return {
     local Align = { provider = '%=' }
     local Space = { provider = ' ' }
 
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'HeirlineInitWinbar',
-      callback = function(a)
-        local buf = a.buf
-        local buftype = vim.tbl_contains({ 'prompt', 'nofile' }, vim.bo[buf].buftype)
-        local filetype = vim.tbl_contains({ 'gitcommit' }, vim.bo[buf].filetype)
+    local group = vim.api.nvim_create_augroup('mine__heirline', {})
 
-        if (buftype or filetype) and vim.bo[buf].filetype ~= 'lir' then
+    vim.api.nvim_create_autocmd('User', {
+      group = group,
+      pattern = 'HeirlineInitWinbar',
+      callback = function()
+        local buftype = vim.tbl_contains({ 'prompt', 'nofile' }, vim.bo.buftype)
+        local filetype = vim.tbl_contains({ 'gitcommit' }, vim.bo.filetype)
+
+        if (buftype or filetype) and vim.bo.filetype ~= 'lir' then
           vim.opt_local.winbar = nil
         end
       end,
     })
+
+    if vim.fn.executable('git') == 1 and util.is_git_repo() then
+      vim.api.nvim_create_autocmd('User', {
+        group = group,
+        pattern = 'HeirlineInitWinbar',
+        once = true,
+        callback = function()
+          local timer = vim.loop.new_timer()
+          if timer then
+            timer:start(0, 10000, function()
+              util.job(
+                'git',
+                { 'rev-list', '--count', '--left-right', 'HEAD...@{upstream}' },
+                vim.schedule_wrap(function(_, data)
+                  local ahead, behind = unpack(vim.split(data or '', '\t'))
+                  vim.api.nvim_set_var('git_rev', {
+                    ahead = tonumber(ahead) or 0,
+                    behind = tonumber(behind) or 0,
+                  })
+                end)
+              )
+            end)
+          end
+        end,
+      })
+    end
 
     local ViMode = {
       init = function(self)
@@ -164,18 +145,12 @@ return {
       init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
       end,
-      on_click = {
-        name = 'heirline_filename',
-        callback = function(self)
-          vim.cmd.edit(vim.fs.dirname(self.filename))
-        end,
-      },
     }
 
     local FileIcon = {
       init = function(self)
         local filename = vim.fs.basename(self.filename)
-        local extension = fn.fnamemodify(filename, ':e')
+        local extension = vim.fn.fnamemodify(filename, ':e')
         local ok, devicons = pcall(require, 'nvim-web-devicons')
         if ok then
           self.icon, self.icon_color =
@@ -192,69 +167,37 @@ return {
 
     local FileName = {
       provider = '%t',
-      hl = { bold = false },
     }
 
     local FilePath = {
       provider = function(self)
-        local filepath = fn.fnamemodify(self.filename, ':.:h')
+        local filepath = vim.fn.fnamemodify(self.filename, ':.:h')
         if not filepath then
           return
         end
         if not conditions.width_percent_below(#filepath, 0.5) then
-          filepath = fn.pathshorten(filepath)
+          filepath = vim.fn.pathshorten(filepath)
         end
         return filepath
       end,
-      hl = { fg = utils.get_highlight('Comment').fg },
+      hl = 'Comment',
     }
 
     local FileFlags = {
       {
-        condition = function()
-          return not vim.bo.modified and not vim.bo.readonly
-        end,
-        -- a small performance improvement:
-        -- re register the component callback only on layout/buffer changes.
-        update = { 'WinNew', 'WinClosed', 'BufEnter' },
-        Space,
-        {
-          provider = '',
-          hl = { fg = 'gray' },
-          on_click = {
-            callback = function(_, winid)
-              pcall(vim.api.nvim_win_close, winid, true)
-            end,
-            name = function(self)
-              return 'heirline_close_button_' .. self.winnr
-            end,
-            update = true,
-          },
-        },
+        provider = '%M', -- '
+        hl = 'DiagnosticWarn',
       },
       {
-        condition = function()
-          return vim.bo.modified
-        end,
-        provider = ' ●', -- '
-        hl = { fg = 'cyan' },
-      },
-      {
-        condition = function()
-          return not vim.bo.modifiable or vim.bo.readonly
-        end,
-        provider = ' ',
-        hl = { fg = 'diag_warn' },
+        provider = '%R',
+        hl = 'DiagnosticWarn',
       },
     }
 
     FileNameBlock = utils.insert(FileNameBlock, FileIcon, FileName, FileFlags, Space, FilePath)
 
     local FileType = {
-      provider = function()
-        return vim.bo.filetype
-      end,
-      hl = { fg = utils.get_highlight('Comment').fg },
+      provider = '%Y',
     }
 
     local FileEncoding = {
@@ -262,57 +205,31 @@ return {
         local encoding = (vim.bo.fileencoding ~= '' and vim.bo.fileencoding) or vim.o.encoding
         return string.upper(encoding)
       end,
-      hl = { fg = utils.get_highlight('Comment').fg },
     }
 
     local FileFormat = {
       provider = function()
         return vim.bo.fileformat:upper()
       end,
-      hl = { fg = utils.get_highlight('Comment').fg },
     }
 
     local Ruler = {
-      {
-        provider = function()
-          return '%3l'
-        end,
-      },
-      {
-        provider = function()
-          return '/%3L:'
-        end,
-        hl = { fg = utils.get_highlight('Comment').fg },
-      },
-      {
-        provider = function()
-          return '%3c'
-        end,
-      },
+      provider = '%3l/%3L:%3c',
     }
 
     local LSPActive = {
       condition = conditions.lsp_attached,
       update = { 'LspAttach', 'LspDetach' },
-      on_click = {
-        name = 'heirline_lsp',
-        callback = function()
-          -- use vim.defer_fn() if the callback requires opening of a floating window
-          vim.defer_fn(function()
-            vim.cmd.LspInfo()
-          end, 100)
-        end,
-      },
       provider = function()
         local clients = table.concat(vim.tbl_map(function(client)
-          return client and string.format('%.4s…', client.name) or ''
+          return client and string.len(client.name) > 3 and string.format('%.3s…', client.name)
+            or ''
         end, vim.lsp.get_active_clients({ bufnr = 0 })) or {}, ' ')
         if not conditions.width_percent_below(#clients, 0.25) then
           return
         end
         return clients
       end,
-      hl = { fg = utils.get_highlight('Comment').fg },
     }
 
     local Diagnostics = {
@@ -332,45 +249,29 @@ return {
       update = function()
         return vim.api.nvim_get_mode().mode:sub(1, 1) ~= 'i'
       end,
-      -- update = { 'DiagnosticChanged', 'BufEnter' },
-      on_click = {
-        name = 'heirline_diagnostics',
-        callback = function()
-          local qf = fn.getqflist({ winid = 0, title = 0 })
-          if not qf then
-            return
-          end
-
-          if qf.winid ~= 0 and qf.title == 'Diagnostics' then
-            vim.cmd.cclose()
-          else
-            vim.diagnostic.setqflist()
-          end
-        end,
-      },
       {
         provider = function(self)
           return self.errors > 0 and self.error_icon .. self.errors .. ' '
         end,
-        hl = { fg = 'diag_error' },
+        hl = 'DiagnosticError',
       },
       {
         provider = function(self)
           return self.warnings > 0 and self.warn_icon .. self.warnings .. ' '
         end,
-        hl = { fg = 'diag_warn' },
+        hl = 'DiagnosticWarn',
       },
       {
         provider = function(self)
           return self.info > 0 and self.info_icon .. self.info .. ' '
         end,
-        hl = { fg = 'diag_info' },
+        hl = 'DiagnosticInfo',
       },
       {
         provider = function(self)
           return self.hints > 0 and self.hint_icon .. self.hints
         end,
-        hl = { fg = 'diag_hint' },
+        hl = 'DiagnosticHint',
       },
     }
 
@@ -378,18 +279,11 @@ return {
       condition = conditions.is_git_repo,
       init = function(self)
         self.status_dict = vim.b.gitsigns_status_dict
-        self.has_changes = self.status_dict.added ~= 0
-          or self.status_dict.removed ~= 0
-          or self.status_dict.changed ~= 0
       end,
       {
         provider = function(self)
-          return icons.git.branch
-            .. ' '
-            .. self.status_dict.head
-            .. (self.has_changes and '*' or '')
+          return icons.git.branch .. ' ' .. self.status_dict.head
         end,
-        hl = { fg = 'magenta' },
       },
       {
         condition = function()
@@ -401,12 +295,6 @@ return {
         end,
         hl = { fg = 'orange' },
       },
-      on_click = {
-        name = 'heirline_Neogit',
-        callback = function()
-          vim.cmd.Neogit()
-        end,
-      },
     }
 
     local GitStatus = {
@@ -414,69 +302,26 @@ return {
       init = function(self)
         self.status_dict = vim.b.gitsigns_status_dict
       end,
-      on_click = {
-        name = 'heirline_gitstatus',
-        callback = function()
-          local qf = fn.getqflist({ winid = 0, title = 0 })
-          if not qf then
-            return
-          end
-
-          if qf.winid ~= 0 and qf.title == 'Hunks' then
-            vim.cmd.cclose()
-          else
-            require('gitsigns').setqflist()
-          end
-        end,
-      },
       {
         provider = function(self)
           local count = self.status_dict.added or 0
           return count > 0 and icons.git.add .. ' ' .. count .. ' '
         end,
-        hl = { fg = 'git_add' },
+        hl = 'DiagnosticHint',
       },
       {
         provider = function(self)
           local count = self.status_dict.removed or 0
           return count > 0 and icons.git.remove .. ' ' .. count .. ' '
         end,
-        hl = { fg = 'git_removed' },
+        hl = 'DiagnosticError',
       },
       {
         provider = function(self)
           local count = self.status_dict.changed or 0
           return count > 0 and icons.git.change .. ' ' .. count
         end,
-        hl = { fg = 'git_changed' },
-      },
-    }
-
-    local WorkDir = {
-      on_click = {
-        name = 'heirline_workdir',
-        callback = function()
-          vim.defer_fn(function()
-            vim.cmd.edit('.')
-          end, 100)
-        end,
-      },
-      {
-        provider = function()
-          return (fn.haslocaldir() == 1 and 'L' or fn.haslocaldir(-1, 0) == 1 and 'T' or 'G')
-        end,
-        hl = { fg = utils.get_highlight('Comment').fg },
-      },
-      Space,
-      {
-        provider = function()
-          local cwd = fn.fnamemodify(vim.fn.getcwd(), ':~')
-          if not conditions.width_percent_below(#cwd, 0.25) then
-            cwd = fn.pathshorten(cwd)
-          end
-          return cwd
-        end,
-        hl = { fg = utils.get_highlight('Directory').fg },
+        hl = 'DiagnosticWarn',
       },
     }
 
@@ -484,7 +329,6 @@ return {
       provider = function()
         return vim.b.term_title
       end,
-      hl = { fg = utils.get_highlight('Directory').fg },
     }
 
     local QuickfixName = {
@@ -492,8 +336,8 @@ return {
         return vim.bo.filetype == 'qf'
       end,
       init = function(self)
-        self.qflist = fn.getqflist({ winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
-        self.loclist = fn.getloclist(0, { winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
+        self.qflist = vim.fn.getqflist({ winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
+        self.loclist = vim.fn.getloclist(0, { winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
         self.qf_open = self.qflist.winid ~= 0
         self.loc_open = self.loclist.winid ~= 0
       end,
@@ -502,7 +346,7 @@ return {
         provider = function(self)
           return self.qf_open and 'Q' or self.loc_open and 'L' or ''
         end,
-        hl = { fg = 'gray' },
+        hl = 'NonText',
       },
       Space,
       {
@@ -520,28 +364,19 @@ return {
             or ''
           return string.format('[%s / %s]', idx, size)
         end,
-        hl = { fg = 'gray' },
+        hl = 'NonText',
       },
       Space,
       {
         provider = function(self)
           local nr = self.qf_open and self.qflist.nr or self.loc_open and self.loclist.nr or ''
-          local nrs = self.qf_open and fn.getqflist({ nr = '$' }).nr
-            or self.loc_open and fn.getloclist(0, { nr = '$' }).nr
+          local nrs = self.qf_open and vim.fn.getqflist({ nr = '$' }).nr
+            or self.loc_open and vim.fn.getloclist(0, { nr = '$' }).nr
             or ''
           return string.format('(%s of %s)', nr, nrs)
         end,
-        hl = { fg = 'gray' },
+        hl = 'NonText',
       },
-    }
-
-    local HelpFileName = {
-      condition = function()
-        return vim.bo.filetype == 'help'
-      end,
-      provider = function()
-        return ' ' .. '%t'
-      end,
     }
 
     local LirName = {
@@ -550,7 +385,7 @@ return {
       end,
       init = function(self)
         local dir = require('lir').get_context().dir
-        self.dir = fn.fnamemodify(dir, ':.:h')
+        self.dir = vim.fn.fnamemodify(dir, ':.:h')
         self.show_hidden_files = require('lir.config').values.show_hidden_files
       end,
       Space,
@@ -558,9 +393,7 @@ return {
         provider = function(self)
           return self.dir
         end,
-        hl = function()
-          return { fg = utils.get_highlight('Comment').fg }
-        end,
+        hl = 'Comment',
       },
       Space,
       {
@@ -568,7 +401,7 @@ return {
           return self.show_hidden_files and ' ' or ' '
         end,
         hl = function(self)
-          return { fg = self.show_hidden_files and 'diag_warn' or 'gray' }
+          return self.show_hidden_files and 'DiagnosticWarn' or 'NonText'
         end,
       },
     }
@@ -586,7 +419,7 @@ return {
       {
         condition = function()
           return conditions.buffer_matches({
-            buftype = { 'nofile', 'prompt' },
+            buftype = { 'nofile', 'prompt', 'terminal' },
             filetype = { '^git.*' },
           })
         end,
@@ -595,7 +428,6 @@ return {
         end,
       },
       QuickfixName,
-      HelpFileName,
       {
         Space,
         FileNameBlock,
@@ -606,10 +438,7 @@ return {
         Space,
       },
       hl = function()
-        return {
-          bg = conditions.is_active() and utils.get_highlight('WinBar').bg
-            or utils.get_highlight('WinBarNC').bg,
-        }
+        return conditions.is_active() and 'WinBar' or 'WinBarNC'
       end,
     }
 
@@ -624,11 +453,7 @@ return {
     }
 
     local TabPages = {
-      condition = function()
-        return #vim.api.nvim_list_tabpages() >= 2
-      end,
       utils.make_tablist(Tabpage),
-      Align,
     }
 
     local TabLine = { TabPages }
@@ -638,21 +463,15 @@ return {
         return vim.o.laststatus == 0
       end,
       provider = function()
-        local winwidth = vim.api.nvim_win_get_width(0)
-        return string.rep('─', winwidth)
+        return string.rep('─', vim.api.nvim_win_get_width(0))
       end,
-      hl = {
-        fg = utils.get_highlight('WinSeparator').fg,
-        bg = utils.get_highlight('WinSeparator').bg,
-      },
+      hl = 'WinSeparator',
     }
 
     local DefaultStatusLine = {
       ViMode,
       Space,
       Git,
-      Align,
-      WorkDir,
       Align,
       Spell,
       Space,
@@ -683,8 +502,6 @@ return {
       end,
       ViMode,
       Align,
-      WorkDir,
-      Align,
       FileType,
       Space,
       Ruler,
@@ -695,7 +512,6 @@ return {
         return conditions.buffer_matches({ buftype = { 'terminal' } })
       end,
       { condition = conditions.is_active, ViMode, Space },
-      Align,
       TerminalTitle,
       Align,
       Ruler,
@@ -709,17 +525,12 @@ return {
       InactiveStatusLine,
       DefaultStatusLine,
       hl = function()
-        return {
-          fg = conditions.is_active() and utils.get_highlight('StatusLine').fg
-            or utils.get_highlight('StatusLineNC').fg,
-          bg = conditions.is_active() and utils.get_highlight('StatusLine').bg
-            or utils.get_highlight('StatusLineNC').bg,
-        }
+        return conditions.is_active() and 'StatusLine' or 'StatusLineNC'
       end,
     }
 
     vim.api.nvim_create_autocmd('ColorScheme', {
-      group = vim.api.nvim_create_augroup('mine__heirline', {}),
+      group = group,
       callback = function()
         utils.on_colorscheme(setup_colors())
       end,

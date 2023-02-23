@@ -70,6 +70,7 @@ vim.o.scrolloff = 4
 vim.o.sidescrolloff = 8
 vim.opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
 vim.o.shiftround = true
+vim.o.showtabline = 2
 vim.opt.shortmess:append({
   C = true,
   I = true,
