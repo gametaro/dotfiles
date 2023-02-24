@@ -32,9 +32,10 @@ return {
       require('mini.indentscope').textobject(true)
     end, { desc = 'Object Scope With Border' })
 
-    local group = vim.api.nvim_create_augroup('mine__mini', {})
-
     require('mini.comment').setup({
+      options = {
+        ignore_blank_line = true,
+      },
       hooks = {
         pre = function()
           require('ts_context_commentstring.internal').update_commentstring()
