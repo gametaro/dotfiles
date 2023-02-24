@@ -84,6 +84,7 @@ return {
     end
 
     require('gitsigns').setup({
+      numhl = true,
       preview_config = {
         border = vim.g.border,
       },
