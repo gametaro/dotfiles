@@ -85,7 +85,7 @@ end
 ---@param client table
 ---@param buffer integer
 local function on_attach(client, buffer)
-  -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = buffer, desc = 'Goto definition' })
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = buffer, desc = 'Goto definition' })
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = buffer, desc = 'Goto declaration' })
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, { buffer = buffer, desc = 'References' })
   vim.keymap.set(
