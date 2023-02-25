@@ -17,11 +17,5 @@ return {
       require('substitute.exchange').cancel()
     end, { desc = 'Exchange' })
   end,
-  config = function()
-    require('substitute').setup({
-      on_substitute = function(event)
-        require('yanky').init_ring('p', event.register, event.count, event.vmode:match('[vV]'))
-      end,
-    })
-  end,
+  config = true,
 }
