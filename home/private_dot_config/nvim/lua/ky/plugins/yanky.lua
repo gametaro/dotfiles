@@ -1,5 +1,6 @@
 return {
   'gbprod/yanky.nvim',
+  enabled = false,
   keys = {
     { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' } },
     { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' } },
