@@ -66,7 +66,7 @@ local hue_base = 220
 -- Normal
 local bg1 = hsluv.hsluv_to_hex({ hue_base, 25, 12 })
 -- Statusline
-local bg2 = M.saturate_lighten(bg1, 0, -5)
+local bg2 = M.saturate_lighten(bg1, 0, -3)
 -- Pmenu
 local bg3 = M.saturate_lighten(bg1, 0, 6)
 -- CursorLine
@@ -228,14 +228,14 @@ M.groups = {
   StatuslineNC = { fg = M.lighten(fg1, -10), bg = M.lighten(bg2, -3) },
   Tabline = { fg = fg2, bg = bg2 },
   TablineFill = { bg = bg2 },
-  TablineSel = { link = 'Normal' },
+  TablineSel = { link = 'Winbar' },
   Title = { fg = M.palette.blue, bold = true },
-  Visual = { bg = M.tint.blue.bg },
-  VisualNOS = { bg = M.blend(M.palette.blue, bg1, 0.5) },
+  Visual = { bg = M.tint.lgreen.bg },
+  VisualNOS = { bg = M.blend(M.palette.lgreen, bg1, 0.5) },
   WarningMsg = { fg = M.palette.orange },
   WhiteSpace = { fg = fg6 },
   WildMenu = { fg = fg2, bg = M.lighten(bg2, 5) },
-  Winbar = { link = 'Normal' },
+  Winbar = { fg = fg1, bg = M.saturate_lighten(bg1, 15, 3) },
   WinbarNC = { link = 'NormalNC' },
   -- Menu = {},
   Scrollbar = { fg = fg2, bg = bg2 },
