@@ -1,37 +1,50 @@
 local blend = 0
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ','
-vim.g.nerd = false
-
-local ui = require('ky.ui')
-vim.g.border = ui.border.single
+---@param options string[]
+---@param append? boolean
+---@return string
+local function list(options, append)
+  append = append or false
+  local ret = ''
+  if append then
+    ret = ','
+  end
+  if vim.tbl_islist(options) then
+    return ret .. table.concat(options, ',')
+  end
+  local t = {}
+  for key, value in pairs(options) do
+    table.insert(t, key .. ':' .. value)
+  end
+  return ret .. table.concat(t, ',')
+end
 
 vim.o.autowriteall = true
 vim.o.backup = true
-vim.opt.backupdir = { vim.fn.stdpath('state') .. '/backup//', '.' }
+vim.o.backupdir = list({ vim.fn.stdpath('state') .. '/backup//', '.' })
 vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
-vim.opt.backupskip:append({ '*/.git/*' })
+vim.o.backupskip = vim.o.backupskip .. ',*/.git/*'
 vim.o.cmdheight = 0
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.o.completeopt = list({ 'menu', 'menuone', 'noselect' })
 vim.o.confirm = true
 vim.o.copyindent = true
-vim.opt.diffopt:append({
-  'algorithm:histogram',
-  'indent-heuristic',
-  'vertical',
-  'linematch:60',
-})
+vim.o.diffopt = vim.o.diffopt
+  .. list({
+    'algorithm:histogram',
+    'indent-heuristic',
+    'vertical',
+    'linematch:60',
+  }, true)
 vim.o.emoji = false
 vim.o.exrc = true
-vim.opt.fileformats = { 'unix', 'dos' }
-vim.opt.fillchars = {
+vim.o.fileformats = list({ 'unix', 'dos' })
+vim.o.fillchars = list({
   diff = '╱', -- '/',
   eob = ' ',
   fold = ' ',
-  foldopen = ui.icons.chevron.down,
+  foldopen = require('ky.ui').icons.chevron.down,
   foldsep = ' ',
-  foldclose = ui.icons.chevron.right,
+  foldclose = require('ky.ui').icons.chevron.right,
   -- horiz = '━',
   -- horizup = '┻',
   -- horizdown = '┳',
@@ -39,61 +52,43 @@ vim.opt.fillchars = {
   -- vertleft = '┫',
   -- vertright = '┣',
   -- verthoriz = '╋',
-}
--- |fo-table|
-vim.opt.formatoptions:remove({
-  'c',
-  'o',
-  'r',
 })
 vim.o.ignorecase = true
 vim.o.inccommand = 'split'
-vim.opt.isfname:remove({ '=' })
 vim.o.jumpoptions = 'view'
 vim.o.laststatus = 3
 vim.o.list = true
-vim.opt.listchars = {
-  -- eol = '↵',
+vim.o.listchars = list({
+  eol = '↵',
   extends = '»',
   precedes = '«',
   tab = '>-',
   trail = '·',
-}
+})
 vim.o.modeline = false
 vim.o.preserveindent = true
 vim.o.pumblend = blend
 vim.o.pumheight = 10
 vim.o.report = 99999
-vim.o.ruler = false
-vim.opt.shada:append({ 'r/tmp', 'rterm', 'rhealth' })
 vim.o.scrolloff = 4
-vim.o.sidescrolloff = 8
-vim.opt.sessionoptions = { 'buffers', 'tabpages', 'winpos', 'winsize' }
+vim.o.sessionoptions = list({ 'buffers', 'tabpages', 'winpos', 'winsize' })
+vim.o.shada = vim.o.shada .. list({ 'r/tmp', 'rterm', 'rhealth' }, true)
 vim.o.shiftround = true
+vim.o.shortmess = vim.o.shortmess .. 'CIWcs'
+vim.o.showbreak = '↳ '
 vim.o.showtabline = 2
-vim.opt.shortmess:append({
-  C = true,
-  I = true,
-  -- S = true,
-  W = true,
-  -- a = true,
-  c = true,
-  s = true,
-})
--- opt.showbreak = '↳ '
-vim.o.showcmd = false
-vim.o.showmode = false
+vim.o.sidescrolloff = 8
 vim.o.signcolumn = 'yes'
 vim.o.smartcase = true
 vim.o.smartindent = true
 vim.o.spellcapcheck = ''
-vim.opt.spelllang = { 'en', 'cjk' }
-vim.opt.spelloptions = { 'camel', 'noplainbuffer' }
-vim.o.splitbelow = true
+vim.o.spelllang = list({ 'en', 'cjk' })
+vim.o.spelloptions = list({ 'camel', 'noplainbuffer' })
+-- vim.o.splitbelow = true
 vim.o.splitkeep = 'screen'
-vim.o.splitright = true
+-- vim.o.splitright = true
 vim.o.swapfile = false
-vim.opt.switchbuf = { 'useopen', 'uselast' }
+vim.o.switchbuf = list({ 'useopen', 'uselast' })
 vim.o.termguicolors = true
 vim.o.tildeop = true
 vim.o.timeoutlen = 500
@@ -107,8 +102,8 @@ vim.o.wildoptions = 'fuzzy'
 vim.o.winblend = blend
 vim.o.winminwidth = 6
 vim.o.wrap = false
-vim.o.statuscolumn =
-  '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " " } '
+-- vim.o.statuscolumn =
+--   '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " " } '
 
 if vim.fn.executable('git') == 1 and require('ky.util').is_git_repo() then
   vim.o.grepprg = 'git --no-pager grep -I -E --no-color --line-number --column'
