@@ -71,7 +71,7 @@ vim.keymap.set('n', 'q$', last, { desc = 'Goto last' })
 vim.keymap.set('n', ']q', next, { desc = 'Goto next' })
 vim.keymap.set('n', '[q', prev, { desc = 'Goto previous' })
 
--- |quickfix-window-function|
+---|quickfix-window-function|
 ---@class Info
 ---@field quickfix 1|0
 ---@field winid integer
@@ -101,7 +101,7 @@ local function format_fname(fname, limit)
   return #fname <= limit and fname_fmt1:format(fname) or fname_fmt2:format(fname:sub(1 - limit))
 end
 
--- |getqflist()|
+---|getqflist()|
 ---@class Item
 ---@field bufnr integer
 ---@field module string
