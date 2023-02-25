@@ -1,4 +1,6 @@
 return {
+  { 'b0o/schemastore.nvim' },
+  { 'smjonas/inc-rename.nvim', cmd = 'IncRename', config = true },
   {
     'williamboman/mason.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -10,7 +12,6 @@ return {
       },
     },
   },
-  { 'b0o/schemastore.nvim' },
   {
     'folke/neodev.nvim',
     config = function()
