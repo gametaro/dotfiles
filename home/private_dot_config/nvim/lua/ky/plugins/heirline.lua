@@ -52,10 +52,10 @@ return {
                 { 'rev-list', '--count', '--left-right', 'HEAD...@{upstream}' },
                 vim.schedule_wrap(function(_, data)
                   local ahead, behind = unpack(vim.split(data or '', '\t'))
-                  vim.api.nvim_set_var('git_rev', {
+                  vim.g.git_rev = {
                     ahead = tonumber(ahead) or 0,
                     behind = tonumber(behind) or 0,
-                  })
+                  }
                 end)
               )
               util.job(
@@ -303,7 +303,7 @@ return {
       },
       {
         condition = function()
-          return pcall(vim.api.nvim_get_var, 'git_rev')
+          return vim.g.git_rev ~= nil
         end,
         provider = function()
           return (vim.g.git_rev.ahead > 0 and ' ' .. icons.git.ahead .. vim.g.git_rev.ahead or '')
