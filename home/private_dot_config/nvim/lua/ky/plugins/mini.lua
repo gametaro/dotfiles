@@ -79,6 +79,24 @@ return {
             }
           end, vim.diagnostic.get(0))
         end,
+        -- treesitter-unit
+        u = function()
+          local node = vim.treesitter.get_node()
+          if node == nil then
+            return node
+          end
+          local parent = node:parent()
+          local start = node:start()
+          while parent ~= nil and parent:start() == start do
+            node = parent
+            parent = node:parent()
+          end
+          local from_line, from_col, to_line, to_col = node:range()
+          return {
+            from = { line = from_line + 1, col = from_col + 1 },
+            to = { line = to_line + 1, col = to_col },
+          }
+        end,
       },
       mappings = {
         around_last = '',
