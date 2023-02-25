@@ -25,6 +25,13 @@ return {
 
     local group = vim.api.nvim_create_augroup('mine__heirline', {})
 
+    vim.api.nvim_create_autocmd('ColorScheme', {
+      group = group,
+      callback = function()
+        utils.on_colorscheme(setup_colors())
+      end,
+    })
+
     vim.api.nvim_create_autocmd('User', {
       group = group,
       pattern = 'HeirlineInitWinbar',
@@ -544,13 +551,6 @@ return {
         return conditions.is_active() and 'StatusLine' or 'StatusLineNC'
       end,
     }
-
-    vim.api.nvim_create_autocmd('ColorScheme', {
-      group = group,
-      callback = function()
-        utils.on_colorscheme(setup_colors())
-      end,
-    })
 
     heirline.setup({
       statusline = StatusLines,
