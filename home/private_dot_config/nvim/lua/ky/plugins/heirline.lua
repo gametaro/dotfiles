@@ -58,6 +58,13 @@ return {
                   })
                 end)
               )
+              util.job(
+                'git',
+                { 'status', '--porcelain', '--untracked-files=no' },
+                vim.schedule_wrap(function(_, data)
+                  vim.g.git_status = data ~= '' and true or false
+                end)
+              )
             end)
           end
         end,
@@ -284,6 +291,15 @@ return {
         provider = function(self)
           return icons.git.branch .. ' ' .. self.status_dict.head
         end,
+      },
+      {
+        condition = function()
+          return vim.g.git_status ~= nil
+        end,
+        provider = function()
+          return vim.g.git_status and '*' or ''
+        end,
+        hl = { fg = 'orange' },
       },
       {
         condition = function()
