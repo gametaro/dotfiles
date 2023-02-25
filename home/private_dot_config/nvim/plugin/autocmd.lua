@@ -40,25 +40,22 @@ autocmd('TextYankPost', {
   desc = 'Highlight yanked region',
 })
 
-if vim.fn.executable('chezmoi') == 1 then
-  local source_dir = vim.json.decode(vim.fn.system({ 'chezmoi', 'data' })).chezmoi.sourceDir
-  if source_dir then
-    autocmd('BufWritePost', {
-      pattern = source_dir .. '/*',
-      callback = function(a)
-        require('ky.util').job(
-          'chezmoi',
-          { 'apply', '--no-tty', '--source-path', a.match },
-          function(code, data)
-            if code ~= 0 then
-              vim.notify(data, vim.log.levels.WARN)
-            end
+if vim.env.CHEZMOI_WORKING_TREE then
+  autocmd('BufWritePost', {
+    pattern = vim.env.CHEZMOI_WORKING_TREE .. '/*',
+    callback = function(a)
+      require('ky.util').job(
+        'chezmoi',
+        { 'apply', '--no-tty', '--source-path', a.match },
+        function(code, data)
+          if code ~= 0 then
+            vim.notify(data, vim.log.levels.WARN)
           end
-        )
-      end,
-      desc = 'Run chezmoi apply whenever dotfiles were saved',
-    })
-  end
+        end
+      )
+    end,
+    desc = 'Run chezmoi apply whenever dotfiles were saved',
+  })
 end
 
 autocmd({ 'BufLeave', 'WinLeave', 'FocusLost' }, {
