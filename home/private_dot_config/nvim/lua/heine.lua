@@ -70,7 +70,7 @@ local bg2 = M.saturate_lighten(bg1, 0, -3)
 -- Pmenu
 local bg3 = M.saturate_lighten(bg1, 0, 6)
 -- CursorLine
-local bg4 = M.saturate_lighten(bg1, 15, 3)
+local bg4 = M.saturate_lighten(bg1, 25, 4)
 -- MatchParen
 local bg5 = M.saturate_lighten(bg1, 8, 13)
 -- PmenuSel
