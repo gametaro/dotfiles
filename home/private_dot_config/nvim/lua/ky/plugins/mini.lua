@@ -80,16 +80,19 @@ return {
           end, vim.diagnostic.get(0))
         end,
         -- treesitter-unit
-        u = function()
+        u = function(type)
           local node = vim.treesitter.get_node()
           if node == nil then
             return node
           end
-          local parent = node:parent()
-          local start = node:start()
-          while parent ~= nil and parent:start() == start do
-            node = parent
-            parent = node:parent()
+          if type == 'a' then
+            local parent = node:parent()
+            local start = node:start()
+            local end_ = node:end_()
+            while parent ~= nil and parent:start() == start and parent:end_() == end_ do
+              node = parent
+              parent = node:parent()
+            end
           end
           local from_line, from_col, to_line, to_col = node:range()
           return {
