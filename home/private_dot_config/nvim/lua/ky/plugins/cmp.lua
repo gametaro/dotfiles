@@ -27,7 +27,7 @@ return {
     local api = vim.api
 
     ---@see https://github.com/lukas-reineke/cmp-under-comparator
-    local compare_under_comparator = function(entry1, entry2)
+    local function compare_under_comparator(entry1, entry2)
       local _, entry1_under = entry1.completion_item.label:find('^_+')
       local _, entry2_under = entry2.completion_item.label:find('^_+')
 
@@ -97,7 +97,7 @@ return {
       },
       formatting = {
         deprecated = true,
-        fields = { 'kind', 'abbr' },
+        fields = vim.g.nerd and { 'kind', 'abbr' } or { 'abbr', 'kind' },
         format = function(entry, vim_item)
           if vim.tbl_contains({ 'path' }, entry.source.name) then
             local ok, devicons = pcall(require, 'nvim-web-devicons')
@@ -193,16 +193,5 @@ return {
         { name = 'buffer' },
       }),
     })
-
-    -- require('nvim-autopairs').setup({
-    --   check_ts = true,
-    --   enable_check_bracket_line = true,
-    --   fast_wrap = {},
-    --   map_c_h = true,
-    --   map_c_w = true,
-    -- })
-    --
-    -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-    -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
   end,
 }
