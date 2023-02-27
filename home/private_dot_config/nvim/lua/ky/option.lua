@@ -101,7 +101,6 @@ vim.o.wildignorecase = true
 vim.o.wildoptions = 'fuzzy'
 vim.o.winblend = blend
 vim.o.winminwidth = 6
-vim.o.wrap = false
 -- vim.o.statuscolumn =
 --   '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " " } '
 
