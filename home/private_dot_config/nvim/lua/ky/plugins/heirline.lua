@@ -255,10 +255,10 @@ return {
         self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
       end,
       static = {
-        error_icon = string.format('%s ', icons.diagnostic.error),
-        warn_icon = string.format('%s ', icons.diagnostic.warn),
-        info_icon = string.format('%s ', icons.diagnostic.info),
-        hint_icon = string.format('%s ', icons.diagnostic.hint),
+        error_icon = vim.fn.sign_getdefined('DiagnosticSignError')[1].text,
+        warn_icon = vim.fn.sign_getdefined('DiagnosticSignWarn')[1].text,
+        info_icon = vim.fn.sign_getdefined('DiagnosticSignInfo')[1].text,
+        hint_icon = vim.fn.sign_getdefined('DiagnosticSignHint')[1].text,
       },
       update = function()
         return vim.api.nvim_get_mode().mode:sub(1, 1) ~= 'i'
