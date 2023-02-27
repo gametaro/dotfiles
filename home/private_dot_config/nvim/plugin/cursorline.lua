@@ -76,7 +76,8 @@ local function on_cursor_moved(a)
     return
   end
 
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local row = vim.fn.line('.')
+  local col = vim.fn.virtcol('.')
   vim.b.cursor_pos = vim.b.cursor_pos or {}
   vim.b.cursor_pos = { vim.b.cursor_pos[1] or row, vim.b.cursor_pos[2] or col }
 
