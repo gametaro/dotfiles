@@ -20,9 +20,6 @@ return {
     end
     heirline.load_colors(setup_colors())
 
-    local Align = { provider = '%=' }
-    local Space = { provider = ' ' }
-
     local group = vim.api.nvim_create_augroup('mine__heirline', {})
 
     vim.api.nvim_create_autocmd('ColorScheme', {
@@ -78,16 +75,12 @@ return {
       })
     end
 
+    local Align = { provider = '%=' }
+    local Space = { provider = ' ' }
+
     local ViMode = {
       init = function(self)
         self.mode = vim.api.nvim_get_mode().mode
-        if not self.once then
-          vim.api.nvim_create_autocmd('ModeChanged', {
-            pattern = '*:*o',
-            command = 'redrawstatus',
-          })
-          self.once = true
-        end
       end,
       static = {
         mode_names = {
@@ -148,10 +141,7 @@ return {
       end,
       hl = function(self)
         local mode = self.mode:sub(1, 1)
-        return {
-          fg = self.mode_colors[mode],
-          bold = true,
-        }
+        return { fg = self.mode_colors[mode] }
       end,
     }
 
@@ -217,7 +207,7 @@ return {
     local FileEncoding = {
       provider = function()
         local encoding = (vim.bo.fileencoding ~= '' and vim.bo.fileencoding) or vim.o.encoding
-        return string.upper(encoding)
+        return encoding:upper()
       end,
     }
 
@@ -304,19 +294,18 @@ return {
           return vim.g.git_status ~= nil
         end,
         provider = function()
-          return vim.g.git_status and '*' or ''
+          return vim.g.git_status and '* ' or ' '
         end,
-        hl = { fg = 'orange' },
       },
       {
         condition = function()
           return vim.g.git_rev ~= nil
         end,
         provider = function()
-          return (vim.g.git_rev.ahead > 0 and ' ' .. icons.git.ahead .. vim.g.git_rev.ahead or '')
-            .. (vim.g.git_rev.behind > 0 and ' ' .. icons.git.behind .. vim.g.git_rev.behind or '')
+          return (icons.git.behind .. vim.g.git_rev.behind)
+            .. ' '
+            .. (icons.git.ahead .. vim.g.git_rev.ahead)
         end,
-        hl = { fg = 'orange' },
       },
     }
 
@@ -328,30 +317,24 @@ return {
       {
         provider = function(self)
           local count = self.status_dict.added or 0
-          return count > 0 and icons.git.add .. ' ' .. count .. ' '
+          return count > 0 and icons.git.add .. count .. ' '
         end,
         hl = 'DiagnosticHint',
       },
       {
         provider = function(self)
           local count = self.status_dict.removed or 0
-          return count > 0 and icons.git.remove .. ' ' .. count .. ' '
+          return count > 0 and icons.git.remove .. count .. ' '
         end,
         hl = 'DiagnosticError',
       },
       {
         provider = function(self)
           local count = self.status_dict.changed or 0
-          return count > 0 and icons.git.change .. ' ' .. count
+          return count > 0 and icons.git.change .. count
         end,
         hl = 'DiagnosticWarn',
       },
-    }
-
-    local TerminalTitle = {
-      provider = function()
-        return vim.b.term_title
-      end,
     }
 
     local QuickfixName = {
@@ -361,44 +344,40 @@ return {
       init = function(self)
         self.qflist = vim.fn.getqflist({ winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
         self.loclist = vim.fn.getloclist(0, { winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
-        self.qf_open = self.qflist.winid ~= 0
-        self.loc_open = self.loclist.winid ~= 0
+        self.quickfix = self.qflist.winid ~= 0
       end,
       Space,
       {
         provider = function(self)
-          return self.qf_open and 'Q' or self.loc_open and 'L' or ''
+          return self.quickfix and 'Q' or self.loc_open and 'L'
         end,
-        hl = 'NonText',
+        hl = 'Comment',
       },
       Space,
       {
         provider = function(self)
-          return self.qf_open and self.qflist.title or self.loc_open and self.loclist.title or ''
+          return self.qflist.title or self.loclist.title
         end,
-        hl = { fg = 'green' },
+        hl = 'Title',
       },
       Space,
       {
         provider = function(self)
-          local idx = self.qf_open and self.qflist.idx or self.loc_open and self.loclist.idx or ''
-          local size = self.qf_open and self.qflist.size
-            or self.loc_open and self.loclist.size
-            or ''
-          return string.format('[%s / %s]', idx, size)
+          local idx = self.quickfix and self.qflist.idx or self.loclist.idx
+          local size = self.quickfix and self.qflist.size or self.loclist.size
+          return string.format('[%s/%s]', idx, size)
         end,
-        hl = 'NonText',
+        hl = 'Comment',
       },
       Space,
       {
         provider = function(self)
-          local nr = self.qf_open and self.qflist.nr or self.loc_open and self.loclist.nr or ''
-          local nrs = self.qf_open and vim.fn.getqflist({ nr = '$' }).nr
-            or self.loc_open and vim.fn.getloclist(0, { nr = '$' }).nr
-            or ''
+          local nr = self.quickfix and self.qflist.nr or self.loclist.nr
+          local nrs = self.quickfix and vim.fn.getqflist({ nr = '$' }).nr
+            or vim.fn.getloclist(0, { nr = '$' }).nr
           return string.format('(%s of %s)', nr, nrs)
         end,
-        hl = 'NonText',
+        hl = 'Comment',
       },
     }
 
@@ -433,7 +412,7 @@ return {
       condition = function()
         return vim.wo.spell
       end,
-      provider = '暈',
+      provider = 'Spell',
     }
 
     local WinBars = {
@@ -468,6 +447,9 @@ return {
     local Tabpage = {
       provider = function(self)
         local cwd = vim.fn.fnamemodify(vim.fn.getcwd(-1, self.tabnr), ':~')
+        if not conditions.width_percent_below(#cwd, 0.25) then
+          cwd = vim.fn.pathshorten(cwd)
+        end
         return '%' .. self.tabnr .. 'T' .. ' ' .. cwd .. ' '
       end,
       hl = function(self)
@@ -509,43 +491,9 @@ return {
       Ruler,
     }
 
-    local InactiveStatusLine = {
-      condition = function()
-        return not conditions.is_active()
-      end,
-      FileNameBlock,
-    }
-
-    local SpecialStatusLine = {
-      condition = function()
-        return conditions.buffer_matches({
-          buftype = { 'nofile', 'prompt', 'help', 'quickfix' },
-          filetype = { '^git.*' },
-        })
-      end,
-      ViMode,
-      Align,
-      FileType,
-      Space,
-      Ruler,
-    }
-
-    local TerminalStatusLine = {
-      condition = function()
-        return conditions.buffer_matches({ buftype = { 'terminal' } })
-      end,
-      { condition = conditions.is_active, ViMode, Space },
-      TerminalTitle,
-      Align,
-      Ruler,
-    }
-
     local StatusLines = {
       fallthrough = false,
       DisableStatusLine,
-      SpecialStatusLine,
-      TerminalStatusLine,
-      InactiveStatusLine,
       DefaultStatusLine,
       hl = function()
         return conditions.is_active() and 'StatusLine' or 'StatusLineNC'
