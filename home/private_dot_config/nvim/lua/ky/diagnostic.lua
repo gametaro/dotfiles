@@ -15,6 +15,10 @@ end
 vim.diagnostic.config({
   severity_sort = true,
   signs = false,
+  virtual_text = {
+    prefix = '●', -- '■'
+    spacing = 0,
+  },
   float = {
     border = vim.g.border,
     source = false,
