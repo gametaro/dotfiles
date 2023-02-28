@@ -25,10 +25,12 @@ vim.o.backupdir = list({ vim.fn.stdpath('state') .. '/backup//', '.' })
 vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
 vim.o.backupskip = vim.o.backupskip .. ',*/.git/*'
 vim.o.breakindent = true
+vim.o.breakindentopt = list({ 'sbr' })
 vim.o.cmdheight = 0
 vim.o.completeopt = list({ 'menu', 'menuone', 'noselect' })
 vim.o.confirm = true
 vim.o.copyindent = true
+vim.o.cursorlineopt = list({ 'screenline', 'number' })
 vim.o.diffopt = vim.o.diffopt
   .. list({
     'algorithm:histogram',
@@ -61,7 +63,7 @@ vim.o.laststatus = 3
 vim.o.linebreak = true
 vim.o.list = true
 vim.o.listchars = list({
-  eol = '↵',
+  -- eol = '↵',
   extends = '»',
   precedes = '«',
   tab = '>-',
