@@ -81,3 +81,18 @@ end
 for _, v in ipairs({ '"', "'", '`' }) do
   vim.keymap.set({ 'x', 'o' }, v, 'i' .. v, { desc = 'Text object shortcuts' })
 end
+
+-- Idea: |mini.basics|
+vim.keymap.set('n', [[\c]], '<Cmd>setlocal cursorline! cursorline?<CR>')
+vim.keymap.set('n', [[\C]], '<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>')
+vim.keymap.set(
+  'n',
+  [[\h]],
+  '<Cmd>let v:hlsearch = 1 - v:hlsearch | echo (v:hlsearch ? "  " : "no") . "hlsearch"<CR>'
+)
+vim.keymap.set('n', [[\i]], '<Cmd>setlocal ignorecase! ignorecase?<CR>')
+vim.keymap.set('n', [[\l]], '<Cmd>setlocal list! list?<CR>')
+vim.keymap.set('n', [[\n]], '<Cmd>setlocal number! number?<CR>')
+vim.keymap.set('n', [[\N]], '<Cmd>setlocal relativenumber! relativenumber?<CR>')
+vim.keymap.set('n', [[\s]], '<Cmd>setlocal spell! spell?<CR>')
+vim.keymap.set('n', [[\w]], '<Cmd>setlocal wrap! wrap?<CR>')
