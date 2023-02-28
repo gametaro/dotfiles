@@ -103,8 +103,6 @@ vim.o.wildignorecase = true
 vim.o.wildoptions = 'fuzzy'
 vim.o.winblend = blend
 vim.o.winminwidth = 6
--- vim.o.statuscolumn =
---   '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " " } '
 
 if vim.fn.executable('git') == 1 and require('ky.util').is_git_repo() then
   vim.o.grepprg = 'git --no-pager grep -I -E --no-color --line-number --column'

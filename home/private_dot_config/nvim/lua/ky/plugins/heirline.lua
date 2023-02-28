@@ -500,8 +500,16 @@ return {
       end,
     }
 
+    local StatusColumn = {
+      {
+        provider = "%4{v:virtnum ? '' : &nu ? (&rnu && v:relnum ? v:relnum : v:lnum) . ' ' : ''}",
+      },
+      { provider = '%s' },
+    }
+
     heirline.setup({
       statusline = StatusLines,
+      statuscolumn = StatusColumn,
       winbar = WinBars,
       tabline = TabLine,
     })
