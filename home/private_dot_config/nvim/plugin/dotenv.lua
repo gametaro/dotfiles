@@ -27,10 +27,9 @@ vim.api.nvim_create_user_command('Env', function()
     title = 'dotenv',
     on_open = function(win)
       local buf = vim.api.nvim_win_get_buf(win)
-      if not vim.api.nvim_buf_is_valid(buf) then
-        return
+      if vim.api.nvim_buf_is_valid(buf) then
+        vim.bo[buf].filetype = 'markdown'
       end
-      vim.bo[buf].filetype = 'markdown'
     end,
   })
 end, {})
