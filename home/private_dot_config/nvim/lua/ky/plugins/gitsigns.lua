@@ -35,7 +35,7 @@ return {
           return ']c'
         else
           vim.schedule(function()
-            gs.next_hunk({ navigation_message = false, preview = true, greedy = false })
+            gs.next_hunk({ navigation_message = false, greedy = false })
           end)
           return '<Ignore>'
         end
@@ -45,7 +45,7 @@ return {
           return '[c'
         else
           vim.schedule(function()
-            gs.prev_hunk({ navigation_message = false, preview = true, greedy = false })
+            gs.prev_hunk({ navigation_message = false, greedy = false })
           end)
           return '<Ignore>'
         end
@@ -62,7 +62,7 @@ return {
       map('n', '<Leader>hS', gs.stage_buffer, { desc = 'Stage buffer' })
       map('n', '<Leader>hu', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
       map('n', '<Leader>hR', gs.reset_buffer, { desc = 'Reset buffer' })
-      map('n', '<Leader>hp', gs.preview_hunk, { desc = 'Preview hunk' })
+      map('n', '<Leader>hp', gs.preview_hunk_inline, { desc = 'Preview hunk' })
       map('n', '<Leader>hb', function()
         gs.blame_line({ full = true })
       end, { desc = 'Blame line' })
