@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.3.0](https://github.com/gametaro/dotfiles/compare/v2.2.0...v2.3.0) (2023-03-01)
+
+
+### Features
+
+* **heirline:** add component to check if working tree is clean ([6f65bbe](https://github.com/gametaro/dotfiles/commit/6f65bbeaf399577312cc08fa18c2d72bc1139e67))
+* **mapping:** add mappings to toggle options ([1550b55](https://github.com/gametaro/dotfiles/commit/1550b554738244b8de96cfcc0049bb82f0036208))
+* **option:** set `exrc` to true ([abdf6a9](https://github.com/gametaro/dotfiles/commit/abdf6a90bf538efac9d2bc0a1a73b711f5f07f42))
+* **plugin:** add utility to load .env file ([456d888](https://github.com/gametaro/dotfiles/commit/456d888ab658db1cc10509e6655699ecd56e5c38))
+* **ui:** add ability to toggle nerd fonts ([737ec22](https://github.com/gametaro/dotfiles/commit/737ec22b28ff128d79022983269412497c3f7e6e))
+
+
+### Bug Fixes
+
+* **cmp:** correct kind for completions ([a3ffa0d](https://github.com/gametaro/dotfiles/commit/a3ffa0d25cabcde472e2b59bc8562d81992fbc33))
+* **cursorline:** prevent deferred activation on ignored pattern ([71136c8](https://github.com/gametaro/dotfiles/commit/71136c82f8e363a3033b95c105fba348a5b7ea33))
+* **cursorline:** respect virtcol ([2b66751](https://github.com/gametaro/dotfiles/commit/2b66751a051d441ef89328c543e58db12fadc45c))
+* **devicons:** safely require module ([63c65f0](https://github.com/gametaro/dotfiles/commit/63c65f0bf40b42d71d68490e167673d3f2631c1a))
+* **dotenv:** does not return ([8e56943](https://github.com/gametaro/dotfiles/commit/8e56943132863d92ffd4655d5c30559d39a71c1f))
+* **notify:** always on top window ([39d65c7](https://github.com/gametaro/dotfiles/commit/39d65c7534e81c31c3c14b4fad56c65b26daebc6))
+* **plugins:** correct event patterns ([7a7d51e](https://github.com/gametaro/dotfiles/commit/7a7d51e04af381e4763aa281df3e03104212d7b8))
+* **substitute:** remove config related to yanky ([5f0f3c4](https://github.com/gametaro/dotfiles/commit/5f0f3c43165d83d92a9e55a8d8c1cb6b023b3892))
+* **ui:** respect `vim.g.nerd` ([a354b9f](https://github.com/gametaro/dotfiles/commit/a354b9f9135d5ec579bc71fb4c046168513aa3c8))
+
+
+### Performance Improvements
+
+* **autocmd:** simplify logic ([6a4cf94](https://github.com/gametaro/dotfiles/commit/6a4cf9411f37f644b591e68d29dc67b48b99ee3e))
+
 ## [2.2.0](https://github.com/gametaro/dotfiles/compare/v2.1.0...v2.2.0) (2023-02-20)
 
 
