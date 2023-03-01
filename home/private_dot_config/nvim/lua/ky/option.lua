@@ -25,7 +25,7 @@ vim.o.backupdir = list({ vim.fn.stdpath('state') .. '/backup//', '.' })
 vim.fn.mkdir(vim.fn.stdpath('state') .. '/backup', 'p')
 vim.o.backupskip = vim.o.backupskip .. ',*/.git/*'
 vim.o.breakindent = true
-vim.o.breakindentopt = list({ 'sbr' })
+-- vim.o.breakindentopt = list({ 'sbr' })
 vim.o.cmdheight = 0
 vim.o.completeopt = list({ 'menu', 'menuone', 'noselect' })
 vim.o.confirm = true
