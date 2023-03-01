@@ -527,7 +527,7 @@ M.groups = {
   -- GitSignsDeleteLn = {},
 
   GitSignsAddInline = { bg = M.lighten(M.tint.blue.bg, 10) },
-  GitSignsChangeInline = { bg = M.lighten(M.tint.orange.bg, 10) },
+  GitSignsChangeInline = { bg = M.lighten(M.tint.blue.bg, 10) },
   GitSignsDeleteInline = { bg = M.lighten(M.tint.red.bg, 10) },
 
   -- GitSignsAddNr = {},
