@@ -40,6 +40,9 @@ require('lazy').setup('ky.plugins', {
       },
     },
   },
+  change_detection = {
+    enabled = false,
+  },
   performance = {
     rtp = {
       disabled_plugins = {
