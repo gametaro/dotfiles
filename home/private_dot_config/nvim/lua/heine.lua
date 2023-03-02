@@ -66,7 +66,7 @@ local hue_base = 220
 -- Normal
 local bg1 = hsluv.hsluv_to_hex({ hue_base, 25, 12 })
 -- Statusline
-local bg2 = M.saturate_lighten(bg1, 0, -3)
+local bg2 = M.saturate_lighten(bg1, 0, -4)
 -- Pmenu
 local bg3 = M.saturate_lighten(bg1, 0, 6)
 -- CursorLine
@@ -79,9 +79,9 @@ local bg6 = M.saturate_lighten(bg1, 5, 17)
 -- Normal
 local fg1 = hsluv.hsluv_to_hex({ hue_base, 10, 75 })
 -- Statusline
-local fg2 = M.saturate_lighten(fg1, 2, -11)
+local fg2 = M.saturate_lighten(fg1, 2, -8)
 -- PmenuSel
-local fg3 = M.saturate_lighten(fg1, 10, 20)
+local fg3 = M.saturate_lighten(fg1, 10, 13)
 -- Folded
 local fg4 = M.saturate_lighten(bg4, 5, 35)
 -- Comment
@@ -170,7 +170,7 @@ M.colors = {
 
 ---@type table<string, Highlight>
 M.groups = {
-  --- |highlight-groups|
+  ---|highlight-groups|
   ColorColumn = { fg = fg1, bg = bg1 },
   Conceal = { link = 'Comment' },
   CurSearch = { link = 'IncSearch' },
@@ -235,7 +235,7 @@ M.groups = {
   WarningMsg = { fg = M.palette.orange },
   WhiteSpace = { fg = fg6 },
   WildMenu = { fg = fg2, bg = M.lighten(bg2, 5) },
-  Winbar = { fg = fg1, bg = M.saturate_lighten(bg1, 15, 3) },
+  Winbar = { fg = fg3, bg = bg1 },
   WinbarNC = { link = 'NormalNC' },
   -- Menu = {},
   Scrollbar = { fg = fg2, bg = bg2 },
