@@ -1,5 +1,4 @@
 vim.g.lsp_start({
-  name = 'json',
   cmd = { 'vscode-json-language-server', '--stdio' },
   init_options = {
     provideFormatter = true,
