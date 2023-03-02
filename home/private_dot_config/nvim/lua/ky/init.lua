@@ -2,6 +2,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 vim.g.nerd = false
 vim.g.border = require('ky.ui').border.single
+vim.g.max_line_count = 10000
 
 require('ky.option')
 require('ky.diagnostic')

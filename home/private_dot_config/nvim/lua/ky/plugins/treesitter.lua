@@ -33,7 +33,9 @@ return {
       ignore_install = { 'comment' },
       highlight = {
         enable = true,
-        -- disable = { 'html' },
+        disable = function(lang, bufnr)
+          return vim.api.nvim_buf_line_count(bufnr) > vim.g.max_line_count
+        end,
       },
       incremental_selection = {
         enable = false,

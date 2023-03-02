@@ -134,6 +134,7 @@ return {
                     'quickfix',
                     'terminal',
                   }, buftype)
+                  and vim.api.nvim_buf_line_count(buf) <= vim.g.max_line_count
               end, api.nvim_list_bufs())
             end,
           },
@@ -159,7 +160,9 @@ return {
           option = {
             keyword_pattern = [[\k\+]],
             get_bufnrs = function()
-              return { api.nvim_get_current_buf() }
+              local buf = vim.api.nvim_get_current_buf()
+              return vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count and {}
+                or { api.nvim_get_current_buf() }
             end,
           },
         },

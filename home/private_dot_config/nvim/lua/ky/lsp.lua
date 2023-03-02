@@ -120,7 +120,14 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('mine__lsp', {}),
   callback = function(a)
+    local buf = a.buf
     local client = vim.lsp.get_client_by_id(a.data.client_id)
-    on_attach(client, a.buf)
+    if vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count then
+      vim.schedule(function()
+        vim.lsp.buf_detach_client(buf, a.data.client_id)
+      end)
+      return
+    end
+    on_attach(client, buf)
   end,
 })
