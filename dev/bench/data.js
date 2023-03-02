@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1677746030588,
+  "lastUpdate": 1677763479582,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -20751,6 +20751,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.046721402712307694,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "541e05d8e1571b1d70269ab87af782bb32058e63",
+          "message": "fix(nvim): disable some plugins when opening large file",
+          "timestamp": "2023-03-02T22:22:13+09:00",
+          "tree_id": "b4b969a0d31fc2cbc53d22e445cbe72ad6d0b549",
+          "url": "https://github.com/gametaro/dotfiles/commit/541e05d8e1571b1d70269ab87af782bb32058e63"
+        },
+        "date": 1677763477689,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.04430468957000001,
             "unit": "Second"
           }
         ]
