@@ -4,7 +4,12 @@ return {
   { 'itchyny/vim-highlighturl', event = { 'BufReadPost', 'BufNewFile' } },
   { 'johmsalas/text-case.nvim', config = true },
   { 'axelvc/template-string.nvim', enabled = false, config = true },
-  { 'akinsho/git-conflict.nvim', event = { 'BufReadPost', 'BufNewFile' }, config = true },
+  {
+    'akinsho/git-conflict.nvim',
+    enabled = false,
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = true,
+  },
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
   { 'bkad/CamelCaseMotion', lazy = false },
   { 'AckslD/nvim-FeMaco.lua', cmd = 'FeMaco', config = true },
