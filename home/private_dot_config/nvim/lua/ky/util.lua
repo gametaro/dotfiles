@@ -134,7 +134,7 @@ end
 
 ---@param names? string|string[]
 ---@return string?
-function M.get_root_by_patterns(names)
+function M.get_root_by_names(names)
   names = names or { '.git', '.svn' }
   return vim.fs.dirname(vim.fs.find(names, {
     path = vim.api.nvim_buf_get_name(0),

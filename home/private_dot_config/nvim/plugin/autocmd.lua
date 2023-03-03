@@ -132,9 +132,9 @@ autocmd({ 'BufEnter', 'VimEnter' }, {
     if vim.bo[a.buf].buftype ~= '' then
       return
     end
-    local root = require('ky.util').get_root_by_patterns()
+    local root = require('ky.util').get_root_by_names()
       or require('ky.util').get_root_by_lsp({ buffer = a.buf })
-    vim.cmd.tcd(root or vim.fs.dirname(vim.api.nvim_buf_get_name(a.buf)))
+    vim.cmd.tcd(root or vim.fn.getcwd())
   end,
 })
 

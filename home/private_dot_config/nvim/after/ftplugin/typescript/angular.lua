@@ -16,11 +16,11 @@ local get_cmd = function()
   }
 end
 
-local root_patterns = { 'angular.json' }
-if require('ky.util').get_root_by_patterns(root_patterns) then
+local root_names = { 'angular.json' }
+if require('ky.util').get_root_by_names(root_names) then
   vim.g.lsp_start({
     cmd = get_cmd(),
-    root_patterns = root_patterns,
+    root_names = root_names,
     on_new_config = function(new_config, _)
       new_config.cmd = get_cmd()
     end,

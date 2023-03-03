@@ -2,7 +2,7 @@ vim.treesitter.start()
 
 vim.g.lsp_start({
   cmd = { 'lua-language-server' },
-  root_patterns = { '.luarc.json' },
+  root_names = { '.luarc.json' },
   before_init = require('neodev.lsp').before_init,
 })
 

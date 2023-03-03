@@ -1,5 +1,5 @@
 -- https://eslint.org/docs/user-guide/configuring/configuration-files#configuration-file-formats
-local root_patterns = {
+local root_names = {
   '.eslintrc',
   '.eslintrc.js',
   '.eslintrc.cjs',
@@ -8,10 +8,10 @@ local root_patterns = {
   '.eslintrc.json',
 }
 
-if require('ky.util').get_root_by_patterns(root_patterns) then
+if require('ky.util').get_root_by_names(root_names) then
   vim.g.lsp_start({
     cmd = { 'vscode-eslint-language-server', '--stdio' },
-    root_patterns = root_patterns,
+    root_names = root_names,
     init_options = {
       provideFormatter = true,
     },
