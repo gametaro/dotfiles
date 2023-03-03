@@ -55,6 +55,10 @@ local capabilities =
   vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), cmp_capabilities)
 
 vim.g.lsp_start = function(config, opts)
+  if vim.api.nvim_buf_line_count(0) > vim.g.max_line_count then
+    return
+  end
+
   config = config or {}
   local patterns = vim.list_extend(config.root_patterns or {}, { '.git' })
   local root_dir = config.root_dir or require('ky.util').get_root_by_patterns(patterns)
@@ -122,12 +126,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(a)
     local buf = a.buf
     local client = vim.lsp.get_client_by_id(a.data.client_id)
-    if vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count then
-      vim.schedule(function()
-        vim.lsp.buf_detach_client(buf, a.data.client_id)
-      end)
-      return
-    end
     on_attach(client, buf)
   end,
 })

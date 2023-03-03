@@ -137,3 +137,26 @@ autocmd({ 'BufEnter', 'VimEnter' }, {
     vim.cmd.tcd(root or vim.fs.dirname(vim.api.nvim_buf_get_name(a.buf)))
   end,
 })
+
+autocmd({ 'BufReadPre', 'BufReadPost' }, {
+  callback = function(a)
+    local is_large = vim.api.nvim_buf_line_count(a.buf) > vim.g.max_line_count
+    if is_large then
+      if a.event == 'BufReadPre' then
+        vim.opt_local.foldmethod = 'manual'
+        vim.opt_local.list = false
+        vim.opt_local.spell = false
+        vim.opt_local.swapfile = false
+        vim.opt_local.undolevels = -1
+        vim.opt_local.undoreload = 0
+      end
+
+      if a.event == 'BufReadPost' then
+        -- disable indentation based on treesitter
+        vim.opt_local.indentexpr = ''
+        vim.b.editorconfig = false
+      end
+    end
+  end,
+  desc = 'Disable options on large file',
+})
