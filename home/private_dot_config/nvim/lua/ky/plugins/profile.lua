@@ -1,6 +1,5 @@
 return {
   'stevearc/profile.nvim',
-  cond = vim.env.NVIM_PROFILE,
   init = function()
     local function toggle_profile()
       local prof = require('profile')
@@ -19,7 +18,6 @@ return {
         prof.start('*')
       end
     end
-
     vim.keymap.set('', '<f1>', toggle_profile)
   end,
 }
