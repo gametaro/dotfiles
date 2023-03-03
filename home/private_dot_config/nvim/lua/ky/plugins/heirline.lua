@@ -227,7 +227,6 @@ return {
       provider = function()
         local clients = table.concat(vim.tbl_map(function(client)
           return client and string.len(client.name) > 3 and string.format('%.3s…', client.name)
-            or ''
         end, vim.lsp.get_active_clients({ bufnr = 0 })) or {}, ' ')
         if not conditions.width_percent_below(#clients, 0.25) then
           return
@@ -294,7 +293,7 @@ return {
           return vim.g.git_status ~= nil
         end,
         provider = function()
-          return vim.g.git_status and '* ' or ' '
+          return vim.g.git_status and '* '
         end,
       },
       {
