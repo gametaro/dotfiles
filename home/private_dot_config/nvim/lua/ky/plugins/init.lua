@@ -18,4 +18,5 @@ return {
   { 'wsdjeg/vim-fetch', event = 'CmdlineEnter' },
   { 'justinmk/vim-gtfo', keys = { 'got', 'gof' } },
   { 'samjwill/nvim-unception', enabled = false, lazy = false },
+  { 'stevearc/profile.nvim', cond = vim.env.NVIM_PROFILE },
 }
