@@ -122,7 +122,6 @@ return {
         {
           name = 'buffer',
           option = {
-            keyword_pattern = [[\k\+]],
             get_bufnrs = function()
               return vim.tbl_filter(function(buf)
                 local buftype = api.nvim_buf_get_option(buf, 'buftype')
@@ -180,20 +179,20 @@ return {
     })
     cmp.setup.filetype({ 'gitcommit', 'NeogitCommitMessage' }, {
       sources = cmp.config.sources({
-        { name = 'luasnip' },
-        { name = 'git' },
         { name = 'buffer' },
+        { name = 'git' },
+        { name = 'luasnip' },
       }, {
         { name = 'spell' },
       }),
     })
     cmp.setup.filetype({ 'markdown' }, {
       sources = cmp.config.sources({
+        { name = 'buffer' },
+        { name = 'emoji' },
         { name = 'luasnip' },
         { name = 'path' },
         { name = 'spell' },
-        { name = 'emoji' },
-        { name = 'buffer' },
       }),
     })
   end,
