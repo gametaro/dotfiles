@@ -39,6 +39,12 @@ return {
       },
       incremental_selection = {
         enable = false,
+        keymaps = {
+          init_selection = 'gnn',
+          node_incremental = 'grn',
+          scope_incremental = 'grc',
+          node_decremental = 'grm',
+        },
       },
       indent = {
         enable = true,
@@ -48,14 +54,14 @@ return {
         enable_autocmd = false,
       },
       matchup = {
-        enable = true,
+        enable = false,
       },
       autotag = {
         enable = true,
       },
       textobjects = {
         select = {
-          enable = true,
+          enable = false,
           lookahead = true,
           include_surrounding_whitespace = true,
           keymaps = {
@@ -94,13 +100,6 @@ return {
           goto_previous_end = {
             ['[M'] = '@function.outer',
             ['[]'] = '@class.outer',
-          },
-        },
-        lsp_interop = {
-          enable = false,
-          border = vim.g.border,
-          peek_definition_code = {
-            ['df'] = '@function.outer',
           },
         },
       },
