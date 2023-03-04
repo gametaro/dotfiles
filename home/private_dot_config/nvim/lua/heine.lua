@@ -5,6 +5,7 @@ local M = {}
 ---@class Config
 ---@field compile_path string
 ---@field debug boolean
+---@field hue_base integer
 ---@field non_current boolean
 ---@field transparent boolean
 
@@ -12,6 +13,7 @@ local M = {}
 M.config = {
   compile_path = vim.fs.normalize(vim.fn.stdpath('cache') .. '/heine.lua'),
   debug = true,
+  hue_base = 220,
   non_current = true,
   transparent = true,
 }
@@ -79,10 +81,8 @@ M.palette = {
   magenta = hsluv.hsluv_to_hex({ 260, 38, 70 }),
 }
 
-local hue_base = 220
-
 -- Normal
-local bg1 = hsluv.hsluv_to_hex({ hue_base, 25, 12 })
+local bg1 = hsluv.hsluv_to_hex({ M.config.hue_base, 25, 12 })
 -- Statusline
 local bg2 = M.saturate_lighten(bg1, 0, -4)
 -- Pmenu
@@ -95,7 +95,7 @@ local bg5 = M.saturate_lighten(bg1, 8, 13)
 local bg6 = M.saturate_lighten(bg1, 5, 17)
 
 -- Normal
-local fg1 = hsluv.hsluv_to_hex({ hue_base, 10, 75 })
+local fg1 = hsluv.hsluv_to_hex({ M.config.hue_base, 10, 75 })
 -- Statusline
 local fg2 = M.saturate_lighten(fg1, 2, -8)
 -- PmenuSel
