@@ -53,7 +53,7 @@ end
 
 ---@param highlight Highlight
 ---@return Highlight
-local function transparent(highlight)
+function M.transparent(highlight)
   return vim.tbl_extend(
     'force',
     highlight,
@@ -199,7 +199,7 @@ M.groups = {
   -- TermCursor = {},
   -- TermCursorNC = {},
   ErrorMsg = { fg = M.palette.red },
-  WinSeparator = transparent({ fg = M.palette.blue, bg = bg1 }),
+  WinSeparator = M.transparent({ fg = M.palette.blue, bg = bg1 }),
   Folded = { fg = fg4, bg = M.tint.blue.bg },
   FoldColumn = { fg = fg4, bg = bg1 },
   SignColumn = { fg = fg1 },
@@ -218,12 +218,12 @@ M.groups = {
   MsgSeparator = { link = 'WinSeparator' },
   Moremsg = { fg = M.palette.green },
   NonText = { fg = fg6 },
-  Normal = transparent({ fg = fg1, bg = bg1 }),
+  Normal = M.transparent({ fg = fg1, bg = bg1 }),
   NormalFloat = { link = 'Pmenu' },
-  NormalNC = transparent({ bg = M.config.non_current_hl and M.lighten(bg1, -4) or bg1 }),
+  NormalNC = M.transparent({ bg = M.config.non_current_hl and M.lighten(bg1, -4) or bg1 }),
   FloatTitle = { fg = M.palette.blue, bg = bg3, bold = true },
-  FloatBorder = transparent({ fg = M.palette.blue, bg = bg3 }),
-  Pmenu = transparent({ fg = fg1, bg = bg3 }),
+  FloatBorder = M.transparent({ fg = M.palette.blue, bg = bg3 }),
+  Pmenu = M.transparent({ fg = fg1, bg = bg3 }),
   PmenuSel = { bg = bg6 },
   PmenuSbar = { bg = bg3 },
   PmenuThumb = { bg = bg6 },
@@ -235,10 +235,10 @@ M.groups = {
   SpellCap = { sp = M.palette.orange, undercurl = true },
   SpellLocal = { sp = M.palette.green, undercurl = true },
   SpellRare = { sp = M.palette.lgreen, undercurl = true },
-  Statusline = transparent({ fg = fg2, bg = bg2 }),
+  Statusline = M.transparent({ fg = fg2, bg = bg2 }),
   StatuslineNC = { fg = M.lighten(fg1, -10), bg = M.lighten(bg2, -3) },
-  Tabline = transparent({ fg = fg2, bg = bg2 }),
-  TablineFill = transparent({ bg = bg2 }),
+  Tabline = M.transparent({ fg = fg2, bg = bg2 }),
+  TablineFill = M.transparent({ bg = bg2 }),
   TablineSel = { link = 'Winbar' },
   Title = { fg = M.palette.blue, bold = true },
   Visual = { bg = M.tint.lgreen.bg },
@@ -246,7 +246,7 @@ M.groups = {
   WarningMsg = { fg = M.palette.orange },
   WhiteSpace = { fg = fg6 },
   WildMenu = { fg = fg2, bg = M.lighten(bg2, 5) },
-  Winbar = transparent({ fg = fg3, bg = bg1 }),
+  Winbar = M.transparent({ fg = fg3, bg = bg1 }),
   WinbarNC = { link = 'NormalNC' },
   -- Menu = {},
   Scrollbar = { fg = fg2, bg = bg2 },
@@ -327,7 +327,7 @@ M.groups = {
 
   -- Ignore = {},
 
-  Error = { fg = M.palette.red, underline = true },
+  Error = { fg = M.palette.red },
 
   Todo = { fg = M.tint.orange.fg, bg = M.tint.orange.bg },
 
