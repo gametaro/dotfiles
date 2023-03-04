@@ -281,6 +281,7 @@ return {
     local Git = {
       condition = conditions.is_git_repo,
       init = function(self)
+        ---@diagnostic disable-next-line: undefined-field
         self.status_dict = vim.b.gitsigns_status_dict
       end,
       {
@@ -311,6 +312,7 @@ return {
     local GitStatus = {
       condition = conditions.is_git_repo,
       init = function(self)
+        ---@diagnostic disable-next-line: undefined-field
         self.status_dict = vim.b.gitsigns_status_dict
       end,
       {
