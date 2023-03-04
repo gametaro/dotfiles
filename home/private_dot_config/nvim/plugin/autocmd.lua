@@ -54,7 +54,7 @@ if vim.env.CHEZMOI_WORKING_TREE then
         end
       )
     end,
-    desc = 'Run chezmoi apply whenever dotfiles were saved',
+    desc = 'Run chezmoi apply',
   })
 end
 
@@ -68,6 +68,7 @@ autocmd({ 'BufLeave', 'WinLeave', 'FocusLost' }, {
       vim.cmd.update({ mods = { emsg_silent = true, silent = true } })
     end
   end,
+  desc = 'Auto save',
 })
 
 -- autocmd({ 'FocusGained', 'WinEnter' }, {
@@ -102,6 +103,7 @@ autocmd('BufEnter', {
       'r',
     })
   end,
+  desc = 'Update formatoptions',
 })
 
 autocmd({ 'BufWritePre', 'FileWritePre' }, {
@@ -111,6 +113,7 @@ autocmd({ 'BufWritePre', 'FileWritePre' }, {
       vim.fn.mkdir(dir, 'p')
     end
   end,
+  desc = 'Automatically make directory',
 })
 
 autocmd('ModeChanged', {
@@ -118,6 +121,7 @@ autocmd('ModeChanged', {
   callback = function()
     vim.opt_local.listchars:append({ space = '·' })
   end,
+  desc = 'Show spaces in visual mode',
 })
 
 autocmd('ModeChanged', {
@@ -125,10 +129,14 @@ autocmd('ModeChanged', {
   callback = function()
     vim.opt_local.listchars:remove('space')
   end,
+  desc = 'Hide spaces except in visual mode',
 })
 
 autocmd({ 'BufEnter', 'VimEnter' }, {
   callback = function(a)
+    if not vim.api.nvim_buf_is_valid(a.buf) then
+      return
+    end
     if vim.bo[a.buf].buftype ~= '' then
       return
     end
@@ -136,6 +144,7 @@ autocmd({ 'BufEnter', 'VimEnter' }, {
       or require('ky.util').get_root_by_lsp({ buffer = a.buf })
     vim.cmd.tcd(root or vim.fn.getcwd())
   end,
+  desc = 'Change directory to project root',
 })
 
 autocmd({ 'BufReadPre', 'BufReadPost' }, {
