@@ -6,6 +6,16 @@ vim.g.lsp_start({
   before_init = require('neodev.lsp').before_init,
 })
 
+vim.keymap.set('n', 'K', function()
+  local cword = vim.fn.expand('<cWORD>')
+  local subject = string.match(cword, '|(%S-)|')
+  if subject then
+    vim.cmd.help(subject)
+    return
+  end
+  vim.lsp.buf.hover()
+end, { buffer = true, desc = 'Hover' })
+
 require('nvim-surround').buffer_setup({
   surrounds = {
     ['f'] = {

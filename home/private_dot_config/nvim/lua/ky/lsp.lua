@@ -69,19 +69,6 @@ vim.g.lsp_start = function(config, opts)
   vim.lsp.start(config, opts)
 end
 
-local function hover()
-  if vim.bo.filetype == 'lua' then
-    local cword = vim.fn.expand('<cWORD>')
-    local subject = string.match(cword, '|(%S-)|')
-    if subject then
-      vim.cmd.help(subject)
-      return
-    end
-  end
-
-  vim.lsp.buf.hover()
-end
-
 local function format()
   vim.lsp.buf.format({ async = true })
 end
@@ -99,7 +86,7 @@ local function on_attach(client, buffer)
     { buffer = buffer, desc = 'Goto implementation' }
   )
   -- vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { buffer = buffer , desc = 'Goto type definition' })
-  vim.keymap.set('n', 'K', hover, { buffer = buffer, desc = 'Hover' })
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = buffer, desc = 'Hover' })
   vim.keymap.set(
     'i',
     '<C-s>',
