@@ -17,19 +17,10 @@ vim.api.nvim_create_user_command('Env', function()
     end
   end
 
-  local messages = { string.format('Loaded from **%s**', file), '```bash' }
+  local messages = { string.format('Loaded from %s', file) }
   for name, value in pairs(env) do
     table.insert(messages, string.format('%s=%s', name, value))
   end
-  table.insert(messages, '```')
 
-  vim.notify(table.concat(messages, '\n'), vim.log.levels.INFO, {
-    title = 'dotenv',
-    on_open = function(win)
-      local buf = vim.api.nvim_win_get_buf(win)
-      if vim.api.nvim_buf_is_valid(buf) then
-        vim.bo[buf].filetype = 'markdown'
-      end
-    end,
-  })
+  vim.notify(table.concat(messages, '\n'), vim.log.levels.INFO, { title = 'dotenv' })
 end, {})
