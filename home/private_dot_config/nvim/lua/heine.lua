@@ -6,6 +6,7 @@ M.config = {
   debug = true,
   compile_path = vim.fs.normalize(vim.fn.stdpath('cache') .. '/heine.lua'),
   non_current_hl = true,
+  transparent = true,
 }
 
 ---@param value integer
@@ -48,6 +49,16 @@ function M.blend(c1, c2, f)
   local r1, g1, b1 = unpack(hsluv.hex_to_rgb(c1))
   local r2, g2, b2 = unpack(hsluv.hex_to_rgb(c2))
   return hsluv.rgb_to_hex({ (r2 - r1) * f + r1, (g2 - g1) * f + g1, (b2 - b1) * f + b1 })
+end
+
+---@param highlight Highlight
+---@return Highlight
+local function transparent(highlight)
+  return vim.tbl_extend(
+    'force',
+    highlight,
+    { bg = M.config.transparent and 'NONE' or highlight.bg }
+  )
 end
 
 ---@type table<string, string>
@@ -188,7 +199,7 @@ M.groups = {
   -- TermCursor = {},
   -- TermCursorNC = {},
   ErrorMsg = { fg = M.palette.red },
-  WinSeparator = { fg = M.palette.blue, bg = bg1 },
+  WinSeparator = transparent({ fg = M.palette.blue, bg = bg1 }),
   Folded = { fg = fg4, bg = M.tint.blue.bg },
   FoldColumn = { fg = fg4, bg = bg1 },
   SignColumn = { fg = fg1 },
@@ -207,12 +218,12 @@ M.groups = {
   MsgSeparator = { link = 'WinSeparator' },
   Moremsg = { fg = M.palette.green },
   NonText = { fg = fg6 },
-  Normal = { fg = fg1, bg = bg1 },
+  Normal = transparent({ fg = fg1, bg = bg1 }),
   NormalFloat = { link = 'Pmenu' },
-  NormalNC = { bg = M.config.non_current_hl and M.lighten(bg1, -4) or bg1 },
+  NormalNC = transparent({ bg = M.config.non_current_hl and M.lighten(bg1, -4) or bg1 }),
   FloatTitle = { fg = M.palette.blue, bg = bg3, bold = true },
-  FloatBorder = { fg = M.palette.blue, bg = bg3 },
-  Pmenu = { fg = fg1, bg = bg3 },
+  FloatBorder = transparent({ fg = M.palette.blue, bg = bg3 }),
+  Pmenu = transparent({ fg = fg1, bg = bg3 }),
   PmenuSel = { bg = bg6 },
   PmenuSbar = { bg = bg3 },
   PmenuThumb = { bg = bg6 },
@@ -224,10 +235,10 @@ M.groups = {
   SpellCap = { sp = M.palette.orange, undercurl = true },
   SpellLocal = { sp = M.palette.green, undercurl = true },
   SpellRare = { sp = M.palette.lgreen, undercurl = true },
-  Statusline = { fg = fg2, bg = bg2 },
+  Statusline = transparent({ fg = fg2, bg = bg2 }),
   StatuslineNC = { fg = M.lighten(fg1, -10), bg = M.lighten(bg2, -3) },
-  Tabline = { fg = fg2, bg = bg2 },
-  TablineFill = { bg = bg2 },
+  Tabline = transparent({ fg = fg2, bg = bg2 }),
+  TablineFill = transparent({ bg = bg2 }),
   TablineSel = { link = 'Winbar' },
   Title = { fg = M.palette.blue, bold = true },
   Visual = { bg = M.tint.lgreen.bg },
@@ -235,7 +246,7 @@ M.groups = {
   WarningMsg = { fg = M.palette.orange },
   WhiteSpace = { fg = fg6 },
   WildMenu = { fg = fg2, bg = M.lighten(bg2, 5) },
-  Winbar = { fg = fg3, bg = bg1 },
+  Winbar = transparent({ fg = fg3, bg = bg1 }),
   WinbarNC = { link = 'NormalNC' },
   -- Menu = {},
   Scrollbar = { fg = fg2, bg = bg2 },
