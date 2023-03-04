@@ -83,16 +83,18 @@ for _, v in ipairs({ '"', "'", '`' }) do
 end
 
 -- Idea: |mini.basics|
-vim.keymap.set('n', [[\c]], '<Cmd>setlocal cursorline! cursorline?<CR>')
-vim.keymap.set('n', [[\C]], '<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>')
-vim.keymap.set(
-  'n',
-  [[\h]],
-  '<Cmd>let v:hlsearch = 1 - v:hlsearch | echo (v:hlsearch ? "  " : "no") . "hlsearch"<CR>'
-)
-vim.keymap.set('n', [[\i]], '<Cmd>setlocal ignorecase! ignorecase?<CR>')
-vim.keymap.set('n', [[\l]], '<Cmd>setlocal list! list?<CR>')
-vim.keymap.set('n', [[\n]], '<Cmd>setlocal number! number?<CR>')
-vim.keymap.set('n', [[\N]], '<Cmd>setlocal relativenumber! relativenumber?<CR>')
-vim.keymap.set('n', [[\s]], '<Cmd>setlocal spell! spell?<CR>')
-vim.keymap.set('n', [[\w]], '<Cmd>setlocal wrap! wrap?<CR>')
+vim.keymap.set('n', [[\c]], '<Cmd>setlocal cul! cul?<CR>', { desc = 'Toggle cursorline' })
+vim.keymap.set('n', [[\C]], '<Cmd>setlocal cuc! cuc?<CR>', { desc = 'Toggle cursorcolumn' })
+vim.keymap.set('n', [[\i]], '<Cmd>setlocal ic! ic?<CR>', { desc = 'Toggle ignorecase' })
+vim.keymap.set('n', [[\l]], '<Cmd>setlocal list! list?<CR>', { desc = 'Toggle list' })
+vim.keymap.set('n', [[\n]], '<Cmd>setlocal nu! nu?<CR>', { desc = 'Toggle number' })
+vim.keymap.set('n', [[\N]], '<Cmd>setlocal rnu! rnu?<CR>', { desc = 'Toggle relativenumber' })
+vim.keymap.set('n', [[\s]], '<Cmd>setlocal spell! spell?<CR>', { desc = 'Toggle spell' })
+vim.keymap.set('n', [[\w]], '<Cmd>setlocal wrap! wrap?<CR>', { desc = 'Toggle wrap' })
+vim.keymap.set('n', [[\d]], function()
+  if vim.diagnostic.is_disabled(0) then
+    vim.diagnostic.enable(0)
+  else
+    vim.diagnostic.disable(0)
+  end
+end, { desc = 'Toggle diagnostic' })
