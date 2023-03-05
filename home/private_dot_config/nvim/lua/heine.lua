@@ -121,15 +121,13 @@ local bg6 = M.saturate_lighten(bg1, 5, 17)
 -- Normal
 local fg1 = hsluv.hsluv_to_hex({ M.config.hue_base, 10, 75 })
 -- Statusline
-local fg2 = M.saturate_lighten(fg1, 2, -8)
+local fg2 = M.saturate_lighten(fg1, 2, -6)
 -- PmenuSel
 local fg3 = M.saturate_lighten(fg1, 10, 13)
--- Folded
-local fg4 = M.saturate_lighten(bg4, 5, 35)
 -- Comment
-local fg5 = M.saturate_lighten(fg1, 8, -25)
+local fg4 = M.saturate_lighten(fg1, 8, -25)
 -- NonText, WhiteSpace, SpecialKey
-local fg6 = M.saturate_lighten(bg1, 8, 18)
+local fg5 = M.saturate_lighten(fg1, 18, -45)
 
 ---@type table<string, Highlight>
 M.tint = {
@@ -178,17 +176,12 @@ M.colors = {
   fg2 = fg2,
   fg3 = fg3,
   fg4 = fg4,
-  fg5 = fg5,
-  fg6 = fg6,
   bg1 = bg1,
   bg2 = bg2,
   bg3 = bg3,
   bg4 = bg4,
   bg5 = bg5,
   bg6 = bg6,
-  palette = M.palette,
-  tint = M.tint,
-  terminal = M.terminal,
 }
 
 ---@type table<string, Highlight>
@@ -212,13 +205,13 @@ M.groups = {
   -- TermCursorNC = {},
   ErrorMsg = { fg = M.palette.red },
   WinSeparator = M.transparent({ fg = M.palette.blue, bg = bg1 }),
-  Folded = { fg = fg4, bg = M.tint.blue.bg },
-  FoldColumn = { fg = fg4, bg = bg1 },
+  Folded = { fg = M.saturate_lighten(bg4, 5, 35), bg = M.tint.blue.bg },
+  FoldColumn = { fg = M.saturate_lighten(bg4, 5, 35), bg = bg1 },
   SignColumn = { fg = fg1 },
   SignColumnSB = { link = 'SignColumn' },
   IncSearch = { fg = fg3, bg = M.lighten(M.tint.orange.bg, 12) },
   Substitute = { link = 'IncSearch' },
-  LineNr = { fg = fg6 },
+  LineNr = { fg = fg5 },
   LineNrAbove = { link = 'LineNr' },
   LineNrBelow = { link = 'LineNr' },
   CursorLineNr = {},
@@ -229,7 +222,7 @@ M.groups = {
   MsgArea = { link = 'Pmenu' },
   MsgSeparator = { link = 'WinSeparator' },
   Moremsg = { fg = M.palette.green },
-  NonText = { fg = fg6 },
+  NonText = { fg = fg5 },
   Normal = M.transparent({ fg = fg1, bg = bg1 }),
   NormalFloat = { link = 'Pmenu' },
   NormalNC = M.transparent({ bg = M.config.non_current and M.lighten(bg1, -4) or bg1 }),
@@ -242,7 +235,7 @@ M.groups = {
   Question = { link = 'Moremsg' },
   QuickFixLine = { bg = bg6 },
   Search = { bg = M.lighten(M.tint.orange.bg, 3) },
-  SpecialKey = { fg = fg6 },
+  SpecialKey = { fg = fg5 },
   SpellBad = { sp = M.palette.red, undercurl = true },
   SpellCap = { sp = M.palette.orange, undercurl = true },
   SpellLocal = { sp = M.palette.green, undercurl = true },
@@ -256,7 +249,7 @@ M.groups = {
   Visual = { bg = M.tint.lgreen.bg },
   VisualNOS = { bg = M.blend(M.palette.lgreen, bg1, 0.5) },
   WarningMsg = { fg = M.palette.orange },
-  WhiteSpace = { fg = fg6 },
+  WhiteSpace = { fg = fg5 },
   WildMenu = { fg = fg2, bg = M.lighten(bg2, 5) },
   Winbar = M.transparent({ fg = fg3, bg = bg1 }),
   WinbarNC = { link = 'NormalNC' },
@@ -296,7 +289,7 @@ M.groups = {
   DiagnosticSignOk = { link = 'DiagnosticOk' },
 
   ---|group-name|
-  Comment = { fg = fg5 },
+  Comment = { fg = fg4 },
   Constant = { fg = M.palette.orange },
   String = { fg = M.palette.lgreen },
   Character = { link = 'String' },
@@ -349,7 +342,6 @@ M.groups = {
   diffFile = { link = 'Directory' },
   diffOldFile = { fg = M.palette.red },
   diffNewFile = { fg = M.palette.green },
-  -- diffFile = {},
 
   ---|health|
   healthSuccess = { link = 'DiagnosticOk' },
