@@ -9,6 +9,26 @@ local M = {}
 ---@field non_current boolean
 ---@field transparent boolean
 
+---|attr-list|
+---@class Highlight
+---@field fg? string
+---@field bg? string
+---@field sp? string
+---@field blend? integer
+---@field bold? boolean
+---@field standout? boolean
+---@field underline? boolean
+---@field undercurl? boolean
+---@field underdouble? boolean
+---@field underdotted? boolean
+---@field underdashed? boolean
+---@field strikethrough? boolean
+---@field italic? boolean
+---@field reverse? boolean
+---@field nocombine? boolean
+---@field link? string
+---@field default? boolean
+
 ---@type Config
 M.config = {
   compile_path = vim.fs.normalize(vim.fn.stdpath('cache') .. '/heine.lua'),
@@ -32,6 +52,7 @@ end
 
 ---@param hex string
 ---@param v integer
+---@return string
 function M.saturate(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
   return hsluv.hsluv_to_hex({ h, clamp(s + v, -100, 100), l })
@@ -39,6 +60,7 @@ end
 
 ---@param hex string
 ---@param v integer
+---@return string
 function M.lighten(hex, v)
   local h, s, l = unpack(hsluv.hex_to_hsluv(hex))
   return hsluv.hsluv_to_hex({ h, s, clamp(l + v, -100, 100) })
@@ -47,6 +69,7 @@ end
 ---@param hex string
 ---@param s integer
 ---@param l integer
+---@return string
 function M.saturate_lighten(hex, s, l)
   return M.lighten(M.saturate(hex, s), l)
 end
@@ -54,6 +77,7 @@ end
 ---@param c1 string
 ---@param c2 string
 ---@param f number
+---@return string
 function M.blend(c1, c2, f)
   local r1, g1, b1 = unpack(hsluv.hex_to_rgb(c1))
   local r2, g2, b2 = unpack(hsluv.hex_to_rgb(c2))
@@ -107,6 +131,7 @@ local fg5 = M.saturate_lighten(fg1, 8, -25)
 -- NonText, WhiteSpace, SpecialKey
 local fg6 = M.saturate_lighten(bg1, 8, 18)
 
+---@type table<string, Highlight>
 M.tint = {
   red = { bg = M.saturate(M.blend(M.palette.red, bg1, 0.8), 15) },
   orange = {
@@ -165,26 +190,6 @@ M.colors = {
   tint = M.tint,
   terminal = M.terminal,
 }
-
----|attr-list|
----@class Highlight
----@field fg? string
----@field bg? string
----@field sp? string
----@field blend? integer
----@field bold? boolean
----@field standout? boolean
----@field underline? boolean
----@field undercurl? boolean
----@field underdouble? boolean
----@field underdotted? boolean
----@field underdashed? boolean
----@field strikethrough? boolean
----@field italic? boolean
----@field reverse? boolean
----@field nocombine? boolean
----@field link? string
----@field default? boolean
 
 ---@type table<string, Highlight>
 M.groups = {
