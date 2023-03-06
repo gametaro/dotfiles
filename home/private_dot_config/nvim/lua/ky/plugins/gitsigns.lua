@@ -75,9 +75,9 @@ return {
         gs.setqflist('all')
       end, { desc = 'Quickfix' })
       map('n', '<Leader>hl', gs.setloclist, { desc = 'Location List' })
-      map('n', '<Leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
-      map('n', '<Leader>td', gs.toggle_deleted, { desc = 'Toggle deleted' })
-      map('n', '<Leader>tw', gs.toggle_word_diff, { desc = 'Toggle word diff' })
+      map('n', [[\hb]], gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
+      map('n', [[\hd]], gs.toggle_deleted, { desc = 'Toggle deleted' })
+      map('n', [[\hw]], gs.toggle_word_diff, { desc = 'Toggle word diff' })
 
       -- Text object
       map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { silent = true, desc = 'Hunk' })

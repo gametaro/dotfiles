@@ -13,9 +13,10 @@ return {
       ['<Leader>g'] = { name = '+git' },
       ['<Leader>h'] = { name = '+gitsigns' },
       ['['] = { name = '+previous' },
+      ['\\'] = { name = '+toggle' },
+      ['\\h'] = { name = '+gitsigns' },
       [']'] = { name = '+next' },
       ['g'] = { name = '+goto' },
-      ['\\'] = { name = '+toggle' },
     })
 
     vim.keymap.set('n', 'g?', '<Cmd>WhichKey<CR>')
