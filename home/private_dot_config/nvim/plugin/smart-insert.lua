@@ -3,6 +3,9 @@ for _, v in ipairs({ 'i', 'A' }) do
     if vim.bo.buftype == 'terminal' then
       return v
     end
+    if vim.bo.filetype == 'TelescopePrompt' then
+      return v
+    end
     if not vim.fn.getline('.'):match('^%s*$') then
       return v
     end
