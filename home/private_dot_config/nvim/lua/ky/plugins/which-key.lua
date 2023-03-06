@@ -2,13 +2,7 @@ return {
   'folke/which-key.nvim',
   event = 'VeryLazy',
   config = function()
-    require('which-key').setup({
-      plugins = {
-        spelling = {
-          enabled = true,
-        },
-      },
-    })
+    require('which-key').setup()
     -- HACK: remove `*` and `+`
     require('which-key.plugins').plugins.registers.registers =
       '"-:.%/#=_abcdefghijklmnopqrstuvwxyz0123456789'
@@ -21,6 +15,7 @@ return {
       ['['] = { name = '+previous' },
       [']'] = { name = '+next' },
       ['g'] = { name = '+goto' },
+      ['\\'] = { name = '+toggle' },
     })
 
     vim.keymap.set('n', 'g?', '<Cmd>WhichKey<CR>')
