@@ -49,6 +49,11 @@ local cmp_capabilities = {
       lineFoldingOnly = true,
     },
   },
+  workspace = {
+    didChangeWatchedFiles = {
+      dynamicRegistration = true,
+    },
+  },
 }
 
 local capabilities =
