@@ -7,31 +7,21 @@ vim.api.nvim_create_autocmd('TermOpen', {
 
     vim.b[a.buf].keep_mode = false
 
-    ---@param mode string|string[]
-    ---@param lhs string
-    ---@param rhs string|function
-    ---@param opts? table
-    local function map(mode, lhs, rhs, opts)
-      opts = opts or {}
-      opts.buffer = a.buf
-      vim.keymap.set(mode, lhs, rhs, opts)
-    end
-
     local escape = [[<C-\><C-n>]]
-    map('t', ';', function()
+    vim.keymap.set('t', ';', function()
       local line = vim.api.nvim_get_current_line()
       return string.match(line, '❯%s+$') and string.format('%s:', escape) or ':'
-    end, { expr = true, desc = 'Cmdline' })
-    map('t', [[<C-o>]], function()
+    end, { buffer = a.buf, expr = true, desc = 'Cmdline' })
+    vim.keymap.set('t', [[<C-o>]], function()
       vim.b[a.buf].keep_mode = true
       return string.format('%s<C-o>', escape)
-    end, { expr = true, desc = 'Goto older position' })
+    end, { buffer = a.buf, expr = true, desc = 'Goto older position' })
 
-    map('t', '<Esc>', function()
+    vim.keymap.set('t', '<Esc>', function()
       local names = { 'nvim', 'fzf' }
       return require('ky.util').find_proc_in_tree(vim.b[a.buf].terminal_job_pid, names) and '<Esc>'
         or escape
-    end, { expr = true })
+    end, { buffer = a.buf, expr = true })
 
     vim.cmd.startinsert()
   end,
