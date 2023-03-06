@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.4.0](https://github.com/gametaro/dotfiles/compare/v2.3.0...v2.4.0) (2023-03-06)
+
+
+### Features
+
+* **colorscheme:** make `hue_base` configurable ([c3f47ff](https://github.com/gametaro/dotfiles/commit/c3f47ff012411b2d795bd2f553d3b1ddc3f319e2))
+* **colorscheme:** support transparent ([1daaa38](https://github.com/gametaro/dotfiles/commit/1daaa38bb28296b1821a138e8afa3c44bbfcb8cc))
+* **lsp:** add workspace/didChangeWatchedFiles to capabilities ([c9a2c65](https://github.com/gametaro/dotfiles/commit/c9a2c6573b72c72765ec9dc562c654d37e3f5d26))
+* **plugins:** add `profile.nvim` ([f4f63b8](https://github.com/gametaro/dotfiles/commit/f4f63b8b367595d5340d8b88111929978c53b7b5))
+
+
+### Bug Fixes
+
+* **nvim:** disable some plugins when opening large file ([541e05d](https://github.com/gametaro/dotfiles/commit/541e05d8e1571b1d70269ab87af782bb32058e63))
+* **nvim:** more tweak for large file ([4dd2cf4](https://github.com/gametaro/dotfiles/commit/4dd2cf478fe8465e12b4f6fc97f679d124c86151))
+* **profile:** start up on top of init.lua ([53c2b96](https://github.com/gametaro/dotfiles/commit/53c2b96a3c0d90d3524b73d530b7df240391e439))
+* **profile:** start up on top of init.lua ([37d0569](https://github.com/gametaro/dotfiles/commit/37d05698fb34623183cb1b22fbd36b9966954377))
+* **smart-insert:** disable on `TelescopePrompt` ([6cddb6a](https://github.com/gametaro/dotfiles/commit/6cddb6a4fc8ecaff38f94871ea6c096b2e8fa495))
+* **terminal:** add pattern to `TermOpen` ([8be0180](https://github.com/gametaro/dotfiles/commit/8be018022d8f5fdca4a75c08518451d24270a630))
+
+
+### Performance Improvements
+
+* **treesitter:** disable unused modules ([d5c7edb](https://github.com/gametaro/dotfiles/commit/d5c7edbce98a33753a10c51fd145904fd3ed0779))
+
 ## [2.3.0](https://github.com/gametaro/dotfiles/compare/v2.2.0...v2.3.0) (2023-03-01)
 
 
