@@ -1,8 +1,8 @@
 return {
   'folke/noice.nvim',
+  enabled = false,
   dependencies = 'MunifTanjim/nui.nvim',
   event = 'VeryLazy',
-  enabled = true,
   config = function()
     local function help(subject)
       local win = vim.api.nvim_get_current_win()

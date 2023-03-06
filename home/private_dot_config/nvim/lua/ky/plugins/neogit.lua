@@ -1,5 +1,6 @@
 return {
   'TimUntersberger/neogit',
+  enabled = false,
   cmd = 'Neogit',
   keys = {
     { '<Leader>gg', '<Cmd>Neogit<CR>' },
