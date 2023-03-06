@@ -1,4 +1,5 @@
 vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = 'term://*',
   callback = function(a)
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
