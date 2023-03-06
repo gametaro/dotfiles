@@ -71,11 +71,12 @@ autocmd({ 'BufLeave', 'WinLeave', 'FocusLost' }, {
   desc = 'Auto save',
 })
 
--- autocmd({ 'FocusGained', 'WinEnter' }, {
---   callback = function()
---     cmd.checktime { mods = { emsg_silent = true, silent = true } }
---   end,
--- })
+autocmd({ 'FocusGained' }, {
+  callback = function()
+    vim.cmd.checktime({ mods = { emsg_silent = true, silent = true } })
+  end,
+  desc = 'Check if any buffers were changed outside of Nvim',
+})
 
 autocmd('BufWritePost', {
   callback = function()
