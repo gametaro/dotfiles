@@ -1,5 +1,9 @@
 return {
-  { 'norcalli/nvim-colorizer.lua' },
+  {
+    'uga-rosa/ccc.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = { highlighter = { auto_enable = true } },
+  },
   { 'mtdl9/vim-log-highlighting', ft = 'log' },
   { 'itchyny/vim-highlighturl', cond = false, event = { 'BufReadPost', 'BufNewFile' } },
   { 'johmsalas/text-case.nvim', config = true },
