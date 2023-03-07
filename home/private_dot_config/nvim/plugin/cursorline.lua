@@ -10,8 +10,8 @@ local group = vim.api.nvim_create_augroup('Cursor', {})
 ---@field ignore_buftype string[]
 ---@field ignore_filetype string[]
 local opts = {
-  cursorline = true,
-  cursorcolumn = true,
+  cursorline = vim.o.cursorline,
+  cursorcolumn = vim.o.cursorcolumn,
   timeout = {
     enable = 300,
     disable = 300,
