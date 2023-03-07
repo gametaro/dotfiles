@@ -382,7 +382,8 @@ M.groups = {
   ['@function.macro'] = { link = 'Macro' },
   ['@include'] = { link = 'Include' },
   ['@keyword'] = { link = 'Keyword' },
-  ['@keyword.function'] = { link = 'Keyword' },
+  ['@keyword.function'] = { link = '@keyword' },
+  ['@keyword.coroutine'] = { link = '@keyword' },
   ['@keyword.operator'] = { link = '@operator' },
   ['@keyword.return'] = { link = '@keyword' },
   ['@label'] = { link = 'Label' },
@@ -440,9 +441,17 @@ M.groups = {
   -- ['@text.literal.markdown_inline'] = { link = 'MatchParen' },
   -- ['@text.literal.markdown'] = { link = 'Normal' },
 
-  -- semantic tokens
-  ['@defaultLibrary'] = { link = '@function.builtin' },
-  ['@documentation'] = { fg = M.palette.blue },
+  ---|lsp-semantic-highlight|
+  ['@lsp.mod.defaultLibrary'] = { link = '@function.builtin' },
+  ['@lsp.mod.documentation'] = { fg = M.palette.blue },
+  ['@lsp.type.comment'] = { link = '@comment' },
+  ['@lsp.type.enum'] = { link = '@type' },
+  ['@lsp.type.interface'] = { link = 'Identifier' },
+  ['@lsp.type.keyword'] = { link = '@keyword' },
+  ['@lsp.type.namespace'] = { link = '@namespace' },
+  ['@lsp.type.parameter'] = { link = '@parameter' },
+  ['@lsp.type.property'] = { link = '@property' },
+  ['@lsp.type.variable'] = { link = '@variable' },
 
   -- plugins
   ---|telescope.nvim|
