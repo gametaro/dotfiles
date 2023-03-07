@@ -36,6 +36,7 @@ return {
         else
           vim.schedule(function()
             gs.next_hunk({ navigation_message = false, greedy = false })
+            vim.api.nvim_feedkeys('zz', 'n', false)
           end)
           return '<Ignore>'
         end
@@ -46,6 +47,7 @@ return {
         else
           vim.schedule(function()
             gs.prev_hunk({ navigation_message = false, greedy = false })
+            vim.api.nvim_feedkeys('zz', 'n', false)
           end)
           return '<Ignore>'
         end
