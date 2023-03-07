@@ -1,5 +1,6 @@
 return {
   'folke/todo-comments.nvim',
+  event = { 'BufReadPost', 'BufNewFile' },
   cmd = { 'TodoQuickFix', 'TodoLocList' },
   init = function()
     vim.keymap.set('n', '<Leader>tq', vim.cmd.TodoQuickFix, { desc = 'Todo quickfix' })
