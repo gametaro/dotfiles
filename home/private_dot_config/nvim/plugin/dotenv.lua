@@ -1,4 +1,15 @@
+local ignore_buftype = { 'quickfix', 'nofile', 'help', 'terminal' }
+local ignore_filetype = { 'gitcommit', 'gitrebase', 'svn', 'hgcommit' }
+
 local function setenv()
+  if vim.tbl_contains(ignore_buftype, vim.bo.buftype) then
+    return
+  end
+
+  if vim.tbl_contains(ignore_filetype, vim.bo.filetype) then
+    return
+  end
+
   ---@type string|nil
   local file = vim.fs.find({ '.env' }, { upward = true })[1]
   if not file then
