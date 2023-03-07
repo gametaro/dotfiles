@@ -1,7 +1,7 @@
 return {
   { 'norcalli/nvim-colorizer.lua' },
   { 'mtdl9/vim-log-highlighting' },
-  { 'itchyny/vim-highlighturl', event = { 'BufReadPost', 'BufNewFile' } },
+  { 'itchyny/vim-highlighturl', cond = false, event = { 'BufReadPost', 'BufNewFile' } },
   { 'johmsalas/text-case.nvim', config = true },
   { 'axelvc/template-string.nvim', enabled = false, config = true },
   {
