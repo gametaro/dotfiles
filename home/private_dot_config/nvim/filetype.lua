@@ -2,6 +2,7 @@ vim.filetype.add({
   extension = {
     ['code-workspace'] = 'jsonc',
     ['tmpl'] = 'gotmpl',
+    ['log'] = 'log',
   },
   filename = {
     ['.ecrc'] = 'json',
