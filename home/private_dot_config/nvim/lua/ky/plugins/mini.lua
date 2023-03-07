@@ -2,17 +2,6 @@ return {
   'echasnovski/mini.nvim',
   event = 'VeryLazy',
   config = function()
-    -- require('mini.pairs').setup({
-    --   modes = { insert = false, command = true, terminal = true },
-    -- })
-    --
-    -- vim.keymap.set(
-    --   { 'c', 't' },
-    --   '<C-h>',
-    --   'v:lua.MiniPairs.bs()',
-    --   { expr = true, replace_keycodes = false, desc = 'MiniPairs <BS>' }
-    -- )
-
     vim.keymap.set('n', '[i', function()
       require('mini.indentscope').operator('top', true)
     end, { desc = 'Top Indent Scope' })
@@ -43,7 +32,9 @@ return {
       },
     })
 
-    require('mini.ai').setup({
+    local ai = require('mini.ai')
+    local spec_treesitter = ai.gen_spec.treesitter
+    ai.setup({
       custom_textobjects = {
         -- textobj-entire
         e = function()
@@ -67,6 +58,7 @@ return {
           local to = { line = to_line, col = to_col + 1 }
           return { from = from, to = to }
         end,
+        -- diagnostic
         d = function()
           return vim.tbl_map(function(diagnostic)
             local from_line = diagnostic.lnum + 1
@@ -100,6 +92,12 @@ return {
             to = { line = to_line + 1, col = to_col },
           }
         end,
+        F = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
+        c = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),
+        o = spec_treesitter({
+          a = { '@block.outer', '@conditional.outer', '@loop.outer' },
+          i = { '@block.inner', '@conditional.inner', '@loop.inner' },
+        }),
       },
       mappings = {
         around_last = '',
