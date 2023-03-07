@@ -5,7 +5,6 @@ return {
     opts = { highlighter = { auto_enable = true } },
   },
   { 'mtdl9/vim-log-highlighting', ft = 'log' },
-  { 'itchyny/vim-highlighturl', cond = false, event = { 'BufReadPost', 'BufNewFile' } },
   { 'johmsalas/text-case.nvim', config = true },
   { 'axelvc/template-string.nvim', enabled = false, config = true },
   {
