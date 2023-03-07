@@ -1,4 +1,4 @@
-vim.api.nvim_create_user_command('Env', function()
+local function setenv()
   ---@type string|nil
   local file = vim.fs.find({ '.env' }, { upward = true })[1]
   if not file then
@@ -23,4 +23,9 @@ vim.api.nvim_create_user_command('Env', function()
   end
 
   vim.notify(table.concat(messages, '\n'), vim.log.levels.INFO, { title = 'dotenv' })
-end, {})
+end
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = setenv,
+  desc = 'Set dotenv',
+})
