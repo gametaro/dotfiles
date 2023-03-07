@@ -38,5 +38,5 @@ end
 
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = setenv,
-  desc = 'Set dotenv',
+  desc = 'Set environment variables on .env',
 })
