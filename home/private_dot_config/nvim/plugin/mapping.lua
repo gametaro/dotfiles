@@ -1,7 +1,9 @@
 vim.keymap.set('', '<Space>', '')
 vim.keymap.set('', ',', '')
-vim.keymap.set('n', 'ZQ', '')
-vim.keymap.set('n', 'ZZ', '')
+
+vim.keymap.set('n', 'ZQ', '<Cmd>qall!<CR>')
+vim.keymap.set('n', 'ZZ', '<Cmd>xall<CR>')
+
 vim.keymap.set('n', 'q', '')
 
 vim.keymap.set('n', 'Q', 'q', { desc = 'Record macro' })
@@ -15,6 +17,7 @@ vim.keymap.set('n', '<Leader>Q', '<Cmd>qall<CR>', { desc = 'Quit all' })
 
 vim.keymap.set('n', '<Leader>i', '<Cmd>Inspect<CR>')
 vim.keymap.set('n', '<Leader>I', '<Cmd>Inspect!<CR>')
+vim.keymap.set('n', '<Leader>T', '<Cmd>InspectTree<CR>')
 
 vim.keymap.set('c', '<C-a>', '<Home>')
 vim.keymap.set('c', '<C-b>', '<Left>')
@@ -69,8 +72,6 @@ vim.keymap.set(
   { desc = 'Messages' }
 )
 vim.keymap.set('n', 'gs', [[:%s/\<<C-R><C-W>\>\C//g<left><left>]], { desc = 'Substitute word' })
-
-vim.keymap.set({ 'n', 'x' }, 'J', 'mzJ`z', { desc = 'Join lines' })
 
 for _, v in ipairs({ 'cc', 'dd', 'yy' }) do
   vim.keymap.set('n', v, function()
