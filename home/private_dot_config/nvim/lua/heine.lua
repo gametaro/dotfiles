@@ -554,9 +554,9 @@ M.groups = {
   GitSignsChangeInline = { bg = M.lighten(M.tint.blue.bg, 10) },
   GitSignsDeleteInline = { bg = M.lighten(M.tint.red.bg, 10) },
 
-  -- GitSignsAddNr = {},
-  -- GitSignsChangeNr = {},
-  -- GitSignsDeleteNr = {},
+  GitSignsAddNr = { bg = M.tint.blue.bg },
+  GitSignsChangeNr = { bg = M.tint.orange.bg },
+  GitSignsDeleteNr = { bg = M.tint.red.bg },
 
   -- GitSignsAddVertInline = {},
   -- GitSignsChangeVertInline = {},
