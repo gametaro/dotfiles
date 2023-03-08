@@ -448,6 +448,17 @@ return {
     local Tabpage = {
       provider = function(self)
         local cwd = vim.fn.fnamemodify(vim.fn.getcwd(-1, self.tabnr), ':~')
+        local bufs = vim.fn.tabpagebuflist(self.tabnr)
+        for _, buf in ipairs(bufs) do
+          if vim.bo[buf].filetype == 'DiffviewFiles' then
+            cwd = cwd .. ' ' .. 'DiffviewFiles'
+            break
+          end
+          if vim.bo[buf].filetype == 'DiffviewFileHistory' then
+            cwd = cwd .. ' ' .. 'DiffviewFileHistory'
+            break
+          end
+        end
         if not conditions.width_percent_below(#cwd, 0.25) then
           cwd = vim.fn.pathshorten(cwd)
         end
