@@ -10,5 +10,8 @@
   "format": {
     "enable": false
   },
+  "completion": {
+    "callSnippet": "Replace"
+  },
   "runtime.version": "LuaJIT"
 }
