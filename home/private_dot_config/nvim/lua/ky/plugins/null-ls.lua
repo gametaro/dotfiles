@@ -29,7 +29,7 @@ return {
       sources = sources,
       border = vim.g.border,
       should_attach = function()
-        return vim.api.nvim_buf_line_count(0) <= vim.g.max_line_count
+        return not (vim.api.nvim_buf_line_count(0) > vim.g.max_line_count)
       end,
     })
   end,

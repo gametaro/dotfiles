@@ -133,7 +133,7 @@ return {
                     'quickfix',
                     'terminal',
                   }, buftype)
-                  and vim.api.nvim_buf_line_count(buf) <= vim.g.max_line_count
+                  and not (vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count)
               end, api.nvim_list_bufs())
             end,
           },
