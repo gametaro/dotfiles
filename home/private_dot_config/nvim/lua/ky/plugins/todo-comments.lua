@@ -15,15 +15,7 @@ return {
   end,
   config = function()
     require('todo-comments').setup({
-      keywords = {
-        FIX = { signs = false },
-        TODO = { signs = false },
-        HACK = { signs = false },
-        WARN = { signs = false },
-        PERF = { signs = false },
-        NOTE = { signs = false },
-        TEST = { signs = false },
-      },
+      signs = false,
       search = vim.fn.executable('git') == 1 and require('ky.util').is_git_repo() and {
         command = 'git',
         args = {
