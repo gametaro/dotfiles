@@ -136,10 +136,18 @@ end
 ---@return string?
 function M.get_root_by_names(names)
   names = names or { '.git', '.svn' }
-  return vim.fs.dirname(vim.fs.find(names, {
-    path = vim.api.nvim_buf_get_name(0),
-    upward = true,
-  })[1])
+  local path = vim.api.nvim_buf_get_name(0)
+  if path == '' then
+    return
+  end
+  path = vim.fs.dirname(path)
+
+  local root = M.root_cache[path]
+  if not root then
+    root = vim.fs.dirname(vim.fs.find(names, { path = path, upward = true })[1])
+    M.root_cache[path] = root
+  end
+  return root
 end
 
 ---@param opts? { buffer?: integer, id?: integer, name?: string, ignore?: string[] }

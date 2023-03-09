@@ -65,8 +65,7 @@ vim.g.lsp_start = function(config, opts)
   end
 
   config = config or {}
-  local names = vim.list_extend(config.root_names or {}, { '.git' })
-  local root_dir = config.root_dir or require('ky.util').get_root_by_names(names)
+  local root_dir = config.root_dir or require('ky.util').get_root_by_names(config.root_names)
   config = vim.tbl_deep_extend('force', config, {
     capabilities = capabilities,
     root_dir = root_dir,
