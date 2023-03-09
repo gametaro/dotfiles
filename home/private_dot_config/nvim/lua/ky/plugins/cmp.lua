@@ -24,8 +24,6 @@ return {
     local cmp = require('cmp')
     local compare = require('cmp.config.compare')
 
-    local api = vim.api
-
     ---@see https://github.com/lukas-reineke/cmp-under-comparator
     local function compare_under_comparator(entry1, entry2)
       local _, entry1_under = entry1.completion_item.label:find('^_+')
@@ -124,8 +122,8 @@ return {
           option = {
             get_bufnrs = function()
               return vim.tbl_filter(function(buf)
-                local buftype = api.nvim_buf_get_option(buf, 'buftype')
-                return api.nvim_buf_is_loaded(buf)
+                local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
+                return vim.api.nvim_buf_is_loaded(buf)
                   and not vim.tbl_contains({
                     -- 'help',
                     'nofile',
@@ -134,7 +132,7 @@ return {
                     'terminal',
                   }, buftype)
                   and not (vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count)
-              end, api.nvim_list_bufs())
+              end, vim.api.nvim_list_bufs())
             end,
           },
         },
@@ -161,7 +159,7 @@ return {
             get_bufnrs = function()
               local buf = vim.api.nvim_get_current_buf()
               return vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count and {}
-                or { api.nvim_get_current_buf() }
+                or { vim.api.nvim_get_current_buf() }
             end,
           },
         },
