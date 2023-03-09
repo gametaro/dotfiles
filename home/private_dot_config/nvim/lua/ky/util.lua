@@ -132,6 +132,8 @@ function M.is_git_repo()
   return root_dir ~= nil
 end
 
+M.root_cache = {}
+
 ---@param names? string|string[]
 ---@return string?
 function M.get_root_by_names(names)
