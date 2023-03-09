@@ -37,7 +37,7 @@ HISTORY_IGNORE="(l[sal]|cd|pwd|v|zsh|z)"
 HISTSIZE=50000
 SAVEHIST=10000
 
-WORDCHARS="*?_-.[]~=&;!#$%^(){}<>|"
+WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 
 skip_global_compinit=1
 
