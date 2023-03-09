@@ -79,7 +79,6 @@ return {
     local actions = require('telescope.actions')
     local action_state = require('telescope.actions.state')
     local actions_layout = require('telescope.actions.layout')
-    local themes = require('telescope.themes')
     local builtin = require('telescope.builtin')
 
     local borderchars = {
@@ -94,7 +93,7 @@ return {
       preview_title = false,
     }
 
-    local yank = function(prompt_bufnr)
+    local function yank(prompt_bufnr)
       local selection = action_state.get_selected_entry()
       if selection == nil then
         return
@@ -136,7 +135,7 @@ return {
       layout_strategy = 'bottom_pane',
       layout_config = {
         bottom_pane = {
-          height = 0.4,
+          height = 0.5,
           preview_width = 0.55,
           preview_cutoff = 90,
         },
@@ -182,9 +181,6 @@ return {
         '--smart-case',
         '--trim',
       },
-      cache_picker = {
-        num_pickers = 3,
-      },
     }
 
     telescope.setup({
@@ -217,7 +213,7 @@ return {
         },
       },
       pickers = {
-        buffers = themes.get_dropdown({
+        buffers = {
           mappings = {
             i = {
               ['<C-x>'] = actions.delete_buffer,
@@ -232,12 +228,12 @@ return {
           sort_mru = true,
           only_cwd = true,
           previewer = false,
-        }),
-        oldfiles = themes.get_dropdown({
+        },
+        oldfiles = {
           borderchars = borderchars,
           only_cwd = true,
           previewer = false,
-        }),
+        },
         colorscheme = {
           enable_preview = true,
         },
