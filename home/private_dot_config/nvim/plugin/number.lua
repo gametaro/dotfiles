@@ -4,8 +4,8 @@ local group = vim.api.nvim_create_augroup('mine__number', {})
 ---@field ignore_buftype string[]
 ---@field ignore_filetype string[]
 local opts = {
-  number = true,
-  relativenumber = true,
+  number = vim.o.number,
+  relativenumber = vim.o.relativenumber,
   ignore_buftype = {
     'help',
     'nofile',
@@ -40,8 +40,12 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'BufLeave' }, {
       return
     end
 
-    number(true)
-    relativenumber(false)
+    if opts.number then
+      number(true)
+    end
+    if opts.relativenumber then
+      relativenumber(false)
+    end
     if a.event == 'CmdlineEnter' then
       vim.cmd.redraw()
     end
@@ -55,7 +59,11 @@ vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter', 'BufEnter' }, {
       return
     end
 
-    number(opts.number)
-    relativenumber(opts.relativenumber)
+    if opts.number then
+      number(true)
+    end
+    if opts.relativenumber then
+      relativenumber(true)
+    end
   end,
 })
