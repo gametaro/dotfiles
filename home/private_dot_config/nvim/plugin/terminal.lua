@@ -1,21 +1,21 @@
+---@type table<string?, (integer?)[]>
 local terminals = {}
 
 ---@param split? 'split'|'vsplit'
 local function open(split)
+  ---@type integer
+  local count = vim.v.count1
   local cwd = vim.fn.getcwd(-1, vim.api.nvim_get_current_tabpage())
   terminals[cwd] = terminals[cwd] or {}
-  if terminals[cwd][vim.v.count1] then
-    if split then
-      vim.cmd(string.format('botright %s', split))
-    end
-    vim.cmd.buffer(terminals[cwd][vim.v.count1])
-    return
-  end
   if split then
     vim.cmd(string.format('botright %s', split))
   end
-  vim.cmd.terminal()
-  table.insert(terminals[cwd], vim.api.nvim_get_current_buf())
+  if terminals[cwd][count] then
+    vim.cmd.buffer(terminals[cwd][count])
+  else
+    vim.cmd.terminal()
+    table.insert(terminals[cwd], vim.api.nvim_get_current_buf())
+  end
 end
 
 vim.keymap.set('n', 't', '')
