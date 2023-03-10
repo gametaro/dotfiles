@@ -226,7 +226,7 @@ M.groups = {
   Normal = M.transparent({ fg = fg1, bg = bg1 }),
   NormalFloat = { link = 'Pmenu' },
   NormalNC = M.transparent({ bg = M.config.non_current and M.lighten(bg1, -4) or bg1 }),
-  FloatTitle = { fg = M.palette.blue, bg = bg3, bold = true },
+  FloatTitle = M.transparent({ fg = M.palette.blue, bg = bg3, bold = true }),
   FloatBorder = M.transparent({ fg = M.palette.blue, bg = bg3 }),
   Pmenu = M.transparent({ fg = fg1, bg = bg3 }),
   PmenuSel = { bg = bg6 },
