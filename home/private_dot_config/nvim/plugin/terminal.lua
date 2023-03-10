@@ -1,3 +1,18 @@
+local terminals = {}
+
+local function open()
+  local cwd = vim.fn.getcwd(-1, vim.api.nvim_get_current_tabpage())
+  terminals[cwd] = terminals[cwd] or {}
+  if terminals[cwd][vim.v.count1] then
+    vim.api.nvim_set_current_buf(terminals[cwd][vim.v.count1])
+    return
+  end
+  vim.cmd.terminal()
+  table.insert(terminals[cwd], vim.api.nvim_get_current_buf())
+end
+
+vim.keymap.set('n', [[<C-\>]], open, { desc = 'Open terminal' })
+
 ---@param buf integer
 local function on_open(buf)
   vim.opt_local.number = false

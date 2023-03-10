@@ -1,5 +1,6 @@
 return {
   'ThePrimeagen/harpoon',
+  enabled = false,
   init = function()
     local map = vim.keymap.set
 
