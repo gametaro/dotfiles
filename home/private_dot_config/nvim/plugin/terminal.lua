@@ -1,17 +1,31 @@
 local terminals = {}
 
-local function open()
+---@param split? 'split'|'vsplit'
+local function open(split)
   local cwd = vim.fn.getcwd(-1, vim.api.nvim_get_current_tabpage())
   terminals[cwd] = terminals[cwd] or {}
   if terminals[cwd][vim.v.count1] then
-    vim.api.nvim_set_current_buf(terminals[cwd][vim.v.count1])
+    if split then
+      vim.cmd(string.format('botright %s', split))
+    end
+    vim.cmd.buffer(terminals[cwd][vim.v.count1])
     return
+  end
+  if split then
+    vim.cmd(string.format('botright %s', split))
   end
   vim.cmd.terminal()
   table.insert(terminals[cwd], vim.api.nvim_get_current_buf())
 end
 
-vim.keymap.set('n', [[<C-\>]], open, { desc = 'Open terminal' })
+vim.keymap.set('n', 't', '')
+vim.keymap.set('n', 'tt', open, { desc = 'Open terminal' })
+vim.keymap.set('n', 'tv', function()
+  open('vsplit')
+end, { desc = 'Open terminal vertically' })
+vim.keymap.set('n', 'ts', function()
+  open('split')
+end, { desc = 'Open terminal horizontally' })
 
 ---@param buf integer
 local function on_open(buf)
