@@ -22,6 +22,7 @@ return {
       ['\\h'] = { name = '+gitsigns' },
       [']'] = { name = '+next' },
       ['g'] = { name = '+goto' },
+      ['t'] = { name = '+terminal' },
     })
 
     vim.keymap.set('n', 'g?', '<Cmd>WhichKey<CR>')
