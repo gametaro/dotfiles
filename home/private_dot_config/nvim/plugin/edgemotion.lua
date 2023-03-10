@@ -115,7 +115,7 @@ function M.backward(opts)
   M.move(opts)
 end
 
-vim.keymap.set({ 'n', 'x' }, '<C-j>', M.forward)
-vim.keymap.set({ 'n', 'x' }, '<C-k>', M.backward)
+vim.keymap.set({ 'n', 'x' }, '<C-j>', M.forward, { desc = 'Forward to edge' })
+vim.keymap.set({ 'n', 'x' }, '<C-k>', M.backward, { desc = 'Backward to edge' })
 
 return M
