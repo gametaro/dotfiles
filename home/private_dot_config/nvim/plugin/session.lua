@@ -1,10 +1,14 @@
 local sessionfile = 'Session.vim'
+local stdin = false
 
 local function load()
   vim.cmd.source({ sessionfile, mods = { silent = true, emsg_silent = true } })
 end
 
 local function save()
+  if vim.fn.argc(-1) > 0 then
+    vim.cmd('%argdelete')
+  end
   vim.cmd.mksession({ bang = true })
 end
 
@@ -17,11 +21,17 @@ end
 
 local group = vim.api.nvim_create_augroup('session', {})
 
+vim.api.nvim_create_autocmd('StdinReadPre', {
+  callback = function()
+    stdin = true
+  end,
+})
+
 vim.api.nvim_create_autocmd('VimEnter', {
   group = group,
   nested = true,
   callback = function()
-    if vim.fn.argc(-1) == 0 and vim.loop.fs_stat(sessionfile) then
+    if vim.fn.argc(-1) == 0 and not stdin and vim.loop.fs_stat(sessionfile) then
       load()
       autosave()
     end
