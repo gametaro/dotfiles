@@ -2,6 +2,10 @@ local ignore_buftype = { 'quickfix', 'nofile', 'help', 'terminal' }
 local ignore_filetype = { 'gitcommit', 'gitrebase', 'svn', 'hgcommit' }
 
 local function setenv()
+  -- disable when loaded as PAGER
+  if vim.tbl_contains(vim.v.argv, '-R') then
+    return
+  end
   if vim.tbl_contains(ignore_buftype, vim.bo.buftype) then
     return
   end
@@ -38,5 +42,5 @@ end
 
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = setenv,
-  desc = 'Set environment variables on .env',
+  desc = 'Set environment variables from .env',
 })
