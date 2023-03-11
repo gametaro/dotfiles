@@ -12,7 +12,8 @@ local function setenv()
   end
 
   ---@type string|nil
-  local file = vim.fs.find({ '.env' }, { upward = true })[1]
+---@diagnostic disable-next-line: missing-parameter
+  local file = vim.fs.find({ '.env' })[1]
   if not file then
     return
   end
@@ -21,8 +22,8 @@ local function setenv()
   for line in io.lines(file) do
     if not vim.startswith(line, '#') then
       local name, value = unpack(vim.split(line, '='))
-      value = vim.trim(value)
       value = string.gsub(value, [=[['"]]=], '') -- remove single/double quotes
+      value = vim.trim(value)
       vim.env[name] = value
       env[name] = value
     end
