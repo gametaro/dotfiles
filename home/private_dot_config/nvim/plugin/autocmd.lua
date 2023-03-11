@@ -174,16 +174,18 @@ autocmd({ 'BufReadPre', 'BufReadPost' }, {
 autocmd('VimEnter', {
   callback = function()
     local path = vim.fn.stdpath('config') .. '/spell'
-    local files = vim.fs.find(function(name, _)
+    local addfiles = vim.fs.find(function(name, _)
       return string.match(name, '.+%.add$')
     end, { type = 'file', path = path })
-    for _, file in ipairs(files) do
-      local spellfile = file .. '.spl'
-      if
-        vim.fn.filereadable(spellfile) == 0
-        and vim.fn.getftime(file) > vim.fn.getftime(spellfile)
-      then
-        vim.cmd.mkspell(file)
+    for _, addfile in ipairs(addfiles) do
+      local spellfile = addfile .. '.spl'
+      local add_stat = vim.loop.fs_stat(addfile)
+      local spell_stat = vim.loop.fs_stat(spellfile)
+      if not spell_stat then
+        vim.cmd.mkspell(addfile)
+      end
+      if add_stat and spell_stat and add_stat.mtime.sec > spell_stat.mtime.sec then
+        vim.cmd.mkspell({ addfile, bang = true })
       end
     end
   end,
