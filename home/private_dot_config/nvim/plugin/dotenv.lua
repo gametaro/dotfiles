@@ -1,23 +1,19 @@
-local ignore_buftype = { 'quickfix', 'nofile', 'help', 'terminal' }
-local ignore_filetype = { 'gitcommit', 'gitrebase', 'svn', 'hgcommit' }
+local stdin = false
 
 local function setenv()
-  -- disable when loaded as PAGER
-  if vim.tbl_contains(vim.v.argv, '-R') then
+  if stdin then
     return
   end
-  if vim.tbl_contains(ignore_buftype, vim.bo.buftype) then
-    return
-  end
-
-  if vim.tbl_contains(ignore_filetype, vim.bo.filetype) then
-    return
+  for _, arg in ipairs(vim.fn.argv()) do
+    -- ignore gitcommit
+    if string.match(arg, 'COMMIT_EDITMSG') then
+      return
+    end
   end
 
   ---@type string|nil
   local file = vim.fs.find({ '.env' }, { upward = true })[1]
   if not file then
-    vim.notify('Not found', vim.log.levels.WARN)
     return
   end
 
@@ -32,13 +28,19 @@ local function setenv()
     end
   end
 
-  local messages = { string.format('Loaded from %s', file) }
+  local messages = {}
   for name, value in pairs(env) do
     table.insert(messages, string.format('%s=%s', name, value))
   end
 
-  vim.notify(table.concat(messages, '\n'), vim.log.levels.INFO, { title = 'dotenv' })
+  print(string.format('Set env: %s', table.concat(messages, ',')))
 end
+
+vim.api.nvim_create_autocmd('StdinReadPre', {
+  callback = function()
+    stdin = true
+  end,
+})
 
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = setenv,
