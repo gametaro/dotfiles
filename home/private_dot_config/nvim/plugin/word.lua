@@ -73,6 +73,26 @@ local function move(motion, mode, times)
 end
 
 ---@param motion string
+local function adjustment(motion)
+  vim.cmd.execute({ [["normal! \<Esc>"]] })
+  if vim.deep_equal(vim.fn.getpos("'<"), vim.fn.getpos("'>")) then
+  else
+    local ww = vim.o.whichwrap
+    vim.o.whichwrap = 'h'
+    vim.cmd.normal({ '`>', bang = true })
+    vim.cmd.normal({ 'h', bang = true })
+
+    if vim.fn.col('.') == vim.fn.col('$') then
+      vim.cmd.normal({ 'h', bang = true })
+    end
+    if motion == 'ge' then
+      vim.cmd.normal({ 'v`<', bang = true })
+    end
+    vim.o.whichwrap = ww
+  end
+end
+
+---@param motion string
 ---@param mode string
 local function word_move(motion, mode)
   ---@type integer
@@ -96,22 +116,7 @@ local function word_move(motion, mode)
   move(motion, mode, count)
 
   if exclusive_adjustment then
-    vim.cmd.execute({ [["normal! \<Esc>"]] })
-    if vim.fn.getpos("'<") == vim.fn.getpos("'>") then
-    else
-      local original_whichwrap = vim.o.whichwrap
-      vim.o.whichwrap = 'h'
-      vim.cmd.normal({ '`>', bang = true })
-      vim.cmd.normal({ 'h', bang = true })
-
-      if vim.fn.col('.') == vim.fn.col('$') then
-        vim.cmd.normal({ 'h', bang = true })
-      end
-      if motion == 'ge' then
-        vim.cmd.normal({ 'v`<', bang = true })
-      end
-      vim.o.whichwrap = original_whichwrap
-    end
+    adjustment(motion)
   end
 end
 
