@@ -15,7 +15,6 @@ return {
   config = function()
     local win_config = {
       position = 'bottom',
-      height = 12,
     }
 
     local actions = require('diffview.actions')
@@ -40,8 +39,8 @@ return {
         win_config = win_config,
       },
       default_args = {
-        DiffviewOpen = { '--untracked-files=no', '--imply-local' },
-        DiffviewFileHistory = { '--base=LOCAL' },
+        DiffviewOpen = { '--untracked-files=no' },
+        -- DiffviewFileHistory = { '--base=LOCAL' },
       },
       keymaps = {
         view = {
