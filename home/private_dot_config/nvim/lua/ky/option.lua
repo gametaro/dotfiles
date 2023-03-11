@@ -69,7 +69,6 @@ vim.o.listchars = list({
   tab = '>-',
   trail = '·',
 })
-vim.o.modeline = false
 vim.o.preserveindent = true
 vim.o.pumblend = blend
 vim.o.pumheight = 10
