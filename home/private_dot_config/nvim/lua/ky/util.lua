@@ -87,9 +87,15 @@ function M.job(cmd, args, callback)
   end
 
   local on_exit = function(code, signal)
-    stdout:close()
-    stderr:close()
-    handle:close()
+    if stdout then
+      stdout:close()
+    end
+    if stderr then
+      stderr:close()
+    end
+    if handle then
+      handle:close()
+    end
 
     callback(code, table.concat(results))
   end
@@ -113,6 +119,8 @@ function M.job(cmd, args, callback)
   else
     if stdout then
       stdout:close()
+    end
+    if stderr then
       stderr:close()
     end
   end
