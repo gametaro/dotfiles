@@ -170,3 +170,22 @@ autocmd({ 'BufReadPre', 'BufReadPost' }, {
   end,
   desc = 'Disable options on large file',
 })
+
+autocmd('VimEnter', {
+  callback = function()
+    local path = vim.fn.stdpath('config') .. '/spell'
+    local files = vim.fs.find(function(name, _)
+      return string.match(name, '.+%.add$')
+    end, { type = 'file', path = path })
+    for _, file in ipairs(files) do
+      local spellfile = file .. '.spl'
+      if
+        vim.fn.filereadable(spellfile) == 0
+        and vim.fn.getftime(file) > vim.fn.getftime(spellfile)
+      then
+        vim.cmd.mkspell(file)
+      end
+    end
+  end,
+  desc = 'Create spell file if it is missing',
+})
