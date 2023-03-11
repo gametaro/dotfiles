@@ -28,5 +28,4 @@ return {
       vim.g.unception_delete_replaced_buffer = true
     end,
   },
-  { 'stevearc/profile.nvim', cond = vim.env.NVIM_PROFILE },
 }
