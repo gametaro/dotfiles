@@ -16,7 +16,7 @@ local M = {}
 ---@field public skip? fun(dir_name: string): boolean
 ---@field public sort? fun(a: walkthrough.List.Item, a: walkthrough.List.Item): boolean
 
----@type table<string, uv.uv_fs_event_t>
+---@type table<string, uv_fs_event_t>
 local watchers = {}
 ---@type table<string, walkthrough.List.Item[]>
 local files_per_dir = {}

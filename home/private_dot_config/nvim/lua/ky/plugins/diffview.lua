@@ -44,17 +44,17 @@ return {
       },
       keymaps = {
         view = {
-          ['q'] = '<Cmd>DiffviewClose<CR>',
+          { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close the active Diffview' } },
           ['co'] = actions.conflict_choose('ours'),
           ['ct'] = actions.conflict_choose('theirs'),
           ['cb'] = actions.conflict_choose('base'),
           ['ca'] = actions.conflict_choose('all'),
         },
         file_panel = {
-          ['q'] = '<Cmd>DiffviewClose<CR>',
+          { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close the active Diffview' } },
         },
         file_history_panel = {
-          ['q'] = '<Cmd>DiffviewClose<CR>',
+          { 'n', 'q', '<Cmd>DiffviewClose<CR>', { desc = 'Close the active Diffview' } },
         },
       },
       hooks = {
