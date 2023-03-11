@@ -22,6 +22,7 @@ end
 local group = vim.api.nvim_create_augroup('session', {})
 
 vim.api.nvim_create_autocmd('StdinReadPre', {
+  group = group,
   callback = function()
     stdin = true
   end,
