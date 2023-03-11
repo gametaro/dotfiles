@@ -6,30 +6,38 @@ return {
     local f = null_ls.builtins.formatting
     local d = null_ls.builtins.diagnostics
 
+    local function wrap(builtin)
+      builtin.condition = function()
+        return vim.fn.executable(builtin._opts.command) > 0
+      end
+      return builtin
+    end
+
     local sources = {
-      f.autopep8,
-      f.fish_indent,
-      f.prettierd,
-      f.shellharden,
-      f.shfmt,
-      f.stylua,
-      f.yamlfmt,
-      d.actionlint,
-      d.cfn_lint,
-      d.flake8,
-      d.gitlint,
-      d.markdownlint,
-      d.pylint,
-      d.shellcheck,
-      d.vale,
-      d.zsh,
+      wrap(f.autopep8),
+      wrap(f.fish_indent),
+      wrap(f.prettierd),
+      wrap(f.shellharden),
+      wrap(f.shfmt),
+      wrap(f.stylua),
+      wrap(f.yamlfmt),
+      wrap(d.actionlint),
+      wrap(d.cfn_lint),
+      wrap(d.flake8),
+      wrap(d.gitlint),
+      wrap(d.markdownlint),
+      wrap(d.pylint),
+      wrap(d.shellcheck),
+      wrap(d.vale),
+      wrap(d.zsh),
     }
 
     null_ls.setup({
       sources = sources,
       border = vim.g.border,
-      should_attach = function()
-        return not (vim.api.nvim_buf_line_count(0) > vim.g.max_line_count)
+      log_level = 'off',
+      should_attach = function(buf)
+        return not (vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count)
       end,
     })
   end,
