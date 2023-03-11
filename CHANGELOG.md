@@ -1,5 +1,36 @@
 # Changelog
 
+## [2.5.0](https://github.com/gametaro/dotfiles/compare/v2.4.0...v2.5.0) (2023-03-11)
+
+
+### Features
+
+* **autocmd:** create spell file if it is missing ([57c0684](https://github.com/gametaro/dotfiles/commit/57c068434ac5c5a6089eff2be70d98d41a7b7332))
+* **colorscheme:** support lsp semantic tokens ([6f2641a](https://github.com/gametaro/dotfiles/commit/6f2641a5f62c65603ee674c6f9ec269d4354ebc9))
+* **heirline:** handle special tabpage name ([2eeac42](https://github.com/gametaro/dotfiles/commit/2eeac4235f6d246cef0b437f0879a7b8c76d2589))
+* **plugin:** add session module ([b87f57d](https://github.com/gametaro/dotfiles/commit/b87f57db3433245e3632b827904814cfac92edb9))
+* **plugins:** add paint.nvim ([d67b25d](https://github.com/gametaro/dotfiles/commit/d67b25df385bab1b1ac7e48be2aa04b143f0bc55))
+* **plugins:** replace nvim-colorizer with ccc.nvim ([e172bed](https://github.com/gametaro/dotfiles/commit/e172bed453f59d1fe684f88f3fa6d62fe0e1bc79))
+* **terminal:** add mapping ([19cbc92](https://github.com/gametaro/dotfiles/commit/19cbc929b5a322fe94af8aca90120b857943fbee))
+* **terminal:** support split modifier ([1ac9263](https://github.com/gametaro/dotfiles/commit/1ac9263d7bc970ec1b23caf0f125a5feb3814776))
+
+
+### Bug Fixes
+
+* **dotenv:** disable on some buftype/filetype ([257e273](https://github.com/gametaro/dotfiles/commit/257e2732ed584e7c8b98d9d69bb153861936a297))
+* **dotenv:** disable when loaded as PAGER ([24ce8dc](https://github.com/gametaro/dotfiles/commit/24ce8dcb9b786bc961bce05949af7b65fe8489dc))
+* **null-ls:** suppress warning when source is not executable ([5a88292](https://github.com/gametaro/dotfiles/commit/5a88292f69200ab828df14504791016ed9002d93))
+* **session:** handle edge case ([39a0232](https://github.com/gametaro/dotfiles/commit/39a0232c4617b10aad48c737c4d199345c123588))
+* **util:** check nil ([d71b78f](https://github.com/gametaro/dotfiles/commit/d71b78f182f2e12c68ab31a252e93f4844272e0d))
+* **util:** follow up ([f4c8ef8](https://github.com/gametaro/dotfiles/commit/f4c8ef8bfca9ceb21920f67cf64cf9ebd9601838))
+
+
+### Performance Improvements
+
+* **autocmd:** use vim.loop instead of vimL ([bc3b5e7](https://github.com/gametaro/dotfiles/commit/bc3b5e7c3a2ecc7fc508574cdfb78a9a6bcf931f))
+* **lsp:** cache resolved root ([efde115](https://github.com/gametaro/dotfiles/commit/efde1151d03560a2ae0be325a4a971e09ac267c9))
+* **nvim:** more tweak when opening large file ([d256148](https://github.com/gametaro/dotfiles/commit/d2561482da1daf5c3682dba7e091e3e00114296d))
+
 ## [2.4.0](https://github.com/gametaro/dotfiles/compare/v2.3.0...v2.4.0) (2023-03-06)
 
 
