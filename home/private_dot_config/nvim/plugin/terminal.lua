@@ -45,12 +45,14 @@ local function on_open(buf)
     vim.b[buf].keep_mode = true
     return string.format('%s<C-o>', escape)
   end, { buffer = buf, expr = true, desc = 'Goto older position' })
-
   vim.keymap.set('t', '<Esc>', function()
     local names = { 'nvim', 'fzf' }
     return require('ky.util').find_proc_in_tree(vim.b[buf].terminal_job_pid, names) and '<Esc>'
       or escape
   end, { buffer = buf, expr = true })
+  vim.keymap.set('t', '<C-r>', function()
+    return escape .. '"' .. vim.fn.nr2char(vim.fn.getchar()) .. 'pi'
+  end, { buffer = buf, expr = true, desc = 'Simulate |i_CTRL-R|' })
 
   vim.cmd.startinsert()
 end
