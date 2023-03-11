@@ -18,7 +18,7 @@ end
 
 local root_names = { 'angular.json' }
 if require('ky.util').get_root_by_names(root_names) then
-  vim.g.lsp_start({
+  vim.lsp.start({
     cmd = get_cmd(),
     root_names = root_names,
     on_new_config = function(new_config, _)

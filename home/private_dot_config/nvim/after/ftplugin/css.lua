@@ -1,4 +1,4 @@
-vim.g.lsp_start({
+vim.lsp.start({
   cmd = { 'vscode-css-language-server', '--stdio' },
   root_names = { 'package.json' },
   settings = {

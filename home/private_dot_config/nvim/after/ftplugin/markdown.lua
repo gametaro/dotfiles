@@ -3,7 +3,7 @@ vim.opt_local.spell = true
 vim.opt_local.conceallevel = 2
 vim.opt_local.concealcursor = 'nc'
 
-vim.g.lsp_start({
+vim.lsp.start({
   cmd = { 'marksman', 'server' },
 })
 

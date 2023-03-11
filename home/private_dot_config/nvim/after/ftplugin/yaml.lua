@@ -1,4 +1,4 @@
-vim.g.lsp_start({
+vim.lsp.start({
   cmd = { 'yaml-language-server', '--stdio' },
   settings = {
     redhat = { telemetry = { enabled = false } },

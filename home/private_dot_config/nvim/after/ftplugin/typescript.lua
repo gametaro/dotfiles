@@ -1,6 +1,6 @@
 vim.opt_local.isfname:append('@-@')
 
-vim.g.lsp_start({
+vim.lsp.start({
   cmd = { 'typescript-language-server', '--stdio' },
   root_names = { 'tsconfig.json', 'package.json' },
   settings = {

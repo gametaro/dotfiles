@@ -1,3 +1,3 @@
-vim.g.lsp_start({
+vim.lsp.start({
   cmd = { 'bash-language-server', 'start' },
 })

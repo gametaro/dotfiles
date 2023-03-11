@@ -59,19 +59,20 @@ local cmp_capabilities = {
 local capabilities =
   vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), cmp_capabilities)
 
-vim.g.lsp_start = function(config, opts)
-  if vim.api.nvim_buf_line_count(0) > vim.g.max_line_count then
-    return
+vim.lsp.start = (function(fn)
+  return function(config, opts)
+    if vim.api.nvim_buf_line_count(0) > vim.g.max_line_count then
+      return
+    end
+    config = config or {}
+    local root_dir = config.root_dir or require('ky.util').get_root_by_names(config.root_names)
+    config = vim.tbl_deep_extend('force', config, {
+      capabilities = capabilities,
+      root_dir = root_dir,
+    })
+    fn(config, opts)
   end
-
-  config = config or {}
-  local root_dir = config.root_dir or require('ky.util').get_root_by_names(config.root_names)
-  config = vim.tbl_deep_extend('force', config, {
-    capabilities = capabilities,
-    root_dir = root_dir,
-  })
-  vim.lsp.start(config, opts)
-end
+end)(vim.lsp.start)
 
 local function format()
   vim.lsp.buf.format({ async = true })

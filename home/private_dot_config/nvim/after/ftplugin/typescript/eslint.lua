@@ -9,7 +9,7 @@ local root_names = {
 }
 
 if require('ky.util').get_root_by_names(root_names) then
-  vim.g.lsp_start({
+  vim.lsp.start({
     cmd = { 'vscode-eslint-language-server', '--stdio' },
     root_names = root_names,
     init_options = {
