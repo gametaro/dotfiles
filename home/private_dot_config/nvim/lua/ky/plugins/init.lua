@@ -20,6 +20,13 @@ return {
   { 'nacro90/numb.nvim', event = 'CmdlineEnter', config = true },
   { 'wsdjeg/vim-fetch', event = 'CmdlineEnter' },
   { 'justinmk/vim-gtfo', keys = { 'got', 'gof' } },
-  { 'samjwill/nvim-unception', enabled = false, lazy = false },
+  {
+    'samjwill/nvim-unception',
+    lazy = false,
+    init = function()
+      -- vim.g.unception_open_buffer_in_new_tab = true
+      vim.g.unception_delete_replaced_buffer = true
+    end,
+  },
   { 'stevearc/profile.nvim', cond = vim.env.NVIM_PROFILE },
 }
