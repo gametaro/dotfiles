@@ -12,7 +12,7 @@ local function setenv()
   end
 
   ---@type string|nil
----@diagnostic disable-next-line: missing-parameter
+  ---@diagnostic disable-next-line: missing-parameter
   local file = vim.fs.find({ '.env' })[1]
   if not file then
     return
