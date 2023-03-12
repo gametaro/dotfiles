@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1678584508694,
+  "lastUpdate": 1678641292112,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -21853,6 +21853,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.04171930506285715,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "a076386d82c3773f9605ce91e54680b35e2901ea",
+          "message": "feat(plugin): add singleton module\n\nInspired by vim-singleton, nvim-unception, and flatten.nvim.\nAlmost works, but still require more works to handle edge cases.",
+          "timestamp": "2023-03-13T02:10:46+09:00",
+          "tree_id": "feb3c1973663c3ffb0ad2e4af549398790685c28",
+          "url": "https://github.com/gametaro/dotfiles/commit/a076386d82c3773f9605ce91e54680b35e2901ea"
+        },
+        "date": 1678641290224,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.04345045613253732,
             "unit": "Second"
           }
         ]
