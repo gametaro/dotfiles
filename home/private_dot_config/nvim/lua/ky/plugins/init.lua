@@ -6,7 +6,6 @@ return {
   },
   { 'mtdl9/vim-log-highlighting', ft = 'log' },
   { 'johmsalas/text-case.nvim', config = true },
-  { 'axelvc/template-string.nvim', enabled = false, config = true },
   {
     'akinsho/git-conflict.nvim',
     enabled = false,
@@ -20,13 +19,4 @@ return {
   { 'nacro90/numb.nvim', event = 'CmdlineEnter', config = true },
   { 'wsdjeg/vim-fetch', event = 'CmdlineEnter' },
   { 'justinmk/vim-gtfo', keys = { 'got', 'gof' } },
-  {
-    'samjwill/nvim-unception',
-    lazy = false,
-    init = function()
-      -- vim.g.unception_open_buffer_in_new_tab = true
-      vim.g.unception_delete_replaced_buffer = true
-      vim.g.unception_enable_flavor_text = false
-    end,
-  },
 }
