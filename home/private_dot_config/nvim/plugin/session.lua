@@ -2,20 +2,19 @@ local sessionfile = 'Session.vim'
 local stdin = false
 
 local function load()
-  vim.cmd.source({ sessionfile, mods = { silent = true, emsg_silent = true } })
+  vim.cmd.source({ sessionfile, mods = { emsg_silent = true } })
 end
 
 local function save()
-  if vim.fn.argc(-1) > 0 then
-    vim.cmd('%argdelete')
-  end
   vim.cmd.mksession({ bang = true })
 end
 
-local function autosave()
+---@param timeout? integer
+local function autosave(timeout)
+  timeout = timeout or 60000
   local timer = vim.loop.new_timer()
   if timer then
-    timer:start(0, 60000, vim.schedule_wrap(save))
+    timer:start(0, timeout, vim.schedule_wrap(save))
   end
 end
 
@@ -41,5 +40,10 @@ vim.api.nvim_create_autocmd('VimEnter', {
 
 vim.api.nvim_create_autocmd('VimLeavePre', {
   group = group,
-  callback = save,
+  callback = function()
+    if vim.fn.argc(-1) > 0 then
+      vim.cmd('%argdelete')
+    end
+    save()
+  end,
 })
