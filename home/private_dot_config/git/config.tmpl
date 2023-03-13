@@ -10,7 +10,8 @@
 [commit]
   verbose = true
 [core]
-  editor = nvim --cmd 'let g:unception_block_while_host_edits=1'
+  editor = nvim
+  pager = nvim
 [color]
   ui = false
 [fetch]
@@ -33,12 +34,17 @@
   tool = nvimdiff
   conflictstyle = diff3 ; zdiff3
 [mergetool]
-  prompt = false
+  prompt = true
   keepBackup = false
 [mergetool "nvimdiff"]
   cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [diff]
+  tool = nvimdiff
   colorMoved = default
+[difftool]
+  prompt = true
+[difftool "nvimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE -c '$wincmd w'
 [grep]
   lineNumber = true
   column = true
