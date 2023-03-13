@@ -1,7 +1,7 @@
----@alias singleton.Open 'default'|'diff'|'stdin'
+---@alias singleton.OpenType 'default'|'diff'|'stdin'
 
 ---@class singleton.Options
----@field public open table<singleton.Open, fun(data: string[]): nil>
+---@field public open table<singleton.OpenType, fun(data: string[]): nil>
 local opts = {
   open = {
     default = function(files)
@@ -20,7 +20,7 @@ local opts = {
       end
     end,
     stdin = function(lines)
-      vim.cmd.tabnew()
+      vim.cmd.tabnew('singleton')
       vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
       vim.bo.readonly = true
       vim.bo.modified = false
@@ -28,6 +28,11 @@ local opts = {
       vim.bo.buflisted = false
       vim.bo.buftype = 'nofile'
       vim.cmd.filetype('detect')
+      vim.cmd.redraw()
+
+      vim.keymap.set('n', 'q', function()
+        vim.cmd.quit({ bang = true })
+      end, { buffer = true, nowait = true })
     end,
   },
 }
@@ -40,10 +45,21 @@ local function fullpath(file, cwd)
 end
 
 ---@param data string[]
----@param type? singleton.Open
+---@param type? singleton.OpenType
 local function open(data, type)
   type = type or 'default'
   opts.open[type](data)
+end
+
+---@param address string
+local function close(address)
+  local ok, chan = pcall(vim.fn.sockconnect, unpack({ 'pipe', address, { rpc = true } }))
+  if not ok then
+    vim.notify(chan, vim.log.levels.WARN)
+    return
+  end
+  vim.rpcnotify(chan, 'nvim_exec_lua', 'vim.cmd.qall({ bang = true })', {})
+  vim.fn.chanclose(chan)
 end
 
 ---@param args string[]
@@ -60,9 +76,7 @@ _G.default = function(args, cwd, address)
       buffer = vim.api.nvim_get_current_buf(),
       once = true,
       callback = function()
-        local id = vim.fn.sockconnect('pipe', address, { rpc = true })
-        vim.rpcnotify(id, 'nvim_exec_lua', 'vim.cmd.qall({ bang = true })', {})
-        vim.fn.chanclose(id)
+        close(address)
       end,
     })
     return true
@@ -113,7 +127,11 @@ local function start()
 
   local args = vim.fn.argv()
   local cwd = vim.loop.cwd()
-  local chan = vim.fn.sockconnect('pipe', address, { rpc = true })
+  local ok, chan = pcall(vim.fn.sockconnect, unpack({ 'pipe', address, { rpc = true } }))
+  if not ok then
+    vim.notify(chan, vim.log.levels.WARN)
+    return
+  end
 
   -- diff
   if vim.wo.diff and #args <= 3 then
@@ -127,11 +145,9 @@ local function start()
     vim.api.nvim_create_autocmd('StdinReadPost', {
       group = vim.api.nvim_create_augroup('singleton', {}),
       callback = function(a)
-        local buf = a.buf
-        local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-        local filetype = vim.bo[buf].filetype
+        local lines = vim.api.nvim_buf_get_lines(a.buf, 0, -1, false)
         local code = 'return _G.stdin(...)'
-        send(chan, code, lines, filetype)
+        send(chan, code, lines)
       end,
     })
     return
