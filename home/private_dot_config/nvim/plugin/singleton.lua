@@ -22,6 +22,9 @@ local opts = {
     stdin = function(lines)
       vim.cmd.tabnew('singleton')
       vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+      -- TODO: safe to run?
+      vim.cmd.Man({ bang = true })
+      vim.api.nvim_buf_set_name(0, 'singleton')
       vim.bo.readonly = true
       vim.bo.modified = false
       vim.bo.bufhidden = 'wipe'
@@ -156,7 +159,7 @@ local function start()
   -- default
   if #args > 0 then
     local code = 'return _G.default(...)'
-    --  TODO: can remove servername?
+    -- TODO: can remove servername?
     send(chan, code, args, cwd, vim.v.servername)
     return
   end
