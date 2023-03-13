@@ -1,3 +1,37 @@
+---@alias singleton.Open 'default'|'diff'|'stdin'
+
+---@class singleton.Options
+---@field public open table<singleton.Open, fun(data: string[]): nil>
+local opts = {
+  open = {
+    default = function(files)
+      vim.cmd.drop({ args = files, mods = { tab = 1, keepjumps = true } })
+    end,
+    diff = function(files)
+      for i, file in ipairs(files) do
+        if i == 1 then
+          vim.cmd.tabnew(file)
+        elseif i == 2 then
+          vim.cmd.vsplit({ file, mods = { split = 'botright' } })
+        elseif i == 3 then
+          vim.cmd.split({ file, mods = { split = 'botright' } })
+        end
+        vim.cmd.diffthis()
+      end
+    end,
+    stdin = function(lines)
+      vim.cmd.tabnew()
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+      vim.bo.readonly = true
+      vim.bo.modified = false
+      vim.bo.bufhidden = 'wipe'
+      vim.bo.buflisted = false
+      vim.bo.buftype = 'nofile'
+      vim.cmd.filetype('detect')
+    end,
+  },
+}
+
 ---@param file string
 ---@param cwd string
 ---@return string
@@ -5,48 +39,24 @@ local function fullpath(file, cwd)
   return vim.fs.normalize(vim.loop.fs_realpath(file) or cwd .. '/' .. file)
 end
 
+---@param data string[]
+---@param type? singleton.Open
+local function open(data, type)
+  type = type or 'default'
+  opts.open[type](data)
+end
+
 ---@param args string[]
 ---@param cwd string
-_G.diff = function(args, cwd)
+---@param address string
+_G.default = function(args, cwd, address)
   local files = vim.tbl_map(function(arg)
     return fullpath(arg, cwd)
   end, args)
-  for i, file in ipairs(files) do
-    if i == 1 then
-      vim.cmd.tabnew(file)
-    else
-      vim.cmd.vsplit({ file, mods = { split = 'belowright' } })
-    end
-    vim.cmd.diffthis()
-  end
-
-  vim.cmd('%argdelete')
-end
-
----@param lines string[]
----@param ft string
-_G.stdin = function(lines, ft)
-  vim.cmd.tabnew()
-  vim.fn.setline(1, lines)
-  vim.opt_local.readonly = true
-  vim.opt_local.modified = false
-  vim.opt_local.buftype = 'nofile'
-  vim.opt_local.filetype = ft
-
-  vim.cmd('%argdelete')
-end
-
-_G.args = function(args, cwd, address)
-  local files = vim.tbl_map(function(arg)
-    return fullpath(arg, cwd)
-  end, args)
-  vim.cmd.argadd({ args = files, addr = 'arg' })
-  for i = 1, #files do
-    vim.cmd.argument({ 'edit', count = i, addr = 'arg', mods = { tab = 1 } })
-  end
+  open(files)
 
   if vim.bo.filetype == 'gitcommit' then
-    vim.api.nvim_create_autocmd('QuitPre', {
+    vim.api.nvim_create_autocmd({ 'QuitPre', 'BufUnload' }, {
       buffer = vim.api.nvim_get_current_buf(),
       once = true,
       callback = function()
@@ -57,59 +67,81 @@ _G.args = function(args, cwd, address)
     })
     return true
   end
-
-  vim.cmd('%argdelete')
 end
 
----@param id integer
+---@param args string[]
+---@param cwd string
+_G.diff = function(args, cwd)
+  local files = vim.tbl_map(function(arg)
+    return fullpath(arg, cwd)
+  end, args)
+  open(files, 'diff')
+end
+
+---@param lines string[]
+_G.stdin = function(lines)
+  open(lines, 'stdin')
+end
+
+local function wait()
+  local interrupted = false
+  while not interrupted do
+    local ok, msg = pcall(vim.fn.getchar)
+    if not ok and msg == 'Keyboard interrupt' then
+      interrupted = true
+    end
+  end
+end
+
+---@param chan integer
 ---@param code string
-local function send(id, code)
-  local result = vim.rpcrequest(id, 'nvim_exec_lua', code, {})
-  if not result then
+---@param ... unknown
+local function send(chan, code, ...)
+  local result = vim.rpcrequest(chan, 'nvim_exec_lua', code, { ... })
+  if result == vim.NIL then
     vim.cmd.quitall({ bang = true })
   end
-  vim.fn.chanclose(id)
-  while true do
-    vim.cmd.sleep(1)
-  end
+  vim.fn.chanclose(chan)
+  wait()
 end
 
 local function start()
-  local address = os.getenv('NVIM')
+  local address = vim.env.NVIM
   if not address then
     return
   end
 
   local args = vim.fn.argv()
   local cwd = vim.loop.cwd()
-  local id = vim.fn.sockconnect('pipe', address, { rpc = true })
-  if vim.wo.diff and #args <= 2 then
-    local code = string.format('_G.diff(%s, %s)', vim.inspect(args), vim.inspect(cwd))
-    send(id, code)
+  local chan = vim.fn.sockconnect('pipe', address, { rpc = true })
+
+  -- diff
+  if vim.wo.diff and #args <= 3 then
+    local code = 'return _G.diff(...)'
+    send(chan, code, args, cwd)
     return
   end
 
+  -- stdin
   if #args == 0 then
     vim.api.nvim_create_autocmd('StdinReadPost', {
-      group = vim.api.nvim_create_augroup('unnest', {}),
-      callback = function()
-        local lines = vim.fn.getline(1, '$')
-        local ft = vim.bo.filetype
-        local code = string.format('_G.stdin(%s, %s)', vim.inspect(lines), vim.inspect(ft))
-        send(id, code)
+      group = vim.api.nvim_create_augroup('singleton', {}),
+      callback = function(a)
+        local buf = a.buf
+        local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+        local filetype = vim.bo[buf].filetype
+        local code = 'return _G.stdin(...)'
+        send(chan, code, lines, filetype)
       end,
     })
     return
   end
 
+  -- default
   if #args > 0 then
-    local code = string.format(
-      '_G.args(%s, %s, %s)',
-      vim.inspect(args),
-      vim.inspect(cwd),
-      vim.inspect(vim.v.servername)
-    )
-    send(id, code)
+    local code = 'return _G.default(...)'
+    --  TODO: can remove servername?
+    send(chan, code, args, cwd, vim.v.servername)
     return
   end
 end
