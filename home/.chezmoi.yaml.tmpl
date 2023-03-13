@@ -15,12 +15,25 @@ sourceDir: {{ .chezmoi.sourceDir | quote }}
 progress: {{ not $headless }}
 
 merge:
-  command: "nvim"
-  args: [ "-d", "-c", '"$wincmd w"', "-c", '"wincmd J"' ]
+  command: nvim
+  args:
+    - -d
+    - "{{ "{{ .Destination }}" }}"
+    - "{{ "{{ .Source }}" }}"
+    - "{{ "{{ .Target }}" }}"
+    - -c
+    - '$wincmd w'
+    - -c
+    - '$wincmd J'
 
 diff:
-  command: "nvim"
-  args: [ "-d", "-c", '"$wincmd w"', "-c", '"wincmd J"' ]
+  command: nvim
+  args:
+    - -d
+    - "{{ "{{ .Destination }}" }}"
+    - "{{ "{{ .Target }}" }}"
+    - -c
+    - '$wincmd w'
 
 data:
   headless: {{ $headless }}
