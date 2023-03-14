@@ -1,30 +1,30 @@
 ---@alias singleton.OpenType 'default'|'diff'|'stdin'
 
----@class singleton.Options
+---@class singleton.Config
 ---@field public open table<singleton.OpenType, fun(data: string[]): nil>
-local opts = {
+local config = {
   open = {
     default = function(files)
+      -- NOTE: no need for noautocmd to detect gitcommit
       vim.cmd.drop({ args = files, mods = { tab = 1, keepjumps = true } })
     end,
     diff = function(files)
       for i, file in ipairs(files) do
         if i == 1 then
-          vim.cmd.tabnew(file)
+          vim.cmd.tabnew({ file, mods = { keepjumps = true, noautocmd = true } })
         elseif i == 2 then
-          vim.cmd.vsplit({ file, mods = { split = 'botright' } })
+          vim.cmd.vsplit({ file, mods = { split = 'botright', keepjumps = true, noautocmd = true } })
         elseif i == 3 then
-          vim.cmd.split({ file, mods = { split = 'botright' } })
+          vim.cmd.split({ file, mods = { split = 'botright', keepjumps = true, noautocmd = true } })
         end
         vim.cmd.diffthis()
       end
     end,
     stdin = function(lines)
-      vim.cmd.tabnew('singleton')
+      -- TODO: vim.cmd can't parse `$`?
+      vim.cmd('keepjumps noautocmd $tabnew')
+      vim.api.nvim_buf_set_name(0, 'singleton_' .. math.random())
       vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
-      -- TODO: safe to run?
-      vim.cmd.Man({ bang = true })
-      vim.api.nvim_buf_set_name(0, 'singleton')
       vim.bo.readonly = true
       vim.bo.modified = false
       vim.bo.bufhidden = 'wipe'
@@ -51,7 +51,7 @@ end
 ---@param type? singleton.OpenType
 local function open(data, type)
   type = type or 'default'
-  opts.open[type](data)
+  config.open[type](data)
 end
 
 ---@param address string
