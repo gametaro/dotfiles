@@ -12,8 +12,11 @@ local function setenv()
   end
 
   ---@type string|nil
-  ---@diagnostic disable-next-line: missing-parameter
-  local file = vim.fs.find({ '.env' })[1]
+  local file = vim.fs.find({ '.env' }, {
+    type = 'file',
+    upward = true,
+    stop = vim.fs.dirname(vim.fn.getcwd()),
+  })[1]
   if not file then
     return
   end
@@ -34,7 +37,9 @@ local function setenv()
     table.insert(messages, string.format('%s=%s', name, value))
   end
 
-  print(string.format('Set env: %s', table.concat(messages, ',')))
+  if not vim.tbl_isempty(messages) then
+    print(string.format('Set env: %s', table.concat(messages, ',')))
+  end
 end
 
 vim.api.nvim_create_autocmd('StdinReadPre', {
@@ -43,7 +48,7 @@ vim.api.nvim_create_autocmd('StdinReadPre', {
   end,
 })
 
-vim.api.nvim_create_autocmd('VimEnter', {
+vim.api.nvim_create_autocmd({ 'VimEnter', 'DirChanged' }, {
   callback = setenv,
   desc = 'Set environment variables from .env',
 })
