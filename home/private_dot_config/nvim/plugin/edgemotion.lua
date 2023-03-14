@@ -57,7 +57,7 @@ local function island(lnum, vcol)
   end
   local pattern = vim.fn.printf([[^.\{-}\zs.\%%<%dv.\%%>%dv.]], vcol + 1, vcol)
   local m = vim.fn.matchstr(vim.fn.getline(lnum), pattern)
-  local chars = vim.fn.split(m, [[\zs]])
+  local chars = vim.split(m, '')
   if #chars ~= 3 then
     return false
   end
