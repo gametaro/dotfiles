@@ -35,7 +35,7 @@ M.config = {
   debug = true,
   hue_base = 220,
   non_current = true,
-  transparent = true,
+  transparent = false,
 }
 
 ---@param value integer
