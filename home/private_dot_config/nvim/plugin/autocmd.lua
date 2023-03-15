@@ -65,7 +65,7 @@ autocmd({ 'BufLeave', 'WinLeave', 'FocusLost' }, {
       and vim.bo[a.buf].filetype ~= ''
       and vim.bo[a.buf].modifiable
     then
-      vim.cmd.update({ mods = { emsg_silent = true, silent = true } })
+      vim.cmd.update({ mods = { emsg_silent = true } })
     end
   end,
   desc = 'Auto save',
@@ -73,7 +73,7 @@ autocmd({ 'BufLeave', 'WinLeave', 'FocusLost' }, {
 
 autocmd({ 'FocusGained' }, {
   callback = function()
-    vim.cmd.checktime({ mods = { emsg_silent = true, silent = true } })
+    vim.cmd.checktime({ mods = { emsg_silent = true } })
   end,
   desc = 'Check if any buffers were changed outside of Nvim',
 })
@@ -142,7 +142,6 @@ autocmd({ 'BufEnter', 'VimEnter' }, {
       return
     end
     local root = require('ky.util').get_root_by_names()
-      or require('ky.util').get_root_by_lsp({ buffer = a.buf })
     vim.cmd.tcd(root or vim.fn.getcwd())
   end,
   desc = 'Change directory to project root',
