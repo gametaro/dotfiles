@@ -4,8 +4,6 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     opts = { highlighter = { auto_enable = true } },
   },
-  { 'mtdl9/vim-log-highlighting', ft = 'log' },
-  { 'johmsalas/text-case.nvim', config = true },
   {
     'akinsho/git-conflict.nvim',
     enabled = false,
@@ -17,6 +15,5 @@ return {
   { 'AckslD/nvim-FeMaco.lua', cmd = 'FeMaco', config = true },
   { 'nvim-lua/plenary.nvim' },
   { 'nacro90/numb.nvim', event = 'CmdlineEnter', config = true },
-  { 'wsdjeg/vim-fetch', event = 'CmdlineEnter' },
   { 'justinmk/vim-gtfo', keys = { 'got', 'gof' } },
 }
