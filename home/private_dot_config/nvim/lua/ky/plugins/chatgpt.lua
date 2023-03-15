@@ -8,6 +8,7 @@ return {
   },
   config = function()
     require('chatgpt').setup({
+      yank_register = '"',
       openai_params = {
         max_tokens = 1000,
       },
