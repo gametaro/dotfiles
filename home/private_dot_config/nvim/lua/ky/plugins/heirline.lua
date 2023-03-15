@@ -122,7 +122,13 @@ return {
           t = 'red',
         },
       },
-      update = 'ModeChanged',
+      update = {
+        'ModeChanged',
+        pattern = '*:*',
+        callback = vim.schedule_wrap(function()
+          vim.cmd.redrawstatus()
+        end),
+      },
       provider = function(self)
         return '%2(' .. self.mode_names[self.mode] .. '%)'
       end,
