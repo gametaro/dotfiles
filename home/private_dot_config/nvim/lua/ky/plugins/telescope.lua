@@ -35,7 +35,7 @@ return {
       'nvim-telescope/telescope-live-grep-args.nvim',
       config = function()
         require('telescope').load_extension('live_grep_args')
-        vim.keymap.set('n', '<C-g>', function()
+        vim.keymap.set('n', '<C-f>', function()
           require('telescope').extensions.live_grep_args.live_grep_args()
         end, { desc = 'Search' })
       end,
@@ -44,12 +44,31 @@ return {
       'marcuscaisey/olddirs.nvim',
       config = function()
         require('telescope').load_extension('olddirs')
-        vim.keymap.set(
-          'n',
-          '<Leader>od',
-          require('telescope').extensions.olddirs.picker,
-          { desc = 'Olddirs' }
-        )
+
+        local telescope = require('telescope')
+        local state = require('telescope.actions.state')
+        local builtin = require('telescope.builtin')
+        vim.keymap.set('n', '<leader>od', function()
+          telescope.extensions.olddirs.picker({
+            attach_mappings = function(_, map)
+              map({ 'i', 'n' }, '<C-p>', function()
+                local dir = state.get_selected_entry().value
+                builtin.find_files({
+                  prompt_title = 'Find Files in ' .. dir,
+                  cwd = dir,
+                })
+              end)
+              map({ 'i', 'n' }, '<C-f>', function()
+                local dir = state.get_selected_entry().value
+                builtin.live_grep({
+                  prompt_title = 'Live Grep in ' .. dir,
+                  search_dirs = { dir },
+                })
+              end)
+              return true
+            end,
+          })
+        end)
         vim.keymap.set('n', '<Leader>ofd', function()
           require('telescope').extensions.olddirs.picker({
             selected_dir_callback = function(dir)
@@ -105,28 +124,28 @@ return {
     local defaults = {
       mappings = {
         i = {
+          -- ['<C-b>'] = actions.preview_scrolling_up,
+          -- ['<C-f>'] = actions.preview_scrolling_down,
           ['<C-j>'] = actions.cycle_history_next,
           ['<C-k>'] = actions.cycle_history_prev,
-          ['<M-m>'] = actions_layout.toggle_mirror,
-          ['<M-p>'] = actions_layout.toggle_preview,
-          ['<C-s>'] = actions.select_horizontal,
-          ['<C-x>'] = false,
-          -- ['<C-f>'] = actions.preview_scrolling_down,
-          -- ['<C-b>'] = actions.preview_scrolling_up,
-          -- ['<C-u>'] = { '<C-u>', type = 'command' },
-          ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
           ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
+          ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
+          ['<C-s>'] = actions.select_horizontal,
+          -- ['<C-u>'] = { '<C-u>', type = 'command' },
+          ['<C-x>'] = false,
           ['<C-y>'] = yank,
+          ['<M-p>'] = actions_layout.toggle_preview,
         },
         n = {
+          ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
+          ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
           ['<C-s>'] = actions.select_horizontal,
           ['<C-x>'] = false,
-          ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
-          ['<C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
+          ['<M-p>'] = actions_layout.toggle_preview,
           ['y'] = yank,
         },
       },
-      path_display = { truncate = 3 },
+      path_display = { truncate = 1 },
       prompt_prefix = '  ', --
       selection_caret = '  ',
       dynamic_preview_title = true,
@@ -159,9 +178,6 @@ return {
         preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
       },
       file_ignore_patterns = { '%.git/', 'node_modules/' },
-      set_env = {
-        ['COLORTERM'] = 'truecolor',
-      },
       vimgrep_arguments = vim.fn.executable('git') == 1 and require('ky.util').is_git_repo() and {
         'git',
         '--no-pager',
@@ -222,7 +238,6 @@ return {
               ['<C-x>'] = actions.delete_buffer,
             },
           },
-          borderchars = borderchars,
           ignore_current_buffer = true,
           sort_lastused = true,
           sort_mru = true,
@@ -230,7 +245,6 @@ return {
           previewer = false,
         },
         oldfiles = {
-          borderchars = borderchars,
           only_cwd = true,
           previewer = false,
         },
