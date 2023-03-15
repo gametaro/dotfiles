@@ -5,7 +5,7 @@ local terminals = {}
 local function open(split)
   ---@type integer
   local count = vim.v.count1
-  local cwd = vim.fn.getcwd(-1, vim.api.nvim_get_current_tabpage())
+  local cwd = vim.fn.getcwd(-1, vim.api.nvim_tabpage_get_number(0))
   terminals[cwd] = terminals[cwd] or {}
   if split then
     vim.cmd(string.format('botright %s', split))
