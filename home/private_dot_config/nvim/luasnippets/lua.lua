@@ -100,8 +100,7 @@ return {
     d(3, rec_elseif, {}),
     t({ '', 'end' }),
   }),
-  s('p', fmt('print({})', i(0))),
-  s('pp', fmt('vim.pretty_print({})', i(0))),
+  s('p', fmt('vim.print({})', i(0))),
   s('for', {
     t('for '),
     c(1, {
