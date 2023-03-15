@@ -29,19 +29,6 @@ return {
       end,
     })
 
-    vim.api.nvim_create_autocmd('User', {
-      group = group,
-      pattern = 'HeirlineInitWinbar',
-      callback = function()
-        local buftype = vim.tbl_contains({ 'prompt', 'nofile' }, vim.bo.buftype)
-        local filetype = vim.tbl_contains({ 'gitcommit' }, vim.bo.filetype)
-
-        if (buftype or filetype) and vim.bo.filetype ~= 'lir' then
-          vim.opt_local.winbar = nil
-        end
-      end,
-    })
-
     if vim.fn.executable('git') == 1 and util.is_git_repo() then
       vim.api.nvim_create_autocmd('User', {
         group = group,
@@ -524,6 +511,16 @@ return {
       statuscolumn = StatusColumn,
       winbar = WinBars,
       tabline = TabLine,
+      opts = {
+        disable_winbar_cb = function(args)
+          local buf = args.buf
+          local buftype =
+            vim.tbl_contains({ 'prompt', 'nofile', 'help', 'quickfix' }, vim.bo[buf].buftype)
+          local filetype =
+            vim.tbl_contains({ 'gitcommit', 'fugitive', 'Trouble', 'packer' }, vim.bo[buf].filetype)
+          return (buftype or filetype) and vim.bo.filetype ~= 'lir'
+        end,
+      },
     })
   end,
 }
