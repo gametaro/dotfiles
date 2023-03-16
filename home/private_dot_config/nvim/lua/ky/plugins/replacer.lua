@@ -7,7 +7,10 @@ return {
       callback = function(a)
         vim.keymap.set('n', 'r', function()
           require('replacer').run({ rename_files = false })
-        end, { buffer = a.buf, desc = 'Replace' })
+        end, { buffer = a.buf, desc = 'Replace (don\'t rename files)' })
+        vim.keymap.set('n', 'R', function()
+          require('replacer').run({ rename_files = true })
+        end, { buffer = a.buf, desc = 'Replace (rename files)' })
       end,
     })
   end,
