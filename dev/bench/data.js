@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1678956773984,
+  "lastUpdate": 1678958585044,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -22230,6 +22230,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.04232768676260871,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "faa631b7527f2c474f86602cfeac01e443134338",
+          "message": "chore(replacer): add mapping to rename files",
+          "timestamp": "2023-03-16T18:21:33+09:00",
+          "tree_id": "9e64fcb5036499a9b2dac5b2341ad7dad3bd185d",
+          "url": "https://github.com/gametaro/dotfiles/commit/faa631b7527f2c474f86602cfeac01e443134338"
+        },
+        "date": 1678958583068,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.05258797677862069,
             "unit": "Second"
           }
         ]
