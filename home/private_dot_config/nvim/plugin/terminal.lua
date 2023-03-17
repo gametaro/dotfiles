@@ -11,11 +11,14 @@ local function open(split)
     vim.cmd(string.format('botright %s', split))
   end
   if terminals[cwd][count] then
-    vim.cmd.buffer(terminals[cwd][count])
-  else
-    vim.cmd.terminal()
-    table.insert(terminals[cwd], vim.api.nvim_get_current_buf())
+    local ok = pcall(vim.cmd.buffer, terminals[cwd][count])
+    if ok then
+      return
+    end
+    table.remove(terminals[cwd], count)
   end
+  vim.cmd.terminal()
+  table.insert(terminals[cwd], vim.api.nvim_get_current_buf())
 end
 
 vim.keymap.set('n', 't', '')
