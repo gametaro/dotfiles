@@ -3,7 +3,7 @@ return {
   dependencies = 'tpope/vim-repeat',
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
-    local on_attach = function(buffer)
+    local function on_attach(buffer)
       local gs = package.loaded.gitsigns
 
       local function map(mode, lhs, rhs, opts)
@@ -11,23 +11,6 @@ return {
         opts.buffer = buffer
         vim.keymap.set(mode, lhs, rhs, opts)
       end
-
-      local setlist = require('ky.defer').debounce_trailing(function()
-        local qf = vim.fn.getqflist({ winid = 0, title = 0 })
-        local loc = vim.fn.getloclist(0, { winid = 0, title = 0 })
-
-        if qf and qf.winid ~= 0 and qf.title == 'Hunks' then
-          gs.setqflist(0, { open = false })
-        end
-        if loc and loc.winid ~= 0 and loc.title == 'Hunks' then
-          gs.setqflist(0, { use_location_list = true, open = false })
-        end
-      end, 500)
-
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'GitSignsUpdate',
-        callback = setlist,
-      })
 
       -- Navigation
       map('n', ']c', function()
@@ -86,15 +69,13 @@ return {
     end
 
     require('gitsigns').setup({
-      numhl = true,
       preview_config = {
         border = vim.g.border,
       },
-      trouble = false,
       max_file_length = vim.g.max_line_count,
       on_attach = on_attach,
-      _extmark_signs = true,
-      _threaded_diff = true,
+      -- _extmark_signs = true,
+      -- _threaded_diff = true,
       _signs_staged_enable = true,
     })
   end,
