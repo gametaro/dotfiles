@@ -1,6 +1,7 @@
 return {
   'tamago324/lir.nvim',
   dependencies = { 'nvim-lua/plenary.nvim', 'tamago324/lir-git-status.nvim' },
+  cond = false,
   event = 'VeryLazy',
   config = function()
     local lir = require('lir')
