@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.6.0](https://github.com/gametaro/dotfiles/compare/v2.5.0...v2.6.0) (2023-03-19)
+
+
+### Features
+
+* **plugin:** add experimental file explorer ([b8333e9](https://github.com/gametaro/dotfiles/commit/b8333e98a68ec16897549fb0208b2b399879f254))
+* **plugin:** add singleton module ([a076386](https://github.com/gametaro/dotfiles/commit/a076386d82c3773f9605ce91e54680b35e2901ea))
+* **plugins:** add ChatGPT.nvim ([44cc8fa](https://github.com/gametaro/dotfiles/commit/44cc8faca52c673ea5369284204c87bf4244e324))
+
+
+### Bug Fixes
+
+* **chezmoi:** correct diff/merge args ([5540f1d](https://github.com/gametaro/dotfiles/commit/5540f1d101baf774adfd603c080a1c9f6d476901))
+* **command:** validate win ([9a9c0c8](https://github.com/gametaro/dotfiles/commit/9a9c0c876ef97c7f8768a6b9beb9db776924c8d5))
+* **dotenv:** search downward & trim after replacing quotes ([ade89db](https://github.com/gametaro/dotfiles/commit/ade89db3a2e75d23ba5169db0ee45587e34a4474))
+* **dotenv:** various fixes ([cbca099](https://github.com/gametaro/dotfiles/commit/cbca099727af0119f60c0582447f97d9083a45d6))
+* **heirline:** simplify update of mode ([4816a60](https://github.com/gametaro/dotfiles/commit/4816a6034035b97a86b59e3ace61cb655fdf845f))
+* **singleton:** correctly handle command repeat ([6ff75e0](https://github.com/gametaro/dotfiles/commit/6ff75e020e19d92dac6a164586ac2015da7b3bd0))
+* **singleton:** support man ([57e0061](https://github.com/gametaro/dotfiles/commit/57e006171262fe7fcec77d2f2436a68ad3bc04c2))
+* **singleton:** various fixes and refactoring ([0747428](https://github.com/gametaro/dotfiles/commit/07474288a92875c95ecb27abde4b46bf69d9fa06))
+* **terminal:** check if fzf is running ([bc10b52](https://github.com/gametaro/dotfiles/commit/bc10b52d7a094665ca1b1c52b333b0ef7f9c8e8b))
+* **terminal:** correctly get cwd ([17d92f1](https://github.com/gametaro/dotfiles/commit/17d92f1401b6058632cc45ad317e0f7dba1048aa))
+* **terminal:** remove non-existent buffer ([3ad98be](https://github.com/gametaro/dotfiles/commit/3ad98beecddd1c719ee51b81e06180794d402857))
+
 ## [2.5.0](https://github.com/gametaro/dotfiles/compare/v2.4.0...v2.5.0) (2023-03-11)
 
 
