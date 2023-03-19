@@ -1,46 +1,46 @@
 ---@alias ls.Type 'file' | 'directory' | 'link'
 ---@alias ls.File { name: string, type: ls.Type }
 
+local ns = vim.api.nvim_create_namespace('ls')
+
 local function is_win()
   return vim.loop.os_uname().sysname:lower():match('win') and true or false
 end
 
-local sep = is_win() and '\\' or '/'
-local ns = vim.api.nvim_create_namespace('ls')
+---@param path string
+---@return boolean
+local function is_directory(path)
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == 'directory' or false
+end
 
+---@param s? string
+---@return boolean
+local function is_empty(s)
+  return s == nil or s == ''
+end
+
+---@param name string
+---@return string
+local function relative_path(name)
+  return vim.fn.fnamemodify(name, ':.')
+end
+
+local sep = is_win() and '\\' or '/'
+
+---@type integer[]
 local bufs = {}
 
 ---@class ls.Config
 local config = {
-  hidden = false,
-  icon = true,
-  git_status = true,
+  conceal = true,
   diagnostics = true,
+  highlight = true,
+  git_status = true,
+  hidden = false,
+  icons = true,
   link = true,
-  keepalt = false,
 }
-
----@param s string
-local function trim_sep(s)
-  ---@type ls.Config
-  return string.gsub(s, sep .. '$', '')
-end
-
-local function lock()
-  vim.bo.modified = false
-  -- vim.bo.modifiable = false
-  -- vim.bo.readonly = true
-end
-
-local function unlock()
-  vim.bo.filetype = 'ls'
-  vim.bo.buftype = 'nofile'
-  -- vim.bo.bufhidden = 'unload'
-  vim.bo.modifiable = true
-  vim.bo.buflisted = false
-  vim.bo.swapfile = false
-  vim.bo.readonly = false
-end
 
 ---@param a ls.File
 ---@param b ls.File
@@ -60,36 +60,34 @@ end
 local function list(path, opts)
   local files = {}
   for name, type in vim.fs.dir(path, opts) do
-    name = path .. sep .. name
-    type = vim.loop.fs_lstat(name).type == 'link' and 'link' or type
-    files[#files + 1] = { name = name, type = type }
+    if not is_empty(name) and not is_empty(type) then
+      name = path == sep and path .. name or path .. sep .. name
+      files[#files + 1] = { name = name, type = type }
+    end
   end
   return files
 end
 
----@param lines string[]
-local function set_lines(lines)
-  unlock()
-  vim.api.nvim_buf_set_lines(0, 0, -1, true, lines)
-  lock()
-end
-
 ---@param line string
----@param lnum integer
-local function icons(line, lnum)
+---@param row integer
+local function icons(line, row)
   local ok, devicons = pcall(require, 'nvim-web-devicons')
   if not ok then
     return
   end
   local icon, hl_group = devicons.get_icon(line, nil, { default = true })
-  if vim.endswith(line, sep) then
-    icon = ''
-    hl_group = 'Directory'
-  end
-  vim.api.nvim_buf_set_extmark(0, ns, lnum, 0, {
-    sign_text = icon,
-    sign_hl_group = hl_group,
-  })
+  vim.loop.fs_stat(line, function(_, stat)
+    if stat and stat.type == 'directory' then
+      icon = ''
+      hl_group = 'Directory'
+    end
+    vim.schedule(function()
+      vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+        sign_text = icon,
+        sign_hl_group = hl_group,
+      })
+    end)
+  end)
 end
 
 ---@param status string
@@ -113,31 +111,32 @@ local function status_to_hl(status)
 end
 
 ---@param line string
----@param lnum integer
-local function git_status(line, lnum)
+---@param row integer
+local function git_status(line, row)
+  -- TODO: should respect cwd?
   require('ky.util').job(
     'git',
-    { '--no-optional-locks', 'status', '--porcelain', line },
+    { '--no-optional-locks', 'status', '--porcelain', '--ignored', line },
     vim.schedule_wrap(function(_, data)
-      if not data then
-        return
+      if not is_empty(data) then
+        local index = data:sub(1, 1)
+        local worktree = data:sub(2, 2)
+        vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+          virt_text = { { index, status_to_hl(index) }, { worktree, status_to_hl(worktree) } },
+          virt_text_pos = 'eol',
+        })
       end
-      local index = data:sub(1, 1)
-      local worktree = data:sub(2, 2)
-      vim.api.nvim_buf_set_extmark(0, ns, lnum, 0, {
-        virt_text = { { index, status_to_hl(index) }, { worktree, status_to_hl(worktree) } },
-        virt_text_pos = 'eol',
-      })
     end)
   )
 end
 
 ---@param line string
-local function diagnostic(line, lnum)
+---@param row integer
+local function diagnostic(line, row)
   local get = vim.diagnostic.get
   local sign = vim.fn.sign_getdefined
   local severity = vim.diagnostic.severity
-  if vim.fn.isdirectory(line) == 1 then
+  if is_directory(line) then
     return
   end
   if vim.fn.bufexists(line) == 1 then
@@ -160,28 +159,74 @@ local function diagnostic(line, lnum)
       (error and 'Error') or (warn and 'Warn') or (info and 'Info') or (hint and 'Hint')
     )
 
-    if not text then
-      return
+    if not is_empty(text) then
+      vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+        virt_text = { { text, hl } },
+        virt_text_pos = 'eol',
+      })
     end
-
-    vim.api.nvim_buf_set_extmark(0, ns, lnum, 0, {
-      virt_text = { { text, hl } },
-      virt_text_pos = 'eol',
-    })
   end
 end
 
 ---@param line string
----@param lnum integer
-local function link(line, lnum)
-  local realpath = vim.fn.fnamemodify(vim.loop.fs_realpath(line), ':.')
-  local islink = trim_sep(line) ~= realpath
-  if islink then
-    vim.api.nvim_buf_set_extmark(0, ns, lnum, 0, {
-      virt_text = { { '-> ' .. realpath, 'Directory' } },
-      virt_text_pos = 'eol',
-    })
+---@param row integer
+local function link(line, row)
+  vim.loop.fs_stat(line, function(_, stat)
+    vim.loop.fs_readlink(line, function(_, _link)
+      local hl = stat and 'Directory' or 'ErrorMsg'
+      if _link then
+        vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+          virt_text = { { '→ ' .. relative_path(_link), hl } },
+          virt_text_pos = 'eol',
+        })
+      end
+    end)
+  end)
+end
+
+---@param line string
+---@param row integer
+local function conceal(line, row)
+  local path = relative_path(vim.api.nvim_buf_get_name(0))
+  local _, end_ = line:find(path .. sep)
+  if not end_ then
+    return
   end
+
+  vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+    end_row = row,
+    end_col = end_,
+    conceal = '',
+    priority = 1000,
+  })
+end
+
+---@param line string
+---@param row integer
+local function highlight(line, row)
+  vim.loop.fs_stat(line, function(_, stat)
+    if stat then
+      -- TODO: should be done by luv?
+      if stat.type ~= 'directory' and vim.fn.getfperm(line):match('x', 3) then
+        vim.schedule(function()
+          vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+            end_row = row,
+            end_col = string.len(line),
+            hl_group = 'Special',
+          })
+        end)
+      end
+      if stat.type == 'directory' then
+        vim.schedule(function()
+          vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+            end_row = row,
+            end_col = string.len(line),
+            hl_group = 'Directory',
+          })
+        end)
+      end
+    end
+  end)
 end
 
 local function toggle_hidden()
@@ -189,20 +234,62 @@ local function toggle_hidden()
   vim.cmd.edit()
 end
 
----@param files ls.File[]
-local function render(files)
-  if vim.tbl_isempty(files) then
-    set_lines({ '..' .. sep })
-    return
-  end
-  local lines = vim.tbl_map(function(file)
-    return vim.fn.fnamemodify(file.type == 'directory' and file.name .. sep or file.name, ':.')
-  end, files)
-  set_lines(lines)
+---@param file ls.File
+local function normalize(file)
+  local name = relative_path(file.name)
+  return file.type == 'directory' and name .. sep or name
 end
 
-local function detach(buf)
-  vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+---@param files ls.File[]
+local function render(files)
+  local lines = vim.tbl_isempty(files) and { '..' .. sep } or vim.tbl_map(normalize, files)
+
+  vim.bo.buflisted = false
+  vim.bo.buftype = 'nofile'
+  vim.bo.modifiable = true
+  vim.bo.swapfile = false
+  vim.api.nvim_buf_set_lines(0, 0, -1, true, lines)
+  for i, line in ipairs(lines) do
+    conceal(line, i - 1)
+  end
+  vim.bo.modified = false
+end
+
+---@param buf integer
+---@param first integer
+---@param last integer
+local function decorate(buf, first, last)
+  ---@type string[]
+  local lines = vim.tbl_filter(function(line)
+    return line ~= ''
+  end, vim.api.nvim_buf_get_lines(buf, first, last, false))
+  if vim.tbl_isempty(lines) then
+    return
+  end
+
+  vim.api.nvim_buf_clear_namespace(buf, ns, first, last)
+
+  for i, line in ipairs(lines) do
+    local row = i + first - 1
+    if config.conceal then
+      conceal(line, row)
+    end
+    if config.highlight then
+      highlight(line, row)
+    end
+    if config.diagnostics then
+      diagnostic(line, row)
+    end
+    if config.icons then
+      icons(line, row)
+    end
+    if config.git_status then
+      git_status(line, row)
+    end
+    if config.link then
+      link(line, row)
+    end
+  end
 end
 
 local function attach(buf)
@@ -212,47 +299,35 @@ local function attach(buf)
   if not vim.api.nvim_buf_is_valid(buf) then
     return
   end
-  local ok = vim.api.nvim_buf_attach(buf, false, {
+
+  bufs[buf] = buf
+
+  vim.api.nvim_buf_attach(buf, false, {
     on_lines = function(_, _, _, first, _, last)
+      if not bufs[buf] then
+        return true
+      end
       vim.schedule(function()
-        local lines = vim.tbl_filter(function(line)
-          return line ~= ''
-        end, vim.api.nvim_buf_get_lines(buf, first, last, false))
-        vim.api.nvim_buf_clear_namespace(buf, ns, first, last)
-        for i, line in ipairs(lines) do
-          local lnum = i + first - 1
-          if config.diagnostics then
-            diagnostic(line, lnum)
-          end
-          if config.icon then
-            icons(line, lnum)
-          end
-          if config.git_status then
-            git_status(line, lnum)
-          end
-          if config.link then
-            link(line, lnum)
-          end
-        end
+        decorate(buf, first, last)
       end)
     end,
     on_detach = function()
-      detach(buf)
+      vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+      bufs[buf] = nil
     end,
   })
-  if ok then
-    bufs[buf] = buf
-  end
 end
 
-local function init(buf)
-  buf = buf or vim.api.nvim_get_current_buf()
-  local dir = vim.fn.resolve(vim.fn.expand('%:p'))
-  if vim.fn.isdirectory(dir) == 0 then
+local function init()
+  local path = vim.loop.fs_realpath(vim.api.nvim_buf_get_name(0))
+  if is_empty(path) then
     return
   end
-  attach(buf)
-  local files = list(dir)
+  if not is_directory(path) then
+    return
+  end
+  vim.bo.filetype = 'ls'
+  local files = list(path)
   if not config.hidden then
     files = vim.tbl_filter(function(file)
       return not vim.startswith(vim.fs.basename(file.name), '.')
@@ -260,9 +335,11 @@ local function init(buf)
   end
   table.sort(files, sort)
   render(files)
-  vim.fn.search(
-    string.format([[\v^\V%s]], vim.fn.escape(vim.fn.resolve(vim.fn.expand('#')), sep), 'c')
-  )
+  local alt = relative_path(vim.fn.expand('#'))
+  if is_directory(alt) then
+    alt = alt .. sep
+  end
+  vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
 end
 
 ---@param buf integer
@@ -272,6 +349,8 @@ local function set_mappings(buf)
     vim.cmd.edit('%:h')
   end, { buffer = buf })
   vim.keymap.set('n', '.', toggle_hidden, { buffer = buf })
+  vim.keymap.set('n', 'q', '<Cmd>bdelete!<CR>', { buffer = buf, nowait = true })
+  vim.keymap.set('n', '<Esc>', '<Cmd>bdelete!<CR>', { buffer = buf })
 end
 
 local group = vim.api.nvim_create_augroup('ls', {})
@@ -279,12 +358,17 @@ vim.api.nvim_create_autocmd('FileType', {
   group = group,
   pattern = 'ls',
   callback = function(a)
+    vim.opt_local.cursorline = true
+    vim.opt_local.wrap = false
+    if config.conceal then
+      vim.opt_local.conceallevel = 2
+      vim.opt_local.concealcursor = 'nc'
+    end
+    attach(a.buf)
     set_mappings(a.buf)
   end,
 })
 vim.api.nvim_create_autocmd('BufEnter', {
   group = group,
-  callback = function(a)
-    init(a.buf)
-  end,
+  callback = init,
 })
