@@ -75,18 +75,18 @@ end
 ---@param args table
 ---@param callback fun(code: string, data: string)
 function M.job(cmd, args, callback)
-  local results = {}
   local handle
   local stdout = vim.loop.new_pipe(false)
   local stderr = vim.loop.new_pipe(false)
+  local results = {}
 
-  local on_read = function(err, data)
+  local function on_read(err, data)
     if data then
       results[#results + 1] = vim.trim(data)
     end
   end
 
-  local on_exit = function(code, signal)
+  local function on_exit(code, signal)
     if stdout then
       stdout:close()
     end
