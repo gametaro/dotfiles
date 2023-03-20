@@ -310,7 +310,7 @@ local function attach(buf)
         return true
       end
       vim.schedule(function()
-        decorate(buf, first, last)
+        decorate(buf, first, last + 1)
       end)
     end,
     on_detach = function()
