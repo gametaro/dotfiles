@@ -3,6 +3,9 @@
 
 local ns = vim.api.nvim_create_namespace('ls')
 
+---@type table<string, fun(line: string, row: integer)>
+local providers = {}
+
 local function is_win()
   return vim.loop.os_uname().sysname:lower():match('win') and true or false
 end
@@ -28,7 +31,7 @@ end
 
 local sep = is_win() and '\\' or '/'
 
----@type integer[]
+---@type table<integer, boolean>
 local bufs = {}
 
 ---@class ls.Config
@@ -71,21 +74,21 @@ end
 
 ---@param line string
 ---@param row integer
-local function icons(line, row)
+function providers.icons(line, row)
   local ok, devicons = pcall(require, 'nvim-web-devicons')
   if not ok then
     return
   end
-  local icon, hl_group = devicons.get_icon(line, nil, { default = true })
+  local icon, hl = devicons.get_icon(line, nil, { default = true })
   vim.loop.fs_stat(line, function(_, stat)
     if stat and stat.type == 'directory' then
       icon = ''
-      hl_group = 'Directory'
+      hl = 'Directory'
     end
     vim.schedule(function()
       vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
         sign_text = icon,
-        sign_hl_group = hl_group,
+        sign_hl_group = hl,
       })
     end)
   end)
@@ -111,29 +114,92 @@ local function status_to_hl(status)
   return map[status]
 end
 
----@param line string
----@param row integer
-local function git_status(line, row)
-  -- TODO: should respect cwd?
-  require('ky.util').job(
-    'git',
-    { '--no-optional-locks', 'status', '--porcelain', '--ignored', line },
-    vim.schedule_wrap(function(_, data)
-      if not is_empty(data) then
-        local index = data:sub(1, 1)
-        local worktree = data:sub(2, 2)
-        vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
-          virt_text = { { index, status_to_hl(index) }, { worktree, status_to_hl(worktree) } },
-          virt_text_pos = 'eol',
-        })
-      end
+---@param path string
+---@param opts { args: string[]?, cwd: string?, env: table<string, any>? }
+---@param callback fun(code: integer, signal: integer, data: string)
+---@return uv_process_t|nil
+local function job(path, opts, callback)
+  local handle
+  local stdout = vim.loop.new_pipe(false)
+  local stderr = vim.loop.new_pipe(false)
+  local results = {}
+
+  ---@param pipe uv_pipe_t
+  local function close(pipe)
+    if pipe and not pipe:is_closing() then
+      pipe:close()
+    end
+  end
+
+  ---@param err string
+  ---@param data string
+  local function on_read(err, data)
+    if data then
+      results[#results + 1] = data
+    end
+  end
+
+  ---@param code integer
+  ---@param signal integer
+  local function on_exit(code, signal)
+    close(stdout)
+    close(stderr)
+    close(handle)
+
+    vim.schedule(function()
+      callback(code, signal, table.concat(results))
     end)
-  )
+  end
+
+  handle = vim.loop.spawn(path, {
+    args = opts.args,
+    cwd = opts.cwd,
+    env = opts.env,
+    stdio = { nil, stdout, stderr },
+  }, vim.schedule_wrap(on_exit))
+
+  if handle then
+    if stdout then
+      stdout:read_start(on_read)
+    end
+    if stderr then
+      stderr:read_start(on_read)
+    end
+  else
+    close(stdout)
+    close(stderr)
+  end
+
+  return handle
 end
 
 ---@param line string
 ---@param row integer
-local function diagnostic(line, row)
+function providers.git_status(line, row)
+  job('git', {
+    args = {
+      '--no-optional-locks',
+      'status',
+      '--porcelain',
+      '--ignored=matching',
+      line,
+    },
+    cwd = vim.loop.cwd(),
+  }, function(err, _, data)
+    if err == 0 then
+      local index = data:sub(1, 1)
+      local worktree = data:sub(2, 2)
+      vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+        virt_text = { { index, status_to_hl(index) }, { worktree, status_to_hl(worktree) } },
+        virt_text_pos = 'eol',
+      })
+    end
+  end)
+end
+
+---@param line string
+---@param row integer
+function providers.diagnostic(line, row)
   local get = vim.diagnostic.get
   local sign = vim.fn.sign_getdefined
   local severity = vim.diagnostic.severity
@@ -171,7 +237,7 @@ end
 
 ---@param line string
 ---@param row integer
-local function link(line, row)
+function providers.link(line, row)
   vim.loop.fs_stat(line, function(_, stat)
     vim.loop.fs_readlink(line, function(_, _link)
       local hl = stat and 'Directory' or 'ErrorMsg'
@@ -189,7 +255,7 @@ end
 
 ---@param line string
 ---@param row integer
-local function conceal(line, row)
+function providers.conceal(line, row)
   local path = relative_path(vim.api.nvim_buf_get_name(0))
   local _, end_col = line:find(path .. sep)
   if not end_col then
@@ -200,13 +266,12 @@ local function conceal(line, row)
     end_row = row,
     end_col = end_col,
     conceal = '',
-    priority = 1000,
   })
 end
 
 ---@param line string
 ---@param row integer
-local function highlight(line, row)
+function providers.highlight(line, row)
   vim.loop.fs_stat(line, function(_, stat)
     if stat then
       -- TODO: should be done by luv?
@@ -243,8 +308,28 @@ local function normalize(file)
   return file.type == 'directory' and name .. sep or name
 end
 
----@param files ls.File[]
-local function render(files)
+---@param lines string[]
+---@param first integer
+local function decorate(lines, first)
+  for i, line in ipairs(lines) do
+    local row = i - 1 + first
+    for name, provider in pairs(providers) do
+      if config[name] then
+        provider(line, row)
+      end
+    end
+  end
+end
+
+---@param path string
+local function render(path)
+  local files = list(path)
+  if not config.hidden then
+    files = vim.tbl_filter(function(file)
+      return not vim.startswith(vim.fs.basename(file.name), '.')
+    end, files)
+  end
+  table.sort(files, sort)
   local lines = vim.tbl_isempty(files) and { '..' .. sep } or vim.tbl_map(normalize, files)
 
   vim.bo.buflisted = false
@@ -252,58 +337,20 @@ local function render(files)
   vim.bo.modifiable = true
   vim.bo.swapfile = false
   vim.api.nvim_buf_set_lines(0, 0, -1, true, lines)
-  for i, line in ipairs(lines) do
-    conceal(line, i - 1)
-  end
+  decorate(lines, 0)
   vim.bo.modified = false
 end
 
-local function decorate(buf, first, last_old, last_new)
-  if not vim.api.nvim_buf_is_valid(buf) then
-    return
-  end
-
-  local last = last_old > last_new and last_old or last_new
-  vim.api.nvim_buf_clear_namespace(buf, ns, first, last)
-
-  local lines = vim.tbl_filter(function(line)
-    return line ~= ''
-  end, vim.api.nvim_buf_get_lines(buf, first, last, false))
-
-  for i, line in ipairs(lines) do
-    local row = i - 1 + first
-    if config.conceal then
-      conceal(line, row)
-    end
-    if config.highlight then
-      highlight(line, row)
-    end
-    if config.diagnostics then
-      diagnostic(line, row)
-    end
-    if config.icons then
-      icons(line, row)
-    end
-    if config.git_status then
-      git_status(line, row)
-    end
-    if config.link then
-      link(line, row)
-    end
-  end
-end
-
----Debounces a function on the trailing edge. Automatically `schedule_wrap()`s.
----@param fn function Function to debounce
----@param timeout integer Timeout in ms
----@return function? fn Debounced function
+---@param fn function
+---@param timeout integer
+---@return function
 local function debounce_trailing(fn, timeout)
   local timer = vim.loop.new_timer()
-  if timer then
-    return function(...)
-      local argv = { ... }
-      local argc = select('#', ...)
+  return function(...)
+    local argv = { ... }
+    local argc = select('#', ...)
 
+    if timer then
       timer:start(timeout, 0, function()
         timer:stop()
         pcall(vim.schedule_wrap(fn), unpack(argv, 1, argc))
@@ -312,8 +359,19 @@ local function debounce_trailing(fn, timeout)
   end
 end
 
-local debounced_decorate = debounce_trailing(decorate, config.debounce)
+local debounced_decorate = debounce_trailing(function(buf, first, last_old, last_new)
+  if not vim.api.nvim_buf_is_valid(buf) then
+    return
+  end
+  local last = last_old > last_new and last_old or last_new
+  vim.api.nvim_buf_clear_namespace(buf, ns, first, last)
+  local lines = vim.tbl_filter(function(line)
+    return line ~= ''
+  end, vim.api.nvim_buf_get_lines(buf, first, last, false))
+  decorate(lines, first)
+end, config.debounce)
 
+---@param buf integer
 local function attach(buf)
   if bufs[buf] then
     return
@@ -327,23 +385,28 @@ local function attach(buf)
       if not bufs[buf] then
         return true
       end
-      -- ignore the second undo events which indicates no changes.
+      -- ignore a second undo events which indicates no changes.
       if first == last_old and last_old == last_new and byte_count == 0 then
         return
       end
-
-      if debounced_decorate then
-        debounced_decorate(buf, first, last_old, last_new)
-      end
+      debounced_decorate(buf, first, last_old, last_new)
     end,
     on_detach = function()
       vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
-      bufs[buf] = nil
+      bufs[buf] = false
     end,
   })
   if ok then
-    bufs[buf] = buf
+    bufs[buf] = true
   end
+end
+
+local function set_cursor()
+  local alt = relative_path(vim.fn.expand('#'))
+  if is_directory(alt) then
+    alt = alt .. sep
+  end
+  vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
 end
 
 local function init()
@@ -354,20 +417,20 @@ local function init()
   if not is_directory(path) then
     return
   end
-  vim.bo.filetype = 'ls'
-  local files = list(path)
-  if not config.hidden then
-    files = vim.tbl_filter(function(file)
-      return not vim.startswith(vim.fs.basename(file.name), '.')
-    end, files)
+  render(path)
+  if vim.bo.filetype ~= 'ls' then
+    vim.bo.filetype = 'ls'
   end
-  table.sort(files, sort)
-  render(files)
-  local alt = relative_path(vim.fn.expand('#'))
-  if is_directory(alt) then
-    alt = alt .. sep
+  set_cursor()
+end
+
+local function set_options()
+  vim.opt_local.cursorline = true
+  vim.opt_local.wrap = false
+  if config.conceal then
+    vim.opt_local.conceallevel = 2
+    vim.opt_local.concealcursor = 'nc'
   end
-  vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
 end
 
 ---@param buf integer
@@ -386,14 +449,9 @@ vim.api.nvim_create_autocmd('FileType', {
   group = group,
   pattern = 'ls',
   callback = function(a)
-    vim.opt_local.cursorline = true
-    vim.opt_local.wrap = false
-    if config.conceal then
-      vim.opt_local.conceallevel = 2
-      vim.opt_local.concealcursor = 'nc'
-    end
-    attach(a.buf)
+    set_options()
     set_mappings(a.buf)
+    attach(a.buf)
   end,
 })
 vim.api.nvim_create_autocmd('BufEnter', {
