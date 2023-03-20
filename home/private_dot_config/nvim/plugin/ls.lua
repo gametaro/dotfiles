@@ -175,10 +175,12 @@ local function link(line, row)
     vim.loop.fs_readlink(line, function(_, _link)
       local hl = stat and 'Directory' or 'ErrorMsg'
       if _link then
-        vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
-          virt_text = { { '→ ' .. relative_path(_link), hl } },
-          virt_text_pos = 'eol',
-        })
+        vim.schedule(function()
+          vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+            virt_text = { { '→ ' .. relative_path(_link), hl } },
+            virt_text_pos = 'eol',
+          })
+        end)
       end
     end)
   end)
