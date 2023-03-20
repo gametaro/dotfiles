@@ -33,6 +33,7 @@ local bufs = {}
 
 ---@class ls.Config
 local config = {
+  debounce = 100,
   conceal = true,
   diagnostics = true,
   highlight = true,
@@ -190,14 +191,14 @@ end
 ---@param row integer
 local function conceal(line, row)
   local path = relative_path(vim.api.nvim_buf_get_name(0))
-  local _, end_ = line:find(path .. sep)
-  if not end_ then
+  local _, end_col = line:find(path .. sep)
+  if not end_col then
     return
   end
 
   vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
     end_row = row,
-    end_col = end_,
+    end_col = end_col,
     conceal = '',
     priority = 1000,
   })
@@ -257,22 +258,20 @@ local function render(files)
   vim.bo.modified = false
 end
 
----@param buf integer
----@param first integer
----@param last integer
-local function decorate(buf, first, last)
-  ---@type string[]
-  local lines = vim.tbl_filter(function(line)
-    return line ~= ''
-  end, vim.api.nvim_buf_get_lines(buf, first, last, false))
-  if vim.tbl_isempty(lines) then
+local function decorate(buf, first, last_old, last_new)
+  if not vim.api.nvim_buf_is_valid(buf) then
     return
   end
 
+  local last = last_old > last_new and last_old or last_new
   vim.api.nvim_buf_clear_namespace(buf, ns, first, last)
 
+  local lines = vim.tbl_filter(function(line)
+    return line ~= ''
+  end, vim.api.nvim_buf_get_lines(buf, first, last, false))
+
   for i, line in ipairs(lines) do
-    local row = i + first - 1
+    local row = i - 1 + first
     if config.conceal then
       conceal(line, row)
     end
@@ -294,6 +293,27 @@ local function decorate(buf, first, last)
   end
 end
 
+---Debounces a function on the trailing edge. Automatically `schedule_wrap()`s.
+---@param fn function Function to debounce
+---@param timeout integer Timeout in ms
+---@return function? fn Debounced function
+local function debounce_trailing(fn, timeout)
+  local timer = vim.loop.new_timer()
+  if timer then
+    return function(...)
+      local argv = { ... }
+      local argc = select('#', ...)
+
+      timer:start(timeout, 0, function()
+        timer:stop()
+        pcall(vim.schedule_wrap(fn), unpack(argv, 1, argc))
+      end)
+    end
+  end
+end
+
+local debounced_decorate = debounce_trailing(decorate, config.debounce)
+
 local function attach(buf)
   if bufs[buf] then
     return
@@ -302,22 +322,28 @@ local function attach(buf)
     return
   end
 
-  bufs[buf] = buf
-
-  vim.api.nvim_buf_attach(buf, false, {
-    on_lines = function(_, _, _, first, _, last)
+  local ok = vim.api.nvim_buf_attach(buf, false, {
+    on_lines = function(_, _, _, first, last_old, last_new, byte_count)
       if not bufs[buf] then
         return true
       end
-      vim.schedule(function()
-        decorate(buf, first, last + 1)
-      end)
+      -- ignore the second undo events which indicates no changes.
+      if first == last_old and last_old == last_new and byte_count == 0 then
+        return
+      end
+
+      if debounced_decorate then
+        debounced_decorate(buf, first, last_old, last_new)
+      end
     end,
     on_detach = function()
       vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
       bufs[buf] = nil
     end,
   })
+  if ok then
+    bufs[buf] = buf
+  end
 end
 
 local function init()
@@ -350,7 +376,7 @@ local function set_mappings(buf)
   vim.keymap.set('n', '-', function()
     vim.cmd.edit('%:h')
   end, { buffer = buf })
-  vim.keymap.set('n', '.', toggle_hidden, { buffer = buf })
+  vim.keymap.set('n', '<Leader>.', toggle_hidden, { buffer = buf })
   vim.keymap.set('n', 'q', '<Cmd>bdelete!<CR>', { buffer = buf, nowait = true })
   vim.keymap.set('n', '<Esc>', '<Cmd>bdelete!<CR>', { buffer = buf })
 end
