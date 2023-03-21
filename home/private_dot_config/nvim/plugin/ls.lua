@@ -274,8 +274,7 @@ end
 function providers.highlight(line, row)
   vim.loop.fs_stat(line, function(_, stat)
     if stat then
-      -- TODO: should be done by luv?
-      if stat.type ~= 'directory' and vim.fn.getfperm(line):match('x', 3) then
+      if stat.type ~= 'directory' and require('bit').band(stat.mode, 73) > 0 then
         vim.schedule(function()
           vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
             end_row = row,
