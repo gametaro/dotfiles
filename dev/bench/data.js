@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679383955182,
+  "lastUpdate": 1679391401355,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -22636,6 +22636,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.04232197249151514,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "a4b83f09a8f70c931d7056d3e616c9acc26f81a3",
+          "message": "fix(ls): normalize path and remove trailing (back)slash",
+          "timestamp": "2023-03-21T18:34:44+09:00",
+          "tree_id": "8a77b37d7c8befd9f614b6919170c1a4c936f271",
+          "url": "https://github.com/gametaro/dotfiles/commit/a4b83f09a8f70c931d7056d3e616c9acc26f81a3"
+        },
+        "date": 1679391398808,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.05579006248923078,
             "unit": "Second"
           }
         ]
