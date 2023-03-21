@@ -441,7 +441,7 @@ vim.api.nvim_create_autocmd('FileType', {
     attach(a.buf)
   end,
 })
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd('BufWinEnter', {
   group = group,
   callback = function(a)
     init(a.buf)
