@@ -6,10 +6,6 @@ local ns = vim.api.nvim_create_namespace('ls')
 ---@type table<string, ls.Provider>
 local providers = {}
 
-local function is_win()
-  return vim.loop.os_uname().sysname:lower():match('win') and true or false
-end
-
 ---@param path string
 ---@return boolean
 local function is_directory(path)
@@ -26,10 +22,10 @@ end
 ---@param name string
 ---@return string
 local function relative_path(name)
-  return vim.fn.fnamemodify(name, ':.')
+  return vim.fs.normalize(vim.fn.fnamemodify(name, ':.'))
 end
 
-local sep = is_win() and '\\' or '/'
+local sep = '/'
 
 ---@type table<integer, boolean>
 local bufs = {}
@@ -58,16 +54,20 @@ local function sort(a, b)
   return a.name < b.name
 end
 
+---@param ... unknown
+---@return string
+local function join_paths(...)
+  return (table.concat({ ... }, '/'):gsub('//+', '/'))
+end
+
 ---@param path string
 ---@param opts? table
 ---@return ls.File[]
 local function list(path, opts)
   local files = {}
   for name, type in vim.fs.dir(path, opts) do
-    if not is_empty(name) and not is_empty(type) then
-      name = path == sep and path .. name or path .. sep .. name
-      files[#files + 1] = { name = name, type = type }
-    end
+    name = join_paths(path, name)
+    files[#files + 1] = { name = name, type = type }
   end
   return files
 end
@@ -295,12 +295,6 @@ local function toggle_hidden()
   vim.cmd.edit()
 end
 
----@param file ls.File
-local function normalize(file)
-  local name = relative_path(file.name)
-  return file.type == 'directory' and name .. sep or name
-end
-
 ---@param lines string[]
 ---@param first integer
 local function decorate(lines, first)
@@ -323,7 +317,10 @@ local function render(path)
     end, files)
   end
   table.sort(files, sort)
-  local lines = vim.tbl_isempty(files) and { '..' .. sep } or vim.tbl_map(normalize, files)
+  local lines = vim.tbl_isempty(files) and { '..' .. sep }
+    or vim.tbl_map(function(file)
+      return relative_path(file.name)
+    end, files)
 
   vim.bo.buflisted = false
   vim.bo.buftype = 'nofile'
@@ -396,14 +393,11 @@ end
 
 local function set_cursor()
   local alt = relative_path(vim.fn.expand('#'))
-  if is_directory(alt) then
-    alt = alt .. sep
-  end
   vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
 end
 
 local function init()
-  local path = vim.loop.fs_realpath(vim.api.nvim_buf_get_name(0))
+  local path = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
   if is_empty(path) then
     return
   end
