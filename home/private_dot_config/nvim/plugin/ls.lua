@@ -427,6 +427,7 @@ end
 local function set_options()
   vim.opt_local.cursorline = true
   vim.opt_local.wrap = false
+  vim.opt_local.isfname:append('32')
   if config.conceal then
     vim.opt_local.conceallevel = 2
     vim.opt_local.concealcursor = 'nc'
