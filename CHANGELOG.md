@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.6.1](https://github.com/gametaro/dotfiles/compare/v2.6.0...v2.6.1) (2023-03-21)
+
+
+### Bug Fixes
+
+* **chezmoi:** correctly set exec path ([9805082](https://github.com/gametaro/dotfiles/commit/980508274dc95646cc110a60e4146ef49bda8a2a))
+* **ls:** correct index ([9d8f801](https://github.com/gametaro/dotfiles/commit/9d8f801ff038a481f6ea2c26ec994dd1a90085fd))
+* **ls:** exec nvim_buf_set_extmark in vim.schedule() ([ee0f16f](https://github.com/gametaro/dotfiles/commit/ee0f16fef5332a1a1152d4d0c3e5c50a2c3cfa9b))
+* **ls:** more fixes and refactoring ([e44d2ba](https://github.com/gametaro/dotfiles/commit/e44d2ba9bc706c234430bf4eeef991d171cae7ee))
+* **ls:** performance improvements and fixes to handle edge cases ([6c7b328](https://github.com/gametaro/dotfiles/commit/6c7b3280ced5799ae1883d596f6a7f0b7143695a))
+* **ls:** rename config key ([75123ad](https://github.com/gametaro/dotfiles/commit/75123ad46c42208017b5cdec00839b00b4c9737d))
+* **ls:** tweak `isfname` to ignore spaces in filename ([0f366d9](https://github.com/gametaro/dotfiles/commit/0f366d90b801c401be426431cb4ac83470e975bf))
+* **ls:** use bit.band instead of getfperm to run in luv callback ([c47a801](https://github.com/gametaro/dotfiles/commit/c47a801831e261157d8153f25a1bd6f6c3e7de10))
+* **ls:** various improvements & bug fixes ([337be2f](https://github.com/gametaro/dotfiles/commit/337be2f988b9d5da9cb89912f50f905127c099f1))
+
 ## [2.6.0](https://github.com/gametaro/dotfiles/compare/v2.5.0...v2.6.0) (2023-03-19)
 
 
