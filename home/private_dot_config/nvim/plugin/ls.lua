@@ -1,9 +1,9 @@
----@alias ls.Type 'file' | 'directory' | 'link'
----@alias ls.File { name: string, type: ls.Type }
+---@alias ls.File { name: string, type: uv.aliases.fs_stat_types }
+---@alias ls.Provider fun(line: string, row: integer)
 
 local ns = vim.api.nvim_create_namespace('ls')
 
----@type table<string, fun(line: string, row: integer)>
+---@type table<string, ls.Provider>
 local providers = {}
 
 local function is_win()
@@ -72,9 +72,8 @@ local function list(path, opts)
   return files
 end
 
----@param line string
----@param row integer
-function providers.icons(line, row)
+---@type ls.Provider
+function providers.icon(line, row)
   local ok, devicons = pcall(require, 'nvim-web-devicons')
   if not ok then
     return
@@ -173,8 +172,7 @@ local function job(path, opts, callback)
   return handle
 end
 
----@param line string
----@param row integer
+---@type ls.Provider
 function providers.git_status(line, row)
   job('git', {
     args = {
@@ -197,8 +195,7 @@ function providers.git_status(line, row)
   end)
 end
 
----@param line string
----@param row integer
+---@type ls.Provider
 function providers.diagnostic(line, row)
   local get = vim.diagnostic.get
   local sign = vim.fn.sign_getdefined
@@ -235,8 +232,7 @@ function providers.diagnostic(line, row)
   end
 end
 
----@param line string
----@param row integer
+---@type ls.Provider
 function providers.link(line, row)
   vim.loop.fs_stat(line, function(_, stat)
     vim.loop.fs_readlink(line, function(_, _link)
@@ -253,8 +249,7 @@ function providers.link(line, row)
   end)
 end
 
----@param line string
----@param row integer
+---@type ls.Provider
 function providers.conceal(line, row)
   local path = relative_path(vim.api.nvim_buf_get_name(0))
   local _, end_col = line:find(path .. sep)
@@ -269,8 +264,7 @@ function providers.conceal(line, row)
   })
 end
 
----@param line string
----@param row integer
+---@type ls.Provider
 function providers.highlight(line, row)
   vim.loop.fs_stat(line, function(_, stat)
     if stat then
