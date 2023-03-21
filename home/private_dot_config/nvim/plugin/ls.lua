@@ -38,11 +38,11 @@ local bufs = {}
 local config = {
   debounce = 100,
   conceal = true,
-  diagnostics = true,
+  diagnostic = true,
   highlight = true,
   git_status = true,
   hidden = false,
-  icons = true,
+  icon = true,
   link = true,
 }
 
