@@ -235,12 +235,12 @@ end
 ---@type ls.Provider
 function providers.link(line, row)
   vim.loop.fs_stat(line, function(_, stat)
-    vim.loop.fs_readlink(line, function(_, _link)
+    vim.loop.fs_readlink(line, function(_, link)
       local hl = stat and 'Directory' or 'ErrorMsg'
-      if _link then
+      if link then
         vim.schedule(function()
           vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
-            virt_text = { { '→ ' .. relative_path(_link), hl } },
+            virt_text = { { '→ ' .. relative_path(link), hl } },
             virt_text_pos = 'eol',
           })
         end)
