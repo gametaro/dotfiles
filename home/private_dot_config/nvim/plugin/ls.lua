@@ -1,5 +1,5 @@
 ---@alias ls.File { name: string, type: uv.aliases.fs_stat_types }
----@alias ls.Provider fun(line: string, row: integer)
+---@alias ls.Provider fun(buf: integer, line: string, row: integer)
 
 local ns = vim.api.nvim_create_namespace('ls')
 
@@ -73,7 +73,7 @@ local function list(path, opts)
 end
 
 ---@type ls.Provider
-function providers.icon(line, row)
+function providers.icon(buf, line, row)
   local ok, devicons = pcall(require, 'nvim-web-devicons')
   if not ok then
     return
@@ -85,7 +85,7 @@ function providers.icon(line, row)
       hl = 'Directory'
     end
     vim.schedule(function()
-      vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+      vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
         sign_text = icon,
         sign_hl_group = hl,
       })
@@ -173,7 +173,7 @@ local function job(path, opts, callback)
 end
 
 ---@type ls.Provider
-function providers.git_status(line, row)
+function providers.git_status(buf, line, row)
   job('git', {
     args = {
       '--no-optional-locks',
@@ -187,7 +187,7 @@ function providers.git_status(line, row)
     if err == 0 then
       local index = data:sub(1, 1)
       local worktree = data:sub(2, 2)
-      vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+      vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
         virt_text = { { index, status_to_hl(index) }, { worktree, status_to_hl(worktree) } },
         virt_text_pos = 'eol',
       })
@@ -196,7 +196,7 @@ function providers.git_status(line, row)
 end
 
 ---@type ls.Provider
-function providers.diagnostic(line, row)
+function providers.diagnostic(buf, line, row)
   local get = vim.diagnostic.get
   local sign = vim.fn.sign_getdefined
   local severity = vim.diagnostic.severity
@@ -224,7 +224,7 @@ function providers.diagnostic(line, row)
     )
 
     if not is_empty(text) then
-      vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+      vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
         virt_text = { { text, hl } },
         virt_text_pos = 'eol',
       })
@@ -233,13 +233,13 @@ function providers.diagnostic(line, row)
 end
 
 ---@type ls.Provider
-function providers.link(line, row)
+function providers.link(buf, line, row)
   vim.loop.fs_stat(line, function(_, stat)
     vim.loop.fs_readlink(line, function(_, link)
       local hl = stat and 'Directory' or 'ErrorMsg'
       if link then
         vim.schedule(function()
-          vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
             virt_text = { { '→ ' .. relative_path(link), hl } },
             virt_text_pos = 'eol',
           })
@@ -250,14 +250,14 @@ function providers.link(line, row)
 end
 
 ---@type ls.Provider
-function providers.conceal(line, row)
-  local path = relative_path(vim.api.nvim_buf_get_name(0))
+function providers.conceal(buf, line, row)
+  local path = relative_path(vim.api.nvim_buf_get_name(buf))
   local _, end_col = line:find(path .. sep)
   if not end_col then
     return
   end
 
-  vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+  vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
     end_row = row,
     end_col = end_col,
     conceal = '',
@@ -265,12 +265,12 @@ function providers.conceal(line, row)
 end
 
 ---@type ls.Provider
-function providers.highlight(line, row)
+function providers.highlight(buf, line, row)
   vim.loop.fs_stat(line, function(_, stat)
     if stat then
       if stat.type ~= 'directory' and require('bit').band(stat.mode, 73) > 0 then
         vim.schedule(function()
-          vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
             end_row = row,
             end_col = string.len(line),
             hl_group = 'Special',
@@ -279,7 +279,7 @@ function providers.highlight(line, row)
       end
       if stat.type == 'directory' then
         vim.schedule(function()
-          vim.api.nvim_buf_set_extmark(0, ns, row, 0, {
+          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
             end_row = row,
             end_col = string.len(line),
             hl_group = 'Directory',
@@ -297,19 +297,20 @@ end
 
 ---@param lines string[]
 ---@param first integer
-local function decorate(lines, first)
+local function decorate(buf, lines, first)
   for i, line in ipairs(lines) do
     local row = i - 1 + first
     for name, provider in pairs(providers) do
       if config[name] then
-        provider(line, row)
+        provider(buf, line, row)
       end
     end
   end
 end
 
+---@param buf integer
 ---@param path string
-local function render(path)
+local function render(buf, path)
   local files = list(path)
   if not config.hidden then
     files = vim.tbl_filter(function(file)
@@ -322,13 +323,13 @@ local function render(path)
       return relative_path(file.name)
     end, files)
 
-  vim.bo.buflisted = false
-  vim.bo.buftype = 'nofile'
-  vim.bo.modifiable = true
-  vim.bo.swapfile = false
-  vim.api.nvim_buf_set_lines(0, 0, -1, true, lines)
-  decorate(lines, 0)
-  vim.bo.modified = false
+  vim.bo[buf].buflisted = false
+  vim.bo[buf].buftype = 'nofile'
+  vim.bo[buf].modifiable = true
+  vim.bo[buf].swapfile = false
+  vim.api.nvim_buf_set_lines(buf, 0, -1, true, lines)
+  decorate(buf, lines, 0)
+  vim.bo[buf].modified = false
 end
 
 ---@param fn function
@@ -358,7 +359,7 @@ local debounced_decorate = debounce_trailing(function(buf, first, last_old, last
   local lines = vim.tbl_filter(function(line)
     return line ~= ''
   end, vim.api.nvim_buf_get_lines(buf, first, last, false))
-  decorate(lines, first)
+  decorate(buf, lines, first)
 end, config.debounce)
 
 ---@param buf integer
@@ -370,7 +371,7 @@ local function attach(buf)
     return
   end
 
-  local ok = vim.api.nvim_buf_attach(buf, false, {
+  bufs[buf] = vim.api.nvim_buf_attach(buf, false, {
     on_lines = function(_, _, _, first, last_old, last_new, byte_count)
       if not bufs[buf] then
         return true
@@ -386,9 +387,6 @@ local function attach(buf)
       bufs[buf] = false
     end,
   })
-  if ok then
-    bufs[buf] = true
-  end
 end
 
 local function set_cursor()
@@ -396,17 +394,18 @@ local function set_cursor()
   vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
 end
 
-local function init()
-  local path = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
+---@param buf integer
+local function init(buf)
+  local path = vim.fs.normalize(vim.api.nvim_buf_get_name(buf))
   if is_empty(path) then
     return
   end
   if not is_directory(path) then
     return
   end
-  render(path)
-  if vim.bo.filetype ~= 'ls' then
-    vim.bo.filetype = 'ls'
+  render(buf, path)
+  if vim.bo[buf].filetype ~= 'ls' then
+    vim.bo[buf].filetype = 'ls'
   end
   set_cursor()
 end
@@ -444,5 +443,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 vim.api.nvim_create_autocmd('BufEnter', {
   group = group,
-  callback = init,
+  callback = function(a)
+    init(a.buf)
+  end,
 })
