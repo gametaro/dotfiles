@@ -19,12 +19,6 @@ local function is_empty(s)
   return s == nil or s == ''
 end
 
----@param name string
----@return string
-local function relative_path(name)
-  return vim.fs.normalize(vim.fn.fnamemodify(name, ':.'))
-end
-
 local sep = '/'
 
 ---@type table<integer, boolean>
@@ -240,7 +234,7 @@ function providers.link(buf, line, row)
       if link then
         vim.schedule(function()
           vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
-            virt_text = { { '→ ' .. relative_path(link), hl } },
+            virt_text = { { '→ ' .. link, hl } },
             virt_text_pos = 'eol',
           })
         end)
@@ -251,8 +245,8 @@ end
 
 ---@type ls.Provider
 function providers.conceal(buf, line, row)
-  local path = relative_path(vim.api.nvim_buf_get_name(buf))
-  local _, end_col = line:find(path .. sep)
+  local path = vim.fs.normalize(vim.api.nvim_buf_get_name(buf))
+  local _, end_col = line:find(vim.pesc(path .. sep))
   if not end_col then
     return
   end
@@ -337,7 +331,7 @@ local function render(buf, path)
   table.sort(files, sort)
   local lines = vim.tbl_isempty(files) and { '..' }
     or vim.tbl_map(function(file)
-      return relative_path(file.name)
+      return file.name
     end, files)
 
   vim.bo[buf].buflisted = false
@@ -407,7 +401,7 @@ local function attach(buf)
 end
 
 local function set_cursor()
-  local alt = relative_path(vim.fn.expand('#'))
+  local alt = vim.fs.normalize(vim.loop.fs_realpath(vim.fn.expand('#')))
   vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
 end
 
