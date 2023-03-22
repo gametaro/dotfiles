@@ -266,7 +266,7 @@ end
 
 ---@type ls.Provider
 function providers.highlight(buf, line, row)
-  vim.loop.fs_stat(line, function(_, stat)
+  vim.loop.fs_lstat(line, function(_, stat)
     if stat then
       if stat.type ~= 'directory' and require('bit').band(stat.mode, 73) > 0 then
         vim.schedule(function()
@@ -283,6 +283,15 @@ function providers.highlight(buf, line, row)
             end_row = row,
             end_col = string.len(line),
             hl_group = 'Directory',
+          })
+        end)
+      end
+      if stat.type == 'link' then
+        vim.schedule(function()
+          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+            end_row = row,
+            end_col = string.len(line),
+            hl_group = 'Identifier',
           })
         end)
       end
