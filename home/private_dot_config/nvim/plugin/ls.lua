@@ -318,7 +318,7 @@ local function render(buf, path)
     end, files)
   end
   table.sort(files, sort)
-  local lines = vim.tbl_isempty(files) and { '..' .. sep }
+  local lines = vim.tbl_isempty(files) and { '..' }
     or vim.tbl_map(function(file)
       return relative_path(file.name)
     end, files)
