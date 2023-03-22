@@ -286,6 +286,14 @@ function providers.highlight(buf, line, row)
           })
         end)
       end
+    else
+      vim.schedule(function()
+        vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+          end_row = row,
+          end_col = string.len(line),
+          hl_group = 'Comment',
+        })
+      end)
     end
   end)
 end
