@@ -48,7 +48,7 @@ local function sort(a, b)
   return a.name < b.name
 end
 
----@param ... unknown
+---@param ... string
 ---@return string
 local function join_paths(...)
   return (table.concat({ ... }, '/'):gsub('//+', '/'))
@@ -306,6 +306,7 @@ local function toggle_hidden()
   vim.cmd.edit()
 end
 
+---@param buf integer
 ---@param lines string[]
 ---@param first integer
 local function decorate(buf, lines, first)
