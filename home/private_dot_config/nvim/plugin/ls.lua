@@ -191,38 +191,40 @@ end
 
 ---@type ls.Provider
 function providers.diagnostic(buf, line, row)
-  local get = vim.diagnostic.get
-  local sign = vim.fn.sign_getdefined
-  local severity = vim.diagnostic.severity
   if is_directory(line) then
     return
   end
-  if vim.fn.bufexists(line) == 1 then
-    local bufnr = vim.fn.bufnr(line)
-    local hint = not vim.tbl_isempty(get(bufnr, { severity = severity.HINT }))
-        and sign('DiagnosticSignHint')[1].text
-      or nil
-    local info = not vim.tbl_isempty(get(bufnr, { severity = severity.INFO }))
-        and sign('DiagnosticSignInfo')[1].text
-      or nil
-    local warn = not vim.tbl_isempty(get(bufnr, { severity = severity.WARN }))
-        and sign('DiagnosticSignWarn')[1].text
-      or nil
-    local error = not vim.tbl_isempty(get(bufnr, { severity = severity.ERROR }))
-        and sign('DiagnosticSignError')[1].text
-      or nil
-    local text = error or warn or info or hint
-    local hl = string.format(
-      'Diagnostic%s',
-      (error and 'Error') or (warn and 'Warn') or (info and 'Info') or (hint and 'Hint')
-    )
+  if vim.fn.bufexists(line) == 0 then
+    return
+  end
 
-    if not is_empty(text) then
-      vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
-        virt_text = { { text, hl } },
-        virt_text_pos = 'eol',
-      })
-    end
+  local get = vim.diagnostic.get
+  local sign = vim.fn.sign_getdefined
+  local severity = vim.diagnostic.severity
+  local bufnr = vim.fn.bufnr(line)
+  local hint = not vim.tbl_isempty(get(bufnr, { severity = severity.HINT }))
+      and sign('DiagnosticSignHint')[1].text
+    or nil
+  local info = not vim.tbl_isempty(get(bufnr, { severity = severity.INFO }))
+      and sign('DiagnosticSignInfo')[1].text
+    or nil
+  local warn = not vim.tbl_isempty(get(bufnr, { severity = severity.WARN }))
+      and sign('DiagnosticSignWarn')[1].text
+    or nil
+  local error = not vim.tbl_isempty(get(bufnr, { severity = severity.ERROR }))
+      and sign('DiagnosticSignError')[1].text
+    or nil
+  local text = error or warn or info or hint
+  local hl = string.format(
+    'Diagnostic%s',
+    (error and 'Error') or (warn and 'Warn') or (info and 'Info') or (hint and 'Hint')
+  )
+
+  if not is_empty(text) then
+    vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+      virt_text = { { text, hl } },
+      virt_text_pos = 'eol',
+    })
   end
 end
 
