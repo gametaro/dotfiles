@@ -58,6 +58,10 @@ return {
         },
       },
       hooks = {
+        diff_buf_read = function(bufnr)
+          vim.opt_local.wrap = false
+          vim.opt_local.list = false
+        end,
         view_opened = function()
           vim.cmd.wincmd('p')
           vim.cmd.wincmd('l')
