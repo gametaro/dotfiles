@@ -59,6 +59,28 @@ local cmp_capabilities = {
 local capabilities =
   vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), cmp_capabilities)
 
+vim.lsp.handlers['textDocument/publishDiagnostics'] = (function(fn)
+  return function(_, result, ctx, config)
+    vim.tbl_map(function(item)
+      if item.relatedInformation and #item.relatedInformation > 0 then
+        vim.tbl_map(function(info)
+          if info.location then
+            info.message = string.format(
+              '%s(%d, %d): %s',
+              vim.fs.basename(vim.uri_to_fname(info.location.uri)),
+              (info.location.range.start.line + 1),
+              (info.location.range.start.character + 1),
+              info.message
+            )
+          end
+          item.message = item.message .. '\n' .. info.message
+        end, item.relatedInformation)
+      end
+    end, result.diagnostics)
+    fn(_, result, ctx, config)
+  end
+end)(vim.lsp.handlers['textDocument/publishDiagnostics'])
+
 vim.lsp.start = (function(fn)
   return function(config, opts)
     if vim.api.nvim_buf_line_count(0) > vim.g.max_line_count then
