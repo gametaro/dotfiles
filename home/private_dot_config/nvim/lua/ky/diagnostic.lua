@@ -26,10 +26,7 @@ vim.diagnostic.config({
     title_pos = 'center',
     header = '',
     suffix = function(diag)
-      local source = diag.source or ''
-      local code = diag.code and string.format('(%s)', diag.code) or ''
-      local suffix = string.format(' %s %s', source, code)
-      return suffix, 'Comment'
+      return string.format(' %s(%s)', diag.source or '', diag.code or ''), 'Comment'
     end,
   },
 })
