@@ -14,6 +14,5 @@ return {
   { 'bkad/CamelCaseMotion', lazy = false },
   { 'AckslD/nvim-FeMaco.lua', cmd = 'FeMaco', config = true },
   { 'nvim-lua/plenary.nvim' },
-  { 'nacro90/numb.nvim', event = 'CmdlineEnter', config = true },
   { 'justinmk/vim-gtfo', keys = { 'got', 'gof' } },
 }
