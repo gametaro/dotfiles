@@ -7,6 +7,7 @@ return {
     end,
   },
   ft = 'qf',
+  cond = false,
   config = function()
     require('bqf').setup({
       auto_resize_height = false,
