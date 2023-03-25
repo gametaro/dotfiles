@@ -98,12 +98,16 @@ local group = vim.api.nvim_create_augroup('peek', {})
 vim.api.nvim_create_autocmd('CmdlineChanged', {
   group = group,
   callback = function(a)
-    on_changed(vim.fn.bufwinid(a.buf))
+    if a.file == ':' then
+      on_changed(vim.fn.bufwinid(a.buf))
+    end
   end,
 })
 vim.api.nvim_create_autocmd('CmdlineLeave', {
   group = group,
   callback = function(a)
-    on_leave(vim.fn.bufwinid(a.buf))
+    if a.file == ':' then
+      on_leave(vim.fn.bufwinid(a.buf))
+    end
   end,
 })
