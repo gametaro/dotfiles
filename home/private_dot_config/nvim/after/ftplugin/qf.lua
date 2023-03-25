@@ -19,7 +19,7 @@ local prevview
 ---@type table<string, unknown>
 local prevoptions = {}
 
-local win = vim.fn.getqflist({ winid = 1 }).winid
+local buf = vim.api.nvim_get_current_buf()
 local prevwin = vim.fn.win_getid(vim.fn.winnr('#'))
 local prevbuf = vim.api.nvim_win_get_buf(prevwin)
 vim.api.nvim_win_call(prevwin, function()
@@ -29,6 +29,7 @@ end)
 local group = vim.api.nvim_create_augroup('qf', {})
 vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
   group = group,
+  buffer = buf,
   callback = function(a)
     if vim.fn.win_gettype(vim.fn.bufwinid(a.buf)) == 'quickfix' then
       local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -57,19 +58,18 @@ vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
 
 vim.api.nvim_create_autocmd({ 'WinClosed' }, {
   group = group,
-  pattern = tostring(win),
-  once = true,
+  buffer = buf,
   callback = function()
     vim.api.nvim_win_set_buf(prevwin, prevbuf)
     vim.api.nvim_win_call(prevwin, function()
       vim.fn.winrestview(prevview)
     end)
-    vim.api.nvim_del_augroup_by_id(group)
   end,
 })
 
 vim.api.nvim_create_autocmd({ 'WinLeave' }, {
   group = group,
+  buffer = buf,
   callback = function(a)
     if vim.fn.win_gettype(vim.fn.bufwinid(a.buf)) == 'quickfix' then
       for name, value in pairs(prevoptions) do
