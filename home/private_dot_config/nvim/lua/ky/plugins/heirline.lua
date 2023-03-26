@@ -30,9 +30,8 @@ return {
     })
 
     if vim.fn.executable('git') == 1 and util.is_git_repo() then
-      vim.api.nvim_create_autocmd('User', {
+      vim.api.nvim_create_autocmd('UIEnter', {
         group = group,
-        pattern = 'HeirlineInitWinbar',
         once = true,
         callback = function()
           local timer = vim.loop.new_timer()
