@@ -4,6 +4,9 @@ local function setenv()
   if stdin then
     return
   end
+  if vim.wo.diff then
+    return
+  end
   for _, arg in ipairs(vim.fn.argv()) do
     -- ignore gitcommit
     if string.match(arg, 'COMMIT_EDITMSG') then
