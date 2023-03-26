@@ -37,7 +37,7 @@ vim.keymap.set('t', '<M-j>', '<Cmd>wincmd j<CR>', { desc = 'Goto Left widow' })
 vim.keymap.set('t', '<M-k>', '<Cmd>wincmd k<CR>', { desc = 'Goto down widow' })
 vim.keymap.set('t', '<M-l>', '<Cmd>wincmd l<CR>', { desc = 'Goto up widow' })
 
-vim.keymap.set('n', 'x', '"_x', { desc = 'Delete char' })
+vim.keymap.set({ 'n', 'x' }, 'x', '"_x', { desc = 'Delete char' })
 
 vim.keymap.set('c', '/', function()
   return vim.fn.getcmdtype() == '/' and [[\/]] or '/'
