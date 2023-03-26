@@ -39,12 +39,6 @@ vim.keymap.set('t', '<M-l>', '<Cmd>wincmd l<CR>', { desc = 'Goto up widow' })
 
 vim.keymap.set({ 'n', 'x' }, 'x', '"_x', { desc = 'Delete char' })
 
-vim.keymap.set('c', '/', function()
-  return vim.fn.getcmdtype() == '/' and [[\/]] or '/'
-end, { expr = true })
-vim.keymap.set('c', '?', function()
-  return vim.fn.getcmdtype() == '?' and [[\?]] or '?'
-end, { expr = true })
 vim.keymap.set('c', '<C-x>', function()
   return vim.fn.getcmdtype() == ':' and vim.fn.expand('%:p') or ''
 end, { expr = true })
@@ -52,11 +46,8 @@ end, { expr = true })
 vim.keymap.set('s', '<BS>', '<BS>i')
 vim.keymap.set('s', '<C-h>', '<C-h>i')
 
-vim.keymap.set('n', '<Leader>.', function()
-  vim.cmd.edit('.')
-end, { desc = 'Open cwd' })
 vim.keymap.set('n', '-', function()
-  vim.cmd.edit(vim.fn.expand('%:p:h'))
+  vim.cmd.edit('%:p:h')
 end, { desc = 'Open parent directory' })
 vim.keymap.set('n', '<Leader>cd', function()
   vim.cmd.tcd('%:p:h')
