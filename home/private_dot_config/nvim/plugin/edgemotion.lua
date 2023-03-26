@@ -97,7 +97,7 @@ function M.move(opts)
   end
 
   if lnum == 0 or lnum == last_lnum + 1 then
-    return '<Ignore>'
+    return
   end
 
   vim.cmd.normal({ vim.fn.abs(lnum - orig_lnum) .. (opts.forward and 'j' or 'k'), bang = true })
