@@ -375,33 +375,6 @@ return {
       },
     }
 
-    local LirName = {
-      condition = function()
-        return vim.bo.filetype == 'lir'
-      end,
-      init = function(self)
-        local dir = require('lir').get_context().dir
-        self.dir = vim.fn.fnamemodify(dir, ':.:h')
-        self.show_hidden_files = require('lir.config').values.show_hidden_files
-      end,
-      Space,
-      {
-        provider = function(self)
-          return self.dir
-        end,
-        hl = 'Comment',
-      },
-      Space,
-      {
-        provider = function(self)
-          return self.show_hidden_files and ' ' or ' '
-        end,
-        hl = function(self)
-          return self.show_hidden_files and 'DiagnosticWarn' or 'NonText'
-        end,
-      },
-    }
-
     local Spell = {
       condition = function()
         return vim.wo.spell
@@ -411,7 +384,6 @@ return {
 
     local WinBars = {
       fallthrough = false,
-      LirName,
       {
         condition = function()
           return conditions.buffer_matches({
