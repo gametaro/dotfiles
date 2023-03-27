@@ -110,7 +110,7 @@ vim.o.winblend = blend
 vim.o.winminwidth = 6
 
 if vim.fn.executable('git') == 1 and require('ky.util').is_git_repo() then
-  vim.o.grepprg = 'git --no-pager grep -I -E --no-color --line-number --column'
+  vim.o.grepprg = 'git --no-pager grep -I -E -i --no-color --line-number --column'
   vim.o.grepformat = '%f:%l:%m,%f:%l:%c:%m'
 elseif vim.fn.executable('rg') == 1 then
   vim.o.grepprg = 'rg --vimgrep --smart-case --hidden'

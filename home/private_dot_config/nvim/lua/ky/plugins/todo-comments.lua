@@ -23,6 +23,7 @@ return {
           'grep',
           '-I',
           '-E',
+          '-i',
           '--no-color',
           '--line-number',
           '--column',
