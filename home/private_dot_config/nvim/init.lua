@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 local profile = vim.env.NVIM_PROFILE
 if profile then
   local profilepath = vim.fn.stdpath('data') .. '/lazy/profile.nvim'
