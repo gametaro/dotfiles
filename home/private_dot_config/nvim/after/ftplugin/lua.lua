@@ -1,4 +1,4 @@
-vim.treesitter.start()
+-- vim.treesitter.start()
 
 vim.lsp.start({
   cmd = { 'lua-language-server' },

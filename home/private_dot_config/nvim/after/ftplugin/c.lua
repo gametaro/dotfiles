@@ -1,1 +1,1 @@
-vim.treesitter.start()
+-- vim.treesitter.start()

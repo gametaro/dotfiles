@@ -4,7 +4,6 @@ return {
   event = { 'FileType' },
   dependencies = {
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    { 'JoosepAlviste/nvim-ts-context-commentstring' },
     { 'windwp/nvim-ts-autotag' },
     { 'nvim-treesitter/nvim-treesitter-context', enabled = false, config = true },
     {
@@ -48,10 +47,6 @@ return {
       },
       indent = {
         enable = true,
-      },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
       },
       matchup = {
         enable = false,

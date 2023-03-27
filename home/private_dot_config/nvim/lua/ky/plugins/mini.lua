@@ -25,11 +25,6 @@ return {
       options = {
         ignore_blank_line = true,
       },
-      hooks = {
-        pre = function()
-          require('ts_context_commentstring.internal').update_commentstring()
-        end,
-      },
     })
 
     local ai = require('mini.ai')
