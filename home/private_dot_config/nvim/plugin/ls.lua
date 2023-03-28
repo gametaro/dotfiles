@@ -6,6 +6,13 @@ local ns = vim.api.nvim_create_namespace('ls')
 ---@type table<string, ls.Decorator>
 local decorators = {}
 
+---@param buf integer
+---@param row integer
+---@param opts table<string, any>
+local function set_extmark(buf, row, opts)
+  vim.api.nvim_buf_set_extmark(buf, ns, row, 0, opts)
+end
+
 ---@param path string
 ---@return boolean
 local function is_directory(path)
@@ -76,7 +83,7 @@ function decorators.icon(buf, line, row)
       hl = 'Directory'
     end
     vim.schedule(function()
-      vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+      set_extmark(buf, row, {
         sign_text = icon,
         sign_hl_group = hl,
       })
@@ -178,7 +185,7 @@ function decorators.git_status(buf, line, row)
     if err == 0 then
       local index = data:sub(1, 1)
       local worktree = data:sub(2, 2)
-      vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+      set_extmark(buf, row, {
         virt_text = { { index, status_to_hl(index) }, { worktree, status_to_hl(worktree) } },
         virt_text_pos = 'eol',
       })
@@ -218,7 +225,7 @@ function decorators.diagnostic(buf, line, row)
   )
 
   if not is_empty(text) then
-    vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+    set_extmark(buf, row, {
       virt_text = { { text, hl } },
       virt_text_pos = 'eol',
     })
@@ -232,7 +239,7 @@ function decorators.link(buf, line, row)
       local hl = stat and 'Directory' or 'ErrorMsg'
       if link then
         vim.schedule(function()
-          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+          set_extmark(buf, row, {
             virt_text = { { '→ ' .. link, hl } },
             virt_text_pos = 'eol',
           })
@@ -250,7 +257,7 @@ function decorators.conceal(buf, line, row)
     return
   end
 
-  vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+  set_extmark(buf, row, {
     end_row = row,
     end_col = end_col,
     conceal = '',
@@ -263,7 +270,7 @@ function decorators.highlight(buf, line, row)
     if stat then
       if stat.type ~= 'directory' and require('bit').band(stat.mode, 73) > 0 then
         vim.schedule(function()
-          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+          set_extmark(buf, row, {
             end_row = row,
             end_col = string.len(line),
             hl_group = 'Special',
@@ -272,7 +279,7 @@ function decorators.highlight(buf, line, row)
       end
       if stat.type == 'directory' then
         vim.schedule(function()
-          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+          set_extmark(buf, row, {
             end_row = row,
             end_col = string.len(line),
             hl_group = 'Directory',
@@ -281,7 +288,7 @@ function decorators.highlight(buf, line, row)
       end
       if stat.type == 'link' then
         vim.schedule(function()
-          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+          set_extmark(buf, row, {
             end_row = row,
             end_col = string.len(line),
             hl_group = 'Identifier',
@@ -290,7 +297,7 @@ function decorators.highlight(buf, line, row)
       end
     else
       vim.schedule(function()
-        vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+        set_extmark(buf, row, {
           end_row = row,
           end_col = string.len(line),
           hl_group = 'Comment',
