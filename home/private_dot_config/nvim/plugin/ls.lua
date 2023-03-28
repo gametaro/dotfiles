@@ -1,10 +1,10 @@
 ---@alias ls.File { name: string, type: uv.aliases.fs_stat_types }
----@alias ls.Provider fun(buf: integer, line: string, row: integer)
+---@alias ls.Decorator fun(buf: integer, line: string, row: integer)
 
 local ns = vim.api.nvim_create_namespace('ls')
 
----@type table<string, ls.Provider>
-local providers = {}
+---@type table<string, ls.Decorator>
+local decorators = {}
 
 ---@param path string
 ---@return boolean
@@ -20,9 +20,6 @@ local function is_empty(s)
 end
 
 local sep = '/'
-
----@type table<integer, boolean>
-local bufs = {}
 
 ---@class ls.Config
 local config = {
@@ -66,8 +63,8 @@ local function list(path, opts)
   return files
 end
 
----@type ls.Provider
-function providers.icon(buf, line, row)
+---@type ls.Decorator
+function decorators.icon(buf, line, row)
   local ok, devicons = pcall(require, 'nvim-web-devicons')
   if not ok then
     return
@@ -166,8 +163,8 @@ local function job(path, opts, callback)
   return handle
 end
 
----@type ls.Provider
-function providers.git_status(buf, line, row)
+---@type ls.Decorator
+function decorators.git_status(buf, line, row)
   job('git', {
     args = {
       '--no-optional-locks',
@@ -189,8 +186,8 @@ function providers.git_status(buf, line, row)
   end)
 end
 
----@type ls.Provider
-function providers.diagnostic(buf, line, row)
+---@type ls.Decorator
+function decorators.diagnostic(buf, line, row)
   if is_directory(line) then
     return
   end
@@ -228,8 +225,8 @@ function providers.diagnostic(buf, line, row)
   end
 end
 
----@type ls.Provider
-function providers.link(buf, line, row)
+---@type ls.Decorator
+function decorators.link(buf, line, row)
   vim.loop.fs_stat(line, function(_, stat)
     vim.loop.fs_readlink(line, function(_, link)
       local hl = stat and 'Directory' or 'ErrorMsg'
@@ -245,8 +242,8 @@ function providers.link(buf, line, row)
   end)
 end
 
----@type ls.Provider
-function providers.conceal(buf, line, row)
+---@type ls.Decorator
+function decorators.conceal(buf, line, row)
   local path = vim.fs.normalize(vim.api.nvim_buf_get_name(buf))
   local _, end_col = line:find(vim.pesc(path .. sep))
   if not end_col then
@@ -260,8 +257,8 @@ function providers.conceal(buf, line, row)
   })
 end
 
----@type ls.Provider
-function providers.highlight(buf, line, row)
+---@type ls.Decorator
+function decorators.highlight(buf, line, row)
   vim.loop.fs_lstat(line, function(_, stat)
     if stat then
       if stat.type ~= 'directory' and require('bit').band(stat.mode, 73) > 0 then
@@ -309,20 +306,6 @@ local function toggle_hidden()
 end
 
 ---@param buf integer
----@param lines string[]
----@param first integer
-local function decorate(buf, lines, first)
-  for i, line in ipairs(lines) do
-    local row = i - 1 + first
-    for name, provider in pairs(providers) do
-      if config[name] then
-        provider(buf, line, row)
-      end
-    end
-  end
-end
-
----@param buf integer
 ---@param path string
 local function render(buf, path)
   local files = list(path)
@@ -342,64 +325,39 @@ local function render(buf, path)
   vim.bo[buf].modifiable = true
   vim.bo[buf].swapfile = false
   vim.api.nvim_buf_set_lines(buf, 0, -1, true, lines)
-  decorate(buf, lines, 0)
   vim.bo[buf].modified = false
 end
 
----@param fn function
----@param timeout integer
----@return function
-local function debounce_trailing(fn, timeout)
-  local timer = vim.loop.new_timer()
-  return function(...)
-    local argv = { ... }
-    local argc = select('#', ...)
-
-    if timer then
-      timer:start(timeout, 0, function()
-        timer:stop()
-        pcall(vim.schedule_wrap(fn), unpack(argv, 1, argc))
-      end)
-    end
-  end
-end
-
-local debounced_decorate = debounce_trailing(function(buf, first, last_old, last_new)
-  if not vim.api.nvim_buf_is_valid(buf) then
-    return
-  end
-  local last = last_old > last_new and last_old or last_new
-  vim.api.nvim_buf_clear_namespace(buf, ns, first, last)
-  local lines = vim.tbl_filter(function(line)
-    return line ~= ''
-  end, vim.api.nvim_buf_get_lines(buf, first, last, false))
-  decorate(buf, lines, first)
-end, config.debounce)
-
 ---@param buf integer
 local function attach(buf)
-  if bufs[buf] then
-    return
-  end
   if not vim.api.nvim_buf_is_valid(buf) then
     return
   end
 
-  bufs[buf] = vim.api.nvim_buf_attach(buf, false, {
-    on_lines = function(_, _, _, first, last_old, last_new, byte_count)
-      if not bufs[buf] then
-        return true
+  vim.api.nvim_set_decoration_provider(ns, {
+    on_start = function()
+      if vim.bo.filetype ~= 'ls' then
+        return false
       end
-      -- ignore a second undo events which indicates no changes.
-      if first == last_old and last_old == last_new and byte_count == 0 then
+    end,
+    on_buf = function(_, bufnr, _)
+      if vim.bo[bufnr].filetype ~= 'ls' then
         return
       end
-      debounced_decorate(buf, first, last_old, last_new)
+      for _, mark in ipairs(vim.api.nvim_buf_get_extmarks(bufnr, ns, 0, -1, {})) do
+        vim.api.nvim_buf_del_extmark(bufnr, ns, mark[1])
+      end
+      for i, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, true)) do
+        for name, decorator in pairs(decorators) do
+          if config[name] then
+            decorator(bufnr, line, i - 1)
+          end
+        end
+      end
     end,
-    on_detach = function()
-      vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
-      bufs[buf] = false
-    end,
+    on_win = function()
+      return false
+    end
   })
 end
 
