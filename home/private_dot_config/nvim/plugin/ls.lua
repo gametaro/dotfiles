@@ -357,7 +357,7 @@ local function attach(buf)
     end,
     on_win = function()
       return false
-    end
+    end,
   })
 end
 
