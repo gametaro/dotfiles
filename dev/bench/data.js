@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679963736438,
+  "lastUpdate": 1679982336517,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -23274,6 +23274,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.04771733788590165,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "9823f19e5dec4225e001672adebc7c01edf1ccef",
+          "message": "perf(ls): use `nvim_set_decoration_provider` instead of `nvim_buf_attach`",
+          "timestamp": "2023-03-28T14:37:02+09:00",
+          "tree_id": "4567b61053965fb52b3ffbfea95b4e05c17e67cd",
+          "url": "https://github.com/gametaro/dotfiles/commit/9823f19e5dec4225e001672adebc7c01edf1ccef"
+        },
+        "date": 1679982334706,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.03705728938999998,
             "unit": "Second"
           }
         ]
