@@ -338,7 +338,11 @@ local function render(buf, path)
 end
 
 local function set_cursor()
-  local alt = vim.fs.normalize(vim.loop.fs_realpath(vim.fn.expand('#')))
+  local alt = vim.fn.expand('#')
+  if is_empty(alt) then
+    return
+  end
+  alt = vim.fs.normalize(vim.loop.fs_realpath(alt))
   vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
 end
 
