@@ -3,6 +3,8 @@
 
 local ns = vim.api.nvim_create_namespace('ls')
 
+local bufs = {}
+
 ---@type table<string, ls.Decorator>
 local decorators = {}
 
@@ -335,39 +337,6 @@ local function render(buf, path)
   vim.bo[buf].modified = false
 end
 
----@param buf integer
-local function attach(buf)
-  if not vim.api.nvim_buf_is_valid(buf) then
-    return
-  end
-
-  vim.api.nvim_set_decoration_provider(ns, {
-    on_start = function()
-      if vim.bo.filetype ~= 'ls' then
-        return false
-      end
-    end,
-    on_buf = function(_, bufnr, _)
-      if vim.bo[bufnr].filetype ~= 'ls' then
-        return
-      end
-      for _, mark in ipairs(vim.api.nvim_buf_get_extmarks(bufnr, ns, 0, -1, {})) do
-        vim.api.nvim_buf_del_extmark(bufnr, ns, mark[1])
-      end
-      for i, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, true)) do
-        for name, decorator in pairs(decorators) do
-          if config[name] then
-            decorator(bufnr, line, i - 1)
-          end
-        end
-      end
-    end,
-    on_win = function()
-      return false
-    end,
-  })
-end
-
 local function set_cursor()
   local alt = vim.fs.normalize(vim.loop.fs_realpath(vim.fn.expand('#')))
   vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
@@ -417,12 +386,35 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(a)
     set_options()
     set_mappings(a.buf)
-    attach(a.buf)
   end,
 })
 vim.api.nvim_create_autocmd('BufWinEnter', {
   group = group,
   callback = function(a)
     init(a.buf)
+  end,
+})
+
+vim.api.nvim_set_decoration_provider(ns, {
+  on_win = function(_, _, bufnr, topline, botline_guess)
+    if vim.bo[bufnr].filetype ~= 'ls' then
+      return false
+    end
+    if bufs[bufnr] and bufs[bufnr].tick and bufs[bufnr].tick ~= vim.b[bufnr].changedtick then
+      bufs = {}
+    end
+    for i = topline, botline_guess - 2 do
+      if not bufs[bufnr] or not bufs[bufnr][i + 1] then
+        local line = vim.api.nvim_buf_get_lines(bufnr, i, i + 1, true)[1]
+        for name, decorator in pairs(decorators) do
+          if config[name] then
+            decorator(bufnr, line, i)
+          end
+        end
+        bufs[bufnr] = bufs[bufnr] or {}
+        bufs[bufnr][i + 1] = true
+        bufs[bufnr].tick = vim.b[bufnr].changedtick
+      end
+    end
   end,
 })
