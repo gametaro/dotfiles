@@ -3,7 +3,8 @@
 
 local ns = vim.api.nvim_create_namespace('ls')
 
-local bufs = {}
+---@type table<integer, table<string, boolean|nil>>
+local cache = vim.defaulttable()
 
 ---@type table<string, ls.Decorator>
 local decorators = {}
@@ -390,6 +391,23 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(a)
     set_options()
     set_mappings(a.buf)
+    vim.api.nvim_buf_attach(a.buf, false, {
+      on_lines = function(_, _, _, first, last_old, last_new, byte_count)
+        -- ignore a second undo event which indicates no changes
+        if first == last_old and last_old == last_new and byte_count == 0 then
+          return
+        end
+        local last = last_old > last_new and last_old or last_new
+        vim.api.nvim_buf_clear_namespace(a.buf, ns, first, last)
+        local lines = vim.api.nvim_buf_get_lines(a.buf, first, last, false)
+        for _, line in ipairs(lines) do
+          cache[a.buf][line] = nil
+        end
+      end,
+      on_detach = function(_, buf)
+        cache[buf] = nil
+      end,
+    })
   end,
 })
 vim.api.nvim_create_autocmd('BufWinEnter', {
@@ -404,20 +422,15 @@ vim.api.nvim_set_decoration_provider(ns, {
     if vim.bo[buf].filetype ~= 'ls' then
       return false
     end
-    if bufs[buf] and bufs[buf].tick and bufs[buf].tick ~= vim.b[buf].changedtick then
-      bufs = {}
-    end
     for i = top, bot - 2 do
-      if not bufs[buf] or not bufs[buf][i + 1] then
-        local line = vim.api.nvim_buf_get_lines(buf, i, i + 1, true)[1]
+      local line = vim.api.nvim_buf_get_lines(buf, i, i + 1, false)[1]
+      if line and not rawget(cache[buf], line) then
         for name, decorator in pairs(decorators) do
           if config[name] then
             decorator(buf, line, i)
           end
         end
-        bufs[buf] = bufs[buf] or {}
-        bufs[buf][i + 1] = true
-        bufs[buf].tick = vim.b[buf].changedtick
+        cache[buf][line] = true
       end
     end
   end,
