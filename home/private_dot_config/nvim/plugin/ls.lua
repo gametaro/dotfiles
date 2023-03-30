@@ -201,14 +201,14 @@ function decorators.diagnostic(buf, line, row)
   if is_directory(line) then
     return
   end
-  if vim.fn.bufexists(line) == 0 then
+  local bufnr = vim.fn.bufnr(line)
+  if bufnr == -1 then
     return
   end
 
   local get = vim.diagnostic.get
   local sign = vim.fn.sign_getdefined
   local severity = vim.diagnostic.severity
-  local bufnr = vim.fn.bufnr(line)
   local hint = not vim.tbl_isempty(get(bufnr, { severity = severity.HINT }))
       and sign('DiagnosticSignHint')[1].text
     or nil
