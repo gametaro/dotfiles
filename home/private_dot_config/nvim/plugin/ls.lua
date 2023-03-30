@@ -400,24 +400,24 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
 })
 
 vim.api.nvim_set_decoration_provider(ns, {
-  on_win = function(_, _, bufnr, topline, botline_guess)
-    if vim.bo[bufnr].filetype ~= 'ls' then
+  on_win = function(_, _, buf, top, bot)
+    if vim.bo[buf].filetype ~= 'ls' then
       return false
     end
-    if bufs[bufnr] and bufs[bufnr].tick and bufs[bufnr].tick ~= vim.b[bufnr].changedtick then
+    if bufs[buf] and bufs[buf].tick and bufs[buf].tick ~= vim.b[buf].changedtick then
       bufs = {}
     end
-    for i = topline, botline_guess - 2 do
-      if not bufs[bufnr] or not bufs[bufnr][i + 1] then
-        local line = vim.api.nvim_buf_get_lines(bufnr, i, i + 1, true)[1]
+    for i = top, bot - 2 do
+      if not bufs[buf] or not bufs[buf][i + 1] then
+        local line = vim.api.nvim_buf_get_lines(buf, i, i + 1, true)[1]
         for name, decorator in pairs(decorators) do
           if config[name] then
-            decorator(bufnr, line, i)
+            decorator(buf, line, i)
           end
         end
-        bufs[bufnr] = bufs[bufnr] or {}
-        bufs[bufnr][i + 1] = true
-        bufs[bufnr].tick = vim.b[bufnr].changedtick
+        bufs[buf] = bufs[buf] or {}
+        bufs[buf][i + 1] = true
+        bufs[buf].tick = vim.b[buf].changedtick
       end
     end
   end,
