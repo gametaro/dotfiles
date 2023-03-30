@@ -43,7 +43,6 @@ local config = {
   git_status = true,
   hidden = false,
   icon = true,
-  link = true,
 }
 
 ---@param a ls.File
@@ -239,23 +238,6 @@ function decorators.diagnostic(buf, line, row)
 end
 
 ---@type ls.Decorator
-function decorators.link(buf, line, row)
-  vim.loop.fs_stat(line, function(_, stat)
-    vim.loop.fs_readlink(line, function(_, link)
-      local hl = stat and 'Directory' or 'ErrorMsg'
-      if link then
-        vim.schedule(function()
-          set_extmark(buf, row, {
-            virt_text = { { '→ ' .. link, hl } },
-            virt_text_pos = 'eol',
-          })
-        end)
-      end
-    end)
-  end)
-end
-
----@type ls.Decorator
 function decorators.conceal(buf, line, row)
   local path = vim.fs.normalize(vim.api.nvim_buf_get_name(buf))
   local _, end_col = line:find(vim.pesc(path .. sep))
@@ -273,43 +255,47 @@ end
 ---@type ls.Decorator
 function decorators.highlight(buf, line, row)
   vim.loop.fs_lstat(line, function(_, stat)
+    local end_col = string.len(line)
+    local hl_group ---@type string?
+    local virt_text_hl ---@type string?
+    local link ---@type string?
     if stat then
-      if stat.type ~= 'directory' and require('bit').band(stat.mode, 73) > 0 then
-        vim.schedule(function()
-          set_extmark(buf, row, {
-            end_row = row,
-            end_col = string.len(line),
-            hl_group = 'Special',
-          })
-        end)
-      end
-      if stat.type == 'directory' then
-        vim.schedule(function()
-          set_extmark(buf, row, {
-            end_row = row,
-            end_col = string.len(line),
-            hl_group = 'Directory',
-          })
-        end)
-      end
-      if stat.type == 'link' then
-        vim.schedule(function()
-          set_extmark(buf, row, {
-            end_row = row,
-            end_col = string.len(line),
-            hl_group = 'Identifier',
-          })
-        end)
+      if stat.type == 'socket' then
+        hl_group = 'String'
+      elseif stat.type == 'directory' then
+        -- sticky bit
+        hl_group = require('bit').band(stat.mode, tonumber('1000', 8)) ~= 0 and 'Statement'
+          or 'Directory'
+      elseif stat.type == 'fifo' then
+        hl_group = 'Type'
+      elseif stat.type == 'char' then
+        hl_group = 'PreProc'
+      elseif stat.type == 'block' then
+        hl_group = 'Constant'
+      elseif stat.type == 'link' then
+        hl_group = 'Identifier'
+        link = vim.loop.fs_readlink(line)
+        virt_text_hl = vim.loop.fs_stat(line) and 'Directory' or 'ErrorMsg'
+        -- executable
+      elseif require('bit').band(stat.mode, tonumber('111', 8)) ~= 0 then
+        hl_group = 'Special'
+      else
+        hl_group = 'Normal'
       end
     else
-      vim.schedule(function()
-        set_extmark(buf, row, {
-          end_row = row,
-          end_col = string.len(line),
-          hl_group = 'Comment',
-        })
-      end)
+      hl_group = 'Comment'
     end
+    local opts = vim.tbl_extend('keep', {
+      end_row = row,
+      end_col = end_col,
+      hl_group = hl_group,
+    }, link and {
+      virt_text = { { string.format('→ %s', link), virt_text_hl } },
+      virt_text_pos = 'eol',
+    } or {})
+    vim.schedule(function()
+      set_extmark(buf, row, opts)
+    end)
   end)
 end
 
