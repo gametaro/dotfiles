@@ -3,6 +3,9 @@
 
 local ns = vim.api.nvim_create_namespace('ls')
 
+---@type table<integer, boolean|nil>
+local bufs = {}
+
 ---@type table<integer, table<string, boolean|nil>>
 local cache = vim.defaulttable()
 
@@ -357,9 +360,7 @@ local function init(buf)
     return
   end
   render(buf, path)
-  if vim.bo[buf].filetype ~= 'ls' then
-    vim.bo[buf].filetype = 'ls'
-  end
+  vim.bo[buf].filetype = 'ls'
   set_cursor()
 end
 
@@ -384,6 +385,37 @@ local function set_mappings(buf)
   vim.keymap.set('n', '<Esc>', '<Cmd>bdelete!<CR>', { buffer = buf })
 end
 
+---@param buf integer
+local function attach(buf)
+  if bufs[buf] then
+    return
+  end
+  bufs[buf] = vim.api.nvim_buf_attach(buf, false, {
+    on_lines = function(_, _, _, first, last_old, last_new, byte_count)
+      if not vim.api.nvim_buf_is_valid(buf) then
+        return
+      end
+      -- ignore a second undo event which indicates no changes
+      if first == last_old and last_old == last_new and byte_count == 0 then
+        return
+      end
+      local last = last_old > last_new and last_old or last_new
+      vim.api.nvim_buf_clear_namespace(buf, ns, first, last)
+      local lines = vim.api.nvim_buf_get_lines(buf, first, last, false)
+      for _, line in ipairs(lines) do
+        cache[buf][line] = nil
+      end
+    end,
+    on_detach = function()
+      if not vim.api.nvim_buf_is_valid(buf) then
+        return
+      end
+      cache[buf] = nil
+      bufs[buf] = nil
+    end,
+  })
+end
+
 local group = vim.api.nvim_create_augroup('ls', {})
 vim.api.nvim_create_autocmd('FileType', {
   group = group,
@@ -391,23 +423,7 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(a)
     set_options()
     set_mappings(a.buf)
-    vim.api.nvim_buf_attach(a.buf, false, {
-      on_lines = function(_, _, _, first, last_old, last_new, byte_count)
-        -- ignore a second undo event which indicates no changes
-        if first == last_old and last_old == last_new and byte_count == 0 then
-          return
-        end
-        local last = last_old > last_new and last_old or last_new
-        vim.api.nvim_buf_clear_namespace(a.buf, ns, first, last)
-        local lines = vim.api.nvim_buf_get_lines(a.buf, first, last, false)
-        for _, line in ipairs(lines) do
-          cache[a.buf][line] = nil
-        end
-      end,
-      on_detach = function(_, buf)
-        cache[buf] = nil
-      end,
-    })
+    attach(a.buf)
   end,
 })
 vim.api.nvim_create_autocmd('BufWinEnter', {
