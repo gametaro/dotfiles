@@ -28,94 +28,79 @@
 -- }}}
 -- ]]
 
-local M = {}
-
 ---@param s string
 ---@return boolean
-local function iswhite(s)
-  return string.match(s, '^%s+$') and true or false
+local function is_white(s)
+  return string.match(s, '^%s+$')
 end
 
 ---@param lnum integer
 ---@param vcol integer
 ---@return string
 local function get_virtcol_char(lnum, vcol)
-  local pattern = vim.fn.printf([[^.\{-}\zs\%%<%dv.\%%>%dv]], vcol + 1, vcol)
+  local pattern = string.format([[^.\{-}\zs\%%<%dv.\%%>%dv]], vcol + 1, vcol)
   return vim.fn.matchstr(vim.fn.getline(lnum), pattern)
 end
 
 ---@param lnum integer
 ---@param vcol integer
 ---@return boolean
-local function island(lnum, vcol)
-  local c = get_virtcol_char(lnum, vcol)
-  if c == '' then
+local function is_edge(lnum, vcol)
+  local char = get_virtcol_char(lnum, vcol)
+  if char == '' then
     return false
   end
-  if not iswhite(c) then
+  if not is_white(char) then
     return true
   end
   local pattern = vim.fn.printf([[^.\{-}\zs.\%%<%dv.\%%>%dv.]], vcol + 1, vcol)
   local m = vim.fn.matchstr(vim.fn.getline(lnum), pattern)
   local chars = vim.split(m, '')
-  if #chars ~= 3 then
-    return false
-  end
-  return not iswhite(chars[1]) and not iswhite(chars[3])
+  return #chars == 3 and not (is_white(chars[1]) or is_white(chars[3]))
 end
 
 ---@param opts table
-function M.move(opts)
+local function move(opts)
   opts = opts or {}
   local delta = opts.forward and 1 or -1
-  local curswant = vim.fn.getcurpos()[4]
-  if curswant > 100000 then
-    vim.fn.winrestview({ curswant = vim.fn.getline('.'):len() - 1 })
-  end
   local vcol = vim.fn.virtcol('.')
   local orig_lnum = vim.fn.line('.')
-
-  local island_start = island(orig_lnum, vcol)
-  local island_next = island(orig_lnum + delta, vcol)
-
-  local should_move_to_land = not (island_start and island_next)
   local lnum = orig_lnum
   local last_lnum = vim.fn.line('$')
 
-  if should_move_to_land then
-    if island_start and not island_next then
-      lnum = lnum + delta
-    end
-    while lnum ~= 0 and lnum <= last_lnum and not island(lnum, vcol) do
-      lnum = lnum + delta
-    end
-  else
-    while lnum ~= 0 and lnum <= last_lnum and island(lnum, vcol) do
+  local edge_current = is_edge(orig_lnum, vcol)
+  local edge_next = is_edge(orig_lnum + delta, vcol)
+
+  if edge_current and edge_next then
+    while lnum > 0 and lnum <= last_lnum and is_edge(lnum, vcol) do
       lnum = lnum + delta
     end
     lnum = lnum - delta
+  else
+    if edge_current and not edge_next then
+      lnum = lnum + delta
+    end
+    while lnum > 0 and lnum <= last_lnum and not is_edge(lnum, vcol) do
+      lnum = lnum + delta
+    end
   end
 
-  if lnum == 0 or lnum == last_lnum + 1 then
-    return
+  if lnum > 0 and lnum <= last_lnum then
+    vim.cmd.normal({ vim.fn.abs(lnum - orig_lnum) .. (opts.forward and 'j' or 'k'), bang = true })
   end
-
-  vim.cmd.normal({ vim.fn.abs(lnum - orig_lnum) .. (opts.forward and 'j' or 'k'), bang = true })
 end
 
-function M.forward(opts)
+local function forward(opts)
   opts = opts or {}
   opts.forward = true
-  M.move(opts)
+  move(opts)
 end
 
-function M.backward(opts)
+local function backward(opts)
   opts = opts or {}
   opts.forward = false
-  M.move(opts)
+  move(opts)
 end
 
-vim.keymap.set({ 'n', 'x' }, '<C-j>', M.forward, { desc = 'Forward to edge' })
-vim.keymap.set({ 'n', 'x' }, '<C-k>', M.backward, { desc = 'Backward to edge' })
-
-return M
+vim.keymap.set({ 'n', 'x' }, '<C-j>', forward, { desc = 'Forward to edge' })
+vim.keymap.set({ 'n', 'x' }, '<C-k>', backward, { desc = 'Backward to edge' })
