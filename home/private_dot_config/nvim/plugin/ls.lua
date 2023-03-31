@@ -1,6 +1,8 @@
 ---@alias ls.File { name: string, type: uv.aliases.fs_stat_types }
 ---@alias ls.Decorator fun(buf: integer, line: string, row: integer)
 
+local ok, devicons = pcall(require, 'nvim-web-devicons')
+
 local ns = vim.api.nvim_create_namespace('ls')
 
 ---@type table<integer, boolean|nil>
@@ -42,7 +44,7 @@ local config = {
   highlight = true,
   git_status = true,
   hidden = false,
-  icon = true,
+  icon = ok,
 }
 
 ---@param a ls.File
@@ -77,10 +79,6 @@ end
 
 ---@type ls.Decorator
 function decorators.icon(buf, line, row)
-  local ok, devicons = pcall(require, 'nvim-web-devicons')
-  if not ok then
-    return
-  end
   local icon, hl = devicons.get_icon(line, nil, { default = true })
   vim.loop.fs_stat(line, function(_, stat)
     if stat and stat.type == 'directory' then
@@ -198,6 +196,13 @@ function decorators.git_status(buf, line, row)
   end)
 end
 
+local diag_signs = {
+  hint = vim.fn.sign_getdefined('DiagnosticSignHint')[1].text,
+  info = vim.fn.sign_getdefined('DiagnosticSignInfo')[1].text,
+  warn = vim.fn.sign_getdefined('DiagnosticSignWarn')[1].text,
+  error = vim.fn.sign_getdefined('DiagnosticSignError')[1].text,
+}
+
 ---@type ls.Decorator
 function decorators.diagnostic(buf, line, row)
   if is_directory(line) then
@@ -209,19 +214,14 @@ function decorators.diagnostic(buf, line, row)
   end
 
   local get = vim.diagnostic.get
-  local sign = vim.fn.sign_getdefined
   local severity = vim.diagnostic.severity
-  local hint = not vim.tbl_isempty(get(bufnr, { severity = severity.HINT }))
-      and sign('DiagnosticSignHint')[1].text
+  local hint = not vim.tbl_isempty(get(bufnr, { severity = severity.HINT })) and diag_signs.hint
     or nil
-  local info = not vim.tbl_isempty(get(bufnr, { severity = severity.INFO }))
-      and sign('DiagnosticSignInfo')[1].text
+  local info = not vim.tbl_isempty(get(bufnr, { severity = severity.INFO })) and diag_signs.info
     or nil
-  local warn = not vim.tbl_isempty(get(bufnr, { severity = severity.WARN }))
-      and sign('DiagnosticSignWarn')[1].text
+  local warn = not vim.tbl_isempty(get(bufnr, { severity = severity.WARN })) and diag_signs.warn
     or nil
-  local error = not vim.tbl_isempty(get(bufnr, { severity = severity.ERROR }))
-      and sign('DiagnosticSignError')[1].text
+  local error = not vim.tbl_isempty(get(bufnr, { severity = severity.ERROR })) and diag_signs.error
     or nil
   local text = error or warn or info or hint
   local hl = string.format(
@@ -373,14 +373,14 @@ end
 
 ---@param buf integer
 local function attach(buf)
+  if not vim.api.nvim_buf_is_valid(buf) then
+    return
+  end
   if bufs[buf] then
     return
   end
   bufs[buf] = vim.api.nvim_buf_attach(buf, false, {
     on_lines = function(_, _, _, first, last_old, last_new, byte_count)
-      if not vim.api.nvim_buf_is_valid(buf) then
-        return
-      end
       -- ignore a second undo event which indicates no changes
       if first == last_old and last_old == last_new and byte_count == 0 then
         return
@@ -393,9 +393,6 @@ local function attach(buf)
       end
     end,
     on_detach = function()
-      if not vim.api.nvim_buf_is_valid(buf) then
-        return
-      end
       cache[buf] = nil
       bufs[buf] = nil
     end,
