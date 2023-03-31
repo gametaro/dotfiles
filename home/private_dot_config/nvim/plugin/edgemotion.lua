@@ -1,106 +1,109 @@
--- [[
--- *edgemotion.txt*	move to the edge!
---
--- Author  : haya14busa <haya14busa@gmail.com>
--- Version : 0.9.0
--- License : MIT license {{{
---
---   Copyright (c) 2017 haya14busa
---
---   Permission is hereby granted, free of charge, to any person obtaining
---   a copy of this software and associated documentation files (the
---   "Software"), to deal in the Software without restriction, including
---   without limitation the rights to use, copy, modify, merge, publish,
---   distribute, sublicense, and/or sell copies of the Software, and to
---   permit persons to whom the Software is furnished to do so, subject to
---   the following conditions:
---   The above copyright notice and this permission notice shall be
---   included in all copies or substantial portions of the Software.
---
---   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
---   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
---   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
---   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
---   CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
---   TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
---   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
---
--- }}}
--- ]]
+-- Credit: vim-edgemotion
 
 ---@param s string
 ---@return boolean
 local function is_white(s)
-  return string.match(s, '^%s+$')
+  return string.match(s, '^%s$') ~= nil
 end
 
 ---@param lnum integer
----@param vcol integer
+---@param startcol integer
+---@param length integer
 ---@return string
-local function get_virtcol_char(lnum, vcol)
-  local pattern = string.format([[^.\{-}\zs\%%<%dv.\%%>%dv]], vcol + 1, vcol)
-  return vim.fn.matchstr(vim.fn.getline(lnum), pattern)
+local function get_chars(lnum, startcol, length)
+  local line = vim.fn.getline(lnum)
+  if vim.fn.strdisplaywidth(line) < startcol then
+    return ''
+  end
+
+  local col = 0
+  local endcol = startcol + length - 1
+  local chars = {}
+  for _, c in ipairs(vim.fn.split(line, [[\zs]])) do
+    col = col + vim.fn.strdisplaywidth(c)
+    if col > endcol then
+      break
+    elseif col >= startcol then
+      table.insert(chars, c)
+    end
+  end
+
+  return table.concat(chars)
 end
 
 ---@param lnum integer
----@param vcol integer
+---@param col integer
 ---@return boolean
-local function is_edge(lnum, vcol)
-  local char = get_virtcol_char(lnum, vcol)
+local function is_block(lnum, col)
+  local char = get_chars(lnum, col, 1)
   if char == '' then
     return false
   end
   if not is_white(char) then
     return true
   end
-  local pattern = vim.fn.printf([[^.\{-}\zs.\%%<%dv.\%%>%dv.]], vcol + 1, vcol)
-  local m = vim.fn.matchstr(vim.fn.getline(lnum), pattern)
-  local chars = vim.split(m, '')
-  return #chars == 3 and not (is_white(chars[1]) or is_white(chars[3]))
+  local chars = vim.fn.split(get_chars(lnum, col - 1, 3), [[\zs]])
+  if #chars ~= 3 then
+    return false
+  end
+  return not (is_white(chars[1]) or is_white(chars[3]))
 end
 
 ---@param opts table
 local function move(opts)
   opts = opts or {}
-  local delta = opts.forward and 1 or -1
-  local vcol = vim.fn.virtcol('.')
-  local orig_lnum = vim.fn.line('.')
-  local lnum = orig_lnum
-  local last_lnum = vim.fn.line('$')
+  local from = vim.fn.line('.')
+  local to = opts.up and vim.fn.line('$') or 1
 
-  local edge_current = is_edge(orig_lnum, vcol)
-  local edge_next = is_edge(orig_lnum + delta, vcol)
+  if from == to then
+    return
+  end
 
-  if edge_current and edge_next then
-    while lnum > 0 and lnum <= last_lnum and is_edge(lnum, vcol) do
-      lnum = lnum + delta
-    end
-    lnum = lnum - delta
-  else
-    if edge_current and not edge_next then
-      lnum = lnum + delta
-    end
-    while lnum > 0 and lnum <= last_lnum and not is_edge(lnum, vcol) do
-      lnum = lnum + delta
+  local col = vim.fn.virtcol('.')
+  local on_block = is_block(from, col)
+  local unit = opts.up and 1 or -1
+  local on_edge = is_block(from, col) and not is_block(from + unit, col)
+  local dst = from
+  for i = from + unit, to, unit do
+    if on_edge then
+      if is_block(i, col) then
+        dst = i
+        break
+      end
+    else
+      if on_block then
+        if is_block(i, col) then
+          if i == to then
+            dst = i
+            break
+          end
+        else
+          dst = i - unit
+          break
+        end
+      else
+        if is_block(i, col) then
+          dst = i
+          break
+        end
+      end
     end
   end
 
-  if lnum > 0 and lnum <= last_lnum then
-    vim.cmd.normal({ vim.fn.abs(lnum - orig_lnum) .. (opts.forward and 'j' or 'k'), bang = true })
-  end
+  vim.fn.cursor({ dst, col })
 end
 
-local function forward(opts)
+local function up(opts)
   opts = opts or {}
-  opts.forward = true
+  opts.up = true
   move(opts)
 end
 
-local function backward(opts)
+local function down(opts)
   opts = opts or {}
-  opts.forward = false
+  opts.up = false
   move(opts)
 end
 
-vim.keymap.set({ 'n', 'x' }, '<C-j>', forward, { desc = 'Forward to edge' })
-vim.keymap.set({ 'n', 'x' }, '<C-k>', backward, { desc = 'Backward to edge' })
+vim.keymap.set({ 'n', 'x' }, '<C-j>', up, { desc = 'Next block' })
+vim.keymap.set({ 'n', 'x' }, '<C-k>', down, { desc = 'Previous block' })
