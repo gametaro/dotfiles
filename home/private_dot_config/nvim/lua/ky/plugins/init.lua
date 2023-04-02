@@ -2,7 +2,7 @@ return {
   {
     'uga-rosa/ccc.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
-    opts = { highlighter = { auto_enable = true } },
+    opts = { highlighter = { auto_enable = false } },
   },
   {
     'akinsho/git-conflict.nvim',
