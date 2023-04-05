@@ -288,6 +288,8 @@ M.groups = {
   DiagnosticSignHint = { link = 'DiagnosticHint' },
   DiagnosticSignOk = { link = 'DiagnosticOk' },
 
+  DiagnosticDeprecated = { fg = fg4, strikethrough = true },
+
   ---|group-name|
   Comment = { fg = fg4 },
   Constant = { fg = M.palette.orange },
@@ -488,7 +490,7 @@ M.groups = {
 
   ---|cmp-highlight|
   CmpItemAbbr = { fg = fg1, bg = 'NONE' },
-  CmpItemAbbrDeprecated = { fg = fg5, strikethrough = true },
+  CmpItemAbbrDeprecated = { link = 'DiagnosticDeprecated' },
   CmpItemAbbrMatch = { link = 'Special' },
   CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
   CmpItemMenu = { fg = fg1 },
