@@ -18,7 +18,7 @@ jobs:
       - name: Chezmoi add
         run: chezmoi add "$HOME/.config/nvim/lazy-lock.json"
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PAT }}
           branch: create-pull-request/bump-nvim-plugins
@@ -46,7 +46,7 @@ jobs:
             echo "$NEW_VERSION" > .chezmoiversion
           fi
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PAT }}
           branch: create-pull-request/bump-chezmoi
