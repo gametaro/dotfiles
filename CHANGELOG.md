@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.7.0](https://github.com/gametaro/dotfiles/compare/v2.6.1...v2.7.0) (2023-04-06)
+
+
+### Features
+
+* **colorscheme:** add highlight for `DiagnosticDeprecated` ([ae3d710](https://github.com/gametaro/dotfiles/commit/ae3d71002fb6ce78105eab9a44cc2d975774d1dc))
+* **loader:** enable vim.loader ([440acc5](https://github.com/gametaro/dotfiles/commit/440acc5fbe0ecce343c05f57f682d552339bc7d1))
+* **plugin:** add `peek` module ([e40855b](https://github.com/gametaro/dotfiles/commit/e40855b4ce4e1fccb59b402187ec2dad70e70c6f))
+* **qf:** peek quickfix's item on cursor ([475f71b](https://github.com/gametaro/dotfiles/commit/475f71b91caf8443da0712415b6f8fad63e67114))
+
+
+### Bug Fixes
+
+* **edgemotion:** various fixes and refactoring ([ee677c4](https://github.com/gametaro/dotfiles/commit/ee677c4057b8b1ae5a405bf17f6d82aabf4a9b31))
+* **heirline:** correct event ([2301068](https://github.com/gametaro/dotfiles/commit/2301068b20a0a1eedf94531c1a55430a35f02aca))
+* **ls:** check if alt file is empty ([4ae6fce](https://github.com/gametaro/dotfiles/commit/4ae6fce47dc6ddc688f0d0fc601891ea18f970ee))
+* **ls:** load on BufWinEnter instead of BufEnter ([5087270](https://github.com/gametaro/dotfiles/commit/5087270981423d4614f7739eab9d3bb17eb68a14))
+* **ls:** normalize path and remove trailing (back)slash ([1d7df26](https://github.com/gametaro/dotfiles/commit/1d7df26f56d366f7c6cafd2fb55d920fe3423541))
+* **ls:** pass correct buffer ([b22613b](https://github.com/gametaro/dotfiles/commit/b22613b45b8da2b0c843c0718a8fc2ad3b66e509))
+* **ls:** various fixes ([e65ad2e](https://github.com/gametaro/dotfiles/commit/e65ad2e80bd4f89ad9af09aee7f86fdd6d3cf822))
+* **peek:** only activate on `:` ([8b204de](https://github.com/gametaro/dotfiles/commit/8b204dec72050445cc3070d178a3b5ac79a31747))
+* **qf:** set autocmd to buffer local ([11f16a7](https://github.com/gametaro/dotfiles/commit/11f16a734098f778532fe6f6a7549bb0da8248ba))
+
+
+### Performance Improvements
+
+* **ls:** improvements ([0ee48e7](https://github.com/gametaro/dotfiles/commit/0ee48e79c38a66505baebc87230746ca243c45d1))
+* **ls:** use `nvim_set_decoration_provider` instead of `nvim_buf_attach` ([9823f19](https://github.com/gametaro/dotfiles/commit/9823f19e5dec4225e001672adebc7c01edf1ccef))
+
 ## [2.6.1](https://github.com/gametaro/dotfiles/compare/v2.6.0...v2.6.1) (2023-03-21)
 
 
