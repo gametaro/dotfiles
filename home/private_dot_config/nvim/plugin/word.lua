@@ -22,59 +22,68 @@
 --      SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -- ]]
 
+---@alias Mode 'n' | 'x' | 'o'
+---@alias Motion 'w' | 'b' | 'e' | 'ge'
+
 ---@return string
-local current_char = function()
-  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return vim.api.nvim_get_current_line():sub(col + 1, col + 1)
+local function get_char()
+  return vim.fn.strcharpart(vim.fn.strpart(vim.fn.getline('.'), vim.fn.col('.') - 1), 0, 1)
 end
 
----@param motion string
----@param mode string
+---@param motion Motion
+---@param mode Mode
 ---@param times integer
 local function move(motion, mode, times)
-  local firstpos = vim.api.nvim_win_get_cursor(0)
+  local firstpos = vim.fn.getpos('.')
   local newpos = firstpos
   local lastpos
   local lastiterpos
 
   for _ = 1, times do
     lastiterpos = newpos
-    while true do
+    repeat
       lastpos = newpos
 
+      -- TODO: how to handle each motions to be dot-repeatable?
       vim.cmd.execute(string.format([["normal \<Plug>CamelCaseMotion_%s"]], motion))
-      if vim.o.selection == 'exclusive' and motion == 'e' and (mode == 'v' or mode == 'o') then
+      -- local key = vim.api.nvim_replace_termcodes(motion, true, true, true)
+      -- vim.api.nvim_feedkeys(key, 'ntx', false)
+      -- vim.cmd.normal({ motion, bang = true })
+      if
+        vim.o.selection == 'exclusive'
+        and motion == 'e'
+        and vim.tbl_contains({ 'x', 'o' }, mode)
+      then
         vim.cmd.normal({ 'h', bang = true })
       end
-      newpos = vim.api.nvim_win_get_cursor(0)
-
-      if vim.regex([[\k]]):match_str(current_char()) then
-        break
-      end
-      if vim.deep_equal(lastpos, newpos) then
-        return
-      end
-    end
+      newpos = vim.fn.getpos('.')
+    until vim.regex([[\k]]):match_str(get_char()) or vim.deep_equal(lastpos, newpos)
   end
 
-  if motion == 'w' and mode == 'o' and lastiterpos[1] ~= newpos[1] then
-    vim.api.nvim_win_set_cursor(0, firstpos)
+  if motion == 'w' and mode == 'o' and lastiterpos[2] ~= newpos[2] then
+    vim.fn.setpos('.', firstpos)
     vim.cmd.normal({ 'v', bang = true })
-    vim.api.nvim_win_set_cursor(0, lastiterpos)
+    vim.fn.setpos('.', lastiterpos)
     vim.cmd.normal({ '$h', bang = true })
   end
 
-  if vim.o.selection == 'exclusive' and motion == 'e' and (mode == 'v' or mode == 'o') then
-    vim.cmd.normal({ 'l', bang = true })
-  end
-  if vim.o.selection == 'exclusive' and motion == 'ge' and mode == 'o' then
-    vim.cmd.normal({ 'ol', bang = true })
+  if vim.o.selection == 'exclusive' then
+    if motion == 'e' then
+      if vim.tbl_contains({ 'x', 'o' }, mode) then
+        vim.cmd.normal({ 'l', bang = true })
+      end
+    elseif motion == 'ge' then
+      if vim.tbl_contains({ 'o' }, mode) then
+        vim.cmd.normal({ 'ol', bang = true })
+      end
+    end
   end
 end
 
----@param motion string
+---@param motion Motion
 local function adjustment(motion)
-  vim.cmd.execute({ [["normal! \<Esc>"]] })
+  vim.print('adjustment')
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', false)
   if vim.deep_equal(vim.fn.getpos("'<"), vim.fn.getpos("'>")) then
   else
     local ww = vim.o.whichwrap
@@ -92,26 +101,27 @@ local function adjustment(motion)
   end
 end
 
----@param motion string
----@param mode string
+---@param motion Motion
+---@param mode Mode
 local function word_move(motion, mode)
   ---@type integer
   local count = vim.v.count1
 
   local exclusive_adjustment = false
-  if mode == 'o' and (motion == 'e' or motion == 'ge') then
-    local _mode = vim.api.nvim_get_mode().mode
-    if _mode == 'no' then
+  if mode == 'o' and vim.tbl_contains({ 'e', 'ge' }, motion) then
+    local mode_ = vim.api.nvim_get_mode().mode
+    vim.print(mode_, mode, motion)
+    if mode_ == 'no' then
       vim.cmd.normal({ 'v', bang = true })
-    elseif _mode == 'nov' then
+    elseif mode_ == 'nov' then
       vim.cmd.normal({ 'v', bang = true })
       exclusive_adjustment = true
-    elseif mode == 'noV' or mode == [[no\<C-v>]] then
+    elseif vim.tbl_contains({ 'noV', [[no\<C-v>]] }, mode_) then
     end
   end
-  if mode == 'v' then
-    vim.cmd.normal({ 'gv', bang = true })
-  end
+  -- if mode == 'x' then
+  --   vim.cmd.normal({ 'gv', bang = true })
+  -- end
 
   move(motion, mode, count)
 
