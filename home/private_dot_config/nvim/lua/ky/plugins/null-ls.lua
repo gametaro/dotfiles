@@ -37,7 +37,13 @@ return {
       border = vim.g.border,
       log_level = 'off',
       should_attach = function(buf)
-        return not (vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count)
+        if vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count then
+          return false
+        end
+        if vim.startswith(vim.api.nvim_buf_get_name(buf), 'diffview://') then
+          return false
+        end
+        return true
       end,
     })
   end,
