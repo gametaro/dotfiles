@@ -11,7 +11,6 @@ return {
     config = true,
   },
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
-  { 'bkad/CamelCaseMotion', lazy = false },
   { 'AckslD/nvim-FeMaco.lua', cmd = 'FeMaco', config = true },
   { 'nvim-lua/plenary.nvim' },
   { 'justinmk/vim-gtfo', keys = { 'got', 'gof' } },
