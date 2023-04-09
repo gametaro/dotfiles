@@ -18,7 +18,6 @@ return {
         red = utils.get_highlight('DiagnosticError').fg,
       }
     end
-    heirline.load_colors(setup_colors())
 
     local group = vim.api.nvim_create_augroup('mine__heirline', {})
 
@@ -213,7 +212,7 @@ return {
       provider = '%3l/%3L:%3c',
     }
 
-    local LSPActive = {
+    local Lsp = {
       condition = conditions.lsp_attached,
       update = { 'LspAttach', 'LspDetach' },
       provider = function()
@@ -378,22 +377,11 @@ return {
       condition = function()
         return vim.wo.spell
       end,
-      provider = 'Spell',
+      provider = 'SPELL',
     }
 
     local WinBars = {
       fallthrough = false,
-      {
-        condition = function()
-          return conditions.buffer_matches({
-            buftype = { 'nofile', 'prompt', 'terminal' },
-            filetype = { '^git.*' },
-          })
-        end,
-        init = function()
-          vim.opt_local.winbar = nil
-        end,
-      },
       QuickfixName,
       {
         Space,
@@ -414,12 +402,8 @@ return {
         local cwd = vim.fn.fnamemodify(vim.fn.getcwd(-1, self.tabnr), ':~')
         local bufs = vim.fn.tabpagebuflist(self.tabnr)
         for _, buf in ipairs(bufs) do
-          if vim.bo[buf].filetype == 'DiffviewFiles' then
-            cwd = cwd .. ' ' .. 'DiffviewFiles'
-            break
-          end
-          if vim.bo[buf].filetype == 'DiffviewFileHistory' then
-            cwd = cwd .. ' ' .. 'DiffviewFileHistory'
+          if vim.startswith(vim.api.nvim_buf_get_name(buf), 'diffview://') then
+            cwd = 'Diffview'
             break
           end
         end
@@ -456,7 +440,7 @@ return {
       Align,
       Spell,
       Space,
-      LSPActive,
+      Lsp,
       Space,
       FileType,
       Space,
@@ -489,6 +473,7 @@ return {
       winbar = WinBars,
       tabline = TabLine,
       opts = {
+        colors = setup_colors,
         disable_winbar_cb = function(args)
           local buf = args.buf
           local buftype = vim.tbl_contains({ 'prompt', 'nofile', 'help' }, vim.bo[buf].buftype)
