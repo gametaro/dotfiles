@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.7.1](https://github.com/gametaro/dotfiles/compare/v2.7.0...v2.7.1) (2023-04-10)
+
+
+### Bug Fixes
+
+* **edgemotion:** respect multibyte characters ([1122956](https://github.com/gametaro/dotfiles/commit/11229561c5fc7905aa83dcf8d1056c1d74cfea50))
+* **null-ls:** do not attach on diffview ([298c359](https://github.com/gametaro/dotfiles/commit/298c3594e51e0a81000e5e677dad714fd8ddcf36))
+* **qf:** correctly set option value ([3a770c3](https://github.com/gametaro/dotfiles/commit/3a770c30ecce9ea584a5c193eeca068294d2f107))
+
 ## [2.7.0](https://github.com/gametaro/dotfiles/compare/v2.6.1...v2.7.0) (2023-04-06)
 
 
