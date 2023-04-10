@@ -2,7 +2,7 @@
 
 ---@param s string
 ---@return boolean
-local function is_white(s)
+local function is_blank(s)
   return string.match(s, '^%s$') ~= nil
 end
 
@@ -39,14 +39,14 @@ local function is_block(lnum, col)
   if char == '' then
     return false
   end
-  if not is_white(char) then
+  if not is_blank(char) then
     return true
   end
   local chars = vim.fn.split(get_chars(lnum, col - 1, 3), [[\zs]])
   if #chars ~= 3 then
     return false
   end
-  return not (is_white(chars[1]) or is_white(chars[3]))
+  return not (is_blank(chars[1]) or is_blank(chars[3]))
 end
 
 ---@param opts table
@@ -63,34 +63,34 @@ local function move(opts)
   local on_block = is_block(from, col)
   local unit = opts.up and 1 or -1
   local on_edge = is_block(from, col) and not is_block(from + unit, col)
-  local dst = from
+  local lnum = from
   for i = from + unit, to, unit do
     if on_edge then
       if is_block(i, col) then
-        dst = i
+        lnum = i
         break
       end
     else
       if on_block then
         if is_block(i, col) then
           if i == to then
-            dst = i
+            lnum = i
             break
           end
         else
-          dst = i - unit
+          lnum = i - unit
           break
         end
       else
         if is_block(i, col) then
-          dst = i
+          lnum = i
           break
         end
       end
     end
   end
 
-  vim.fn.cursor({ dst, col })
+  vim.cmd.normal({ lnum .. 'G', bang = true })
 end
 
 local function up(opts)
@@ -105,5 +105,5 @@ local function down(opts)
   move(opts)
 end
 
-vim.keymap.set({ 'n', 'x' }, '<C-j>', up, { desc = 'Next block' })
-vim.keymap.set({ 'n', 'x' }, '<C-k>', down, { desc = 'Previous block' })
+vim.keymap.set({ 'n', 'x' }, '<C-j>', up, { desc = 'Next edge' })
+vim.keymap.set({ 'n', 'x' }, '<C-k>', down, { desc = 'Previous edge' })
