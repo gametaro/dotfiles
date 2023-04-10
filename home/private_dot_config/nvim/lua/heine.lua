@@ -289,6 +289,7 @@ M.groups = {
   DiagnosticSignOk = { link = 'DiagnosticOk' },
 
   DiagnosticDeprecated = { fg = fg4, strikethrough = true },
+  DiagnosticUnnecessary = { link = 'Comment' },
 
   ---|group-name|
   Comment = { fg = fg4 },
