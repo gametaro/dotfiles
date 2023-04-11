@@ -343,13 +343,18 @@ local function init(buf)
   set_cursor()
 end
 
-local function set_options()
-  vim.opt_local.cursorline = true
-  vim.opt_local.wrap = false
-  vim.opt_local.isfname:append('32')
+---@param buf integer
+local function set_options(buf)
+  local function set_option(name, value)
+    vim.api.nvim_set_option_value(name, value, { win = vim.fn.bufwinid(buf), scope = 'local' })
+  end
+  set_option('cursorline', true)
+  set_option('wrap', false)
+  set_option('isfname', vim.o.isfname .. ',32')
+  set_option('cursorline', true)
   if config.conceal then
-    vim.opt_local.conceallevel = 2
-    vim.opt_local.concealcursor = 'nc'
+    set_option('conceallevel', 2)
+    set_option('concealcursor', 'nc')
   end
 end
 
@@ -397,9 +402,10 @@ vim.api.nvim_create_autocmd('FileType', {
   group = group,
   pattern = 'ls',
   callback = function(a)
-    set_options()
-    set_mappings(a.buf)
-    attach(a.buf)
+    local buf = a.buf
+    set_options(buf)
+    set_mappings(buf)
+    attach(buf)
   end,
 })
 vim.api.nvim_create_autocmd('BufWinEnter', {
