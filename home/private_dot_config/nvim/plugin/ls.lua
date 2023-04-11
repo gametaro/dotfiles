@@ -21,13 +21,6 @@ local function set_extmark(buf, row, opts)
   vim.api.nvim_buf_set_extmark(buf, ns, row, 0, opts)
 end
 
----@param path string
----@return boolean
-local function is_directory(path)
-  local stat = vim.loop.fs_stat(path)
-  return stat and stat.type == 'directory' or false
-end
-
 ---@param s? string
 ---@return boolean
 local function is_empty(s)
@@ -205,7 +198,7 @@ local diag_signs = {
 
 ---@type ls.Decorator
 function decorators.diagnostic(buf, line, row)
-  if is_directory(line) then
+  if vim.fn.isdirectory(line) == 1 then
     return
   end
   local bufnr = vim.fn.bufnr(line)
@@ -342,7 +335,7 @@ local function init(buf)
   if is_empty(path) then
     return
   end
-  if not is_directory(path) then
+  if vim.fn.isdirectory(path) == 0 then
     return
   end
   render(buf, path)
