@@ -13,7 +13,7 @@ local icons = {
     remove = { '', '-' },
     ignore = { '', '??' },
     rename = { '', '->' },
-    branch = { '󰘬', '*' },
+    branch = { '󰘬', '' },
     ahead = { '⇡', '⇡' },
     behind = { '⇣', '⇣' },
   },
