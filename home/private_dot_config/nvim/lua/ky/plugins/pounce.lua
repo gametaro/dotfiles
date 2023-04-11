@@ -1,6 +1,5 @@
 return {
-  'gametaro/pounce.nvim',
-  branch = 'cword',
+  'rlane/pounce.nvim',
   cmd = 'Pounce',
   init = function()
     vim.keymap.set({ 'n', 'x' }, 's', '')
