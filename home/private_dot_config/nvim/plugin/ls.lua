@@ -325,7 +325,9 @@ local function set_cursor()
   if is_empty(alt) then
     return
   end
-  alt = vim.fs.normalize(vim.loop.fs_realpath(alt))
+  if vim.loop.fs_realpath(alt) then
+    alt = vim.fs.normalize(vim.loop.fs_realpath(alt))
+  end
   vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
 end
 
