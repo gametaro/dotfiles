@@ -1,5 +1,3 @@
-local blend = 0
-
 ---@param options string[]
 ---@param append? boolean
 ---@return string
@@ -74,7 +72,6 @@ vim.o.listchars = list({
   trail = '·',
 })
 vim.o.preserveindent = true
-vim.o.pumblend = blend
 vim.o.pumheight = 10
 vim.o.report = 99999
 vim.o.scrolloff = 4
@@ -91,23 +88,16 @@ vim.o.smartindent = true
 vim.o.spellcapcheck = ''
 vim.o.spelllang = list({ 'en', 'cjk' })
 vim.o.spelloptions = list({ 'camel', 'noplainbuffer' })
--- vim.o.splitbelow = true
 vim.o.splitkeep = 'screen'
--- vim.o.splitright = true
 vim.o.swapfile = false
 vim.o.switchbuf = list({ 'useopen', 'uselast' })
 vim.o.termguicolors = true
-vim.o.tildeop = true
-vim.o.timeoutlen = 500
-vim.o.ttimeoutlen = 10
 vim.o.undofile = true
 vim.o.undolevels = 10000
 vim.o.updatetime = 150
 vim.o.virtualedit = 'block'
 vim.o.wildignorecase = true
 vim.o.wildoptions = 'fuzzy'
-vim.o.winblend = blend
-vim.o.winminwidth = 6
 
 if vim.fn.executable('git') == 1 and require('ky.util').is_git_repo() then
   vim.o.grepprg = 'git --no-pager grep -I -E -i --no-color --line-number --column'
