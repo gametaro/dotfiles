@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1681694423592,
+  "lastUpdate": 1681705207730,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -24695,6 +24695,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.04244174184153846,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b165b2d265d5fc8cb25ff048dde25d5ace2fe538",
+          "message": "Merge pull request #141 from gametaro/dependabot/github_actions/github/super-linter-5",
+          "timestamp": "2023-04-17T13:19:11+09:00",
+          "tree_id": "c0be0801cfc1e7c1d549fc97d1380c5d178b6fb0",
+          "url": "https://github.com/gametaro/dotfiles/commit/b165b2d265d5fc8cb25ff048dde25d5ace2fe538"
+        },
+        "date": 1681705205815,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.04072021140157894,
             "unit": "Second"
           }
         ]
