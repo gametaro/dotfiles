@@ -14,11 +14,7 @@ end
 ---@param match string
 ---@return string
 function M.command(cmd, match)
-  if vim.fn.getcmdtype() == ':' and vim.fn.getcmdline():match('^' .. cmd) then
-    return match
-  else
-    return cmd
-  end
+  return vim.fn.getcmdtype() == ':' and vim.fn.getcmdline():match('^' .. cmd) and match or cmd
 end
 
 return M
