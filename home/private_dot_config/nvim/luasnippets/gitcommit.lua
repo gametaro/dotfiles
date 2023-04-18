@@ -13,7 +13,7 @@ local types = {
   { 'te', 'test' },
 }
 
-local snippets = vim.tbl_map(function(type)
+local snippets = vim.map(function(type)
   return s({
     trig = type[1],
     dscr = 'Conventional Commits',

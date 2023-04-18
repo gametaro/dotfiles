@@ -176,7 +176,7 @@ autocmd('VimEnter', {
     local addfiles = vim.fs.find(function(name, _)
       return string.match(name, '.+%.add$')
     end, { type = 'file', path = path })
-    for _, addfile in ipairs(addfiles) do
+    vim.iter(addfiles):each(function(addfile)
       local spellfile = addfile .. '.spl'
       local add_stat = vim.loop.fs_stat(addfile)
       local spell_stat = vim.loop.fs_stat(spellfile)
@@ -186,9 +186,9 @@ autocmd('VimEnter', {
       if add_stat and spell_stat and add_stat.mtime.sec > spell_stat.mtime.sec then
         vim.cmd.mkspell({ addfile, bang = true })
       end
-    end
+    end)
   end,
-  desc = 'Create spell file if it is missing',
+  desc = 'Create missing spell file',
 })
 
 local function get_lang()

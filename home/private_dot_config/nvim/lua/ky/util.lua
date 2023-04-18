@@ -63,12 +63,9 @@ function M.find_proc_in_tree(rootpid, names, acc)
     return true
   end
   local ids = vim.api.nvim_get_proc_children(rootpid)
-  for _, id in ipairs(ids) do
-    if M.find_proc_in_tree(id, names, 1 + acc) then
-      return true
-    end
-  end
-  return false
+  return vim.iter(ids):any(function(id)
+    return M.find_proc_in_tree(id, names, 1 + acc)
+  end)
 end
 
 ---@param cmd string

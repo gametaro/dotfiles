@@ -85,7 +85,7 @@ return {
         function(choice)
           if choice and choice == 'Yes' then
             path:rm({ recursive = path:is_dir() })
-            local bufs = vim.tbl_filter(function(buf)
+            local bufs = vim.filter(function(buf)
               return vim.api.nvim_buf_is_loaded(buf)
                 and vim.api.nvim_buf_get_name(buf) == path.filename
             end, vim.api.nvim_list_bufs())

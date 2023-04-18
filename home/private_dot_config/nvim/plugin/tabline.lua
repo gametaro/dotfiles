@@ -15,7 +15,7 @@
 -- end
 --
 -- local name_hl = function(hl)
---   local attr = vim.tbl_filter(function(k)
+--   local attr = vim.filter(function(k)
 --     return not vim.tbl_contains({ 'fg', 'bg', 'sp' }, k) and hl[k]
 --   end, vim.tbl_keys(hl))
 --   return 'TabLine'
@@ -90,7 +90,7 @@
 -- }
 --
 -- local tabpage = function(tab)
---   local t = vim.tbl_map(function(component)
+--   local t = vim.map(function(component)
 --     return process(component, tab)
 --   end, components)
 --   return (is_active(tab) and h('TabLineSel') or h('TabLine'))
@@ -99,7 +99,7 @@
 -- end
 --
 -- _G.tabline = function()
---   local tabpages = vim.tbl_map(tabpage, vim.api.nvim_list_tabpages())
+--   local tabpages = vim.map(tabpage, vim.api.nvim_list_tabpages())
 --   return table.concat(tabpages) .. h('TabLineFill') .. '%='
 -- end
 --

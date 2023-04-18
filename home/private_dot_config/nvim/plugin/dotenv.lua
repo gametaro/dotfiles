@@ -7,11 +7,13 @@ local function setenv()
   if vim.wo.diff then
     return
   end
-  for _, arg in ipairs(vim.fn.argv()) do
-    -- ignore gitcommit
+  local should_ignore = vim.iter(vim.fn.argv()):any(function(arg)
     if string.match(arg, 'COMMIT_EDITMSG') then
-      return
+      return true
     end
+  end)
+  if should_ignore then
+    return
   end
 
   ---@type string|nil
@@ -24,23 +26,26 @@ local function setenv()
     return
   end
 
-  local env = {}
-  for line in io.lines(file) do
-    if not vim.startswith(line, '#') then
+  local env = vim
+    .iter(io.lines(file))
+    :filter(function(line)
+      return not vim.startswith(line, '#')
+    end)
+    :fold({}, function(acc, line)
       local name, value = unpack(vim.split(line, '='))
-      value = string.gsub(value, [=[['"]]=], '') -- remove single/double quotes
+      value = string.gsub(value, [=[['"]]=], '') -- remove quotes
       value = vim.trim(value)
+      acc[name] = value
+      return acc
+    end)
+
+  if not vim.tbl_isempty(env) then
+    vim.iter(env):each(function(name, value)
       vim.env[name] = value
-      env[name] = value
-    end
-  end
-
-  local messages = {}
-  for name, value in pairs(env) do
-    table.insert(messages, string.format('%s=%s', name, value))
-  end
-
-  if not vim.tbl_isempty(messages) then
+    end)
+    local messages = vim.map(function(name, value)
+      return string.format('%s=%s', name, value)
+    end, env)
     print(string.format('Set env: %s', table.concat(messages, ',')))
   end
 end

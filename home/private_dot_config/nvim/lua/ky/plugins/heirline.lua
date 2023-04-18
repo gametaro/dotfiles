@@ -216,7 +216,7 @@ return {
       condition = conditions.lsp_attached,
       update = { 'LspAttach', 'LspDetach' },
       provider = function()
-        local clients = table.concat(vim.tbl_map(function(client)
+        local clients = table.concat(vim.map(function(client)
           return client and string.len(client.name) > 3 and string.format('%.3s…', client.name)
         end, vim.lsp.get_active_clients({ bufnr = 0 })) or {}, ' ')
         if not conditions.width_percent_below(#clients, 0.25) then
@@ -401,12 +401,11 @@ return {
       provider = function(self)
         local cwd = vim.fn.fnamemodify(vim.fn.getcwd(-1, self.tabnr), ':~')
         local bufs = vim.fn.tabpagebuflist(self.tabnr)
-        for _, buf in ipairs(bufs) do
+        vim.iter(bufs):each(function(buf)
           if vim.startswith(vim.api.nvim_buf_get_name(buf), 'diffview://') then
             cwd = 'Diffview'
-            break
           end
-        end
+        end)
         if not conditions.width_percent_below(#cwd, 0.25) then
           cwd = vim.fn.pathshorten(cwd)
         end

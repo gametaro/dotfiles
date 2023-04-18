@@ -61,12 +61,12 @@ end
 ---@return walkthrough.List.Item[]
 local function list(path, opts)
   opts = vim.tbl_extend('force', { sort = sort }, opts or {})
-  local f = {}
-  for name, type in vim.fs.dir(path, { skip = opts.skip }) do
+  local f = vim.iter(vim.fs.dir(path, { skip = opts.skip })):fold({}, function(acc, name, type)
     if not opts.type or type == opts.type then
-      f[#f + 1] = { name = name, type = type }
+      acc[#acc + 1] = { name = name, type = type }
     end
-  end
+    return acc
+  end)
   table.sort(f, opts.sort)
   return f
 end

@@ -62,12 +62,10 @@ end
 ---@param opts? table
 ---@return ls.File[]
 local function list(path, opts)
-  local files = {}
-  for name, type in vim.fs.dir(path, opts) do
-    name = join_paths(path, name)
-    files[#files + 1] = { name = name, type = type }
-  end
-  return files
+  return vim.iter(vim.fs.dir(path, opts)):fold({}, function(acc, name, type)
+    acc[#acc + 1] = { name = join_paths(path, name), type = type }
+    return acc
+  end)
 end
 
 ---@type ls.Decorator
@@ -302,13 +300,13 @@ end
 local function render(buf, path)
   local files = list(path)
   if not config.hidden then
-    files = vim.tbl_filter(function(file)
+    files = vim.filter(function(file)
       return not vim.startswith(vim.fs.basename(file.name), '.')
     end, files)
   end
   table.sort(files, sort)
   local lines = vim.tbl_isempty(files) and { '..' }
-    or vim.tbl_map(function(file)
+    or vim.map(function(file)
       return file.name
     end, files)
 
@@ -388,9 +386,9 @@ local function attach(buf)
       local last = last_old > last_new and last_old or last_new
       vim.api.nvim_buf_clear_namespace(buf, ns, first, last)
       local lines = vim.api.nvim_buf_get_lines(buf, first, last, false)
-      for _, line in ipairs(lines) do
+      vim.iter(lines):each(function(line)
         cache[buf][line] = nil
-      end
+      end)
     end,
     on_detach = function()
       cache[buf] = nil
@@ -425,11 +423,11 @@ vim.api.nvim_set_decoration_provider(ns, {
     for i = top, bot - 2 do
       local line = vim.api.nvim_buf_get_lines(buf, i, i + 1, false)[1]
       if line and not rawget(cache[buf], line) then
-        for name, decorator in pairs(decorators) do
+        vim.iter(decorators):each(function(name, decorator)
           if config[name] then
             decorator(buf, line, i)
           end
-        end
+        end)
         cache[buf][line] = true
       end
     end
