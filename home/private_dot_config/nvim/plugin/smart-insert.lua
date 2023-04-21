@@ -1,4 +1,4 @@
-for _, v in ipairs({ 'i', 'A' }) do
+vim.iter({ 'i', 'A' }):each(function(v)
   vim.keymap.set('n', v, function()
     if vim.bo.buftype == 'terminal' then
       return v
@@ -12,4 +12,4 @@ for _, v in ipairs({ 'i', 'A' }) do
 
     return '"_cc'
   end, { expr = true, desc = string.format('Linewise %s', v) })
-end
+end)

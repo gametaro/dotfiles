@@ -64,15 +64,15 @@ vim.keymap.set(
 )
 vim.keymap.set('n', 'gs', [[:%s/\<<C-R><C-W>\>\C//g<left><left>]], { desc = 'Substitute word' })
 
-for _, v in ipairs({ 'cc', 'dd', 'yy' }) do
+vim.iter({ 'cc', 'dd', 'yy' }):each(function(v)
   vim.keymap.set('n', v, function()
     return vim.api.nvim_get_current_line():match('^%s*$') and '"_' .. v or v
   end, { expr = true, desc = 'Smart ' .. v })
-end
+end)
 
-for _, v in ipairs({ '"', "'", '`' }) do
+vim.iter({ '"', "'", '`' }):each(function(v)
   vim.keymap.set({ 'x', 'o' }, v, 'i' .. v, { desc = 'Text object shortcuts' })
-end
+end)
 
 -- Idea: |mini.basics|
 vim.keymap.set('n', [[\c]], '<Cmd>setlocal cul! cul?<CR>', { desc = 'Toggle cursorline' })

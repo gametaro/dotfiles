@@ -608,41 +608,45 @@ function M.load()
     vim.cmd.source(M.config.compile_path)
     return
   end
-  for name, val in pairs(M.groups) do
-    vim.api.nvim_set_hl(0, name, val)
-  end
-  for name, val in pairs(M.terminal) do
-    vim.g[name] = val
-  end
+  local groups = vim.tbl_extend('keep', M.groups, M.terminal)
+  vim.iter(groups):each(function(name, val)
+    if type(val) == 'table' then
+      vim.api.nvim_set_hl(0, name, val)
+    else
+      vim.g[name] = val
+    end
+  end)
 end
 
 function M.invalidate()
-  for k, _ in pairs(package.loaded) do
-    if string.match(k, '^heine') then
-      package.loaded[k] = nil
+  vim.iter(package.loaded):each(function(name)
+    if string.match(name, '^heine') then
+      package.loaded[name] = nil
     end
-  end
+  end)
 end
 
 ---@param t table
 local function inspect(t)
-  local list = {}
-  for k, v in pairs(t) do
+  t = vim.iter(t):fold({}, function(acc, k, v)
     local quote = type(v) == 'string' and [[']] or ''
-    list[#list + 1] = string.format([[%s = %s%s%s]], k, quote, v, quote)
-  end
-  table.sort(list)
-  return string.format([[{ %s }]], table.concat(list, ', '))
+    acc[#acc + 1] = string.format([[%s = %s%s%s]], k, quote, v, quote)
+    return acc
+  end)
+  table.sort(t)
+  return string.format([[{ %s }]], table.concat(t, ', '))
 end
 
 function M.compile()
-  local lines = {}
-  for name, val in pairs(M.groups) do
-    lines[#lines + 1] = string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val))
-  end
-  for name, val in pairs(M.terminal) do
-    lines[#lines + 1] = string.format([[vim.g.%s = '%s']], name, val)
-  end
+  local groups = vim.tbl_extend('keep', M.groups, M.terminal)
+  local lines = vim.iter(groups):fold({}, function(acc, name, val)
+    if type(val) == 'table' then
+      acc[#acc + 1] = string.format([[vim.api.nvim_set_hl(0, '%s', %s)]], name, inspect(val))
+    else
+      acc[#acc + 1] = string.format([[vim.g.%s = '%s']], name, val)
+    end
+    return acc
+  end)
   table.sort(lines)
   local file, msg = io.open(M.config.compile_path, 'w')
   if file then

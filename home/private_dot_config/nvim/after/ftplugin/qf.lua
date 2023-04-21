@@ -27,9 +27,9 @@ vim.api.nvim_win_call(prevwin, function()
   prevview = vim.fn.winsaveview()
 end)
 
-for _, name in ipairs(vim.tbl_keys(config)) do
+prevoptions = vim.iter(config):fold(prevoptions, function(_, name)
   prevoptions[name] = vim.wo[prevwin][name]
-end
+end)
 
 local group = vim.api.nvim_create_augroup('qf', {})
 vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
@@ -50,9 +50,9 @@ vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
       vim.api.nvim_win_call(prevwin, function()
         vim.cmd.filetype('detect')
       end)
-      for name, value in pairs(config) do
+      vim.iter(config):each(function(name, value)
         vim.api.nvim_set_option_value(name, value, { win = prevwin, scope = 'local' })
-      end
+      end)
       vim.api.nvim_buf_call(item.bufnr, function()
         vim.cmd.normal({ args = { 'zz', 'zv' }, bang = true })
       end)

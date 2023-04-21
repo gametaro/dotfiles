@@ -32,8 +32,8 @@ local map = {
   gI = { v = '<C-v>0I', V = '<C-v>0o$I', ['\22'] = '0I' },
 }
 
-for _, v in ipairs(vim.tbl_keys(map)) do
-  vim.keymap.set('x', v, function()
-    return map[v][vim.api.nvim_get_mode().mode]
+vim.iter(map):each(function(k)
+  vim.keymap.set('x', k, function()
+    return map[k][vim.api.nvim_get_mode().mode]
   end, { expr = true })
-end
+end)

@@ -4,7 +4,7 @@ local todos = { 'TODO', 'WARN', 'NOTE', 'HACK' }
 
 ls.add_snippets(
   'all',
-  vim.tbl_map(function(todo)
+  vim.map(function(todo)
     return s(string.lower(todo), {
       f(function()
         return string.format(vim.bo.commentstring, ' ' .. todo) .. ': '
@@ -19,7 +19,7 @@ return {
       return sn(nil, {
         c(
           1,
-          vim.tbl_map(function(todo)
+          vim.map(function(todo)
             return t(string.format(vim.bo.commentstring, ' ' .. todo) .. ': ')
           end, todos)
         ),

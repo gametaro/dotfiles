@@ -24,8 +24,8 @@ local function move(motion)
   end
 end
 
-for _, motion in ipairs({ 'w', 'b', 'e', 'ge' }) do
+vim.iter({ 'w', 'b', 'e', 'ge' }):each(function(motion)
   vim.keymap.set({ 'n', 'x' }, motion, function()
     move(motion)
   end)
-end
+end)
