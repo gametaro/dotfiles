@@ -55,7 +55,7 @@ return {
         end,
         -- diagnostic
         d = function()
-          return vim.map(function(diagnostic)
+          return vim.iter.map(function(diagnostic)
             local from_line = diagnostic.lnum + 1
             local from_col = diagnostic.col + 1
             local to_line = diagnostic.end_lnum + 1

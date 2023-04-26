@@ -129,7 +129,7 @@ end
 ---@param info table
 ---@return unknown
 function _G.qftf(info)
-  return vim.map(function(item)
+  return vim.iter.map(function(item)
     return item.valid == 1 and format(item) or item.text
   end, items(info))
 end

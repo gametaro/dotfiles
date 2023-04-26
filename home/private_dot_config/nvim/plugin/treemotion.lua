@@ -31,7 +31,7 @@ local function inspect()
   local row = items.row
   local col = items.col
   local char = vim.api.nvim_get_current_line():sub(col + 1, col + 1)
-  local captures = vim.map(function(ts)
+  local captures = vim.iter.map(function(ts)
     return ts.capture and ts.capture or {}
   end, items.treesitter)
   return row, col, captures, char

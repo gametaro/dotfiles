@@ -36,7 +36,7 @@ end, {
   desc = 'Inspect language client',
   nargs = 1,
   complete = function()
-    return vim.map(function(client)
+    return vim.iter.map(function(client)
       return client.name
     end, vim.lsp.get_active_clients())
   end,
@@ -50,7 +50,7 @@ end, {
   desc = 'Stop language client',
   nargs = 1,
   complete = function()
-    return vim.map(function(client)
+    return vim.iter.map(function(client)
       return client.name
     end, vim.lsp.get_active_clients())
   end,

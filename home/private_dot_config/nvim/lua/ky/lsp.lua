@@ -61,9 +61,9 @@ local capabilities =
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = (function(fn)
   return function(_, result, ctx, config)
-    vim.map(function(item)
+    vim.iter.map(function(item)
       if item.relatedInformation and #item.relatedInformation > 0 then
-        vim.map(function(info)
+        vim.iter.map(function(info)
           if info.location then
             info.message = string.format(
               '%s(%d, %d): %s',

@@ -43,7 +43,7 @@ local function setenv()
     vim.iter(env):each(function(name, value)
       vim.env[name] = value
     end)
-    local messages = vim.map(function(name, value)
+    local messages = vim.iter.map(function(name, value)
       return string.format('%s=%s', name, value)
     end, env)
     print(string.format('Set env: %s', table.concat(messages, ',')))

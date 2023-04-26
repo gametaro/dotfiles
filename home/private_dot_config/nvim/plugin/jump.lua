@@ -110,7 +110,7 @@ end
 ---@param jumplist jumplist.Item[]
 ---@return table
 local function toqflist(jumplist)
-  return vim.map(function(j)
+  return vim.iter.map(function(j)
     local text = unpack(vim.api.nvim_buf_get_lines(j.bufnr, j.lnum - 1, j.lnum, true))
     return { bufnr = j.bufnr, col = j.col, lnum = j.lnum, text = text }
   end, jumplist)
@@ -121,7 +121,7 @@ local function setlist(opts)
   opts = opts or {}
   ---@type jumplist.Item[]
   local jumplist = unpack(vim.fn.getjumplist())
-  local items = toqflist(vim.filter(function(j)
+  local items = toqflist(vim.iter.filter(function(j)
     return vim.api.nvim_buf_is_loaded(j.bufnr)
   end, jumplist))
   if opts.qf then

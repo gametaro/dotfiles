@@ -69,7 +69,7 @@ end
 ---@param cwd string
 ---@param address string
 _G.default = function(args, cwd, address)
-  local files = vim.map(function(arg)
+  local files = vim.iter.map(function(arg)
     return fullpath(arg, cwd)
   end, args)
   open(files)
@@ -89,7 +89,7 @@ end
 ---@param args string[]
 ---@param cwd string
 _G.diff = function(args, cwd)
-  local files = vim.map(function(arg)
+  local files = vim.iter.map(function(arg)
     return fullpath(arg, cwd)
   end, args)
   open(files, 'diff')

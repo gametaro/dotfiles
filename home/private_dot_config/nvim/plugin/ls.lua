@@ -300,13 +300,13 @@ end
 local function render(buf, path)
   local files = list(path)
   if not config.hidden then
-    files = vim.filter(function(file)
+    files = vim.iter.filter(function(file)
       return not vim.startswith(vim.fs.basename(file.name), '.')
     end, files)
   end
   table.sort(files, sort)
   local lines = vim.tbl_isempty(files) and { '..' }
-    or vim.map(function(file)
+    or vim.iter.map(function(file)
       return file.name
     end, files)
 
