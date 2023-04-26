@@ -40,8 +40,7 @@ end
 
 ---@param key string
 local function feed_keys(key)
-  local t = vim.api.nvim_replace_termcodes(key, true, true, true)
-  vim.api.nvim_feedkeys(t, 'n', false)
+  vim.api.nvim_feedkeys(vim.keycode(key), 'n', false)
 end
 
 ---@type jump.Options
