@@ -3,18 +3,15 @@
 ---@return string
 local function list(options, append)
   append = append or false
-  local ret = ''
+
+  local opts = table.concat(vim.tbl_islist(options) and options or vim.iter.map(function(key, value)
+    return key .. ':' .. value
+  end, options), ',')
   if append then
-    ret = ','
+    opts = ',' .. opts
   end
-  if vim.tbl_islist(options) then
-    return ret .. table.concat(options, ',')
-  end
-  local t = {}
-  for key, value in pairs(options) do
-    table.insert(t, key .. ':' .. value)
-  end
-  return ret .. table.concat(t, ',')
+
+  return opts
 end
 
 vim.o.autowriteall = true
