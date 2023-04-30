@@ -39,7 +39,8 @@ jobs:
         run: |
           TEMP_FILE=$(mktemp)
 
-          hyperfine 'nvim --headless -c quitall' \
+          nvim="${XDG_DATA_HOME:-$HOME/.local/share}/rtx/installs/neovim/nightly/bin/nvim"
+          hyperfine "$nvim"' --headless -c quitall' \
           --export-json "$TEMP_FILE" \
           --warmup 5 \
           --min-runs 15 \
