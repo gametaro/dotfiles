@@ -79,17 +79,16 @@ local icons = {
   },
 }
 
-for k, v in pairs(icons) do
-  for _k, _v in pairs(v) do
-    if type(_v) == 'table' then
-      icons[k][_k] = vim.g.nerd and _v[1] or _v[2]
+M.icons = vim.iter(icons):fold(vim.defaulttable(), function(acc, k1, v1)
+  return vim.iter(v1):fold(nil, function(_, k2, v2)
+    if type(v2) == 'table' then
+      acc[k1][k2] = vim.g.nerd and v2[1] or v2[2]
     else
-      icons[k][_k] = vim.g.nerd and _v or _k
+      acc[k1][k2] = vim.g.nerd and v2 or k2
     end
-  end
-end
-
-M.icons = icons
+    return acc
+  end)
+end)
 
 M.border = {
   none = 'none',

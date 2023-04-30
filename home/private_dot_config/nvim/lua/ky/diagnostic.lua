@@ -7,10 +7,10 @@ local signs = {
   Info = icons.diagnostic.info,
 }
 
-for type, icon in pairs(signs) do
+vim.iter(signs):each(function(type, icon)
   local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+end)
 
 vim.diagnostic.config({
   severity_sort = true,

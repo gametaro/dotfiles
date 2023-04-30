@@ -18,15 +18,13 @@ local function get_chars(lnum, startcol, length)
 
   local col = 0
   local endcol = startcol + length - 1
-  local chars = {}
-  for _, c in ipairs(vim.fn.split(line, [[\zs]])) do
+  local chars = vim.iter(vim.fn.split(line, [[\zs]])):fold({}, function(acc, c)
     col = col + vim.fn.strdisplaywidth(c)
-    if col > endcol then
-      break
-    elseif col >= startcol then
-      table.insert(chars, c)
+    if startcol <= col and col <= endcol then
+      table.insert(acc, c)
     end
-  end
+    return acc
+  end)
 
   return table.concat(chars)
 end
