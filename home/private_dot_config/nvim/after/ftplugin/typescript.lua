@@ -1,7 +1,7 @@
 vim.opt_local.isfname:append('@-@')
 
 vim.lsp.start({
-  cmd = { 'typescript-language-server', '--stdio' },
+  cmd = { 'vtsls', '--stdio' },
   root_names = { 'tsconfig.json', 'package.json' },
   settings = {
     completions = {
