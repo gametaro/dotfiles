@@ -40,7 +40,7 @@ return {
       },
       default_args = {
         DiffviewOpen = { '--untracked-files=no' },
-        -- DiffviewFileHistory = { '--base=LOCAL' },
+        DiffviewFileHistory = { '--follow' },
       },
       keymaps = {
         view = {
