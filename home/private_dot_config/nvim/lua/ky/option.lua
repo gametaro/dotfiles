@@ -82,6 +82,7 @@ vim.o.sidescrolloff = 8
 vim.o.signcolumn = 'yes'
 vim.o.smartcase = true
 vim.o.smartindent = true
+vim.o.smoothscroll = true
 vim.o.spellcapcheck = ''
 vim.o.spelllang = list({ 'en', 'cjk' })
 vim.o.spelloptions = list({ 'camel', 'noplainbuffer' })
