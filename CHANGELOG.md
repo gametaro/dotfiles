@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.8.0](https://github.com/gametaro/dotfiles/compare/v2.7.1...v2.8.0) (2023-05-10)
+
+
+### Features
+
+* add rtx ([4c6b966](https://github.com/gametaro/dotfiles/commit/4c6b96695a53580579a6246ce19b1f17dab34e70))
+* **diffview:** set `--follow` on `DiffviewFileHistory` ([25e29da](https://github.com/gametaro/dotfiles/commit/25e29da6e9dbd8113836f34dd8775655bf31bede))
+* **option:** enable `smoothscroll` ([7d9fa92](https://github.com/gametaro/dotfiles/commit/7d9fa92305f74e82982969e0282d9529b6d0ffcd))
+* **typescript:** use vtsls instead of typescript-language-server ([bd61c4a](https://github.com/gametaro/dotfiles/commit/bd61c4aa3fd90dd6bdcd96fe29875a982ec7f676))
+
+
+### Bug Fixes
+
+* **ls:** check nil ([c1fcc5e](https://github.com/gametaro/dotfiles/commit/c1fcc5e75274b8284027eeacfce9c372bfd36c6f))
+
 ## [2.7.1](https://github.com/gametaro/dotfiles/compare/v2.7.0...v2.7.1) (2023-04-10)
 
 
