@@ -8,7 +8,7 @@ return {
           filter = function(buf)
             return not (vim.api.nvim_buf_line_count(buf) >= vim.g.max_line_count)
           end,
-          pattern = 'https?://[%w-_%.%?%.:/%+=&#@]+',
+          pattern = 'https?://[%w-_%.%?%.:/%+=&#@%%]+',
           hl = 'Underlined',
         },
       },
