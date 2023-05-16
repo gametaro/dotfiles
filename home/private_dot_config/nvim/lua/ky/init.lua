@@ -1,6 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
-vim.g.nerd = false
+vim.g.nerd = true
 vim.g.border = require('ky.ui').border.single
 vim.g.max_line_count = 10000
 
