@@ -46,8 +46,7 @@ local function on_open(buf)
   end, { buffer = buf, expr = true, desc = 'Cmdline' })
   vim.keymap.set('t', [[<C-o>]], function()
     vim.b[buf].keep_mode = true
-    return require('ky.util').find_proc_in_tree(vim.b[buf].terminal_job_pid, { 'fzf' }) and '<C-o>'
-      or string.format('%s<C-o>', escape)
+    return string.format('%s<C-o>', escape)
   end, { buffer = buf, expr = true, desc = 'Goto older position' })
   vim.keymap.set('t', '<Esc>', function()
     local names = { 'nvim', 'fzf' }
