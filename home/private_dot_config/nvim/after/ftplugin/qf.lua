@@ -76,9 +76,11 @@ vim.api.nvim_create_autocmd({ 'WinLeave' }, {
   buffer = buf,
   callback = function(a)
     if vim.fn.win_gettype(vim.fn.bufwinid(a.buf)) == 'quickfix' then
-      vim.iter(prevoptions):each(function(name, value)
-        vim.wo[prevwin][name] = value
-      end)
+      if prevoptions then
+        vim.iter(prevoptions):each(function(name, value)
+          vim.wo[prevwin][name] = value
+        end)
+      end
     end
   end,
 })
