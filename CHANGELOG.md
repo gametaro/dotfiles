@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.1](https://github.com/gametaro/dotfiles/compare/v2.8.0...v2.8.1) (2023-05-19)
+
+
+### Bug Fixes
+
+* **qf:** check nil ([f4c3597](https://github.com/gametaro/dotfiles/commit/f4c35971665efcfcc41d30bea8bf3ac257085ab9))
+
 ## [2.8.0](https://github.com/gametaro/dotfiles/compare/v2.7.1...v2.8.0) (2023-05-10)
 
 
