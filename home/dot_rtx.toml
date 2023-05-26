@@ -4,9 +4,9 @@
 
 [tools]
 # specify single or multiple versions
-bat = '0.22.1'
-fd = '8.6.0'
-github-cli = '2.20.2'
+bat = '0.23.0'
+fd = '8.7.0'
+github-cli = '2.29.0'
 neovim = 'nightly'
 nodejs = 'lts'
 ripgrep = '13.0.0'
