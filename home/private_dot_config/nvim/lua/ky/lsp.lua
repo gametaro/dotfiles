@@ -100,9 +100,8 @@ local function format()
   vim.lsp.buf.format({ async = true })
 end
 
----@param client lsp.Client
 ---@param buf integer
-local function on_attach(client, buf)
+local function on_attach(buf)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = buf, desc = 'Goto definition' })
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = buf, desc = 'Goto declaration' })
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, { buffer = buf, desc = 'References' })
@@ -129,17 +128,11 @@ local function on_attach(client, buf)
   end, { buffer = buf, desc = 'Code action' })
   vim.keymap.set('n', '<Leader>cl', vim.lsp.codelens.run, { buffer = buf, desc = 'Codelens' })
   vim.keymap.set({ 'n', 'x' }, '<M-f>', format, { buffer = buf, desc = 'Format' })
-
-  if client.name == 'yaml' then
-    client.server_capabilities.documentFormattingProvider = true
-  end
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('mine__lsp', {}),
   callback = function(a)
-    ---@type lsp.Client
-    local client = vim.lsp.get_client_by_id(a.data.client_id)
-    on_attach(client, a.buf)
+    on_attach(a.buf)
   end,
 })
