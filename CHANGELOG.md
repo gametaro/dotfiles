@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.2](https://github.com/gametaro/dotfiles/compare/v2.8.1...v2.8.2) (2023-05-31)
+
+
+### Bug Fixes
+
+* **lsp:** remove annotations and server_capabilities for yaml ([294abbb](https://github.com/gametaro/dotfiles/commit/294abbbb872c8579fd1a1a0903f03e61ed32ef1d))
+
 ## [2.8.1](https://github.com/gametaro/dotfiles/compare/v2.8.0...v2.8.1) (2023-05-19)
 
 
