@@ -329,72 +329,11 @@ return {
       },
     }
 
-    local QuickfixName = {
-      condition = function()
-        return vim.bo.filetype == 'qf'
-      end,
-      init = function(self)
-        self.qflist = vim.fn.getqflist({ winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
-        self.loclist = vim.fn.getloclist(0, { winid = 0, title = 0, size = 0, nr = 0, idx = 0 })
-        self.quickfix = self.qflist.winid ~= 0
-      end,
-      Space,
-      {
-        provider = function(self)
-          return self.quickfix and 'Q' or self.loc_open and 'L'
-        end,
-        hl = 'Comment',
-      },
-      Space,
-      {
-        provider = function(self)
-          return self.qflist.title or self.loclist.title
-        end,
-        hl = 'Title',
-      },
-      Space,
-      {
-        provider = function(self)
-          local idx = self.quickfix and self.qflist.idx or self.loclist.idx
-          local size = self.quickfix and self.qflist.size or self.loclist.size
-          return string.format('[%s/%s]', idx, size)
-        end,
-        hl = 'Comment',
-      },
-      Space,
-      {
-        provider = function(self)
-          local nr = self.quickfix and self.qflist.nr or self.loclist.nr
-          local nrs = self.quickfix and vim.fn.getqflist({ nr = '$' }).nr
-            or vim.fn.getloclist(0, { nr = '$' }).nr
-          return string.format('(%s of %s)', nr, nrs)
-        end,
-        hl = 'Comment',
-      },
-    }
-
     local Spell = {
       condition = function()
         return vim.wo.spell
       end,
       provider = 'SPELL',
-    }
-
-    local WinBars = {
-      fallthrough = false,
-      QuickfixName,
-      {
-        Space,
-        FileNameBlock,
-        Align,
-        Diagnostics,
-        Space,
-        GitStatus,
-        Space,
-      },
-      hl = function()
-        return conditions.is_active() and 'WinBar' or 'WinBarNC'
-      end,
     }
 
     local Tabpage = {
@@ -436,7 +375,11 @@ return {
       ViMode,
       Space,
       Git,
+      Space,
+      GitStatus,
       Align,
+      Diagnostics,
+      Space,
       Spell,
       Space,
       Lsp,
@@ -469,7 +412,6 @@ return {
     heirline.setup({
       statusline = StatusLines,
       statuscolumn = StatusColumn,
-      winbar = WinBars,
       tabline = TabLine,
       opts = {
         colors = setup_colors,
