@@ -7,23 +7,23 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 
 ## OS
 
-* Linux
-* macOS
-* Windows
+- Linux
+- macOS
+- Windows
 
 ## Prerequisites
 
 ### Linux/macOS
 
-* `curl` or `wget`
+- `curl` or `wget`
 
 ### Windows
 
-* `PowerShell` or `pwsh`
+- `PowerShell` or `pwsh`
 
 ## Installation
 
-* Linux/macOS
+- Linux/macOS
 
   ```bash
   sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply gametaro
@@ -32,7 +32,7 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
   sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --one-shot gametaro
   ```
 
-* Windows
+- Windows
 
   ```powershell
   Set-ExecutionPolicy RemoteSigned -scope CurrentUser
@@ -40,7 +40,7 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
   bin/chezmoi.exe init --apply gametaro
   ```
 
-* Docker
+- Docker
 
   ```bash
   git clone --depth 1 https://github.com/gametaro/dotfiles.git
@@ -52,4 +52,4 @@ My personal dotfiles managed with [chezmoi](https://github.com/twpayne/chezmoi).
 
 Tested with [hyperfine](https://github.com/sharkdp/hyperfine).
 
-* [Neovim startup time](https://gametaro.github.io/dotfiles/dev/bench/)
+- [Neovim startup time](https://gametaro.github.io/dotfiles/dev/bench/)
