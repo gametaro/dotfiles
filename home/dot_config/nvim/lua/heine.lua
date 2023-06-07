@@ -604,7 +604,7 @@ M.groups = {
 function M.load()
   vim.g.colors_name = 'heine'
 
-  if vim.loop.fs_stat(M.config.compile_path) then
+  if vim.uv.fs_stat(M.config.compile_path) then
     vim.cmd.source(M.config.compile_path)
     return
   end

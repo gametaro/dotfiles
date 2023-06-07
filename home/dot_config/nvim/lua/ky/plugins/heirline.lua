@@ -33,7 +33,7 @@ return {
         group = group,
         once = true,
         callback = function()
-          local timer = vim.loop.new_timer()
+          local timer = vim.uv.new_timer()
           if timer then
             timer:start(0, 10000, function()
               util.job(

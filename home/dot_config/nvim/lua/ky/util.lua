@@ -44,7 +44,7 @@ end
 
 ---@return boolean
 function M.is_win()
-  return vim.loop.os_uname().sysname:find('Windows') ~= nil
+  return vim.uv.os_uname().sysname:find('Windows') ~= nil
 end
 
 ---searches process tree for a process having a name in the `names` list
@@ -73,8 +73,8 @@ end
 ---@param callback fun(code: string, data: string)
 function M.job(cmd, args, callback)
   local handle
-  local stdout = vim.loop.new_pipe(false)
-  local stderr = vim.loop.new_pipe(false)
+  local stdout = vim.uv.new_pipe(false)
+  local stderr = vim.uv.new_pipe(false)
   local results = {}
 
   local function on_read(err, data)
@@ -97,9 +97,9 @@ function M.job(cmd, args, callback)
     callback(code, table.concat(results))
   end
 
-  handle = vim.loop.spawn(cmd, {
+  handle = vim.uv.spawn(cmd, {
     args = args,
-    cwd = vim.loop.cwd(),
+    cwd = vim.uv.cwd(),
     stdio = {
       nil,
       stdout,

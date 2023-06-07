@@ -178,8 +178,8 @@ autocmd('VimEnter', {
     end, { type = 'file', path = path })
     vim.iter(addfiles):each(function(addfile)
       local spellfile = addfile .. '.spl'
-      local add_stat = vim.loop.fs_stat(addfile)
-      local spell_stat = vim.loop.fs_stat(spellfile)
+      local add_stat = vim.uv.fs_stat(addfile)
+      local spell_stat = vim.uv.fs_stat(spellfile)
       if not spell_stat then
         vim.cmd.mkspell(addfile)
       end

@@ -7,7 +7,7 @@ local defer = {}
 ---@param ms integer Timeout in ms
 ---@return function fn Debounced function
 function defer.throttle_leading(fn, ms)
-  local timer = vim.loop.new_timer()
+  local timer = vim.uv.new_timer()
   local running = false
 
   return function(...)
@@ -27,7 +27,7 @@ end
 ---@param ms number Timeout in ms
 ---@return function fn Debounced function
 function defer.throttle_trailing(fn, ms)
-  local timer = vim.loop.new_timer()
+  local timer = vim.uv.new_timer()
   local running = false
 
   return function(...)
@@ -50,7 +50,7 @@ end
 ---@param ms integer Timeout in ms
 ---@return function fn Debounced function
 function defer.debounce_leading(fn, ms)
-  local timer = vim.loop.new_timer()
+  local timer = vim.uv.new_timer()
   local running = false
 
   return function(...)
@@ -71,7 +71,7 @@ end
 ---@param ms integer Timeout in ms
 ---@return function fn Debounced function
 function defer.debounce_trailing(fn, ms)
-  local timer = vim.loop.new_timer()
+  local timer = vim.uv.new_timer()
 
   return function(...)
     local argv = { ... }

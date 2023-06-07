@@ -32,7 +32,7 @@ return {
     end
 
     local function create()
-      local cwd = vim.loop.cwd()
+      local cwd = vim.uv.cwd()
       -- temporarily change cwd for filename completion
       vim.cmd.cd({ lir.get_context().dir, mods = { noautocmd = true } })
 

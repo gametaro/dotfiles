@@ -71,7 +71,7 @@ end
 ---@type ls.Decorator
 function decorators.icon(buf, line, row)
   local icon, hl = devicons.get_icon(line, nil, { default = true })
-  vim.loop.fs_stat(line, function(_, stat)
+  vim.uv.fs_stat(line, function(_, stat)
     if stat and stat.type == 'directory' then
       icon = ''
       hl = 'Directory'
@@ -111,8 +111,8 @@ end
 ---@return uv_process_t|nil
 local function job(path, opts, callback)
   local handle
-  local stdout = vim.loop.new_pipe(false)
-  local stderr = vim.loop.new_pipe(false)
+  local stdout = vim.uv.new_pipe(false)
+  local stderr = vim.uv.new_pipe(false)
   local results = {}
 
   ---@param pipe uv_pipe_t
@@ -142,7 +142,7 @@ local function job(path, opts, callback)
     end)
   end
 
-  handle = vim.loop.spawn(path, {
+  handle = vim.uv.spawn(path, {
     args = opts.args,
     cwd = opts.cwd,
     env = opts.env,
@@ -174,7 +174,7 @@ function decorators.git_status(buf, line, row)
       '--ignored=matching',
       line,
     },
-    cwd = vim.loop.cwd(),
+    cwd = vim.uv.cwd(),
   }, function(err, _, data)
     if err == 0 then
       local index = data:sub(1, 1)
@@ -245,7 +245,7 @@ end
 
 ---@type ls.Decorator
 function decorators.highlight(buf, line, row)
-  vim.loop.fs_lstat(line, function(_, stat)
+  vim.uv.fs_lstat(line, function(_, stat)
     local end_col = string.len(line)
     local hl_group ---@type string?
     local virt_text_hl ---@type string?
@@ -265,8 +265,8 @@ function decorators.highlight(buf, line, row)
         hl_group = 'Constant'
       elseif stat.type == 'link' then
         hl_group = 'Identifier'
-        link = vim.loop.fs_readlink(line)
-        virt_text_hl = vim.loop.fs_stat(line) and 'Directory' or 'ErrorMsg'
+        link = vim.uv.fs_readlink(line)
+        virt_text_hl = vim.uv.fs_stat(line) and 'Directory' or 'ErrorMsg'
         -- executable
       elseif require('bit').band(stat.mode, tonumber('111', 8)) ~= 0 then
         hl_group = 'Special'
@@ -323,8 +323,8 @@ local function set_cursor()
   if is_empty(alt) then
     return
   end
-  if vim.loop.fs_realpath(alt) then
-    alt = vim.fs.normalize(vim.loop.fs_realpath(alt))
+  if vim.uv.fs_realpath(alt) then
+    alt = vim.fs.normalize(vim.uv.fs_realpath(alt))
   end
   vim.fn.search(string.format([[\v^\V%s\v$]], vim.fn.escape(alt, sep)), 'c')
 end

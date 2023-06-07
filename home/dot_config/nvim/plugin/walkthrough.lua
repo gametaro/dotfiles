@@ -92,7 +92,7 @@ end
 ---@param ms integer
 ---@return function
 local function throttle_leading(fn, ms)
-  local timer = vim.loop.new_timer()
+  local timer = vim.uv.new_timer()
   local running = false
 
   return function(...)
@@ -137,7 +137,7 @@ local function watch(path)
     return
   end
 
-  watchers[path] = vim.loop.new_fs_event()
+  watchers[path] = vim.uv.new_fs_event()
   watchers[path]:start(path, {}, function(...)
     throttle_on_change(path, ...)
   end)

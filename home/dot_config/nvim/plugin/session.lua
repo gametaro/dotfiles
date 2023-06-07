@@ -12,7 +12,7 @@ end
 ---@param timeout? integer
 local function autosave(timeout)
   timeout = timeout or 60000
-  local timer = vim.loop.new_timer()
+  local timer = vim.uv.new_timer()
   if timer then
     timer:start(0, timeout, vim.schedule_wrap(save))
   end
@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   group = group,
   nested = true,
   callback = function()
-    if vim.fn.argc(-1) == 0 and not stdin and vim.loop.fs_stat(sessionfile) then
+    if vim.fn.argc(-1) == 0 and not stdin and vim.uv.fs_stat(sessionfile) then
       load()
       autosave()
     end

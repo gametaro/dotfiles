@@ -44,7 +44,7 @@ local config = {
 ---@param cwd string
 ---@return string
 local function fullpath(file, cwd)
-  return vim.fs.normalize(vim.loop.fs_realpath(file) or cwd .. '/' .. file)
+  return vim.fs.normalize(vim.uv.fs_realpath(file) or cwd .. '/' .. file)
 end
 
 ---@param data string[]
@@ -129,7 +129,7 @@ local function start()
   end
 
   local args = vim.fn.argv()
-  local cwd = vim.loop.cwd()
+  local cwd = vim.uv.cwd()
   local ok, chan = pcall(vim.fn.sockconnect, unpack({ 'pipe', address, { rpc = true } }))
   if not ok then
     vim.notify(chan, vim.log.levels.WARN)
