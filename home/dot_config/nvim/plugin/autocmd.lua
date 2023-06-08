@@ -45,7 +45,7 @@ if vim.env.CHEZMOI_WORKING_TREE then
     pattern = vim.env.CHEZMOI_WORKING_TREE .. '/*',
     callback = function(a)
       vim.system({ 'chezmoi', 'apply', '--no-tty', '--source-path', a.match }, nil, function(obj)
-        if obj.code ~= 0 then
+        if obj.code ~= 0 and obj.data then
           vim.schedule(function()
             vim.notify(obj.data, vim.log.levels.WARN)
           end)
