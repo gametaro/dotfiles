@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.9.0](https://github.com/gametaro/dotfiles/compare/v2.8.2...v2.9.0) (2023-06-08)
+
+
+### Features
+
+* **dropbar:** add icons and highlight for modified file ([0e3e2e6](https://github.com/gametaro/dotfiles/commit/0e3e2e6bb7f9672d60ca330f64b5b06012b0e1d4))
+* **plugins:** add `dropbar.nvim` ([27e991b](https://github.com/gametaro/dotfiles/commit/27e991bb140e7685fca0e704cf85cec532c648cf))
+
+
+### Bug Fixes
+
+* **autocmd:** check if obj.data exists ([cd8ac96](https://github.com/gametaro/dotfiles/commit/cd8ac96fbfdb225bfc50fa9d761a4585f18691fb))
+
+
+### Performance Improvements
+
+* **dropbar:** tweak update_events ([46afb1c](https://github.com/gametaro/dotfiles/commit/46afb1ce058e16fb0560fbca9adb92d150f9ee18))
+
 ## [2.8.2](https://github.com/gametaro/dotfiles/compare/v2.8.1...v2.8.2) (2023-05-31)
 
 
