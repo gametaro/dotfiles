@@ -31,7 +31,7 @@ end, { nargs = '?', complete = 'filetype', desc = 'Create |scratch-buffer|' })
 vim.api.nvim_create_user_command('LspInfo', function(opts)
   local args = opts.args
   local client = vim.lsp.get_active_clients({ name = args })[1]
-  vim.pretty_print(client)
+  vim.print(client)
 end, {
   desc = 'Inspect language client',
   nargs = 1,
@@ -72,5 +72,5 @@ vim.api.nvim_create_user_command('WorkspaceRemove', function(opts)
   vim.lsp.buf.remove_workspace_folder(args)
 end, { desc = 'Remove workspace', nargs = '?', complete = 'dir' })
 vim.api.nvim_create_user_command('WorkspaceList', function()
-  vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+  vim.print(vim.lsp.buf.list_workspace_folders())
 end, { desc = 'List workspace', nargs = 0 })
