@@ -36,23 +36,23 @@ return {
           local timer = vim.uv.new_timer()
           if timer then
             timer:start(0, 10000, function()
-              util.job(
-                'git',
-                { 'rev-list', '--count', '--left-right', 'HEAD...@{upstream}' },
-                vim.schedule_wrap(function(_, data)
-                  local ahead, behind = unpack(vim.split(data or '', '\t'))
+              vim.system(
+                { 'git', 'rev-list', '--count', '--left-right', 'HEAD...@{upstream}' },
+                nil,
+                function(obj)
+                  local ahead, behind = unpack(vim.split(obj.stdout or '', '\t'))
                   vim.g.git_rev = {
                     ahead = tonumber(ahead) or 0,
                     behind = tonumber(behind) or 0,
                   }
-                end)
+                end
               )
-              util.job(
-                'git',
-                { 'status', '--porcelain', '--untracked-files=no' },
-                vim.schedule_wrap(function(_, data)
-                  vim.g.git_status = data ~= '' and true or false
-                end)
+              vim.system(
+                { 'git', 'status', '--porcelain', '--untracked-files=no' },
+                nil,
+                function(obj)
+                  vim.g.git_status = obj.stdout ~= '' and true or false
+                end
               )
             end)
           end

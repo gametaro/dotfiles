@@ -105,86 +105,31 @@ local function status_to_hl(status)
   return map[status]
 end
 
----@param path string
----@param opts { args: string[]?, cwd: string?, env: table<string, any>? }
----@param callback fun(code: integer, signal: integer, data: string)
----@return uv_process_t|nil
-local function job(path, opts, callback)
-  local handle
-  local stdout = vim.uv.new_pipe(false)
-  local stderr = vim.uv.new_pipe(false)
-  local results = {}
-
-  ---@param pipe uv_pipe_t
-  local function close(pipe)
-    if pipe and not pipe:is_closing() then
-      pipe:close()
-    end
-  end
-
-  ---@param err string
-  ---@param data string
-  local function on_read(err, data)
-    if data then
-      results[#results + 1] = data
-    end
-  end
-
-  ---@param code integer
-  ---@param signal integer
-  local function on_exit(code, signal)
-    close(stdout)
-    close(stderr)
-    close(handle)
-
-    vim.schedule(function()
-      callback(code, signal, table.concat(results))
-    end)
-  end
-
-  handle = vim.uv.spawn(path, {
-    args = opts.args,
-    cwd = opts.cwd,
-    env = opts.env,
-    stdio = { nil, stdout, stderr },
-  }, vim.schedule_wrap(on_exit))
-
-  if handle then
-    if stdout then
-      stdout:read_start(on_read)
-    end
-    if stderr then
-      stderr:read_start(on_read)
-    end
-  else
-    close(stdout)
-    close(stderr)
-  end
-
-  return handle
-end
-
 ---@type ls.Decorator
 function decorators.git_status(buf, line, row)
-  job('git', {
-    args = {
+  vim.system(
+    {
+      'git',
       '--no-optional-locks',
       'status',
       '--porcelain',
       '--ignored=matching',
       line,
     },
-    cwd = vim.uv.cwd(),
-  }, function(err, _, data)
-    if err == 0 then
-      local index = data:sub(1, 1)
-      local worktree = data:sub(2, 2)
-      set_extmark(buf, row, {
-        virt_text = { { index, status_to_hl(index) }, { worktree, status_to_hl(worktree) } },
-        virt_text_pos = 'eol',
-      })
+    nil,
+    function(obj)
+      if obj.code == 0 then
+        local index = obj.stdout:sub(1, 1)
+        local worktree = obj.stdout:sub(2, 2)
+        vim.schedule(function()
+          set_extmark(buf, row, {
+            virt_text = { { index, status_to_hl(index) }, { worktree, status_to_hl(worktree) } },
+            virt_text_pos = 'eol',
+          })
+        end)
+      end
     end
-  end)
+  )
 end
 
 local diag_signs = {

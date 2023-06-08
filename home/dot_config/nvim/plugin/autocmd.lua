@@ -44,15 +44,13 @@ if vim.env.CHEZMOI_WORKING_TREE then
   autocmd('BufWritePost', {
     pattern = vim.env.CHEZMOI_WORKING_TREE .. '/*',
     callback = function(a)
-      require('ky.util').job(
-        'chezmoi',
-        { 'apply', '--no-tty', '--source-path', a.match },
-        function(code, data)
-          if code ~= 0 then
-            vim.notify(data, vim.log.levels.WARN)
-          end
+      vim.system({ 'chezmoi', 'apply', '--no-tty', '--source-path', a.match }, nil, function(obj)
+        if obj.code ~= 0 then
+          vim.schedule(function()
+            vim.notify(obj.data, vim.log.levels.WARN)
+          end)
         end
-      )
+      end)
     end,
     desc = 'Run chezmoi apply',
   })
