@@ -11,6 +11,22 @@ return {
   },
   config = function()
     local opts = {
+      general = {
+        update_events = {
+          win = {
+            -- 'CursorMoved',
+            -- 'CursorMovedI',
+            'WinEnter',
+            'WinLeave',
+            -- 'WinResized',
+            -- 'WinScrolled',
+          },
+          global = {
+            'DirChanged',
+            -- 'VimResized',
+          },
+        },
+      },
       bar = {
         sources = function(_, _)
           local sources = require('dropbar.sources')
