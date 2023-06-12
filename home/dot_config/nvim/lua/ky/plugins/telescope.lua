@@ -276,8 +276,6 @@ return {
       },
     })
 
-    require('ky.abbrev').cabbrev('t', 'Telescope')
-
     local map = vim.keymap.set
 
     map('n', '<C-p>', function()
