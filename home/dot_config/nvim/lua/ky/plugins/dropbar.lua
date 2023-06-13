@@ -33,15 +33,15 @@ return {
           return {
             sources.path,
             {
-              get_symbols = function(buf, cursor)
+              get_symbols = function(buf, win, cursor)
                 if vim.bo[buf].ft == 'markdown' then
-                  return sources.markdown.get_symbols(buf, cursor)
+                  return sources.markdown.get_symbols(buf, win, cursor)
                 end
                 -- for _, source in ipairs({
                 --   sources.lsp,
                 --   sources.treesitter,
                 -- }) do
-                --   local symbols = source.get_symbols(buf, cursor)
+                --   local symbols = source.get_symbols(buf, win, cursor)
                 --   if not vim.tbl_isempty(symbols) then
                 --     return symbols
                 --   end
