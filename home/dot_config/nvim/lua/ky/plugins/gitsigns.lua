@@ -75,7 +75,6 @@ return {
       max_file_length = vim.g.max_line_count,
       on_attach = on_attach,
       -- _extmark_signs = true,
-      -- _threaded_diff = true,
       -- _signs_staged_enable = true,
     })
   end,
