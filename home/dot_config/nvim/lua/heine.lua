@@ -360,6 +360,7 @@ M.groups = {
   -- LspCodeLensSeparator = {},
   -- LspSignatureActiveParameter = {},
   -- LspDiagnosticsDefaultInformation = {},
+  LspInlayHint = { fg = fg4, bg = bg5 },
 
   ---|treesitter-highlight-groups|
   ['@annotation'] = { link = 'PreProc' },
