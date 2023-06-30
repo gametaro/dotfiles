@@ -13,5 +13,9 @@
   "completion": {
     "callSnippet": "Replace"
   },
+  "hint": {
+    "enable": true,
+    "setType": true
+  },
   "runtime.version": "LuaJIT"
 }
