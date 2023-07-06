@@ -129,7 +129,7 @@ local function on_attach(buf)
   vim.keymap.set('n', '<Leader>cl', vim.lsp.codelens.run, { buffer = buf, desc = 'Codelens' })
   vim.keymap.set({ 'n', 'x' }, '<M-f>', format, { buffer = buf, desc = 'Format' })
 
-  vim.lsp.buf.inlay_hint(buf, true)
+  vim.lsp.inlay_hint(buf, true)
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
