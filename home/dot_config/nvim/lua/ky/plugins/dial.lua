@@ -8,45 +8,30 @@ return {
   },
   config = function()
     local augend = require('dial.augend')
-
-    require('dial.config').augends:on_filetype({
-      lua = {
-        augend.paren.alias.lua_str_literal,
-        augend.constant.new({
-          elements = { 'and', 'or' },
+    require('dial.config').augends:register_group({
+      default = {
+        augend.constant.alias.bool,
+        augend.integer.alias.decimal,
+        augend.integer.alias.hex,
+        augend.date.new({
+          pattern = '%Y/%m/%d',
+          default_kind = 'day',
         }),
-        augend.constant.new({
-          elements = { 'pairs', 'ipairs' },
+        augend.date.new({
+          pattern = '%Y-%m-%d',
+          default_kind = 'day',
         }),
-      },
-      python = {
-        augend.constant.new({
-          elements = { 'True', 'False' },
+        augend.date.new({
+          pattern = '%m/%d',
+          default_kind = 'day',
+          only_valid = true,
         }),
-      },
-      typescript = {
-        augend.constant.new({
-          elements = { 'let', 'const' },
+        augend.date.new({
+          pattern = '%H:%M',
+          default_kind = 'day',
+          only_valid = false,
         }),
-        augend.constant.new({
-          elements = { '&&', '||', '??' },
-        }),
-        augend.constant.new({
-          elements = { 'console.log', 'console.warn', 'console.error' },
-        }),
-      },
-      markdown = {
-        augend.misc.alias.markdown_header,
-      },
-      gitcommit = {
-        augend.constant.new({
-          elements = { 'fix', 'feat', 'chore', 'refactor', 'ci' },
-        }),
-      },
-      gitrebase = {
-        augend.constant.new({
-          elements = { 'pick', 'squash', 'edit', 'reword', 'fixup', 'drop' },
-        }),
+        augend.constant.alias.ja_weekday_full,
       },
     })
   end,
