@@ -1,7 +1,8 @@
-vim.opt_local.spell = true
--- vim.opt_local.wrap = true
-vim.opt_local.conceallevel = 2
-vim.opt_local.concealcursor = 'nc'
+local win = vim.api.nvim_get_current_win()
+vim.win[win][0].spell = true
+-- vim.win[win][0].wrap = true
+vim.win[win][0].conceallevel = 2
+vim.win[win][0].concealcursor = 'nc'
 
 vim.lsp.start({
   cmd = { 'marksman', 'server' },

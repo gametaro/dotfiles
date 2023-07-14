@@ -11,7 +11,8 @@ return {
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'gitmessengerpopup',
       callback = function()
-        vim.opt_local.winbar = nil
+        local win = vim.api.nvim_get_current_win()
+        vim.win[win][0].winbar = nil
       end,
     })
   end,

@@ -1,5 +1,6 @@
-vim.opt_local.signcolumn = 'no'
-vim.opt_local.spell = false
+local win = vim.api.nvim_get_current_win()
+vim.win[win][0].signcolumn = 'no'
+vim.win[win][0].spell = false
 
 vim.keymap.set(
   'x',

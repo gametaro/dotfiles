@@ -96,7 +96,8 @@ autocmd('VimResized', {
 
 autocmd('BufEnter', {
   callback = function()
-    vim.opt_local.formatoptions:remove({
+    local win = vim.api.nvim_get_current_win()
+    vim.win[win][0].formatoptions:remove({
       'c',
       'o',
       'r',
@@ -118,7 +119,8 @@ autocmd({ 'BufWritePre', 'FileWritePre' }, {
 autocmd('ModeChanged', {
   pattern = '*:[vV\x16]',
   callback = function()
-    vim.opt_local.listchars:append({ space = '·' })
+    local win = vim.api.nvim_get_current_win()
+    vim.win[win][0].listchars:append({ space = '·' })
   end,
   desc = 'Show spaces in visual mode',
 })
@@ -126,7 +128,7 @@ autocmd('ModeChanged', {
 autocmd('ModeChanged', {
   pattern = '[vV\x16]*:*',
   callback = function()
-    vim.opt_local.listchars:remove('space')
+    vim.win[win][0].listchars:remove('space')
   end,
   desc = 'Hide spaces except in visual mode',
 })
@@ -150,17 +152,17 @@ autocmd({ 'BufReadPre', 'BufReadPost' }, {
     local is_large = vim.api.nvim_buf_line_count(a.buf) > vim.g.max_line_count
     if is_large then
       if a.event == 'BufReadPre' then
-        vim.opt_local.foldmethod = 'manual'
-        vim.opt_local.list = false
-        vim.opt_local.spell = false
-        vim.opt_local.swapfile = false
-        vim.opt_local.undolevels = -1
-        vim.opt_local.undoreload = 0
+        vim.win[win][0].foldmethod = 'manual'
+        vim.win[win][0].list = false
+        vim.win[win][0].spell = false
+        vim.win[win][0].swapfile = false
+        vim.win[win][0].undolevels = -1
+        vim.win[win][0].undoreload = 0
       end
 
       if a.event == 'BufReadPost' then
         -- disable indentation based on treesitter
-        vim.opt_local.indentexpr = ''
+        vim.win[win][0].indentexpr = ''
         vim.b.editorconfig = false
       end
     end

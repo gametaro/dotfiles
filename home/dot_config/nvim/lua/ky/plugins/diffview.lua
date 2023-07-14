@@ -59,8 +59,9 @@ return {
       },
       hooks = {
         diff_buf_read = function(bufnr)
-          vim.opt_local.wrap = false
-          vim.opt_local.list = false
+          local win = vim.api.nvim_get_current_win()
+          vim.win[win][0].wrap = false
+          vim.win[win][0].list = false
         end,
         view_opened = function()
           vim.cmd.wincmd('p')

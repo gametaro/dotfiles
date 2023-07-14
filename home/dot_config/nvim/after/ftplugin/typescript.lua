@@ -1,4 +1,5 @@
-vim.opt_local.isfname:append('@-@')
+local win = vim.api.nvim_get_current_win()
+vim.win[win][0].isfname:append('@-@')
 
 vim.lsp.start({
   cmd = { 'vtsls', '--stdio' },
