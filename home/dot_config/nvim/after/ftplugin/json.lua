@@ -12,5 +12,5 @@ vim.lsp.start({
 })
 
 local win = vim.api.nvim_get_current_win()
-vim.win[win][0].conceallevel = 0
-vim.win[win][0].concealcursor = 'nc'
+vim.wo[win][0].conceallevel = 0
+vim.wo[win][0].concealcursor = 'nc'

@@ -33,10 +33,10 @@ end, { desc = 'Open terminal horizontally' })
 ---@param buf integer
 local function on_open(buf)
   local win = vim.api.nvim_get_current_win()
-  vim.win[win][0].number = false
-  vim.win[win][0].relativenumber = false
-  vim.win[win][0].signcolumn = 'no'
-  vim.win[win][0].statuscolumn = ''
+  vim.wo[win][0].number = false
+  vim.wo[win][0].relativenumber = false
+  vim.wo[win][0].signcolumn = 'no'
+  vim.wo[win][0].statuscolumn = ''
 
   vim.b[buf].keep_mode = false
 

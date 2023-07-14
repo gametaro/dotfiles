@@ -12,7 +12,7 @@ return {
       pattern = 'gitmessengerpopup',
       callback = function()
         local win = vim.api.nvim_get_current_win()
-        vim.win[win][0].winbar = nil
+        vim.wo[win][0].winbar = nil
       end,
     })
   end,

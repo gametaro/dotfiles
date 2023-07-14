@@ -1,10 +1,10 @@
 vim.bo.buflisted = false
 local win = vim.api.nvim_get_current_win()
-vim.win[win][0].list = false
-vim.win[win][0].number = true
-vim.win[win][0].relativenumber = false
-vim.win[win][0].spell = false
-vim.win[win][0].wrap = false
+vim.wo[win][0].list = false
+vim.wo[win][0].number = true
+vim.wo[win][0].relativenumber = false
+vim.wo[win][0].spell = false
+vim.wo[win][0].wrap = false
 
 vim.keymap.set('n', 'cc', function()
   vim.cmd.cexpr('[]')
