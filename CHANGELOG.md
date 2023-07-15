@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.10.0](https://github.com/gametaro/dotfiles/compare/v2.9.0...v2.10.0) (2023-07-15)
+
+
+### Features
+
+* **colorscheme:** add highlight for `LspInlayHint` ([65d39d1](https://github.com/gametaro/dotfiles/commit/65d39d19ed35efc95b1eb88d3f62117bbd5db24f))
+* **lsp:** enable inlay_hint ([f7bbcc8](https://github.com/gametaro/dotfiles/commit/f7bbcc85b44a025712aed44c5376a42c9b337f4c))
+* **luarc:** enable hint ([4888c43](https://github.com/gametaro/dotfiles/commit/4888c43bb3426cc8436672c75d1f5fc5bc9192f2))
+* **plugins:** add neogit ([0d6b3a7](https://github.com/gametaro/dotfiles/commit/0d6b3a70f540a9e790ea3abc29160116db399224))
+
+
+### Bug Fixes
+
+* **lsp:** enable inlay hint if server supports it. ([bc6e98e](https://github.com/gametaro/dotfiles/commit/bc6e98e988fda9c0484d083efd7f53a3caf6259f))
+* **lsp:** rename inlay_hint ([d654e65](https://github.com/gametaro/dotfiles/commit/d654e651c7eb07ce36120ed97a60799958da5b24))
+* win -&gt; wo ([d2a066b](https://github.com/gametaro/dotfiles/commit/d2a066b8cfe5f7a45e8fb33f60881af33633c5a1))
+
 ## [2.9.0](https://github.com/gametaro/dotfiles/compare/v2.8.2...v2.9.0) (2023-06-08)
 
 
