@@ -113,7 +113,6 @@ local function on_attach(client, buf)
     { buffer = buf, desc = 'Goto implementation' }
   )
   -- vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { buffer = buf , desc = 'Goto type definition' })
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = buf, desc = 'Hover' })
   vim.keymap.set(
     'i',
     '<C-s>',
