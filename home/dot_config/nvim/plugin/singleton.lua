@@ -75,7 +75,7 @@ _G.default = function(args, cwd, address)
   open(files)
 
   if vim.bo.filetype == 'gitcommit' then
-    vim.api.nvim_create_autocmd({ 'QuitPre', 'BufUnload' }, {
+    vim.api.nvim_create_autocmd({ 'QuitPre' }, {
       buffer = vim.api.nvim_get_current_buf(),
       once = true,
       callback = function()
