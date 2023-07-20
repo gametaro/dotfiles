@@ -218,7 +218,7 @@ return {
       provider = function()
         local clients = table.concat(vim.iter.map(function(client)
           return client and string.len(client.name) > 3 and string.format('%.3s…', client.name)
-        end, vim.lsp.get_active_clients({ bufnr = 0 })) or {}, ' ')
+        end, vim.lsp.get_clients({ bufnr = 0 })) or {}, ' ')
         if not conditions.width_percent_below(#clients, 0.25) then
           return
         end

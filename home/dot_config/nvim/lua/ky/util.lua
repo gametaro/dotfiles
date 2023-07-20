@@ -109,7 +109,7 @@ function M.get_root_by_lsp(opts)
 
   local root_dir
   for _, client in
-    ipairs(vim.lsp.get_active_clients({ id = opts.id, name = opts.name, bufnr = buffer }))
+    ipairs(vim.lsp.get_clients({ id = opts.id, name = opts.name, bufnr = buffer }))
   do
     if
       -- vim.tbl_contains(client.config.filetypes or {}, vim.bo[buffer].filetype)

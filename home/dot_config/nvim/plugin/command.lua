@@ -30,7 +30,7 @@ end, { nargs = '?', complete = 'filetype', desc = 'Create |scratch-buffer|' })
 
 vim.api.nvim_create_user_command('LspInfo', function(opts)
   local args = opts.args
-  local client = vim.lsp.get_active_clients({ name = args })[1]
+  local client = vim.lsp.get_clients({ name = args })[1]
   vim.print(client)
 end, {
   desc = 'Inspect language client',
@@ -38,13 +38,13 @@ end, {
   complete = function()
     return vim.iter.map(function(client)
       return client.name
-    end, vim.lsp.get_active_clients())
+    end, vim.lsp.get_clients())
   end,
 })
 
 vim.api.nvim_create_user_command('LspStop', function(opts)
   local args = opts.args
-  local client = vim.lsp.get_active_clients({ name = args })[1]
+  local client = vim.lsp.get_clients({ name = args })[1]
   client.stop()
 end, {
   desc = 'Stop language client',
@@ -52,7 +52,7 @@ end, {
   complete = function()
     return vim.iter.map(function(client)
       return client.name
-    end, vim.lsp.get_active_clients())
+    end, vim.lsp.get_clients())
   end,
 })
 
