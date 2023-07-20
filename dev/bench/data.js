@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689817699054,
+  "lastUpdate": 1689829237722,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -28552,6 +28552,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.05324278335666667,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "e057f0d00ac3d6c8e4f040fe5c28c50bba0a1a3a",
+          "message": "fix(singleton): remove BufUnload from events",
+          "timestamp": "2023-07-20T04:59:07Z",
+          "tree_id": "205c1b200156dd478a4730928e03fccd130571a2",
+          "url": "https://github.com/gametaro/dotfiles/commit/e057f0d00ac3d6c8e4f040fe5c28c50bba0a1a3a"
+        },
+        "date": 1689829234401,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.05737478568363639,
             "unit": "Second"
           }
         ]
