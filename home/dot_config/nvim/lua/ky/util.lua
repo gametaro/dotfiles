@@ -108,9 +108,7 @@ function M.get_root_by_lsp(opts)
   local ignore = { 'null-ls' }
 
   local root_dir
-  for _, client in
-    ipairs(vim.lsp.get_clients({ id = opts.id, name = opts.name, bufnr = buffer }))
-  do
+  for _, client in ipairs(vim.lsp.get_clients({ id = opts.id, name = opts.name, bufnr = buffer })) do
     if
       -- vim.tbl_contains(client.config.filetypes or {}, vim.bo[buffer].filetype)
       not vim.tbl_contains(ignore, client.name)
