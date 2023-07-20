@@ -52,18 +52,12 @@ local function sort(a, b)
   return a.name < b.name
 end
 
----@param ... string
----@return string
-local function join_paths(...)
-  return (table.concat({ ... }, '/'):gsub('//+', '/'))
-end
-
 ---@param path string
 ---@param opts? table
 ---@return ls.File[]
 local function list(path, opts)
   return vim.iter(vim.fs.dir(path, opts)):fold({}, function(acc, name, type)
-    acc[#acc + 1] = { name = join_paths(path, name), type = type }
+    acc[#acc + 1] = { name = vim.fs.joinpath(path, name), type = type }
     return acc
   end)
 end
