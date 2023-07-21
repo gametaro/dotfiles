@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.10.1](https://github.com/gametaro/dotfiles/compare/v2.10.0...v2.10.1) (2023-07-21)
+
+
+### Bug Fixes
+
+* **lsp:** get_active_clients -&gt; get_clients ([2d0a0e1](https://github.com/gametaro/dotfiles/commit/2d0a0e1853c97e1c8f7e705302b91fed66cbe346))
+* **singleton:** remove BufUnload from events ([e057f0d](https://github.com/gametaro/dotfiles/commit/e057f0d00ac3d6c8e4f040fe5c28c50bba0a1a3a))
+
 ## [2.10.0](https://github.com/gametaro/dotfiles/compare/v2.9.0...v2.10.0) (2023-07-15)
 
 
