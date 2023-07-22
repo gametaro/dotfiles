@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689914915668,
+  "lastUpdate": 1689987818422,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -28668,6 +28668,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.04793100901047619,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "9a625eacb6accef4858ff475b77560aa0436a436",
+          "message": "Merge pull request #251 from gametaro/create-pull-request/bump-nvim-plugins",
+          "timestamp": "2023-07-22T10:02:27+09:00",
+          "tree_id": "909d821e50159799a655e02a15348f69b501bdcb",
+          "url": "https://github.com/gametaro/dotfiles/commit/9a625eacb6accef4858ff475b77560aa0436a436"
+        },
+        "date": 1689987815555,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.04409693985941177,
             "unit": "Second"
           }
         ]
