@@ -284,16 +284,14 @@ end
 
 ---@param buf integer
 local function set_options(buf)
-  local function set_option(name, value)
-    vim.api.nvim_set_option_value(name, value, { win = vim.fn.bufwinid(buf), scope = 'local' })
-  end
-  set_option('cursorline', true)
-  set_option('wrap', false)
-  set_option('isfname', vim.o.isfname .. ',32')
-  set_option('cursorline', true)
+  local win = vim.fn.bufwinid(buf)
+  vim.wo[win][0].cursorline = true
+  vim.wo[win][0].wrap = false
+  vim.wo[win][0].cursorline = true
+  vim.opt_local.isfname:append('32')
   if config.conceal then
-    set_option('conceallevel', 2)
-    set_option('concealcursor', 'nc')
+    vim.wo[win][0].conceallevel = 2
+    vim.wo[win][0].concealcursor = 'nc'
   end
 end
 
