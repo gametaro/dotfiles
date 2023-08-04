@@ -21,6 +21,12 @@ local cmp_capabilities = {
             'documentation',
             'detail',
             'additionalTextEdits',
+            'sortText',
+            'filterText',
+            'insertText',
+            'textEdit',
+            'insertTextFormat',
+            'insertTextMode',
           },
         },
         insertTextModeSupport = {
@@ -49,11 +55,6 @@ local cmp_capabilities = {
       lineFoldingOnly = true,
     },
   },
-  -- workspace = {
-  --   didChangeWatchedFiles = {
-  --     dynamicRegistration = true,
-  --   },
-  -- },
 }
 
 local capabilities =
