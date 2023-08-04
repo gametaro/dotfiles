@@ -60,7 +60,7 @@ local cmp_capabilities = {
 local capabilities =
   vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), cmp_capabilities)
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = (function(fn)
+vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_publishDiagnostics] = (function(fn)
   return function(_, result, ctx, config)
     vim.iter.map(function(item)
       if item.relatedInformation and #item.relatedInformation > 0 then
@@ -80,7 +80,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = (function(fn)
     end, result.diagnostics)
     fn(_, result, ctx, config)
   end
-end)(vim.lsp.handlers['textDocument/publishDiagnostics'])
+end)(vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_publishDiagnostics])
 
 vim.lsp.start = (function(fn)
   return function(config, opts)
