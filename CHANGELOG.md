@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.10.2](https://github.com/gametaro/dotfiles/compare/v2.10.1...v2.10.2) (2023-08-12)
+
+
+### Bug Fixes
+
+* **ls:** use vim.wo instead of nvim_set_option_value ([7096f82](https://github.com/gametaro/dotfiles/commit/7096f8245f8c1bbd607ff07f8edffbdb1f9df930))
+
 ## [2.10.1](https://github.com/gametaro/dotfiles/compare/v2.10.0...v2.10.1) (2023-07-21)
 
 
