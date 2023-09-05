@@ -14,7 +14,7 @@ jobs:
     env:
       OUTPUT_FILE: output.txt
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: nick-fields/retry@v2
         name: Install hyperfine
         with:
