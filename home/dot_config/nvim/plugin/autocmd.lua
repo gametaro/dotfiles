@@ -189,3 +189,57 @@ autocmd('VimEnter', {
   end,
   desc = 'Create missing spell file',
 })
+
+local function get_lang()
+  local ok, parser = pcall(vim.treesitter.get_parser)
+  if not ok then
+    return
+  end
+
+  local cpos = vim.api.nvim_win_get_cursor(0)
+  local row, col = cpos[1] - 1, cpos[2]
+  local range = { row, col, row, col + 1 }
+
+  local ft --- @type string?
+
+  parser:for_each_tree(function(_tree, ltree)
+    if ltree:contains(range) then
+      local fts = vim.treesitter.language.get_filetypes(ltree:lang())
+      for _, ft0 in ipairs(fts) do
+        if vim.filetype.get_option(ft0, 'commentstring') ~= '' then
+          ft = fts[1]
+          break
+        end
+      end
+    end
+  end)
+  return ft
+end
+
+local function enable_commentstrings()
+  vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+    buffer = 0,
+    callback = function()
+      local lang = get_lang() or vim.bo.filetype
+      if lang == 'comment' then
+        lang = vim.bo.filetype -- Exclude this
+      end
+
+      local commentstring = vim.filetype.get_option(lang, 'commentstring')
+
+      if commentstring ~= vim.bo.commentstring then
+        vim.bo.commentstring = commentstring
+      end
+    end,
+  })
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    if not pcall(vim.treesitter.start) then
+      return
+    end
+
+    enable_commentstrings()
+  end,
+})
