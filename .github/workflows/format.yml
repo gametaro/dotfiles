@@ -12,7 +12,7 @@ jobs:
           version: latest
           args: .
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "style: format with stylua"
           commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
@@ -29,7 +29,7 @@ jobs:
       - name: Run shfmt
         run: shfmt -w .
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "style: format with shfmt"
           commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
@@ -48,7 +48,7 @@ jobs:
       - name: Run yamlfmt
         run: yamlfmt
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "style: format with yamlfmt"
           commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
