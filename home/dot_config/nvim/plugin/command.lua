@@ -1,14 +1,3 @@
-vim.api.nvim_create_user_command('FloatWinsClose', function()
-  vim
-    .iter(vim.api.nvim_list_wins())
-    :filter(function(win)
-      return vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_config(win).relative ~= ''
-    end)
-    :each(function(win)
-      vim.api.nvim_win_close(win, true)
-    end)
-end, { nargs = 0 })
-
 vim.api.nvim_create_user_command('DiagnosticEnable', function()
   vim.diagnostic.enable(0)
 end, { desc = 'Enable diagnostics in current buffer' })
