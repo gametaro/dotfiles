@@ -54,6 +54,7 @@ vim.o.fillchars = list({
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldlevelstart = 1
 vim.o.foldmethod = 'expr'
+vim.o.foldtext = 'v:lua.vim.treesitter.foldtext()'
 vim.o.ignorecase = true
 vim.o.inccommand = 'split'
 vim.o.jumpoptions = 'view'
