@@ -3,7 +3,6 @@
 vim.lsp.start({
   cmd = { 'lua-language-server' },
   root_names = { '.luarc.json' },
-  before_init = require('neodev.lsp').before_init,
 })
 
 vim.keymap.set('n', 'K', function()
