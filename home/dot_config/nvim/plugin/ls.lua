@@ -357,7 +357,7 @@ vim.api.nvim_set_decoration_provider(ns, {
     if vim.bo[buf].filetype ~= 'ls' then
       return false
     end
-    for i = top, bot - 2 do
+    for i = top, bot do
       local line = vim.api.nvim_buf_get_lines(buf, i, i + 1, false)[1]
       if line and not rawget(cache[buf], line) then
         vim.iter(decorators):each(function(name, decorator)
