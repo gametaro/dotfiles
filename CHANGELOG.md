@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.11.0](https://github.com/gametaro/dotfiles/compare/v2.10.2...v2.11.0) (2023-11-02)
+
+
+### Features
+
+* **option:** enable ts-highlight for folded text ([7c4ff36](https://github.com/gametaro/dotfiles/commit/7c4ff3627c9f0c303cc8d73ca5350635876a6246))
+
+
+### Bug Fixes
+
+* **ls:** correct index ([b1fd8b7](https://github.com/gametaro/dotfiles/commit/b1fd8b7ae4e2a664f3b5b9805330d47223fd1667))
+
 ## [2.10.2](https://github.com/gametaro/dotfiles/compare/v2.10.1...v2.10.2) (2023-08-12)
 
 
