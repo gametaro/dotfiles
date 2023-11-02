@@ -4,12 +4,12 @@
 
 [tools]
 # specify single or multiple versions
-bat = '0.23.0'
-fd = '8.7.0'
-github-cli = '2.29.0'
+bat = 'latest'
+fd = 'latest'
+github-cli = 'latest'
 neovim = 'nightly'
 nodejs = 'lts'
-ripgrep = '13.0.0'
+ripgrep = 'latest'
 
 # supports everything you can do with .tool-versions currently
 # nodejs = ['16', 'prefix:20', 'ref:master', 'path:~/.nodes/14']
