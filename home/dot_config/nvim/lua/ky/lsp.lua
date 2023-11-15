@@ -131,7 +131,7 @@ local function on_attach(client, buf)
   vim.keymap.set({ 'n', 'x' }, '<M-f>', format, { buffer = buf, desc = 'Format' })
 
   if client.server_capabilities.inlayHintProvider then
-    vim.lsp.inlay_hint(buf, true)
+    vim.lsp.inlay_hint.enable(buf, true)
   end
 end
 
