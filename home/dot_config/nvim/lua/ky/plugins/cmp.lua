@@ -84,6 +84,8 @@ return {
         ['<C-b>'] = { i = cmp.mapping.scroll_docs(-4) },
         ['<C-n>'] = { i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) },
         ['<C-p>'] = { i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) },
+        ['<Tab>'] = { i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) },
+        ['<S-Tab>'] = { i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) },
         ['<C-Space>'] = { i = cmp.mapping.complete() },
         ['<C-e>'] = { i = cmp.mapping.abort() },
         ['<CR>'] = {
@@ -121,7 +123,6 @@ return {
           option = {
             get_bufnrs = function()
               return vim.iter.filter(function(buf)
-                local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
                 return vim.api.nvim_buf_is_loaded(buf)
                   and not vim.tbl_contains({
                     -- 'help',
@@ -129,7 +130,7 @@ return {
                     'prompt',
                     'quickfix',
                     'terminal',
-                  }, buftype)
+                  }, vim.bo.buftype)
                   and not (vim.api.nvim_buf_line_count(buf) > vim.g.max_line_count)
               end, vim.api.nvim_list_bufs())
             end,
