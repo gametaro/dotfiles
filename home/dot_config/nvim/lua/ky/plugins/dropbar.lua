@@ -27,6 +27,7 @@ return {
           },
         },
       },
+      icons = { enable = vim.g.nerd },
       bar = {
         sources = function(_, _)
           local sources = require('dropbar.sources')
