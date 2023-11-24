@@ -161,7 +161,7 @@ autocmd({ 'BufReadPre', 'BufReadPost' }, {
 
       if a.event == 'BufReadPost' then
         -- disable indentation based on treesitter
-        vim.wo[win][0].indentexpr = ''
+        vim.bo[a.buf].indentexpr = ''
         vim.b.editorconfig = false
       end
     end
