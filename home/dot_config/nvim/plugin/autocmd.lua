@@ -1,10 +1,9 @@
 local group = vim.api.nvim_create_augroup('mine', {})
 
 ---@param event string|string[]
----@param opts { pattern: string|table, buffer: integer, desc: string, callback: function, command: string, once: boolean, nested: boolean  }
+---@param opts vim.api.keyset.create_autocmd
 local autocmd = function(event, opts)
-  opts = opts or {}
-  return vim.api.nvim_create_autocmd(event, vim.tbl_extend('force', { group = group }, opts))
+  return vim.api.nvim_create_autocmd(event, vim.tbl_extend('force', { group = group }, opts or {}))
 end
 
 autocmd('QuickFixCmdPost', {
