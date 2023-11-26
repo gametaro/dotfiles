@@ -7,13 +7,6 @@
 ---@field on_success? function
 ---@field on_error? function
 
----@class jumplist.Item
----@field bufnr integer
----@field col integer
----@field coladd integer
----@field filename string|nil
----@field lnum integer
-
 ---@param buf integer
 ---@param opts jump.Options
 ---@return boolean
@@ -57,7 +50,6 @@ local defaults = {
 ---@param opts jump.Options
 local function jump(opts)
   opts = vim.tbl_extend('force', defaults, opts or {})
-  ---@type jumplist.Item[], integer
   local jumplist, current_pos = unpack(vim.fn.getjumplist())
   if vim.tbl_isempty(jumplist) then
     return
@@ -106,7 +98,7 @@ local function jump(opts)
   })
 end
 
----@param jumplist jumplist.Item[]
+---@param jumplist vim.fn.getjumplist.ret.item
 ---@return table
 local function toqflist(jumplist)
   return vim.iter.map(function(j)
@@ -118,7 +110,6 @@ end
 ---@param opts { qf: boolean, open: boolean }
 local function setlist(opts)
   opts = opts or {}
-  ---@type jumplist.Item[]
   local jumplist = unpack(vim.fn.getjumplist())
   local items = toqflist(vim.iter.filter(function(j)
     return vim.api.nvim_buf_is_loaded(j.bufnr)
