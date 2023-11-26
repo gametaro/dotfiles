@@ -2,7 +2,7 @@ local group = vim.api.nvim_create_augroup('mine', {})
 
 ---@param event string|string[]
 ---@param opts vim.api.keyset.create_autocmd
-local autocmd = function(event, opts)
+local function autocmd(event, opts)
   return vim.api.nvim_create_autocmd(event, vim.tbl_extend('force', { group = group }, opts or {}))
 end
 
@@ -153,9 +153,9 @@ autocmd({ 'BufReadPre', 'BufReadPost' }, {
         vim.wo[win][0].foldmethod = 'manual'
         vim.wo[win][0].list = false
         vim.wo[win][0].spell = false
-        vim.wo[win][0].swapfile = false
-        vim.wo[win][0].undolevels = -1
-        vim.wo[win][0].undoreload = 0
+        vim.bo[a.buf].swapfile = false
+        vim.bo[a.buf].undolevels = -1
+        vim.bo[a.buf].undoreload = 0
       end
 
       if a.event == 'BufReadPost' then
