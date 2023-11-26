@@ -1,4 +1,4 @@
----@alias ls.File { name: string, type: uv.aliases.fs_stat_types }
+---@alias ls.File { name: string, type: uv.fs_stat.result }
 ---@alias ls.Decorator fun(buf: integer, line: string, row: integer)
 
 local ok, devicons = pcall(require, 'nvim-web-devicons')
