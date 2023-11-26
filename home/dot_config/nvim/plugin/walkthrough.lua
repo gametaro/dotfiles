@@ -16,7 +16,7 @@ local M = {}
 ---@field public skip? fun(dir_name: string): boolean
 ---@field public sort? fun(a: walkthrough.List.Item, a: walkthrough.List.Item): boolean
 
----@type table<string, uv_fs_event_t>
+---@type table<string, uv.uv_fs_event_t>
 local watchers = {}
 ---@type table<string, walkthrough.List.Item[]>
 local files_per_dir = {}
@@ -81,7 +81,7 @@ local function notify(msg, level, opts)
       title = 'walkthrough.nvim',
       on_open = function(win)
         local buf = vim.api.nvim_win_get_buf(win)
-        vim.api.nvim_buf_set_option(buf, 'filetype', 'markdown_inline')
+        vim.api.nvim_set_option_value(buf, 'filetype', 'markdown_inline')
       end,
     }
   vim.notify(msg, level, opts)
