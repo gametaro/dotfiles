@@ -54,12 +54,15 @@ function M.get_root_by_names(names)
   if path == '' then
     return
   end
-  path = vim.fs.dirname(path)
+  local dirname = vim.fs.dirname(path)
+  if not dirname then
+    return
+  end
 
-  local root = M.root_cache[path]
+  local root = M.root_cache[dirname]
   if not root then
-    root = vim.fs.dirname(vim.fs.find(names, { path = path, upward = true })[1])
-    M.root_cache[path] = root
+    root = vim.fs.dirname(vim.fs.find(names, { path = dirname, upward = true })[1])
+    M.root_cache[dirname] = root
   end
   return root
 end
