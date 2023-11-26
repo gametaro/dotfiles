@@ -9,26 +9,6 @@ local M = {}
 ---@field non_current boolean
 ---@field transparent boolean
 
----|attr-list|
----@class Highlight
----@field fg? string
----@field bg? string
----@field sp? string
----@field blend? integer
----@field bold? boolean
----@field standout? boolean
----@field underline? boolean
----@field undercurl? boolean
----@field underdouble? boolean
----@field underdotted? boolean
----@field underdashed? boolean
----@field strikethrough? boolean
----@field italic? boolean
----@field reverse? boolean
----@field nocombine? boolean
----@field link? string
----@field default? boolean
-
 ---@type Config
 M.config = {
   compile_path = vim.fs.normalize(vim.fn.stdpath('cache') .. '/heine.lua'),
@@ -84,8 +64,8 @@ function M.blend(c1, c2, f)
   return hsluv.rgb_to_hex({ (r2 - r1) * f + r1, (g2 - g1) * f + g1, (b2 - b1) * f + b1 })
 end
 
----@param highlight Highlight
----@return Highlight
+---@param highlight vim.api.keyset.highlight
+---@return vim.api.keyset.highlight
 function M.transparent(highlight)
   return vim.tbl_extend(
     'force',
@@ -129,7 +109,7 @@ local fg4 = M.saturate_lighten(fg1, 8, -25)
 -- NonText, WhiteSpace, SpecialKey
 local fg5 = M.saturate_lighten(fg1, 18, -45)
 
----@type table<string, Highlight>
+---@type table<string, vim.api.keyset.highlight>
 M.tint = {
   red = { bg = M.saturate(M.blend(M.palette.red, bg1, 0.8), 15) },
   orange = {
@@ -184,7 +164,7 @@ M.colors = {
   bg6 = bg6,
 }
 
----@type table<string, Highlight>
+---@type table<string, vim.api.keyset.highlight>
 M.groups = {
   ---|highlight-groups|
   ColorColumn = { fg = fg1, bg = bg1 },
