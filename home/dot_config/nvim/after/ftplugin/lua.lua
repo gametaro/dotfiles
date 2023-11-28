@@ -1,5 +1,3 @@
--- vim.treesitter.start()
-
 vim.lsp.start({
   cmd = { 'lua-language-server' },
   root_names = { '.luarc.json' },
