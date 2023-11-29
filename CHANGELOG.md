@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.12.0](https://github.com/gametaro/dotfiles/compare/v2.11.0...v2.12.0) (2023-11-29)
+
+
+### Features
+
+* **plugins:** replace null-ls.nvim with conform.nvim and nvim-lint ([b2edb5f](https://github.com/gametaro/dotfiles/commit/b2edb5ffaf75a91fab09773bb93ab6b92ec5ad79))
+
+
+### Bug Fixes
+
+* **autocmd:** wo -&gt; bo ([12fd22e](https://github.com/gametaro/dotfiles/commit/12fd22ed19ebe9b2d5f8362735610ca8bdc5f518))
+* **autocmd:** wo -&gt; bo ([7c52d6c](https://github.com/gametaro/dotfiles/commit/7c52d6c863f350774da6a2680d1f39468c55f04f))
+* **lsp:** follow api changes ([2ed3cce](https://github.com/gametaro/dotfiles/commit/2ed3cce85c584fba613d6aa40e68adac864d017b))
+
 ## [2.11.0](https://github.com/gametaro/dotfiles/compare/v2.10.2...v2.11.0) (2023-11-02)
 
 
