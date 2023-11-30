@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701273223651,
+  "lastUpdate": 1701347693141,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -32815,6 +32815,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.038692909222597424,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "6ff1c3ee5bb0e10b342698ead82d4f831e70fd2b",
+          "message": "feat(mapping): add mapping to toggle inlay hints",
+          "timestamp": "2023-11-30T21:33:02+09:00",
+          "tree_id": "2ad0c628a93414b5834b6a1a66f3cedfb0b0d836",
+          "url": "https://github.com/gametaro/dotfiles/commit/6ff1c3ee5bb0e10b342698ead82d4f831e70fd2b"
+        },
+        "date": 1701347690237,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.03766945301402597,
             "unit": "Second"
           }
         ]
