@@ -27,11 +27,14 @@ return {
     })
 
     require('neogit').setup({
-      disable_builtin_notifications = true,
-      disable_commit_confirmation = true,
       disable_hint = true,
+      disable_signs = false,
+      disable_commit_confirmation = true,
       disable_insert_on_commit = false,
-      integrations = { diffview = true },
+      integrations = {
+        telescope = true,
+        diffview = true,
+      },
     })
   end,
 }

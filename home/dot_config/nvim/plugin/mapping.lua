@@ -78,7 +78,7 @@ end)
 vim.keymap.set('n', [[\c]], '<Cmd>setlocal cul! cul?<CR>', { desc = 'Toggle cursorline' })
 vim.keymap.set('n', [[\C]], '<Cmd>setlocal cuc! cuc?<CR>', { desc = 'Toggle cursorcolumn' })
 vim.keymap.set('n', [[\f]], '<Cmd>setlocal fen! fen?<CR>', { desc = 'Toggle fold' })
-vim.keymap.set('n', [[\i]], '<Cmd>setlocal ic! ic?<CR>', { desc = 'Toggle ignorecase' })
+-- vim.keymap.set('n', [[\i]], '<Cmd>setlocal ic! ic?<CR>', { desc = 'Toggle ignorecase' })
 vim.keymap.set('n', [[\l]], '<Cmd>setlocal list! list?<CR>', { desc = 'Toggle list' })
 vim.keymap.set('n', [[\n]], '<Cmd>setlocal nu! nu?<CR>', { desc = 'Toggle number' })
 vim.keymap.set('n', [[\N]], '<Cmd>setlocal rnu! rnu?<CR>', { desc = 'Toggle relativenumber' })
@@ -91,3 +91,10 @@ vim.keymap.set('n', [[\d]], function()
     vim.diagnostic.disable(0)
   end
 end, { desc = 'Toggle diagnostic' })
+vim.keymap.set('n', [[\i]], function()
+  if vim.lsp.inlay_hint.is_enabled(0) then
+    vim.lsp.inlay_hint.enable(0, false)
+  else
+    vim.lsp.inlay_hint.enable(0, true)
+  end
+end, { desc = 'Toggle inlay hints' })
