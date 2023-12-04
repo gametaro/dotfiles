@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.13.0](https://github.com/gametaro/dotfiles/compare/v2.12.0...v2.13.0) (2023-12-04)
+
+
+### Features
+
+* **mapping:** add mapping to toggle inlay hints ([6ff1c3e](https://github.com/gametaro/dotfiles/commit/6ff1c3ee5bb0e10b342698ead82d4f831e70fd2b))
+
 ## [2.12.0](https://github.com/gametaro/dotfiles/compare/v2.11.0...v2.12.0) (2023-11-29)
 
 
