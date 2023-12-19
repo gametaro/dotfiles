@@ -287,10 +287,11 @@ local function lazy()
       'mfussenegger/nvim-lint',
       config = function()
         require('lint').linters_by_ft = {
-          markdown = { 'markdownlint' },
-          yaml = { 'actionlint' },
-          sh = { 'shellcheck' },
           bash = { 'shellcheck' },
+          gitcommit = { 'gitlint' },
+          markdown = { 'markdownlint' },
+          sh = { 'shellcheck' },
+          yaml = { 'actionlint' },
           zsh = { 'zsh' },
         }
         vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
