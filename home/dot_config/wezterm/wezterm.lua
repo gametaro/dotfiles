@@ -20,8 +20,7 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   })
 
   -- Use OSC 7 as per the above example
-  set_environment_variables['prompt'] =
-    '$E]7;file://localhost/$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m '
+  set_environment_variables['prompt'] = '$E]7;file://localhost/$P$E\\$E[32m$T$E[0m $E[35m$P$E[36m$_$G$E[0m '
   -- use a more ls-like output format for dir
   set_environment_variables['DIRCMD'] = '/d'
 end
