@@ -1,5 +1,26 @@
 # Changelog
 
+## [3.0.0](https://github.com/gametaro/dotfiles/compare/v2.12.0...v3.0.0) (2023-12-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **nvim:** minify configs ([#390](https://github.com/gametaro/dotfiles/issues/390))
+
+### Features
+
+* **mapping:** add mapping to toggle inlay hints ([6ff1c3e](https://github.com/gametaro/dotfiles/commit/6ff1c3ee5bb0e10b342698ead82d4f831e70fd2b))
+
+
+### Bug Fixes
+
+* **rtx:** remove deprecated configs ([da2cbb5](https://github.com/gametaro/dotfiles/commit/da2cbb5c8005bb8cf74e1a9f40b3fb4403a9474f))
+
+
+### Code Refactoring
+
+* **nvim:** minify configs ([#390](https://github.com/gametaro/dotfiles/issues/390)) ([ac6e068](https://github.com/gametaro/dotfiles/commit/ac6e068c761c46141a3d334e123ffe20b807c303))
+
 ## [2.12.0](https://github.com/gametaro/dotfiles/compare/v2.11.0...v2.12.0) (2023-11-29)
 
 
