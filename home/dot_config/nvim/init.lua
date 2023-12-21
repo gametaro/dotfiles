@@ -140,7 +140,6 @@ local function lazy()
           ignore_install = {
             -- 'bash',
             'c',
-            'comment',
             'help',
             'lua',
             'markdown',
