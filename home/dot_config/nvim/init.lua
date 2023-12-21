@@ -196,6 +196,12 @@ local function lazy()
         require('mini.pairs').setup({
           modes = { insert = true, command = true, terminal = true },
         })
+        local map_bs = function(lhs, rhs)
+          vim.keymap.set({ 'i', 'c', 't' }, lhs, rhs, { expr = true, replace_keycodes = false })
+        end
+        map_bs('<c-h>', 'v:lua.MiniPairs.bs()')
+        map_bs('<c-w>', 'v:lua.MiniPairs.bs("\23")')
+        map_bs('<c-u>', 'v:lua.MiniPairs.bs("\21")')
 
         require('mini.ai').setup({
           custom_textobjects = {
