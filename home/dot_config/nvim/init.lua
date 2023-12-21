@@ -193,6 +193,10 @@ local function lazy()
           options = { ignore_blank_line = true },
         })
 
+        require('mini.pairs').setup({
+          modes = { insert = true, command = true, terminal = true },
+        })
+
         require('mini.ai').setup({
           custom_textobjects = {
             -- textobj-entire
