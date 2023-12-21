@@ -265,7 +265,7 @@ local function lazy()
       'stevearc/conform.nvim',
       keys = {
         {
-          '<M-f>',
+          '<m-f>',
           function() require('conform').format({ async = true, lsp_fallback = true }) end,
           mode = '',
           desc = 'Format buffer',
@@ -421,12 +421,12 @@ function essentials.keymap()
   vim.keymap.set('c', '<c-f>', '<right>')
   vim.keymap.set('c', '<c-n>', '<down>')
   vim.keymap.set('c', '<c-p>', '<up>')
-  vim.keymap.set('c', '<M-b>', '<s-left>')
-  vim.keymap.set('c', '<M-f>', '<s-right>')
-  vim.keymap.set('n', '<M-h>', '<c-w>h', { desc = 'Go to right window' })
-  vim.keymap.set('n', '<M-j>', '<c-w>j', { desc = 'Go to left window' })
-  vim.keymap.set('n', '<M-k>', '<c-w>k', { desc = 'Go to down window' })
-  vim.keymap.set('n', '<M-l>', '<c-w>l', { desc = 'Go to up window' })
+  vim.keymap.set('c', '<m-b>', '<s-left>')
+  vim.keymap.set('c', '<m-f>', '<s-right>')
+  vim.keymap.set('n', '<m-h>', '<c-w>h', { desc = 'Go to right window' })
+  vim.keymap.set('n', '<m-j>', '<c-w>j', { desc = 'Go to left window' })
+  vim.keymap.set('n', '<m-k>', '<c-w>k', { desc = 'Go to down window' })
+  vim.keymap.set('n', '<m-l>', '<c-w>l', { desc = 'Go to up window' })
   vim.keymap.set('t', '<esc>', [[<c-\><c-n>]])
   vim.keymap.set(
     't',
@@ -752,7 +752,7 @@ function essentials.lsp()
       map('n', '<leader>cl', vim.lsp.codelens.run, { desc = 'Codelens' })
       map('n', '<leader>cr', vim.lsp.buf.rename, { desc = 'Rename' })
       map({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
-      -- map({ 'n', 'x' }, '<M-f>', vim.lsp.buf.format, { desc = 'Format' })
+      -- map({ 'n', 'x' }, '<m-f>', vim.lsp.buf.format, { desc = 'Format' })
     end,
     desc = 'Attach to lsp server',
   })
@@ -908,8 +908,8 @@ function extensions.bufjump()
     end
   end
 
-  vim.keymap.set('n', '<M-i>', function() jump(true) end, { desc = 'Go to newer buffer in jump list' })
-  vim.keymap.set('n', '<M-o>', function() jump(false) end, { desc = 'Go to older buffer in jump list' })
+  vim.keymap.set('n', '<m-i>', function() jump(true) end, { desc = 'Go to newer buffer in jump list' })
+  vim.keymap.set('n', '<m-o>', function() jump(false) end, { desc = 'Go to older buffer in jump list' })
 end
 
 function extensions.walkthrough()
