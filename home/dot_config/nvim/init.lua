@@ -402,6 +402,7 @@ function essentials.option()
   vim.o.undofile = true
   vim.o.updatetime = 300
   vim.o.virtualedit = 'block'
+  vim.o.wildignorecase = true
   vim.o.wildoptions = vim.o.wildoptions .. ',fuzzy'
   vim.o.wrap = false
 end
