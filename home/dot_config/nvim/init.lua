@@ -159,7 +159,7 @@ local function lazy()
       dependencies = {
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
-        'f3fora/cmp-spell',
+        'hrsh7th/cmp-path',
       },
       config = function()
         local cmp = require('cmp')
@@ -181,6 +181,7 @@ local function lazy()
             { name = 'nvim_lsp' },
           }, {
             { name = 'buffer' },
+            { name = 'path' },
           }),
         })
       end,
