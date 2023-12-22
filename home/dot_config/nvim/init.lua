@@ -405,8 +405,6 @@ function essentials.option()
   vim.o.shortmess = vim.o.shortmess .. 'IWcs'
   vim.o.signcolumn = 'yes'
   vim.o.smartcase = true
-  vim.o.spellcapcheck = ''
-  vim.o.spelloptions = 'camel,noplainbuffer'
   vim.o.splitkeep = 'screen'
   vim.o.swapfile = false
   vim.o.undofile = true
@@ -456,7 +454,6 @@ function essentials.keymap()
   vim.keymap.set('n', [[\l]], '<cmd>setlocal list! list?<cr>', { desc = 'Toggle list' })
   vim.keymap.set('n', [[\n]], '<cmd>setlocal nu! nu?<cr>', { desc = 'Toggle number' })
   vim.keymap.set('n', [[\N]], '<cmd>setlocal rnu! rnu?<cr>', { desc = 'Toggle relativenumber' })
-  vim.keymap.set('n', [[\s]], '<cmd>setlocal spell! spell?<cr>', { desc = 'Toggle spell' })
   vim.keymap.set('n', [[\w]], '<cmd>setlocal wrap! wrap?<cr>', { desc = 'Toggle wrap' })
   vim.keymap.set('n', [[\d]], function()
     if vim.diagnostic.is_disabled(0) then
@@ -587,27 +584,6 @@ function essentials.autocmd()
       end)
     end,
     desc = 'Load and set environment variables from the .env file',
-  })
-
-  vim.api.nvim_create_autocmd('VimEnter', {
-    callback = function()
-      local spell_dir = vim.fs.joinpath(vim.fn.stdpath('config'), 'spell')
-      local add_files = vim.fs.find(
-        function(name) return string.match(name, '.+%.add$') end,
-        { type = 'file', path = spell_dir }
-      )
-
-      vim.iter(add_files):each(function(add_file)
-        local spell_file = add_file .. '.spl'
-        local spell_stat = vim.uv.fs_stat(spell_file)
-        if not spell_stat then vim.cmd.mkspell(add_file) end
-        local add_stat = vim.uv.fs_stat(add_file)
-        if add_stat and spell_stat and add_stat.mtime.sec > spell_stat.mtime.sec then
-          vim.cmd.mkspell({ add_file, bang = true })
-        end
-      end)
-    end,
-    desc = 'Create or update spell files',
   })
 
   vim.api.nvim_create_autocmd('BufRead', {
