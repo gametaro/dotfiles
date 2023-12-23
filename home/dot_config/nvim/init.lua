@@ -509,8 +509,8 @@ function essentials.autocmd()
   })
 
   vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'help', 'checkhealth' },
-    callback = function(a) vim.keymap.set('n', 'q', '<c-w>c', { buffer = a.buf, nowait = true }) end,
+    pattern = { 'checkhealth', 'help', 'man', 'qf' },
+    callback = function(a) vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = a.buf }) end,
     desc = 'Close current window',
   })
 
