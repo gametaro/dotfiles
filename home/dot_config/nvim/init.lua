@@ -193,6 +193,8 @@ local function lazy()
           options = { ignore_blank_line = true },
         })
 
+        require('mini.operators').setup()
+
         require('mini.pairs').setup({
           modes = { insert = true, command = true, terminal = true },
         })
@@ -233,30 +235,6 @@ local function lazy()
     {
       'RRethy/vim-illuminate',
       config = function() require('illuminate').configure({ modes_denylist = { 'i' } }) end,
-    },
-    {
-      'gbprod/substitute.nvim',
-      keys = {
-        {
-          '_',
-          function() require('substitute').operator() end,
-        },
-        {
-          '_',
-          function() require('substitute').visual() end,
-          mode = 'x',
-        },
-        {
-          'X',
-          function() require('substitute.exchange').operator() end,
-        },
-        {
-          'X',
-          function() require('substitute.exchange').visual() end,
-          mode = 'x',
-        },
-      },
-      config = true,
     },
     {
       'kylechui/nvim-surround',
@@ -722,7 +700,7 @@ function essentials.lsp()
 
       map('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
       map('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go to declaration' })
-      map('n', 'gr', vim.lsp.buf.references, { desc = 'References' })
+      map('n', 'gR', vim.lsp.buf.references, { desc = 'References' })
       map('n', 'gI', vim.lsp.buf.implementation, { desc = 'Go to implementation' })
       map('i', '<c-s>', vim.lsp.buf.signature_help, { desc = 'Signature help' })
       map('n', '<leader>cl', vim.lsp.codelens.run, { desc = 'Codelens' })
