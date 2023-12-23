@@ -886,35 +886,6 @@ function extensions.walkthrough()
   vim.keymap.set('n', '[w', function() motion(false) end, { desc = 'Go to previous file or directory' })
 end
 
-function extensions.peek()
-  local saved_view ---@type vim.fn.winsaveview.ret?
-  vim.api.nvim_create_autocmd({ 'CmdlineChanged', 'CmdlineLeave' }, {
-    callback = function(a)
-      if a.match == ':' then
-        if a.event == 'CmdlineChanged' then
-          local win = vim.fn.bufwinid(a.buf)
-          local cmdline = vim.fn.getcmdline()
-          local match = cmdline:match('^%d+$')
-          if match then
-            saved_view = saved_view or vim.fn.winsaveview()
-            local row = tonumber(match)
-            local max = vim.api.nvim_buf_line_count(a.buf)
-            row = math.max(1, math.min(row, max))
-            vim.api.nvim_win_set_cursor(win, { row, 0 })
-            vim.cmd.normal({ args = { 'zz', 'zv' }, bang = true })
-            vim.cmd.redraw()
-          end
-        elseif a.event == 'CmdlineLeave' then
-          if saved_view then
-            vim.fn.winrestview(saved_view)
-            saved_view = nil
-          end
-        end
-      end
-    end,
-  })
-end
-
 function extensions.fx()
   local ns = vim.api.nvim_create_namespace('fx')
   local bufs = {}
