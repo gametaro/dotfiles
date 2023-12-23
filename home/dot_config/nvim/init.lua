@@ -388,9 +388,7 @@ end
 function essentials.option()
   vim.o.autowriteall = true
   vim.o.backup = true
-  local backupdir = vim.fs.joinpath(vim.fn.stdpath('state'), 'backup')
-  vim.o.backupdir = backupdir .. '//'
-  vim.fn.mkdir(backupdir, 'p')
+  vim.opt.backupdir:remove('.')
   vim.o.completeopt = 'menu,menuone,noselect,popup'
   vim.o.confirm = true
   vim.o.diffopt = vim.o.diffopt .. ',algorithm:histogram,indent-heuristic,vertical,linematch:60'
@@ -400,16 +398,12 @@ function essentials.option()
   vim.o.foldtext = 'v:lua.vim.treesitter.foldtext()'
   vim.o.ignorecase = true
   vim.o.jumpoptions = 'view'
-  vim.o.laststatus = 3
-  vim.o.sessionoptions = 'buffers,tabpages'
+  vim.o.sessionoptions = 'buffers,tabpages,folds'
   vim.o.shortmess = vim.o.shortmess .. 'IWcs'
   vim.o.signcolumn = 'yes'
   vim.o.smartcase = true
   vim.o.splitkeep = 'screen'
-  vim.o.swapfile = false
   vim.o.undofile = true
-  vim.o.updatetime = 300
-  vim.o.virtualedit = 'block'
   vim.o.wildignorecase = true
   vim.o.wildoptions = vim.o.wildoptions .. ',fuzzy'
   vim.o.wrap = false
