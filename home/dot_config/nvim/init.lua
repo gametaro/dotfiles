@@ -353,6 +353,12 @@ function utils.get_root(names)
   return roots[dirname]
 end
 
+function utils.get_char_at(lnum, col)
+  local line = vim.fn.getline(lnum)
+  if col > vim.fn.strdisplaywidth(line) then return ' ' end
+  return vim.fn.strcharpart(vim.fn.strpart(line, col - 1), 0, 1)
+end
+
 function essentials.highlight()
   ---@type table<string, vim.api.keyset.highlight>
   local highlights = {
@@ -415,7 +421,7 @@ function essentials.keymap()
   vim.keymap.set('s', '<bs>', '<bs>i')
   vim.keymap.set('s', '<c-h>', '<c-h>i')
   vim.keymap.set(
-    '',
+    { 'n', 'x', 'o' },
     '0',
     function() return vim.fn.col('.') - 1 == vim.fn.indent('.') and '0' or '^' end,
     { expr = true, desc = 'Moves cursor to line start or first non-blank character' }
@@ -534,9 +540,9 @@ function essentials.autocmd()
 
   vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
     callback = function(a)
-      if not vim.api.nvim_buf_is_valid(a.buf) then return end
-      if vim.bo[a.buf].buftype ~= '' then return end
-      vim.cmd.tcd(utils.get_root() or vim.fn.getcwd())
+      if vim.api.nvim_buf_is_valid(a.buf) and vim.bo[a.buf].buftype then
+        vim.cmd.tcd(utils.get_root() or vim.fn.getcwd(-1, 0))
+      end
     end,
     desc = 'Change directory to project root',
   })
@@ -714,7 +720,7 @@ end
 
 function extensions.keyword()
   local function is_keyword_char()
-    local char = vim.fn.strcharpart(vim.fn.strpart(vim.fn.getline('.'), vim.fn.col('.') - 1), 0, 1)
+    local char = utils.get_char_at(vim.fn.line('.'), vim.fn.col('.'))
     return vim.regex([[\k]]):match_str(char)
   end
 
@@ -771,56 +777,42 @@ function extensions.session()
 end
 
 function extensions.edge()
-  -- 文字列が空白のみかどうかを判定
   local function is_blank(s) return string.match(s, '^%s*$') ~= nil end
 
-  -- 特定の行と列から文字を取得（マルチバイト対応）
-  local function get_char_at(lnum, col)
-    local line = vim.fn.getline(lnum)
-    if col > vim.fn.strdisplaywidth(line) then return ' ' end
-    return vim.fn.strcharpart(vim.fn.strpart(line, col - 1), 0, 1)
-  end
-
-  -- 指定された行と列の位置がブロックの一部かどうかを判定
   local function is_part_of_block(lnum, col)
-    local char = get_char_at(lnum, col)
+    local char = utils.get_char_at(lnum, col)
     if is_blank(char) then
-      local prev_char = col > 1 and get_char_at(lnum, col - 1) or ' '
-      local next_char = get_char_at(lnum, col + 1)
+      local prev_char = col > 1 and utils.get_char_at(lnum, col - 1) or ' '
+      local next_char = utils.get_char_at(lnum, col + 1)
       return not (is_blank(prev_char) or is_blank(next_char))
     end
     return true
   end
 
-  -- カーソルをブロックの端に移動する
-  local function move_to_block_edge(up)
+  local function move_to_edge(up)
     local current_line = vim.fn.line('.')
     local current_col = vim.fn.virtcol('.')
     local total_lines = vim.fn.line('$')
     local step = up and 1 or -1
     local target_line = current_line
 
-    -- 現在の位置がブロックの一部かどうかを確認
     local on_block = is_part_of_block(current_line, current_col)
     local on_edge = is_part_of_block(current_line, current_col)
       and not is_part_of_block(current_line + step, current_col)
 
     for lnum = current_line + step, up and total_lines or 1, step do
       if on_edge then
-        -- ブロックの端にいる場合、次のブロックの端まで移動
         if is_part_of_block(lnum, current_col) then
           target_line = lnum
           break
         end
       else
         if on_block then
-          -- ブロック内部にいる場合、ブロックの端まで移動
           if not is_part_of_block(lnum, current_col) then
             target_line = lnum - step
             break
           end
         else
-          -- ブロック外部にいる場合、次のブロックの始まりまで移動
           if is_part_of_block(lnum, current_col) then
             target_line = lnum
             break
@@ -832,8 +824,8 @@ function extensions.edge()
     vim.cmd.normal({ target_line .. 'G', bang = true })
   end
 
-  vim.keymap.set({ 'n', 'x' }, '<c-k>', function() move_to_block_edge(false) end, { desc = 'Previous edge' })
-  vim.keymap.set({ 'n', 'x' }, '<c-j>', function() move_to_block_edge(true) end, { desc = 'Next edge' })
+  vim.keymap.set({ 'n', 'x' }, ']e', function() move_to_edge(true) end, { desc = 'Next edge' })
+  vim.keymap.set({ 'n', 'x' }, '[e', function() move_to_edge(false) end, { desc = 'Previous edge' })
 end
 
 function extensions.bufjump()
