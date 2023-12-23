@@ -821,7 +821,7 @@ function extensions.edge()
       end
     end
 
-    vim.cmd.normal({ target_line .. 'G', bang = true })
+    vim.api.nvim_win_set_cursor(0, { target_line, current_col - 1 })
   end
 
   vim.keymap.set({ 'n', 'x' }, ']e', function() move_to_edge(true) end, { desc = 'Next edge' })
