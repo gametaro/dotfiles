@@ -370,6 +370,7 @@ function essentials.option()
   vim.o.completeopt = 'menu,menuone,noselect,popup'
   vim.o.confirm = true
   vim.o.diffopt = vim.o.diffopt .. ',algorithm:histogram,indent-heuristic,vertical,linematch:60'
+  vim.o.exrc = true
   vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
   vim.o.foldlevelstart = 1
   vim.o.foldmethod = 'expr'
@@ -388,8 +389,7 @@ function essentials.option()
 end
 
 function essentials.keymap()
-  vim.keymap.set('', '<Space>', '')
-  vim.keymap.set('', ',', '')
+  vim.keymap.set('', '<space>', '')
   vim.keymap.set('', ';', ':')
   vim.keymap.set('c', '<c-a>', '<home>')
   vim.keymap.set('c', '<c-b>', '<left>')
@@ -1183,22 +1183,6 @@ function extensions.quickfix()
       })
     end,
   })
-end
-
-function extensions.chezmoi()
-  if vim.env.CHEZMOI_WORKING_TREE then
-    vim.api.nvim_create_autocmd('BufWritePost', {
-      pattern = vim.fs.joinpath(vim.env.CHEZMOI_WORKING_TREE, '*'),
-      callback = function(a)
-        vim.system({ 'chezmoi', 'apply', '--no-tty', '--source-path', a.match }, nil, function(obj)
-          if obj.code ~= 0 and obj.stdout then
-            vim.schedule(function() vim.notify(obj.stdout, vim.log.levels.WARN) end)
-          end
-        end)
-      end,
-      desc = 'Run chezmoi apply',
-    })
-  end
 end
 
 local function init()
