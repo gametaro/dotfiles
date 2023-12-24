@@ -1,7 +1,7 @@
 {{ if (eq .chezmoi.os "windows") }}
 
-. $PROFILE
-
-~\scoop\shims\nvim --headless "+Lazy! sync" +qa
-
+if (Get-Command nvim -Type Application -ErrorAction SilentlyContinue)
+{
+  nvim --headless "+Lazy! sync" +qa
+}
 {{ end }}

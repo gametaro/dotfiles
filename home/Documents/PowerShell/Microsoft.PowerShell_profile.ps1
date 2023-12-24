@@ -41,20 +41,6 @@ if ((Get-Module psreadline).Version -gt 2.1.99 -and (Get-Command 'Enable-AzPredi
   Enable-AzPredictor
 }
 
-if (Get-Command zoxide -Type Application -ErrorAction SilentlyContinue)
-{
-  Invoke-Expression (& {
-      $hook = if ($PSVersionTable.PSVersion.Major -lt 6)
-      {
-        'prompt'
-      } else
-      {
-        'pwd'
-      }
-    (zoxide init --hook $hook powershell | Out-String)
-    })
-}
-
 if (Get-Command starship -Type Application -ErrorAction SilentlyContinue)
 {
   Invoke-Expression (&starship init powershell)

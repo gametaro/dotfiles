@@ -1,43 +1,20 @@
 {{ if (eq .chezmoi.os "windows") }}
 
-$Winget_Packages = @(
+$Packages = @(
   "Git.GIt",
   "GitHub.cli"
   "Microsoft.PowerShell"
   "Neovim.Neovim.Nightly"
   "OpenJS.NodeJS.LTS",
   "Starship.Starship",
-  "GitHub.cli",
   "gerardog.gsudo",
-  "wez.wezterm"
+  "sharkdp.fd",
+  "zig.zig",
 )
 
-foreach ( $package in $Winget_Packages )
+foreach ( $Package in $Packages )
 {
-  winget install -e --id $package
+  winget install -e --id $Package
 }
-
-# install scoop
-if ( -not (Test-Path -Path $HOME\scoop) )
-{
-  iwr -useb get.scoop.sh -outfile 'install.ps1'
-  .\install.ps1 -RunAsAdmin
-}
-
-scoop bucket add versions
-scoop bucket add extras
-scoop bucket add nerd-fonts
-
-$Scoop_Packages = @(
-  "curl",
-  "gcc",
-  "make",
-  "coreutils",
-  "fd",
-  "ripgrep",
-  "Firacode-NF"
-)
-
-scoop install @Scoop_Packages
 
 {{ end }}
