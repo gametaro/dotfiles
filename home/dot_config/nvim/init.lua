@@ -1,7 +1,5 @@
-local essentials = {}
-local extensions = {}
+local M = {}
 local utils = {}
-
 local roots = {}
 local terminals = vim.defaulttable(function() return {} end)
 
@@ -359,7 +357,7 @@ function utils.get_char_at(lnum, col)
   return vim.fn.strcharpart(vim.fn.strpart(line, col - 1), 0, 1)
 end
 
-function essentials.highlight()
+function M.highlight()
   ---@type table<string, vim.api.keyset.highlight>
   local highlights = {
     ['@attribute'] = { link = 'Label' },
@@ -369,7 +367,7 @@ function essentials.highlight()
   vim.iter(highlights):each(function(k, v) vim.api.nvim_set_hl(0, k, v) end)
 end
 
-function essentials.option()
+function M.option()
   vim.o.autowriteall = true
   vim.o.backup = true
   vim.opt.backupdir:remove('.')
@@ -394,7 +392,7 @@ function essentials.option()
   vim.o.wrap = false
 end
 
-function essentials.keymap()
+function M.keymap()
   vim.keymap.set('', '<space>', '')
   vim.keymap.set('', ';', ':')
   vim.keymap.set('c', '<c-a>', '<home>')
@@ -488,7 +486,7 @@ function essentials.keymap()
   end, { desc = 'Open terminal' })
 end
 
-function essentials.autocmd()
+function M.autocmd()
   vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function() vim.highlight.on_yank() end,
     desc = 'Highlight yanked region',
@@ -592,7 +590,7 @@ function essentials.autocmd()
   })
 end
 
-function essentials.lsp()
+function M.lsp()
   local jsts = {
     cmd = { 'vtsls', '--stdio' },
     settings = {
@@ -718,7 +716,7 @@ function essentials.lsp()
   })
 end
 
-function extensions.keyword()
+function M.keyword()
   local function is_keyword_char()
     local char = utils.get_char_at(vim.fn.line('.'), vim.fn.col('.'))
     return vim.regex([[\k]]):match_str(char)
@@ -743,7 +741,7 @@ function extensions.keyword()
   end)
 end
 
-function extensions.niceblock()
+function M.niceblock()
   vim
     .iter({
       I = { v = '<c-v>I', V = '<c-v>^o^I', ['\22'] = 'I' },
@@ -755,7 +753,7 @@ function extensions.niceblock()
     end)
 end
 
-function extensions.session()
+function M.session()
   vim.api.nvim_create_autocmd('VimLeavePre', {
     callback = function()
       if vim.fn.argc(-1) > 0 then vim.cmd('%argdelete') end
@@ -776,7 +774,7 @@ function extensions.session()
   })
 end
 
-function extensions.edge()
+function M.edge()
   local function is_blank(s) return string.match(s, '^%s*$') ~= nil end
 
   local function is_part_of_block(lnum, col)
@@ -828,7 +826,7 @@ function extensions.edge()
   vim.keymap.set({ 'n', 'x' }, '[e', function() move_to_edge(false) end, { desc = 'Previous edge' })
 end
 
-function extensions.bufjump()
+function M.bufjump()
   ---@param forward boolean
   local function jump(forward)
     local jumplist, current_idx = unpack(vim.fn.getjumplist())
@@ -858,7 +856,7 @@ function extensions.bufjump()
   vim.keymap.set('n', '<m-o>', function() jump(false) end, { desc = 'Go to older buffer in jump list' })
 end
 
-function extensions.walkthrough()
+function M.walkthrough()
   local function motion(next)
     local fullname = vim.api.nvim_buf_get_name(0)
     local dirname = vim.fs.dirname(fullname)
@@ -886,7 +884,7 @@ function extensions.walkthrough()
   vim.keymap.set('n', '[w', function() motion(false) end, { desc = 'Go to previous file or directory' })
 end
 
-function extensions.fx()
+function M.fx()
   local ns = vim.api.nvim_create_namespace('fx')
   local bufs = {}
   local path_type = {}
@@ -1007,7 +1005,7 @@ function extensions.fx()
   })
 end
 
-function extensions.unified()
+function M.unified()
   local function wait()
     local interrupted = false
     while not interrupted do
@@ -1105,7 +1103,7 @@ function extensions.unified()
   end
 end
 
-function extensions.quickfix()
+function M.quickfix()
   local group = vim.api.nvim_create_augroup('qf', {})
   vim.api.nvim_create_autocmd('FileType', {
     group = group,
@@ -1154,14 +1152,8 @@ local function init()
 
   lazy()
 
-  local ok
-  local msg
-  vim.iter(essentials):each(function(_, essential)
-    ok, msg = pcall(essential)
-    if not ok then vim.notify(msg) end
-  end)
-  vim.iter(extensions):each(function(_, extension)
-    ok, msg = pcall(extension)
+  vim.iter(M):each(function(_, m)
+    local ok, msg = pcall(m)
     if not ok then vim.notify(msg) end
   end)
 end
