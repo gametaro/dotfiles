@@ -193,6 +193,18 @@ local function lazy()
 
         require('mini.operators').setup()
 
+        require('mini.surround').setup({
+          mappings = {
+            add = 'ys',
+            delete = 'ds',
+            find = '',
+            find_left = '',
+            highlight = '',
+            replace = 'cs',
+            update_n_lines = '',
+          },
+        })
+
         require('mini.pairs').setup({
           modes = { insert = true, command = true, terminal = true },
         })
@@ -233,15 +245,6 @@ local function lazy()
     {
       'RRethy/vim-illuminate',
       config = function() require('illuminate').configure({ modes_denylist = { 'i' } }) end,
-    },
-    {
-      'kylechui/nvim-surround',
-      opts = {
-        keymaps = {
-          visual = false,
-        },
-        move_cursor = false,
-      },
     },
     {
       'stevearc/conform.nvim',
