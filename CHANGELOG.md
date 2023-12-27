@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.1.0](https://github.com/gametaro/dotfiles/compare/v3.0.0...v3.1.0) (2023-12-27)
+
+
+### Features
+
+* **mini:** add mini.pairs ([a9d1006](https://github.com/gametaro/dotfiles/commit/a9d1006624a6f6f5087b072e60a13df199c427ae))
+* **plugins:** add `cmp-path` ([798295f](https://github.com/gametaro/dotfiles/commit/798295f7a204f29f3802195fedfe89583672cfb6))
+
+
+### Bug Fixes
+
+* **chezmoi:** minor fixes ([827114d](https://github.com/gametaro/dotfiles/commit/827114d38ae53bf51cb691f7b7be3e5d226af70b))
+
 ## [3.0.0](https://github.com/gametaro/dotfiles/compare/v2.12.0...v3.0.0) (2023-12-20)
 
 
