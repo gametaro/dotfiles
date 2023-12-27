@@ -239,6 +239,7 @@ local function lazy()
             around_last = '',
             inside_last = '',
           },
+          silent = true,
         })
       end,
     },
