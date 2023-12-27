@@ -867,8 +867,7 @@ function M.walkthrough()
     local files = vim.iter.map(function(name) return name end, vim.fs.dir(dirname))
     if #files <= 1 then return end
 
-    ---@type integer?
-    local current_idx
+    local current_idx ---@type integer?
     for i, file in ipairs(files) do
       if file == basename then
         current_idx = i
