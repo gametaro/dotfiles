@@ -1108,12 +1108,13 @@ end
 function M.quickfix()
   local group = vim.api.nvim_create_augroup('qf', {})
   local last_line
+  local org_opts = {}
+  local qflist = {}
+
   local prevwin_opts = {
     number = true,
     cursorline = true,
   }
-  local org_opts = {}
-  local qflist = {}
 
   local function saveview()
     local win = vim.fn.win_getid(vim.fn.winnr('#'))
@@ -1128,7 +1129,7 @@ function M.quickfix()
     local current_line = vim.fn.line('.')
     if current_line ~= last_line then
       last_line = current_line
-      local item = qflist and qflist[current_line]
+      local item = qflist and qflist[current_line] or vim.fn.getqflist()[current_line]
       if not item then return end
       local buf = item.bufnr
       if item and vim.api.nvim_win_is_valid(win) and vim.api.nvim_buf_is_valid(buf) then
@@ -1157,12 +1158,20 @@ function M.quickfix()
       vim.api.nvim_clear_autocmds({ group = group, event = { 'CursorMoved', 'WinClosed' } })
 
       local prev_win, prev_buf, prev_view = saveview()
-      qflist = vim.fn.getqflist()
 
       vim.api.nvim_create_autocmd('CursorMoved', {
         group = group,
         buffer = 0,
         callback = function() preview(prev_win) end,
+      })
+
+      vim.api.nvim_create_autocmd({ 'WinEnter', 'WinLeave' }, {
+        group = group,
+        buffer = 0,
+        callback = function(a)
+          local opts = a.event == 'WinEnter' and prevwin_opts or org_opts
+          vim.iter(opts):each(function(k, v) vim.wo[prev_win][k] = v end)
+        end,
       })
 
       vim.api.nvim_create_autocmd('WinClosed', {
