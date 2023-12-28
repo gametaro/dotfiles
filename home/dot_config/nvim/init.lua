@@ -387,6 +387,7 @@ function M.option()
   vim.o.shortmess = vim.o.shortmess .. 'IWcs'
   vim.o.signcolumn = 'yes'
   vim.o.smartcase = true
+  vim.o.smoothscroll = true
   vim.o.splitkeep = 'screen'
   vim.o.undofile = true
   vim.o.wildignorecase = true
