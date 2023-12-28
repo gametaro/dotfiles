@@ -1107,41 +1107,72 @@ end
 
 function M.quickfix()
   local group = vim.api.nvim_create_augroup('qf', {})
+  local last_line
+  local prevwin_opts = {
+    number = true,
+    cursorline = true,
+  }
+  local org_opts = {}
+  local qflist = {}
+
+  local function saveview()
+    local win = vim.fn.win_getid(vim.fn.winnr('#'))
+    local buf = vim.api.nvim_win_get_buf(win)
+    ---@type vim.fn.winsaveview.ret
+    local view = vim.api.nvim_win_call(win, vim.fn.winsaveview)
+    vim.iter(prevwin_opts):each(function(k) org_opts[k] = vim.wo[win][k] end)
+    return win, buf, view
+  end
+
+  local function preview(win)
+    local current_line = vim.fn.line('.')
+    if current_line ~= last_line then
+      last_line = current_line
+      local item = qflist and qflist[current_line]
+      if not item then return end
+      local buf = item.bufnr
+      if item and vim.api.nvim_win_is_valid(win) and vim.api.nvim_buf_is_valid(buf) then
+        if not vim.api.nvim_buf_is_loaded(buf) then vim.fn.bufload(buf) end
+        vim.api.nvim_win_set_buf(win, buf)
+        vim.api.nvim_win_set_cursor(win, { item.lnum, item.col })
+        vim.api.nvim_win_call(win, function() vim.cmd.normal({ 'zzzv', bang = true }) end)
+        vim.iter(prevwin_opts):each(function(k, v) vim.wo[win][k] = v end)
+      end
+    end
+  end
+
+  local function restview(win, buf, view)
+    if vim.api.nvim_win_is_valid(win) and vim.api.nvim_buf_is_valid(buf) then
+      if not vim.api.nvim_buf_is_loaded(buf) then vim.fn.bufload(buf) end
+      vim.api.nvim_win_set_buf(win, buf)
+      vim.api.nvim_win_call(win, function() vim.fn.winrestview(view) end)
+      vim.iter(org_opts):each(function(k, v) vim.wo[win][k] = v end)
+    end
+  end
+
   vim.api.nvim_create_autocmd('FileType', {
     group = group,
     pattern = 'qf',
     callback = function()
-      local last_line
-      local prevview
-      local prevwin = vim.fn.win_getid(vim.fn.winnr('#'))
-      local prevbuf = vim.api.nvim_win_get_buf(prevwin)
-      vim.api.nvim_win_call(prevwin, function() prevview = vim.fn.winsaveview() end)
+      vim.api.nvim_clear_autocmds({ group = group, event = { 'CursorMoved', 'WinClosed' } })
+
+      local prev_win, prev_buf, prev_view = saveview()
+      qflist = vim.fn.getqflist()
 
       vim.api.nvim_create_autocmd('CursorMoved', {
         group = group,
         buffer = 0,
-        callback = function()
-          local current_line = vim.fn.line('.')
-          if current_line == last_line then return end
-          last_line = current_line
-          local item = vim.fn.getqflist()[current_line]
-          if not item then return end
-          vim.api.nvim_win_set_buf(prevwin, item.bufnr)
-          vim.api.nvim_win_set_cursor(prevwin, { item.lnum, item.col })
-          vim.api.nvim_win_call(prevwin, function()
-            -- https://github.com/neovim/neovim/issues/10070
-            vim.cmd.filetype('detect')
-            vim.cmd.normal({ args = { 'zz', 'zv' }, bang = true })
-          end)
-        end,
+        callback = function() preview(prev_win) end,
       })
 
       vim.api.nvim_create_autocmd('WinClosed', {
         group = group,
         buffer = 0,
         callback = function()
-          vim.api.nvim_win_set_buf(prevwin, prevbuf)
-          vim.api.nvim_win_call(prevwin, function() vim.fn.winrestview(prevview) end)
+          restview(prev_win, prev_buf, prev_view)
+          last_line = nil
+          org_opts = {}
+          qflist = {}
         end,
       })
     end,
