@@ -830,28 +830,23 @@ function M.edge()
 end
 
 function M.bufjump()
-  ---@param forward boolean
   local function jump(forward)
-    local jumplist, current_idx = unpack(vim.fn.getjumplist())
-    if vim.tbl_isempty(jumplist) then return end
-
-    current_idx = current_idx + 1
-    if current_idx == (forward and #jumplist or 1) then return end
-
+    local jumplist, last_pos = unpack(vim.fn.getjumplist())
+    last_pos = last_pos + 1
     local step = forward and 1 or -1
-    local target_idx = current_idx + step
+    local target_pos = last_pos + step
 
-    while target_idx >= 1 and target_idx <= #jumplist do
-      local target_buf = jumplist[target_idx].bufnr
+    while target_pos >= 1 and target_pos <= #jumplist do
+      local target_buf = jumplist[target_pos].bufnr
       if vim.api.nvim_buf_is_valid(target_buf) and target_buf ~= vim.api.nvim_get_current_buf() then
         vim.api.nvim_feedkeys(
-          vim.keycode(string.format('%d%s', target_idx - current_idx, forward and '<c-i>' or '<c-o>')),
+          vim.keycode(string.format('%d%s', target_pos - last_pos, forward and '<c-i>' or '<c-o>')),
           'n',
           false
         )
         return
       end
-      target_idx = target_idx + step
+      target_pos = target_pos + step
     end
   end
 
