@@ -790,18 +790,18 @@ function M.edge()
     return true
   end
 
-  local function move_to_edge(up)
+  local function jump(next)
     local current_line = vim.fn.line('.')
     local current_col = vim.fn.virtcol('.')
     local total_lines = vim.fn.line('$')
-    local step = up and 1 or -1
+    local step = next and 1 or -1
     local target_line = current_line
 
     local on_block = is_part_of_block(current_line, current_col)
     local on_edge = is_part_of_block(current_line, current_col)
       and not is_part_of_block(current_line + step, current_col)
 
-    for lnum = current_line + step, up and total_lines or 1, step do
+    for lnum = current_line + step, next and total_lines or 1, step do
       if on_edge then
         if is_part_of_block(lnum, current_col) then
           target_line = lnum
@@ -825,22 +825,22 @@ function M.edge()
     vim.api.nvim_win_set_cursor(0, { target_line, current_col - 1 })
   end
 
-  vim.keymap.set({ 'n', 'x' }, ']e', function() move_to_edge(true) end, { desc = 'Next edge' })
-  vim.keymap.set({ 'n', 'x' }, '[e', function() move_to_edge(false) end, { desc = 'Previous edge' })
+  vim.keymap.set({ 'n', 'x' }, ']e', function() jump(true) end, { desc = 'Next edge' })
+  vim.keymap.set({ 'n', 'x' }, '[e', function() jump(false) end, { desc = 'Previous edge' })
 end
 
 function M.bufjump()
-  local function jump(forward)
+  local function jump(next)
     local jumplist, last_pos = unpack(vim.fn.getjumplist())
     last_pos = last_pos + 1
-    local step = forward and 1 or -1
+    local step = next and 1 or -1
     local target_pos = last_pos + step
 
     while target_pos >= 1 and target_pos <= #jumplist do
       local target_buf = jumplist[target_pos].bufnr
       if vim.api.nvim_buf_is_valid(target_buf) and target_buf ~= vim.api.nvim_get_current_buf() then
         vim.api.nvim_feedkeys(
-          vim.keycode(string.format('%d%s', target_pos - last_pos, forward and '<c-i>' or '<c-o>')),
+          vim.keycode(string.format('%d%s', target_pos - last_pos, next and '<c-i>' or '<c-o>')),
           'n',
           false
         )
@@ -850,12 +850,12 @@ function M.bufjump()
     end
   end
 
-  vim.keymap.set('n', '<m-i>', function() jump(true) end, { desc = 'Go to newer buffer in jump list' })
-  vim.keymap.set('n', '<m-o>', function() jump(false) end, { desc = 'Go to older buffer in jump list' })
+  vim.keymap.set('n', '<m-i>', function() jump(true) end, { desc = 'Next buffer in jump list' })
+  vim.keymap.set('n', '<m-o>', function() jump(false) end, { desc = 'Previous buffer in jump list' })
 end
 
 function M.walkthrough()
-  local function motion(next)
+  local function jump(next)
     local fullname = vim.api.nvim_buf_get_name(0)
     local dirname = vim.fs.dirname(fullname)
     local basename = vim.fs.basename(fullname)
@@ -877,8 +877,8 @@ function M.walkthrough()
     end
   end
 
-  vim.keymap.set('n', ']w', function() motion(true) end, { desc = 'Go to next file or directory' })
-  vim.keymap.set('n', '[w', function() motion(false) end, { desc = 'Go to previous file or directory' })
+  vim.keymap.set('n', ']w', function() jump(true) end, { desc = 'Next file or directory' })
+  vim.keymap.set('n', '[w', function() jump(false) end, { desc = 'Previous file or directory' })
 end
 
 function M.fx()
