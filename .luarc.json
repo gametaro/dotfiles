@@ -19,7 +19,7 @@
   },
   "runtime.version": "LuaJIT",
   "workspace.library": [
-    "~/.local/share/rtx/installs/neovim/nightly/share/nvim/runtime",
+    "$VIMRUNTIME",
     "${3rd}/luv/library",
     "${3rd}/busted/library"
   ]
