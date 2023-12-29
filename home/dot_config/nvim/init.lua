@@ -247,14 +247,6 @@ local function lazy()
     },
     {
       'stevearc/conform.nvim',
-      keys = {
-        {
-          '<m-f>',
-          function() require('conform').format({ async = true, lsp_fallback = true }) end,
-          mode = '',
-          desc = 'Format buffer',
-        },
-      },
       opts = {
         formatters_by_ft = {
           lua = { 'stylua' },
@@ -269,7 +261,10 @@ local function lazy()
           },
         },
       },
-      init = function() vim.o.formatexpr = "v:lua.require'conform'.formatexpr()" end,
+      init = function()
+        vim.keymap.set('', '<m-f>', function() require('conform').format({ async = true, lsp_fallback = true }) end)
+        vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+      end,
     },
     {
       'mfussenegger/nvim-lint',
