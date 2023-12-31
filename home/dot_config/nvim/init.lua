@@ -277,7 +277,6 @@ local function lazy()
         require('lint').linters_by_ft = {
           gitcommit = { 'gitlint' },
           markdown = { 'markdownlint' },
-          sh = { 'shellcheck' },
           yaml = { 'actionlint' },
           zsh = { 'zsh' },
         }

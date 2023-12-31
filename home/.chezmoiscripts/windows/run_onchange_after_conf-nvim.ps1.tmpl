@@ -1,7 +1,0 @@
-{{ if (eq .chezmoi.os "windows") }}
-
-if (Get-Command nvim -Type Application -ErrorAction SilentlyContinue)
-{
-  nvim --headless "+Lazy! sync" +qa
-}
-{{ end }}
