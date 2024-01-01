@@ -10,14 +10,16 @@
   {{ $packages = concat $packages (list
     "build-essential"
     "procps"
-    "python3-venv") -}}
+    "python3-venv"
+    "fish") -}}
 {{ end -}}
 
 {{ if eq .chezmoi.osRelease.id "amzn" "centos" "fedora" "rhel" -}}
   {{ $packages = concat $packages (list
     "bc"
     "gcc-c++"
-    "procps-ng") -}}
+    "procps-ng"
+    "fish") -}}
 {{ end -}}
 
 {{ $sudo := "sudo -E " -}}
@@ -27,6 +29,18 @@
 
 #!/usr/bin/env sh
 set -eu
+
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+  {{ $sudo }}add-apt-repository ppa:fish-shell/release-3
+{{ end -}}
+
+{{ if eq .chezmoi.osRelease.id "debian" -}}
+echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_12/ /' \
+  | {{ $sudo }}tee /etc/apt/sources.list.d/shells:fish:release:3.list
+curl -fsSLk https://download.opensuse.org/repositories/shells:fish:release:3/Debian_12/Release.key \
+  | gpg --dearmor \
+| {{ $sudo }}tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
+{{ end -}}
 
 {{ if eq .chezmoi.osRelease.id "debian" "ubuntu" -}}
   {{ $sudo }}apt-get update -q

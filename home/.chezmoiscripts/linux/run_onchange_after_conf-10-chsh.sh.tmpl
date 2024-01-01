@@ -1,7 +1,6 @@
 {{ if not .headless -}}
-
 #!/usr/bin/env sh
 set -eu
-chsh --shell "$(which zsh)"
 
+chsh --shell "$(which fish)"
 {{ end -}}
