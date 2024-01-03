@@ -430,7 +430,7 @@ function M.keymap()
   vim.keymap.set(
     { 'n', 'x', 'o' },
     '0',
-    function() return vim.fn.col('.') - 1 == vim.fn.indent('.') and '0' or '^' end,
+    function() return vim.fn.virtcol('.') - 1 == vim.fn.indent('.') and '0' or '^' end,
     { expr = true, desc = 'Moves cursor to line start or first non-blank character' }
   )
 
