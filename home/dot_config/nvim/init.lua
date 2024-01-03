@@ -887,6 +887,14 @@ function M.fx()
   local ns = vim.api.nvim_create_namespace('fx')
   local bufs = {}
   local path_type = {}
+  local type_hl_group = {
+    block = 'Constant',
+    char = 'PreProc',
+    directory = 'Directory',
+    fifo = 'Type',
+    link = 'Identifier',
+    socket = 'String',
+  }
 
   local function list(path)
     local files = vim.iter.map(function(name, type)
@@ -915,29 +923,15 @@ function M.fx()
   end
 
   local function set_highlight(buf, line, row, type)
-    local hl_group = 'Normal'
-
-    local type_to_hl_group = {
-      block = 'Constant',
-      char = 'PreProc',
-      directory = 'Directory',
-      fifo = 'Type',
-      link = 'Identifier',
-      socket = 'String',
-    }
-
-    hl_group = type_to_hl_group[type] or hl_group
-
-    local link, virt_text_hl
-    if type == 'link' then
-      link = vim.uv.fs_readlink(line)
-      virt_text_hl = link and 'Directory' or 'ErrorMsg'
-    end
+    local hl_group = type_hl_group[type] or 'Normal'
 
     local opts = { end_row = row, end_col = #line, hl_group = hl_group }
-    if link and virt_text_hl then
-      opts.virt_text = { { '-> ' .. link, virt_text_hl } }
-      opts.virt_text_pos = 'eol'
+    if type == 'link' then
+      local link = vim.uv.fs_readlink(line)
+      if link then
+        opts.virt_text = { { '-> ' .. link, link and 'Directory' or 'ErrorMsg' } }
+        opts.virt_text_pos = 'eol'
+      end
     end
 
     set_extmark(buf, row, opts)
@@ -945,7 +939,7 @@ function M.fx()
 
   local function setup(buf, path)
     local files = list(path)
-    files = #files == 0 and { '..' } or files
+    if #files == 0 then files = { '..' } end
     vim.api.nvim_buf_set_lines(buf, 0, -1, true, files)
 
     vim.bo[buf].bufhidden = 'hide'
