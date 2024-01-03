@@ -1072,7 +1072,7 @@ function M.unified()
     vim.bo.bufhidden = 'wipe'
     vim.bo.buflisted = false
     vim.bo.buftype = 'nofile'
-    vim.cmd.filetype('detect')
+    vim.fn.bufload(vim.api.nvim_get_current_buf())
   end
 
   if vim.env.NVIM then
