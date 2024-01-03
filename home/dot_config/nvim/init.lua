@@ -383,6 +383,7 @@ function M.option()
   vim.o.smartcase = true
   vim.o.smoothscroll = true
   vim.o.splitkeep = 'screen'
+  vim.o.termguicolors = true
   vim.o.undofile = true
   vim.o.wildignorecase = true
   vim.o.wildoptions = vim.o.wildoptions .. ',fuzzy'
