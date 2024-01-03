@@ -405,6 +405,12 @@ function M.keymap()
   vim.keymap.set('n', '<m-j>', '<c-w>j', { desc = 'Go to left window' })
   vim.keymap.set('n', '<m-k>', '<c-w>k', { desc = 'Go to down window' })
   vim.keymap.set('n', '<m-l>', '<c-w>l', { desc = 'Go to up window' })
+  vim.keymap.set('n', '<c-t>', '')
+  vim.keymap.set('n', '<c-t>c', '<cmd>tabclose<cr>')
+  vim.keymap.set('n', '<c-t>f', '<cmd>tabfirst<cr>')
+  vim.keymap.set('n', '<c-t>l', '<cmd>tablast<cr>')
+  vim.keymap.set('n', '<c-t>n', '<cmd>tabnew<cr>')
+  vim.keymap.set('n', '<c-t>o', '<cmd>tabonly<cr>')
   vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
   vim.keymap.set(
     't',
