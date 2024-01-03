@@ -501,11 +501,6 @@ function M.autocmd()
     desc = 'Highlight yanked region',
   })
 
-  vim.api.nvim_create_autocmd({ 'FocusGained' }, {
-    callback = function() vim.cmd.checktime({ mods = { emsg_silent = true } }) end,
-    desc = 'Check if any buffers were changed outside of Nvim',
-  })
-
   vim.api.nvim_create_autocmd('BufWritePost', {
     callback = function()
       if vim.wo.diff then vim.cmd.diffupdate() end
@@ -515,10 +510,12 @@ function M.autocmd()
 
   vim.api.nvim_create_autocmd({ 'BufWritePre', 'FileWritePre' }, {
     callback = function()
-      local dir = vim.fn.expand('<afile>:p:h')
-      if vim.fn.isdirectory(dir) == 0 then vim.fn.mkdir(dir, 'p') end
+      if not string.find(vim.fn.expand('%'), '://') then
+        local dir = vim.fn.expand('<afile>:p:h')
+        if vim.fn.isdirectory(dir) == 0 then vim.fn.mkdir(dir, 'p') end
+      end
     end,
-    desc = 'Automatically make directories',
+    desc = 'Create missing parent directories',
   })
 
   vim.api.nvim_create_autocmd('FileType', {
@@ -528,28 +525,24 @@ function M.autocmd()
   })
 
   vim.api.nvim_create_autocmd('VimResized', {
-    callback = function()
-      local tab = vim.api.nvim_get_current_tabpage()
-      vim.cmd.tabdo({ 'wincmd', '=' })
-      vim.api.nvim_set_current_tabpage(tab)
-    end,
+    callback = function() vim.cmd.wincmd('=') end,
     desc = 'Resize window',
   })
 
-  vim.api.nvim_create_autocmd({ 'BufLeave', 'WinLeave', 'FocusLost' }, {
-    callback = function(a)
-      if vim.bo[a.buf].buftype == '' and vim.bo[a.buf].filetype ~= '' and vim.bo[a.buf].modifiable then
-        vim.cmd.update({ mods = { emsg_silent = true } })
-      end
-    end,
-    desc = 'Auto save',
-  })
+  -- vim.api.nvim_create_autocmd({ 'BufLeave', 'WinLeave', 'FocusLost' }, {
+  --   callback = function(a)
+  --     if vim.bo[a.buf].buftype == '' and vim.bo[a.buf].filetype ~= '' and vim.bo[a.buf].modifiable then
+  --       vim.cmd.update({ mods = { emsg_silent = true } })
+  --     end
+  --   end,
+  --   desc = 'Auto save',
+  -- })
 
   vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
-    callback = function(a)
-      if vim.api.nvim_buf_is_valid(a.buf) and vim.bo[a.buf].buftype then
-        vim.cmd.tcd(utils.get_root() or vim.fn.getcwd(-1, 0))
-      end
+    callback = function()
+      local pwd = vim.fn.getcwd(-1, 0)
+      local root = utils.get_root()
+      if root and pwd ~= root then vim.cmd.tcd(root) end
     end,
     desc = 'Change directory to project root',
   })
