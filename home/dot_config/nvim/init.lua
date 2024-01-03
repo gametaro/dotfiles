@@ -121,9 +121,9 @@ local function lazy()
           map('n', '<leader>hq', gs.setqflist, { desc = 'Quickfix' })
           map('n', '<leader>hQ', function() gs.setqflist('all') end, { desc = 'Quickfix' })
           map('n', '<leader>hl', gs.setloclist, { desc = 'Location List' })
-          map('n', [[\hb]], gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
-          map('n', [[\hd]], gs.toggle_deleted, { desc = 'Toggle deleted' })
-          map('n', [[\hw]], gs.toggle_word_diff, { desc = 'Toggle word diff' })
+          map('n', '\\hb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
+          map('n', '\\hd', gs.toggle_deleted, { desc = 'Toggle deleted' })
+          map('n', '\\hw', gs.toggle_word_diff, { desc = 'Toggle word diff' })
           map({ 'o', 'x' }, 'ih', ':<c-u>Gitsigns select_hunk<cr>', { silent = true, desc = 'Hunk' })
         end,
       },
@@ -270,14 +270,13 @@ local function lazy()
       'mfussenegger/nvim-lint',
       config = function()
         require('lint').linters_by_ft = {
-          bash = { 'shellcheck' },
           gitcommit = { 'gitlint' },
           markdown = { 'markdownlint' },
           sh = { 'shellcheck' },
           yaml = { 'actionlint' },
           zsh = { 'zsh' },
         }
-        vim.api.nvim_create_autocmd({ 'InsertLeave' }, {
+        vim.api.nvim_create_autocmd('BufWritePost', {
           callback = function() require('lint').try_lint() end,
         })
       end,
@@ -405,11 +404,11 @@ function M.keymap()
   vim.keymap.set('n', '<m-j>', '<c-w>j', { desc = 'Go to left window' })
   vim.keymap.set('n', '<m-k>', '<c-w>k', { desc = 'Go to down window' })
   vim.keymap.set('n', '<m-l>', '<c-w>l', { desc = 'Go to up window' })
-  vim.keymap.set('t', '<esc>', [[<c-\><c-n>]])
+  vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
   vim.keymap.set(
     't',
     '<c-r>',
-    function() return [[<c-\><c-n>"]] .. vim.fn.nr2char(vim.fn.getchar()) .. 'pi' end,
+    function() return '<c-\\><c-n>"' .. vim.fn.nr2char(vim.fn.getchar()) .. 'pi' end,
     { expr = true }
   )
   vim.keymap.set('n', 'x', '"_x')
@@ -423,20 +422,20 @@ function M.keymap()
     { expr = true, desc = 'Moves cursor to line start or first non-blank character' }
   )
 
-  vim.keymap.set('n', [[\c]], '<cmd>setlocal cul! cul?<cr>', { desc = 'Toggle cursorline' })
-  vim.keymap.set('n', [[\f]], '<cmd>setlocal fen! fen?<cr>', { desc = 'Toggle fold' })
-  vim.keymap.set('n', [[\l]], '<cmd>setlocal list! list?<cr>', { desc = 'Toggle list' })
-  vim.keymap.set('n', [[\n]], '<cmd>setlocal nu! nu?<cr>', { desc = 'Toggle number' })
-  vim.keymap.set('n', [[\N]], '<cmd>setlocal rnu! rnu?<cr>', { desc = 'Toggle relativenumber' })
-  vim.keymap.set('n', [[\w]], '<cmd>setlocal wrap! wrap?<cr>', { desc = 'Toggle wrap' })
-  vim.keymap.set('n', [[\d]], function()
+  vim.keymap.set('n', '\\c', '<cmd>setlocal cul! cul?<cr>', { desc = 'Toggle cursorline' })
+  vim.keymap.set('n', '\\f', '<cmd>setlocal fen! fen?<cr>', { desc = 'Toggle fold' })
+  vim.keymap.set('n', '\\l', '<cmd>setlocal list! list?<cr>', { desc = 'Toggle list' })
+  vim.keymap.set('n', '\\n', '<cmd>setlocal nu! nu?<cr>', { desc = 'Toggle number' })
+  vim.keymap.set('n', '\\N', '<cmd>setlocal rnu! rnu?<cr>', { desc = 'Toggle relativenumber' })
+  vim.keymap.set('n', '\\w', '<cmd>setlocal wrap! wrap?<cr>', { desc = 'Toggle wrap' })
+  vim.keymap.set('n', '\\d', function()
     if vim.diagnostic.is_disabled(0) then
       vim.diagnostic.enable(0)
     else
       vim.diagnostic.disable(0)
     end
   end, { desc = 'Toggle diagnostic' })
-  vim.keymap.set('n', [[\i]], function()
+  vim.keymap.set('n', '\\i', function()
     if vim.lsp.inlay_hint.is_enabled(0) then
       vim.lsp.inlay_hint.enable(0, false)
     else
@@ -573,7 +572,7 @@ function M.autocmd()
             and last_known_line > 1
             and last_known_line <= vim.api.nvim_buf_line_count(a.buf)
           then
-            vim.api.nvim_feedkeys([[g`"]], 'nx', false)
+            vim.api.nvim_feedkeys('g`"', 'nx', false)
           end
         end,
       })
@@ -717,7 +716,7 @@ end
 function M.keyword()
   local function is_keyword_char()
     local char = utils.get_char_at(vim.fn.line('.'), vim.fn.col('.'))
-    return vim.regex([[\k]]):match_str(char)
+    return vim.regex('\\k'):match_str(char)
   end
 
   local function keyword_motion(motion)
