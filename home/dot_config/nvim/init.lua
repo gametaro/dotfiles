@@ -621,6 +621,9 @@ function M.lsp()
   }
 
   local configs = {
+    dockerfile = {
+      cmd = { 'docker-langserver', '--stdio' },
+    },
     json = json,
     jsonc = json,
     lua = {
