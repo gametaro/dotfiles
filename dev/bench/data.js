@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1704291401169,
+  "lastUpdate": 1704298530035,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -34120,6 +34120,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.07461858345777778,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "39c8f3ffe57acba001a5f5948375fc3f5592169d",
+          "message": "feat(nvim): add zen-mode",
+          "timestamp": "2024-01-04T01:14:16+09:00",
+          "tree_id": "b88cf00b65910980ddf79f028ebcb95d0761f893",
+          "url": "https://github.com/gametaro/dotfiles/commit/39c8f3ffe57acba001a5f5948375fc3f5592169d"
+        },
+        "date": 1704298527713,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.07593313041578947,
             "unit": "Second"
           }
         ]
