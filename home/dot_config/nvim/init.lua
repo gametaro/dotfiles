@@ -20,7 +20,12 @@ local function lazy()
   require('lazy').setup({
     { 'nvim-lua/plenary.nvim' },
     { 'b0o/schemastore.nvim' },
-    { 'williamboman/mason.nvim', build = ':MasonUpdate', config = true },
+    {
+      'williamboman/mason.nvim',
+      build = ':MasonUpdate',
+      init = function() vim.keymap.set('n', '<leader>m', '<cmd>Mason<cr>') end,
+      config = true,
+    },
     {
       'nvim-telescope/telescope.nvim',
       config = function()
