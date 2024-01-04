@@ -1,3 +1,4 @@
+<!-- markdownlint-disable-file -->
 # Changelog
 
 ## [3.1.0](https://github.com/gametaro/dotfiles/compare/v3.0.0...v3.1.0) (2023-12-27)
