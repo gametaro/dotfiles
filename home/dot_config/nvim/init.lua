@@ -424,7 +424,7 @@ function M.keymap()
     { expr = true }
   )
   vim.keymap.set('n', 'x', '"_x')
-  vim.keymap.set('n', '-', function() vim.cmd.edit('%:h') end)
+  vim.keymap.set('n', '-', function() vim.cmd.edit('%:p:h') end)
   vim.keymap.set('s', '<bs>', '<bs>i')
   vim.keymap.set('s', '<c-h>', '<c-h>i')
   vim.keymap.set(
