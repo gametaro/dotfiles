@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1704335248856,
+  "lastUpdate": 1704338978279,
   "repoUrl": "https://github.com/gametaro/dotfiles",
   "entries": {
     "Benchmark": [
@@ -34178,6 +34178,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "Neovim startup time - Mean",
             "value": 0.051408052850000004,
+            "unit": "Second"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "committer": {
+            "email": "32237320+gametaro@users.noreply.github.com",
+            "name": "Kotaro Yamada",
+            "username": "gametaro"
+          },
+          "distinct": true,
+          "id": "a5ba32405e3d533fd748cb3cb94a1edb6c8046cd",
+          "message": "chore: disable markdownlint on CHANGELOG.md",
+          "timestamp": "2024-01-04T12:28:29+09:00",
+          "tree_id": "e107f2239ae481fb400167a268911e174aa515ec",
+          "url": "https://github.com/gametaro/dotfiles/commit/a5ba32405e3d533fd748cb3cb94a1edb6c8046cd"
+        },
+        "date": 1704338975795,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Neovim startup time - Mean",
+            "value": 0.05239201617508773,
             "unit": "Second"
           }
         ]
