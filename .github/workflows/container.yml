@@ -1,0 +1,41 @@
+name: Build and Publish Container
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build image
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Buildah Action
+      id: build
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: dotfiles
+        tags: latest ${{ github.sha }}
+        containerfiles: |
+          ./Dockerfile
+
+    - name: Log in to the GitHub Container registry
+      uses: redhat-actions/podman-login@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push to GitHub Container Repository
+      id: push
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build.outputs.image }}
+        tags: ${{ steps.build.outputs.tags }}
+        registry: ghcr.io/${{ github.repository_owner }}
+
+    - name: Echo outputs
+      run: |
+        echo "${{ toJSON(steps.push.outputs) }}"

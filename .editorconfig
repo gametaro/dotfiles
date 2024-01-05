@@ -11,3 +11,9 @@ trim_trailing_whitespace = true
 
 [*.zsh]
 ignore = true
+
+[*.fish]
+indent_size = 4
+
+[Dockerfile]
+indent_size = 4
