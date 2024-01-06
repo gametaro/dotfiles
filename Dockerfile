@@ -1,36 +1,38 @@
-# Use a specific version of archlinux base image with development tools
-# FROM archlinux:base-devel-20231112.0.191179
 FROM archlinux:base-devel-20231105.0.189722
 
-# Set environment variables
 ENV SHELL=/usr/bin/fish \
     EDITOR=nvim \
     VISUAL=nvim \
     SUDO_EDITOR=nvim \
     MANPAGER="nvim +Man!"
 
-# Update system and install necessary packages
-RUN pacman -Syu --noconfirm \
+RUN pacman-key --init
+
+RUN pacman -Syu --noconfirm --needed \
     chezmoi \
     fd \
     fish \
     git \
     nodejs \
     npm \
-    ripgrep && \
-    pacman -Scc --noconfirm
+    ripgrep \
+    unzip
+
+RUN pacman -Scc --noconfirm
 
 WORKDIR /root
 
 COPY install-neovim.sh .
 
-RUN /root/install-neovim.sh nightly /usr/local/bin
+RUN ./install-neovim.sh nightly /usr/local/bin
 
-# Copy configuration and run headless installation of plugins
-RUN chezmoi init --apply gametaro --branch simplify
-RUN nvim --headless "+Lazy! restore" +qa
+RUN chezmoi init --apply gametaro
+RUN nvim --headless \
+    -c "Lazy! restore" \
+    -c "TSInstallSync lua" \
+    -c "MasonInstall lua-language-server stylua" \
+    -c "qall"
 
-# Expose port for the service and set entrypoint and default command
 EXPOSE 12345
 ENTRYPOINT ["nvim"]
 CMD ["--headless", "--listen", "0.0.0.0:12345"]
