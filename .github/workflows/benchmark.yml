@@ -15,7 +15,7 @@ jobs:
       OUTPUT_FILE: output.txt
     steps:
       - uses: actions/checkout@v4
-      - uses: nick-fields/retry@v2
+      - uses: nick-fields/retry@v3
         name: Install hyperfine
         with:
           timeout_minutes: 10
@@ -28,7 +28,7 @@ jobs:
             | wget -qi - -O hyperfine.deb
             sudo dpkg -i hyperfine.deb
           # yamllint enable rule:line-length
-      - uses: nick-fields/retry@v2
+      - uses: nick-fields/retry@v3
         name: Chezmoi init & apply
         with:
           timeout_minutes: 10
