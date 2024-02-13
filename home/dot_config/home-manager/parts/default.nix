@@ -3,6 +3,6 @@ _: {
     ./checks.nix
     ./devshell.nix
     ./packages.nix
-    ./home-manager.nix
+    ../home
   ];
 }
