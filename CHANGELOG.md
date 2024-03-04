@@ -1,6 +1,25 @@
 <!-- markdownlint-disable-file -->
 # Changelog
 
+## [3.2.0](https://github.com/gametaro/dotfiles/compare/v3.1.0...v3.2.0) (2024-03-04)
+
+
+### Features
+
+* add home-manager ([cf69a49](https://github.com/gametaro/dotfiles/commit/cf69a49474e7baea4d91cb71473b7f091c9a6dd3))
+* add nix.conf ([b1f6274](https://github.com/gametaro/dotfiles/commit/b1f62740348d3e784fffb2b02e599cd46177e860))
+* **keymap:** add tab-related keymaps ([211354f](https://github.com/gametaro/dotfiles/commit/211354f3ff48b048f5e5d1e5ce749e236b675bc8))
+* **lsp:** add docker-langserver ([f78ac08](https://github.com/gametaro/dotfiles/commit/f78ac0897d9b144785bd0727f86cd1746e639d34))
+* **nvim:** add zen-mode ([39c8f3f](https://github.com/gametaro/dotfiles/commit/39c8f3ffe57acba001a5f5948375fc3f5592169d))
+
+
+### Bug Fixes
+
+* **keymap:** change modifier ([aa5d124](https://github.com/gametaro/dotfiles/commit/aa5d12497e7d2692656f3ded6dac835d3154d4fe))
+* **keymap:** replace col() with virtcol() ([9e9353f](https://github.com/gametaro/dotfiles/commit/9e9353f543ccf08292d17f267437698682c2e4fd))
+* **option:** always enable termguicolors ([12bd2a4](https://github.com/gametaro/dotfiles/commit/12bd2a4fc5afc6ff43060fbb861e3053e5bca6e3))
+* **quickfix:** various fixes ([2fd21e4](https://github.com/gametaro/dotfiles/commit/2fd21e478502551bd6d066f2cf618c8f8b5535ec))
+
 ## [3.1.0](https://github.com/gametaro/dotfiles/compare/v3.0.0...v3.1.0) (2023-12-27)
 
 
