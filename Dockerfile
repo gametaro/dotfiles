@@ -1,4 +1,4 @@
-FROM archlinux:base-devel-20241006.0.268140
+FROM archlinux:base-devel-20241027.0.273886
 
 ENV SHELL=/usr/bin/fish \
     EDITOR=nvim \
